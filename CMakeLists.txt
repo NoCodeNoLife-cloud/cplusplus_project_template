@@ -10,7 +10,7 @@ else ()
 endif ()
 
 #project
-set(MAIN_PROJECT clion_project_template)
+set(MAIN_PROJECT project_template)
 project(${MAIN_PROJECT})
 
 #includes
@@ -41,4 +41,10 @@ find_package(glog CONFIG REQUIRED)
 add_executable(${MAIN_PROJECT} ${SRC_FILES} ${COMMON_FILES})
 
 #link
-target_link_libraries(${MAIN_PROJECT} PRIVATE glog::glog Boost::system Boost::thread Boost::url)
+target_link_libraries(${MAIN_PROJECT} PRIVATE glog::glog)
+target_link_libraries(${MAIN_PROJECT} PRIVATE Boost::system)
+target_link_libraries(${MAIN_PROJECT} PRIVATE Boost::thread)
+target_link_libraries(${MAIN_PROJECT} PRIVATE Boost::url)
+
+#subdirectory
+add_subdirectory(ci)

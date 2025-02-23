@@ -1,5 +1,11 @@
+#project
+set(TEST_PROJECT test_template)
+project(${TEST_PROJECT})
+
+#enable
 enable_testing()
 
+#sources
 set(SRC_TEST_FILES "")
 foreach (FILE ${SRC_FILES})
     if (NOT FILE MATCHES ".*/app/.*")
@@ -10,12 +16,22 @@ endforeach ()
 set(SRC_TEST_DIR ./test)
 file(GLOB_RECURSE SRC_TEST_CASES
         ${SRC_TEST_DIR}/*.cpp
+        TestRunner.cpp
 )
 
-add_executable(gtest
+#executable
+add_executable(${TEST_PROJECT}
         ${SRC_TEST_FILES}
         ${SRC_TEST_CASES}
 )
 
-find_package(GTest CONFIG REQUIRED)
-target_link_libraries(gtest PRIVATE GTest::gtest GTest::gtest_main GTest::gmock GTest::gmock_main)
+#dependencies
+find_package(glog CONFIG REQUIRED)
+find_package(gtest CONFIG REQUIRED)
+
+#link
+target_link_libraries(${TEST_PROJECT} PRIVATE glog::glog)
+target_link_libraries(${TEST_PROJECT} PRIVATE GTest::gtest_main)
+target_link_libraries(${TEST_PROJECT} PRIVATE GTest::gmock)
+target_link_libraries(${TEST_PROJECT} PRIVATE GTest::gmock_main)
+target_link_libraries(${TEST_PROJECT} PRIVATE GTest::gtest)
