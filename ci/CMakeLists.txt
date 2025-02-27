@@ -16,7 +16,7 @@ endforeach ()
 set(SRC_TEST_DIR ./test)
 file(GLOB_RECURSE SRC_TEST_CASES
         ${SRC_TEST_DIR}/*.cpp
-        TestRunner.cpp
+        TestBoost.cpp
 )
 
 #executable

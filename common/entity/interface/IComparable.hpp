@@ -1,8 +1,7 @@
 #pragma once
 namespace common::iface
 {
-    template <typename T>
-    class IfaceComparable abstract
+    template <typename T> class IComparable abstract
     {
     public:
         virtual ~IfaceComparable() = default;

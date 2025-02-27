@@ -1,10 +1,10 @@
 #pragma once
 namespace common::iface
 {
-    class IfaceCloseable abstract
+    class ICloseable abstract
     {
     public:
-        virtual ~IfaceCloseable() = default;
+        virtual ~ICloseable() = default;
         virtual auto close() -> void = 0;
     };
 }

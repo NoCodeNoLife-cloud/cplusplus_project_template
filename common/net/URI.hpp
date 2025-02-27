@@ -59,7 +59,6 @@ namespace common::io
         {
             return URI(uri_str);
         }
-
     private:
         boost::urls::url url_;
     };

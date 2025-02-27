@@ -1,10 +1,10 @@
 #pragma once
 namespace common::time::iface
 {
-    class IfaceTimerTask
+    class ITimerTask
     {
     public:
-        virtual ~IfaceTimerTask() = default;
+        virtual ~ITimerTask() = default;
         virtual void execute() = 0;
     };
 }

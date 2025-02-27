@@ -2,52 +2,57 @@
 #include <format>
 #include <iostream>
 #include <string>
-#include "interface/IfaceFlushable.hpp"
+#include "interface/IFlushable.hpp"
 
 namespace common::io
 {
-    class Console final : public iface::IfaceFlushable
+    class Console final : public iface::IFlushable
     {
     public:
-        template <typename... Args>
-        auto format(const std::string& fmt, Args... args) -> void
-        {
-            std::cout << std::vformat(fmt, std::make_format_args(args...));
-        }
-
-        template <typename... Args>
-        auto printf(const std::string& fmt, Args... args) -> void
-        {
-            format(fmt, args...);
-        }
-
-        template <typename... Args>
-        auto readLine(const std::string& fmt, Args... args) -> std::string
-        {
-            format(fmt, args...);
-            return readLine();
-        }
-
-        auto flush() -> void override
-        {
-            std::cout.flush();
-        }
-
-        static auto readLine() -> std::string
-        {
-            std::string input;
-            std::getline(std::cin, input);
-            return input;
-        }
-
-        static auto writer() -> std::ostream&
-        {
-            return std::cout;
-        }
-
-        static auto reader() -> std::istream&
-        {
-            return std::cin;
-        }
+        template <typename... Args> auto format(const std::string& fmt, Args... args) -> void;
+        template <typename... Args> auto printf(const std::string& fmt, Args... args) -> void;
+        template <typename... Args> auto readLine(const std::string& fmt, Args... args) -> std::string;
+        auto flush() -> void override;
+        static auto readLine() -> std::string;
+        static auto writer() -> std::ostream&;
+        static auto reader() -> std::istream&;
     };
+
+    template <typename... Args> auto Console::format(const std::string& fmt, Args... args) -> void
+    {
+        std::cout << std::vformat(fmt, std::make_format_args(args...));
+    }
+
+    template <typename... Args> auto Console::printf(const std::string& fmt, Args... args) -> void
+    {
+        format(fmt, args...);
+    }
+
+    template <typename... Args> auto Console::readLine(const std::string& fmt, Args... args) -> std::string
+    {
+        format(fmt, args...);
+        return readLine();
+    }
+
+    inline auto Console::flush() -> void
+    {
+        std::cout.flush();
+    }
+
+    inline auto Console::readLine() -> std::string
+    {
+        std::string input;
+        std::getline(std::cin, input);
+        return input;
+    }
+
+    inline auto Console::writer() -> std::ostream&
+    {
+        return std::cout;
+    }
+
+    inline auto Console::reader() -> std::istream&
+    {
+        return std::cin;
+    }
 }

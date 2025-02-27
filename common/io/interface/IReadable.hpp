@@ -1,10 +1,10 @@
 #pragma once
 namespace common::iface
 {
-    class IfaceReadable abstract
+    class IReadable abstract
     {
     public:
-        virtual ~IfaceReadable() = default;
+        virtual ~IReadable() = default;
         virtual auto read() -> int = 0;
     };
 }

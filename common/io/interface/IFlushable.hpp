@@ -1,10 +1,10 @@
 #pragma once
 namespace common::iface
 {
-    class IfaceFlushable abstract
+    class IFlushable abstract
     {
     public:
-        virtual ~IfaceFlushable() = default;
+        virtual ~IFlushable() = default;
         virtual auto flush() -> void = 0;
     };
 }

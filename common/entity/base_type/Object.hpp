@@ -7,45 +7,51 @@ namespace common::entity::base_type
     class Object
     {
     public:
-        Object() = default;
-        virtual ~Object() = default;
-
-        [[nodiscard]] auto clone() const -> std::unique_ptr<Object>
-        {
-            return std::make_unique<Object>(Object(*this));
-        }
-
-        [[nodiscard]] auto getClass() const -> const std::type_info&
-        {
-            return typeid(*this);
-        }
-
-        [[nodiscard]] auto equals(const Object& other) const -> bool
-        {
-            if (typeid(*this) != typeid(other))
-            {
-                return false;
-            }
-            return this == &other;
-        }
-
-        [[nodiscard]] auto hashCode() const -> size_t
-        {
-            return std::hash<const void*>{}(this);
-        }
-
-        [[nodiscard]] virtual auto toString() const -> std::string
-        {
-            return std::format("{}", *this);
-        }
-
+        Object();
+        virtual ~Object();
+        [[nodiscard]] auto clone() const -> std::unique_ptr<Object>;
+        [[nodiscard]] auto getClass() const -> const std::type_info&;
+        [[nodiscard]] auto equals(const Object& other) const -> bool;
+        [[nodiscard]] auto hashCode() const -> size_t;
+        [[nodiscard]] virtual auto toString() const -> std::string;
     private:
         friend std::formatter<Object>;
     };
+
+    inline Object::Object() = default;
+    inline Object::~Object() = default;
+
+    inline auto Object::clone() const -> std::unique_ptr<Object>
+    {
+        return std::make_unique<Object>(Object(*this));
+    }
+
+    inline auto Object::getClass() const -> const std::type_info&
+    {
+        return typeid(*this);
+    }
+
+    inline auto Object::equals(const Object& other) const -> bool
+    {
+        if (typeid(*this) != typeid(other))
+        {
+            return false;
+        }
+        return this == &other;
+    }
+
+    inline auto Object::hashCode() const -> size_t
+    {
+        return std::hash<const void*>{}(this);
+    }
+
+    inline auto Object::toString() const -> std::string
+    {
+        return std::format("{}", *this);
+    }
 }
 
-template <>
-struct std::formatter<common::entity::base_type::Object>
+template <> struct std::formatter<common::entity::base_type::Object>
 {
     constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator
     {
@@ -57,8 +63,7 @@ struct std::formatter<common::entity::base_type::Object>
         return begin;
     }
 
-    static auto format(const common::entity::base_type::Object& content,
-                       format_context& ctx) -> back_insert_iterator<_Fmt_buffer<char>>
+    static auto format(const common::entity::base_type::Object& content, format_context& ctx) -> back_insert_iterator<_Fmt_buffer<char>>
     {
         return std::format_to(ctx.out(), "Object{{}}", "");
     }

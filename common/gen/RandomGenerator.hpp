@@ -17,7 +17,6 @@ namespace common::gen
         auto nextInt(int n) -> int;
         auto nextLong() -> long;
         auto setSeed(long seed) -> void;
-
     protected:
         std::mt19937 generator;
         std::uniform_real_distribution<> realDist;
@@ -25,14 +24,9 @@ namespace common::gen
         int next(int bits);
     };
 
-    inline RandomGenerator::RandomGenerator(): generator(std::random_device{}()), realDist(0.0, 1.0),
-                                               normalDist(0.0, 1.0)
-    {
-    }
+    inline RandomGenerator::RandomGenerator(): generator(std::random_device{}()), realDist(0.0, 1.0), normalDist(0.0, 1.0) {}
 
-    inline RandomGenerator::RandomGenerator(const long seed): generator(seed), realDist(0.0, 1.0), normalDist(0.0, 1.0)
-    {
-    }
+    inline RandomGenerator::RandomGenerator(const long seed): generator(seed), realDist(0.0, 1.0), normalDist(0.0, 1.0) {}
 
     inline bool RandomGenerator::nextBoolean()
     {
