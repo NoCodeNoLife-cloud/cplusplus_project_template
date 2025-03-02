@@ -37,7 +37,7 @@ namespace common::io
 
     inline PipedReader::PipedReader(): PipedReader(DEFAULT_PIPE_SIZE) {}
 
-    inline PipedReader::PipedReader(int pipeSize): buffer_(pipeSize), bufferSize_(pipeSize) {}
+    inline PipedReader::PipedReader(const int pipeSize): buffer_(pipeSize), bufferSize_(pipeSize) {}
 
     inline PipedReader::PipedReader(const std::shared_ptr<PipedWriter>& src): PipedReader(src, DEFAULT_PIPE_SIZE) {}
 
@@ -110,7 +110,7 @@ namespace common::io
         return false;
     }
 
-    inline auto PipedReader::writeToBuffer(char c) -> void
+    inline auto PipedReader::writeToBuffer(const char c) -> void
     {
         if (bufferSize_ == 0)
         {

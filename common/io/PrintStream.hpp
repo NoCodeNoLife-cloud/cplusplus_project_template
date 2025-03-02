@@ -59,7 +59,7 @@ namespace common::io
         return *this;
     }
 
-    inline auto PrintStream::append(const std::string& str, size_t start, size_t end) -> PrintStream&
+    inline auto PrintStream::append(const std::string& str, const size_t start, const size_t end) -> PrintStream&
     {
         for (size_t i = start; i < end; i++)
         {
@@ -189,19 +189,19 @@ namespace common::io
         print('\n');
     }
 
-    inline auto PrintStream::println(long l) const -> void
+    inline auto PrintStream::println(const long l) const -> void
     {
         print(l);
         print('\n');
     }
 
-    inline auto PrintStream::println(float f) const -> void
+    inline auto PrintStream::println(const float f) const -> void
     {
         print(f);
         print('\n');
     }
 
-    inline auto PrintStream::println(double d) const -> void
+    inline auto PrintStream::println(const double d) const -> void
     {
         print(d);
         print('\n');

@@ -20,7 +20,7 @@ namespace common::io
         size_t bufferPos_{0};
     };
 
-    inline PushbackInputStream::PushbackInputStream(std::unique_ptr<AbstractInputStream> inputStream, size_t bufferSize): FilterInputStream(std::move(inputStream)), pushbackBuffer_(bufferSize), bufferPos_(bufferSize) {}
+    inline PushbackInputStream::PushbackInputStream(std::unique_ptr<AbstractInputStream> inputStream, const size_t bufferSize): FilterInputStream(std::move(inputStream)), pushbackBuffer_(bufferSize), bufferPos_(bufferSize) {}
 
     inline PushbackInputStream::~PushbackInputStream() = default;
 

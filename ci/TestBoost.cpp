@@ -4,7 +4,8 @@
 
 int main(int argc, char** argv)
 {
-    google::InitGoogleLogging("main");
+    const std::string TEST_NAME = "all_test";
+    google::InitGoogleLogging(TEST_NAME.c_str());
     FLAGS_logtostdout = true;
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

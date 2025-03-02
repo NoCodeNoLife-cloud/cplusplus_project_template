@@ -37,7 +37,7 @@ namespace common::gen
     inline auto RandomGenerator::nextBytes(std::vector<unsigned char>& bytes) -> void
     {
         std::uniform_int_distribution<unsigned int> dist(0, 255);
-        std::generate(bytes.begin(), bytes.end(), [&]()
+        std::ranges::generate(bytes, [&]
         {
             return static_cast<unsigned char>(dist(generator));
         });
@@ -63,13 +63,13 @@ namespace common::gen
         return next(32);
     }
 
-    inline auto RandomGenerator::nextInt(int n) -> int
+    inline auto RandomGenerator::nextInt(const int n) -> int
     {
         if (n <= 0)
         {
             throw std::invalid_argument("n must be greater than 0");
         }
-        std::uniform_int_distribution<int> dist(0, n - 1);
+        std::uniform_int_distribution dist(0, n - 1);
         return dist(generator);
     }
 
@@ -79,14 +79,14 @@ namespace common::gen
         return dist(generator);
     }
 
-    inline auto RandomGenerator::setSeed(long seed) -> void
+    inline auto RandomGenerator::setSeed(const long seed) -> void
     {
         generator.seed(seed);
     }
 
-    inline auto RandomGenerator::next(int bits) -> int
+    inline auto RandomGenerator::next(const int bits) -> int
     {
-        std::uniform_int_distribution<int> dist(0, (1 << bits) - 1);
+        std::uniform_int_distribution dist(0, (1 << bits) - 1);
         return dist(generator);
     }
 }

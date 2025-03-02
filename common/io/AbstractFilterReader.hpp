@@ -28,6 +28,7 @@ namespace common::io
         {
             throw std::invalid_argument("Input reader cannot be null");
         }
+        reader_ = std::move(inputReader);
     }
 
     inline AbstractFilterReader::~AbstractFilterReader() = default;

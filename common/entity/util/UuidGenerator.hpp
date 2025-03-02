@@ -14,7 +14,7 @@ namespace common::entity::util
     public:
         UuidGenerator();
         UuidGenerator(uint64_t mostSigBits, uint64_t leastSigBits);
-        ~UuidGenerator() override;
+        ~UuidGenerator() override = default;
         static auto randomUUID() -> UuidGenerator;
         static auto fromString(const std::string& name) -> UuidGenerator;
         [[nodiscard]] auto getMostSignificantBits() const -> uint64_t;
@@ -34,7 +34,7 @@ namespace common::entity::util
 
     inline UuidGenerator::UuidGenerator(const uint64_t mostSigBits, const uint64_t leastSigBits): mostSignificantBits(mostSigBits), leastSignificantBits(leastSigBits) {}
 
-    inline UuidGenerator::~UuidGenerator() = default;
+
 
     inline auto UuidGenerator::randomUUID() -> UuidGenerator
     {

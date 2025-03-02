@@ -65,7 +65,7 @@ template <> struct std::formatter<common::entity::base_type::Object>
 
     static auto format(const common::entity::base_type::Object& content, format_context& ctx) -> back_insert_iterator<_Fmt_buffer<char>>
     {
-        return std::format_to(ctx.out(), "Object{{}}", "");
+        return std::format_to(ctx.out(), "Object{{hashCode:{}}}", content.hashCode());
     }
 };
 
