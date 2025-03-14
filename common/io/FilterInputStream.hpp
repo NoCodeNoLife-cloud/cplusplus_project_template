@@ -9,7 +9,7 @@ namespace common::io
         explicit FilterInputStream(std::unique_ptr<AbstractInputStream> inputStream);
         ~FilterInputStream() override;
         auto available() -> size_t override;
-        auto mark(int readLimit) -> void override;
+        auto mark(int32_t readLimit) -> void override;
         [[nodiscard]] auto markSupported() const -> bool override;
         auto read() -> std::byte override;
         size_t read(std::vector<std::byte>& buffer) override;
@@ -34,7 +34,7 @@ namespace common::io
         return inputStream_->available();
     }
 
-    inline void FilterInputStream::mark(const int readLimit)
+    inline void FilterInputStream::mark(const int32_t readLimit)
     {
         if (!inputStream_)
         {

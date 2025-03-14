@@ -15,8 +15,8 @@ namespace common::io
         auto append(const std::string& str, size_t start, size_t end) -> PrintStream& override;
         auto print(bool b) const -> void;
         auto print(char c) const -> void;
-        auto print(int i) const -> void;
-        auto print(long l) const -> void;
+        auto print(int32_t i) const -> void;
+        auto print(int64_t l) const -> void;
         auto print(float f) const -> void;
         auto print(double d) const -> void;
         auto print(const char* s) const -> void;
@@ -24,8 +24,8 @@ namespace common::io
         auto print(const std::vector<char>& v) const -> void;
         auto println(bool b) const -> void;
         auto println(char c) const -> void;
-        auto println(int i) const -> void;
-        auto println(long l) const -> void;
+        auto println(int32_t i) const -> void;
+        auto println(int64_t l) const -> void;
         auto println(float f) const -> void;
         auto println(double d) const -> void;
         auto println(const char* s) const -> void;
@@ -87,7 +87,7 @@ namespace common::io
         }
     }
 
-    inline auto PrintStream::print(const int i) const -> void
+    inline auto PrintStream::print(const int32_t i) const -> void
     {
         if (outputStream_)
         {
@@ -99,7 +99,7 @@ namespace common::io
         }
     }
 
-    inline auto PrintStream::print(const long l) const -> void
+    inline auto PrintStream::print(const int64_t l) const -> void
     {
         if (outputStream_)
         {
@@ -183,13 +183,13 @@ namespace common::io
         print('\n');
     }
 
-    inline auto PrintStream::println(const int i) const -> void
+    inline auto PrintStream::println(const int32_t i) const -> void
     {
         print(i);
         print('\n');
     }
 
-    inline auto PrintStream::println(const long l) const -> void
+    inline auto PrintStream::println(const int64_t l) const -> void
     {
         print(l);
         print('\n');

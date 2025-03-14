@@ -10,10 +10,10 @@ namespace common::nio
     {
     public:
         explicit LongBuffer(std::size_t capacity);
-        auto get() -> long long;
-        auto put(long long value) -> void;
+        auto get() -> int64_t;
+        auto put(int64_t value) -> void;
     private:
-        std::vector<long long> buffer_{};
+        std::vector<int64_t> buffer_{};
     };
 
     inline LongBuffer::LongBuffer(const std::size_t capacity): buffer_(capacity)
@@ -23,7 +23,7 @@ namespace common::nio
         position_ = 0;
     }
 
-    inline auto LongBuffer::get() -> long long
+    inline auto LongBuffer::get() -> int64_t
     {
         if (position_ >= limit_)
         {
@@ -32,7 +32,7 @@ namespace common::nio
         return buffer_[position_++];
     }
 
-    inline auto LongBuffer::put(const long long value) -> void
+    inline auto LongBuffer::put(const int64_t value) -> void
     {
         if (position_ >= limit_)
         {

@@ -8,7 +8,7 @@ namespace common::io
     {
     public:
         CharArrayWriter();
-        explicit CharArrayWriter(int initialSize);
+        explicit CharArrayWriter(int32_t initialSize);
         ~CharArrayWriter() override;
         void write(char c) override;
         auto write(const std::vector<char>& cBuf, size_t off, size_t len) -> void override;
@@ -30,7 +30,7 @@ namespace common::io
 
     inline CharArrayWriter::CharArrayWriter() = default;
 
-    inline CharArrayWriter::CharArrayWriter(const int initialSize)
+    inline CharArrayWriter::CharArrayWriter(const int32_t initialSize)
     {
         if (initialSize < 0)
         {
@@ -56,11 +56,11 @@ namespace common::io
 
     inline auto CharArrayWriter::write(const std::vector<char>& cBuf, const size_t off, const size_t len) -> void
     {
-        if (off + len > static_cast<int>(cBuf.size()))
+        if (off + len > static_cast<int32_t>(cBuf.size()))
         {
             throw std::out_of_range("Invalid offset or length");
         }
-        if (count_ + len > static_cast<int>(buf_.size()))
+        if (count_ + len > static_cast<int32_t>(buf_.size()))
         {
             buf_.resize(count_ + len);
         }
@@ -70,11 +70,11 @@ namespace common::io
 
     inline void CharArrayWriter::write(const std::string& str, const size_t off, const size_t len)
     {
-        if (off + len > static_cast<int>(str.size()))
+        if (off + len > static_cast<int32_t>(str.size()))
         {
             throw std::out_of_range("Invalid offset or length");
         }
-        if (count_ + len > static_cast<int>(buf_.size()))
+        if (count_ + len > static_cast<int32_t>(buf_.size()))
         {
             buf_.resize(count_ + len);
         }

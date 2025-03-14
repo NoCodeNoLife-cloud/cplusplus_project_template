@@ -12,7 +12,7 @@ namespace common::io
         auto close() -> void override;
         auto mark(size_t readAheadLimit) -> void override;
         [[nodiscard]] auto markSupported() const -> bool override;
-        auto read() -> int override;
+        auto read() -> int32_t override;
         auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
         auto read(std::vector<char>& cBuf) -> size_t override;
         [[nodiscard]] auto ready() const -> bool override;
@@ -41,7 +41,7 @@ namespace common::io
         return in->markSupported();
     }
 
-    inline int FilterReader::read()
+    inline int32_t FilterReader::read()
     {
         return in->read();
     }

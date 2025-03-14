@@ -20,7 +20,7 @@ namespace common::entity::base_type
         explicit operator double() const;
         [[nodiscard]] auto toString() const -> std::string override;
         [[nodiscard]] auto equals(const Double& other) const -> bool override;
-        [[nodiscard]] auto compareTo(const Double& other) const -> int override;
+        [[nodiscard]] auto compareTo(const Double& other) const -> int32_t override;
         [[nodiscard]] auto doubleValue() const -> double;
         static auto parseDouble(const std::string& str) -> Double;
         auto operator==(const Double& other) const -> bool;
@@ -37,105 +37,6 @@ namespace common::entity::base_type
         friend std::formatter<Double>;
         double value_{0.0};
     };
-
-    inline Double::Double(const double value): value_(value) {}
-
-    inline Double::~Double() = default;
-
-    inline Double::operator double() const
-    {
-        return value_;
-    }
-
-    inline std::string Double::toString() const
-    {
-        return std::format("{}", *this);
-    }
-
-    inline auto Double::equals(const Double& other) const -> bool
-    {
-        return value_ == other.value_;
-    }
-
-    inline auto Double::compareTo(const Double& other) const -> int
-    {
-        return (value_ > other.value_) - (value_ < other.value_);
-    }
-
-    inline auto Double::doubleValue() const -> double
-    {
-        return value_;
-    }
-
-    inline auto Double::parseDouble(const std::string& str) -> Double
-    {
-        try
-        {
-            const double result = std::stod(str);
-            return Double(result);
-        }
-        catch (const std::invalid_argument&)
-        {
-            throw std::invalid_argument("Invalid input string for Double conversion");
-        } catch (const std::out_of_range&)
-        {
-            throw std::out_of_range("Value out of range for Double");
-        }
-    }
-
-    inline auto Double::operator==(const Double& other) const -> bool
-    {
-        return value_ == other.value_;
-    }
-
-    inline auto Double::operator!=(const Double& other) const -> bool
-    {
-        return value_ != other.value_;
-    }
-
-    inline auto Double::operator<(const Double& other) const -> bool
-    {
-        return value_ < other.value_;
-    }
-
-    inline auto Double::operator>(const Double& other) const -> bool
-    {
-        return value_ > other.value_;
-    }
-
-    inline auto Double::operator<=(const Double& other) const -> bool
-    {
-        return value_ <= other.value_;
-    }
-
-    inline auto Double::operator>=(const Double& other) const -> bool
-    {
-        return value_ >= other.value_;
-    }
-
-    inline auto Double::operator+(const Double& other) const -> Double
-    {
-        return Double(this->value_ + other.value_);
-    }
-
-    inline auto Double::operator-(const Double& other) const -> Double
-    {
-        return Double(this->value_ - other.value_);
-    }
-
-    inline auto Double::operator*(const Double& other) const -> Double
-    {
-        return Double(this->value_ * other.value_);
-    }
-
-    inline auto Double::operator/(const Double& other) const -> Double
-    {
-        if (other.value_ == 0.0)
-        {
-            throw std::overflow_error("Division by zero");
-        }
-        return Double(this->value_ / other.value_);
-    }
 }
 
 template <> struct std::formatter<common::entity::base_type::Double>

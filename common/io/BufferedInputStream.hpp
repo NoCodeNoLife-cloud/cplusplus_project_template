@@ -8,10 +8,10 @@ namespace common::io
     {
     public:
         explicit BufferedInputStream(std::unique_ptr<AbstractInputStream> in);
-        BufferedInputStream(std::unique_ptr<AbstractInputStream> in, int size);
+        BufferedInputStream(std::unique_ptr<AbstractInputStream> in, int32_t size);
         [[nodiscard]] auto available() const -> size_t;
         auto close() -> void override;
-        auto mark(int readLimit) -> void override;
+        auto mark(int32_t readLimit) -> void override;
         [[nodiscard]] auto markSupported() const -> bool override;
         auto read() -> std::byte override;
         auto read(std::vector<std::byte>& buffer, size_t offset, size_t len) -> size_t override;
@@ -29,7 +29,7 @@ namespace common::io
 
     inline BufferedInputStream::BufferedInputStream(std::unique_ptr<AbstractInputStream> in): BufferedInputStream(std::move(in), DEFAULT_BUFFER_SIZE) {}
 
-    inline BufferedInputStream::BufferedInputStream(std::unique_ptr<AbstractInputStream> in, const int size): FilterInputStream(std::move(in)), buf_(size)
+    inline BufferedInputStream::BufferedInputStream(std::unique_ptr<AbstractInputStream> in, const int32_t size): FilterInputStream(std::move(in)), buf_(size)
     {
         if (!&inputStream_)
         {
@@ -52,7 +52,7 @@ namespace common::io
         buf_.clear();
     }
 
-    inline void BufferedInputStream::mark(const int readLimit)
+    inline void BufferedInputStream::mark(const int32_t readLimit)
     {
         markLimit_ = readLimit;
         inputStream_->mark(readLimit);
@@ -79,7 +79,7 @@ namespace common::io
 
     inline size_t BufferedInputStream::read(std::vector<std::byte>& buffer, size_t offset, size_t len)
     {
-        if (offset + len > static_cast<int>(buffer.size()))
+        if (offset + len > static_cast<int32_t>(buffer.size()))
         {
             throw std::out_of_range("Buffer offset/length out of range");
         }
@@ -97,7 +97,7 @@ namespace common::io
                 }
             }
             const size_t bytesToRead = std::min(len, bytesAvailable);
-            std::copy_n(buf_.begin() + static_cast<long long>(pos_), bytesToRead, buffer.begin() + static_cast<long long>(offset));
+            std::copy_n(buf_.begin() + static_cast<int64_t>(pos_), bytesToRead, buffer.begin() + static_cast<int64_t>(offset));
             pos_ += bytesToRead;
             offset += bytesToRead;
             len -= bytesToRead;

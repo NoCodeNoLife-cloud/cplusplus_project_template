@@ -14,7 +14,7 @@ namespace common::io
         auto close() -> void override;
         auto mark(size_t readAheadLimit) -> void override;
         [[nodiscard]] auto markSupported() const -> bool override;
-        auto read() -> int override;
+        auto read() -> int32_t override;
         auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
         [[nodiscard]] auto ready() const -> bool override;
         auto reset() -> void override;
@@ -49,7 +49,7 @@ namespace common::io
         return true;
     }
 
-    inline int StringReader::read()
+    inline int32_t StringReader::read()
     {
         if (position_ >= source_.size())
         {
@@ -101,6 +101,6 @@ namespace common::io
     {
         const size_t charsToSkip = std::min(ns, source_.size() - position_);
         position_ += charsToSkip;
-        return static_cast<long>(charsToSkip);
+        return static_cast<int64_t>(charsToSkip);
     }
 }

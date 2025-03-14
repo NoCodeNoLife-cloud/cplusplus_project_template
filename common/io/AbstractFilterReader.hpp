@@ -10,7 +10,7 @@ namespace common::io
     public:
         explicit AbstractFilterReader(std::unique_ptr<AbstractReader> inputReader);
         ~AbstractFilterReader() override;
-        auto read() -> int override;
+        auto read() -> int32_t override;
         auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
         auto skip(size_t n) -> size_t override;
         [[nodiscard]] auto ready() const -> bool override;
@@ -33,7 +33,7 @@ namespace common::io
 
     inline AbstractFilterReader::~AbstractFilterReader() = default;
 
-    inline int AbstractFilterReader::read()
+    inline int32_t AbstractFilterReader::read()
     {
         if (!reader_)
         {

@@ -19,7 +19,7 @@ namespace common::io
 
     inline auto AbstractOutputStream::write(const std::vector<std::byte>& buffer) -> void
     {
-        write(buffer, 0, static_cast<int>(buffer.size()));
+        write(buffer, 0, static_cast<int32_t>(buffer.size()));
     }
 
     inline auto AbstractOutputStream::write(const std::vector<std::byte>& buffer, const size_t offset, const size_t len) -> void
@@ -28,7 +28,7 @@ namespace common::io
         {
             throw std::out_of_range("Buffer offset/length out of range");
         }
-        for (int i = 0; i < len; ++i)
+        for (int32_t i = 0; i < len; ++i)
         {
             write(buffer[offset + i]);
         }

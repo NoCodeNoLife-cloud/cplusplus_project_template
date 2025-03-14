@@ -9,10 +9,10 @@ namespace common::iface
         virtual ~IBoostSerializable() = default;
     private:
         friend class boost::serialization::access;
-        template <class Archive> void serialize(Archive& archive, unsigned int version);
+        template <class Archive> void serialize(Archive& archive, unsigned int32_t version);
     };
 
-    template <typename T> template <class Archive> void IBoostSerializable<T>::serialize(Archive& archive, const unsigned int version)
+    template <typename T> template <class Archive> void IBoostSerializable<T>::serialize(Archive& archive, const unsigned int32_t version)
     {
         static_cast<T*>(this)->serializeImpl(archive, version);
     }

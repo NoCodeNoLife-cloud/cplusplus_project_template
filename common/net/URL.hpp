@@ -12,7 +12,7 @@ namespace common::net
         explicit URL(std::string url);
         [[nodiscard]] auto getProtocol() const -> std::string;
         [[nodiscard]] auto getHost() const -> std::string;
-        [[nodiscard]] auto getPort() const -> int;
+        [[nodiscard]] auto getPort() const -> int32_t;
         [[nodiscard]] auto getPath() const -> std::string;
         [[nodiscard]] auto getQuery() const -> std::string;
         [[nodiscard]] auto getURL() const -> std::string;
@@ -20,11 +20,11 @@ namespace common::net
         std::string url_;
         std::string protocol_;
         std::string host_;
-        int port_;
+        int32_t port_;
         std::string path_;
         std::string query_;
         auto parse() -> void;
-        static auto getDefaultPort(const std::string& protocol) -> int;
+        static auto getDefaultPort(const std::string& protocol) -> int32_t;
     };
 
     inline URL::URL(std::string url): url_(std::move(url)), port_(0)
@@ -42,7 +42,7 @@ namespace common::net
         return host_;
     }
 
-    inline auto URL::getPort() const -> int
+    inline auto URL::getPort() const -> int32_t
     {
         return port_;
     }
@@ -79,7 +79,7 @@ namespace common::net
         }
     }
 
-    inline auto URL::getDefaultPort(const std::string& protocol) -> int
+    inline auto URL::getDefaultPort(const std::string& protocol) -> int32_t
     {
         if (protocol == "http") return 80;
         if (protocol == "https") return 443;

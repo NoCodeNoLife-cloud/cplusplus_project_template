@@ -11,7 +11,7 @@ namespace common::io
         explicit InputStreamReader(std::shared_ptr<AbstractReader> input);
         InputStreamReader(std::shared_ptr<AbstractReader> input, const std::string& charsetName);
         ~InputStreamReader() override;
-        auto read() -> int override;
+        auto read() -> int32_t override;
         auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
         [[nodiscard]] auto ready() const -> bool override;
         auto close() -> void override;
@@ -44,7 +44,7 @@ namespace common::io
 
     inline InputStreamReader::~InputStreamReader() = default;
 
-    inline int InputStreamReader::read()
+    inline int32_t InputStreamReader::read()
     {
         if (!reader_)
         {
@@ -58,7 +58,7 @@ namespace common::io
         try
         {
             const char32_t charValue = converter_.from_bytes(byteBuffer.data())[0];
-            return static_cast<int>(charValue);
+            return static_cast<int32_t>(charValue);
         }
         catch (const std::exception&)
         {

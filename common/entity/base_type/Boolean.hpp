@@ -16,7 +16,7 @@ namespace common::entity::base_type
         explicit operator bool() const;
         [[nodiscard]] auto toString() const -> std::string override;
         [[nodiscard]] auto boolValue() const -> bool;
-        [[nodiscard]] auto compareTo(const Boolean& other) const -> int override;
+        [[nodiscard]] auto compareTo(const Boolean& other) const -> int32_t override;
         static auto parseBoolean(const std::string& str) -> Boolean;
         [[nodiscard]] auto booleanValue() const -> bool;
         [[nodiscard]] auto equals(const Boolean& other) const -> bool override;
@@ -26,66 +26,6 @@ namespace common::entity::base_type
         bool value_{false};
         friend std::formatter<Boolean>;
     };
-
-    inline Boolean::Boolean(const bool value): value_(value) {}
-
-    inline Boolean::~Boolean() = default;
-
-    inline Boolean::operator bool() const
-    {
-        return value_;
-    }
-
-    inline std::string Boolean::toString() const
-    {
-        return std::format("{}", *this);
-    }
-
-    inline auto Boolean::boolValue() const -> bool
-    {
-        return value_;
-    }
-
-    inline auto Boolean::compareTo(const Boolean& other) const -> int
-    {
-        return value_ - other.value_;
-    }
-
-    inline auto Boolean::parseBoolean(const std::string& str) -> Boolean
-    {
-        if (str == "true" || str == "TRUE")
-        {
-            return Boolean(true);
-        }
-        if (str == "false" || str == "FALSE")
-        {
-            return Boolean(false);
-        }
-        throw std::invalid_argument("Invalid input string for Boolean conversion");
-    }
-
-    inline auto Boolean::booleanValue() const -> bool
-    {
-        return value_;
-    }
-
-    inline auto Boolean::equals(const Boolean& other) const -> bool
-    {
-        return value_ == other.value_;
-    }
-
-    inline auto Boolean::operator==(const Boolean& other) const -> bool
-    {
-        return equals(other);
-    }
-
-    inline auto Boolean::operator!=(const Boolean& other) const -> bool
-    {
-        return !equals(other);
-    }
-
-    inline const Boolean TRUE{true};
-    inline const Boolean FALSE{false};
 }
 
 template <> struct std::formatter<common::entity::base_type::Boolean>

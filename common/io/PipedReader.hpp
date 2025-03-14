@@ -12,12 +12,12 @@ namespace common::io
     {
     public:
         PipedReader();
-        explicit PipedReader(int pipeSize);
+        explicit PipedReader(int32_t pipeSize);
         explicit PipedReader(const std::shared_ptr<PipedWriter>& src);
-        PipedReader(std::shared_ptr<PipedWriter> src, int pipeSize);
+        PipedReader(std::shared_ptr<PipedWriter> src, int32_t pipeSize);
         ~PipedReader() override;
         auto close() -> void override;
-        auto read() -> int override;
+        auto read() -> int32_t override;
         auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
         [[nodiscard]] auto ready() const -> bool override;
         auto connect(std::shared_ptr<PipedWriter> src) -> void;
@@ -26,7 +26,7 @@ namespace common::io
         [[nodiscard]] auto markSupported() const -> bool override;
         auto writeToBuffer(char c) -> void;
     private:
-        static constexpr int DEFAULT_PIPE_SIZE = 1024;
+        static constexpr int32_t DEFAULT_PIPE_SIZE = 1024;
         std::shared_ptr<PipedWriter> src_;
         std::vector<char> buffer_;
         size_t bufferSize_{0};
@@ -37,11 +37,11 @@ namespace common::io
 
     inline PipedReader::PipedReader(): PipedReader(DEFAULT_PIPE_SIZE) {}
 
-    inline PipedReader::PipedReader(const int pipeSize): buffer_(pipeSize), bufferSize_(pipeSize) {}
+    inline PipedReader::PipedReader(const int32_t pipeSize): buffer_(pipeSize), bufferSize_(pipeSize) {}
 
     inline PipedReader::PipedReader(const std::shared_ptr<PipedWriter>& src): PipedReader(src, DEFAULT_PIPE_SIZE) {}
 
-    inline PipedReader::PipedReader(std::shared_ptr<PipedWriter> src, const int pipeSize): src_(std::move(src)), buffer_(pipeSize), bufferSize_(pipeSize) {}
+    inline PipedReader::PipedReader(std::shared_ptr<PipedWriter> src, const int32_t pipeSize): src_(std::move(src)), buffer_(pipeSize), bufferSize_(pipeSize) {}
 
     inline PipedReader::~PipedReader()
     {
@@ -55,7 +55,7 @@ namespace common::io
         readPos_ = writePos_ = 0;
     }
 
-    inline int PipedReader::read()
+    inline int32_t PipedReader::read()
     {
         std::lock_guard lock(readMutex_);
         if (!ready())

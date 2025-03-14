@@ -2,7 +2,7 @@
 #include <glog/logging.h>
 #include <gtest/gtest.h>
 
-int main(int argc, char** argv)
+int32_t main(int32_t argc, char** argv)
 {
     const std::string TEST_NAME = "all_test";
     google::InitGoogleLogging(TEST_NAME.c_str());

@@ -10,7 +10,7 @@ namespace common::io
         explicit CharArrayReader(const std::vector<char>& buffer);
         CharArrayReader(const std::vector<char>& buffer, size_t offset, size_t length);
         ~CharArrayReader() override;
-        auto read() -> int override;
+        auto read() -> int32_t override;
         auto read(std::vector<char>& b, size_t off, size_t len) -> size_t override;
         auto skip(size_t n) -> size_t override;
         [[nodiscard]] auto ready() const -> bool override;
@@ -39,7 +39,7 @@ namespace common::io
 
     inline CharArrayReader::~CharArrayReader() = default;
 
-    inline int CharArrayReader::read()
+    inline int32_t CharArrayReader::read()
     {
         if (pos_ >= count_) return -1;
         return buf_[pos_++];

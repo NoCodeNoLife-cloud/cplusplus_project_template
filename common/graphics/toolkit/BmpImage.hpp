@@ -67,9 +67,9 @@ namespace common::graphics::toolkit
 
     inline void BmpImage::save(const std::string& filename) const
     {
-        const int rowSize = (width_ * 3 + 3) & ~3;
-        const int pixelDataSize = rowSize * height_;
-        const unsigned long long fileSize = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + pixelDataSize;
+        const int32_t rowSize = (width_ * 3 + 3) & ~3;
+        const int32_t pixelDataSize = rowSize * height_;
+        const unsigned int64_t fileSize = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + pixelDataSize;
         BITMAPFILEHEADER fileHeader{};
         fileHeader.bfType = 0x4D42;
         fileHeader.bfSize = fileSize;
@@ -90,9 +90,9 @@ namespace common::graphics::toolkit
         file.write(reinterpret_cast<const char*>(&fileHeader), sizeof(fileHeader));
         file.write(reinterpret_cast<const char*>(&infoHeader), sizeof(infoHeader));
         constexpr char padding[3] = {};
-        for (int y = 0; y < height_; ++y)
+        for (int32_t y = 0; y < height_; ++y)
         {
-            const int rowStart = y * width_ * 3;
+            const int32_t rowStart = y * width_ * 3;
             file.write(reinterpret_cast<const char*>(&pixels_[rowStart]), width_ * 3);
             file.write(padding, rowSize - width_ * 3);
         }

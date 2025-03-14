@@ -18,7 +18,7 @@ namespace common::entity::base_type
         [[nodiscard]] auto toString() const -> std::string override;
         [[nodiscard]] auto shortValue() const -> int16_t;
         [[nodiscard]] auto equals(const Short& other) const -> bool override;
-        [[nodiscard]] auto compareTo(const Short& other) const -> int override;
+        [[nodiscard]] auto compareTo(const Short& other) const -> int32_t override;
         static auto parseShort(const std::string& str) -> Short;
         auto operator==(const Short& other) const -> bool;
         auto operator!=(const Short& other) const -> bool;
@@ -35,118 +35,6 @@ namespace common::entity::base_type
         int16_t value_{0};
         friend std::formatter<Short>;
     };
-
-    inline Short::Short(const int16_t value): value_(value) {}
-
-    inline Short::~Short() = default;
-
-    inline Short::operator short() const
-    {
-        return value_;
-    }
-
-    inline std::string Short::toString() const
-    {
-        return std::format("{}", *this);
-    }
-
-    inline auto Short::shortValue() const -> int16_t
-    {
-        return value_;
-    }
-
-    inline auto Short::equals(const Short& other) const -> bool
-    {
-        return value_ == other.value_;
-    }
-
-    inline auto Short::compareTo(const Short& other) const -> int
-    {
-        return value_ - other.value_;
-    }
-
-    inline auto Short::parseShort(const std::string& str) -> Short
-    {
-        try
-        {
-            const auto result = static_cast<int16_t>(std::stoi(str));
-            if (result > MAX_VALUE || result < MIN_VALUE)
-            {
-                throw std::out_of_range("Value out of range for Short");
-            }
-            return Short(result);
-        }
-        catch (const std::invalid_argument&)
-        {
-            throw std::invalid_argument("Invalid input string for Short conversion");
-        } catch (const std::out_of_range&)
-        {
-            throw std::out_of_range("Value out of range for Short");
-        }
-    }
-
-    inline auto Short::operator==(const Short& other) const -> bool
-    {
-        return equals(other);
-    }
-
-    inline auto Short::operator!=(const Short& other) const -> bool
-    {
-        return !equals(other);
-    }
-
-    inline auto Short::operator<(const Short& other) const -> bool
-    {
-        return value_ < other.value_;
-    }
-
-    inline auto Short::operator>(const Short& other) const -> bool
-    {
-        return value_ > other.value_;
-    }
-
-    inline auto Short::operator<=(const Short& other) const -> bool
-    {
-        return value_ <= other.value_;
-    }
-
-    inline auto Short::operator>=(const Short& other) const -> bool
-    {
-        return value_ >= other.value_;
-    }
-
-    inline auto Short::operator+(const Short& other) const -> Short
-    {
-        return Short(static_cast<int16_t>(this->value_ + other.value_));
-    }
-
-    inline auto Short::operator-(const Short& other) const -> Short
-    {
-        return Short(static_cast<int16_t>(this->value_ - other.value_));
-    }
-
-    inline auto Short::operator*(const Short& other) const -> Short
-    {
-        return Short(static_cast<int16_t>(this->value_ * other.value_));
-    }
-
-    inline auto Short::operator/(const Short& other) const -> Short
-    {
-        if (other.value_ == 0)
-        {
-            throw std::overflow_error("Division by zero");
-        }
-        return Short(static_cast<int16_t>(this->value_ / other.value_));
-    }
-
-    inline auto Short::operator%(const Short& other) const -> Short
-    {
-        if (other.value_ == 0)
-        {
-            throw std::overflow_error("Modulo by zero");
-        }
-        return Short(static_cast<int16_t>(this->value_ % other.value_));
-    }
 }
 
 template <> struct std::formatter<common::entity::base_type::Short>

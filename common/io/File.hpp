@@ -16,7 +16,7 @@ namespace common::io
         explicit File(std::filesystem::path path);
         explicit File(const char* path);
         ~File() override;
-        [[nodiscard]] auto compareTo(const File& other) const -> int override;
+        [[nodiscard]] auto compareTo(const File& other) const -> int32_t override;
         [[nodiscard]] auto equals(const File& other) const -> bool override;
         [[nodiscard]] auto canExecute() const -> bool;
         [[nodiscard]] auto canRead() const -> bool;
@@ -32,8 +32,8 @@ namespace common::io
         [[nodiscard]] auto getCanonicalFile() const -> File;
         [[nodiscard]] auto getParentFile() const -> File;
         [[nodiscard]] auto getPath() const -> std::string;
-        [[nodiscard]] auto getTotalSpace() const -> long;
-        [[nodiscard]] auto getUsableSpace() const -> long;
+        [[nodiscard]] auto getTotalSpace() const -> int64_t;
+        [[nodiscard]] auto getUsableSpace() const -> int64_t;
         [[nodiscard]] auto hashCode() const -> size_t;
         [[nodiscard]] auto isAbsolute() const -> bool;
         [[nodiscard]] auto mkdir() const -> bool;
@@ -41,8 +41,8 @@ namespace common::io
         [[nodiscard]] auto isDirectory() const -> bool;
         [[nodiscard]] auto isFile() const -> bool;
         [[nodiscard]] auto isHidden() const -> bool;
-        [[nodiscard]] auto length() const -> long long;
-        [[nodiscard]] auto lastModified() const -> long long;
+        [[nodiscard]] auto length() const -> int64_t;
+        [[nodiscard]] auto lastModified() const -> int64_t;
         [[nodiscard]] auto list() const -> std::vector<std::string>;
         [[nodiscard]] auto toString() const -> std::string;
         [[nodiscard]] auto toURI() const -> std::string;
@@ -59,7 +59,7 @@ namespace common::io
 
     inline File::~File() = default;
 
-    inline auto File::compareTo(const File& other) const -> int
+    inline auto File::compareTo(const File& other) const -> int32_t
     {
         return filePath_.string().compare(other.filePath_.string());
     }
@@ -159,16 +159,16 @@ namespace common::io
         return filePath_.string();
     }
 
-    inline auto File::getTotalSpace() const -> long
+    inline auto File::getTotalSpace() const -> int64_t
     {
         const auto spaceInfo = space(filePath_);
-        return static_cast<long>(spaceInfo.capacity);
+        return static_cast<int64_t>(spaceInfo.capacity);
     }
 
-    inline auto File::getUsableSpace() const -> long
+    inline auto File::getUsableSpace() const -> int64_t
     {
         const auto spaceInfo = space(filePath_);
-        return static_cast<long>(spaceInfo.free);
+        return static_cast<int64_t>(spaceInfo.free);
     }
 
     inline auto File::hashCode() const -> size_t
@@ -215,16 +215,16 @@ namespace common::io
         return attributes != INVALID_FILE_ATTRIBUTES && attributes & FILE_ATTRIBUTE_HIDDEN;
     }
 
-    inline auto File::length() const -> long long
+    inline auto File::length() const -> int64_t
     {
         if (std::filesystem::exists(filePath_) && is_regular_file(filePath_))
         {
-            return static_cast<long long>(file_size(filePath_));
+            return static_cast<int64_t>(file_size(filePath_));
         }
         return 0;
     }
 
-    inline auto File::lastModified() const -> long long
+    inline auto File::lastModified() const -> int64_t
     {
         const auto lastWriteTime = last_write_time(filePath_);
         const auto sctp = std::chrono::time_point_cast<std::chrono::system_clock::duration>(lastWriteTime - std::filesystem::file_time_type::clock::now() + std::chrono::system_clock::now());

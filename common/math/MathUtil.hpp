@@ -12,8 +12,8 @@ namespace common::math
     public:
         static auto abs(double a) -> double;
         static auto abs(float a) -> float;
-        static auto abs(int a) -> int;
-        static auto abs(long a) -> long;
+        static auto abs(int32_t a) -> int32_t;
+        static auto abs(int64_t a) -> int64_t;
         static auto acos(double a) -> double;
         static auto asin(double a) -> double;
         static auto atan(double a) -> double;
@@ -23,8 +23,8 @@ namespace common::math
         static auto ceil(double a) -> double;
         static auto floor(double a) -> double;
         static auto rint(double a) -> double;
-        static auto round(double a) -> long;
-        static auto round(float a) -> int;
+        static auto round(double a) -> int64_t;
+        static auto round(float a) -> int32_t;
         static auto exp(double a) -> double;
         static auto log(double a) -> double;
         static auto log10(double a) -> double;
@@ -58,12 +58,12 @@ namespace common::math
         return std::fabs(a);
     }
 
-    inline auto MathUtil::abs(const int a) -> int
+    inline auto MathUtil::abs(const int32_t a) -> int32_t
     {
         return std::abs(a);
     }
 
-    inline auto MathUtil::abs(const long a) -> long
+    inline auto MathUtil::abs(const int64_t a) -> int64_t
     {
         return std::labs(a);
     }
@@ -113,14 +113,14 @@ namespace common::math
         return std::nearbyint(a);
     }
 
-    inline auto MathUtil::round(const double a) -> long
+    inline auto MathUtil::round(const double a) -> int64_t
     {
-        return static_cast<long>(std::round(a));
+        return static_cast<int64_t>(std::round(a));
     }
 
-    inline auto MathUtil::round(const float a) -> int
+    inline auto MathUtil::round(const float a) -> int32_t
     {
-        return static_cast<int>(std::round(a));
+        return static_cast<int32_t>(std::round(a));
     }
 
     inline auto MathUtil::exp(const double a) -> double

@@ -17,11 +17,11 @@ namespace common::io::serialize
         template <DerivedFromJsonSerializable T> static auto saveStudentToJsonFile(const T& entity, const std::string& filename) -> void;
         template <DerivedFromJsonSerializable T> static auto loadStudentFromJsonFile(const std::string& filename) -> T;
         static auto getStringOrDefault(const rapidjson::Value& json, const char* key, const std::string& defaultValue) -> std::string;
-        static auto getIntOrDefault(const rapidjson::Value& json, const char* key, int defaultValue) -> int;
+        static auto getIntOrDefault(const rapidjson::Value& json, const char* key, int32_t defaultValue) -> int32_t;
         static auto getDoubleOrDefault(const rapidjson::Value& json, const char* key, double defaultValue) -> double;
         static auto getBoolOrDefault(const rapidjson::Value& json, const char* key, bool defaultValue) -> bool;
         static auto serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key, const std::string& value) -> void;
-        static auto serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key, int value) -> void;
+        static auto serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key, int32_t value) -> void;
         static auto serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key, double value) -> void;
         static auto serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key, bool value) -> void;
     };
@@ -71,7 +71,7 @@ namespace common::io::serialize
         return defaultValue;
     }
 
-    inline auto JsonSerializer::getIntOrDefault(const rapidjson::Value& json, const char* key, const int defaultValue) -> int
+    inline auto JsonSerializer::getIntOrDefault(const rapidjson::Value& json, const char* key, const int32_t defaultValue) -> int32_t
     {
         if (json.HasMember(key) && json[key].IsInt())
         {
@@ -104,10 +104,10 @@ namespace common::io::serialize
         writer.String(value.c_str());
     }
 
-    inline auto JsonSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key, const int value) -> void
+    inline auto JsonSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key, const int32_t value) -> void
     {
         writer.Key(key);
-        writer.Int(value);
+        writer.int32_t(value);
     }
 
     inline auto JsonSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key, const double value) -> void

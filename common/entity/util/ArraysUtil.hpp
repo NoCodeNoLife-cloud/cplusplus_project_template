@@ -10,8 +10,8 @@ namespace common::io
     {
     public:
         template <typename T> static auto asList(const T* array, size_t size) -> std::vector<T>;
-        template <typename T> static auto binarySearch(const T* array, size_t size, const T& key) -> int;
-        template <typename T> static auto binarySearch(const T* array, size_t fromIndex, size_t toIndex, const T& key) -> int;
+        template <typename T> static auto binarySearch(const T* array, size_t size, const T& key) -> int32_t;
+        template <typename T> static auto binarySearch(const T* array, size_t fromIndex, size_t toIndex, const T& key) -> int32_t;
         template <typename T> static auto copyOf(const T* original, const size_t originalSize, size_t newLength) -> std::vector<T>;
         template <typename T> static auto copyOfRange(const T* original, size_t from, size_t to) -> std::vector<T>;
         template <typename T> static auto equals(const T* a, size_t sizeA, const T* b, const size_t sizeB) -> bool;
@@ -26,17 +26,17 @@ namespace common::io
         return std::vector<T>(array, array + size);
     }
 
-    template <typename T> auto ArraysUtil::binarySearch(const T* array, size_t size, const T& key) -> int
+    template <typename T> auto ArraysUtil::binarySearch(const T* array, size_t size, const T& key) -> int32_t
     {
         auto it = std::lower_bound(array, array + size, key);
         if (it != array + size && *it == key)
         {
-            return static_cast<int>(it - array);
+            return static_cast<int32_t>(it - array);
         }
         return -1;
     }
 
-    template <typename T> auto ArraysUtil::binarySearch(const T* array, size_t fromIndex, size_t toIndex, const T& key) -> int
+    template <typename T> auto ArraysUtil::binarySearch(const T* array, size_t fromIndex, size_t toIndex, const T& key) -> int32_t
     {
         if (fromIndex >= toIndex) throw std::out_of_range("Invalid range");
         auto start = array + fromIndex;
@@ -44,7 +44,7 @@ namespace common::io
         auto it = std::lower_bound(start, end, key);
         if (it != end && *it == key)
         {
-            return static_cast<int>(it - array);
+            return static_cast<int32_t>(it - array);
         }
         return -1;
     }

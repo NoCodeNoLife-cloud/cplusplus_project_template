@@ -7,17 +7,17 @@ namespace common::io
     class BufferedReader final : public AbstractReader
     {
     public:
-        explicit BufferedReader(std::unique_ptr<AbstractReader> reader, int size = DEFAULT_BUFFER_SIZE);
+        explicit BufferedReader(std::unique_ptr<AbstractReader> reader, int32_t size = DEFAULT_BUFFER_SIZE);
         ~BufferedReader() override;
         auto close() -> void override;
         auto mark(size_t readAheadLimit) -> void override;
         [[nodiscard]] auto markSupported() const -> bool override;
         auto reset() -> void override;
-        auto read() -> int override;
+        auto read() -> int32_t override;
         auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
         auto readLine() -> std::string;
         [[nodiscard]] auto ready() const -> bool override;
-        auto skip(long n) -> long;
+        auto skip(int64_t n) -> int64_t;
     private:
         static constexpr size_t DEFAULT_BUFFER_SIZE = 8192;
         std::vector<char> buffer_;
@@ -29,7 +29,7 @@ namespace common::io
         bool fillBuffer();
     };
 
-    inline BufferedReader::BufferedReader(std::unique_ptr<AbstractReader> reader, const int size): reader_(std::move(reader)), bufferSize_(size)
+    inline BufferedReader::BufferedReader(std::unique_ptr<AbstractReader> reader, const int32_t size): reader_(std::move(reader)), bufferSize_(size)
     {
         if (size <= 0)
         {
@@ -66,7 +66,7 @@ namespace common::io
         pos_ = markLimit_;
     }
 
-    inline int BufferedReader::read()
+    inline int32_t BufferedReader::read()
     {
         if (pos_ >= count_)
         {
@@ -139,13 +139,13 @@ namespace common::io
         return reader_->ready();
     }
 
-    inline auto BufferedReader::skip(const long n) -> long
+    inline auto BufferedReader::skip(const int64_t n) -> int64_t
     {
         if (n <= 0)
         {
             throw std::invalid_argument("Skip value must be positive");
         }
-        long skipped = 0;
+        int64_t skipped = 0;
         while (skipped < n)
         {
             if (pos_ >= count_)
@@ -155,7 +155,7 @@ namespace common::io
                     break;
                 }
             }
-            const long bytesToSkip = std::min(static_cast<long>(count_ - pos_), n - skipped);
+            const int64_t bytesToSkip = std::min(static_cast<int64_t>(count_ - pos_), n - skipped);
             pos_ += bytesToSkip;
             skipped += bytesToSkip;
         }

@@ -5,6 +5,6 @@ namespace common::iface
     {
     public:
         virtual ~IReadable() = default;
-        virtual auto read() -> int = 0;
+        virtual auto read() -> int32_t = 0;
     };
 }

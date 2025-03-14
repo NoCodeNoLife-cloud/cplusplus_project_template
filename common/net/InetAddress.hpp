@@ -21,7 +21,7 @@ namespace common::net
         [[nodiscard]] auto hashCode() const -> size_t;
         [[nodiscard]] auto isLoopbackAddress() const -> bool;
         [[nodiscard]] auto isMulticastAddress() const -> bool;
-        [[nodiscard]] auto isReachable(int timeout_ms) const -> bool;
+        [[nodiscard]] auto isReachable(int32_t timeout_ms) const -> bool;
         [[nodiscard]] auto toString() const -> std::string;
         [[nodiscard]] boost::asio::ip::tcp::endpoint endpoint() const;
     private:
@@ -95,7 +95,7 @@ namespace common::net
         return endpoint_.address().is_multicast();
     }
 
-    inline auto InetAddress::isReachable(const int timeout_ms) const -> bool
+    inline auto InetAddress::isReachable(const int32_t timeout_ms) const -> bool
     {
         try
         {

@@ -10,15 +10,15 @@ namespace common::entity::base_type
     class Integer final : public Object, public iface::IComparable<Integer>
     {
     public:
-        static constexpr int MIN_VALUE = std::numeric_limits<int>::min();
-        static constexpr int MAX_VALUE = std::numeric_limits<int>::max();
-        explicit Integer(int value);
+        static constexpr int32_t MIN_VALUE = std::numeric_limits<int32_t>::min();
+        static constexpr int32_t MAX_VALUE = std::numeric_limits<int32_t>::max();
+        explicit Integer(int32_t value);
         ~Integer() override;
-        explicit operator int() const;
+        explicit operator int32_t() const;
         [[nodiscard]] std::string toString() const override;
-        [[nodiscard]] auto intValue() const -> int;
+        [[nodiscard]] auto intValue() const -> int32_t;
         static auto parseInt(const std::string& str) -> Integer;
-        [[nodiscard]] auto compareTo(const Integer& other) const -> int override;
+        [[nodiscard]] auto compareTo(const Integer& other) const -> int32_t override;
         [[nodiscard]] bool equals(const Integer& other) const override;
         auto operator==(const Integer& other) const -> bool;
         auto operator!=(const Integer& other) const -> bool;
@@ -31,110 +31,9 @@ namespace common::entity::base_type
         auto operator*(const Integer& other) const -> Integer;
         auto operator/(const Integer& other) const -> Integer;
     private:
-        int value_{0};
+        int32_t value_{0};
         friend std::formatter<Integer>;
     };
-
-    inline Integer::Integer(const int value): value_(value) {}
-
-    inline Integer::~Integer() = default;
-
-    inline Integer::operator int() const
-    {
-        return value_;
-    }
-
-    inline std::string Integer::toString() const
-    {
-        return std::format("{}", *this);
-    }
-
-    inline auto Integer::intValue() const -> int
-    {
-        return value_;
-    }
-
-    inline auto Integer::parseInt(const std::string& str) -> Integer
-    {
-        try
-        {
-            size_t idx;
-            const int result = std::stoi(str, &idx);
-            if (idx != str.size())
-            {
-                throw std::invalid_argument("Invalid input string");
-            }
-            return Integer(result);
-        }
-        catch (const std::out_of_range&)
-        {
-            throw std::out_of_range("Value out of range");
-        }
-    }
-
-    inline auto Integer::compareTo(const Integer& other) const -> int
-    {
-        return value_ - other.value_;
-    }
-
-    inline bool Integer::equals(const Integer& other) const
-    {
-        return value_ == other.value_;
-    }
-
-    inline auto Integer::operator==(const Integer& other) const -> bool
-    {
-        return equals(other);
-    }
-
-    inline auto Integer::operator!=(const Integer& other) const -> bool
-    {
-        return !equals(other);
-    }
-
-    inline auto Integer::operator<(const Integer& other) const -> bool
-    {
-        return value_ < other.value_;
-    }
-
-    inline auto Integer::operator>(const Integer& other) const -> bool
-    {
-        return value_ > other.value_;
-    }
-
-    inline auto Integer::operator<=(const Integer& other) const -> bool
-    {
-        return value_ <= other.value_;
-    }
-
-    inline auto Integer::operator>=(const Integer& other) const -> bool
-    {
-        return value_ >= other.value_;
-    }
-
-    inline auto Integer::operator+(const Integer& other) const -> Integer
-    {
-        return Integer(this->value_ + other.value_);
-    }
-
-    inline auto Integer::operator-(const Integer& other) const -> Integer
-    {
-        return Integer(this->value_ - other.value_);
-    }
-
-    inline auto Integer::operator*(const Integer& other) const -> Integer
-    {
-        return Integer(this->value_ * other.value_);
-    }
-
-    inline auto Integer::operator/(const Integer& other) const -> Integer
-    {
-        if (other.value_ == 0)
-        {
-            throw std::invalid_argument("Division by zero is not allowed.");
-        }
-        return Integer(this->value_ / other.value_);
-    }
 }
 
 template <> struct std::formatter<common::entity::base_type::Integer>

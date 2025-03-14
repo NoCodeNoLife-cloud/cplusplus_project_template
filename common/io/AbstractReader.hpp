@@ -9,7 +9,7 @@ namespace common::io
     {
     public:
         ~AbstractReader() override;
-        auto read() -> int override;
+        auto read() -> int32_t override;
         virtual auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t = 0;
         virtual auto read(std::vector<char>& cBuf) -> size_t;
         [[nodiscard]] virtual auto markSupported() const -> bool;
@@ -21,7 +21,7 @@ namespace common::io
 
     inline AbstractReader::~AbstractReader() = default;
 
-    inline auto AbstractReader::read() -> int
+    inline auto AbstractReader::read() -> int32_t
     {
         std::vector<char> buffer(1);
         if (const size_t bytesRead = read(buffer, 0, 1); bytesRead == -1)
@@ -33,7 +33,7 @@ namespace common::io
 
     inline auto AbstractReader::read(std::vector<char>& cBuf) -> size_t
     {
-        return read(cBuf, 0, static_cast<int>(cBuf.size()));
+        return read(cBuf, 0, static_cast<int32_t>(cBuf.size()));
     }
 
     inline auto AbstractReader::markSupported() const -> bool
@@ -53,7 +53,7 @@ namespace common::io
         {
             std::vector<char> buffer(1024);
             const size_t toRead = std::min(n - skipped, buffer.size());
-            const size_t readCount = read(buffer, 0, static_cast<int>(toRead));
+            const size_t readCount = read(buffer, 0, static_cast<int32_t>(toRead));
             if (readCount == -1) break;
             skipped += readCount;
         }

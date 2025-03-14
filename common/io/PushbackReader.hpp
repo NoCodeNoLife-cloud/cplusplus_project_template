@@ -12,14 +12,14 @@ namespace common::io
         auto close() -> void override;
         auto mark(size_t readAheadLimit) -> void override;
         [[nodiscard]] auto markSupported() const -> bool override;
-        auto read() -> int override;
+        auto read() -> int32_t override;
         auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
         [[nodiscard]] auto ready() const -> bool override;
         auto reset() -> void override;
         auto skip(size_t n) -> size_t override;
         auto unread(const std::vector<char>& cBuf) -> void;
         auto unread(const std::vector<char>& cBuf, size_t off, size_t len) -> void;
-        auto unread(int c) -> void;
+        auto unread(int32_t c) -> void;
     private:
         static constexpr size_t DEFAULT_BUFFER_SIZE = 1024;
         std::vector<char> buffer_;
@@ -52,7 +52,7 @@ namespace common::io
         return false;
     }
 
-    inline int PushbackReader::read()
+    inline int32_t PushbackReader::read()
     {
         if (bufferPos_ < buffer_.size())
         {
@@ -124,7 +124,7 @@ namespace common::io
         }
     }
 
-    inline auto PushbackReader::unread(const int c) -> void
+    inline auto PushbackReader::unread(const int32_t c) -> void
     {
         if (bufferPos_ == 0)
         {

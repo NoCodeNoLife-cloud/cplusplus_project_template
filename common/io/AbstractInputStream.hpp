@@ -10,7 +10,7 @@ namespace common::io
     public:
         ~AbstractInputStream() override;
         [[nodiscard]] virtual auto available() -> size_t = 0;
-        virtual auto mark(int readLimit) -> void;
+        virtual auto mark(int32_t readLimit) -> void;
         [[nodiscard]] virtual auto markSupported() const -> bool;
         virtual auto read() -> std::byte = 0;
         virtual auto read(std::vector<std::byte>& buffer) -> size_t;
@@ -21,7 +21,7 @@ namespace common::io
 
     inline AbstractInputStream::~AbstractInputStream() = default;
 
-    inline auto AbstractInputStream::mark(int readLimit) -> void
+    inline auto AbstractInputStream::mark(int32_t readLimit) -> void
     {
         throw std::runtime_error("mark not supported");
     }
@@ -33,7 +33,7 @@ namespace common::io
 
     inline auto AbstractInputStream::read(std::vector<std::byte>& buffer) -> size_t
     {
-        return read(buffer, 0, static_cast<int>(buffer.size()));
+        return read(buffer, 0, static_cast<int32_t>(buffer.size()));
     }
 
     inline auto AbstractInputStream::read(std::vector<std::byte>& buffer, const size_t offset, const size_t len) -> size_t
@@ -43,7 +43,7 @@ namespace common::io
             throw std::out_of_range("Buffer offset/length out of range");
         }
         size_t bytesRead = 0;
-        for (int i = 0; i < len; ++i)
+        for (int32_t i = 0; i < len; ++i)
         {
             const std::byte byte = read();
             if (byte == static_cast<std::byte>(-1))
