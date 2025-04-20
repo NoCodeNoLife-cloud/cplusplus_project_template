@@ -2,13 +2,10 @@
 #include <boost/algorithm/string.hpp>
 #include <string>
 
-namespace framework::io::reader
-{
-
-class Scanner
-{
+namespace framework::io::reader {
+  class Scanner {
   public:
-    explicit Scanner(std::istream &input_stream);
+    explicit Scanner(std::istream& input_stream);
 
     [[nodiscard]] auto nextInt() const -> int32_t;
 
@@ -16,12 +13,11 @@ class Scanner
 
     [[nodiscard]] auto nextLine() const -> std::string;
 
-    auto getNextToken(std::string &token) const -> bool;
+    auto getNextToken(std::string& token) const -> bool;
 
     [[nodiscard]] auto nextTokens(char delimiter = ' ') const -> std::vector<std::string>;
 
   private:
-    std::istream &input_;
-};
-
+    std::istream& input_;
+  };
 } // namespace framework::io::reader

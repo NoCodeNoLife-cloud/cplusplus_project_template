@@ -1,10 +1,7 @@
 #pragma once
 
-namespace framework::graphics::models
-{
-
-enum class ColorCode
-{
+namespace framework::graphics::models {
+  enum class ColorCode {
     Red = 0,
     Black = 1,
     Green = 2,
@@ -13,6 +10,5 @@ enum class ColorCode
     Yellow = 5,
     Cyan = 6,
     Magenta = 7,
-};
-
+  };
 } // namespace framework::graphics::models

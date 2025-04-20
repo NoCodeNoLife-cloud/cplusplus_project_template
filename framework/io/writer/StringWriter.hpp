@@ -5,21 +5,18 @@
 #include "../interface/IAppendable.hpp"
 #include "AbstractWriter.hpp"
 
-namespace framework::io::writer
-{
-
-class StringWriter final : public AbstractWriter, public iface::IAppendable<StringWriter>
-{
+namespace framework::io::writer {
+  class StringWriter final : public AbstractWriter, public iface::IAppendable<StringWriter> {
   public:
     explicit StringWriter(size_t initialSize);
 
     ~StringWriter() override;
 
-    auto append(char c) -> StringWriter & override;
+    auto append(char c) -> StringWriter& override;
 
-    auto append(const std::string &csq) -> StringWriter & override;
+    auto append(const std::string& csq) -> StringWriter& override;
 
-    auto append(const std::string &csq, size_t start, size_t end) -> StringWriter & override;
+    auto append(const std::string& csq, size_t start, size_t end) -> StringWriter& override;
 
     auto close() -> void override;
 
@@ -31,14 +28,13 @@ class StringWriter final : public AbstractWriter, public iface::IAppendable<Stri
 
     auto write(char c) -> void override;
 
-    auto write(const std::string &str) -> void override;
+    auto write(const std::string& str) -> void override;
 
-    auto write(const std::string &str, size_t off, size_t len) -> void override;
+    auto write(const std::string& str, size_t off, size_t len) -> void override;
 
-    auto write(const std::vector<char> &cBuf, size_t off, size_t len) -> void override;
+    auto write(const std::vector<char>& cBuf, size_t off, size_t len) -> void override;
 
   private:
     std::ostringstream buffer_;
-};
-
+  };
 } // namespace framework::io::writer

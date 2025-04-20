@@ -4,11 +4,8 @@
 
 #include "AbstractReader.hpp"
 
-namespace framework::io::reader
-{
-
-class StringReader final : public AbstractReader
-{
+namespace framework::io::reader {
+  class StringReader final : public AbstractReader {
   public:
     explicit StringReader(std::string s);
 
@@ -22,7 +19,7 @@ class StringReader final : public AbstractReader
 
     auto read() -> int32_t override;
 
-    auto read(std::vector<char> &cBuf, size_t off, size_t len) -> size_t override;
+    auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
 
     [[nodiscard]] auto ready() const -> bool override;
 
@@ -35,6 +32,5 @@ class StringReader final : public AbstractReader
     size_t position_;
     size_t mark_position_;
     bool mark_set_;
-};
-
+  };
 } // namespace framework::io::reader

@@ -1,28 +1,21 @@
 #include "Console.hpp"
 
-namespace framework::io
-{
-
-auto Console::flush() -> void
-{
+namespace framework::io {
+  auto Console::flush() -> void {
     std::cout.flush();
-}
+  }
 
-auto Console::readLine() -> std::string
-{
+  auto Console::readLine() -> std::string {
     std::string input;
     std::getline(std::cin, input);
     return input;
-}
+  }
 
-auto Console::writer() -> std::ostream &
-{
+  auto Console::writer() -> std::ostream& {
     return std::cout;
-}
+  }
 
-auto Console::reader() -> std::istream &
-{
+  auto Console::reader() -> std::istream& {
     return std::cin;
-}
-
+  }
 } // namespace framework::io

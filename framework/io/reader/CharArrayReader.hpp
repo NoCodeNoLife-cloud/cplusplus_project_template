@@ -1,21 +1,18 @@
 #pragma once
 #include "AbstractReader.hpp"
 
-namespace framework::io::reader
-{
-
-class CharArrayReader final : public AbstractReader
-{
+namespace framework::io::reader {
+  class CharArrayReader final : public AbstractReader {
   public:
-    explicit CharArrayReader(const std::vector<char> &buffer);
+    explicit CharArrayReader(const std::vector<char>& buffer);
 
-    CharArrayReader(const std::vector<char> &buffer, size_t offset, size_t length);
+    CharArrayReader(const std::vector<char>& buffer, size_t offset, size_t length);
 
     ~CharArrayReader() override;
 
     auto read() -> int32_t override;
 
-    auto read(std::vector<char> &b, size_t off, size_t len) -> size_t override;
+    auto read(std::vector<char>& b, size_t off, size_t len) -> size_t override;
 
     auto skip(size_t n) -> size_t override;
 
@@ -34,6 +31,5 @@ class CharArrayReader final : public AbstractReader
     size_t pos_{0};
     size_t marked_pos_{0};
     size_t count_{0};
-};
-
+  };
 } // namespace framework::io::reader

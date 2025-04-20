@@ -1,11 +1,8 @@
 #pragma once
 #include "../log/GLogConfiguration.hpp"
 
-namespace framework::time
-{
-
-class FunctionProfiler
-{
+namespace framework::time {
+  class FunctionProfiler {
   public:
     explicit FunctionProfiler(std::string function_name, bool autoStart = false);
 
@@ -18,6 +15,5 @@ class FunctionProfiler
     std::chrono::time_point<std::chrono::steady_clock> start_;
     std::chrono::time_point<std::chrono::steady_clock> end_;
     std::string function_name_;
-};
-
+  };
 } // namespace framework::time

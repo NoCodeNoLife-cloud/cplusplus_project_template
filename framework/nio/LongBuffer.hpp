@@ -3,11 +3,8 @@
 
 #include "interface/IBuffer.hpp"
 
-namespace framework::nio
-{
-
-class LongBuffer final : public interface::IBuffer
-{
+namespace framework::nio {
+  class LongBuffer final : public interface::IBuffer {
   public:
     explicit LongBuffer(std::size_t capacity);
 
@@ -17,6 +14,5 @@ class LongBuffer final : public interface::IBuffer
 
   private:
     std::vector<int64_t> buffer_{};
-};
-
+  };
 } // namespace framework::nio

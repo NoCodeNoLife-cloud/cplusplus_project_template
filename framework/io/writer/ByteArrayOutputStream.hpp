@@ -1,11 +1,8 @@
 #pragma once
 #include "AbstractOutputStream.hpp"
 
-namespace framework::io::writer
-{
-
-class ByteArrayOutputStream final : public AbstractOutputStream
-{
+namespace framework::io::writer {
+  class ByteArrayOutputStream final : public AbstractOutputStream {
   public:
     ByteArrayOutputStream();
 
@@ -13,9 +10,9 @@ class ByteArrayOutputStream final : public AbstractOutputStream
 
     auto write(std::byte b) -> void override;
 
-    auto write(const std::vector<std::byte> &buffer, size_t offset, size_t len) -> void override;
+    auto write(const std::vector<std::byte>& buffer, size_t offset, size_t len) -> void override;
 
-    auto writeTo(AbstractOutputStream &out) const -> void;
+    auto writeTo(AbstractOutputStream& out) const -> void;
 
     auto reset() -> void;
 
@@ -32,6 +29,5 @@ class ByteArrayOutputStream final : public AbstractOutputStream
   protected:
     std::vector<std::byte> buf_;
     size_t count_{0};
-};
-
+  };
 } // namespace framework::io::writer

@@ -1,11 +1,8 @@
 #pragma once
 #include <random>
 
-namespace framework::gen
-{
-
-class RandomGenerator
-{
+namespace framework::gen {
+  class RandomGenerator {
   public:
     RandomGenerator();
 
@@ -13,7 +10,7 @@ class RandomGenerator
 
     auto nextBoolean() -> bool;
 
-    auto nextBytes(std::vector<unsigned char> &bytes) -> void;
+    auto nextBytes(std::vector<unsigned char>& bytes) -> void;
 
     auto nextDouble() -> double;
 
@@ -35,6 +32,5 @@ class RandomGenerator
     std::normal_distribution<> normal_dist_;
 
     int32_t next_(int32_t bits);
-};
-
+  };
 } // namespace framework::gen

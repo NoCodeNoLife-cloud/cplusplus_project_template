@@ -1,11 +1,8 @@
 #pragma once
 #include "AbstractOutputStream.hpp"
 
-namespace framework::io::writer
-{
-
-class FilterOutputStream : public AbstractOutputStream
-{
+namespace framework::io::writer {
+  class FilterOutputStream : public AbstractOutputStream {
   public:
     explicit FilterOutputStream(std::shared_ptr<AbstractOutputStream> outputStream);
 
@@ -13,9 +10,9 @@ class FilterOutputStream : public AbstractOutputStream
 
     auto write(std::byte b) -> void override;
 
-    auto write(const std::vector<std::byte> &buffer) -> void override;
+    auto write(const std::vector<std::byte>& buffer) -> void override;
 
-    auto write(const std::vector<std::byte> &buffer, size_t offset, size_t len) -> void override;
+    auto write(const std::vector<std::byte>& buffer, size_t offset, size_t len) -> void override;
 
     auto flush() -> void override;
 
@@ -23,6 +20,5 @@ class FilterOutputStream : public AbstractOutputStream
 
   protected:
     std::shared_ptr<AbstractOutputStream> output_stream_;
-};
-
+  };
 } // namespace framework::io::writer

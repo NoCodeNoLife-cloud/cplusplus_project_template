@@ -4,11 +4,8 @@
 #include "AbstractOutputStream.hpp"
 #include "FilterOutputStream.hpp"
 
-namespace framework::io::writer
-{
-
-class BufferedOutputStream final : public FilterOutputStream
-{
+namespace framework::io::writer {
+  class BufferedOutputStream final : public FilterOutputStream {
   public:
     explicit BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out);
 
@@ -18,7 +15,7 @@ class BufferedOutputStream final : public FilterOutputStream
 
     auto write(std::byte b) -> void override;
 
-    auto write(const std::vector<std::byte> &data, size_t offset, size_t len) -> void override;
+    auto write(const std::vector<std::byte>& data, size_t offset, size_t len) -> void override;
 
     auto flush() -> void override;
 
@@ -31,6 +28,5 @@ class BufferedOutputStream final : public FilterOutputStream
     size_t buffer_position_;
 
     auto flushBuffer() -> void;
-};
-
+  };
 } // namespace framework::io::writer

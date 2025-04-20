@@ -6,11 +6,8 @@
 
 #include "entity/interface/IComparable.hpp"
 
-namespace framework::entity::util
-{
-
-class UuidGenerator final : public iface::IComparable<UuidGenerator>
-{
+namespace framework::entity::util {
+  class UuidGenerator final : public iface::IComparable<UuidGenerator> {
   public:
     UuidGenerator();
 
@@ -20,7 +17,7 @@ class UuidGenerator final : public iface::IComparable<UuidGenerator>
 
     static auto randomUUID() -> UuidGenerator;
 
-    static auto fromString(const std::string &name) -> UuidGenerator;
+    static auto fromString(const std::string& name) -> UuidGenerator;
 
     [[nodiscard]] auto getMostSignificantBits() const -> uint64_t;
 
@@ -28,19 +25,18 @@ class UuidGenerator final : public iface::IComparable<UuidGenerator>
 
     [[nodiscard]] auto toString() const -> std::string;
 
-    [[nodiscard]] auto equals(const UuidGenerator &other) const -> bool override;
+    [[nodiscard]] auto equals(const UuidGenerator& other) const -> bool override;
 
-    [[nodiscard]] auto compareTo(const UuidGenerator &other) const -> int32_t override;
+    [[nodiscard]] auto compareTo(const UuidGenerator& other) const -> int32_t override;
 
     [[nodiscard]] auto hashCode() const -> int32_t;
 
-    static auto nameUUIDFromBytes(const std::vector<unsigned char> &name) -> UuidGenerator;
+    static auto nameUUIDFromBytes(const std::vector<unsigned char>& name) -> UuidGenerator;
 
   private:
     uint64_t most_significant_bits_{};
     uint64_t least_significant_bits_{};
 
     static auto generateRandom64Bits() -> uint64_t;
-};
-
+  };
 } // namespace framework::entity::util

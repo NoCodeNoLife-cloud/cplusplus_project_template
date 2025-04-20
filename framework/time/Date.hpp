@@ -2,11 +2,8 @@
 #include <chrono>
 #include <string>
 
-namespace framework::io
-{
-
-class Date
-{
+namespace framework::io {
+  class Date {
   public:
     Date();
 
@@ -20,11 +17,11 @@ class Date
 
     [[nodiscard]] auto clone() const -> Date;
 
-    [[nodiscard]] auto equals(const Date &other) const -> bool;
+    [[nodiscard]] auto equals(const Date& other) const -> bool;
 
-    [[nodiscard]] auto after(const Date &other) const -> bool;
+    [[nodiscard]] auto after(const Date& other) const -> bool;
 
-    [[nodiscard]] auto before(const Date &other) const -> bool;
+    [[nodiscard]] auto before(const Date& other) const -> bool;
 
     [[nodiscard]] auto getTime() const -> int64_t;
 
@@ -42,6 +39,5 @@ class Date
     std::chrono::system_clock::time_point time_point_;
 
     [[nodiscard]] auto toTm() const -> std::tm;
-};
-
+  };
 } // namespace framework::io

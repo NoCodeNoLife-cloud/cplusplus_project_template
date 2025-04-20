@@ -4,19 +4,16 @@
 #include "../interface/ICloseable.hpp"
 #include "../interface/IReadable.hpp"
 
-namespace framework::io::reader
-{
-
-class AbstractReader abstract : public iface::ICloseable, public iface::IReadable
-{
+namespace framework::io::reader {
+  class AbstractReader abstract : public iface::ICloseable, public iface::IReadable {
   public:
     ~AbstractReader() override;
 
     auto read() -> int32_t override;
 
-    virtual auto read(std::vector<char> &cBuf, size_t off, size_t len) -> size_t = 0;
+    virtual auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t = 0;
 
-    virtual auto read(std::vector<char> &cBuf) -> size_t;
+    virtual auto read(std::vector<char>& cBuf) -> size_t;
 
     [[nodiscard]] virtual auto markSupported() const -> bool;
 
@@ -27,6 +24,5 @@ class AbstractReader abstract : public iface::ICloseable, public iface::IReadabl
     [[nodiscard]] virtual auto ready() const -> bool;
 
     virtual auto skip(size_t n) -> size_t;
-};
-
+  };
 } // namespace framework::io::reader

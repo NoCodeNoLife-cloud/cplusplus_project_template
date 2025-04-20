@@ -1,10 +1,7 @@
 #pragma once
 
-namespace framework::interface
-{
-
-class IBuffer abstract
-{
+namespace framework::interface {
+  class IBuffer abstract {
   public:
     virtual ~IBuffer();
 
@@ -32,6 +29,5 @@ class IBuffer abstract
     size_t position_{0};
     size_t limit_{0};
     size_t capacity_{0};
-};
-
+  };
 } // namespace framework::interface

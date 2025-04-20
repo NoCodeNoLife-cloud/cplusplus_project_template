@@ -2,10 +2,8 @@
 #include "interface/IAop.hpp"
 #include "time/FunctionProfiler.hpp"
 
-namespace framework::aop
-{
-class LauncherAspect final : public iface::IAop<LauncherAspect>
-{
+namespace framework::aop {
+  class LauncherAspect final : public iface::IAop<LauncherAspect> {
   public:
     explicit LauncherAspect();
 
@@ -14,5 +12,5 @@ class LauncherAspect final : public iface::IAop<LauncherAspect>
 
     auto onEntry() -> void override;
     auto onExit() -> void override;
-};
+  };
 } // namespace framework::aop

@@ -3,11 +3,8 @@
 
 #include "AbstractWriter.hpp"
 
-namespace framework::io::writer
-{
-
-class AbstractFilterWriter abstract : public AbstractWriter
-{
+namespace framework::io::writer {
+  class AbstractFilterWriter abstract : public AbstractWriter {
   public:
     explicit AbstractFilterWriter(std::unique_ptr<AbstractWriter> outputWriter);
 
@@ -15,13 +12,13 @@ class AbstractFilterWriter abstract : public AbstractWriter
 
     auto write(char c) -> void override;
 
-    auto write(const std::vector<char> &cBuf, size_t off, size_t len) -> void override;
+    auto write(const std::vector<char>& cBuf, size_t off, size_t len) -> void override;
 
-    auto write(const std::vector<char> &cBuf) -> void override;
+    auto write(const std::vector<char>& cBuf) -> void override;
 
-    auto write(const std::string &str, size_t off, size_t len) -> void override;
+    auto write(const std::string& str, size_t off, size_t len) -> void override;
 
-    auto write(const std::string &str) -> void override;
+    auto write(const std::string& str) -> void override;
 
     auto flush() -> void override;
 
@@ -29,6 +26,5 @@ class AbstractFilterWriter abstract : public AbstractWriter
 
   protected:
     std::unique_ptr<AbstractWriter> output_writer_;
-};
-
+  };
 } // namespace framework::io::writer

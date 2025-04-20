@@ -4,11 +4,8 @@
 
 #include "AbstractReader.hpp"
 
-namespace framework::io::reader
-{
-
-class AbstractFilterReader final : public AbstractReader
-{
+namespace framework::io::reader {
+  class AbstractFilterReader final : public AbstractReader {
   public:
     explicit AbstractFilterReader(std::unique_ptr<AbstractReader> inputReader);
 
@@ -16,7 +13,7 @@ class AbstractFilterReader final : public AbstractReader
 
     auto read() -> int32_t override;
 
-    auto read(std::vector<char> &cBuf, size_t off, size_t len) -> size_t override;
+    auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
 
     auto skip(size_t n) -> size_t override;
 
@@ -32,6 +29,5 @@ class AbstractFilterReader final : public AbstractReader
 
   protected:
     std::unique_ptr<AbstractReader> reader_;
-};
-
+  };
 } // namespace framework::io::reader

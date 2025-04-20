@@ -3,11 +3,8 @@
 
 #include "interface/IBuffer.hpp"
 
-namespace framework::nio
-{
-
-class IntBuffer final : public interface::IBuffer
-{
+namespace framework::nio {
+  class IntBuffer final : public interface::IBuffer {
   public:
     explicit IntBuffer(size_t capacity);
 
@@ -21,6 +18,5 @@ class IntBuffer final : public interface::IBuffer
 
   private:
     std::vector<int32_t> buffer_{};
-};
-
+  };
 } // namespace framework::nio

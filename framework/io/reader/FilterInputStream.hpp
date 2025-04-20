@@ -3,11 +3,8 @@
 
 #include "AbstractInputStream.hpp"
 
-namespace framework::io::reader
-{
-
-class FilterInputStream : public AbstractInputStream
-{
+namespace framework::io::reader {
+  class FilterInputStream : public AbstractInputStream {
   public:
     explicit FilterInputStream(std::unique_ptr<AbstractInputStream> inputStream);
 
@@ -21,9 +18,9 @@ class FilterInputStream : public AbstractInputStream
 
     auto read() -> std::byte override;
 
-    size_t read(std::vector<std::byte> &buffer) override;
+    size_t read(std::vector<std::byte>& buffer) override;
 
-    size_t read(std::vector<std::byte> &buffer, size_t offset, size_t len) override;
+    size_t read(std::vector<std::byte>& buffer, size_t offset, size_t len) override;
 
     void reset() override;
 
@@ -33,6 +30,5 @@ class FilterInputStream : public AbstractInputStream
 
   protected:
     std::unique_ptr<AbstractInputStream> input_stream_;
-};
-
+  };
 } // namespace framework::io::reader

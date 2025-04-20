@@ -5,25 +5,22 @@
 
 #include "AbstractInputStream.hpp"
 
-namespace framework::io::reader
-{
-
-class FileInputStream final : public AbstractInputStream
-{
+namespace framework::io::reader {
+  class FileInputStream final : public AbstractInputStream {
   public:
-    explicit FileInputStream(const std::string &name);
+    explicit FileInputStream(const std::string& name);
 
-    explicit FileInputStream(const char *name);
+    explicit FileInputStream(const char* name);
 
-    explicit FileInputStream(const std::filesystem::path &file);
+    explicit FileInputStream(const std::filesystem::path& file);
 
     ~FileInputStream() override;
 
     auto read() -> std::byte override;
 
-    auto read(std::vector<std::byte> &buffer) -> size_t override;
+    auto read(std::vector<std::byte>& buffer) -> size_t override;
 
-    auto read(std::vector<std::byte> &buffer, size_t offset, size_t len) -> size_t override;
+    auto read(std::vector<std::byte>& buffer, size_t offset, size_t len) -> size_t override;
 
     auto skip(size_t n) -> size_t override;
 
@@ -36,6 +33,5 @@ class FileInputStream final : public AbstractInputStream
   private:
     std::ifstream file_stream_;
     std::string file_name_{};
-};
-
+  };
 } // namespace framework::io::reader

@@ -3,11 +3,8 @@
 
 #include "AbstractReader.hpp"
 
-namespace framework::io::reader
-{
-
-class BufferedReader final : public AbstractReader
-{
+namespace framework::io::reader {
+  class BufferedReader final : public AbstractReader {
   public:
     explicit BufferedReader(std::unique_ptr<AbstractReader> reader, int32_t size = DEFAULT_BUFFER_SIZE);
 
@@ -23,7 +20,7 @@ class BufferedReader final : public AbstractReader
 
     auto read() -> int32_t override;
 
-    auto read(std::vector<char> &cBuf, size_t off, size_t len) -> size_t override;
+    auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
 
     auto readLine() -> std::string;
 
@@ -41,6 +38,5 @@ class BufferedReader final : public AbstractReader
     size_t mark_limit_{0};
 
     bool fillBuffer();
-};
-
+  };
 } // namespace framework::io::reader

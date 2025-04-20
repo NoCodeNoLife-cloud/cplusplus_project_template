@@ -3,11 +3,8 @@
 
 #include "interface/IBuffer.hpp"
 
-namespace framework::nio
-{
-
-class FloatBuffer final : public interface::IBuffer
-{
+namespace framework::nio {
+  class FloatBuffer final : public interface::IBuffer {
   public:
     explicit FloatBuffer(size_t capacity);
 
@@ -15,7 +12,7 @@ class FloatBuffer final : public interface::IBuffer
 
     auto put(float value) -> void;
 
-    auto put(const std::vector<float> &values) -> void;
+    auto put(const std::vector<float>& values) -> void;
 
     auto get() -> float;
 
@@ -23,6 +20,5 @@ class FloatBuffer final : public interface::IBuffer
 
   private:
     std::vector<float> buffer_{};
-};
-
+  };
 } // namespace framework::nio

@@ -1,11 +1,8 @@
 #pragma once
 #include <format>
 
-namespace framework::math
-{
-
-class MathUtil abstract
-{
+namespace framework::math {
+  class MathUtil abstract {
   public:
     static auto abs(double a) -> double;
 
@@ -75,19 +72,20 @@ class MathUtil abstract
 
     static auto copySign(double magnitude, double sign) -> double;
 
-    template <typename T> static auto max(T a, T b) -> T;
+    template <typename T>
+    static auto max(T a, T b) -> T;
 
-    template <typename T> static auto min(T a, T b) -> T;
-};
+    template <typename T>
+    static auto min(T a, T b) -> T;
+  };
 
-template <typename T> auto MathUtil::max(T a, T b) -> T
-{
+  template <typename T>
+  auto MathUtil::max(T a, T b) -> T {
     return a > b ? a : b;
-}
+  }
 
-template <typename T> auto MathUtil::min(T a, T b) -> T
-{
+  template <typename T>
+  auto MathUtil::min(T a, T b) -> T {
     return a < b ? a : b;
-}
-
+  }
 } // namespace framework::math

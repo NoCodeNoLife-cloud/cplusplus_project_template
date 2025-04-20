@@ -4,11 +4,8 @@
 
 #include "interface/IBuffer.hpp"
 
-namespace framework::nio
-{
-
-class CharBuffer final : public interface::IBuffer
-{
+namespace framework::nio {
+  class CharBuffer final : public interface::IBuffer {
   public:
     explicit CharBuffer(size_t cap);
 
@@ -16,7 +13,7 @@ class CharBuffer final : public interface::IBuffer
 
     auto put(char c) -> void;
 
-    auto put(const std::u16string &src) -> void;
+    auto put(const std::u16string& src) -> void;
 
     auto get() -> char16_t;
 
@@ -24,6 +21,5 @@ class CharBuffer final : public interface::IBuffer
 
   private:
     std::string buffer_{};
-};
-
+  };
 } // namespace framework::nio

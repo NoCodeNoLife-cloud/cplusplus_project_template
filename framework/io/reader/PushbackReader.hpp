@@ -1,11 +1,8 @@
 #pragma once
 #include "FilterReader.hpp"
 
-namespace framework::io::reader
-{
-
-class PushbackReader final : public FilterReader
-{
+namespace framework::io::reader {
+  class PushbackReader final : public FilterReader {
   public:
     explicit PushbackReader(std::shared_ptr<AbstractReader> reader);
 
@@ -19,7 +16,7 @@ class PushbackReader final : public FilterReader
 
     auto read() -> int32_t override;
 
-    auto read(std::vector<char> &cBuf, size_t off, size_t len) -> size_t override;
+    auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
 
     [[nodiscard]] auto ready() const -> bool override;
 
@@ -27,9 +24,9 @@ class PushbackReader final : public FilterReader
 
     auto skip(size_t n) -> size_t override;
 
-    auto unread(const std::vector<char> &cBuf) -> void;
+    auto unread(const std::vector<char>& cBuf) -> void;
 
-    auto unread(const std::vector<char> &cBuf, size_t off, size_t len) -> void;
+    auto unread(const std::vector<char>& cBuf, size_t off, size_t len) -> void;
 
     auto unread(int32_t c) -> void;
 
@@ -37,6 +34,5 @@ class PushbackReader final : public FilterReader
     static constexpr size_t DEFAULT_BUFFER_SIZE = 1024;
     std::vector<char> buffer_;
     size_t buffer_pos_{DEFAULT_BUFFER_SIZE};
-};
-
+  };
 } // namespace framework::io::reader

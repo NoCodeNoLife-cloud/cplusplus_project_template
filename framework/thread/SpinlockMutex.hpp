@@ -1,11 +1,8 @@
 #pragma once
 #include <atomic>
 
-namespace framework::thread
-{
-
-class SpinlockMutex
-{
+namespace framework::thread {
+  class SpinlockMutex {
   public:
     SpinlockMutex();
 
@@ -15,6 +12,5 @@ class SpinlockMutex
 
   private:
     std::atomic_flag flag_;
-};
-
+  };
 } // namespace framework::thread

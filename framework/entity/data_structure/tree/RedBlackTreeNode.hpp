@@ -3,17 +3,15 @@
 
 #include "graphics/models/ColorCode.hpp"
 
-namespace framework::entity::data_structure::tree
-{
-
-template <typename T> class RedBlackTreeNode
-{
+namespace framework::entity::data_structure::tree {
+  template <typename T>
+  class RedBlackTreeNode {
   public:
-    explicit RedBlackTreeNode(const T &value);
+    explicit RedBlackTreeNode(const T& value);
 
     auto getData() const -> T;
 
-    auto setData(const T &value) -> void;
+    auto setData(const T& value) -> void;
 
     auto getLeft() const -> std::shared_ptr<RedBlackTreeNode>;
 
@@ -37,60 +35,58 @@ template <typename T> class RedBlackTreeNode
     std::shared_ptr<RedBlackTreeNode> right;
     std::shared_ptr<RedBlackTreeNode> parent;
     graphics::models::ColorCode color;
-};
+  };
 
-template <typename T> RedBlackTreeNode<T>::RedBlackTreeNode(const T &value) : data(value), color(graphics::models::ColorCode::Red)
-{
-}
+  template <typename T>
+  RedBlackTreeNode<T>::RedBlackTreeNode(const T& value) : data(value), color(graphics::models::ColorCode::Red) {}
 
-template <typename T> auto RedBlackTreeNode<T>::getData() const -> T
-{
+  template <typename T>
+  auto RedBlackTreeNode<T>::getData() const -> T {
     return data;
-}
+  }
 
-template <typename T> auto RedBlackTreeNode<T>::setData(const T &value) -> void
-{
+  template <typename T>
+  auto RedBlackTreeNode<T>::setData(const T& value) -> void {
     data = value;
-}
+  }
 
-template <typename T> auto RedBlackTreeNode<T>::getLeft() const -> std::shared_ptr<RedBlackTreeNode>
-{
+  template <typename T>
+  auto RedBlackTreeNode<T>::getLeft() const -> std::shared_ptr<RedBlackTreeNode> {
     return left;
-}
+  }
 
-template <typename T> auto RedBlackTreeNode<T>::setLeft(std::shared_ptr<RedBlackTreeNode<T>> node) -> void
-{
+  template <typename T>
+  auto RedBlackTreeNode<T>::setLeft(std::shared_ptr<RedBlackTreeNode<T>> node) -> void {
     left = node;
-}
+  }
 
-template <typename T> auto RedBlackTreeNode<T>::getRight() const -> std::shared_ptr<RedBlackTreeNode>
-{
+  template <typename T>
+  auto RedBlackTreeNode<T>::getRight() const -> std::shared_ptr<RedBlackTreeNode> {
     return right;
-}
+  }
 
-template <typename T> auto RedBlackTreeNode<T>::setRight(std::shared_ptr<RedBlackTreeNode<T>> node) -> void
-{
+  template <typename T>
+  auto RedBlackTreeNode<T>::setRight(std::shared_ptr<RedBlackTreeNode<T>> node) -> void {
     right = node;
-}
+  }
 
-template <typename T> auto RedBlackTreeNode<T>::getParent() const -> std::shared_ptr<RedBlackTreeNode>
-{
+  template <typename T>
+  auto RedBlackTreeNode<T>::getParent() const -> std::shared_ptr<RedBlackTreeNode> {
     return parent;
-}
+  }
 
-template <typename T> auto RedBlackTreeNode<T>::setParent(std::shared_ptr<RedBlackTreeNode<T>> node) -> void
-{
+  template <typename T>
+  auto RedBlackTreeNode<T>::setParent(std::shared_ptr<RedBlackTreeNode<T>> node) -> void {
     parent = node;
-}
+  }
 
-template <typename T> auto RedBlackTreeNode<T>::getColor() const -> graphics::models::ColorCode
-{
+  template <typename T>
+  auto RedBlackTreeNode<T>::getColor() const -> graphics::models::ColorCode {
     return color;
-}
+  }
 
-template <typename T> auto RedBlackTreeNode<T>::setColor(graphics::models::ColorCode c) -> void
-{
+  template <typename T>
+  auto RedBlackTreeNode<T>::setColor(graphics::models::ColorCode c) -> void {
     color = c;
-}
-
+  }
 } // namespace framework::entity::data_structure::tree

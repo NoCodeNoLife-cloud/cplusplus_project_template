@@ -8,17 +8,15 @@
 #include <thread>
 #include <vector>
 
-namespace framework::thread
-{
-
-class ThreadPool
-{
+namespace framework::thread {
+  class ThreadPool {
   public:
     ThreadPool(size_t core_threads, size_t max_threads, size_t queue_size, std::chrono::milliseconds idle_time);
 
     ~ThreadPool();
 
-    template <class F, class... Args> auto Submit(F &&f, Args &&...args) -> std::future<std::invoke_result_t<F, Args...>>;
+    template <class F, class... Args>
+    auto Submit(F&& f, Args&&... args) -> std::future<std::invoke_result_t<F, Args...>>;
 
     auto Shutdown() -> void;
 
@@ -39,6 +37,5 @@ class ThreadPool
     auto Worker() -> void;
 
     auto AddWorker() -> bool;
-};
-
+  };
 } // namespace framework::thread

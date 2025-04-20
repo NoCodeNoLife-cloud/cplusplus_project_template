@@ -4,11 +4,8 @@
 
 #include "FilterInputStream.hpp"
 
-namespace framework::io::reader
-{
-
-class BufferedInputStream final : public FilterInputStream
-{
+namespace framework::io::reader {
+  class BufferedInputStream final : public FilterInputStream {
   public:
     explicit BufferedInputStream(std::unique_ptr<AbstractInputStream> in);
 
@@ -24,7 +21,7 @@ class BufferedInputStream final : public FilterInputStream
 
     auto read() -> std::byte override;
 
-    auto read(std::vector<std::byte> &buffer, size_t offset, size_t len) -> size_t override;
+    auto read(std::vector<std::byte>& buffer, size_t offset, size_t len) -> size_t override;
 
     auto reset() -> void override;
 
@@ -39,6 +36,5 @@ class BufferedInputStream final : public FilterInputStream
     size_t pos_{0};
 
     auto fillBuffer() -> void;
-};
-
+  };
 } // namespace framework::io::reader

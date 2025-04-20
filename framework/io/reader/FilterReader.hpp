@@ -3,11 +3,8 @@
 
 #include "AbstractReader.hpp"
 
-namespace framework::io::reader
-{
-
-class FilterReader : public AbstractReader
-{
+namespace framework::io::reader {
+  class FilterReader : public AbstractReader {
   public:
     explicit FilterReader(std::shared_ptr<AbstractReader> reader);
 
@@ -21,9 +18,9 @@ class FilterReader : public AbstractReader
 
     auto read() -> int32_t override;
 
-    auto read(std::vector<char> &cBuf, size_t off, size_t len) -> size_t override;
+    auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
 
-    auto read(std::vector<char> &cBuf) -> size_t override;
+    auto read(std::vector<char>& cBuf) -> size_t override;
 
     [[nodiscard]] auto ready() const -> bool override;
 
@@ -33,6 +30,5 @@ class FilterReader : public AbstractReader
 
   protected:
     std::shared_ptr<AbstractReader> in;
-};
-
+  };
 } // namespace framework::io::reader

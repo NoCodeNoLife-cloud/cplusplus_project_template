@@ -4,30 +4,26 @@
 #include <ctime>
 #include <string>
 
-namespace framework::util::time
-{
-
-class SimpleDateFormatter
-{
+namespace framework::util::time {
+  class SimpleDateFormatter {
   public:
-    explicit SimpleDateFormatter(const std::string &pattern);
+    explicit SimpleDateFormatter(const std::string& pattern);
 
-    auto applyPattern(const std::string &newPattern) -> void;
+    auto applyPattern(const std::string& newPattern) -> void;
 
     [[nodiscard]] auto toPattern() const -> std::string;
 
-    [[nodiscard]] auto format(const std::tm &date) const -> std::string;
+    [[nodiscard]] auto format(const std::tm& date) const -> std::string;
 
-    [[nodiscard]] auto parse(const std::string &dateStr) const -> std::tm;
+    [[nodiscard]] auto parse(const std::string& dateStr) const -> std::tm;
 
-    [[nodiscard]] auto equals(const SimpleDateFormatter &other) const -> bool;
+    [[nodiscard]] auto equals(const SimpleDateFormatter& other) const -> bool;
 
     [[nodiscard]] auto hashCode() const -> size_t;
 
   private:
     std::string pattern;
 
-    static auto validatePattern(const std::string &pat) -> void;
-};
-
+    static auto validatePattern(const std::string& pat) -> void;
+  };
 } // namespace framework::util::time

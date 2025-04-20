@@ -11,23 +11,20 @@
 
 #include "entity/interface/IComparable.hpp"
 
-namespace framework::io
-{
-
-class File final : public iface::IComparable<File>
-{
+namespace framework::io {
+  class File final : public iface::IComparable<File> {
   public:
-    explicit File(const std::string &path);
+    explicit File(const std::string& path);
 
     explicit File(std::filesystem::path path);
 
-    explicit File(const char *path);
+    explicit File(const char* path);
 
     ~File() override;
 
-    [[nodiscard]] auto compareTo(const File &other) const -> int32_t override;
+    [[nodiscard]] auto compareTo(const File& other) const -> int32_t override;
 
-    [[nodiscard]] auto equals(const File &other) const -> bool override;
+    [[nodiscard]] auto equals(const File& other) const -> bool override;
 
     [[nodiscard]] auto canExecute() const -> bool;
 
@@ -37,7 +34,8 @@ class File final : public iface::IComparable<File>
 
     [[nodiscard]] auto createNewFile() const -> bool;
 
-    static auto createTempFile(const std::string &prefix, const std::string &suffix, const std::string &directory) -> File;
+    static auto createTempFile(const std::string& prefix, const std::string& suffix, const std::string& directory)
+      -> File;
 
     [[nodiscard]] auto deleteFile() const -> bool;
 
@@ -67,7 +65,7 @@ class File final : public iface::IComparable<File>
 
     [[nodiscard]] auto mkdir() const -> bool;
 
-    [[nodiscard]] auto renameTo(const File &dest) const -> bool;
+    [[nodiscard]] auto renameTo(const File& dest) const -> bool;
 
     [[nodiscard]] auto isDirectory() const -> bool;
 
@@ -85,36 +83,32 @@ class File final : public iface::IComparable<File>
 
     [[nodiscard]] auto toURI() const -> std::string;
 
-    static auto printFilesWithDepth(const std::filesystem::path &file_path) -> void;
+    static auto printFilesWithDepth(const std::filesystem::path& file_path) -> void;
 
-    static auto getFileMD5(const std::filesystem::path &filePath) -> std::string;
+    static auto getFileMD5(const std::filesystem::path& filePath) -> std::string;
 
   private:
     std::filesystem::path file_path_;
     friend std::formatter<File>;
-};
-
+  };
 } // namespace framework::io
 
-template <> struct std::formatter<framework::io::File>
-{
-    constexpr static auto parse(format_parse_context &ctx) -> format_parse_context::const_iterator
-    {
-        const auto begin = ctx.begin();
-        if (const auto end = ctx.end(); begin != end && *begin != '}')
-        {
-            throw std::format_error("invalid format");
-        }
-        return begin;
+template <>
+struct std::formatter<framework::io::File> {
+  constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {
+    const auto begin = ctx.begin();
+    if (const auto end = ctx.end(); begin != end && *begin != '}') {
+      throw std::format_error("invalid format");
     }
+    return begin;
+  }
 
-    static auto format(const framework::io::File &content, format_context &ctx) -> back_insert_iterator<_Fmt_buffer<char>>
-    {
-        return std::format_to(ctx.out(), "File{{path: {}}}", content.file_path_.string());
-    }
+  static auto format(const framework::io::File& content, format_context& ctx)
+    -> back_insert_iterator<_Fmt_buffer<char>> {
+    return std::format_to(ctx.out(), "File{{path: {}}}", content.file_path_.string());
+  }
 };
 
-inline auto operator<<(std::ostream &os, const framework::io::File &content) -> std::ostream &
-{
-    return os << std::format("{}", content);
+inline auto operator<<(std::ostream& os, const framework::io::File& content) -> std::ostream& {
+  return os << std::format("{}", content);
 }

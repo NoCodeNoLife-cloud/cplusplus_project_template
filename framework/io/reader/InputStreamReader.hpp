@@ -4,21 +4,18 @@
 
 #include "AbstractReader.hpp"
 
-namespace framework::io::reader
-{
-
-class InputStreamReader final : public AbstractReader
-{
+namespace framework::io::reader {
+  class InputStreamReader final : public AbstractReader {
   public:
     explicit InputStreamReader(std::shared_ptr<AbstractReader> input);
 
-    InputStreamReader(std::shared_ptr<AbstractReader> input, const std::string &charsetName);
+    InputStreamReader(std::shared_ptr<AbstractReader> input, const std::string& charsetName);
 
     ~InputStreamReader() override;
 
     auto read() -> int32_t override;
 
-    auto read(std::vector<char> &cBuf, size_t off, size_t len) -> size_t override;
+    auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
 
     [[nodiscard]] auto ready() const -> bool override;
 
@@ -31,6 +28,5 @@ class InputStreamReader final : public AbstractReader
   private:
     std::shared_ptr<AbstractReader> reader_;
     std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> converter_;
-};
-
+  };
 } // namespace framework::io::reader

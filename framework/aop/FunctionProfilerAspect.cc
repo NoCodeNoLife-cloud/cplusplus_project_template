@@ -2,21 +2,14 @@
 
 #include <utility>
 
-namespace framework::aop
-{
+namespace framework::aop {
+  FunctionProfilerAspect::FunctionProfilerAspect(std::string function_name) : timer_(std::move(function_name), false) {}
 
-FunctionProfilerAspect::FunctionProfilerAspect(std::string function_name) : timer_(std::move(function_name), false)
-{
-}
-
-void FunctionProfilerAspect::onEntry()
-{
+  void FunctionProfilerAspect::onEntry() {
     timer_.recordStart();
-}
+  }
 
-void FunctionProfilerAspect::onExit()
-{
+  void FunctionProfilerAspect::onExit() {
     timer_.recordEnd(true);
-}
-
+  }
 } // namespace framework::aop
