@@ -8,7 +8,7 @@ auto business() -> bool {
 auto main([[maybe_unused]] int32_t argc, [[maybe_unused]] char* argv[]) -> int32_t {
   try {
     framework::aop::LauncherAspect launcher;
-    auto res = launcher.exec(business);
+    launcher.exec(business);
   } catch (const std::exception& e) {
     LOG(ERROR) << "Error: " << e.what() << std::endl;
   }

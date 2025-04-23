@@ -1,7 +1,8 @@
 #include "File.hpp"
-
 #include <array>
 #include <fstream>
+#include <windows.h>
+#include <openssl/evp.h>
 
 namespace framework::io {
   File::File(const std::string& path) : file_path_(path) {}
@@ -195,7 +196,7 @@ namespace framework::io {
       throw std::runtime_error("Failed to open file: " + filePath.string());
     }
 
-    auto mdContext = std::unique_ptr<EVP_MD_CTX, decltype(&EVP_MD_CTX_free)>(EVP_MD_CTX_new(), EVP_MD_CTX_free);
+    const auto mdContext = std::unique_ptr<EVP_MD_CTX, decltype(&EVP_MD_CTX_free)>(EVP_MD_CTX_new(), EVP_MD_CTX_free);
     if (!mdContext) {
       throw std::runtime_error("Failed to create MD5 context");
     }
@@ -207,8 +208,7 @@ namespace framework::io {
     constexpr size_t bufferSize = 4096;
     char buffer[bufferSize];
     while (file.read(buffer, bufferSize)) {
-      const auto bytesRead = static_cast<size_t>(file.gcount());
-      if (EVP_DigestUpdate(mdContext.get(), buffer, bytesRead) != 1) {
+      if (const auto bytesRead = static_cast<size_t>(file.gcount()); EVP_DigestUpdate(mdContext.get(), buffer, bytesRead) != 1) {
         throw std::runtime_error("MD5 update failed");
       }
     }

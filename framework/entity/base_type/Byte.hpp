@@ -1,8 +1,8 @@
 #pragma once
-#include <entity/base_type/Object.hpp>
 #include <format>
 #include <iostream>
 #include <string>
+#include <entity/base_type/Object.hpp>
 
 #include "entity/interface/IComparable.hpp"
 

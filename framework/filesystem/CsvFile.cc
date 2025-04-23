@@ -23,7 +23,7 @@ namespace framework::io {
     return csv_doc_.GetColumnCount();
   }
 
-  auto CsvFile::insertRow(uint64_t insertIndex, const std::vector<std::string>& item) -> bool {
+  auto CsvFile::insertRow(const uint64_t insertIndex, const std::vector<std::string>& item) -> bool {
     if (!is_valid_)
       return false;
     if (insertIndex > getRowCount()) {

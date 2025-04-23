@@ -1,14 +1,9 @@
 #pragma once
-#include <openssl/evp.h>
-#include <windows.h>
-
 #include <chrono>
 #include <filesystem>
-#include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
-
 #include "entity/interface/IComparable.hpp"
 
 namespace framework::io {

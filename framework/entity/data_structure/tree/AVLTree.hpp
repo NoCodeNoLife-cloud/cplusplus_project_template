@@ -145,10 +145,8 @@ namespace framework::entity::data_structure::tree {
     if (balance < -1) {
       if (getBalance(node->right) <= 0)
         return rotateLeft(node);
-      else {
-        node->right = rotateRight(node->right);
-        return rotateLeft(node);
-      }
+      node->right = rotateRight(node->right);
+      return rotateLeft(node);
     }
     return node;
   }

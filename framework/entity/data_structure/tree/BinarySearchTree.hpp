@@ -60,10 +60,9 @@ namespace framework::entity::data_structure::tree {
       return false;
     if (value == node->data)
       return true;
-    else if (value < node->data)
+    if (value < node->data)
       return findRecursive(node->left, value);
-    else
-      return findRecursive(node->right, value);
+    return findRecursive(node->right, value);
   }
 
   template <typename T>
@@ -83,7 +82,7 @@ namespace framework::entity::data_structure::tree {
     else {
       if (!node->left)
         return node->right;
-      else if (!node->right)
+      if (!node->right)
         return node->left;
       node->data = minValueNode(node->right)->data;
       node->right = removeRecursive(node->right, node->data);

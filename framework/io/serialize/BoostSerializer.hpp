@@ -1,7 +1,7 @@
 #pragma once
+#include <sstream>
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
-#include <sstream>
 
 #include "io/interface/IBoostSerializable.hpp"
 

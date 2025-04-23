@@ -1,6 +1,6 @@
 #pragma once
-#include <boost/multiprecision/cpp_int.hpp>
 #include <string>
+#include <boost/multiprecision/cpp_int.hpp>
 
 namespace framework::entity::base_type {
   class BigInteger {

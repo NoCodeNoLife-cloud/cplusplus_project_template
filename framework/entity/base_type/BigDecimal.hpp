@@ -1,6 +1,6 @@
 #pragma once
-#include <boost/multiprecision/cpp_dec_float.hpp>
 #include <string>
+#include <boost/multiprecision/cpp_dec_float.hpp>
 
 namespace framework::entity::base_type {
   class BigDecimal {

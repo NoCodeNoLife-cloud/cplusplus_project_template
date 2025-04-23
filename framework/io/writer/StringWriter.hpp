@@ -2,8 +2,8 @@
 #include <sstream>
 #include <vector>
 
-#include "../interface/IAppendable.hpp"
 #include "AbstractWriter.hpp"
+#include "../interface/IAppendable.hpp"
 
 namespace framework::io::writer {
   class StringWriter final : public AbstractWriter, public iface::IAppendable<StringWriter> {

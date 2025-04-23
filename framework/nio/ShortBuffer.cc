@@ -1,7 +1,5 @@
 #include "ShortBuffer.hpp"
 
-#include <cstring>
-#include <iterator>
 #include <stdexcept>
 
 namespace framework::nio {

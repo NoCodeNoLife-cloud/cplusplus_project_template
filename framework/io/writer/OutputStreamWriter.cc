@@ -39,7 +39,7 @@ namespace framework::io::writer {
   }
 
   void OutputStreamWriter::write(const std::string& str) {
-    write(std::vector<char>(str.begin(), str.end()));
+    write(std::vector(str.begin(), str.end()));
   }
 
   void OutputStreamWriter::write(const std::string& str, const size_t off, const size_t len) {

@@ -1,7 +1,7 @@
 #pragma once
-#include <boost/asio.hpp>
 #include <chrono>
 #include <memory>
+#include <boost/asio.hpp>
 
 #include "interface/ITimerTask.hpp"
 

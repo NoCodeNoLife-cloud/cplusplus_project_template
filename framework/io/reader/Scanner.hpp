@@ -1,6 +1,6 @@
 #pragma once
-#include <boost/algorithm/string.hpp>
 #include <string>
+#include <boost/algorithm/string.hpp>
 
 namespace framework::io::reader {
   class Scanner {
