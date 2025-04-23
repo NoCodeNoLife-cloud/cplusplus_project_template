@@ -189,7 +189,7 @@ namespace framework::io {
     }
   }
 
-  auto getFileMD5(const std::filesystem::path& filePath) -> std::string {
+  auto File::getFileMD5(const std::filesystem::path& filePath) -> std::string {
     std::ifstream file(filePath, std::ios::binary);
     if (!file) {
       throw std::runtime_error("Failed to open file: " + filePath.string());
