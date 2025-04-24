@@ -1,5 +1,4 @@
 #pragma once
-
 namespace framework::graphics::models {
   enum class ColorCode {
     Red = 0,

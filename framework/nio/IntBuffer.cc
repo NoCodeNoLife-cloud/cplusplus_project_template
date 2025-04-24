@@ -1,5 +1,4 @@
 #include "IntBuffer.hpp"
-
 #include <stdexcept>
 
 namespace framework::nio {

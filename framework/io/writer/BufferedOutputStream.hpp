@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-
 #include "AbstractOutputStream.hpp"
 #include "FilterOutputStream.hpp"
 
@@ -8,17 +7,11 @@ namespace framework::io::writer {
   class BufferedOutputStream final : public FilterOutputStream {
   public:
     explicit BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out);
-
     BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out, size_t size);
-
     ~BufferedOutputStream() override;
-
     auto write(std::byte b) -> void override;
-
     auto write(const std::vector<std::byte>& data, size_t offset, size_t len) -> void override;
-
     auto flush() -> void override;
-
     auto close() -> void override;
 
   protected:
@@ -26,7 +19,6 @@ namespace framework::io::writer {
     size_t bufferSize_;
     std::vector<std::byte> buffer_;
     size_t buffer_position_;
-
     auto flushBuffer() -> void;
   };
 } // namespace framework::io::writer

@@ -1,5 +1,4 @@
 #include "MathUtil.hpp"
-
 #include <cmath>
 #include <limits>
 #include <numbers>

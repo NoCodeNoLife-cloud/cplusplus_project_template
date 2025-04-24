@@ -1,5 +1,4 @@
 #include "BmpImage.hpp"
-
 #include <stdexcept>
 
 namespace framework::graphics::toolkit {

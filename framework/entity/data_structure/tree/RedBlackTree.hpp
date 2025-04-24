@@ -1,6 +1,5 @@
 #pragma once
 #include <memory>
-
 #include "RedBlackTreeNode.hpp"
 
 namespace framework::entity::data_structure::tree {
@@ -8,14 +7,11 @@ namespace framework::entity::data_structure::tree {
   class RedBlackTree {
   public:
     auto insert(const T& value) -> void;
-
     std::shared_ptr<RedBlackTreeNode<T>> root;
 
   private:
     auto leftRotate(std::shared_ptr<RedBlackTreeNode<T>> node) -> void;
-
     auto rightRotate(std::shared_ptr<RedBlackTreeNode<T>> node) -> void;
-
     auto fixInsert(std::shared_ptr<RedBlackTreeNode<T>> node) -> void;
   };
 

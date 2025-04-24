@@ -1,5 +1,4 @@
 #include "LauncherAspect.hpp"
-
 #include "log/GLogConfiguration.hpp"
 #include "time/FunctionProfiler.hpp"
 

@@ -5,13 +5,10 @@ namespace framework::iface {
   class IYamlSerializable abstract {
   public:
     virtual ~IYamlSerializable() = default;
-
     [[nodiscard]] virtual auto encode() const -> YAML::Node = 0;
-
     virtual auto decode(const YAML::Node& node) -> bool = 0;
   };
 } // namespace framework::iface
-
 template <typename T>
 struct YAML::convert {
   static Node encode(const T& obj) {

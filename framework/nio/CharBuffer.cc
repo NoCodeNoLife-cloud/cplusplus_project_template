@@ -1,5 +1,4 @@
 #include "CharBuffer.hpp"
-
 #include <algorithm>
 #include <span>
 #include <stdexcept>

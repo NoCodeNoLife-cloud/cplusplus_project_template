@@ -1,6 +1,5 @@
 #pragma once
 #include <memory>
-
 #include "graphics/models/ColorCode.hpp"
 
 namespace framework::entity::data_structure::tree {
@@ -8,25 +7,15 @@ namespace framework::entity::data_structure::tree {
   class RedBlackTreeNode {
   public:
     explicit RedBlackTreeNode(const T& value);
-
     auto getData() const -> T;
-
     auto setData(const T& value) -> void;
-
     auto getLeft() const -> std::shared_ptr<RedBlackTreeNode>;
-
     auto setLeft(std::shared_ptr<RedBlackTreeNode> node) -> void;
-
     auto getRight() const -> std::shared_ptr<RedBlackTreeNode>;
-
     auto setRight(std::shared_ptr<RedBlackTreeNode> node) -> void;
-
     auto getParent() const -> std::shared_ptr<RedBlackTreeNode>;
-
     auto setParent(std::shared_ptr<RedBlackTreeNode> node) -> void;
-
     [[nodiscard]] auto getColor() const -> graphics::models::ColorCode;
-
     auto setColor(graphics::models::ColorCode c) -> void;
 
   private:

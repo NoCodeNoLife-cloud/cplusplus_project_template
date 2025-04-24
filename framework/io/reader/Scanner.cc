@@ -1,5 +1,4 @@
 #include "Scanner.hpp"
-
 #include <sstream>
 #include <boost/tokenizer.hpp>
 

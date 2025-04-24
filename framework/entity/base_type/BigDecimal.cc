@@ -1,5 +1,4 @@
 #include "BigDecimal.hpp"
-
 #include <stdexcept>
 
 namespace framework::entity::base_type {

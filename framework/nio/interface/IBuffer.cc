@@ -1,5 +1,4 @@
 #include "IBuffer.hpp"
-
 #include <stdexcept>
 
 namespace framework::interface {

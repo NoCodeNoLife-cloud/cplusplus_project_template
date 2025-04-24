@@ -16,51 +16,37 @@ namespace framework::gen {
   public:
     template <typename T>
     static auto generateVector(T minValue, T maxValue, int32_t size) -> std::vector<T>;
-
     template <typename T>
     static auto generateDeque(T minValue, T maxValue, int32_t size) -> std::deque<T>;
-
     template <typename T>
     static auto generateList(T minValue, T maxValue, int32_t size) -> std::list<T>;
-
     template <typename T>
     static auto generateForwardList(T minValue, T maxValue, int32_t size) -> std::forward_list<T>;
-
     template <typename T, size_t N>
     static auto generateArray(T minValue, T maxValue) -> std::array<T, N>;
-
     template <typename T>
     static auto generateSet(T minValue, T maxValue, int32_t size) -> std::set<T>;
-
     template <typename T>
     static auto generateUnorderedSet(T minValue, T maxValue, int32_t size) -> std::unordered_set<T>;
-
     template <typename T>
     static auto generateMultiSet(T minValue, T maxValue, int32_t size) -> std::multiset<T>;
-
     template <typename T>
     static auto generateUnorderedMultiSet(T minValue, T maxValue, int32_t size) -> std::unordered_multiset<T>;
-
     template <typename T, typename U>
     static auto generateMap(T minKey, T maxKey, U minValue, U maxValue, int32_t size) -> std::map<T, U>;
-
     template <typename T, typename U>
     static auto generateMultiMap(T minKey, T maxKey, U minValue, U maxValue, int32_t size) -> std::multimap<T, U>;
-
     template <typename T, typename U>
     static auto generateUnorderedMap(T minKey, T maxKey, U minValue, U maxValue, int32_t size)
       -> std::unordered_map<T, U>;
-
     template <typename T, typename U>
     static auto generateUnorderedMultiMap(T minKey, T maxKey, U minValue, U maxValue, int32_t size)
       -> std::unordered_multimap<T, U>;
 
   private:
     static inline auto mt1993764_ = std::mt19937_64(std::random_device{}());
-
     template <typename T>
     static auto NextValue(T minValue, T maxValue) -> T;
-
     template <typename T>
     static auto Check(T minValue, T maxValue, int32_t size) -> void;
   };

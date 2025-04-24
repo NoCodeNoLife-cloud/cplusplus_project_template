@@ -1,5 +1,4 @@
 #include "LongBuffer.hpp"
-
 #include <memory>
 #include <stdexcept>
 

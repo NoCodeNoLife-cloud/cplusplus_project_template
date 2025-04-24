@@ -1,5 +1,4 @@
 #include "BigInteger.hpp"
-
 #include <iostream>
 
 namespace framework::entity::base_type {

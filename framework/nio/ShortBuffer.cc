@@ -1,5 +1,4 @@
 #include "ShortBuffer.hpp"
-
 #include <stdexcept>
 
 namespace framework::nio {

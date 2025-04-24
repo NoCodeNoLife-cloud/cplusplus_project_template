@@ -1,5 +1,4 @@
 #include "CharArrayReader.hpp"
-
 #include <stdexcept>
 
 namespace framework::io::reader {

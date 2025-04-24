@@ -6,7 +6,6 @@ namespace framework::entity::data_structure::tree {
   class TreeNode {
   public:
     explicit TreeNode(T value);
-
     T data;
     std::shared_ptr<TreeNode> left{};
     std::shared_ptr<TreeNode> right{};

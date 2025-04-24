@@ -1,5 +1,4 @@
 #include "AbstractFilterWriter.hpp"
-
 #include <stdexcept>
 
 namespace framework::io::writer {

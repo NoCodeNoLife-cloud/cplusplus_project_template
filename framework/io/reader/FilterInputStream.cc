@@ -1,5 +1,4 @@
 #include "FilterInputStream.hpp"
-
 #include <memory>
 #include <stdexcept>
 
