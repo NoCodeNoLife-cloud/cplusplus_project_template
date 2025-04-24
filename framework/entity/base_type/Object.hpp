@@ -6,25 +6,17 @@ namespace framework::entity::base_type {
   class Object {
   public:
     Object();
-
     virtual ~Object();
-
     [[nodiscard]] auto clone() const -> std::unique_ptr<Object>;
-
     [[nodiscard]] auto getClass() const -> const std::type_info&;
-
     [[nodiscard]] auto equals(const Object& other) const -> bool;
-
     [[nodiscard]] auto hashCode() const -> size_t;
-
     [[nodiscard]] virtual auto toString() const -> std::string;
 
   private:
     friend std::formatter<Object>;
   };
-
   inline Object::Object() = default;
-
   inline Object::~Object() = default;
 
   inline auto Object::clone() const -> std::unique_ptr<Object> {
@@ -50,7 +42,6 @@ namespace framework::entity::base_type {
     return std::format("{}", *this);
   }
 } // namespace framework::entity::base_type
-
 template <>
 struct std::formatter<framework::entity::base_type::Object> {
   constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {

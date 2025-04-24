@@ -1,11 +1,9 @@
 #include "RandomGenerator.hpp"
 
 namespace framework::gen {
-  RandomGenerator::RandomGenerator() : generator(std::random_device{}()), real_dist_(0.0, 1.0), normal_dist_(0.0, 1.0) {
-  }
+  RandomGenerator::RandomGenerator() : generator(std::random_device{}()), real_dist_(0.0, 1.0), normal_dist_(0.0, 1.0) {}
 
-  RandomGenerator::RandomGenerator(const int64_t seed) : generator(seed), real_dist_(0.0, 1.0), normal_dist_(0.0, 1.0) {
-  }
+  RandomGenerator::RandomGenerator(const int64_t seed) : generator(seed), real_dist_(0.0, 1.0), normal_dist_(0.0, 1.0) {}
 
   bool RandomGenerator::nextBoolean() {
     std::bernoulli_distribution dist(0.5);

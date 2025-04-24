@@ -1,5 +1,4 @@
 #include "SimpleDateFormatter.hpp"
-
 #include <iomanip>
 #include <sstream>
 

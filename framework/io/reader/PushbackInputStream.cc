@@ -1,5 +1,4 @@
 #include "PushbackInputStream.hpp"
-
 #include <stdexcept>
 
 namespace framework::io::reader {

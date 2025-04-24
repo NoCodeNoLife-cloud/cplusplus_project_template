@@ -1,6 +1,5 @@
 #pragma once
 #include <yaml-cpp/yaml.h>
-
 #include <fstream>
 #include <string>
 
@@ -9,7 +8,6 @@ namespace framework::io::serialize {
   class YamlSerializer abstract {
   public:
     static void serialize(const T& obj, const std::string& filename);
-
     static T deserialize(const std::string& filename);
   };
 

@@ -1,5 +1,4 @@
 #include "FloatBuffer.hpp"
-
 #include <iterator>
 #include <stdexcept>
 

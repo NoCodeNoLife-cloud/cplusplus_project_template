@@ -2,7 +2,6 @@
 
 namespace framework::io::writer {
   AbstractWriter::AbstractWriter() = default;
-
   AbstractWriter::~AbstractWriter() = default;
 
   auto AbstractWriter::append(const char c) -> AbstractWriter& {

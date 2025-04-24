@@ -1,10 +1,8 @@
 #include "StringReader.hpp"
-
 #include <utility>
 
 namespace framework::io::reader {
-  StringReader::StringReader(std::string s) : source_(std::move(s)), position_(0), mark_position_(0), mark_set_(false) {
-  }
+  StringReader::StringReader(std::string s) : source_(std::move(s)), position_(0), mark_position_(0), mark_set_(false) {}
 
   StringReader::~StringReader() = default;
 

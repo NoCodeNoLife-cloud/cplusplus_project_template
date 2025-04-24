@@ -1,5 +1,4 @@
 #include "FilterReader.hpp"
-
 #include <stdexcept>
 
 namespace framework::io::reader {

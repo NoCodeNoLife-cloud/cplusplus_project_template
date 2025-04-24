@@ -1,5 +1,4 @@
 #include "CharArrayWriter.hpp"
-
 #include <stdexcept>
 
 namespace framework::io::writer {

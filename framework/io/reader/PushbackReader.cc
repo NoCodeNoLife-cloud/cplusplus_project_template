@@ -1,5 +1,4 @@
 #include "PushbackReader.hpp"
-
 #include <stdexcept>
 
 namespace framework::io::reader {

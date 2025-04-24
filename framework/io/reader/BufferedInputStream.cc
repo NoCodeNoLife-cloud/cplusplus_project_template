@@ -1,5 +1,4 @@
 #include "BufferedInputStream.hpp"
-
 #include <memory>
 #include <stdexcept>
 

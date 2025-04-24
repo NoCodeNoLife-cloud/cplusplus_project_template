@@ -1,5 +1,4 @@
 #include "DoubleBuffer.hpp"
-
 #include <stdexcept>
 
 namespace framework::nio {

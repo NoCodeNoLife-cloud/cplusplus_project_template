@@ -1,5 +1,4 @@
 #include "SpinlockMutex.hpp"
-
 #include <thread>
 
 namespace framework::thread {

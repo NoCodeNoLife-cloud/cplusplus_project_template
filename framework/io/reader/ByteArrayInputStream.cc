@@ -1,5 +1,4 @@
 #include "ByteArrayInputStream.hpp"
-
 #include <stdexcept>
 
 namespace framework::io::reader {

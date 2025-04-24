@@ -1,5 +1,4 @@
 #include "FunctionProfilerAspect.hpp"
-
 #include <utility>
 
 namespace framework::aop {

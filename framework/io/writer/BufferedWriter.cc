@@ -1,5 +1,4 @@
 #include "BufferedWriter.hpp"
-
 #include <stdexcept>
 
 namespace framework::io::writer {

@@ -2,7 +2,6 @@
 #include <format>
 #include <iostream>
 #include <string>
-
 #include "Object.hpp"
 #include "entity/interface/IComparable.hpp"
 
@@ -14,41 +13,23 @@ namespace framework::entity::base_type {
     static constexpr double NaN = std::numeric_limits<double>::quiet_NaN();
     static constexpr double MAX_VALUE = std::numeric_limits<double>::max();
     static constexpr double MIN_VALUE = std::numeric_limits<double>::min();
-
     explicit Double(double value);
-
     ~Double() override;
-
     explicit operator double() const;
-
     [[nodiscard]] auto toString() const -> std::string override;
-
     [[nodiscard]] auto equals(const Double& other) const -> bool override;
-
     [[nodiscard]] auto compareTo(const Double& other) const -> int32_t override;
-
     [[nodiscard]] auto doubleValue() const -> double;
-
     static auto parseDouble(const std::string& str) -> Double;
-
     auto operator==(const Double& other) const -> bool;
-
     auto operator!=(const Double& other) const -> bool;
-
     auto operator<(const Double& other) const -> bool;
-
     auto operator>(const Double& other) const -> bool;
-
     auto operator<=(const Double& other) const -> bool;
-
     auto operator>=(const Double& other) const -> bool;
-
     auto operator+(const Double& other) const -> Double;
-
     auto operator-(const Double& other) const -> Double;
-
     auto operator*(const Double& other) const -> Double;
-
     auto operator/(const Double& other) const -> Double;
 
   private:
@@ -56,7 +37,6 @@ namespace framework::entity::base_type {
     double value_{0.0};
   };
 } // namespace framework::entity::base_type
-
 template <>
 struct std::formatter<framework::entity::base_type::Double> {
   constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {

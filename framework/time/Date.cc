@@ -1,5 +1,4 @@
 #include "Date.hpp"
-
 #include <iomanip>
 #include <iostream>
 #include <sstream>

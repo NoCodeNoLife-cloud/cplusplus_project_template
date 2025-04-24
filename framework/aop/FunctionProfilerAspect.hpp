@@ -6,7 +6,6 @@ namespace framework::aop {
   class FunctionProfilerAspect final : public iface::IAop<FunctionProfilerAspect> {
   public:
     explicit FunctionProfilerAspect(std::string function_name);
-
     inline void onEntry() override;
     inline void onExit() override;
 

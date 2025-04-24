@@ -5,9 +5,7 @@ namespace framework::thread {
   class SpinlockMutex {
   public:
     SpinlockMutex();
-
     auto lock() -> void;
-
     auto unlock() -> void;
 
   private:
