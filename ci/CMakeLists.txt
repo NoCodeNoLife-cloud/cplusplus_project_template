@@ -13,7 +13,7 @@ foreach (FILE ${SRC_FILES})
     endif ()
 endforeach ()
 
-set(SRC_TEST_DIR ./test)
+set(SRC_TEST_DIR ./test_case)
 file(GLOB_RECURSE SRC_TEST_CASES
         ${SRC_TEST_DIR}/*.cc
         TestBoost.cc
