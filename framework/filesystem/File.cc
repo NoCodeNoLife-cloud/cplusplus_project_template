@@ -4,7 +4,7 @@
 #include <windows.h>
 #include <openssl/evp.h>
 
-namespace framework::io {
+namespace framework::filesystem {
   File::File(const std::string& path) : file_path_(path) {}
 
   File::File(std::filesystem::path path) : file_path_(std::move(path)) {}
@@ -44,20 +44,6 @@ namespace framework::io {
     return file.good();
   }
 
-  auto File::createTempFile(const std::string& prefix, const std::string& suffix, const std::string& directory)
-    -> File {
-    char tempPath[MAX_PATH];
-    if (directory.empty()) {
-      GetTempPath(MAX_PATH, tempPath);
-    } else {
-      strncpy_s(tempPath, directory.c_str(), MAX_PATH);
-    }
-    char tempFileName[MAX_PATH];
-    GetTempFileName(tempPath, prefix.c_str(), 0, tempFileName);
-    const std::string tempFilePath = std::string(tempFileName) + suffix;
-    return File(tempFilePath);
-  }
-
   auto File::deleteFile() const -> bool {
     return std::filesystem::remove(file_path_);
   }
@@ -80,10 +66,6 @@ namespace framework::io {
 
   auto File::getParent() const -> std::string {
     return file_path_.parent_path().string();
-  }
-
-  auto File::getCanonicalFile() const -> File {
-    return File(canonical(file_path_));
   }
 
   auto File::getParentFile() const -> File {
@@ -112,10 +94,6 @@ namespace framework::io {
     return file_path_.is_absolute();
   }
 
-  auto File::mkdir() const -> bool {
-    return create_directory(file_path_);
-  }
-
   auto File::renameTo(const File& dest) const -> bool {
     try {
       std::filesystem::rename(file_path_, dest.file_path_);
@@ -123,10 +101,6 @@ namespace framework::io {
     } catch (const std::filesystem::filesystem_error&) {
       return false;
     }
-  }
-
-  auto File::isDirectory() const -> bool {
-    return is_directory(file_path_);
   }
 
   auto File::isFile() const -> bool {
@@ -150,16 +124,6 @@ namespace framework::io {
     const auto sctp = std::chrono::time_point_cast<std::chrono::system_clock::duration>(
       lastWriteTime - std::filesystem::file_time_type::clock::now() + std::chrono::system_clock::now());
     return std::chrono::system_clock::to_time_t(sctp);
-  }
-
-  auto File::list() const -> std::vector<std::string> {
-    std::vector<std::string> entries;
-    if (isDirectory()) {
-      for (const auto& entry : std::filesystem::directory_iterator(file_path_)) {
-        entries.push_back(entry.path().filename().string());
-      }
-    }
-    return entries;
   }
 
   auto File::toString() const -> std::string {

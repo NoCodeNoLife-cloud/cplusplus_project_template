@@ -1,6 +1,7 @@
 #include "GLogConfiguration.hpp"
 #include <iostream>
-#include "filesystem/File.hpp"
+#include <filesystem/Directory.hpp>
+
 #include "time/Clock.hpp"
 
 namespace framework::log {
@@ -21,7 +22,7 @@ namespace framework::log {
   auto GLogConfiguration::configLogToFile() const -> void {
     const std::string now_time = time::Clock::getCompressedCurrentDateTimeString();
     const std::string log_path = LOG_FILE_DIRECTORY + now_time + '/';
-    if (const io::File file{log_path}; !file.exists() && !file.mkdir()) {
+    if (const filesystem::Directory dir{log_path}; !dir.exists() && !dir.mkdir()) {
       throw std::runtime_error("Failed to create log file!");
     }
     google::SetLogDestination(google::GLOG_INFO, (log_path + "info_").c_str());
