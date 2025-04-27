@@ -1,16 +1,26 @@
 #include "String.hpp"
 
 namespace framework::entity::util {
-  auto String::split(const std::string& target, char splitChar) -> std::vector<std::string> {
+  auto String::split(const std::string& target, char split_char) -> std::vector<std::string> {
     std::vector<std::string> result;
     size_t start = 0;
-    size_t pos = target.find(splitChar);
+    size_t pos = target.find(split_char);
     while (pos != std::string::npos) {
       result.push_back(target.substr(start, pos - start));
       start = pos + 1;
-      pos = target.find(splitChar, start);
+      pos = target.find(split_char, start);
     }
     result.push_back(target.substr(start));
+    return result;
+  }
+
+  auto String::concatenate(const std::vector<std::string>& source, char split_char) -> std::string {
+    if (source.empty()) return "";
+    std::string result = source[0];
+    for (size_t i = 1; i < source.size(); ++i) {
+      result += split_char;
+      result += source[i];
+    }
     return result;
   }
 }
