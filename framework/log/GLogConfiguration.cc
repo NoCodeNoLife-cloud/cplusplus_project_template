@@ -1,7 +1,6 @@
 #include "GLogConfiguration.hpp"
 #include <iostream>
 #include <filesystem/Directory.hpp>
-
 #include "time/Clock.hpp"
 
 namespace framework::log {
@@ -21,6 +20,10 @@ namespace framework::log {
 
   auto GLogConfiguration::configLogToFile() const -> void {
     const std::string now_time = time::Clock::getCompressedCurrentDateTimeString();
+    // ReSharper disable once CppDFAConstantConditions
+    if (const filesystem::Directory log_directory(LOG_FILE_DIRECTORY); log_directory.exists() && CLEAR_BEFORE_LOG && !log_directory.clearAll()) {
+      throw std::runtime_error("Could not remove log file!");
+    }
     const std::string log_path = LOG_FILE_DIRECTORY + now_time + '/';
     if (const filesystem::Directory dir{log_path}; !dir.exists() && !dir.mkdir()) {
       throw std::runtime_error("Failed to create log file!");

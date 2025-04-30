@@ -19,6 +19,7 @@ namespace framework::filesystem {
     [[nodiscard]] auto isEmpty() const -> bool;
     [[nodiscard]] auto list(bool recursive) const -> std::vector<std::string>;
     [[nodiscard]] auto listEntries(bool recursive = false) const -> std::vector<std::filesystem::directory_entry>;
+    [[nodiscard]] auto clearAll() const -> bool;
 
   private:
     std::filesystem::path file_path_;

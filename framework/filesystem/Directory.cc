@@ -154,4 +154,18 @@ namespace framework::filesystem {
     } catch (...) {}
     return entries;
   }
+
+  auto Directory::clearAll() const -> bool {
+    try {
+      if (!std::filesystem::exists(file_path_) || !std::filesystem::is_directory(file_path_)) {
+        return false;
+      }
+      for (const auto& entry : std::filesystem::directory_iterator(file_path_)) {
+        std::filesystem::remove_all(entry.path());
+      }
+      return true;
+    } catch (...) {
+      return false;
+    }
+  }
 }

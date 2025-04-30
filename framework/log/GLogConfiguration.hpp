@@ -10,6 +10,7 @@ namespace framework::log {
     bool ALSO_LOG_TO_STDOUT{false};
     bool COLOR_LOG_TO_STDOUT{false};
     bool COLOR_LOG_TO_STDERR{true};
+    bool CLEAR_BEFORE_LOG{true};
     int32_t MIN_LOG_LEVEL{0};
     std::string LOG_NAME{"glog_main"};
     std::string LOG_FILE_DIRECTORY{"../log/"};
