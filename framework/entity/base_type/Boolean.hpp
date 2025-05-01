@@ -7,8 +7,6 @@
 namespace framework::entity::base_type {
   class Boolean final : public Object, public iface::IComparable<Boolean> {
   public:
-    static const Boolean TRUE;
-    static const Boolean FALSE;
     explicit Boolean(bool value);
     ~Boolean() override;
     explicit operator bool() const;
@@ -25,6 +23,8 @@ namespace framework::entity::base_type {
     bool value_{false};
     friend std::formatter<Boolean>;
   };
+  const Boolean True{true};
+  const Boolean False{false};
 } // namespace framework::entity::base_type
 template <>
 struct std::formatter<framework::entity::base_type::Boolean> {

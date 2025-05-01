@@ -46,7 +46,4 @@ namespace framework::entity::base_type {
   auto Boolean::operator!=(const Boolean& other) const -> bool {
     return !equals(other);
   }
-
-  const Boolean TRUE{true};
-  const Boolean FALSE{false};
 } // namespace framework::entity::base_type
