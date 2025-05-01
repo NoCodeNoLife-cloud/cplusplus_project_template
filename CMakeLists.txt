@@ -16,7 +16,6 @@ project(${MAIN_PROJECT})
 #includes
 include_directories(framework)
 include_directories(client)
-include_directories(ci)
 
 #sources
 set(SRC_DIR client)
