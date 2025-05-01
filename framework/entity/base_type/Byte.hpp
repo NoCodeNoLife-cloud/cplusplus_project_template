@@ -8,16 +8,16 @@
 namespace framework::entity::base_type {
   class Byte final : public Object, public iface::IComparable<Byte> {
   public:
-    static constexpr int8_t MIN_VALUE = std::numeric_limits<int8_t>::min();
-    static constexpr int8_t MAX_VALUE = std::numeric_limits<int8_t>::max();
-    explicit Byte(int8_t value = 0);
+    static constexpr uint8_t MIN_VALUE = std::numeric_limits<uint8_t>::min();
+    static constexpr uint8_t MAX_VALUE = std::numeric_limits<uint8_t>::max();
+    explicit Byte(uint8_t value = 0);
     ~Byte() override;
-    explicit operator signed char() const;
+    explicit operator unsigned char() const;
     [[nodiscard]] auto equals(const Byte& other) const -> bool override;
     [[nodiscard]] auto compareTo(const Byte& other) const -> int32_t override;
     [[nodiscard]] auto toString() const -> std::string override;
     static auto parseByte(const std::string& str) -> Byte;
-    [[nodiscard]] auto byteValue() const -> int8_t;
+    [[nodiscard]] auto byteValue() const -> uint8_t;
     auto operator==(const Byte& other) const -> bool;
     auto operator!=(const Byte& other) const -> bool;
     auto operator<(const Byte& other) const -> bool;
@@ -28,7 +28,7 @@ namespace framework::entity::base_type {
     auto operator-(const Byte& other) const -> Byte;
 
   private:
-    int8_t value_{0};
+    uint8_t value_{0};
     friend std::formatter<Byte>;
   };
 } // namespace framework::entity::base_type

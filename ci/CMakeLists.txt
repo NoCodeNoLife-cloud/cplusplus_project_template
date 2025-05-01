@@ -12,7 +12,7 @@ file(GLOB_RECURSE FRAMEWORK_FILES
         ${FRAMEWORK_HEADER_DIR}/*.cc
 )
 
-set(SRC_TEST_DIR test_case)
+set(SRC_TEST_DIR ./test_case)
 file(GLOB_RECURSE SRC_TEST_CASES
         ${SRC_TEST_DIR}/*.cc
 )

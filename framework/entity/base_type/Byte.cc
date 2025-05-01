@@ -1,11 +1,11 @@
 #include "Byte.hpp"
 
 namespace framework::entity::base_type {
-  Byte::Byte(const int8_t value) : value_(value) {}
+  Byte::Byte(const uint8_t value) : value_(value) {}
 
   Byte::~Byte() = default;
 
-  Byte::operator signed char() const {
+  Byte::operator unsigned char() const {
     return value_;
   }
 
@@ -22,20 +22,22 @@ namespace framework::entity::base_type {
   }
 
   auto Byte::parseByte(const std::string& str) -> Byte {
-    try {
-      const int32_t result = std::stoi(str);
-      if (result < MIN_VALUE || result > MAX_VALUE) {
-        throw std::out_of_range("Value out of range for Byte");
-      }
-      return Byte(static_cast<int8_t>(result));
-    } catch (const std::invalid_argument&) {
-      throw std::invalid_argument("Invalid input string for Byte conversion");
-    } catch (const std::out_of_range&) {
-      throw std::out_of_range("Value out of range for Byte");
+    if (str.empty()) {
+      throw std::invalid_argument("Empty string cannot be parsed as byte.");
     }
+
+    size_t pos;
+    const int64_t value = std::stoll(str, &pos);
+    if (pos != str.size()) {
+      throw std::invalid_argument("Invalid character in byte string.");
+    }
+    if (value < 0 || value > 255) {
+      throw std::out_of_range("Value out of range for byte.");
+    }
+    return Byte(static_cast<uint8_t>(value));
   }
 
-  auto Byte::byteValue() const -> int8_t {
+  auto Byte::byteValue() const -> uint8_t {
     return value_;
   }
 
@@ -64,18 +66,18 @@ namespace framework::entity::base_type {
   }
 
   auto Byte::operator+(const Byte& other) const -> Byte {
-    const int32_t result = this->value_ + other.value_;
-    if (result < MIN_VALUE || result > MAX_VALUE) {
+    const int64_t result = static_cast<int64_t>(value_) + static_cast<int64_t>(other.value_);
+    if (result > 255) {
       throw std::overflow_error("Byte overflow in addition");
     }
-    return Byte(static_cast<int8_t>(result));
+    return Byte(static_cast<uint8_t>(result));
   }
 
   auto Byte::operator-(const Byte& other) const -> Byte {
-    const int32_t result = this->value_ - other.value_;
-    if (result < MIN_VALUE || result > MAX_VALUE) {
-      throw std::overflow_error("Byte overflow in subtraction");
+    const int64_t result = static_cast<int64_t>(value_) - static_cast<int64_t>(other.value_);
+    if (result < 0) {
+      throw std::underflow_error("Byte underflow in subtraction");
     }
-    return Byte(static_cast<int8_t>(result));
+    return Byte(static_cast<uint8_t>(result));
   }
 } // namespace framework::entity::base_type
