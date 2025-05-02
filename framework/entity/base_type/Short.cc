@@ -27,11 +27,11 @@ namespace framework::entity::base_type {
 
   auto Short::parseShort(const std::string& str) -> Short {
     try {
-      const auto result = static_cast<int16_t>(std::stoi(str));
-      if (result > MAX_VALUE || result < MIN_VALUE) {
+      const auto value = std::stoi(str);
+      if (value > MAX_VALUE || value < MIN_VALUE) {
         throw std::out_of_range("Value out of range for Short");
       }
-      return Short(result);
+      return Short(static_cast<int16_t>(value));
     } catch (const std::invalid_argument&) {
       throw std::invalid_argument("Invalid input string for Short conversion");
     } catch (const std::out_of_range&) {

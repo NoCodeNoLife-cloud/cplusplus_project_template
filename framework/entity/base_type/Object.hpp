@@ -7,10 +7,10 @@ namespace framework::entity::base_type {
   public:
     Object();
     virtual ~Object();
-    [[nodiscard]] auto clone() const -> std::unique_ptr<Object>;
+    [[nodiscard]] virtual auto clone() const -> std::unique_ptr<Object>;
     [[nodiscard]] auto getClass() const -> const std::type_info&;
-    [[nodiscard]] auto equals(const Object& other) const -> bool;
-    [[nodiscard]] auto hashCode() const -> size_t;
+    [[nodiscard]] virtual auto equals(const Object& other) const -> bool;
+    [[nodiscard]] virtual auto hashCode() const -> size_t;
     [[nodiscard]] virtual auto toString() const -> std::string;
 
   private:
@@ -34,5 +34,5 @@ struct std::formatter<framework::entity::base_type::Object> {
 };
 
 inline auto operator<<(std::ostream& os, const framework::entity::base_type::Object& object) -> std::ostream& {
-  return os << std::format("{}", object);
+  return os << object.toString();
 }

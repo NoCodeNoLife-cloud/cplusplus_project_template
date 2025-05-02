@@ -20,7 +20,7 @@ namespace framework::entity::base_type {
   }
 
   auto Object::hashCode() const -> size_t {
-    return std::hash<const void*>{}(this);
+    return reinterpret_cast<size_t>(this);
   }
 
   auto Object::toString() const -> std::string {
