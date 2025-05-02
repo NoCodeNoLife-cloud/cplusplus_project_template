@@ -27,7 +27,7 @@ namespace framework::entity::base_type {
 
   auto Long::parseLong(const std::string& str) -> Long {
     try {
-      const int64_t result = std::stoll(str);
+      const int64_t result = std::stoll(str, nullptr, 0);
       return Long(result);
     } catch (const std::invalid_argument&) {
       throw std::invalid_argument("Invalid input string for Long conversion");
