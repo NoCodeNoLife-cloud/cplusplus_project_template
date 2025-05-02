@@ -1,11 +1,11 @@
 #include <entity/data_structure/tree/RedBlackTree.hpp>
 #include <gtest/gtest.h>
+using framework::entity::data_structure::tree::RedBlackTree;
+using framework::entity::data_structure::tree::RedBlackTreeNode;
 
 namespace gtest_case {
-  using RedBlackTree = framework::entity::data_structure::tree::RedBlackTree<int>;
-  using RedBlackTreeNode = framework::entity::data_structure::tree::RedBlackTreeNode<int>;
   TEST(RedBlackTreeTest, InsertSingleNode_RootIsBlackAndHasCorrectValue) {
-    RedBlackTree tree;
+    RedBlackTree<int32_t> tree;
     tree.insert(10);
     const auto root = tree.root;
     ASSERT_TRUE(root != nullptr);
@@ -15,7 +15,7 @@ namespace gtest_case {
   }
 
   TEST(RedBlackTreeTest, InsertTwoNodes_ParentAndChildRelationCorrect) {
-    RedBlackTree tree;
+    RedBlackTree<int32_t> tree;
     tree.insert(10);
     tree.insert(20);
     const auto root = tree.root;
@@ -31,7 +31,7 @@ namespace gtest_case {
   }
 
   TEST(RedBlackTreeTest, InsertThreeNodes_RightRightRotation) {
-    RedBlackTree tree;
+    RedBlackTree<int32_t> tree;
     tree.insert(10);
     tree.insert(20);
     tree.insert(30);
@@ -51,7 +51,7 @@ namespace gtest_case {
   }
 
   TEST(RedBlackTreeTest, InsertThreeNodes_LeftLeftRotation) {
-    RedBlackTree tree;
+    RedBlackTree<int32_t> tree;
     tree.insert(10);
     tree.insert(5);
     tree.insert(1);
@@ -71,7 +71,7 @@ namespace gtest_case {
   }
 
   TEST(RedBlackTreeTest, InsertWithUncleRed_ColorsFlipped) {
-    RedBlackTree tree;
+    RedBlackTree<int32_t> tree;
     tree.insert(10);
     tree.insert(5);
     tree.insert(15);
@@ -95,7 +95,7 @@ namespace gtest_case {
   }
 
   TEST(RedBlackTreeTest, InsertDuplicateValue_RightChildCreated) {
-    RedBlackTree tree;
+    RedBlackTree<int32_t> tree;
     tree.insert(10);
     tree.insert(10);
     const auto root = tree.root;

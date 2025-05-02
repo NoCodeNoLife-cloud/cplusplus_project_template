@@ -1,51 +1,52 @@
 #include <entity/base_type/Character.hpp>
 #include <gtest/gtest.h>
+using framework::entity::base_type::Character;
 
 namespace gtest_case {
   TEST(CharacterTest, ConstructorTest) {
-    const framework::entity::base_type::Character c1('A');
+    const Character c1('A');
     EXPECT_EQ(c1.characterValue(), 'A');
 
-    const framework::entity::base_type::Character c2('z');
+    const Character c2('z');
     EXPECT_EQ(c2.characterValue(), 'z');
 
-    const framework::entity::base_type::Character c3('5');
+    const Character c3('5');
     EXPECT_EQ(c3.characterValue(), '5');
 
-    const framework::entity::base_type::Character c4('#');
+    const Character c4('#');
     EXPECT_EQ(c4.characterValue(), '#');
   }
 
   TEST(CharacterTest, ConversionOperatorTest) {
-    const framework::entity::base_type::Character c('B');
+    const Character c('B');
     EXPECT_EQ(static_cast<char>(c), 'B');
   }
 
   TEST(CharacterTest, ToStringTest) {
-    const framework::entity::base_type::Character c1('X');
+    const Character c1('X');
     EXPECT_EQ(c1.toString(), "X");
 
-    const framework::entity::base_type::Character c2(' ');
+    const Character c2(' ');
     EXPECT_EQ(c2.toString(), " ");
 
-    const framework::entity::base_type::Character c3('\n');
+    const Character c3('\n');
     EXPECT_EQ(c3.toString(), "\n");
   }
 
   TEST(CharacterTest, EqualsTest) {
-    const framework::entity::base_type::Character c1('a');
-    const framework::entity::base_type::Character c2('a');
-    const framework::entity::base_type::Character c3('b');
+    const Character c1('a');
+    const Character c2('a');
+    const Character c3('b');
 
     EXPECT_TRUE(c1.equals(c2));
     EXPECT_FALSE(c1.equals(c3));
   }
 
   TEST(CharacterTest, CompareToTest) {
-    const framework::entity::base_type::Character c1('a');
-    const framework::entity::base_type::Character c2('a');
-    const framework::entity::base_type::Character c3('b');
-    const framework::entity::base_type::Character c4('A');
+    const Character c1('a');
+    const Character c2('a');
+    const Character c3('b');
+    const Character c4('A');
 
     EXPECT_EQ(c1.compareTo(c2), 0);
     EXPECT_EQ(c3.compareTo(c1), static_cast<int32_t>('b' - 'a'));
@@ -53,9 +54,9 @@ namespace gtest_case {
   }
 
   TEST(CharacterTest, ComparisonOperatorsTest) {
-    const framework::entity::base_type::Character a('a');
-    const framework::entity::base_type::Character b('b');
-    const framework::entity::base_type::Character same('a');
+    const Character a('a');
+    const Character b('b');
+    const Character same('a');
 
     EXPECT_TRUE(a == same);
     EXPECT_FALSE(a == b);
@@ -77,45 +78,45 @@ namespace gtest_case {
   }
 
   TEST(CharacterTest, IsLetterTest) {
-    EXPECT_TRUE(framework::entity::base_type::Character::isLetter('A'));
-    EXPECT_TRUE(framework::entity::base_type::Character::isLetter('z'));
-    EXPECT_FALSE(framework::entity::base_type::Character::isLetter('5'));
-    EXPECT_FALSE(framework::entity::base_type::Character::isLetter('@'));
+    EXPECT_TRUE(Character::isLetter('A'));
+    EXPECT_TRUE(Character::isLetter('z'));
+    EXPECT_FALSE(Character::isLetter('5'));
+    EXPECT_FALSE(Character::isLetter('@'));
   }
 
   TEST(CharacterTest, IsDigitTest) {
-    EXPECT_TRUE(framework::entity::base_type::Character::isDigit('3'));
-    EXPECT_FALSE(framework::entity::base_type::Character::isDigit('A'));
-    EXPECT_FALSE(framework::entity::base_type::Character::isDigit(' '));
+    EXPECT_TRUE(Character::isDigit('3'));
+    EXPECT_FALSE(Character::isDigit('A'));
+    EXPECT_FALSE(Character::isDigit(' '));
   }
 
   TEST(CharacterTest, IsLetterOrDigitTest) {
-    EXPECT_TRUE(framework::entity::base_type::Character::isLetterOrDigit('A'));
-    EXPECT_TRUE(framework::entity::base_type::Character::isLetterOrDigit('9'));
-    EXPECT_FALSE(framework::entity::base_type::Character::isLetterOrDigit('!'));
+    EXPECT_TRUE(Character::isLetterOrDigit('A'));
+    EXPECT_TRUE(Character::isLetterOrDigit('9'));
+    EXPECT_FALSE(Character::isLetterOrDigit('!'));
   }
 
   TEST(CharacterTest, IsUpperCaseTest) {
-    EXPECT_TRUE(framework::entity::base_type::Character::isUpperCase('A'));
-    EXPECT_FALSE(framework::entity::base_type::Character::isUpperCase('a'));
-    EXPECT_FALSE(framework::entity::base_type::Character::isUpperCase('5'));
+    EXPECT_TRUE(Character::isUpperCase('A'));
+    EXPECT_FALSE(Character::isUpperCase('a'));
+    EXPECT_FALSE(Character::isUpperCase('5'));
   }
 
   TEST(CharacterTest, IsLowerCaseTest) {
-    EXPECT_TRUE(framework::entity::base_type::Character::isLowerCase('z'));
-    EXPECT_FALSE(framework::entity::base_type::Character::isLowerCase('Z'));
-    EXPECT_FALSE(framework::entity::base_type::Character::isLowerCase('0'));
+    EXPECT_TRUE(Character::isLowerCase('z'));
+    EXPECT_FALSE(Character::isLowerCase('Z'));
+    EXPECT_FALSE(Character::isLowerCase('0'));
   }
 
   TEST(CharacterTest, ToUpperCaseTest) {
-    EXPECT_EQ(framework::entity::base_type::Character::toUpperCase('a'), static_cast<int32_t>('A'));
-    EXPECT_EQ(framework::entity::base_type::Character::toUpperCase('A'), static_cast<int32_t>('A'));
-    EXPECT_EQ(framework::entity::base_type::Character::toUpperCase('5'), static_cast<int32_t>('5'));
+    EXPECT_EQ(Character::toUpperCase('a'), static_cast<int32_t>('A'));
+    EXPECT_EQ(Character::toUpperCase('A'), static_cast<int32_t>('A'));
+    EXPECT_EQ(Character::toUpperCase('5'), static_cast<int32_t>('5'));
   }
 
   TEST(CharacterTest, ToLowerCaseTest) {
-    EXPECT_EQ(framework::entity::base_type::Character::toLowerCase('A'), static_cast<int32_t>('a'));
-    EXPECT_EQ(framework::entity::base_type::Character::toLowerCase('a'), static_cast<int32_t>('a'));
-    EXPECT_EQ(framework::entity::base_type::Character::toLowerCase('3'), static_cast<int32_t>('3'));
+    EXPECT_EQ(Character::toLowerCase('A'), static_cast<int32_t>('a'));
+    EXPECT_EQ(Character::toLowerCase('a'), static_cast<int32_t>('a'));
+    EXPECT_EQ(Character::toLowerCase('3'), static_cast<int32_t>('3'));
   }
 } // namespace gtest_case

@@ -1,9 +1,10 @@
 #include <entity/data_structure/tree/BinarySearchTree.hpp>
 #include <gtest/gtest.h>
+using framework::entity::data_structure::tree::BinarySearchTree;
 
 namespace gtest_case {
   TEST(BinarySearchTreeTest, InsertAndFindBasic) {
-    framework::entity::data_structure::tree::BinarySearchTree<int32_t> tree;
+    BinarySearchTree<int32_t> tree;
     tree.insert(5);
     tree.insert(3);
     tree.insert(7);
@@ -15,12 +16,12 @@ namespace gtest_case {
   }
 
   TEST(BinarySearchTreeTest, EmptyTreeFindReturnsFalse) {
-    const framework::entity::data_structure::tree::BinarySearchTree<int32_t> tree;
+    const BinarySearchTree<int32_t> tree;
     EXPECT_FALSE(tree.find(1));
   }
 
   TEST(BinarySearchTreeTest, RemoveLeafNode) {
-    framework::entity::data_structure::tree::BinarySearchTree<int32_t> tree;
+    BinarySearchTree<int32_t> tree;
     tree.insert(5);
     tree.insert(3);
     tree.remove(3);
@@ -30,7 +31,7 @@ namespace gtest_case {
   }
 
   TEST(BinarySearchTreeTest, RemoveNodeWithOneChild) {
-    framework::entity::data_structure::tree::BinarySearchTree<int32_t> tree;
+    BinarySearchTree<int32_t> tree;
     tree.insert(5);
     tree.insert(3);
     tree.insert(2);
@@ -42,7 +43,7 @@ namespace gtest_case {
   }
 
   TEST(BinarySearchTreeTest, RemoveNodeWithTwoChildren) {
-    framework::entity::data_structure::tree::BinarySearchTree<int32_t> tree;
+    BinarySearchTree<int32_t> tree;
     tree.insert(5);
     tree.insert(3);
     tree.insert(7);
@@ -56,7 +57,7 @@ namespace gtest_case {
   }
 
   TEST(BinarySearchTreeTest, InorderTraversalOrder) {
-    framework::entity::data_structure::tree::BinarySearchTree<int32_t> tree;
+    BinarySearchTree<int32_t> tree;
     tree.insert(5);
     tree.insert(3);
     tree.insert(7);
@@ -70,13 +71,13 @@ namespace gtest_case {
   }
 
   TEST(BinarySearchTreeTest, RemoveEmptyTreeNoop) {
-    framework::entity::data_structure::tree::BinarySearchTree<int32_t> tree;
+    BinarySearchTree<int32_t> tree;
     tree.remove(1);
     EXPECT_FALSE(tree.find(1));
   }
 
   TEST(BinarySearchTreeTest, DuplicateInserts) {
-    framework::entity::data_structure::tree::BinarySearchTree<int32_t> tree;
+    BinarySearchTree<int32_t> tree;
     tree.insert(5);
     tree.insert(5);
 
@@ -84,7 +85,7 @@ namespace gtest_case {
   }
 
   TEST(BinarySearchTreeTest, DeleteRootWithTwoChildren) {
-    framework::entity::data_structure::tree::BinarySearchTree<int32_t> tree;
+    BinarySearchTree<int32_t> tree;
     tree.insert(10);
     tree.insert(5);
     tree.insert(15);
