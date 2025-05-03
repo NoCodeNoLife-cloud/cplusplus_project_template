@@ -10,7 +10,7 @@ else ()
 endif ()
 
 #project
-set(MAIN_PROJECT project_template)
+set(MAIN_PROJECT cpp_project)
 project(${MAIN_PROJECT})
 
 #includes
