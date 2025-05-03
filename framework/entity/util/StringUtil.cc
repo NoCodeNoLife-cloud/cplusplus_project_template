@@ -1,7 +1,7 @@
-#include "String.hpp"
+#include "StringUtil.hpp"
 
 namespace framework::entity::util {
-  auto String::split(const std::string& target, char split_char) -> std::vector<std::string> {
+  auto StringUtil::split(const std::string& target, char split_char) -> std::vector<std::string> {
     std::vector<std::string> result;
     size_t start = 0;
     size_t pos = target.find(split_char);
@@ -14,7 +14,7 @@ namespace framework::entity::util {
     return result;
   }
 
-  auto String::concatenate(const std::vector<std::string>& source, char split_char) -> std::string {
+  auto StringUtil::concatenate(const std::vector<std::string>& source, char split_char) -> std::string {
     if (source.empty()) return "";
     std::string result = source[0];
     for (size_t i = 1; i < source.size(); ++i) {
