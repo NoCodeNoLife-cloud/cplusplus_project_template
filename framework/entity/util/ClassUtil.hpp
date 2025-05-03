@@ -4,12 +4,13 @@
 namespace framework::entity::util {
   class ClassUtil abstract {
   public:
+    ClassUtil() = delete;
     template <typename T>
-    static std::string getTypeId(T t);
+    static auto getTypeId(const T& t) -> std::string;
   };
 
   template <typename T>
-  std::string ClassUtil::getTypeId([[maybe_unused]] T t) {
+  auto ClassUtil::getTypeId(const T& t) -> std::string {
     return boost::typeindex::type_id_with_cvr<decltype(t)>().pretty_name();
   }
 } // namespace framework::entity::util
