@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
-#include "AbstractOutputStream.hpp"
-#include "FilterOutputStream.hpp"
+#include <io/writer/AbstractOutputStream.hpp>
+#include <io/writer/FilterOutputStream.hpp>
 
 namespace framework::io::writer {
   class BufferedOutputStream final : public FilterOutputStream {

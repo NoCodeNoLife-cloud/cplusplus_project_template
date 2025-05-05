@@ -1,5 +1,5 @@
-#include "FilterReader.hpp"
 #include <stdexcept>
+#include <io/reader/FilterReader.hpp>
 
 namespace framework::io::reader {
   FilterReader::FilterReader(std::shared_ptr<AbstractReader> reader) : in(std::move(reader)) {}

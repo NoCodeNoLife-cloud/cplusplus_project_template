@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include <entity/base_type/Object.hpp>
-#include "entity/interface/IComparable.hpp"
+#include <entity/interface/IComparable.hpp>
 
 namespace framework::entity::base_type {
   class Byte final : public Object, public iface::IComparable<Byte> {

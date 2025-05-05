@@ -2,7 +2,7 @@
 #include <format>
 #include <iostream>
 #include <string>
-#include "interface/IFlushable.hpp"
+#include <io/interface/IFlushable.hpp>
 
 namespace framework::io {
   class Console final : public iface::IFlushable {

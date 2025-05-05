@@ -3,8 +3,8 @@
 #include <iostream>
 #include <regex>
 #include <string>
-#include "Object.hpp"
-#include "entity/interface/IComparable.hpp"
+#include <entity/base_type/Object.hpp>
+#include <entity/interface/IComparable.hpp>
 
 namespace framework::entity::base_type {
   class String final : public Object, iface::IComparable<String> {

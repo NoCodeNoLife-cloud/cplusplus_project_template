@@ -2,8 +2,8 @@
 #include <format>
 #include <iostream>
 #include <string>
-#include "Object.hpp"
-#include "entity/interface/IComparable.hpp"
+#include <entity/base_type/Object.hpp>
+#include <entity/interface/IComparable.hpp>
 
 namespace framework::entity::base_type {
   class Short final : public Object, public iface::IComparable<Short> {

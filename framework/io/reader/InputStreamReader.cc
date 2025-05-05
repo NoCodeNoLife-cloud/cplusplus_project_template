@@ -1,4 +1,4 @@
-#include "InputStreamReader.hpp"
+#include <io/reader/InputStreamReader.hpp>
 
 namespace framework::io::reader {
   InputStreamReader::InputStreamReader(std::shared_ptr<AbstractReader> input) : reader_(std::move(input)) {

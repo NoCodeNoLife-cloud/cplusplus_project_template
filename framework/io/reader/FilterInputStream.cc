@@ -1,6 +1,6 @@
-#include "FilterInputStream.hpp"
 #include <memory>
 #include <stdexcept>
+#include <io/reader/FilterInputStream.hpp>
 
 namespace framework::io::reader {
   FilterInputStream::FilterInputStream(std::unique_ptr<AbstractInputStream> inputStream) :

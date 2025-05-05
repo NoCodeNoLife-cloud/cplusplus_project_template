@@ -1,4 +1,4 @@
-#include "Console.hpp"
+#include <io/Console.hpp>
 
 namespace framework::io {
   auto Console::flush() -> void {

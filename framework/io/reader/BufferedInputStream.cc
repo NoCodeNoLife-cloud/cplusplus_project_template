@@ -1,6 +1,6 @@
-#include "BufferedInputStream.hpp"
 #include <memory>
 #include <stdexcept>
+#include <io/reader/BufferedInputStream.hpp>
 
 namespace framework::io::reader {
   BufferedInputStream::BufferedInputStream(std::unique_ptr<AbstractInputStream> in) :

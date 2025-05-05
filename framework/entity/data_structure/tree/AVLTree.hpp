@@ -1,7 +1,7 @@
 #pragma once
 #include <algorithm>
 #include <memory>
-#include "TreeNode.hpp"
+#include <entity/data_structure/tree/TreeNode.hpp>
 
 namespace framework::entity::data_structure::tree {
   template <typename T>

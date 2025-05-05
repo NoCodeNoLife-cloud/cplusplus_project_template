@@ -1,4 +1,4 @@
-#include "FilterOutputStream.hpp"
+#include <io/writer/FilterOutputStream.hpp>
 
 namespace framework::io::writer {
   FilterOutputStream::FilterOutputStream(std::shared_ptr<AbstractOutputStream> outputStream) :

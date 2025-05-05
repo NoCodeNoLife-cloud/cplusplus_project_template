@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "../interface/ICloseable.hpp"
+#include <io/interface/ICloseable.hpp>
 
 namespace framework::io::reader {
   class AbstractInputStream abstract : public iface::ICloseable {

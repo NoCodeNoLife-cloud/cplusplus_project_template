@@ -1,5 +1,5 @@
 #pragma once
-#include "AbstractWriter.hpp"
+#include <io/writer/AbstractWriter.hpp>
 
 namespace framework::io::writer {
   class CharArrayWriter final : public AbstractWriter, iface::IAppendable<CharArrayWriter> {

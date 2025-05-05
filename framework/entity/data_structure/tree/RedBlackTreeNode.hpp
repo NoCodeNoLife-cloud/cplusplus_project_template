@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "graphics/models/ColorCode.hpp"
+#include <graphics/models/ColorCode.hpp>
 
 namespace framework::entity::data_structure::tree {
   template <typename T>

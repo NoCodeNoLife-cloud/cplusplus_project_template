@@ -1,5 +1,5 @@
-#include "SpinlockMutex.hpp"
 #include <thread>
+#include <thread/SpinlockMutex.hpp>
 
 namespace framework::thread {
   SpinlockMutex::SpinlockMutex() = default;

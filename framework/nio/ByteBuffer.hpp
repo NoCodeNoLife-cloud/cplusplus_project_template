@@ -1,7 +1,7 @@
 #pragma once
 #include <span>
 #include <vector>
-#include "interface/IBuffer.hpp"
+#include <nio/interface/IBuffer.hpp>
 
 namespace framework::nio {
   class ByteBuffer final : public interface::IBuffer {

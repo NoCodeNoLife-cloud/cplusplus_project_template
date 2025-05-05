@@ -1,5 +1,5 @@
 #pragma once
-#include "Config.hpp"
+#include <service/config/Config.hpp>
 
 namespace framework::service::config {
   class Configurable abstract {

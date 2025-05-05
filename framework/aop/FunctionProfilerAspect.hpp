@@ -1,6 +1,6 @@
 #pragma once
-#include "interface/IAop.hpp"
-#include "time/FunctionProfiler.hpp"
+#include <aop/interface/IAop.hpp>
+#include <time/FunctionProfiler.hpp>
 
 namespace framework::aop {
   class FunctionProfilerAspect final : public iface::IAop<FunctionProfilerAspect> {

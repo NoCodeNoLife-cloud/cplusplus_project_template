@@ -1,5 +1,5 @@
 #pragma once
-#include "AbstractReader.hpp"
+#include <io/reader/AbstractReader.hpp>
 
 namespace framework::io::reader {
   class CharArrayReader final : public AbstractReader {

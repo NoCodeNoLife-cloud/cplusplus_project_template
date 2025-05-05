@@ -1,6 +1,6 @@
 #include <stdexcept>
 #include <entity/base_type/BigDecimal.hpp>
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 using framework::entity::base_type::BigDecimal;
 
 namespace gtest_case {

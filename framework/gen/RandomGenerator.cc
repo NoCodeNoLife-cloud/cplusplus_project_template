@@ -1,4 +1,4 @@
-#include "RandomGenerator.hpp"
+#include <gen/RandomGenerator.hpp>
 
 namespace framework::gen {
   RandomGenerator::RandomGenerator() : generator(std::random_device{}()), real_dist_(0.0, 1.0), normal_dist_(0.0, 1.0) {}

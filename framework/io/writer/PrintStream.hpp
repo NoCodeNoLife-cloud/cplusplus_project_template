@@ -1,7 +1,7 @@
 #pragma once
-#include "FilterOutputStream.hpp"
-#include "../../filesystem/File.hpp"
-#include "../interface/IAppendable.hpp"
+#include <filesystem/File.hpp>
+#include <io/interface/IAppendable.hpp>
+#include <io/writer/FilterOutputStream.hpp>
 
 namespace framework::io::writer {
   class PrintStream final : public FilterOutputStream, public iface::IAppendable<PrintStream> {

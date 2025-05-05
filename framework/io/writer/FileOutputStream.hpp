@@ -2,7 +2,7 @@
 #include <filesystem>
 #include <fstream>
 #include <vector>
-#include "AbstractOutputStream.hpp"
+#include <io/writer/AbstractOutputStream.hpp>
 
 namespace framework::io::writer {
   class FileOutputStream final : public AbstractOutputStream {

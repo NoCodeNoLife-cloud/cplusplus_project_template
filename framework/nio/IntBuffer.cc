@@ -1,5 +1,5 @@
-#include "IntBuffer.hpp"
 #include <stdexcept>
+#include <nio/IntBuffer.hpp>
 
 namespace framework::nio {
   IntBuffer::IntBuffer(const size_t capacity) : buffer_(capacity) {

@@ -1,4 +1,4 @@
-#include "AbstractReader.hpp"
+#include <io/reader/AbstractReader.hpp>
 
 namespace framework::io::reader {
   AbstractReader::~AbstractReader() = default;

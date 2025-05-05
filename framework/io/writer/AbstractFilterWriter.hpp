@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "AbstractWriter.hpp"
+#include <io/writer/AbstractWriter.hpp>
 
 namespace framework::io::writer {
   class AbstractFilterWriter abstract : public AbstractWriter {

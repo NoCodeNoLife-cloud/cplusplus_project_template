@@ -1,4 +1,4 @@
-#include "ByteArrayOutputStream.hpp"
+#include <io/writer/ByteArrayOutputStream.hpp>
 
 namespace framework::io::writer {
   ByteArrayOutputStream::ByteArrayOutputStream() : buf_(32) {}

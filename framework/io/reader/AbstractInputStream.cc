@@ -1,4 +1,4 @@
-#include "AbstractInputStream.hpp"
+#include <io/reader/AbstractInputStream.hpp>
 #include <fstream>
 
 namespace framework::io::reader {

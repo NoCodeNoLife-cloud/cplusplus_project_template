@@ -1,4 +1,4 @@
-#include "FileInputStream.hpp"
+#include <io/reader/FileInputStream.hpp>
 
 namespace framework::io::reader {
   FileInputStream::FileInputStream(const std::string& name) {

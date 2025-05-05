@@ -3,7 +3,7 @@
 #include <random>
 #include <string>
 #include <vector>
-#include "entity/interface/IComparable.hpp"
+#include <entity/interface/IComparable.hpp>
 
 namespace framework::entity::util {
   class UuidGenerator final : public iface::IComparable<UuidGenerator> {

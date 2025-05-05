@@ -1,4 +1,4 @@
-#include "BufferedOutputStream.hpp"
+#include <io/writer/BufferedOutputStream.hpp>
 
 namespace framework::io::writer {
   BufferedOutputStream::BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out) :

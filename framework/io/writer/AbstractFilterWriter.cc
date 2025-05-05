@@ -1,5 +1,5 @@
-#include "AbstractFilterWriter.hpp"
 #include <stdexcept>
+#include <io/writer/AbstractFilterWriter.hpp>
 
 namespace framework::io::writer {
   AbstractFilterWriter::AbstractFilterWriter(std::unique_ptr<AbstractWriter> outputWriter) :

@@ -1,8 +1,8 @@
-#include "MathUtil.hpp"
 #include <cmath>
 #include <limits>
 #include <numbers>
 #include <random>
+#include <math/MathUtil.hpp>
 
 namespace framework::math {
   auto MathUtil::abs(const double a) -> double {

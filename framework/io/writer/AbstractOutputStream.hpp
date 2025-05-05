@@ -1,8 +1,8 @@
 #pragma once
 #include <format>
 #include <vector>
-#include "../interface/ICloseable.hpp"
-#include "../interface/IFlushable.hpp"
+#include <io/interface/ICloseable.hpp>
+#include <io/interface/IFlushable.hpp>
 
 namespace framework::io::writer {
   class AbstractOutputStream abstract : public iface::ICloseable, public iface::IFlushable {

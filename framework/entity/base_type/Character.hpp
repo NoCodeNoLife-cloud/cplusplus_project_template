@@ -1,8 +1,8 @@
 #pragma once
 #include <format>
 #include <iostream>
-#include "Object.hpp"
-#include "entity/interface/IComparable.hpp"
+#include <entity/base_type/Object.hpp>
+#include <entity/interface/IComparable.hpp>
 
 namespace framework::entity::base_type {
   class Character final : public Object, public iface::IComparable<Character> {

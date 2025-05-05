@@ -2,7 +2,7 @@
 #include <filesystem>
 #include <fstream>
 #include <vector>
-#include "AbstractInputStream.hpp"
+#include <io/reader/AbstractInputStream.hpp>
 
 namespace framework::io::reader {
   class FileInputStream final : public AbstractInputStream {

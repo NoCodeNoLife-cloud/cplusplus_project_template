@@ -1,4 +1,4 @@
-#include "Object.hpp"
+#include <entity/base_type/Object.hpp>
 
 namespace framework::entity::base_type {
   Object::Object() = default;

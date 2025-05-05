@@ -1,9 +1,9 @@
 #pragma once
-#include <glog/logging.h>
 #include <fstream>
 #include <vector>
-#include "../interface/IAppendable.hpp"
-#include "AbstractWriter.hpp"
+#include <glog/logging.h>
+#include <io/interface/IAppendable.hpp>
+#include <io/writer/AbstractWriter.hpp>
 
 namespace framework::io::writer {
   class BufferedWriter final : public AbstractWriter, public iface::IAppendable<BufferedWriter> {

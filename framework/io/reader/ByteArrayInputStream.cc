@@ -1,5 +1,5 @@
-#include "ByteArrayInputStream.hpp"
 #include <stdexcept>
+#include <io/reader/ByteArrayInputStream.hpp>
 
 namespace framework::io::reader {
   ByteArrayInputStream::ByteArrayInputStream(const std::vector<std::byte>& buf) : buffer_(buf) {}

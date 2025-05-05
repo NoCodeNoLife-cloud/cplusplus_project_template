@@ -1,4 +1,4 @@
-#include "Byte.hpp"
+#include <entity/base_type/Byte.hpp>
 
 namespace framework::entity::base_type {
   Byte::Byte(const uint8_t value) : value_(value) {}

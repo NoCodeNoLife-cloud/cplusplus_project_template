@@ -1,4 +1,4 @@
-#include "FileOutputStream.hpp"
+#include <io/writer/FileOutputStream.hpp>
 
 namespace framework::io::writer {
   FileOutputStream::FileOutputStream(const std::string& name, const bool append) {

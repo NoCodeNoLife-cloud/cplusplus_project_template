@@ -1,5 +1,5 @@
 #pragma once
-#include "../log/GLogConfiguration.hpp"
+#include <log/GLogConfiguration.hpp>
 
 namespace framework::time {
   class FunctionProfiler {

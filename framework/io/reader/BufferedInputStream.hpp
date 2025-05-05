@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include <vector>
-#include "FilterInputStream.hpp"
+#include <io/reader/FilterInputStream.hpp>
 
 namespace framework::io::reader {
   class BufferedInputStream final : public FilterInputStream {

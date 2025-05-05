@@ -1,4 +1,4 @@
-#include "StringWriter.hpp"
+#include <io/writer/StringWriter.hpp>
 
 namespace framework::io::writer {
   StringWriter::StringWriter(const size_t initialSize) {

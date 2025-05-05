@@ -1,4 +1,4 @@
-#include "Double.hpp"
+#include <entity/base_type/Double.hpp>
 
 namespace framework::entity::base_type {
   Double::Double(const double value) : value_(value) {}

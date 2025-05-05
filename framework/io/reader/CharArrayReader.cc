@@ -1,5 +1,5 @@
-#include "CharArrayReader.hpp"
 #include <stdexcept>
+#include <io/reader/CharArrayReader.hpp>
 
 namespace framework::io::reader {
   CharArrayReader::CharArrayReader(const std::vector<char>& buffer) : buf_(buffer), count_(buffer.size()) {}

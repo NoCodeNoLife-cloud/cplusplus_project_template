@@ -1,5 +1,5 @@
-#include "CharArrayWriter.hpp"
 #include <stdexcept>
+#include <io/writer/CharArrayWriter.hpp>
 
 namespace framework::io::writer {
   CharArrayWriter::CharArrayWriter() = default;

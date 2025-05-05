@@ -1,4 +1,4 @@
-#include "OutputStreamWriter.hpp"
+#include <io/writer/OutputStreamWriter.hpp>
 
 namespace framework::io::writer {
   OutputStreamWriter::OutputStreamWriter(std::unique_ptr<AbstractWriter> outputStream, const std::string& charsetName) :

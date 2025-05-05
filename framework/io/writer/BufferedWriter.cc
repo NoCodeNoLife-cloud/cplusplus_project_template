@@ -1,5 +1,5 @@
-#include "BufferedWriter.hpp"
 #include <stdexcept>
+#include <io/writer/BufferedWriter.hpp>
 
 namespace framework::io::writer {
   BufferedWriter::BufferedWriter(std::unique_ptr<std::ofstream> os, const size_t size) :

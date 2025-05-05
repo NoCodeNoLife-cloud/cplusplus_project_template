@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
-#include "../interface/ICloseable.hpp"
-#include "../interface/IReadable.hpp"
+#include <io/interface/ICloseable.hpp>
+#include <io/interface/IReadable.hpp>
 
 namespace framework::io::reader {
   class AbstractReader abstract : public iface::ICloseable, public iface::IReadable {

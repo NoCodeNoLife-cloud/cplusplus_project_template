@@ -1,7 +1,7 @@
 #pragma once
 #include <ostream>
 #include <string>
-#include "AbstractReader.hpp"
+#include <io/reader/AbstractReader.hpp>
 
 namespace framework::io::reader {
   class StringReader final : public AbstractReader {

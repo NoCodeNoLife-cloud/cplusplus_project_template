@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "RedBlackTreeNode.hpp"
+#include <entity/data_structure/tree/RedBlackTreeNode.hpp>
 
 namespace framework::entity::data_structure::tree {
   template <typename T>

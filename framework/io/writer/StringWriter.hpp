@@ -1,8 +1,8 @@
 #pragma once
 #include <sstream>
 #include <vector>
-#include "AbstractWriter.hpp"
-#include "../interface/IAppendable.hpp"
+#include <io/interface/IAppendable.hpp>
+#include <io/writer/AbstractWriter.hpp>
 
 namespace framework::io::writer {
   class StringWriter final : public AbstractWriter, public iface::IAppendable<StringWriter> {

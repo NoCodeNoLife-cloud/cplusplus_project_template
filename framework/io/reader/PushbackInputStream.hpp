@@ -1,5 +1,5 @@
 #pragma once
-#include "FilterInputStream.hpp"
+#include <io/reader/FilterInputStream.hpp>
 
 namespace framework::io::reader {
   class PushbackInputStream final : public FilterInputStream {

@@ -1,4 +1,4 @@
-#include "Short.hpp"
+#include <entity/base_type/Short.hpp>
 
 namespace framework::entity::base_type {
   Short::Short(const int16_t value) : value_(value) {}

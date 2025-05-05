@@ -1,5 +1,5 @@
-#include "BmpImage.hpp"
 #include <stdexcept>
+#include <graphics/toolkit/BmpImage.hpp>
 
 namespace framework::graphics::toolkit {
   BmpImage::BmpImage(const int32_t width, const int32_t height) : width_(width), height_(height) {

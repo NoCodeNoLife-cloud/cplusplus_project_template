@@ -1,4 +1,4 @@
-#include "Long.hpp"
+#include <entity/base_type/Long.hpp>
 
 namespace framework::entity::base_type {
   Long::Long(const int64_t value) : value_(value) {}

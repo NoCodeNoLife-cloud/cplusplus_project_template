@@ -1,4 +1,4 @@
-#include "StringUtil.hpp"
+#include <entity/util/StringUtil.hpp>
 
 namespace framework::entity::util {
   auto StringUtil::split(const std::string& target, char split_char) -> std::vector<std::string> {

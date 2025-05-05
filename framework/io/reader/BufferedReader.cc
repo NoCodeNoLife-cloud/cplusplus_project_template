@@ -1,4 +1,4 @@
-#include "BufferedReader.hpp"
+#include <io/reader/BufferedReader.hpp>
 
 namespace framework::io::reader {
   BufferedReader::BufferedReader(std::unique_ptr<AbstractReader> reader, const int32_t size) :

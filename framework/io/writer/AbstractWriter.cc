@@ -1,4 +1,4 @@
-#include "AbstractWriter.hpp"
+#include <io/writer/AbstractWriter.hpp>
 
 namespace framework::io::writer {
   AbstractWriter::AbstractWriter() = default;

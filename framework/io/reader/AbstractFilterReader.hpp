@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include <stdexcept>
-#include "AbstractReader.hpp"
+#include <io/reader/AbstractReader.hpp>
 
 namespace framework::io::reader {
   class AbstractFilterReader final : public AbstractReader {

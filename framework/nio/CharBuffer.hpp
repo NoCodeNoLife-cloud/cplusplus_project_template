@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "interface/IBuffer.hpp"
+#include <nio/interface/IBuffer.hpp>
 
 namespace framework::nio {
   class CharBuffer final : public interface::IBuffer {

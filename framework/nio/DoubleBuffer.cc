@@ -1,5 +1,5 @@
-#include "DoubleBuffer.hpp"
 #include <stdexcept>
+#include <nio/DoubleBuffer.hpp>
 
 namespace framework::nio {
   DoubleBuffer::DoubleBuffer(const size_t capacity) : buffer_(capacity) {

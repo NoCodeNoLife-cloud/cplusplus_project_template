@@ -1,5 +1,5 @@
-#include "BigInteger.hpp"
 #include <iostream>
+#include <entity/base_type/BigInteger.hpp>
 
 namespace framework::entity::base_type {
   BigInteger::BigInteger() : value_(0) {}

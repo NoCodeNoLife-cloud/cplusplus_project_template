@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "AbstractInputStream.hpp"
+#include <io/reader/AbstractInputStream.hpp>
 
 namespace framework::io::reader {
   class FilterInputStream : public AbstractInputStream {

@@ -1,7 +1,7 @@
 #pragma once
 #define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
 #include <codecvt>
-#include "AbstractReader.hpp"
+#include <io/reader/AbstractReader.hpp>
 
 namespace framework::io::reader {
   class InputStreamReader final : public AbstractReader {

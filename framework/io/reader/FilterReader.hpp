@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "AbstractReader.hpp"
+#include <io/reader/AbstractReader.hpp>
 
 namespace framework::io::reader {
   class FilterReader : public AbstractReader {

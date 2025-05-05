@@ -1,5 +1,5 @@
-#include "ShortBuffer.hpp"
 #include <stdexcept>
+#include <nio/ShortBuffer.hpp>
 
 namespace framework::nio {
   ShortBuffer::ShortBuffer(const size_t capacity) : buffer_(capacity) {

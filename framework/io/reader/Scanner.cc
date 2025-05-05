@@ -1,6 +1,6 @@
-#include "Scanner.hpp"
 #include <sstream>
 #include <boost/tokenizer.hpp>
+#include <io/reader/Scanner.hpp>
 
 namespace framework::io::reader {
   Scanner::Scanner(std::istream& input_stream) : input_(input_stream) {}

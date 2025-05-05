@@ -1,4 +1,4 @@
-#include "Config.hpp"
+#include <service/config/Config.hpp>
 
 namespace framework::service::config {
   auto Config::hasKey(const std::string& key) const -> bool {

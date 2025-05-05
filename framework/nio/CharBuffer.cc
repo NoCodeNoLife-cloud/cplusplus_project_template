@@ -1,7 +1,7 @@
-#include "CharBuffer.hpp"
 #include <algorithm>
 #include <span>
 #include <stdexcept>
+#include <nio/CharBuffer.hpp>
 
 namespace framework::nio {
   CharBuffer::CharBuffer(const size_t cap) : buffer_(cap, u'\0') {

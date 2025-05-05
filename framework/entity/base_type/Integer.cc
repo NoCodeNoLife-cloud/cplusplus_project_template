@@ -1,4 +1,4 @@
-#include "Integer.hpp"
+#include <entity/base_type/Integer.hpp>
 
 namespace framework::entity::base_type {
   Integer::Integer(const int32_t value) : value_(value) {}

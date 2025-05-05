@@ -1,4 +1,4 @@
-#include "AbstractOutputStream.hpp"
+#include <io/writer/AbstractOutputStream.hpp>
 
 namespace framework::io::writer {
   AbstractOutputStream::~AbstractOutputStream() = default;

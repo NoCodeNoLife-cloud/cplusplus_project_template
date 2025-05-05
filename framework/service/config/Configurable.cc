@@ -1,4 +1,4 @@
-#include "Configurable.hpp"
+#include <service/config/Configurable.hpp>
 
 namespace framework::service::config {
   Configurable::~Configurable() = default;

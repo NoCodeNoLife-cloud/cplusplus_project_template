@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "AbstractInputStream.hpp"
+#include <io/reader/AbstractInputStream.hpp>
 
 namespace framework::io::reader {
   class ByteArrayInputStream final : public AbstractInputStream {

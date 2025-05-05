@@ -1,4 +1,4 @@
-#include "Character.hpp"
+#include <entity/base_type/Character.hpp>
 
 namespace framework::entity::base_type {
   Character::Character(const char value) : value_(value) {}

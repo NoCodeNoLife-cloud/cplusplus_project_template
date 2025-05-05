@@ -1,7 +1,7 @@
 #pragma once
 #define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 #include <codecvt>
-#include "AbstractWriter.hpp"
+#include <io/writer/AbstractWriter.hpp>
 
 namespace framework::io::writer {
   class OutputStreamWriter final : public AbstractWriter {

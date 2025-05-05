@@ -1,8 +1,8 @@
-#include "FunctionProfiler.hpp"
 #include <iomanip>
 #include <iostream>
 #include <utility>
-#include "../filesystem/File.hpp"
+#include <filesystem/File.hpp>
+#include <time/FunctionProfiler.hpp>
 
 namespace framework::time {
   FunctionProfiler::FunctionProfiler(std::string function_name, const bool autoStart) :

@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
-#include "../interface/IAppendable.hpp"
-#include "../interface/ICloseable.hpp"
-#include "../interface/IFlushable.hpp"
+#include <io/interface/IAppendable.hpp>
+#include <io/interface/ICloseable.hpp>
+#include <io/interface/IFlushable.hpp>
 
 namespace framework::io::writer {
   class AbstractWriter : public iface::ICloseable, public iface::IFlushable, iface::IAppendable<AbstractWriter> {
