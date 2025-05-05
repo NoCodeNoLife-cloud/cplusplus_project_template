@@ -9,9 +9,9 @@ namespace framework::gen {
     max_machine_id_ = ~(-1LL << 5),
     max_datacenter_id_ = ~(-1LL << 5),
   };
-  class Snowflake {
+  class SnowflakeGenerator {
   public:
-    Snowflake(int16_t machine_id, int16_t datacenter_id);
+    SnowflakeGenerator(int16_t machine_id, int16_t datacenter_id);
     auto NextId() -> int64_t;
 
   private:

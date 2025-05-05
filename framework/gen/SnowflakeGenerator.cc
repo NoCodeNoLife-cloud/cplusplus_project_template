@@ -1,8 +1,8 @@
 #include <chrono>
-#include <gen/Snowflake.hpp>
+#include <gen/SnowflakeGenerator.hpp>
 
 namespace framework::gen {
-  Snowflake::Snowflake(const int16_t machine_id, const int16_t datacenter_id) {
+  SnowflakeGenerator::SnowflakeGenerator(const int16_t machine_id, const int16_t datacenter_id) {
     if (machine_id < 0 || machine_id > static_cast<int64_t>(SnowflakeOption::max_machine_id_)) {
       throw std::invalid_argument("Machine ID out of range (0-31)");
     }
@@ -12,7 +12,7 @@ namespace framework::gen {
     machine_id_ = static_cast<int16_t>((datacenter_id << 5) | machine_id);
   }
 
-  auto Snowflake::NextId() -> int64_t {
+  auto SnowflakeGenerator::NextId() -> int64_t {
     std::lock_guard lock(mutex_);
     int64_t timestamp = GetCurrentTimestamp();
 
@@ -36,7 +36,7 @@ namespace framework::gen {
     return (timestamp << (static_cast<int64_t>(SnowflakeOption::machine_bits_) + static_cast<int64_t>(SnowflakeOption::sequence_bits_))) | (static_cast<int64_t>(machine_id_) << static_cast<int64_t>(SnowflakeOption::sequence_bits_)) | sequence_;
   }
 
-  auto Snowflake::GetCurrentTimestamp() -> int64_t {
+  auto SnowflakeGenerator::GetCurrentTimestamp() -> int64_t {
     const auto now = std::chrono::system_clock::now();
     const auto duration = now.time_since_epoch();
     const int64_t timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
@@ -44,7 +44,7 @@ namespace framework::gen {
     return timestamp - start_time;
   }
 
-  auto Snowflake::til_next_millis(const int64_t last_timestamp) -> int64_t {
+  auto SnowflakeGenerator::til_next_millis(const int64_t last_timestamp) -> int64_t {
     int64_t timestamp = GetCurrentTimestamp();
     while (timestamp <= last_timestamp) {
       timestamp = GetCurrentTimestamp();
