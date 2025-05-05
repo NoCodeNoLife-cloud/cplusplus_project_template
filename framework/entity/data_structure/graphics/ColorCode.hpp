@@ -1,5 +1,5 @@
 #pragma once
-namespace framework::graphics::models {
+namespace framework::entity::data_structure::graphics {
   enum class ColorCode {
     Red = 0,
     Black = 1,
@@ -10,4 +10,4 @@ namespace framework::graphics::models {
     Cyan = 6,
     Magenta = 7,
   };
-} // namespace framework::graphics::models
+} // namespace framework::entity::data_structure::graphics

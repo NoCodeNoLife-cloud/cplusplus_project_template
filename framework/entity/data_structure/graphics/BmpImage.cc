@@ -1,7 +1,7 @@
 #include <stdexcept>
-#include <graphics/toolkit/BmpImage.hpp>
+#include <entity/data_structure/graphics/BmpImage.hpp>
 
-namespace framework::graphics::toolkit {
+namespace framework::entity::data_structure::graphics {
   BmpImage::BmpImage(const int32_t width, const int32_t height) : width_(width), height_(height) {
     if (width <= 0 || height <= 0) {
       throw std::invalid_argument("Invalid image dimensions");
@@ -9,7 +9,7 @@ namespace framework::graphics::toolkit {
     pixels_.resize(width * height * 3, 0);
   }
 
-  void BmpImage::setPixel(const int32_t x, const int32_t y, const uint8_t r, const uint8_t g, const uint8_t b) {
+  auto BmpImage::setPixel(const int32_t x, const int32_t y, const uint8_t r, const uint8_t g, const uint8_t b) -> void {
     if (x < 0 || x >= width_ || y < 0 || y >= height_) {
       return;
     }
@@ -20,22 +20,22 @@ namespace framework::graphics::toolkit {
     pixels_[index + 2] = r;
   }
 
-  void BmpImage::save(const std::string& filename) const {
+  auto BmpImage::save(const std::string& filename) const -> void {
     const int32_t rowSize = (width_ * 3 + 3) & ~3;
     const int32_t pixelDataSize = rowSize * height_;
-    const uint64_t fileSize = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + pixelDataSize;
-    BITMAPFILEHEADER fileHeader{};
-    fileHeader.bfType = 0x4D42;
-    fileHeader.bfSize = fileSize;
-    fileHeader.bfOffBits = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
-    BITMAPINFOHEADER infoHeader{};
-    infoHeader.biSize = sizeof(BITMAPINFOHEADER);
-    infoHeader.biWidth = width_;
-    infoHeader.biHeight = height_;
-    infoHeader.biPlanes = 1;
-    infoHeader.biBitCount = 24;
-    infoHeader.biCompression = 0;
-    infoHeader.biSizeImage = pixelDataSize;
+    const uint64_t fileSize = sizeof(BitMapFileHeader) + sizeof(BitmapInfoHeader) + pixelDataSize;
+    BitMapFileHeader fileHeader{};
+    fileHeader.bf_type_ = 0x4D42;
+    fileHeader.bf_size_ = fileSize;
+    fileHeader.bf_off_bits_ = sizeof(BitMapFileHeader) + sizeof(BitmapInfoHeader);
+    BitmapInfoHeader infoHeader{};
+    infoHeader.bi_size_ = sizeof(BitmapInfoHeader);
+    infoHeader.bi_width_ = width_;
+    infoHeader.bi_height_ = height_;
+    infoHeader.bi_planes_ = 1;
+    infoHeader.bi_bit_count_ = 24;
+    infoHeader.bi_compression_ = 0;
+    infoHeader.bi_size_image_ = pixelDataSize;
     std::ofstream file(filename, std::ios::binary | std::ios::trunc);
     if (!file) {
       throw std::runtime_error("can't create file: " + filename);
@@ -49,4 +49,4 @@ namespace framework::graphics::toolkit {
       file.write(padding, rowSize - width_ * 3);
     }
   }
-} // namespace framework::graphics::toolkit
+} // namespace framework::entity::data_structure::graphics
