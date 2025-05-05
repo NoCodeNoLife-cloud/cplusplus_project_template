@@ -45,7 +45,8 @@ namespace framework::filesystem {
     std::filesystem::path file_path_;
     friend std::formatter<File>;
   };
-} // namespace framework::filesystem
+}
+
 template <>
 struct std::formatter<framework::filesystem::File> {
   constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {

@@ -35,4 +35,4 @@ namespace framework::io::reader {
     }
     return skipped;
   }
-} // namespace framework::io::reader
+}

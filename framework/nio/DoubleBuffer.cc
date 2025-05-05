@@ -29,4 +29,4 @@ namespace framework::nio {
     }
     return buffer_[position_++];
   }
-} // namespace framework::nio
+}

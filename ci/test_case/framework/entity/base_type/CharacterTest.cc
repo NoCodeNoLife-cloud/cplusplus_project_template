@@ -119,4 +119,4 @@ namespace gtest_case {
     EXPECT_EQ(Character::toLowerCase('a'), static_cast<int32_t>('a'));
     EXPECT_EQ(Character::toLowerCase('3'), static_cast<int32_t>('3'));
   }
-} // namespace gtest_case
+}

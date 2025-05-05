@@ -56,4 +56,4 @@ namespace framework::io::serialize {
     writer.Key(key);
     writer.Bool(value);
   }
-} // namespace framework::io::serialize
+}

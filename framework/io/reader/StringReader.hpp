@@ -23,4 +23,4 @@ namespace framework::io::reader {
     size_t mark_position_;
     bool mark_set_;
   };
-} // namespace framework::io::reader
+}

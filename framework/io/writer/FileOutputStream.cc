@@ -56,4 +56,4 @@ namespace framework::io::writer {
     }
     file_stream_.flush();
   }
-} // namespace framework::io::writer
+}

@@ -11,4 +11,4 @@ namespace framework::service::config {
     virtual auto doConfigure(const Config& config) -> void = 0;
     [[nodiscard]] virtual auto validateConfig(const Config& config) const -> bool;
   };
-} // namespace framework::service::config
+}

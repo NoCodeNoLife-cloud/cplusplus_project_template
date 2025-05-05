@@ -1,12 +1,12 @@
 #include <filesystem/Directory.hpp>
-#include <log/GLogConfiguration.hpp>
+#include <log/GLogConfig.hpp>
 
 namespace framework::log {
-  GLogConfiguration::GLogConfiguration() {
+  GLogConfig::GLogConfig() {
     config();
   }
 
-  auto GLogConfiguration::config() const -> void {
+  auto GLogConfig::config() const -> void {
     google::InitGoogleLogging(LOG_NAME.c_str());
     FLAGS_minloglevel = MIN_LOG_LEVEL;
     configLogToStdout();
@@ -15,11 +15,11 @@ namespace framework::log {
     }
   }
 
-  auto GLogConfiguration::configLogToStdout() -> void {
+  auto GLogConfig::configLogToStdout() -> void {
     FLAGS_logtostderr = true;
   }
 
-  auto GLogConfiguration::clean() -> void {
+  auto GLogConfig::clean() -> void {
     google::ShutdownGoogleLogging();
   }
-} // namespace framework::log
+}

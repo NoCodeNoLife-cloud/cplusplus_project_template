@@ -90,4 +90,4 @@ namespace framework::io::writer {
     buf_.clear();
     count_ = 0;
   }
-} // namespace framework::io::writer
+}

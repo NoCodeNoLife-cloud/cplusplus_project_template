@@ -99,4 +99,4 @@ namespace gtest_case {
     EXPECT_TRUE(tree.find(5));
     EXPECT_TRUE(tree.find(15));
   }
-} // namespace gtest_case
+}

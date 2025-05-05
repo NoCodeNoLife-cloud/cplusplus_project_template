@@ -89,4 +89,4 @@ namespace framework::io::writer {
     }
     return output_writer_->toString();
   }
-} // namespace framework::io::writer
+}

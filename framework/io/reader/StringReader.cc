@@ -62,4 +62,4 @@ namespace framework::io::reader {
     position_ += charsToSkip;
     return static_cast<int64_t>(charsToSkip);
   }
-} // namespace framework::io::reader
+}

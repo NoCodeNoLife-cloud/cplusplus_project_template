@@ -34,7 +34,8 @@ namespace framework::entity::base_type {
     int16_t value_{0};
     friend std::formatter<Short>;
   };
-} // namespace framework::entity::base_type
+}
+
 template <>
 struct std::formatter<framework::entity::base_type::Short> {
   constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {

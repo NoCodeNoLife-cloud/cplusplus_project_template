@@ -38,4 +38,4 @@ namespace framework::nio {
     position_ += length;
     return result;
   }
-} // namespace framework::nio
+}

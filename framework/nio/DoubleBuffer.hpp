@@ -13,4 +13,4 @@ namespace framework::nio {
   private:
     std::vector<double> buffer_;
   };
-} // namespace framework::nio
+}

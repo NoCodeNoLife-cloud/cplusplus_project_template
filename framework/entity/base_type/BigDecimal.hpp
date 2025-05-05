@@ -20,4 +20,4 @@ namespace framework::entity::base_type {
   private:
     boost::multiprecision::cpp_dec_float_100 value_;
   };
-} // namespace framework::entity::base_type
+}

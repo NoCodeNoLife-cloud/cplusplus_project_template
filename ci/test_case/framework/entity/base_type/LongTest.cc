@@ -193,4 +193,4 @@ namespace gtest_case {
     const Long longObj(minValue);
     EXPECT_EQ(longObj.longValue(), minValue);
   }
-} // namespace gtest_case
+}

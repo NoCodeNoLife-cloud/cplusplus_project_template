@@ -88,4 +88,4 @@ namespace framework::entity::base_type {
     }
     return Short(static_cast<int16_t>(this->value_ % other.value_));
   }
-} // namespace framework::entity::base_type
+}

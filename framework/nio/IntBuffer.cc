@@ -35,4 +35,4 @@ namespace framework::nio {
     }
     buffer_[index] = value;
   }
-} // namespace framework::nio
+}

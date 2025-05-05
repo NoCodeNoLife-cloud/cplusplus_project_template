@@ -103,4 +103,4 @@ namespace gtest_case {
     a = a + a;
     EXPECT_EQ(a.toString(), "20");
   }
-} // namespace gtest_case
+}

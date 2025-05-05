@@ -142,4 +142,4 @@ namespace gtest_case {
     const Byte byte(42);
     EXPECT_EQ(byte.toString(), "42");
   }
-} // namespace gtest_case
+}

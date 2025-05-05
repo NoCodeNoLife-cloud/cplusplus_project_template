@@ -54,4 +54,4 @@ namespace framework::interface {
   void IBuffer::rewind() {
     position_ = 0;
   }
-} // namespace framework::interface
+}

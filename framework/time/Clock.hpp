@@ -8,4 +8,4 @@ namespace framework::time {
     static auto getCurrentDateTimeString() -> std::string;
     static auto getCompressedCurrentDateTimeString() -> std::string;
   };
-} // namespace framework::time
+}

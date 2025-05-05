@@ -165,4 +165,4 @@ namespace gtest_case {
     const std::string str = "1e1000";
     EXPECT_THROW(Float::parseFloat(str), std::out_of_range);
   }
-} // namespace gtest_case
+}

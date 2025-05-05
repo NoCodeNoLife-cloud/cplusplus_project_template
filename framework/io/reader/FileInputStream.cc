@@ -65,4 +65,4 @@ namespace framework::io::reader {
   bool FileInputStream::markSupported() const {
     return false;
   }
-} // namespace framework::io::reader
+}

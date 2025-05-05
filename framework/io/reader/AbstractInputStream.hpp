@@ -15,4 +15,4 @@ namespace framework::io::reader {
     virtual auto reset() -> void;
     virtual auto skip(size_t n) -> size_t;
   };
-} // namespace framework::io::reader
+}

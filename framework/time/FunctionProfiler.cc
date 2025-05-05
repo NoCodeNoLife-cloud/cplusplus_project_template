@@ -28,4 +28,4 @@ namespace framework::time {
       getRunTime();
     }
   }
-} // namespace framework::time
+}

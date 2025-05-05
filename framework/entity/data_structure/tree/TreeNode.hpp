@@ -14,4 +14,4 @@ namespace framework::entity::data_structure::tree {
 
   template <typename T>
   TreeNode<T>::TreeNode(T value) : data(value) {}
-} // namespace framework::entity::data_structure::tree
+}

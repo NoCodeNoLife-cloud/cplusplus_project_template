@@ -44,4 +44,4 @@ namespace framework::io::reader {
   size_t FilterReader::skip(const size_t n) {
     return in->skip(n);
   }
-} // namespace framework::io::reader
+}

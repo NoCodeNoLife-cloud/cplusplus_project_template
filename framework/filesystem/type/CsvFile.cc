@@ -1,6 +1,6 @@
-#include <filesystem/CsvFile.hpp>
+#include <filesystem/type/CsvFile.hpp>
 
-namespace framework::io {
+namespace framework::filesystem::type {
   CsvFile::CsvFile(const std::string& file_path) : file_path_(file_path) {
     try {
       csv_doc_ = rapidcsv::Document(file_path);
@@ -62,4 +62,4 @@ namespace framework::io {
       return false;
     }
   }
-} // namespace framework::io
+}

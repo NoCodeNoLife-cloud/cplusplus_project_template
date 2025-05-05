@@ -26,4 +26,4 @@ namespace framework::entity::base_type {
   auto Object::toString() const -> std::string {
     return std::format("{}", *this);
   }
-} // namespace framework::entity::base_type
+}

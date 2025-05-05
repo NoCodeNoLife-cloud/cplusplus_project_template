@@ -127,4 +127,4 @@ namespace gtest_case {
     const Short result = min_val - one;
     EXPECT_EQ(result.shortValue(), 32767);
   }
-} // namespace gtest_case
+}

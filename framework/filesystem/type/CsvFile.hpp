@@ -2,7 +2,7 @@
 #include <rapidcsv.h>
 #include <string>
 
-namespace framework::io {
+namespace framework::filesystem::type {
   class CsvFile {
   public:
     explicit CsvFile(const std::string& file_path);
@@ -17,4 +17,4 @@ namespace framework::io {
     rapidcsv::Document csv_doc_{};
     bool is_valid_{false};
   };
-} // namespace framework::io
+}

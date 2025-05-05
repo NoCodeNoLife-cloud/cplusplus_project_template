@@ -6,4 +6,4 @@ namespace framework::gen {
   public:
     static auto GenerateRandomUuid() -> std::string;
   };
-} // namespace framework::gen
+}

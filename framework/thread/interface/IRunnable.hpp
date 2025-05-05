@@ -6,4 +6,4 @@ namespace framework::iface {
     virtual ~IRunnable() = default;
     virtual auto Run(Args... args) -> ReturnType = 0;
   };
-} // namespace framework::iface
+}

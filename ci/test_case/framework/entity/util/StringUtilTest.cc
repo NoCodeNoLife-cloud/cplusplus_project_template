@@ -115,4 +115,4 @@ namespace gtest_case {
     const std::string result = StringUtil::concatenate(parts, split_char);
     EXPECT_EQ(result, original);
   }
-} // namespace gtest_case
+}

@@ -36,7 +36,8 @@ namespace framework::entity::base_type {
     float value_{0.0};
     friend std::formatter<Float>;
   };
-} // namespace framework::entity::base_type
+}
+
 template <>
 struct std::formatter<framework::entity::base_type::Float> {
   constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {

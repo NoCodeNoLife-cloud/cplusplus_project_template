@@ -20,4 +20,4 @@ namespace framework::io::reader {
   protected:
     std::unique_ptr<AbstractInputStream> input_stream_;
   };
-} // namespace framework::io::reader
+}

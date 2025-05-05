@@ -80,4 +80,4 @@ namespace framework::entity::base_type {
     }
     return Byte(static_cast<uint8_t>(result));
   }
-} // namespace framework::entity::base_type
+}

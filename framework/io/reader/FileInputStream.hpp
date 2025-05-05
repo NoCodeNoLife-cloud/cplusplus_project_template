@@ -23,4 +23,4 @@ namespace framework::io::reader {
     std::ifstream file_stream_;
     std::string file_name_{};
   };
-} // namespace framework::io::reader
+}

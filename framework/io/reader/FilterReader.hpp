@@ -20,4 +20,4 @@ namespace framework::io::reader {
   protected:
     std::shared_ptr<AbstractReader> in;
   };
-} // namespace framework::io::reader
+}

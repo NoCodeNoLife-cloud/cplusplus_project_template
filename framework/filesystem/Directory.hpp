@@ -24,4 +24,4 @@ namespace framework::filesystem {
   private:
     std::filesystem::path file_path_;
   };
-} // namespace framework::filesystem
+}

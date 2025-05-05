@@ -1,5 +1,5 @@
 #pragma once
-#include <log/GLogConfiguration.hpp>
+#include <log/GLogConfig.hpp>
 
 namespace framework::time {
   class FunctionProfiler {
@@ -14,4 +14,4 @@ namespace framework::time {
     std::chrono::time_point<std::chrono::steady_clock> end_;
     std::string function_name_;
   };
-} // namespace framework::time
+}

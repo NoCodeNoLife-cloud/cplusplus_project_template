@@ -5,4 +5,4 @@ namespace framework::iface {
     virtual ~IFlushable() = default;
     virtual auto flush() -> void = 0;
   };
-} // namespace framework::iface
+}

@@ -18,4 +18,4 @@ namespace framework::iface {
   void IBoostSerializable<T>::serialize(Archive& archive, const uint32_t version) {
     static_cast<T*>(this)->serializeImpl(archive, version);
   }
-} // namespace framework::iface
+}

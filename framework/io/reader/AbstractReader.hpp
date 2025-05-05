@@ -16,4 +16,4 @@ namespace framework::io::reader {
     [[nodiscard]] virtual auto ready() const -> bool;
     virtual auto skip(size_t n) -> size_t;
   };
-} // namespace framework::io::reader
+}

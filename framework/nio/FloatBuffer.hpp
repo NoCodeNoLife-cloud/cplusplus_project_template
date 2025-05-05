@@ -15,4 +15,4 @@ namespace framework::nio {
   private:
     std::vector<float> buffer_{};
   };
-} // namespace framework::nio
+}

@@ -2,9 +2,9 @@
 #include <glog/logging.h>
 
 namespace framework::log {
-  class GLogConfiguration {
+  class GLogConfig {
   public:
-    GLogConfiguration();
+    GLogConfig();
 
   private:
     int32_t MIN_LOG_LEVEL{0};
@@ -13,4 +13,4 @@ namespace framework::log {
     static auto configLogToStdout() -> void;
     static auto clean() -> void;
   };
-} // namespace framework::log
+}

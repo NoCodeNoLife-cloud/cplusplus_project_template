@@ -5,4 +5,4 @@ namespace framework::iface {
     virtual ~ICloseable() = default;
     virtual auto close() -> void = 0;
   };
-} // namespace framework::iface
+}

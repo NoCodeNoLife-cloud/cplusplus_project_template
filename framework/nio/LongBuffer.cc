@@ -22,4 +22,4 @@ namespace framework::nio {
     }
     buffer_[position_++] = value;
   }
-} // namespace framework::nio
+}

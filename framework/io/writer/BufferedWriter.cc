@@ -99,4 +99,4 @@ namespace framework::io::writer {
     }
     return str;
   }
-} // namespace framework::io::writer
+}

@@ -155,4 +155,4 @@ namespace framework::entity::data_structure::tree {
       return node;
     return value < node->data ? find(node->left, value) : find(node->right, value);
   }
-} // namespace framework::entity::data_structure::tree
+}

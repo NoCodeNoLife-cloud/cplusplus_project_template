@@ -12,4 +12,4 @@ namespace framework::aop {
     auto onEntry() -> void override;
     auto onExit() -> void override;
   };
-} // namespace framework::aop
+}

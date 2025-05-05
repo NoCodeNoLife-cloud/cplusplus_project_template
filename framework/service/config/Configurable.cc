@@ -6,4 +6,4 @@ namespace framework::service::config {
   auto Configurable::validateConfig(const Config& config) const -> bool {
     return true;
   }
-} // namespace framework::service::config
+}

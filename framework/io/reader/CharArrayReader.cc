@@ -61,4 +61,4 @@ namespace framework::io::reader {
     marked_pos_ = 0;
     count_ = 0;
   }
-} // namespace framework::io::reader
+}

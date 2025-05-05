@@ -16,4 +16,4 @@ namespace framework::io::writer {
       write(buffer[offset + i]);
     }
   }
-} // namespace framework::io::writer
+}

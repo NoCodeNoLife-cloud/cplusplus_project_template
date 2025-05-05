@@ -18,4 +18,4 @@ namespace framework::io::reader {
     std::vector<std::byte> pushback_buffer_;
     size_t buffer_pos_{0};
   };
-} // namespace framework::io::reader
+}

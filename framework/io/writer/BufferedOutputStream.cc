@@ -58,4 +58,4 @@ namespace framework::io::writer {
       buffer_position_ = 0;
     }
   }
-} // namespace framework::io::writer
+}

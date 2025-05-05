@@ -12,4 +12,4 @@ namespace framework::io::writer {
     virtual auto write(const std::vector<std::byte>& buffer) -> void;
     virtual auto write(const std::vector<std::byte>& buffer, size_t offset, size_t len) -> void;
   };
-} // namespace framework::io::writer
+}

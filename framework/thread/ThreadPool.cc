@@ -98,4 +98,4 @@ namespace framework::thread {
     });
     return true;
   }
-} // namespace framework::thread
+}

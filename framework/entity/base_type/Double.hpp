@@ -36,7 +36,8 @@ namespace framework::entity::base_type {
     friend std::formatter<Double>;
     double value_{0.0};
   };
-} // namespace framework::entity::base_type
+}
+
 template <>
 struct std::formatter<framework::entity::base_type::Double> {
   constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {

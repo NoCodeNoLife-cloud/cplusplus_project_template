@@ -113,4 +113,4 @@ namespace framework::io::reader {
     count_ = reader_->read(buffer_, 0, buffer_size_);
     return count_ > 0;
   }
-} // namespace framework::io::reader
+}

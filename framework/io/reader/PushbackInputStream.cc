@@ -55,4 +55,4 @@ namespace framework::io::reader {
     }
     pushback_buffer_[--buffer_pos_] = b;
   }
-} // namespace framework::io::reader
+}

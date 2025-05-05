@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 using framework::entity::data_structure::tree::RedBlackTree;
 using framework::entity::data_structure::tree::RedBlackTreeNode;
+using framework::entity::data_structure::graphics::ColorCode;
 
 namespace gtest_case {
   TEST(RedBlackTreeTest, InsertSingleNode_RootIsBlackAndHasCorrectValue) {
@@ -10,7 +11,7 @@ namespace gtest_case {
     const auto root = tree.root;
     ASSERT_TRUE(root != nullptr);
     EXPECT_EQ(root->getData(), 10);
-    EXPECT_EQ(root->getColor(), framework::graphics::models::ColorCode::Black);
+    EXPECT_EQ(root->getColor(), ColorCode::Black);
     EXPECT_EQ(root->getParent(), nullptr);
   }
 
@@ -21,11 +22,11 @@ namespace gtest_case {
     const auto root = tree.root;
     ASSERT_TRUE(root != nullptr);
     EXPECT_EQ(root->getData(), 10);
-    EXPECT_EQ(root->getColor(), framework::graphics::models::ColorCode::Black);
+    EXPECT_EQ(root->getColor(), ColorCode::Black);
     const auto right = root->getRight();
     ASSERT_TRUE(right != nullptr);
     EXPECT_EQ(right->getData(), 20);
-    EXPECT_EQ(right->getColor(), framework::graphics::models::ColorCode::Red);
+    EXPECT_EQ(right->getColor(), ColorCode::Red);
     EXPECT_EQ(right->getParent(), root);
     EXPECT_EQ(root->getLeft(), nullptr);
   }
@@ -38,15 +39,15 @@ namespace gtest_case {
     const auto root = tree.root;
     ASSERT_TRUE(root != nullptr);
     EXPECT_EQ(root->getData(), 20);
-    EXPECT_EQ(root->getColor(), framework::graphics::models::ColorCode::Black);
+    EXPECT_EQ(root->getColor(), ColorCode::Black);
     const auto left = root->getLeft();
     const auto right = root->getRight();
     ASSERT_TRUE(left != nullptr && right != nullptr);
     EXPECT_EQ(left->getData(), 10);
-    EXPECT_EQ(left->getColor(), framework::graphics::models::ColorCode::Red);
+    EXPECT_EQ(left->getColor(), ColorCode::Red);
     EXPECT_EQ(left->getParent(), root);
     EXPECT_EQ(right->getData(), 30);
-    EXPECT_EQ(right->getColor(), framework::graphics::models::ColorCode::Red);
+    EXPECT_EQ(right->getColor(), ColorCode::Red);
     EXPECT_EQ(right->getParent(), root);
   }
 
@@ -58,15 +59,15 @@ namespace gtest_case {
     const auto root = tree.root;
     ASSERT_TRUE(root != nullptr);
     EXPECT_EQ(root->getData(), 5);
-    EXPECT_EQ(root->getColor(), framework::graphics::models::ColorCode::Black);
+    EXPECT_EQ(root->getColor(), ColorCode::Black);
     const auto left = root->getLeft();
     const auto right = root->getRight();
     ASSERT_TRUE(left != nullptr && right != nullptr);
     EXPECT_EQ(left->getData(), 1);
-    EXPECT_EQ(left->getColor(), framework::graphics::models::ColorCode::Red);
+    EXPECT_EQ(left->getColor(), ColorCode::Red);
     EXPECT_EQ(left->getParent(), root);
     EXPECT_EQ(right->getData(), 10);
-    EXPECT_EQ(right->getColor(), framework::graphics::models::ColorCode::Red);
+    EXPECT_EQ(right->getColor(), ColorCode::Red);
     EXPECT_EQ(right->getParent(), root);
   }
 
@@ -79,18 +80,18 @@ namespace gtest_case {
     const auto root = tree.root;
     ASSERT_TRUE(root != nullptr);
     EXPECT_EQ(root->getData(), 10);
-    EXPECT_EQ(root->getColor(), framework::graphics::models::ColorCode::Black);
+    EXPECT_EQ(root->getColor(), ColorCode::Black);
     const auto left = root->getLeft();
     const auto right = root->getRight();
     ASSERT_TRUE(left != nullptr && right != nullptr);
     EXPECT_EQ(left->getData(), 5);
-    EXPECT_EQ(left->getColor(), framework::graphics::models::ColorCode::Black);
+    EXPECT_EQ(left->getColor(), ColorCode::Black);
     EXPECT_EQ(right->getData(), 15);
-    EXPECT_EQ(right->getColor(), framework::graphics::models::ColorCode::Black);
+    EXPECT_EQ(right->getColor(), ColorCode::Black);
     const auto left_right = left->getRight();
     ASSERT_TRUE(left_right != nullptr);
     EXPECT_EQ(left_right->getData(), 6);
-    EXPECT_EQ(left_right->getColor(), framework::graphics::models::ColorCode::Red);
+    EXPECT_EQ(left_right->getColor(), ColorCode::Red);
     EXPECT_EQ(left_right->getParent(), left);
   }
 
@@ -103,7 +104,7 @@ namespace gtest_case {
     const auto right = root->getRight();
     ASSERT_TRUE(right != nullptr);
     EXPECT_EQ(right->getData(), 10);
-    EXPECT_EQ(right->getColor(), framework::graphics::models::ColorCode::Red);
+    EXPECT_EQ(right->getColor(), ColorCode::Red);
     EXPECT_EQ(right->getParent(), root);
   }
-} // namespace gtest_case
+}

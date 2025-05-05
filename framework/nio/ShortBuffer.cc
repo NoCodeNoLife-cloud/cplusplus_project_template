@@ -53,4 +53,4 @@ namespace framework::nio {
   auto ShortBuffer::data() const -> const short* {
     return buffer_.data();
   }
-} // namespace framework::nio
+}

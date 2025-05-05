@@ -325,4 +325,4 @@ namespace gtest_case {
     const std::string result = s.toString();
     EXPECT_EQ(result, "String{data: test}");
   }
-} // namespace gtest_case
+}

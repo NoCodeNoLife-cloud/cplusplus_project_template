@@ -5,4 +5,4 @@ namespace framework::time::iface {
     virtual ~ITimerTask() = default;
     virtual void execute() = 0;
   };
-} // namespace framework::time::iface
+}

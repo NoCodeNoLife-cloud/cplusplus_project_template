@@ -12,4 +12,4 @@ namespace framework::nio {
   private:
     std::vector<int64_t> buffer_{};
   };
-} // namespace framework::nio
+}

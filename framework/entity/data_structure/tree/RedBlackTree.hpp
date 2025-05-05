@@ -20,7 +20,7 @@ namespace framework::entity::data_structure::tree {
     auto node = std::make_shared<RedBlackTreeNode<T>>(value);
     if (!root) {
       root = node;
-      node->setColor(graphics::models::ColorCode::Black);
+      node->setColor(graphics::ColorCode::Black);
       return;
     }
     std::shared_ptr<RedBlackTreeNode<T>> current = root;
@@ -82,45 +82,45 @@ namespace framework::entity::data_structure::tree {
 
   template <typename T>
   auto RedBlackTree<T>::fixInsert(std::shared_ptr<RedBlackTreeNode<T>> node) -> void {
-    while (node != root && node->getParent() && node->getParent()->getColor() == graphics::models::ColorCode::Red) {
+    while (node != root && node->getParent() && node->getParent()->getColor() == graphics::ColorCode::Red) {
       if (node->getParent() == node->getParent()->getParent()->getLeft()) {
         auto uncle = node->getParent()->getParent()->getRight();
-        if (uncle && uncle->getColor() == graphics::models::ColorCode::Red) {
-          node->getParent()->setColor(graphics::models::ColorCode::Black);
-          uncle->setColor(graphics::models::ColorCode::Black);
-          node->getParent()->getParent()->setColor(graphics::models::ColorCode::Red);
+        if (uncle && uncle->getColor() == graphics::ColorCode::Red) {
+          node->getParent()->setColor(graphics::ColorCode::Black);
+          uncle->setColor(graphics::ColorCode::Black);
+          node->getParent()->getParent()->setColor(graphics::ColorCode::Red);
           node = node->getParent()->getParent();
         } else {
           if (node == node->getParent()->getRight()) {
             node = node->getParent();
             leftRotate(node);
           }
-          node->getParent()->setColor(graphics::models::ColorCode::Black);
+          node->getParent()->setColor(graphics::ColorCode::Black);
           if (node->getParent()->getParent()) {
-            node->getParent()->getParent()->setColor(graphics::models::ColorCode::Red);
+            node->getParent()->getParent()->setColor(graphics::ColorCode::Red);
           }
           rightRotate(node->getParent()->getParent());
         }
       } else {
         auto uncle = node->getParent()->getParent()->getLeft();
-        if (uncle && uncle->getColor() == graphics::models::ColorCode::Red) {
-          node->getParent()->setColor(graphics::models::ColorCode::Black);
-          uncle->setColor(graphics::models::ColorCode::Black);
-          node->getParent()->getParent()->setColor(graphics::models::ColorCode::Red);
+        if (uncle && uncle->getColor() == graphics::ColorCode::Red) {
+          node->getParent()->setColor(graphics::ColorCode::Black);
+          uncle->setColor(graphics::ColorCode::Black);
+          node->getParent()->getParent()->setColor(graphics::ColorCode::Red);
           node = node->getParent()->getParent();
         } else {
           if (node == node->getParent()->getLeft()) {
             node = node->getParent();
             rightRotate(node);
           }
-          node->getParent()->setColor(graphics::models::ColorCode::Black);
+          node->getParent()->setColor(graphics::ColorCode::Black);
           if (node->getParent()->getParent()) {
-            node->getParent()->getParent()->setColor(graphics::models::ColorCode::Red);
+            node->getParent()->getParent()->setColor(graphics::ColorCode::Red);
           }
           leftRotate(node->getParent()->getParent());
         }
       }
     }
-    root->setColor(graphics::models::ColorCode::Black);
+    root->setColor(graphics::ColorCode::Black);
   }
-} // namespace framework::entity::data_structure::tree
+}

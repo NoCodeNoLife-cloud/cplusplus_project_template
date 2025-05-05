@@ -66,4 +66,4 @@ namespace framework::io::writer {
     flush();
     output_writer_->close();
   }
-} // namespace framework::io::writer
+}

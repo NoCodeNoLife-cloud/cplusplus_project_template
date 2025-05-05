@@ -53,4 +53,4 @@ namespace framework::io::reader {
   auto ByteArrayInputStream::close() -> void {
     // do nothing
   }
-} // namespace framework::io::reader
+}

@@ -27,4 +27,4 @@ namespace framework::io::reader {
     size_t mark_limit_{0};
     bool fillBuffer();
   };
-} // namespace framework::io::reader
+}

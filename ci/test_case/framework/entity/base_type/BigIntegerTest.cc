@@ -241,4 +241,4 @@ namespace gtest_case {
     const BigInteger bigInt = BigInteger::fromInt(-9223372036854775807LL - 1);
     EXPECT_EQ(bigInt.toString(), "-9223372036854775808");
   }
-} // namespace gtest_case
+}

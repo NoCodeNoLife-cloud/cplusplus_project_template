@@ -28,4 +28,4 @@ namespace framework::io::writer {
     std::string charset_;
     bool closed_;
   };
-} // namespace framework::io::writer
+}

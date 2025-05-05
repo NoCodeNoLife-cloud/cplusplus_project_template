@@ -47,4 +47,4 @@ namespace framework::nio {
       buffer_.begin() + static_cast<std::ptrdiff_t>(limit_)
     };
   }
-} // namespace framework::nio
+}

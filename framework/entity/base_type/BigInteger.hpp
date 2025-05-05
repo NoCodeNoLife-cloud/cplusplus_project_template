@@ -26,4 +26,4 @@ namespace framework::entity::base_type {
   private:
     boost::multiprecision::cpp_int value_;
   };
-} // namespace framework::entity::base_type
+}

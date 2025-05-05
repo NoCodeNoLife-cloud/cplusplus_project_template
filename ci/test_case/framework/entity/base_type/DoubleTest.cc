@@ -157,4 +157,4 @@ namespace gtest_case {
     EXPECT_DOUBLE_EQ(static_cast<double>(addResult), -1.0);
     EXPECT_DOUBLE_EQ(static_cast<double>(mulResult), -6.0);
   }
-} // namespace gtest_case
+}

@@ -19,4 +19,4 @@ namespace framework::io::writer {
     virtual auto write(const std::string& str, size_t off, size_t len) -> void;
     [[nodiscard]] virtual auto toString() const -> std::string = 0;
   };
-} // namespace framework::io::writer
+}

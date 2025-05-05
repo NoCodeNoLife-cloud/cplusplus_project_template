@@ -18,4 +18,4 @@ namespace framework::util::time {
     std::string pattern;
     static auto validatePattern(const std::string& pat) -> void;
   };
-} // namespace framework::util::time
+}

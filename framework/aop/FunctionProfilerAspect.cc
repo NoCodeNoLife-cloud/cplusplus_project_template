@@ -11,4 +11,4 @@ namespace framework::aop {
   void FunctionProfilerAspect::onExit() {
     timer_.recordEnd(true);
   }
-} // namespace framework::aop
+}

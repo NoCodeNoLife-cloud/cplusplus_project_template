@@ -71,4 +71,4 @@ namespace gtest_case {
     const std::string str = obj.toString();
     EXPECT_FALSE(str.empty());
   }
-} // namespace gtest_case
+}

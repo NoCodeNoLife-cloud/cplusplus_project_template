@@ -116,4 +116,4 @@ namespace gtest_case {
     tree.remove(10);
     EXPECT_FALSE(tree.find(10));
   }
-} // namespace gtest_case
+}

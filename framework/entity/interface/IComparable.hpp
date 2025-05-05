@@ -7,4 +7,4 @@ namespace framework::iface {
     [[nodiscard]] virtual auto compareTo(const T& other) const -> int32_t = 0;
     [[nodiscard]] virtual auto equals(const T& other) const -> bool = 0;
   };
-} // namespace framework::iface
+}

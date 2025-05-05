@@ -254,4 +254,4 @@ namespace framework::entity::base_type {
   std::string String::toString() const {
     return std::format("{}", *this);
   }
-} // namespace framework::entity::base_type
+}

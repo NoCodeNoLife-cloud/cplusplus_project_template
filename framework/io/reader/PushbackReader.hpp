@@ -23,4 +23,4 @@ namespace framework::io::reader {
     std::vector<char> buffer_;
     size_t buffer_pos_{DEFAULT_BUFFER_SIZE};
   };
-} // namespace framework::io::reader
+}

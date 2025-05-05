@@ -69,4 +69,4 @@ namespace framework::entity::base_type {
   auto BigInteger::fromInt(const int64_t num) -> BigInteger {
     return BigInteger(num);
   }
-} // namespace framework::entity::base_type
+}

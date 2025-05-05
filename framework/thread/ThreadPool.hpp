@@ -32,4 +32,4 @@ namespace framework::thread {
     auto Worker() -> void;
     auto AddWorker() -> bool;
   };
-} // namespace framework::thread
+}

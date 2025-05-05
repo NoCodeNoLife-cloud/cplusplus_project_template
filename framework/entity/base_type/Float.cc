@@ -78,4 +78,4 @@ namespace framework::entity::base_type {
     }
     return Float(this->value_ / other.value_);
   }
-} // namespace framework::entity::base_type
+}

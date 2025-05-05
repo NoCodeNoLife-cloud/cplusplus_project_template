@@ -18,4 +18,4 @@ namespace framework::io {
   auto Console::reader() -> std::istream& {
     return std::cin;
   }
-} // namespace framework::io
+}

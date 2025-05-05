@@ -19,4 +19,4 @@ namespace framework::service::config {
   auto Config::get(const std::string& key) const -> T {
     return std::any_cast<T>(params_.at(key));
   }
-} // namespace framework::service::config
+}

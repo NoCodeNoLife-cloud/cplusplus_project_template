@@ -76,4 +76,4 @@ namespace framework::entity::base_type {
   auto Character::operator>=(const Character& other) const -> bool {
     return value_ >= other.value_;
   }
-} // namespace framework::entity::base_type
+}

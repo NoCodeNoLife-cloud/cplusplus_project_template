@@ -62,7 +62,8 @@ namespace framework::entity::base_type {
     std::string data_{};
     friend std::formatter<String>;
   };
-} // namespace framework::entity::base_type
+}
+
 template <>
 struct std::formatter<framework::entity::base_type::String> {
   constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {

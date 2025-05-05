@@ -37,4 +37,4 @@ namespace framework::io::writer {
     std::locale locale_;
     auto flushIfNeeded() const -> void;
   };
-} // namespace framework::io::writer
+}

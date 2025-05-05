@@ -37,4 +37,4 @@ namespace framework::aop::iface {
       return std::forward<T>(result);
     }
   };
-} // namespace framework::aop::iface
+}

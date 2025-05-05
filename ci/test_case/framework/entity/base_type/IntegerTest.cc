@@ -125,4 +125,4 @@ namespace gtest_case {
 
     EXPECT_THROW(a / b, std::invalid_argument);
   }
-} // namespace gtest_case
+}

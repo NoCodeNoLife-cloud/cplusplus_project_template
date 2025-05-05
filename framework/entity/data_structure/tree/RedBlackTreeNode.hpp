@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include <../graphics/ColorCode.hpp>
+#include <entity/data_structure/graphics/ColorCode.hpp>
 
 namespace framework::entity::data_structure::tree {
   template <typename T>
@@ -15,19 +15,19 @@ namespace framework::entity::data_structure::tree {
     auto setRight(std::shared_ptr<RedBlackTreeNode> node) -> void;
     auto getParent() const -> std::shared_ptr<RedBlackTreeNode>;
     auto setParent(std::shared_ptr<RedBlackTreeNode> node) -> void;
-    [[nodiscard]] auto getColor() const -> graphics::models::ColorCode;
-    auto setColor(graphics::models::ColorCode c) -> void;
+    [[nodiscard]] auto getColor() const -> graphics::ColorCode;
+    auto setColor(graphics::ColorCode c) -> void;
 
   private:
     T data;
     std::shared_ptr<RedBlackTreeNode> left;
     std::shared_ptr<RedBlackTreeNode> right;
     std::shared_ptr<RedBlackTreeNode> parent;
-    graphics::models::ColorCode color;
+    graphics::ColorCode color;
   };
 
   template <typename T>
-  RedBlackTreeNode<T>::RedBlackTreeNode(const T& value) : data(value), color(graphics::models::ColorCode::Red) {}
+  RedBlackTreeNode<T>::RedBlackTreeNode(const T& value) : data(value), color(graphics::ColorCode::Red) {}
 
   template <typename T>
   auto RedBlackTreeNode<T>::getData() const -> T {
@@ -70,12 +70,12 @@ namespace framework::entity::data_structure::tree {
   }
 
   template <typename T>
-  auto RedBlackTreeNode<T>::getColor() const -> graphics::models::ColorCode {
+  auto RedBlackTreeNode<T>::getColor() const -> graphics::ColorCode {
     return color;
   }
 
   template <typename T>
-  auto RedBlackTreeNode<T>::setColor(const graphics::models::ColorCode c) -> void {
+  auto RedBlackTreeNode<T>::setColor(const graphics::ColorCode c) -> void {
     color = c;
   }
-} // namespace framework::entity::data_structure::tree
+}

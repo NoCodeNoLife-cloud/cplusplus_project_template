@@ -22,4 +22,4 @@ namespace framework::io::reader {
     size_t marked_pos_{0};
     size_t count_{0};
   };
-} // namespace framework::io::reader
+}

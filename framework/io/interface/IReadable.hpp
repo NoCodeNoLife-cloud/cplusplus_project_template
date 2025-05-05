@@ -5,4 +5,4 @@ namespace framework::iface {
     virtual ~IReadable() = default;
     virtual auto read() -> int32_t = 0;
   };
-} // namespace framework::iface
+}

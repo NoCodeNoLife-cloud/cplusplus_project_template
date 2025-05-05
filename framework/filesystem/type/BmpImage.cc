@@ -1,7 +1,7 @@
 #include <stdexcept>
-#include <entity/data_structure/graphics/BmpImage.hpp>
+#include <filesystem/type/BmpImage.hpp>
 
-namespace framework::entity::data_structure::graphics {
+namespace framework::filesystem::type {
   BmpImage::BmpImage(const int32_t width, const int32_t height) : width_(width), height_(height) {
     if (width <= 0 || height <= 0) {
       throw std::invalid_argument("Invalid image dimensions");
@@ -49,4 +49,4 @@ namespace framework::entity::data_structure::graphics {
       file.write(padding, rowSize - width_ * 3);
     }
   }
-} // namespace framework::entity::data_structure::graphics
+}

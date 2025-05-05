@@ -44,4 +44,4 @@ namespace framework::entity::base_type {
   auto BigDecimal::toString() const -> std::string {
     return value_.convert_to<std::string>();
   }
-} // namespace framework::entity::base_type
+}

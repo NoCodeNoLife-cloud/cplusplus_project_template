@@ -81,4 +81,4 @@ namespace gtest_case {
     EXPECT_FALSE(obj2.booleanValue());
     EXPECT_FALSE(obj2.boolValue());
   }
-} // namespace gtest_case
+}

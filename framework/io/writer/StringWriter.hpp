@@ -24,4 +24,4 @@ namespace framework::io::writer {
   private:
     std::ostringstream buffer_;
   };
-} // namespace framework::io::writer
+}

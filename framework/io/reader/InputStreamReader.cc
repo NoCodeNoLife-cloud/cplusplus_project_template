@@ -78,4 +78,4 @@ namespace framework::io::reader {
   auto InputStreamReader::reset() -> void {
     throw std::runtime_error("Reset not supported");
   }
-} // namespace framework::io::reader
+}

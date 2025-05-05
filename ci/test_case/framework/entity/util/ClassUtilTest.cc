@@ -71,4 +71,4 @@ namespace gtest_case {
     const std::vector<std::list<int>> obj;
     EXPECT_EQ(ClassUtil::getTypeId(obj), "class std::vector<class std::list<int,class std::allocator<int> >,class std::allocator<class std::list<int,class std::allocator<int> > > > const & __ptr64");
   }
-} // namespace gtest_case
+}

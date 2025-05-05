@@ -21,4 +21,4 @@ namespace framework::io::writer {
     std::ofstream file_stream_;
     std::string file_name_{};
   };
-} // namespace framework::io::writer
+}

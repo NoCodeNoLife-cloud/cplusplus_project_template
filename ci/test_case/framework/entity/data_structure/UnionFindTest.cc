@@ -79,4 +79,4 @@ namespace gtest_case {
     EXPECT_EQ(uf.parent.find(x)->second, x);
     EXPECT_EQ(uf.rank.find(x)->second, 1);
   }
-} // namespace gtest_case
+}

@@ -54,4 +54,4 @@ namespace framework::util::time {
       throw std::invalid_argument("Pattern cannot be empty.");
     }
   }
-} // namespace framework::util::time
+}

@@ -54,4 +54,4 @@ namespace framework::entity::data_structure {
       rank[x] = 1;
     }
   }
-} // namespace framework::entity::data_structure
+}

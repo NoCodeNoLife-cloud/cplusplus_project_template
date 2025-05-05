@@ -88,4 +88,4 @@ namespace framework::io::reader {
     }
     buffer_[--buffer_pos_] = static_cast<char>(c);
   }
-} // namespace framework::io::reader
+}

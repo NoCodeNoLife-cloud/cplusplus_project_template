@@ -67,4 +67,4 @@ namespace framework::io::reader {
   auto FilterInputStream::close() -> void {
     input_stream_->close();
   }
-} // namespace framework::io::reader
+}

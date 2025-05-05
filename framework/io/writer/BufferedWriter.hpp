@@ -26,4 +26,4 @@ namespace framework::io::writer {
     std::vector<char> buffer_;
     size_t buffer_size_;
   };
-} // namespace framework::io::writer
+}

@@ -31,7 +31,8 @@ namespace framework::entity::base_type {
     uint8_t value_{0};
     friend std::formatter<Byte>;
   };
-} // namespace framework::entity::base_type
+}
+
 template <>
 struct std::formatter<framework::entity::base_type::Byte> {
   constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {

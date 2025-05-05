@@ -31,4 +31,4 @@ namespace framework::io::serialize {
     binaryIarchive >> t;
     return t;
   }
-} // namespace framework::io::serialize
+}

@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-namespace framework::io {
+namespace framework::entity::util {
   class ArraysUtil abstract {
   public:
     template <typename T>
@@ -107,4 +107,4 @@ namespace framework::io {
     oss << "]";
     return oss.str();
   }
-} // namespace framework::io
+}

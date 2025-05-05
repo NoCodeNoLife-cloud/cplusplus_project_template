@@ -26,4 +26,4 @@ namespace framework::io::reader {
     size_t pos_{0};
     auto fillBuffer() -> void;
   };
-} // namespace framework::io::reader
+}

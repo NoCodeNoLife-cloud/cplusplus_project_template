@@ -18,4 +18,4 @@ namespace framework::nio {
   private:
     std::vector<short> buffer_{};
   };
-} // namespace framework::nio
+}

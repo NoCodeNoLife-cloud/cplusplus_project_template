@@ -80,4 +80,4 @@ namespace framework::entity::base_type {
     }
     return Integer(this->value_ / other.value_);
   }
-} // namespace framework::entity::base_type
+}

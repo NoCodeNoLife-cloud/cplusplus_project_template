@@ -20,4 +20,4 @@ namespace framework::io::writer {
     std::vector<std::byte> buf_;
     size_t count_{0};
   };
-} // namespace framework::io::writer
+}

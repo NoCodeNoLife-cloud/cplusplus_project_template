@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <entity/util/ArraysUtil.hpp>
 #include <gtest/gtest.h>
-using framework::io::ArraysUtil;
+using framework::entity::util::ArraysUtil;
 
 namespace gtest_case {
   TEST(ArraysUtilTest, AsList_ConvertsIntArrayToVector) {
@@ -55,7 +55,7 @@ namespace gtest_case {
 
   TEST(ArraysUtilTest, BinarySearchWithRange_ThrowsExceptionForInvalidRange) {
     constexpr int arr[] = {1, 3, 5};
-    EXPECT_THROW(framework::io::ArraysUtil::binarySearch(arr, 2, 1, 3), std::out_of_range);
+    EXPECT_THROW(ArraysUtil::binarySearch(arr, 2, 1, 3), std::out_of_range);
   }
 
   TEST(ArraysUtilTest, CopyOf_ShrinksArraySize) {
@@ -88,7 +88,7 @@ namespace gtest_case {
 
   TEST(ArraysUtilTest, CopyOfRange_ThrowsExceptionForFromGreaterThanTo) {
     constexpr int original[] = {1, 2, 3};
-    EXPECT_THROW(framework::io::ArraysUtil::copyOfRange(original, 3, 1), std::out_of_range);
+    EXPECT_THROW(ArraysUtil::copyOfRange(original, 3, 1), std::out_of_range);
   }
 
   TEST(ArraysUtilTest, Equals_ReturnsTrueForIdenticalArrays) {
@@ -115,8 +115,8 @@ namespace gtest_case {
   TEST(ArraysUtilTest, Fill_FillsEntireArrayWithValue) {
     int arr[4];
     ArraysUtil::fill(arr, 4, 7);
-    for (int i = 0; i < 4; ++i) {
-      EXPECT_EQ(arr[i], 7);
+    for (int i : arr) {
+      EXPECT_EQ(i, 7);
     }
   }
 
@@ -136,7 +136,7 @@ namespace gtest_case {
 
   TEST(ArraysUtilTest, Sort_ThrowsExceptionForInvalidRange) {
     int arr[] = {1, 2, 3};
-    EXPECT_THROW(framework::io::ArraysUtil::sort(arr, 2, 1), std::out_of_range);
+    EXPECT_THROW(ArraysUtil::sort(arr, 2, 1), std::out_of_range);
   }
 
   TEST(ArraysUtilTest, ToString_ReturnsSingleElementString) {
@@ -150,4 +150,4 @@ namespace gtest_case {
     const std::string result = ArraysUtil::toString(arr, 3);
     EXPECT_EQ(result, "[1, 2, 3]");
   }
-} // namespace gtest_case
+}

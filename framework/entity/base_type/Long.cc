@@ -85,4 +85,4 @@ namespace framework::entity::base_type {
     }
     return Long(this->value_ % other.value_);
   }
-} // namespace framework::entity::base_type
+}

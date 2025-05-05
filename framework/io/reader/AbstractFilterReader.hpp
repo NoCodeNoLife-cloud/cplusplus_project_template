@@ -20,4 +20,4 @@ namespace framework::io::reader {
   protected:
     std::unique_ptr<AbstractReader> reader_;
   };
-} // namespace framework::io::reader
+}

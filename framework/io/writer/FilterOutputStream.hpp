@@ -15,4 +15,4 @@ namespace framework::io::writer {
   protected:
     std::shared_ptr<AbstractOutputStream> output_stream_;
   };
-} // namespace framework::io::writer
+}

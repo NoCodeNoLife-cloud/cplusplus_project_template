@@ -18,4 +18,4 @@ namespace framework::io::writer {
   protected:
     std::unique_ptr<AbstractWriter> output_writer_;
   };
-} // namespace framework::io::writer
+}

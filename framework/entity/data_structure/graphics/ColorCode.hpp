@@ -10,4 +10,4 @@ namespace framework::entity::data_structure::graphics {
     Cyan = 6,
     Magenta = 7,
   };
-} // namespace framework::entity::data_structure::graphics
+}

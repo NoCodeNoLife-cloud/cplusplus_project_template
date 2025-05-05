@@ -61,4 +61,4 @@ namespace framework::io::writer {
     }
     buffer_.write(cBuf.data() + off, static_cast<std::streamsize>(len));
   }
-} // namespace framework::io::writer
+}

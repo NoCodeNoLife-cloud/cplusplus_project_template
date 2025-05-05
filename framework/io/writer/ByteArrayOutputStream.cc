@@ -51,4 +51,4 @@ namespace framework::io::writer {
   auto ByteArrayOutputStream::flush() -> void {
     // No operation for ByteArrayOutputStream.
   }
-} // namespace framework::io::writer
+}

@@ -15,4 +15,4 @@ namespace framework::io::reader {
   private:
     std::istream& input_;
   };
-} // namespace framework::io::reader
+}

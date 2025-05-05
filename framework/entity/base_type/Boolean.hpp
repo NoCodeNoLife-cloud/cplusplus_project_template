@@ -25,7 +25,8 @@ namespace framework::entity::base_type {
   };
   const Boolean True{true};
   const Boolean False{false};
-} // namespace framework::entity::base_type
+}
+
 template <>
 struct std::formatter<framework::entity::base_type::Boolean> {
   constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {

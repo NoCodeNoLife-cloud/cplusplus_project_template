@@ -18,4 +18,4 @@ namespace framework::time {
     std::chrono::milliseconds interval_;
     auto schedule_next() -> void;
   };
-} // namespace framework::time
+}

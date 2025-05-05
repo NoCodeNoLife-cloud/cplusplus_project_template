@@ -25,4 +25,4 @@ namespace framework::io {
     std::chrono::system_clock::time_point time_point_;
     [[nodiscard]] auto toTm() const -> std::tm;
   };
-} // namespace framework::io
+}

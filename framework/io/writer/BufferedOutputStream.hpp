@@ -21,4 +21,4 @@ namespace framework::io::writer {
     size_t buffer_position_;
     auto flushBuffer() -> void;
   };
-} // namespace framework::io::writer
+}

@@ -37,4 +37,4 @@ namespace framework::io::serialize {
     }
     return obj;
   }
-} // namespace framework::io::serialize
+}

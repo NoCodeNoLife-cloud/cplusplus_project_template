@@ -15,4 +15,4 @@ namespace framework::nio {
   private:
     std::string buffer_{};
   };
-} // namespace framework::nio
+}

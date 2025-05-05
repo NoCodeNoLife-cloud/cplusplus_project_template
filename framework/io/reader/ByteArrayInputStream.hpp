@@ -20,4 +20,4 @@ namespace framework::io::reader {
     size_t pos_{0};
     size_t mark_position_{0};
   };
-} // namespace framework::io::reader
+}

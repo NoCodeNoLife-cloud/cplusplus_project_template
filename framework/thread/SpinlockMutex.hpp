@@ -11,4 +11,4 @@ namespace framework::thread {
   private:
     std::atomic_flag flag_;
   };
-} // namespace framework::thread
+}

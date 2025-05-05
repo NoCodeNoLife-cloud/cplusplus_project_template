@@ -13,4 +13,4 @@ namespace framework::aop {
     time::FunctionProfiler timer_;
     std::string function_name_;
   };
-} // namespace framework::aop
+}

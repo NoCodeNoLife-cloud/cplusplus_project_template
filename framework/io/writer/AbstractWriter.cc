@@ -40,4 +40,4 @@ namespace framework::io::writer {
       write(buf, 0, buf.size());
     }
   }
-} // namespace framework::io::writer
+}

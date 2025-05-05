@@ -13,4 +13,4 @@ namespace framework::thread {
   auto SpinlockMutex::unlock() -> void {
     flag_.clear(std::memory_order_release);
   }
-} // namespace framework::thread
+}

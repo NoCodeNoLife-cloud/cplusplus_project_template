@@ -3,7 +3,7 @@
 #include <fstream>
 #include <vector>
 
-namespace framework::entity::data_structure::graphics {
+namespace framework::filesystem::type {
 #pragma pack(push, 1)
   struct BitMapFileHeader {
     uint16_t bf_type_;
@@ -37,4 +37,4 @@ namespace framework::entity::data_structure::graphics {
     int32_t height_;
     std::vector<uint8_t> pixels_;
   };
-} // namespace framework::entity::data_structure::graphics
+}

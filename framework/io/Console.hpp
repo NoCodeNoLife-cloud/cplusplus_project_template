@@ -34,4 +34,4 @@ namespace framework::io {
     format(fmt, args...);
     return readLine();
   }
-} // namespace framework::io
+}

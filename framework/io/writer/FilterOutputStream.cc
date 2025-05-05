@@ -44,4 +44,4 @@ namespace framework::io::writer {
     flush();
     output_stream_->close();
   }
-} // namespace framework::io::writer
+}

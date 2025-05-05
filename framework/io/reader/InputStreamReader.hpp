@@ -20,4 +20,4 @@ namespace framework::io::reader {
     std::shared_ptr<AbstractReader> reader_;
     std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> converter_;
   };
-} // namespace framework::io::reader
+}

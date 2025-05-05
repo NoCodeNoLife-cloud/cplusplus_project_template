@@ -19,4 +19,4 @@ namespace framework::interface {
     size_t limit_{0};
     size_t capacity_{0};
   };
-} // namespace framework::interface
+}

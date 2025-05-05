@@ -61,4 +61,4 @@ namespace framework::io::serialize {
     }
     return entity;
   }
-} // namespace framework::io::serialize
+}

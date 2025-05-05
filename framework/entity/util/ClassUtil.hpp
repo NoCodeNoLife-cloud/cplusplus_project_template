@@ -13,4 +13,4 @@ namespace framework::entity::util {
   auto ClassUtil::getTypeId(const T& t) -> std::string {
     return boost::typeindex::type_id_with_cvr<decltype(t)>().pretty_name();
   }
-} // namespace framework::entity::util
+}
