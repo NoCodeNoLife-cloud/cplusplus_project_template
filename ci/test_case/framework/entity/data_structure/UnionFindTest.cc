@@ -1,9 +1,9 @@
 #pragma once
-#include <entity/data_structure/UnionFind.hpp>
+#include <entity/util/UnionFind.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case {
-  using framework::entity::data_structure::UnionFind;
+  using framework::entity::util::UnionFind;
   TEST(UnionFindTest, SingleElementSelfConnection) {
     UnionFind<int> uf;
     constexpr int x = 1;

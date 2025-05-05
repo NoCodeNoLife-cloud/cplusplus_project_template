@@ -1,6 +1,6 @@
 #pragma once
-namespace framework::entity::data_structure::graphics {
-  enum class ColorCode {
+namespace framework::entity::data_structure {
+  enum class Color {
     Red = 0,
     Black = 1,
     Green = 2,
