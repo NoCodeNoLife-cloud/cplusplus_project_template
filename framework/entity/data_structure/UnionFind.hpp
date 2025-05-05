@@ -5,44 +5,53 @@ namespace framework::entity::data_structure {
   template <typename T>
   class UnionFind {
   public:
-    T find(const T& x) {
-      ensureRegistered(x);
-      if (parent[x] != x) {
-        parent[x] = find(parent[x]);
-      }
-      return parent[x];
-    }
-
-    bool unionSets(const T& x, const T& y) {
-      T rootX = find(x);
-      T rootY = find(y);
-
-      if (rootX == rootY) return false;
-
-      if (rank[rootX] < rank[rootY]) {
-        parent[rootX] = rootY;
-      } else if (rank[rootX] > rank[rootY]) {
-        parent[rootY] = rootX;
-      } else {
-        parent[rootY] = rootX;
-        ++rank[rootX];
-      }
-      return true;
-    }
-
-    bool connected(const T& x, const T& y) {
-      return find(x) == find(y);
-    }
-
-  private:
+    auto find(const T& x) -> T;
+    auto unionSets(const T& x, const T& y) -> bool;
+    auto connected(const T& x, const T& y) -> bool;
     std::unordered_map<T, T> parent;
     std::unordered_map<T, int> rank;
 
-    void ensureRegistered(const T& x) {
-      if (!parent.contains(x)) {
-        parent[x] = x;
-        rank[x] = 1;
-      }
-    }
+  private:
+    auto ensureRegistered(const T& x) -> void;
   };
+
+  template <typename T>
+  auto UnionFind<T>::find(const T& x) -> T {
+    ensureRegistered(x);
+    if (parent[x] != x) {
+      parent[x] = find(parent[x]);
+    }
+    return parent[x];
+  }
+
+  template <typename T>
+  auto UnionFind<T>::unionSets(const T& x, const T& y) -> bool {
+    T rootX = find(x);
+    T rootY = find(y);
+
+    if (rootX == rootY) return false;
+
+    if (rank[rootX] < rank[rootY]) {
+      parent[rootX] = rootY;
+    } else if (rank[rootX] > rank[rootY]) {
+      parent[rootY] = rootX;
+    } else {
+      parent[rootY] = rootX;
+      ++rank[rootX];
+    }
+    return true;
+  }
+
+  template <typename T>
+  auto UnionFind<T>::connected(const T& x, const T& y) -> bool {
+    return find(x) == find(y);
+  }
+
+  template <typename T>
+  auto UnionFind<T>::ensureRegistered(const T& x) -> void {
+    if (!parent.contains(x)) {
+      parent[x] = x;
+      rank[x] = 1;
+    }
+  }
 } // namespace framework::entity::data_structure
