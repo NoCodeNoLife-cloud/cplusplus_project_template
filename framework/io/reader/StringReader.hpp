@@ -3,7 +3,7 @@
 #include <string>
 #include <io/reader/AbstractReader.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   class StringReader final : public AbstractReader {
   public:
     explicit StringReader(std::string s);

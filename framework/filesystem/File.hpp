@@ -6,8 +6,8 @@
 #include <vector>
 #include <entity/interface/IComparable.hpp>
 
-namespace framework::filesystem {
-  class File final : public iface::IComparable<File> {
+namespace framework {
+  class File final : public IComparable<File> {
   public:
     explicit File(const std::string& path);
     explicit File(std::filesystem::path path);
@@ -48,7 +48,7 @@ namespace framework::filesystem {
 }
 
 template <>
-struct std::formatter<framework::filesystem::File> {
+struct std::formatter<framework::File> {
   constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {
     const auto begin = ctx.begin();
     if (const auto end = ctx.end(); begin != end && *begin != '}') {
@@ -57,12 +57,12 @@ struct std::formatter<framework::filesystem::File> {
     return begin;
   }
 
-  static auto format(const framework::filesystem::File& content, format_context& ctx)
+  static auto format(const framework::File& content, format_context& ctx)
     -> back_insert_iterator<_Fmt_buffer<char>> {
     return std::format_to(ctx.out(), "File{{path: {}}}", content.file_path_.string());
   }
 };
 
-inline auto operator<<(std::ostream& os, const framework::filesystem::File& content) -> std::ostream& {
+inline auto operator<<(std::ostream& os, const framework::File& content) -> std::ostream& {
   return os << std::format("{}", content);
 }

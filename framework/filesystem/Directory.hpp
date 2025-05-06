@@ -1,7 +1,7 @@
 #pragma once
 #include <filesystem>
 
-namespace framework::filesystem {
+namespace framework {
   class Directory {
   public:
     explicit Directory(std::filesystem::path filePath);

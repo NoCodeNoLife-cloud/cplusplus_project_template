@@ -4,7 +4,7 @@
 #include <vector>
 #include <io/reader/AbstractInputStream.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   class FileInputStream final : public AbstractInputStream {
   public:
     explicit FileInputStream(const std::string& name);

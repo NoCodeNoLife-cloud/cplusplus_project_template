@@ -1,7 +1,7 @@
 #pragma once
 #include <io/writer/AbstractOutputStream.hpp>
 
-namespace framework::io::writer {
+namespace framework {
   class FilterOutputStream : public AbstractOutputStream {
   public:
     explicit FilterOutputStream(std::shared_ptr<AbstractOutputStream> outputStream);

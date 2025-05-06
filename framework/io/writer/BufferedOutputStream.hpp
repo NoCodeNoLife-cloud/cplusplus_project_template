@@ -3,7 +3,7 @@
 #include <io/writer/AbstractOutputStream.hpp>
 #include <io/writer/FilterOutputStream.hpp>
 
-namespace framework::io::writer {
+namespace framework {
   class BufferedOutputStream final : public FilterOutputStream {
   public:
     explicit BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out);

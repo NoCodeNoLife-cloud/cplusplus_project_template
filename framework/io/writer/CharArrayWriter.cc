@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <io/writer/CharArrayWriter.hpp>
 
-namespace framework::io::writer {
+namespace framework {
   CharArrayWriter::CharArrayWriter() = default;
 
   CharArrayWriter::CharArrayWriter(const int32_t initialSize) {

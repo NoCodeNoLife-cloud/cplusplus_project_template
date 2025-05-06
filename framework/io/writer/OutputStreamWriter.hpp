@@ -3,7 +3,7 @@
 #include <codecvt>
 #include <io/writer/AbstractWriter.hpp>
 
-namespace framework::io::writer {
+namespace framework {
   class OutputStreamWriter final : public AbstractWriter {
   public:
     OutputStreamWriter(std::unique_ptr<AbstractWriter> outputStream, const std::string& charsetName);

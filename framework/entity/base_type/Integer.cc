@@ -1,6 +1,6 @@
 #include <entity/base_type/Integer.hpp>
 
-namespace framework::entity::base_type {
+namespace framework {
   Integer::Integer(const int32_t value) : value_(value) {}
 
   Integer::~Integer() = default;

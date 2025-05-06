@@ -2,7 +2,7 @@
 #include <sstream>
 #include <time/SimpleDateFormatter.hpp>
 
-namespace framework::util::time {
+namespace framework {
   SimpleDateFormatter::SimpleDateFormatter(const std::string& pattern) {
     validatePattern(pattern);
     this->pattern = pattern;

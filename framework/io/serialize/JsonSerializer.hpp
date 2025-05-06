@@ -6,9 +6,9 @@
 #include <rapidjson/prettywriter.h>
 #include <rapidjson/stringbuffer.h>
 
-namespace framework::io::serialize {
+namespace framework {
   template <typename T>
-  concept DerivedFromJsonSerializable = std::is_base_of_v<iface::IJsonSerializable, T>;
+  concept DerivedFromJsonSerializable = std::is_base_of_v<IJsonSerializable, T>;
   class JsonSerializer abstract {
   public:
     JsonSerializer() = delete;

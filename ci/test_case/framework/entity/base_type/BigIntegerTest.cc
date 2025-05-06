@@ -1,6 +1,6 @@
 #include <entity/base_type/BigInteger.hpp>
 #include <gtest/gtest.h>
-using framework::entity::base_type::BigInteger;
+using framework::BigInteger;
 
 namespace gtest_case {
   TEST(BigIntegerTest, DefaultConstructorInitializesToZero) {
@@ -222,7 +222,7 @@ namespace gtest_case {
 
   TEST(BigIntegerTest, ToStringCanBeConvertedBack) {
     const BigInteger original("1234567890");
-    std::string str = original.toString();
+    const std::string str = original.toString();
     const BigInteger copied(str);
     EXPECT_EQ(copied.toString(), "1234567890");
   }

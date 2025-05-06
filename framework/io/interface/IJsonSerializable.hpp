@@ -3,7 +3,7 @@
 #include <rapidjson/stringbuffer.h>
 #include <rapidjson/writer.h>
 
-namespace framework::iface {
+namespace framework {
   class IJsonSerializable abstract {
   public:
     virtual ~IJsonSerializable() = default;

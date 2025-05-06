@@ -1,7 +1,7 @@
 #include <format>
 #include <time/Clock.hpp>
 
-namespace framework::time {
+namespace framework {
   auto Clock::getCurrentDateTimeString() -> std::string {
     const auto now = std::chrono::system_clock::now();
     const auto local_time = std::chrono::current_zone()->to_local(now);

@@ -1,8 +1,8 @@
 #pragma once
 #include <io/writer/AbstractWriter.hpp>
 
-namespace framework::io::writer {
-  class CharArrayWriter final : public AbstractWriter, iface::IAppendable<CharArrayWriter> {
+namespace framework {
+  class CharArrayWriter final : public AbstractWriter, IAppendable<CharArrayWriter> {
   public:
     CharArrayWriter();
     explicit CharArrayWriter(int32_t initialSize);

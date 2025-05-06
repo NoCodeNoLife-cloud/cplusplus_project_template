@@ -2,7 +2,7 @@
 #include <utility>
 #include <filesystem/Directory.hpp>
 
-namespace framework::filesystem {
+namespace framework {
   Directory::Directory(std::filesystem::path filePath) : file_path_(std::move(filePath)) {}
 
   auto Directory::mkdir() const -> bool {
@@ -123,7 +123,7 @@ namespace framework::filesystem {
     }
   }
 
-  auto Directory::list(bool recursive) const -> std::vector<std::string> {
+  auto Directory::list(const bool recursive) const -> std::vector<std::string> {
     std::vector<std::string> entries;
     try {
       if (recursive) {
@@ -139,7 +139,7 @@ namespace framework::filesystem {
     return entries;
   }
 
-  auto Directory::listEntries(bool recursive) const -> std::vector<std::filesystem::directory_entry> {
+  auto Directory::listEntries(const bool recursive) const -> std::vector<std::filesystem::directory_entry> {
     std::vector<std::filesystem::directory_entry> entries;
     try {
       if (recursive) {

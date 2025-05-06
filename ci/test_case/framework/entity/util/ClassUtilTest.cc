@@ -1,6 +1,6 @@
 #include <entity/util/ClassUtil.hpp>
 #include <gtest/gtest.h>
-using namespace framework::entity::util;
+using namespace framework;
 
 namespace gtest_case {
   struct Dummy {};
@@ -36,7 +36,7 @@ namespace gtest_case {
   }
 
   TEST(ClassUtilTest, ReferenceType) {
-    int value = 0;
+    constexpr int value = 0;
     const int& ref = value;
     EXPECT_EQ(ClassUtil::getTypeId(ref), "int const & __ptr64");
   }

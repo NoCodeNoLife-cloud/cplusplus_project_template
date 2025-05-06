@@ -4,8 +4,8 @@
 #include <io/interface/ICloseable.hpp>
 #include <io/interface/IFlushable.hpp>
 
-namespace framework::io::writer {
-  class AbstractOutputStream abstract : public iface::ICloseable, public iface::IFlushable {
+namespace framework {
+  class AbstractOutputStream abstract : public ICloseable, public IFlushable {
   public:
     ~AbstractOutputStream() override;
     virtual auto write(std::byte b) -> void = 0;

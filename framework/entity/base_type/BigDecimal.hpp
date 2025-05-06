@@ -2,7 +2,7 @@
 #include <string>
 #include <boost/multiprecision/cpp_dec_float.hpp>
 
-namespace framework::entity::base_type {
+namespace framework {
   class BigDecimal {
   public:
     explicit BigDecimal(const std::string& str);

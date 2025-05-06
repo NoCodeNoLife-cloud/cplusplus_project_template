@@ -1,7 +1,7 @@
 #pragma once
 #include <functional>
 
-namespace framework::aop::iface {
+namespace framework {
   template <typename Derived>
   class IAop abstract {
   public:

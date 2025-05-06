@@ -1,7 +1,7 @@
 #pragma once
 #include <boost/type_index.hpp>
 
-namespace framework::entity::util {
+namespace framework {
   class ClassUtil abstract {
   public:
     ClassUtil() = delete;
@@ -10,7 +10,7 @@ namespace framework::entity::util {
   };
 
   template <typename T>
-  auto ClassUtil::getTypeId(const T& t) -> std::string {
+  auto ClassUtil::getTypeId([[maybe_unused]] const T& t) -> std::string {
     return boost::typeindex::type_id_with_cvr<decltype(t)>().pretty_name();
   }
 }

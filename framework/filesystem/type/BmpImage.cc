@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <filesystem/type/BmpImage.hpp>
 
-namespace framework::filesystem::type {
+namespace framework {
   BmpImage::BmpImage(const int32_t width, const int32_t height) : width_(width), height_(height) {
     if (width <= 0 || height <= 0) {
       throw std::invalid_argument("Invalid image dimensions");
@@ -21,7 +21,7 @@ namespace framework::filesystem::type {
   }
 
   auto BmpImage::save(const std::string& filename) const -> void {
-    const int32_t rowSize = (width_ * 3 + 3) & ~3;
+    const int32_t rowSize = width_ * 3 + 3 & ~3;
     const int32_t pixelDataSize = rowSize * height_;
     const uint64_t fileSize = sizeof(BitMapFileHeader) + sizeof(BitmapInfoHeader) + pixelDataSize;
     BitMapFileHeader fileHeader{};

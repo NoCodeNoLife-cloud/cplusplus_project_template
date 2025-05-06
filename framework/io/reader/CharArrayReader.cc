@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <io/reader/CharArrayReader.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   CharArrayReader::CharArrayReader(const std::vector<char>& buffer) : buf_(buffer), count_(buffer.size()) {}
 
   CharArrayReader::CharArrayReader(const std::vector<char>& buffer, const size_t offset, const size_t length) {

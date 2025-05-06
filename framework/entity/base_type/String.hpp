@@ -6,8 +6,8 @@
 #include <entity/base_type/Object.hpp>
 #include <entity/interface/IComparable.hpp>
 
-namespace framework::entity::base_type {
-  class String final : public Object, iface::IComparable<String> {
+namespace framework {
+  class String final : public Object, IComparable<String> {
   public:
     String();
     explicit String(const char* str);
@@ -65,7 +65,7 @@ namespace framework::entity::base_type {
 }
 
 template <>
-struct std::formatter<framework::entity::base_type::String> {
+struct std::formatter<framework::String> {
   constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {
     const auto begin = ctx.begin();
     if (const auto end = ctx.end(); begin != end && *begin != '}') {
@@ -74,12 +74,12 @@ struct std::formatter<framework::entity::base_type::String> {
     return begin;
   }
 
-  static auto format(const framework::entity::base_type::String& content, format_context& ctx)
+  static auto format(const framework::String& content, format_context& ctx)
     -> back_insert_iterator<_Fmt_buffer<char>> {
     return std::format_to(ctx.out(), "String{{data: {}}}", content.data_);
   }
 };
 
-inline auto operator<<(std::ostream& os, const framework::entity::base_type::String& content) -> std::ostream& {
+inline auto operator<<(std::ostream& os, const framework::String& content) -> std::ostream& {
   return os << std::format("{}", content);
 }

@@ -1,5 +1,5 @@
 #pragma once
-namespace framework::iface {
+namespace framework {
   template <typename T>
   class IComparable abstract {
   public:

@@ -1,7 +1,7 @@
 #pragma once
 #include <glog/logging.h>
 
-namespace framework::log {
+namespace framework {
   class GLogConfig {
   public:
     GLogConfig();

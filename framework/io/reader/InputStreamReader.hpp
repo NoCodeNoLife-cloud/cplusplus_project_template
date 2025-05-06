@@ -3,7 +3,7 @@
 #include <codecvt>
 #include <io/reader/AbstractReader.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   class InputStreamReader final : public AbstractReader {
   public:
     explicit InputStreamReader(std::shared_ptr<AbstractReader> input);

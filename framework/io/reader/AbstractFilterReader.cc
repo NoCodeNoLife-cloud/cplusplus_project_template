@@ -1,6 +1,6 @@
 #include <io/reader/AbstractFilterReader.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   AbstractFilterReader::AbstractFilterReader(std::unique_ptr<AbstractReader> inputReader) {
     if (!reader_) {
       throw std::invalid_argument("Input reader cannot be null");

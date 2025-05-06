@@ -1,6 +1,6 @@
 #include <entity/base_type/Long.hpp>
 
-namespace framework::entity::base_type {
+namespace framework {
   Long::Long(const int64_t value) : value_(value) {}
 
   Long::~Long() = default;

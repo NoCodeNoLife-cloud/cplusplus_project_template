@@ -3,7 +3,7 @@
 #include <memory>
 #include <entity/data_structure/tree/TreeNode.hpp>
 
-namespace framework::entity::data_structure::tree {
+namespace framework {
   template <typename T>
   class BinarySearchTree {
   public:

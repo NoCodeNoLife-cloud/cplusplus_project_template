@@ -2,7 +2,7 @@
 #include <string>
 #include <entity/base_type/Object.hpp>
 #include <gtest/gtest.h>
-using framework::entity::base_type::Object;
+using framework::Object;
 
 namespace gtest_case {
   TEST(ObjectTest, ConstructorTest) {
@@ -40,9 +40,9 @@ namespace gtest_case {
   }
 
   TEST(ObjectTest, EqualsDifferentTypeReturnsFalse) {
-    Object obj;
+    const Object obj;
 
-    struct DerivedTest : public Object {};
+    struct DerivedTest : Object {};
     const DerivedTest derived;
 
     EXPECT_FALSE(obj.equals(derived));

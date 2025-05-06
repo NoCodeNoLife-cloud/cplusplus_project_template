@@ -1,6 +1,6 @@
 #include <service/config/Config.hpp>
 
-namespace framework::service::config {
+namespace framework {
   auto Config::hasKey(const std::string& key) const -> bool {
     return params_.contains(key);
   }

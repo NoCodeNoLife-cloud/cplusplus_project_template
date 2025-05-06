@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <entity/base_type/BigDecimal.hpp>
 
-namespace framework::entity::base_type {
+namespace framework {
   BigDecimal::BigDecimal(const std::string& str) : value_(str) {}
 
   BigDecimal::BigDecimal(const double num) : value_(num) {}

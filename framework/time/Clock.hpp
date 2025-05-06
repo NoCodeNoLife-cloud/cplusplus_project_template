@@ -2,7 +2,7 @@
 #include <chrono>
 #include <string>
 
-namespace framework::time {
+namespace framework {
   class Clock {
   public:
     static auto getCurrentDateTimeString() -> std::string;

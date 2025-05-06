@@ -1,6 +1,6 @@
 #include <io/writer/AbstractOutputStream.hpp>
 
-namespace framework::io::writer {
+namespace framework {
   AbstractOutputStream::~AbstractOutputStream() = default;
 
   auto AbstractOutputStream::write(const std::vector<std::byte>& buffer) -> void {

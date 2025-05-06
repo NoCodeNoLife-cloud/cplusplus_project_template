@@ -2,15 +2,15 @@
 #include <queue>
 #include <entity/data_structure/graphics/Edge.hpp>
 #include <entity/util/DijkstraUtil.hpp>
-using framework::entity::data_structure::graphics::Edge;
+using framework::Edge;
 
-namespace framework::entity::util {
-  DijkstraUtil::DijkstraUtil(const Graph& g): graph(g) {
-    dist.resize(graph.getNodeCount(), INF);
+namespace framework {
+  DijkstraUtil::DijkstraUtil(const Graph& g): graph_(g) {
+    distances_.resize(graph_.getNodeCount(), INF);
   }
 
   auto DijkstraUtil::compute(int32_t start) -> void {
-    dist[start] = 0;
+    distances_[start] = 0;
     using Pair = std::pair<int32_t, int32_t>;
     std::priority_queue<Pair, std::vector<Pair>, std::greater<>> pq;
     pq.emplace(0, start);
@@ -20,30 +20,23 @@ namespace framework::entity::util {
       const int32_t u = pq.top().second;
       pq.pop();
 
-      if (currentDist > dist[u]) continue;
+      if (currentDist > distances_[u]) continue;
 
-      for (const Edge& e : graph.getAdjList(u)) {
+      for (const Edge& e : graph_.getAdjList(u)) {
         int32_t v = e.to();
-        if (int32_t newDist = currentDist + e.weight(); newDist < dist[v]) {
-          dist[v] = newDist;
+        if (int32_t newDist = currentDist + e.weight(); newDist < distances_[v]) {
+          distances_[v] = newDist;
           pq.emplace(newDist, v);
         }
       }
     }
   }
 
-  auto DijkstraUtil::getDistance(int32_t node) const -> int32_t {
-    return dist[node];
+  auto DijkstraUtil::getDistance(const int32_t node) const -> int32_t {
+    return distances_[node];
   }
 
-  auto DijkstraUtil::printDistances() const -> void {
-    for (int32_t i = 0; i < graph.getNodeCount(); ++i) {
-      std::cout << "Node " << i << ": ";
-      if (dist[i] == INF) {
-        std::cout << "INF" << std::endl;
-      } else {
-        std::cout << dist[i] << std::endl;
-      }
-    }
+  auto DijkstraUtil::getDistances() const -> std::vector<int32_t> {
+    return distances_;
   }
 }

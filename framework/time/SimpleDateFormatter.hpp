@@ -3,7 +3,7 @@
 #pragma once
 #include <string>
 
-namespace framework::util::time {
+namespace framework {
   class SimpleDateFormatter {
   public:
     explicit SimpleDateFormatter(const std::string& pattern);

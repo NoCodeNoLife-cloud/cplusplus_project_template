@@ -1,7 +1,7 @@
 #pragma once
 #include <io/reader/FilterReader.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   class PushbackReader final : public FilterReader {
   public:
     explicit PushbackReader(std::shared_ptr<AbstractReader> reader);

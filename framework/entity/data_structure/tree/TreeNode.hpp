@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 
-namespace framework::entity::data_structure::tree {
+namespace framework {
   template <typename T>
   class TreeNode {
   public:

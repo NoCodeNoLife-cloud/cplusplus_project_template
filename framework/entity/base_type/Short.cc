@@ -1,6 +1,6 @@
 #include <entity/base_type/Short.hpp>
 
-namespace framework::entity::base_type {
+namespace framework {
   Short::Short(const int16_t value) : value_(value) {}
 
   Short::~Short() = default;

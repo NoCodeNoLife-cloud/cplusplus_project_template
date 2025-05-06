@@ -2,7 +2,7 @@
 #include <vector>
 #include <entity/util/StringUtil.hpp>
 #include <gtest/gtest.h>
-using framework::entity::util::StringUtil;
+using framework::StringUtil;
 
 namespace gtest_case {
   TEST(StringTest, SplitEmptyString) {

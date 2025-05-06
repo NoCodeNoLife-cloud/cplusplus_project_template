@@ -2,8 +2,8 @@
 #include <vector>
 #include <nio/interface/IBuffer.hpp>
 
-namespace framework::nio {
-  class ShortBuffer final : public interface::IBuffer {
+namespace framework {
+  class ShortBuffer final : public IBuffer {
   public:
     explicit ShortBuffer(size_t capacity);
     static auto wrap(const short* data, size_t size) -> ShortBuffer;

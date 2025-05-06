@@ -1,6 +1,6 @@
 #include <io/writer/StringWriter.hpp>
 
-namespace framework::io::writer {
+namespace framework {
   StringWriter::StringWriter(const size_t initialSize) {
     buffer_.str(std::string(initialSize, '\0'));
     buffer_.seekp(0);

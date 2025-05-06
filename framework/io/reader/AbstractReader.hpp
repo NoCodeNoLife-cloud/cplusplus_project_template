@@ -3,8 +3,8 @@
 #include <io/interface/ICloseable.hpp>
 #include <io/interface/IReadable.hpp>
 
-namespace framework::io::reader {
-  class AbstractReader abstract : public iface::ICloseable, public iface::IReadable {
+namespace framework {
+  class AbstractReader abstract : public ICloseable, public IReadable {
   public:
     ~AbstractReader() override;
     auto read() -> int32_t override;

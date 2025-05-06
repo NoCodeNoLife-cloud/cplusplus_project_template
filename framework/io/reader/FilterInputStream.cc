@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <io/reader/FilterInputStream.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   FilterInputStream::FilterInputStream(std::unique_ptr<AbstractInputStream> inputStream) :
     input_stream_(std::move(inputStream)) {}
 

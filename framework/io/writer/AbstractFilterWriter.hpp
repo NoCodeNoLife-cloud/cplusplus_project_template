@@ -2,7 +2,7 @@
 #include <memory>
 #include <io/writer/AbstractWriter.hpp>
 
-namespace framework::io::writer {
+namespace framework {
   class AbstractFilterWriter abstract : public AbstractWriter {
   public:
     explicit AbstractFilterWriter(std::unique_ptr<AbstractWriter> outputWriter);

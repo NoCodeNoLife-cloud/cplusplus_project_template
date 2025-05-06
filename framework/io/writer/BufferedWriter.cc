@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <io/writer/BufferedWriter.hpp>
 
-namespace framework::io::writer {
+namespace framework {
   BufferedWriter::BufferedWriter(std::unique_ptr<std::ofstream> os, const size_t size) :
     output_stream_(std::move(os)), buffer_size_(size) {
     if (!output_stream_->is_open()) {

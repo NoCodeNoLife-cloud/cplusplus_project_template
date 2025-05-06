@@ -1,6 +1,6 @@
 #include <entity/base_type/Character.hpp>
 
-namespace framework::entity::base_type {
+namespace framework {
   Character::Character(const char value) : value_(value) {}
 
   Character::~Character() = default;

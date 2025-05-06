@@ -2,7 +2,7 @@
 #include <string>
 #include <entity/base_type/Double.hpp>
 #include <gtest/gtest.h>
-using framework::entity::base_type::Double;
+using framework::Double;
 
 namespace gtest_case {
   TEST(DoubleTest, ConstructorInitializesValueCorrectly) {
@@ -12,7 +12,7 @@ namespace gtest_case {
   }
 
   TEST(DoubleTest, ConversionOperatorReturnsStoredValue) {
-    Double d(3.14);
+    const Double d(3.14);
     EXPECT_DOUBLE_EQ(static_cast<double>(d), 3.14);
   }
 

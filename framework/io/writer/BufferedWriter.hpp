@@ -5,8 +5,8 @@
 #include <io/interface/IAppendable.hpp>
 #include <io/writer/AbstractWriter.hpp>
 
-namespace framework::io::writer {
-  class BufferedWriter final : public AbstractWriter, public iface::IAppendable<BufferedWriter> {
+namespace framework {
+  class BufferedWriter final : public AbstractWriter, public IAppendable<BufferedWriter> {
   public:
     explicit BufferedWriter(std::unique_ptr<std::ofstream> os, size_t size = DEFAULT_BUFFER_SIZE);
     ~BufferedWriter() override;

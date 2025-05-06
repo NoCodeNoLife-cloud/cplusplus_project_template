@@ -1,6 +1,6 @@
 #include <thread/ThreadPool.hpp>
 
-namespace framework::thread {
+namespace framework {
   ThreadPool::ThreadPool(const size_t core_threads, const size_t max_threads, const size_t queue_size,
                          const std::chrono::milliseconds idle_time) :
     stop_(false), coreThreadCount_(core_threads), maxThreadCount_(max_threads), maxQueueSize_(queue_size),

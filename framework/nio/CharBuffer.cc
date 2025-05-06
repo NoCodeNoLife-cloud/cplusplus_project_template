@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <nio/CharBuffer.hpp>
 
-namespace framework::nio {
+namespace framework {
   CharBuffer::CharBuffer(const size_t cap) : buffer_(cap, u'\0') {
     position_ = 0;
     limit_ = cap;

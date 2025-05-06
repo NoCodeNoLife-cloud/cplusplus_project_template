@@ -1,6 +1,6 @@
 #include <io/writer/AbstractWriter.hpp>
 
-namespace framework::io::writer {
+namespace framework {
   AbstractWriter::AbstractWriter() = default;
   AbstractWriter::~AbstractWriter() = default;
 

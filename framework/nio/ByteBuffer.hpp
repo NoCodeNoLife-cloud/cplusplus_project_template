@@ -3,8 +3,8 @@
 #include <vector>
 #include <nio/interface/IBuffer.hpp>
 
-namespace framework::nio {
-  class ByteBuffer final : public interface::IBuffer {
+namespace framework {
+  class ByteBuffer final : public IBuffer {
   public:
     explicit ByteBuffer(size_t capacity);
     void put(const std::vector<std::byte>& src);

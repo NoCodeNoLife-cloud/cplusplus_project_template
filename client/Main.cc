@@ -1,5 +1,5 @@
 #include <aop/LauncherAspect.hpp>
-using framework::aop::LauncherAspect;
+using framework::LauncherAspect;
 
 // ReSharper disable once CppDFAConstantFunctionResult
 auto business() -> bool {

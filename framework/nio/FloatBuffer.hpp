@@ -2,8 +2,8 @@
 #include <vector>
 #include <nio/interface/IBuffer.hpp>
 
-namespace framework::nio {
-  class FloatBuffer final : public interface::IBuffer {
+namespace framework {
+  class FloatBuffer final : public IBuffer {
   public:
     explicit FloatBuffer(size_t capacity);
     static auto allocate(size_t capacity) -> FloatBuffer;

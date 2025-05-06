@@ -2,7 +2,7 @@
 #include <fstream>
 #include <io/reader/AbstractReader.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   class BufferedReader final : public AbstractReader {
   public:
     explicit BufferedReader(std::unique_ptr<AbstractReader> reader, int32_t size = DEFAULT_BUFFER_SIZE);

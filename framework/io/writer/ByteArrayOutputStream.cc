@@ -1,6 +1,6 @@
 #include <io/writer/ByteArrayOutputStream.hpp>
 
-namespace framework::io::writer {
+namespace framework {
   ByteArrayOutputStream::ByteArrayOutputStream() : buf_(32) {}
 
   ByteArrayOutputStream::ByteArrayOutputStream(const size_t size) {

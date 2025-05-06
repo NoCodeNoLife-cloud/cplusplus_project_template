@@ -1,6 +1,6 @@
 #include <io/writer/OutputStreamWriter.hpp>
 
-namespace framework::io::writer {
+namespace framework {
   OutputStreamWriter::OutputStreamWriter(std::unique_ptr<AbstractWriter> outputStream, const std::string& charsetName) :
     output_writer_(std::move(outputStream)), charset_(charsetName), closed_(false) {
     if (charsetName != "UTF-8") {

@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <nio/ByteBuffer.hpp>
 
-namespace framework::nio {
+namespace framework {
   ByteBuffer::ByteBuffer(const size_t capacity) : buffer_(capacity) {
     capacity_ = capacity;
     limit_ = capacity;

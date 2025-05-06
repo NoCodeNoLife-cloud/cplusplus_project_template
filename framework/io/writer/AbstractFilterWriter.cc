@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <io/writer/AbstractFilterWriter.hpp>
 
-namespace framework::io::writer {
+namespace framework {
   AbstractFilterWriter::AbstractFilterWriter(std::unique_ptr<AbstractWriter> outputWriter) :
     output_writer_(std::move(outputWriter)) {
     if (!output_writer_) {

@@ -1,6 +1,6 @@
 #include <io/writer/BufferedOutputStream.hpp>
 
-namespace framework::io::writer {
+namespace framework {
   BufferedOutputStream::BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out) :
     BufferedOutputStream(std::move(out), DEFAULT_BUFFER_SIZE) {}
 

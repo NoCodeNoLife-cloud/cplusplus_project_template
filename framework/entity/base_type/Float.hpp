@@ -5,8 +5,8 @@
 #include <entity/base_type/Object.hpp>
 #include <entity/interface/IComparable.hpp>
 
-namespace framework::entity::base_type {
-  class Float final : public Object, public iface::IComparable<Float> {
+namespace framework {
+  class Float final : public Object, public IComparable<Float> {
   public:
     static constexpr float POSITIVE_INFINITY = std::numeric_limits<float>::infinity();
     static constexpr float NEGATIVE_INFINITY = -std::numeric_limits<float>::infinity();
@@ -39,7 +39,7 @@ namespace framework::entity::base_type {
 }
 
 template <>
-struct std::formatter<framework::entity::base_type::Float> {
+struct std::formatter<framework::Float> {
   constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {
     const auto begin = ctx.begin();
     if (const auto end = ctx.end(); begin != end && *begin != '}') {
@@ -48,12 +48,12 @@ struct std::formatter<framework::entity::base_type::Float> {
     return begin;
   }
 
-  static auto format(const framework::entity::base_type::Float& content, format_context& ctx)
+  static auto format(const framework::Float& content, format_context& ctx)
     -> back_insert_iterator<_Fmt_buffer<char>> {
     return std::format_to(ctx.out(), "{}", content.value_);
   }
 };
 
-inline auto operator<<(std::ostream& os, const framework::entity::base_type::Float& content) -> std::ostream& {
+inline auto operator<<(std::ostream& os, const framework::Float& content) -> std::ostream& {
   return os << std::format("{}", content);
 }

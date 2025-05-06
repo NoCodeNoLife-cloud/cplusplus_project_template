@@ -4,8 +4,8 @@
 #include <io/interface/IAppendable.hpp>
 #include <io/writer/AbstractWriter.hpp>
 
-namespace framework::io::writer {
-  class StringWriter final : public AbstractWriter, public iface::IAppendable<StringWriter> {
+namespace framework {
+  class StringWriter final : public AbstractWriter, public IAppendable<StringWriter> {
   public:
     explicit StringWriter(size_t initialSize);
     ~StringWriter() override;

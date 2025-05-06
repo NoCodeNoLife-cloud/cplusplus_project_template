@@ -2,7 +2,7 @@
 #include <vector>
 #include <io/reader/AbstractInputStream.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   class ByteArrayInputStream final : public AbstractInputStream {
   public:
     explicit ByteArrayInputStream(const std::vector<std::byte>& buf);

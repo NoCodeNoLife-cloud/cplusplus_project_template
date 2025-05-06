@@ -2,7 +2,7 @@
 #include <memory>
 #include <io/reader/AbstractInputStream.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   class FilterInputStream : public AbstractInputStream {
   public:
     explicit FilterInputStream(std::unique_ptr<AbstractInputStream> inputStream);

@@ -2,8 +2,8 @@
 #include <vector>
 #include <nio/interface/IBuffer.hpp>
 
-namespace framework::nio {
-  class DoubleBuffer final : public interface::IBuffer {
+namespace framework {
+  class DoubleBuffer final : public IBuffer {
   public:
     explicit DoubleBuffer(size_t capacity);
     auto put(double value) -> DoubleBuffer&;

@@ -4,7 +4,7 @@
 #include <vector>
 #include <io/writer/AbstractOutputStream.hpp>
 
-namespace framework::io::writer {
+namespace framework {
   class FileOutputStream final : public AbstractOutputStream {
   public:
     FileOutputStream(const std::string& name, bool append);

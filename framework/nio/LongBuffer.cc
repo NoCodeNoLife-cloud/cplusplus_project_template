@@ -1,8 +1,7 @@
-#include <memory>
 #include <stdexcept>
 #include <nio/LongBuffer.hpp>
 
-namespace framework::nio {
+namespace framework {
   LongBuffer::LongBuffer(const std::size_t capacity) : buffer_(capacity) {
     capacity_ = capacity;
     limit_ = capacity;

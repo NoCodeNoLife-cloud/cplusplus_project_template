@@ -7,7 +7,7 @@
 #include <thread>
 #include <unordered_map>
 
-namespace framework::thread {
+namespace framework {
   template <typename ResultType>
   class DelayedTaskManager {
   public:
@@ -23,7 +23,7 @@ namespace framework::thread {
 
   template <typename ResultType>
   auto DelayedTaskManager<ResultType>::scheduleTask(int delayMs, std::function<ResultType()> task) -> int {
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::lock_guard lock(mutex_);
     int taskId = nextTaskId_++;
     std::packaged_task<ResultType()> packagedTask(task);
     std::future<ResultType> result = packagedTask.get_future();
@@ -33,7 +33,7 @@ namespace framework::thread {
       std::this_thread::sleep_for(std::chrono::milliseconds(delayMs));
       packagedTask();
       {
-        std::lock_guard<std::mutex> lock(mutex_);
+        std::lock_guard lock1(mutex_);
         cv_.notify_one();
       }
     }).detach();
@@ -44,9 +44,9 @@ namespace framework::thread {
 
   template <typename ResultType>
   auto DelayedTaskManager<ResultType>::getTaskResult(int taskId) -> std::future<ResultType> {
-    std::unique_lock<std::mutex> lock(mutex_);
+    std::unique_lock lock(mutex_);
 
-    cv_.wait(lock, [this, taskId]()
+    cv_.wait(lock, [this, taskId]
     {
       return results_.contains(taskId);
     });

@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <io/reader/FilterReader.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   FilterReader::FilterReader(std::shared_ptr<AbstractReader> reader) : in(std::move(reader)) {}
 
   FilterReader::~FilterReader() = default;

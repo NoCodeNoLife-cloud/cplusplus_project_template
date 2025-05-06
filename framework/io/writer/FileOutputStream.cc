@@ -1,6 +1,6 @@
 #include <io/writer/FileOutputStream.hpp>
 
-namespace framework::io::writer {
+namespace framework {
   FileOutputStream::FileOutputStream(const std::string& name, const bool append) {
     if (std::filesystem::exists(name) && std::filesystem::is_directory(name)) {
       throw std::ios_base::failure("FileNotFoundException: Path is a directory.");

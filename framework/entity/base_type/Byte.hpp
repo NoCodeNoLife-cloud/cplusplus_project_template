@@ -5,8 +5,8 @@
 #include <entity/base_type/Object.hpp>
 #include <entity/interface/IComparable.hpp>
 
-namespace framework::entity::base_type {
-  class Byte final : public Object, public iface::IComparable<Byte> {
+namespace framework {
+  class Byte final : public Object, public IComparable<Byte> {
   public:
     static constexpr uint8_t MIN_VALUE = std::numeric_limits<uint8_t>::min();
     static constexpr uint8_t MAX_VALUE = std::numeric_limits<uint8_t>::max();
@@ -34,7 +34,7 @@ namespace framework::entity::base_type {
 }
 
 template <>
-struct std::formatter<framework::entity::base_type::Byte> {
+struct std::formatter<framework::Byte> {
   constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {
     const auto begin = ctx.begin();
     if (const auto end = ctx.end(); begin != end && *begin != '}') {
@@ -43,12 +43,12 @@ struct std::formatter<framework::entity::base_type::Byte> {
     return begin;
   }
 
-  static auto format(const framework::entity::base_type::Byte& content, format_context& ctx)
+  static auto format(const framework::Byte& content, format_context& ctx)
     -> back_insert_iterator<_Fmt_buffer<char>> {
     return std::format_to(ctx.out(), "{}", content.value_);
   }
 };
 
-inline auto operator<<(std::ostream& os, const framework::entity::base_type::Byte& content) -> std::ostream& {
+inline auto operator<<(std::ostream& os, const framework::Byte& content) -> std::ostream& {
   return os << std::format("{}", content);
 }

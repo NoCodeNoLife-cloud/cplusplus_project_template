@@ -1,5 +1,5 @@
 #pragma once
-namespace framework::iface {
+namespace framework {
   class IReadable abstract {
   public:
     virtual ~IReadable() = default;

@@ -1,7 +1,7 @@
 #include <thread>
 #include <thread/SpinlockMutex.hpp>
 
-namespace framework::thread {
+namespace framework {
   SpinlockMutex::SpinlockMutex() = default;
 
   auto SpinlockMutex::lock() -> void {

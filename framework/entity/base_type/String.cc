@@ -1,6 +1,6 @@
 #include <entity/base_type/String.hpp>
 
-namespace framework::entity::base_type {
+namespace framework {
   String::String() = default;
 
   String::String(const char* str) : data_(str) {}

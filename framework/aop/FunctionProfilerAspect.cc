@@ -1,7 +1,7 @@
-#include <aop/FunctionProfilerAspect.hpp>
 #include <utility>
+#include <aop/FunctionProfilerAspect.hpp>
 
-namespace framework::aop {
+namespace framework {
   FunctionProfilerAspect::FunctionProfilerAspect(std::string function_name) : timer_(std::move(function_name), false) {}
 
   void FunctionProfilerAspect::onEntry() {

@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <nio/interface/IBuffer.hpp>
 
-namespace framework::interface {
+namespace framework {
   IBuffer::~IBuffer() = default;
 
   auto IBuffer::capacity() const -> size_t {

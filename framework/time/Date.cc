@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <time/Date.hpp>
 
-namespace framework::io {
+namespace framework {
   Date::Date() : time_point_(std::chrono::system_clock::now()) {}
 
   Date::Date(const int32_t year, const int32_t month, const int32_t day) {

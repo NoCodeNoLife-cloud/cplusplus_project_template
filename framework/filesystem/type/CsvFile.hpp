@@ -2,7 +2,7 @@
 #include <rapidcsv.h>
 #include <string>
 
-namespace framework::filesystem::type {
+namespace framework {
   class CsvFile {
   public:
     explicit CsvFile(const std::string& file_path);

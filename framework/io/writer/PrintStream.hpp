@@ -3,8 +3,8 @@
 #include <io/interface/IAppendable.hpp>
 #include <io/writer/FilterOutputStream.hpp>
 
-namespace framework::io::writer {
-  class PrintStream final : public FilterOutputStream, public iface::IAppendable<PrintStream> {
+namespace framework {
+  class PrintStream final : public FilterOutputStream, public IAppendable<PrintStream> {
   public:
     PrintStream(std::shared_ptr<AbstractOutputStream> outStream, bool autoFlush, const std::locale& loc);
     auto append(char c) -> PrintStream& override;

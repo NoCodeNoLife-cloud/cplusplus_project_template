@@ -1,6 +1,6 @@
 #include <entity/base_type/Boolean.hpp>
 
-namespace framework::entity::base_type {
+namespace framework {
   Boolean::Boolean(const bool value) : value_(value) {}
 
   Boolean::~Boolean() = default;

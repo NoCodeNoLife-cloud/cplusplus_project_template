@@ -1,7 +1,7 @@
 #pragma once
 #include <atomic>
 
-namespace framework::thread {
+namespace framework {
   class SpinlockMutex {
   public:
     SpinlockMutex();

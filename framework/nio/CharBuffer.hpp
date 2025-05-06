@@ -2,8 +2,8 @@
 #include <string>
 #include <nio/interface/IBuffer.hpp>
 
-namespace framework::nio {
-  class CharBuffer final : public interface::IBuffer {
+namespace framework {
+  class CharBuffer final : public IBuffer {
   public:
     explicit CharBuffer(size_t cap);
     auto compact() -> void;

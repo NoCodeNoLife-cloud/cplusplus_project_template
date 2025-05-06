@@ -1,5 +1,5 @@
 #pragma once
-namespace framework::iface {
+namespace framework {
   template <typename ReturnType, typename... Args>
   class IRunnable abstract {
   public:

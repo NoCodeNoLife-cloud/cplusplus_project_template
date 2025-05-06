@@ -3,7 +3,7 @@
 #include <vector>
 #include <io/reader/FilterInputStream.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   class BufferedInputStream final : public FilterInputStream {
   public:
     explicit BufferedInputStream(std::unique_ptr<AbstractInputStream> in);

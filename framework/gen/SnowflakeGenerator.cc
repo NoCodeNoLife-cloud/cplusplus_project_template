@@ -1,7 +1,7 @@
 #include <chrono>
 #include <gen/SnowflakeGenerator.hpp>
 
-namespace framework::gen {
+namespace framework {
   SnowflakeGenerator::SnowflakeGenerator(const int16_t machine_id, const int16_t datacenter_id) {
     if (machine_id < 0 || machine_id > static_cast<int64_t>(SnowflakeOption::max_machine_id_)) {
       throw std::invalid_argument("Machine ID out of range (0-31)");
@@ -9,7 +9,7 @@ namespace framework::gen {
     if (datacenter_id < 0 || datacenter_id > static_cast<int64_t>(SnowflakeOption::max_datacenter_id_)) {
       throw std::invalid_argument("Datacenter ID out of range (0-31)");
     }
-    machine_id_ = static_cast<int16_t>((datacenter_id << 5) | machine_id);
+    machine_id_ = static_cast<int16_t>(datacenter_id << 5 | machine_id);
   }
 
   auto SnowflakeGenerator::NextId() -> int64_t {
@@ -23,7 +23,7 @@ namespace framework::gen {
     }
 
     if (timestamp == last_timestamp_) {
-      sequence_ = (sequence_ + 1) & static_cast<int64_t>(SnowflakeOption::max_sequence_);
+      sequence_ = sequence_ + 1 & static_cast<int64_t>(SnowflakeOption::max_sequence_);
       if (sequence_ == 0) {
         timestamp = til_next_millis(last_timestamp_);
       }
@@ -33,7 +33,7 @@ namespace framework::gen {
 
     last_timestamp_ = timestamp;
 
-    return (timestamp << (static_cast<int64_t>(SnowflakeOption::machine_bits_) + static_cast<int64_t>(SnowflakeOption::sequence_bits_))) | (static_cast<int64_t>(machine_id_) << static_cast<int64_t>(SnowflakeOption::sequence_bits_)) | sequence_;
+    return timestamp << (static_cast<int64_t>(SnowflakeOption::machine_bits_) + static_cast<int64_t>(SnowflakeOption::sequence_bits_)) | static_cast<int64_t>(machine_id_) << static_cast<int64_t>(SnowflakeOption::sequence_bits_) | sequence_;
   }
 
   auto SnowflakeGenerator::GetCurrentTimestamp() -> int64_t {

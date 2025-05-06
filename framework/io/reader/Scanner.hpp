@@ -2,7 +2,7 @@
 #include <string>
 #include <boost/algorithm/string.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   class Scanner {
   public:
     explicit Scanner(std::istream& input_stream);

@@ -1,9 +1,9 @@
 #pragma once
-#include <yaml-cpp/yaml.h>
 #include <fstream>
 #include <string>
+#include <yaml-cpp/yaml.h>
 
-namespace framework::io::serialize {
+namespace framework {
   template <typename T>
   class YamlSerializer abstract {
   public:

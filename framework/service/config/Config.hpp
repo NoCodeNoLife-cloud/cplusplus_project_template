@@ -3,7 +3,7 @@
 #include <string>
 #include <unordered_map>
 
-namespace framework::service::config {
+namespace framework {
   class Config {
   public:
     template <typename T>

@@ -1,6 +1,6 @@
 #include <io/reader/FileInputStream.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   FileInputStream::FileInputStream(const std::string& name) {
     if (!std::filesystem::exists(name)) {
       throw std::ios_base::failure("FileNotFoundException: File does not exist.");

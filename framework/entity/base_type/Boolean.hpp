@@ -4,8 +4,8 @@
 #include <entity/base_type/Object.hpp>
 #include <entity/interface/IComparable.hpp>
 
-namespace framework::entity::base_type {
-  class Boolean final : public Object, public iface::IComparable<Boolean> {
+namespace framework {
+  class Boolean final : public Object, public IComparable<Boolean> {
   public:
     explicit Boolean(bool value);
     ~Boolean() override;
@@ -28,7 +28,7 @@ namespace framework::entity::base_type {
 }
 
 template <>
-struct std::formatter<framework::entity::base_type::Boolean> {
+struct std::formatter<framework::Boolean> {
   constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {
     const auto begin = ctx.begin();
     if (const auto end = ctx.end(); begin != end && *begin != '}') {
@@ -37,12 +37,12 @@ struct std::formatter<framework::entity::base_type::Boolean> {
     return begin;
   }
 
-  static auto format(const framework::entity::base_type::Boolean& content, format_context& ctx)
+  static auto format(const framework::Boolean& content, format_context& ctx)
     -> back_insert_iterator<_Fmt_buffer<char>> {
     return std::format_to(ctx.out(), "{}", content.value_);
   }
 };
 
-inline auto operator<<(std::ostream& os, const framework::entity::base_type::Boolean& content) -> std::ostream& {
+inline auto operator<<(std::ostream& os, const framework::Boolean& content) -> std::ostream& {
   return os << std::format("{}", content);
 }

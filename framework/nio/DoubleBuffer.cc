@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <nio/DoubleBuffer.hpp>
 
-namespace framework::nio {
+namespace framework {
   DoubleBuffer::DoubleBuffer(const size_t capacity) : buffer_(capacity) {
     position_ = 0;
     limit_ = capacity;

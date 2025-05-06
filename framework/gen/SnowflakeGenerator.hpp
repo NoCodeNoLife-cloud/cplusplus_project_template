@@ -1,7 +1,7 @@
 #pragma once
 #include <mutex>
 
-namespace framework::gen {
+namespace framework {
   enum class SnowflakeOption {
     machine_bits_ = 10,
     sequence_bits_ = 12,

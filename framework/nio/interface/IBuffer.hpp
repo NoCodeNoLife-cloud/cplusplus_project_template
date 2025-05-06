@@ -1,5 +1,5 @@
 #pragma once
-namespace framework::interface {
+namespace framework {
   class IBuffer abstract {
   public:
     virtual ~IBuffer();

@@ -1,6 +1,6 @@
 #include <entity/base_type/Character.hpp>
 #include <gtest/gtest.h>
-using framework::entity::base_type::Character;
+using framework::Character;
 
 namespace gtest_case {
   TEST(CharacterTest, ConstructorTest) {
@@ -49,8 +49,8 @@ namespace gtest_case {
     const Character c4('A');
 
     EXPECT_EQ(c1.compareTo(c2), 0);
-    EXPECT_EQ(c3.compareTo(c1), static_cast<int32_t>('b' - 'a'));
-    EXPECT_EQ(c4.compareTo(c1), static_cast<int32_t>('A' - 'a'));
+    EXPECT_EQ(c3.compareTo(c1), 'b' - 'a');
+    EXPECT_EQ(c4.compareTo(c1), 'A' - 'a');
   }
 
   TEST(CharacterTest, ComparisonOperatorsTest) {

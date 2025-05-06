@@ -1,7 +1,7 @@
 #pragma once
 #include <yaml-cpp/node/convert.h>
 
-namespace framework::iface {
+namespace framework {
   class IYamlSerializable abstract {
   public:
     virtual ~IYamlSerializable() = default;

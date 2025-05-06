@@ -1,7 +1,7 @@
 #pragma once
 #include <boost/serialization/serialization.hpp>
 
-namespace framework::iface {
+namespace framework {
   template <typename T>
   class IBoostSerializable abstract {
   public:

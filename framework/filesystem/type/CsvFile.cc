@@ -1,6 +1,6 @@
 #include <filesystem/type/CsvFile.hpp>
 
-namespace framework::filesystem::type {
+namespace framework {
   CsvFile::CsvFile(const std::string& file_path) : file_path_(file_path) {
     try {
       csv_doc_ = rapidcsv::Document(file_path);

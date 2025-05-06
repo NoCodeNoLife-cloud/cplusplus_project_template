@@ -8,7 +8,7 @@
 #include <thread>
 #include <vector>
 
-namespace framework::thread {
+namespace framework {
   class ThreadPool {
   public:
     ThreadPool(size_t core_threads, size_t max_threads, size_t queue_size, std::chrono::milliseconds idle_time);

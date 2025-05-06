@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <io/reader/AbstractReader.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   class AbstractFilterReader final : public AbstractReader {
   public:
     explicit AbstractFilterReader(std::unique_ptr<AbstractReader> inputReader);

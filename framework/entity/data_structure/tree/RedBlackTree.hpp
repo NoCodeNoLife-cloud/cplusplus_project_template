@@ -2,7 +2,7 @@
 #include <memory>
 #include <entity/data_structure/tree/RedBlackTreeNode.hpp>
 
-namespace framework::entity::data_structure::tree {
+namespace framework {
   template <typename T>
   class RedBlackTree {
   public:

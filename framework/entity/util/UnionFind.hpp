@@ -1,7 +1,7 @@
 #pragma once
 #include <unordered_map>
 
-namespace framework::entity::util {
+namespace framework {
   template <typename T>
   class UnionFind {
   public:

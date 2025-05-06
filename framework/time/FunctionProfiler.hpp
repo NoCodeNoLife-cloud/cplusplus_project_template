@@ -1,7 +1,7 @@
 #pragma once
 #include <log/GLogConfig.hpp>
 
-namespace framework::time {
+namespace framework {
   class FunctionProfiler {
   public:
     explicit FunctionProfiler(std::string function_name, bool autoStart = false);

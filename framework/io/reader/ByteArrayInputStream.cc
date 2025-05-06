@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <io/reader/ByteArrayInputStream.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   ByteArrayInputStream::ByteArrayInputStream(const std::vector<std::byte>& buf) : buffer_(buf) {}
 
   auto ByteArrayInputStream::read() -> std::byte {

@@ -3,7 +3,7 @@
 #include <vector>
 #include <entity/data_structure/graphics/Edge.hpp>
 
-namespace framework::entity::data_structure::graphics {
+namespace framework {
   class Graph {
   public:
     explicit Graph(int32_t n);

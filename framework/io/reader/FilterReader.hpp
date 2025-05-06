@@ -2,7 +2,7 @@
 #include <memory>
 #include <io/reader/AbstractReader.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   class FilterReader : public AbstractReader {
   public:
     explicit FilterReader(std::shared_ptr<AbstractReader> reader);

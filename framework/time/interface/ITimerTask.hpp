@@ -1,5 +1,5 @@
 #pragma once
-namespace framework::time::iface {
+namespace framework {
   class ITimerTask abstract {
   public:
     virtual ~ITimerTask() = default;

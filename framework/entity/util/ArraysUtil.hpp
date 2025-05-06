@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-namespace framework::entity::util {
+namespace framework {
   class ArraysUtil abstract {
   public:
     template <typename T>

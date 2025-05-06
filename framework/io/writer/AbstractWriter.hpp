@@ -4,8 +4,8 @@
 #include <io/interface/ICloseable.hpp>
 #include <io/interface/IFlushable.hpp>
 
-namespace framework::io::writer {
-  class AbstractWriter : public iface::ICloseable, public iface::IFlushable, iface::IAppendable<AbstractWriter> {
+namespace framework {
+  class AbstractWriter : public ICloseable, public IFlushable, IAppendable<AbstractWriter> {
   public:
     AbstractWriter();
     ~AbstractWriter() override;

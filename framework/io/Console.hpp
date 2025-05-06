@@ -4,8 +4,8 @@
 #include <string>
 #include <io/interface/IFlushable.hpp>
 
-namespace framework::io {
-  class Console final : public iface::IFlushable {
+namespace framework {
+  class Console final : public IFlushable {
   public:
     template <typename... Args>
     auto format(const std::string& fmt, Args... args) -> void;

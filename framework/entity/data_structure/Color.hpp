@@ -1,5 +1,5 @@
 #pragma once
-namespace framework::entity::data_structure {
+namespace framework {
   enum class Color {
     Red = 0,
     Black = 1,

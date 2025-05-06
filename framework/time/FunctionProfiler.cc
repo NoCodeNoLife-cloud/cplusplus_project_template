@@ -4,7 +4,7 @@
 #include <filesystem/File.hpp>
 #include <time/FunctionProfiler.hpp>
 
-namespace framework::time {
+namespace framework {
   FunctionProfiler::FunctionProfiler(std::string function_name, const bool autoStart) :
     function_name_(std::move(function_name)) {
     if (autoStart) {

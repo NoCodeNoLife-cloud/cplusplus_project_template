@@ -1,8 +1,7 @@
-#include <iterator>
 #include <stdexcept>
 #include <nio/FloatBuffer.hpp>
 
-namespace framework::nio {
+namespace framework {
   FloatBuffer::FloatBuffer(const size_t capacity) : buffer_(capacity, 0.0f) {
     limit_ = capacity;
     position_ = 0;

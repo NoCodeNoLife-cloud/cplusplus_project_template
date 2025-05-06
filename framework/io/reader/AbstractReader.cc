@@ -1,6 +1,6 @@
 #include <io/reader/AbstractReader.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   AbstractReader::~AbstractReader() = default;
 
   auto AbstractReader::read() -> int32_t {

@@ -1,7 +1,7 @@
 #pragma once
 #include <io/reader/FilterInputStream.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   class PushbackInputStream final : public FilterInputStream {
   public:
     PushbackInputStream(std::unique_ptr<AbstractInputStream> inputStream, size_t bufferSize);

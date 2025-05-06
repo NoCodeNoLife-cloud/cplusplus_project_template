@@ -2,8 +2,8 @@
 #include <vector>
 #include <nio/interface/IBuffer.hpp>
 
-namespace framework::nio {
-  class LongBuffer final : public interface::IBuffer {
+namespace framework {
+  class LongBuffer final : public IBuffer {
   public:
     explicit LongBuffer(std::size_t capacity);
     auto get() -> int64_t;

@@ -1,6 +1,6 @@
 #include <io/reader/BufferedReader.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   BufferedReader::BufferedReader(std::unique_ptr<AbstractReader> reader, const int32_t size) :
     reader_(std::move(reader)), buffer_size_(size) {
     if (size <= 0) {

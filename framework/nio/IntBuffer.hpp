@@ -2,8 +2,8 @@
 #include <vector>
 #include <nio/interface/IBuffer.hpp>
 
-namespace framework::nio {
-  class IntBuffer final : public interface::IBuffer {
+namespace framework {
+  class IntBuffer final : public IBuffer {
   public:
     explicit IntBuffer(size_t capacity);
     auto get() -> int32_t;

@@ -1,7 +1,7 @@
 #include <time/TimerManager.hpp>
 
-namespace framework::time {
-  TimerManager::TimerManager(boost::asio::io_context& io_context, std::shared_ptr<iface::ITimerTask> task,
+namespace framework {
+  TimerManager::TimerManager(boost::asio::io_context& io_context, std::shared_ptr<ITimerTask> task,
                              const std::chrono::milliseconds interval) :
     ioContext_(io_context), task_(std::move(task)), timer_(io_context), interval_(interval) {
     start();

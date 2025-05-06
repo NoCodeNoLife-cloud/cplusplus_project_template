@@ -1,7 +1,7 @@
 #include <string>
 #include <entity/base_type/Integer.hpp>
 #include <gtest/gtest.h>
-using framework::entity::base_type::Integer;
+using framework::Integer;
 
 namespace gtest_case {
   TEST(IntegerTest, ConstructorInitializesValueCorrectly) {

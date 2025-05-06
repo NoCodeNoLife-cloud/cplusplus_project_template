@@ -1,5 +1,5 @@
 #pragma once
-namespace framework::iface {
+namespace framework {
   class ICloseable abstract {
   public:
     virtual ~ICloseable() = default;

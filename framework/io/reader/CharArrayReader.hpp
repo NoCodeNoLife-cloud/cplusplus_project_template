@@ -1,7 +1,7 @@
 #pragma once
 #include <io/reader/AbstractReader.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   class CharArrayReader final : public AbstractReader {
   public:
     explicit CharArrayReader(const std::vector<char>& buffer);

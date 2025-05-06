@@ -1,6 +1,6 @@
 #include <entity/base_type/Byte.hpp>
 
-namespace framework::entity::base_type {
+namespace framework {
   Byte::Byte(const uint8_t value) : value_(value) {}
 
   Byte::~Byte() = default;

@@ -4,7 +4,7 @@
 #include <filesystem/File.hpp>
 #include <openssl/evp.h>
 
-namespace framework::filesystem {
+namespace framework {
   File::File(const std::string& path) : file_path_(path) {}
 
   File::File(std::filesystem::path path) : file_path_(std::move(path)) {}

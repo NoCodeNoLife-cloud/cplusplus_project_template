@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-namespace framework::iface {
+namespace framework {
   template <typename T>
   class IAppendable abstract {
   public:

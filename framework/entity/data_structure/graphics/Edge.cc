@@ -1,6 +1,6 @@
 #include <entity/data_structure/graphics/Edge.hpp>
 
-namespace framework::entity::data_structure::graphics {
+namespace framework {
   Edge::Edge(const int32_t to, const int32_t weight): to_(to), weight_(weight) {}
 
   auto Edge::to() const -> int32_t {

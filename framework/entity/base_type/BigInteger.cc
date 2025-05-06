@@ -1,7 +1,7 @@
 #include <iostream>
 #include <entity/base_type/BigInteger.hpp>
 
-namespace framework::entity::base_type {
+namespace framework {
   BigInteger::BigInteger() : value_(0) {}
 
   BigInteger::BigInteger(const std::string& str) : value_(str) {}

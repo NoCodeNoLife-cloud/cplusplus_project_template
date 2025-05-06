@@ -1,6 +1,6 @@
 #include <entity/data_structure/tree/BinarySearchTree.hpp>
 #include <gtest/gtest.h>
-using framework::entity::data_structure::tree::BinarySearchTree;
+using framework::BinarySearchTree;
 
 namespace gtest_case {
   TEST(BinarySearchTreeTest, InsertAndFindBasic) {

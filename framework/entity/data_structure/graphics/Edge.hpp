@@ -1,7 +1,7 @@
 #pragma once
 #include <cstdint>
 
-namespace framework::entity::data_structure::graphics {
+namespace framework {
   class Edge {
   public:
     Edge(int32_t to, int32_t weight);

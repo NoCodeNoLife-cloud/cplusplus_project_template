@@ -11,7 +11,7 @@
 #include <unordered_set>
 #include <vector>
 
-namespace framework::gen {
+namespace framework {
   class ContainerGenerator abstract {
   public:
     template <typename T>

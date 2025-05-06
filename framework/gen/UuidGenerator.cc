@@ -3,7 +3,7 @@
 #include <boost/uuid/uuid_io.hpp>
 #include <gen/UuidGenerator.hpp>
 
-namespace framework::gen {
+namespace framework {
   // ReSharper disable once CppDFAConstantFunctionResult
   auto UuidGenerator::GenerateRandomUuid() -> std::string {
     static auto generator = boost::uuids::random_generator();

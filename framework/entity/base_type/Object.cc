@@ -1,6 +1,6 @@
 #include <entity/base_type/Object.hpp>
 
-namespace framework::entity::base_type {
+namespace framework {
   Object::Object() = default;
   Object::~Object() = default;
 

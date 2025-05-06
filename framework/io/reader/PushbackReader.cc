@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <io/reader/PushbackReader.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   PushbackReader::PushbackReader(std::shared_ptr<AbstractReader> reader) :
     PushbackReader(std::move(reader), DEFAULT_BUFFER_SIZE) {}
 

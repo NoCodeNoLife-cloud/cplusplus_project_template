@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <io/reader/PushbackInputStream.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   PushbackInputStream::PushbackInputStream(std::unique_ptr<AbstractInputStream> inputStream, const size_t bufferSize) :
     FilterInputStream(std::move(inputStream)), pushback_buffer_(bufferSize), buffer_pos_(bufferSize) {}
 

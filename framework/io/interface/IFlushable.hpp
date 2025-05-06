@@ -1,5 +1,5 @@
 #pragma once
-namespace framework::iface {
+namespace framework {
   class IFlushable abstract {
   public:
     virtual ~IFlushable() = default;

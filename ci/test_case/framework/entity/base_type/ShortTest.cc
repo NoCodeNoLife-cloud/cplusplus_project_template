@@ -1,6 +1,6 @@
 #include <entity/base_type/Short.hpp>
 #include <gtest/gtest.h>
-using framework::entity::base_type::Short;
+using framework::Short;
 
 namespace gtest_case {
   TEST(ShortTest, ConstructorInitializesValueCorrectly) {

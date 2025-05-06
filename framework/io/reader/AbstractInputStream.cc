@@ -1,7 +1,7 @@
-#include <io/reader/AbstractInputStream.hpp>
 #include <fstream>
+#include <io/reader/AbstractInputStream.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   AbstractInputStream::~AbstractInputStream() = default;
 
   auto AbstractInputStream::mark(int32_t readLimit) -> void {

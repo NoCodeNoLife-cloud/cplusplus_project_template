@@ -1,13 +1,13 @@
 #include <stdexcept>
 #include <entity/util/ArraysUtil.hpp>
 #include <gtest/gtest.h>
-using framework::entity::util::ArraysUtil;
+using framework::ArraysUtil;
 
 namespace gtest_case {
   TEST(ArraysUtilTest, AsList_ConvertsIntArrayToVector) {
     constexpr int arr[] = {1, 2, 3};
     const std::vector<int> result = ArraysUtil::asList(arr, 3);
-    const std::vector<int> expected = {1, 2, 3};
+    const std::vector expected = {1, 2, 3};
     EXPECT_EQ(result, expected);
   }
 
@@ -61,28 +61,28 @@ namespace gtest_case {
   TEST(ArraysUtilTest, CopyOf_ShrinksArraySize) {
     const int original[] = {1, 2, 3, 4, 5};
     const std::vector<int> result = ArraysUtil::copyOf(original, 5, 3);
-    const std::vector<int> expected = {1, 2, 3};
+    const std::vector expected = {1, 2, 3};
     EXPECT_EQ(result, expected);
   }
 
   TEST(ArraysUtilTest, CopyOf_ExpandsArraySizeWithDefaultValues) {
     constexpr int original[] = {1, 2};
     const std::vector<int> result = ArraysUtil::copyOf(original, 2, 4);
-    const std::vector<int> expected = {1, 2, 0, 0};
+    const std::vector expected = {1, 2, 0, 0};
     EXPECT_EQ(result, expected);
   }
 
   TEST(ArraysUtilTest, CopyOfRange_CopiesFullRange) {
     constexpr int original[] = {1, 2, 3, 4};
     const std::vector<int> result = ArraysUtil::copyOfRange(original, 0, 4);
-    const std::vector<int> expected = {1, 2, 3, 4};
+    const std::vector expected = {1, 2, 3, 4};
     EXPECT_EQ(result, expected);
   }
 
   TEST(ArraysUtilTest, CopyOfRange_CopiesPartialRange) {
     constexpr int original[] = {1, 2, 3, 4};
     const std::vector<int> result = ArraysUtil::copyOfRange(original, 1, 3);
-    const std::vector<int> expected = {2, 3};
+    const std::vector expected = {2, 3};
     EXPECT_EQ(result, expected);
   }
 

@@ -2,8 +2,8 @@
 #include <vector>
 #include <io/interface/ICloseable.hpp>
 
-namespace framework::io::reader {
-  class AbstractInputStream abstract : public iface::ICloseable {
+namespace framework {
+  class AbstractInputStream abstract : public ICloseable {
   public:
     ~AbstractInputStream() override;
     [[nodiscard]] virtual auto available() -> size_t = 0;

@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-namespace framework::entity::util {
+namespace framework {
   class StringUtil {
   public:
     static auto split(const std::string& target, char split_char) -> std::vector<std::string>;

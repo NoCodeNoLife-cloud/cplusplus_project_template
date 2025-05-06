@@ -1,7 +1,7 @@
 #pragma once
 #include <service/config/Config.hpp>
 
-namespace framework::service::config {
+namespace framework {
   class Configurable abstract {
   public:
     virtual ~Configurable();

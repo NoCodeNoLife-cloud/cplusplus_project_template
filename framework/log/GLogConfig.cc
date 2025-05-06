@@ -1,7 +1,7 @@
 #include <filesystem/Directory.hpp>
 #include <log/GLogConfig.hpp>
 
-namespace framework::log {
+namespace framework {
   GLogConfig::GLogConfig() {
     config();
   }

@@ -1,6 +1,6 @@
 #include <io/writer/FilterOutputStream.hpp>
 
-namespace framework::io::writer {
+namespace framework {
   FilterOutputStream::FilterOutputStream(std::shared_ptr<AbstractOutputStream> outputStream) :
     output_stream_(std::move(outputStream)) {}
 

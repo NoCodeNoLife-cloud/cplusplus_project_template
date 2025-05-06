@@ -1,7 +1,7 @@
 #pragma once
 #include <io/writer/AbstractOutputStream.hpp>
 
-namespace framework::io::writer {
+namespace framework {
   class ByteArrayOutputStream final : public AbstractOutputStream {
   public:
     ByteArrayOutputStream();

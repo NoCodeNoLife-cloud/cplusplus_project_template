@@ -1,6 +1,6 @@
 #include <io/reader/InputStreamReader.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   InputStreamReader::InputStreamReader(std::shared_ptr<AbstractReader> input) : reader_(std::move(input)) {
     if (!reader_) {
       throw std::invalid_argument("Input stream cannot be null");

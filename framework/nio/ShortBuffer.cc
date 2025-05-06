@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <nio/ShortBuffer.hpp>
 
-namespace framework::nio {
+namespace framework {
   ShortBuffer::ShortBuffer(const size_t capacity) : buffer_(capacity) {
     capacity_ = capacity;
     limit_ = capacity;

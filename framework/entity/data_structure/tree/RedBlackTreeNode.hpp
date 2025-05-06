@@ -2,7 +2,7 @@
 #include <memory>
 #include <entity/data_structure/Color.hpp>
 
-namespace framework::entity::data_structure::tree {
+namespace framework {
   template <typename T>
   class RedBlackTreeNode {
   public:
@@ -45,7 +45,7 @@ namespace framework::entity::data_structure::tree {
   }
 
   template <typename T>
-  auto RedBlackTreeNode<T>::setLeft(std::shared_ptr<RedBlackTreeNode<T>> node) -> void {
+  auto RedBlackTreeNode<T>::setLeft(std::shared_ptr<RedBlackTreeNode> node) -> void {
     left = node;
   }
 
@@ -55,7 +55,7 @@ namespace framework::entity::data_structure::tree {
   }
 
   template <typename T>
-  auto RedBlackTreeNode<T>::setRight(std::shared_ptr<RedBlackTreeNode<T>> node) -> void {
+  auto RedBlackTreeNode<T>::setRight(std::shared_ptr<RedBlackTreeNode> node) -> void {
     right = node;
   }
 
@@ -65,7 +65,7 @@ namespace framework::entity::data_structure::tree {
   }
 
   template <typename T>
-  auto RedBlackTreeNode<T>::setParent(std::shared_ptr<RedBlackTreeNode<T>> node) -> void {
+  auto RedBlackTreeNode<T>::setParent(std::shared_ptr<RedBlackTreeNode> node) -> void {
     parent = node;
   }
 

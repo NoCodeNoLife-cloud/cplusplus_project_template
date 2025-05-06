@@ -1,6 +1,6 @@
 #include <io/Console.hpp>
 
-namespace framework::io {
+namespace framework {
   auto Console::flush() -> void {
     std::cout.flush();
   }

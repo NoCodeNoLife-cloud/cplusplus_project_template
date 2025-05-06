@@ -3,7 +3,7 @@
 #include <fstream>
 #include <vector>
 
-namespace framework::filesystem::type {
+namespace framework {
 #pragma pack(push, 1)
   struct BitMapFileHeader {
     uint16_t bf_type_;

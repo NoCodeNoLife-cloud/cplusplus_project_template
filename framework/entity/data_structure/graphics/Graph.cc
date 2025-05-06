@@ -1,6 +1,6 @@
 #include <entity/data_structure/graphics/Graph.hpp>
 
-namespace framework::entity::data_structure::graphics {
+namespace framework {
   Graph::Graph(const int32_t n): num_nodes_(n) {
     adj_list_.resize(num_nodes_);
   }

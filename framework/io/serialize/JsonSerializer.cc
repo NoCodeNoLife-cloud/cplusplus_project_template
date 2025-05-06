@@ -1,6 +1,6 @@
 #include <io/serialize/JsonSerializer.hpp>
 
-namespace framework::io::serialize {
+namespace framework {
   auto JsonSerializer::getStringOrDefault(const rapidjson::Value& json, const char* key,
                                           const std::string& defaultValue) -> std::string {
     if (json.HasMember(key) && json[key].IsString()) {

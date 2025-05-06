@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <io/reader/BufferedInputStream.hpp>
 
-namespace framework::io::reader {
+namespace framework {
   BufferedInputStream::BufferedInputStream(std::unique_ptr<AbstractInputStream> in) :
     BufferedInputStream(std::move(in), DEFAULT_BUFFER_SIZE) {}
 

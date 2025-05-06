@@ -2,7 +2,7 @@
 #include <format>
 #include <iostream>
 
-namespace framework::entity::base_type {
+namespace framework {
   class Object {
   public:
     Object();
@@ -19,7 +19,7 @@ namespace framework::entity::base_type {
 }
 
 template <>
-struct std::formatter<framework::entity::base_type::Object> {
+struct std::formatter<framework::Object> {
   constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {
     const auto begin = ctx.begin();
     if (const auto end = ctx.end(); begin != end && *begin != '}') {
@@ -28,12 +28,12 @@ struct std::formatter<framework::entity::base_type::Object> {
     return begin;
   }
 
-  static auto format(const framework::entity::base_type::Object& content, format_context& ctx)
+  static auto format(const framework::Object& content, format_context& ctx)
     -> back_insert_iterator<_Fmt_buffer<char>> {
     return std::format_to(ctx.out(), "Object{{hashCode:{}}}", content.hashCode());
   }
 };
 
-inline auto operator<<(std::ostream& os, const framework::entity::base_type::Object& object) -> std::ostream& {
+inline auto operator<<(std::ostream& os, const framework::Object& object) -> std::ostream& {
   return os << object.toString();
 }
