@@ -36,28 +36,8 @@ namespace common {
     }
   }
 
-  auto Double::operator==(const Double& other) const -> bool {
-    return value_ == other.value_;
-  }
-
-  auto Double::operator!=(const Double& other) const -> bool {
-    return value_ != other.value_;
-  }
-
-  auto Double::operator<(const Double& other) const -> bool {
-    return value_ < other.value_;
-  }
-
-  auto Double::operator>(const Double& other) const -> bool {
-    return value_ > other.value_;
-  }
-
-  auto Double::operator<=(const Double& other) const -> bool {
-    return value_ <= other.value_;
-  }
-
-  auto Double::operator>=(const Double& other) const -> bool {
-    return value_ >= other.value_;
+  auto Double::operator<=>(const Double& other) const -> std::partial_ordering {
+    return value_ <=> other.value_;
   }
 
   auto Double::operator+(const Double& other) const -> Double {

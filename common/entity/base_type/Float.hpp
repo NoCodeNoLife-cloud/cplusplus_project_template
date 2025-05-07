@@ -21,12 +21,7 @@ namespace common {
     [[nodiscard]] auto compareTo(const Float& other) const -> int32_t override;
     [[nodiscard]] auto floatValue() const -> float;
     static auto parseFloat(const std::string& str) -> Float;
-    auto operator==(const Float& other) const -> bool;
-    auto operator!=(const Float& other) const -> bool;
-    auto operator<(const Float& other) const -> bool;
-    auto operator>(const Float& other) const -> bool;
-    auto operator<=(const Float& other) const -> bool;
-    auto operator>=(const Float& other) const -> bool;
+    auto operator<=>(const Float& other) const -> std::partial_ordering;
     auto operator+(const Float& other) const -> Float;
     auto operator-(const Float& other) const -> Float;
     auto operator*(const Float& other) const -> Float;

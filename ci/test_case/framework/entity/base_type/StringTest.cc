@@ -316,8 +316,8 @@ namespace gtest_case {
     const String s3 = s1 + s2;
     EXPECT_EQ(s3.toStdString(), "hello world");
     const String s4("hello");
-    EXPECT_TRUE(s1 == s4);
-    EXPECT_FALSE(s1 != s4);
+    EXPECT_TRUE(std::is_eq(s1 <=> s4));
+    EXPECT_FALSE(std::is_neq(s1 <=> s4));
   }
 
   TEST(StringTest, toString) {

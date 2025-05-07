@@ -51,10 +51,8 @@ namespace common {
     static auto valueOf(double d) -> String;
     static auto valueOf(const String& str) -> String;
     [[nodiscard]] auto regionMatches(int32_t tOffset, const String& other, int32_t oOffset, int32_t len) const -> bool;
-    [[nodiscard]] auto regionMatches(bool ignoreCase, int32_t tOffset, const String& other, int32_t oOffset,
-                                     int32_t len) const -> bool;
-    auto operator==(const String& str) const -> bool;
-    auto operator!=(const String& str) const -> bool;
+    [[nodiscard]] auto regionMatches(bool ignoreCase, int32_t tOffset, const String& other, int32_t oOffset, int32_t len) const -> bool;
+    auto operator<=>(const String& other) const -> std::partial_ordering;
     auto operator+(const String& str) const -> String;
     [[nodiscard]] auto toString() const -> std::string override;
 

@@ -18,12 +18,7 @@ namespace common {
     [[nodiscard]] auto toString() const -> std::string override;
     static auto parseByte(const std::string& str) -> Byte;
     [[nodiscard]] auto byteValue() const -> uint8_t;
-    auto operator==(const Byte& other) const -> bool;
-    auto operator!=(const Byte& other) const -> bool;
-    auto operator<(const Byte& other) const -> bool;
-    auto operator>(const Byte& other) const -> bool;
-    auto operator<=(const Byte& other) const -> bool;
-    auto operator>=(const Byte& other) const -> bool;
+    auto operator<=>(const Byte& other) const -> std::partial_ordering;
     auto operator+(const Byte& other) const -> Byte;
     auto operator-(const Byte& other) const -> Byte;
 

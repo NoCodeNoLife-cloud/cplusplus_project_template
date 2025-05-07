@@ -41,28 +41,8 @@ namespace common {
     return value_;
   }
 
-  auto Byte::operator==(const Byte& other) const -> bool {
-    return equals(other);
-  }
-
-  auto Byte::operator!=(const Byte& other) const -> bool {
-    return !equals(other);
-  }
-
-  auto Byte::operator<(const Byte& other) const -> bool {
-    return value_ < other.value_;
-  }
-
-  auto Byte::operator>(const Byte& other) const -> bool {
-    return value_ > other.value_;
-  }
-
-  auto Byte::operator<=(const Byte& other) const -> bool {
-    return value_ <= other.value_;
-  }
-
-  auto Byte::operator>=(const Byte& other) const -> bool {
-    return value_ >= other.value_;
+  auto Byte::operator<=>(const Byte& other) const -> std::partial_ordering {
+    return value_ <=> other.value_;
   }
 
   auto Byte::operator+(const Byte& other) const -> Byte {

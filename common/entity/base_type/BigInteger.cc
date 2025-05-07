@@ -34,28 +34,14 @@ namespace common {
     return BigInteger((value_ % other.value_).convert_to<std::string>());
   }
 
-  auto BigInteger::operator==(const BigInteger& other) const -> bool {
-    return value_ == other.value_;
-  }
-
-  auto BigInteger::operator!=(const BigInteger& other) const -> bool {
-    return value_ != other.value_;
-  }
-
-  auto BigInteger::operator<(const BigInteger& other) const -> bool {
-    return value_ < other.value_;
-  }
-
-  auto BigInteger::operator<=(const BigInteger& other) const -> bool {
-    return value_ <= other.value_;
-  }
-
-  auto BigInteger::operator>(const BigInteger& other) const -> bool {
-    return value_ > other.value_;
-  }
-
-  auto BigInteger::operator>=(const BigInteger& other) const -> bool {
-    return value_ >= other.value_;
+  auto BigInteger::operator<=>(const BigInteger& other) const -> std::partial_ordering {
+    if (value_ < other.value_) {
+      return std::strong_ordering::less;
+    }
+    if (value_ > other.value_) {
+      return std::strong_ordering::greater;
+    }
+    return std::strong_ordering::equal;
   }
 
   auto BigInteger::toString() const -> std::string {

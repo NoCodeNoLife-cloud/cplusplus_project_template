@@ -71,9 +71,9 @@ namespace gtest_case {
     const Integer b(2);
     const Integer c(5);
 
-    EXPECT_TRUE(a == b);
-    EXPECT_FALSE(a == c);
-    EXPECT_TRUE(a != c);
+    EXPECT_TRUE(std::is_eq(a <=> b));
+    EXPECT_FALSE(std::is_eq(a <=> c));
+    EXPECT_TRUE(std::is_neq(a <=> c));
   }
 
   TEST(IntegerTest, RelationalOperatorsWorkCorrectly) {

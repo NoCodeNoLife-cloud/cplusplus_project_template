@@ -18,12 +18,7 @@ namespace common {
     [[nodiscard]] auto equals(const Long& other) const -> bool override;
     [[nodiscard]] auto compareTo(const Long& other) const -> int32_t override;
     static auto parseLong(const std::string& str) -> Long;
-    auto operator==(const Long& other) const -> bool;
-    auto operator!=(const Long& other) const -> bool;
-    auto operator<(const Long& other) const -> bool;
-    auto operator>(const Long& other) const -> bool;
-    auto operator<=(const Long& other) const -> bool;
-    auto operator>=(const Long& other) const -> bool;
+    auto operator<=>(const Long& other) const -> std::partial_ordering;
     auto operator+(const Long& other) const -> Long;
     auto operator-(const Long& other) const -> Long;
     auto operator*(const Long& other) const -> Long;

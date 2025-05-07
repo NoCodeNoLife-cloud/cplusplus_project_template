@@ -239,12 +239,8 @@ namespace common {
     return thisRegion == otherRegion;
   }
 
-  auto String::operator==(const String& str) const -> bool {
-    return equals(str);
-  }
-
-  auto String::operator!=(const String& str) const -> bool {
-    return !equals(str);
+  auto String::operator<=>(const String& other) const -> std::partial_ordering {
+    return data_ <=> other.data_;
   }
 
   auto String::operator+(const String& str) const -> String {

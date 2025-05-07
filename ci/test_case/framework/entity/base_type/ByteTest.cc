@@ -38,16 +38,16 @@ namespace gtest_case {
     const Byte byte1(10);
     const Byte byte2(10);
     const Byte byte3(20);
-    EXPECT_TRUE(byte1 == byte2);
-    EXPECT_FALSE(byte1 == byte3);
+    EXPECT_TRUE(std::is_eq(byte1 <=> byte2));
+    EXPECT_FALSE(std::is_eq(byte1 <=> byte3));
   }
 
   TEST(ByteTest, OperatorInequalityComparesValues) {
     const Byte byte1(15);
     const Byte byte2(25);
     const Byte byte3(15);
-    EXPECT_TRUE(byte1 != byte2);
-    EXPECT_FALSE(byte1 != byte3);
+    EXPECT_TRUE(std::is_neq(byte1 <=> byte2));
+    EXPECT_FALSE(std::is_neq(byte1 <=> byte3));
   }
 
   TEST(ByteTest, OperatorLessThanComparesValues) {

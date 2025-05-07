@@ -151,25 +151,25 @@ namespace gtest_case {
   TEST(BigIntegerTest, EqualityOperatorTrue) {
     const BigInteger a("123");
     const BigInteger b("123");
-    EXPECT_TRUE(a == b);
+    EXPECT_TRUE(std::is_eq(a <=> b));
   }
 
   TEST(BigIntegerTest, EqualityOperatorFalse) {
     const BigInteger a("123");
     const BigInteger b("456");
-    EXPECT_FALSE(a == b);
+    EXPECT_FALSE(std::is_eq(a <=> b));
   }
 
   TEST(BigIntegerTest, InequalityOperatorTrue) {
     const BigInteger a("789");
     const BigInteger b("987");
-    EXPECT_TRUE(a != b);
+    EXPECT_TRUE(std::is_neq(a <=> b));
   }
 
   TEST(BigIntegerTest, InequalityOperatorFalse) {
     const BigInteger a("555");
     const BigInteger b("555");
-    EXPECT_FALSE(a != b);
+    EXPECT_FALSE(std::is_neq(a <=> b));
   }
 
   TEST(BigIntegerTest, LessThanOperatorTrue) {

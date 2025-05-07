@@ -53,27 +53,7 @@ namespace common {
     return value_;
   }
 
-  auto Character::operator==(const Character& other) const -> bool {
-    return equals(other);
-  }
-
-  auto Character::operator!=(const Character& other) const -> bool {
-    return !equals(other);
-  }
-
-  auto Character::operator<(const Character& other) const -> bool {
-    return value_ < other.value_;
-  }
-
-  auto Character::operator>(const Character& other) const -> bool {
-    return value_ > other.value_;
-  }
-
-  auto Character::operator<=(const Character& other) const -> bool {
-    return value_ <= other.value_;
-  }
-
-  auto Character::operator>=(const Character& other) const -> bool {
-    return value_ >= other.value_;
+  auto Character::operator<=>(const Character& other) const -> std::partial_ordering {
+    return value_ <=> other.value_;
   }
 }

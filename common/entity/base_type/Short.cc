@@ -39,28 +39,8 @@ namespace common {
     }
   }
 
-  auto Short::operator==(const Short& other) const -> bool {
-    return equals(other);
-  }
-
-  auto Short::operator!=(const Short& other) const -> bool {
-    return !equals(other);
-  }
-
-  auto Short::operator<(const Short& other) const -> bool {
-    return value_ < other.value_;
-  }
-
-  auto Short::operator>(const Short& other) const -> bool {
-    return value_ > other.value_;
-  }
-
-  auto Short::operator<=(const Short& other) const -> bool {
-    return value_ <= other.value_;
-  }
-
-  auto Short::operator>=(const Short& other) const -> bool {
-    return value_ >= other.value_;
+  auto Short::operator<=>(const Short& other) const -> std::partial_ordering {
+    return value_ <=> other.value_;
   }
 
   auto Short::operator+(const Short& other) const -> Short {

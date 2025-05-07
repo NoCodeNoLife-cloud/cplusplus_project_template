@@ -36,28 +36,8 @@ namespace common {
     }
   }
 
-  auto Float::operator==(const Float& other) const -> bool {
-    return value_ == other.value_;
-  }
-
-  auto Float::operator!=(const Float& other) const -> bool {
-    return value_ != other.value_;
-  }
-
-  auto Float::operator<(const Float& other) const -> bool {
-    return value_ < other.value_;
-  }
-
-  auto Float::operator>(const Float& other) const -> bool {
-    return value_ > other.value_;
-  }
-
-  auto Float::operator<=(const Float& other) const -> bool {
-    return value_ <= other.value_;
-  }
-
-  auto Float::operator>=(const Float& other) const -> bool {
-    return value_ >= other.value_;
+  auto Float::operator<=>(const Float& other) const -> std::partial_ordering {
+    return value_ <=> other.value_;
   }
 
   auto Float::operator+(const Float& other) const -> Float {

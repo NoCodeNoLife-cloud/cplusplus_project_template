@@ -58,10 +58,10 @@ namespace gtest_case {
     const Character b('b');
     const Character same('a');
 
-    EXPECT_TRUE(a == same);
-    EXPECT_FALSE(a == b);
-    EXPECT_TRUE(a != b);
-    EXPECT_FALSE(a != same);
+    EXPECT_TRUE(std::is_eq(a <=> same));
+    EXPECT_FALSE(std::is_eq(a <=> b));
+    EXPECT_TRUE(std::is_neq(a <=> b));
+    EXPECT_FALSE(std::is_neq(a <=> same));
 
     EXPECT_TRUE(a < b);
     EXPECT_FALSE(b < a);

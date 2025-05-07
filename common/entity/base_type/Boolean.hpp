@@ -16,8 +16,7 @@ namespace common {
     static auto parseBoolean(const std::string& str) -> Boolean;
     [[nodiscard]] auto booleanValue() const -> bool;
     [[nodiscard]] auto equals(const Boolean& other) const -> bool override;
-    auto operator==(const Boolean& other) const -> bool;
-    auto operator!=(const Boolean& other) const -> bool;
+    auto operator<=>(const Boolean& other) const -> std::partial_ordering;
 
   private:
     bool value_{false};

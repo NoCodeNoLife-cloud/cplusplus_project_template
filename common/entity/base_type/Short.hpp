@@ -18,12 +18,7 @@ namespace common {
     [[nodiscard]] auto equals(const Short& other) const -> bool override;
     [[nodiscard]] auto compareTo(const Short& other) const -> int32_t override;
     static auto parseShort(const std::string& str) -> Short;
-    auto operator==(const Short& other) const -> bool;
-    auto operator!=(const Short& other) const -> bool;
-    auto operator<(const Short& other) const -> bool;
-    auto operator>(const Short& other) const -> bool;
-    auto operator<=(const Short& other) const -> bool;
-    auto operator>=(const Short& other) const -> bool;
+    auto operator<=>(const Short& other) const -> std::partial_ordering;
     auto operator+(const Short& other) const -> Short;
     auto operator-(const Short& other) const -> Short;
     auto operator*(const Short& other) const -> Short;

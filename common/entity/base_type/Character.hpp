@@ -21,12 +21,7 @@ namespace common {
     static auto toUpperCase(char c) -> int32_t;
     static auto toLowerCase(char c) -> int32_t;
     [[nodiscard]] auto characterValue() const -> char;
-    auto operator==(const Character& other) const -> bool;
-    auto operator!=(const Character& other) const -> bool;
-    auto operator<(const Character& other) const -> bool;
-    auto operator>(const Character& other) const -> bool;
-    auto operator<=(const Character& other) const -> bool;
-    auto operator>=(const Character& other) const -> bool;
+    auto operator<=>(const Character& other) const -> std::partial_ordering;
 
   private:
     char value_{0};

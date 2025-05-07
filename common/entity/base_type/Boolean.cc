@@ -39,11 +39,7 @@ namespace common {
     return value_ == other.value_;
   }
 
-  auto Boolean::operator==(const Boolean& other) const -> bool {
-    return equals(other);
-  }
-
-  auto Boolean::operator!=(const Boolean& other) const -> bool {
-    return !equals(other);
+  auto Boolean::operator<=>(const Boolean& other) const -> std::partial_ordering {
+    return value_ <=> other.value_;
   }
 }

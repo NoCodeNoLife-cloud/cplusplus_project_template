@@ -47,25 +47,25 @@ namespace gtest_case {
   TEST(FloatTest, EqualityOperatorReturnsTrueForSameValues) {
     const Float a(4.2f);
     const Float b(4.2f);
-    EXPECT_TRUE(a == b);
+    EXPECT_TRUE(std::is_eq(a <=> b));
   }
 
   TEST(FloatTest, EqualityOperatorReturnsFalseForDifferentValues) {
     const Float a(4.2f);
     const Float b(5.2f);
-    EXPECT_FALSE(a == b);
+    EXPECT_FALSE(std::is_eq(a <=> b));
   }
 
   TEST(FloatTest, InequalityOperatorReturnsTrueForDifferentValues) {
     const Float a(3.0f);
     const Float b(4.0f);
-    EXPECT_TRUE(a != b);
+    EXPECT_TRUE(std::is_neq(a <=> b));
   }
 
   TEST(FloatTest, InequalityOperatorReturnsFalseForSameValues) {
     const Float a(3.0f);
     const Float b(3.0f);
-    EXPECT_FALSE(a != b);
+    EXPECT_FALSE(std::is_neq(a <=> b));
   }
 
   TEST(FloatTest, LessThanOperatorWorksWhenTrue) {

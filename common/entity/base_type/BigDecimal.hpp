@@ -11,10 +11,7 @@ namespace common {
     auto operator-(const BigDecimal& other) const -> BigDecimal;
     auto operator*(const BigDecimal& other) const -> BigDecimal;
     auto operator/(const BigDecimal& other) const -> BigDecimal;
-    auto operator==(const BigDecimal& other) const -> bool;
-    auto operator!=(const BigDecimal& other) const -> bool;
-    auto operator<(const BigDecimal& other) const -> bool;
-    auto operator>(const BigDecimal& other) const -> bool;
+    auto operator<=>(const BigDecimal& other) const -> std::partial_ordering;
     [[nodiscard]] auto toString() const -> std::string;
 
   private:

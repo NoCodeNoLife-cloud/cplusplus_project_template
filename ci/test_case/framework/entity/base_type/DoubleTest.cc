@@ -74,15 +74,15 @@ namespace gtest_case {
     const Double a(5.0);
     const Double b(5.0);
     const Double c(6.0);
-    EXPECT_TRUE(a == b);
-    EXPECT_FALSE(a == c);
+    EXPECT_TRUE(std::is_eq(a <=> b));
+    EXPECT_FALSE(std::is_eq(a <=> c));
   }
 
   TEST(DoubleTest, InequalityOperatorWorks) {
     const Double a(5.0);
     const Double b(6.0);
-    EXPECT_TRUE(a != b);
-    EXPECT_FALSE(a != a);
+    EXPECT_TRUE(std::is_neq(a <=> b));
+    EXPECT_FALSE(std::is_neq(a <=> a));
   }
 
   TEST(DoubleTest, LessThanOperator) {

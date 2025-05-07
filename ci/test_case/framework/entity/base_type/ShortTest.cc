@@ -49,10 +49,10 @@ namespace gtest_case {
     const Short a(5);
     const Short b(5);
     const Short c(10);
-    EXPECT_TRUE(a == b);
-    EXPECT_FALSE(a == c);
-    EXPECT_FALSE(a != b);
-    EXPECT_TRUE(a != c);
+    EXPECT_TRUE(std::is_eq(a <=> b));
+    EXPECT_FALSE(std::is_eq(a <=> c));
+    EXPECT_FALSE(std::is_neq(a <=> b));
+    EXPECT_TRUE(std::is_neq(a <=> c));
   }
 
   TEST(ShortTest, RelationalOperatorsWorkCorrectly) {

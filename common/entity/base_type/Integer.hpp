@@ -18,12 +18,7 @@ namespace common {
     static auto parseInt(const std::string& str) -> Integer;
     [[nodiscard]] auto compareTo(const Integer& other) const -> int32_t override;
     [[nodiscard]] bool equals(const Integer& other) const override;
-    auto operator==(const Integer& other) const -> bool;
-    auto operator!=(const Integer& other) const -> bool;
-    auto operator<(const Integer& other) const -> bool;
-    auto operator>(const Integer& other) const -> bool;
-    auto operator<=(const Integer& other) const -> bool;
-    auto operator>=(const Integer& other) const -> bool;
+    auto operator<=>(const Integer& other) const -> std::partial_ordering;
     auto operator+(const Integer& other) const -> Integer;
     auto operator-(const Integer& other) const -> Integer;
     auto operator*(const Integer& other) const -> Integer;

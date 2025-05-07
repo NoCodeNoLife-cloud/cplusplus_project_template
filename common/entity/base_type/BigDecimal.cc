@@ -25,20 +25,14 @@ namespace common {
     return {BigDecimal((value_ / other.value_).convert_to<std::string>())};
   }
 
-  auto BigDecimal::operator==(const BigDecimal& other) const -> bool {
-    return value_ == other.value_;
-  }
-
-  auto BigDecimal::operator!=(const BigDecimal& other) const -> bool {
-    return value_ != other.value_;
-  }
-
-  auto BigDecimal::operator<(const BigDecimal& other) const -> bool {
-    return value_ < other.value_;
-  }
-
-  auto BigDecimal::operator>(const BigDecimal& other) const -> bool {
-    return value_ > other.value_;
+  auto BigDecimal::operator<=>(const BigDecimal& other) const -> std::partial_ordering {
+    if (value_ < other.value_) {
+      return std::strong_ordering::less;
+    }
+    if (value_ > other.value_) {
+      return std::strong_ordering::greater;
+    }
+    return std::strong_ordering::equal;
   }
 
   auto BigDecimal::toString() const -> std::string {

@@ -51,13 +51,13 @@ namespace gtest_case {
   TEST(BigDecimalTest, EqualityOperator) {
     const BigDecimal a("5.5");
     const BigDecimal b("5.5");
-    EXPECT_TRUE(a == b);
+    EXPECT_TRUE(std::is_eq(a <=> b));
   }
 
   TEST(BigDecimalTest, InequalityOperator) {
     const BigDecimal a("5.5");
     const BigDecimal b("3.3");
-    EXPECT_TRUE(a != b);
+    EXPECT_TRUE(std::is_neq(a <=> b));
   }
 
   TEST(BigDecimalTest, LessThanOperator) {
