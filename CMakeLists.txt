@@ -54,4 +54,4 @@ target_link_libraries(${MAIN_PROJECT} PRIVATE RapidJSON rapidjson)
 target_link_libraries(${MAIN_PROJECT} PRIVATE OpenSSL::SSL OpenSSL::Crypto)
 
 #subdirectory
-add_subdirectory(ci)
+add_subdirectory(ut)
