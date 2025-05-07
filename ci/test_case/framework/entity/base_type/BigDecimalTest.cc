@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <entity/base_type/BigDecimal.hpp>
 #include <gtest/gtest.h>
-using framework::BigDecimal;
+using common::BigDecimal;
 
 namespace gtest_case {
   TEST(BigDecimalTest, ConstructorFromString) {

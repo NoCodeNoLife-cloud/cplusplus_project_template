@@ -1,6 +1,6 @@
 #include <entity/util/ClassUtil.hpp>
 #include <gtest/gtest.h>
-using namespace framework;
+using common::ClassUtil;
 
 namespace gtest_case {
   struct Dummy {};

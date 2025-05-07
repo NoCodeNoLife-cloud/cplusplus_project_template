@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 namespace gtest_case {
-  using framework::UnionFind;
+  using common::UnionFind;
   TEST(UnionFindTest, SingleElementSelfConnection) {
     UnionFind<int> uf;
     constexpr int x = 1;

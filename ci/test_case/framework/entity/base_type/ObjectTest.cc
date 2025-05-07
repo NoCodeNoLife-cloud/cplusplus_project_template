@@ -2,7 +2,7 @@
 #include <string>
 #include <entity/base_type/Object.hpp>
 #include <gtest/gtest.h>
-using framework::Object;
+using common::Object;
 
 namespace gtest_case {
   TEST(ObjectTest, ConstructorTest) {

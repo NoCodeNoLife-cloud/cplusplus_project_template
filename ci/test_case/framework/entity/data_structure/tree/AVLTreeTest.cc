@@ -1,6 +1,6 @@
 #include <entity/data_structure/tree/AVLTree.hpp>
 #include <gtest/gtest.h>
-using framework::AVLTree;
+using common::AVLTree;
 
 namespace gtest_case {
   TEST(AVLTreeTest, InsertSingleNodeCheckExistence) {

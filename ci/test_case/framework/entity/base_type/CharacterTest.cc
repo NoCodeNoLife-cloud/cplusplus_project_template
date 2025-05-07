@@ -1,6 +1,6 @@
 #include <entity/base_type/Character.hpp>
 #include <gtest/gtest.h>
-using framework::Character;
+using common::Character;
 
 namespace gtest_case {
   TEST(CharacterTest, ConstructorTest) {

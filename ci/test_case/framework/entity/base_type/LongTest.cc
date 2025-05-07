@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <entity/base_type/Long.hpp>
 #include <gtest/gtest.h>
-using framework::Long;
+using common::Long;
 
 namespace gtest_case {
   TEST(LongTest, ConstructorInitializesValueCorrectly) {

@@ -1,6 +1,6 @@
 #include <entity/base_type/BigInteger.hpp>
 #include <gtest/gtest.h>
-using framework::BigInteger;
+using common::BigInteger;
 
 namespace gtest_case {
   TEST(BigIntegerTest, DefaultConstructorInitializesToZero) {

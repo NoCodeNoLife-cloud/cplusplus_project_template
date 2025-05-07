@@ -2,7 +2,7 @@
 #include <string>
 #include <entity/base_type/Double.hpp>
 #include <gtest/gtest.h>
-using framework::Double;
+using common::Double;
 
 namespace gtest_case {
   TEST(DoubleTest, ConstructorInitializesValueCorrectly) {

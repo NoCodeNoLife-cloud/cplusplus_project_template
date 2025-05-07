@@ -3,7 +3,7 @@
 #include <vector>
 #include <entity/base_type/String.hpp>
 #include <gtest/gtest.h>
-using framework::String;
+using common::String;
 
 namespace gtest_case {
   TEST(StringTest, Constructors) {

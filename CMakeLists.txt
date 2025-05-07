@@ -14,19 +14,19 @@ set(MAIN_PROJECT cpp_project)
 project(${MAIN_PROJECT})
 
 #includes
-include_directories(framework)
-include_directories(client)
+include_directories(common)
+include_directories(boot)
 
 #sources
-set(SRC_DIR client)
-set(SRC_HEADER_DIR client)
+set(SRC_DIR boot)
+set(SRC_HEADER_DIR boot)
 file(GLOB_RECURSE SRC_FILES
         ${SRC_HEADER_DIR}/*.hpp
         ${SRC_DIR}/*.cc
 )
 
-set(FRAMEWORK_DIR framework)
-set(FRAMEWORK_HEADER_DIR framework)
+set(FRAMEWORK_DIR common)
+set(FRAMEWORK_HEADER_DIR common)
 file(GLOB_RECURSE FRAMEWORK_FILES
         ${FRAMEWORK_DIR}/*.hpp
         ${FRAMEWORK_HEADER_DIR}/*.cc

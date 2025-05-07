@@ -3,10 +3,10 @@ set(TEST_PROJECT test_project)
 project(${TEST_PROJECT})
 
 #includes
-include_directories(../framework)
+include_directories(../common)
 
-set(FRAMEWORK_DIR ../framework)
-set(FRAMEWORK_HEADER_DIR ../framework)
+set(FRAMEWORK_DIR ../common)
+set(FRAMEWORK_HEADER_DIR ../common)
 file(GLOB_RECURSE FRAMEWORK_FILES
         ${FRAMEWORK_DIR}/*.hpp
         ${FRAMEWORK_HEADER_DIR}/*.cc

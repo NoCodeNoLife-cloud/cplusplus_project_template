@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <entity/base_type/Byte.hpp>
 #include <gtest/gtest.h>
-using framework::Byte;
+using common::Byte;
 
 namespace gtest_case {
   TEST(ByteTest, ConstructorInitializesValueCorrectly) {

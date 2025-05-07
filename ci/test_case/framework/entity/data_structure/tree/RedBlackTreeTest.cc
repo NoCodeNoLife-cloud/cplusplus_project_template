@@ -1,8 +1,8 @@
 #include <entity/data_structure/tree/RedBlackTree.hpp>
 #include <gtest/gtest.h>
-using framework::RedBlackTree;
-using framework::RedBlackTreeNode;
-using framework::Color;
+using common::RedBlackTree;
+using common::RedBlackTreeNode;
+using common::Color;
 
 namespace gtest_case {
   TEST(RedBlackTreeTest, InsertSingleNode_RootIsBlackAndHasCorrectValue) {

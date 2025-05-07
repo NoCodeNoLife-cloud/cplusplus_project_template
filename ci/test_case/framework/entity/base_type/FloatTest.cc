@@ -1,6 +1,6 @@
 #include <entity/base_type/Float.hpp>
 #include <gtest/gtest.h>
-using framework::Float;
+using common::Float;
 
 namespace gtest_case {
   TEST(FloatTest, ConstructorInitializesValueCorrectly) {

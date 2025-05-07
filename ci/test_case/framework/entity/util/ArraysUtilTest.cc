@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <entity/util/ArraysUtil.hpp>
 #include <gtest/gtest.h>
-using framework::ArraysUtil;
+using common::ArraysUtil;
 
 namespace gtest_case {
   TEST(ArraysUtilTest, AsList_ConvertsIntArrayToVector) {

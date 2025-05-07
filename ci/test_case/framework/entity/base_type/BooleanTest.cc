@@ -2,9 +2,9 @@
 #include <string>
 #include <entity/base_type/Boolean.hpp>
 #include <gtest/gtest.h>
-using framework::Boolean;
-using framework::True;
-using framework::False;
+using common::Boolean;
+using common::True;
+using common::False;
 
 namespace gtest_case {
   TEST(BooleanTest, ConstructorInitializesValueCorrectly) {
