@@ -3,16 +3,15 @@
 #include <gtest/gtest.h>
 
 namespace gtest_case {
-  using common::UnionFind;
   TEST(UnionFindTest, SingleElementSelfConnection) {
-    UnionFind<int> uf;
+    common::UnionFind<int> uf;
     constexpr int x = 1;
     EXPECT_TRUE(uf.connected(x, x));
     EXPECT_EQ(uf.find(x), x);
   }
 
   TEST(UnionFindTest, TwoElementsUnion) {
-    UnionFind<int> uf;
+    common::UnionFind<int> uf;
     constexpr int x = 1;
     constexpr int y = 2;
     uf.unionSets(x, y);
@@ -21,7 +20,7 @@ namespace gtest_case {
   }
 
   TEST(UnionFindTest, UnionByRankMergeSameRank) {
-    UnionFind<int> uf;
+    common::UnionFind<int> uf;
     constexpr int x = 1;
     constexpr int y = 2;
     uf.unionSets(x, y);
@@ -31,7 +30,7 @@ namespace gtest_case {
   }
 
   TEST(UnionFindTest, PathCompression) {
-    UnionFind<int> uf;
+    common::UnionFind<int> uf;
     constexpr int a = 1;
     constexpr int b = 2;
     constexpr int c = 3;
@@ -43,7 +42,7 @@ namespace gtest_case {
   }
 
   TEST(UnionFindTest, MultipleUnionsTransitivity) {
-    UnionFind<int> uf;
+    common::UnionFind<int> uf;
     constexpr int x = 1;
     constexpr int y = 2;
     constexpr int z = 3;
@@ -54,7 +53,7 @@ namespace gtest_case {
   }
 
   TEST(UnionFindTest, NonExistentElementHandling) {
-    UnionFind<int> uf;
+    common::UnionFind<int> uf;
     constexpr int x = 1;
     constexpr int y = 2;
     EXPECT_EQ(uf.find(x), x);
@@ -63,7 +62,7 @@ namespace gtest_case {
   }
 
   TEST(UnionFindTest, RepeatedUnion) {
-    UnionFind<int> uf;
+    common::UnionFind<int> uf;
     constexpr int x = 1;
     constexpr int y = 2;
     uf.unionSets(x, y);
@@ -72,7 +71,7 @@ namespace gtest_case {
   }
 
   TEST(UnionFindTest, EnsureRegisteredCreatesEntry) {
-    UnionFind<int> uf;
+    common::UnionFind<int> uf;
     constexpr int x = 1;
     uf.find(x);
     EXPECT_EQ(uf.find(x), x);

@@ -16,10 +16,9 @@ namespace common {
 
   template <class F, class... Args>
   auto ThreadPool::Submit(F&& f, Args&&... args) -> std::future<std::invoke_result_t<F, Args...>> {
-    using return_type = std::invoke_result_t<F, Args...>;
     auto task =
-      std::make_shared<std::packaged_task<return_type()>>(std::bind(std::forward<F>(f), std::forward<Args>(args)...));
-    std::future<return_type> res = task->get_future();
+      std::make_shared<std::packaged_task<std::invoke_result_t<F, Args...>()>>(std::bind(std::forward<F>(f), std::forward<Args>(args)...));
+    std::future<std::invoke_result_t<F, Args...>> res = task->get_future();
     {
       std::unique_lock lock(queueMutex_);
       if (task_queue_.size() >= maxQueueSize_) {

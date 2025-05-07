@@ -2,7 +2,6 @@
 #include <queue>
 #include <entity/data_structure/graphics/Edge.hpp>
 #include <entity/util/DijkstraUtil.hpp>
-using common::Edge;
 
 namespace common {
   DijkstraUtil::DijkstraUtil(const Graph& g): graph_(g) {
@@ -11,8 +10,7 @@ namespace common {
 
   auto DijkstraUtil::compute(int32_t start) -> void {
     distances_[start] = 0;
-    using Pair = std::pair<int32_t, int32_t>;
-    std::priority_queue<Pair, std::vector<Pair>, std::greater<>> pq;
+    std::priority_queue<std::pair<int32_t, int32_t>, std::vector<std::pair<int32_t, int32_t>>, std::greater<>> pq;
     pq.emplace(0, start);
 
     while (!pq.empty()) {
@@ -22,7 +20,7 @@ namespace common {
 
       if (currentDist > distances_[u]) continue;
 
-      for (const Edge& e : graph_.getAdjList(u)) {
+      for (const common::Edge& e : graph_.getAdjList(u)) {
         int32_t v = e.to();
         if (int32_t newDist = currentDist + e.weight(); newDist < distances_[v]) {
           distances_[v] = newDist;

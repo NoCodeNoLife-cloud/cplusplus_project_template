@@ -5,7 +5,7 @@ namespace common {
   Object::~Object() = default;
 
   auto Object::clone() const -> std::unique_ptr<Object> {
-    return std::make_unique<Object>(Object(*this));
+    return std::make_unique<Object>(*this);
   }
 
   auto Object::getClass() const -> const std::type_info& {
@@ -13,10 +13,13 @@ namespace common {
   }
 
   auto Object::equals(const Object& other) const -> bool {
+    if (this == &other) {
+      return true;
+    }
     if (typeid(*this) != typeid(other)) {
       return false;
     }
-    return this == &other;
+    return hashCode() == other.hashCode();
   }
 
   auto Object::hashCode() const -> size_t {

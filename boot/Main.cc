@@ -1,5 +1,4 @@
 #include <aop/LauncherAspect.hpp>
-using common::LauncherAspect;
 
 // ReSharper disable once CppDFAConstantFunctionResult
 auto business() -> bool {
@@ -13,6 +12,6 @@ auto business() -> bool {
 }
 
 auto main([[maybe_unused]] int32_t argc, [[maybe_unused]] char* argv[]) -> int32_t {
-  LauncherAspect launcher;
+  common::LauncherAspect launcher;
   launcher.exec(business);
 }

@@ -1,10 +1,9 @@
 #include <entity/data_structure/tree/BinarySearchTree.hpp>
 #include <gtest/gtest.h>
-using common::BinarySearchTree;
 
 namespace gtest_case {
   TEST(BinarySearchTreeTest, InsertAndFindBasic) {
-    BinarySearchTree<int32_t> tree;
+    common::BinarySearchTree<int32_t> tree;
     tree.insert(5);
     tree.insert(3);
     tree.insert(7);
@@ -16,12 +15,12 @@ namespace gtest_case {
   }
 
   TEST(BinarySearchTreeTest, EmptyTreeFindReturnsFalse) {
-    const BinarySearchTree<int32_t> tree;
+    const common::BinarySearchTree<int32_t> tree;
     EXPECT_FALSE(tree.find(1));
   }
 
   TEST(BinarySearchTreeTest, RemoveLeafNode) {
-    BinarySearchTree<int32_t> tree;
+    common::BinarySearchTree<int32_t> tree;
     tree.insert(5);
     tree.insert(3);
     tree.remove(3);
@@ -31,7 +30,7 @@ namespace gtest_case {
   }
 
   TEST(BinarySearchTreeTest, RemoveNodeWithOneChild) {
-    BinarySearchTree<int32_t> tree;
+    common::BinarySearchTree<int32_t> tree;
     tree.insert(5);
     tree.insert(3);
     tree.insert(2);
@@ -43,7 +42,7 @@ namespace gtest_case {
   }
 
   TEST(BinarySearchTreeTest, RemoveNodeWithTwoChildren) {
-    BinarySearchTree<int32_t> tree;
+    common::BinarySearchTree<int32_t> tree;
     tree.insert(5);
     tree.insert(3);
     tree.insert(7);
@@ -57,7 +56,7 @@ namespace gtest_case {
   }
 
   TEST(BinarySearchTreeTest, InorderTraversalOrder) {
-    BinarySearchTree<int32_t> tree;
+    common::BinarySearchTree<int32_t> tree;
     tree.insert(5);
     tree.insert(3);
     tree.insert(7);
@@ -71,13 +70,13 @@ namespace gtest_case {
   }
 
   TEST(BinarySearchTreeTest, RemoveEmptyTreeNoop) {
-    BinarySearchTree<int32_t> tree;
+    common::BinarySearchTree<int32_t> tree;
     tree.remove(1);
     EXPECT_FALSE(tree.find(1));
   }
 
   TEST(BinarySearchTreeTest, DuplicateInserts) {
-    BinarySearchTree<int32_t> tree;
+    common::BinarySearchTree<int32_t> tree;
     tree.insert(5);
     tree.insert(5);
 
@@ -85,7 +84,7 @@ namespace gtest_case {
   }
 
   TEST(BinarySearchTreeTest, DeleteRootWithTwoChildren) {
-    BinarySearchTree<int32_t> tree;
+    common::BinarySearchTree<int32_t> tree;
     tree.insert(10);
     tree.insert(5);
     tree.insert(15);
