@@ -33,11 +33,7 @@ namespace common {
 template <>
 struct std::formatter<common::Integer> {
   constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {
-    const auto begin = ctx.begin();
-    if (const auto end = ctx.end(); begin != end && *begin != '}') {
-      throw std::format_error("invalid format");
-    }
-    return begin;
+    return ctx.begin();
   }
 
   static auto format(const common::Integer& content, format_context& ctx)
@@ -47,5 +43,5 @@ struct std::formatter<common::Integer> {
 };
 
 inline auto operator<<(std::ostream& os, const common::Integer& content) -> std::ostream& {
-  return os << std::format("{}", content);
+  return os << std::format("}", content);
 }

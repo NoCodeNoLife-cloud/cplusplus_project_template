@@ -29,11 +29,7 @@ namespace common {
 template <>
 struct std::formatter<common::Boolean> {
   constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {
-    const auto begin = ctx.begin();
-    if (const auto end = ctx.end(); begin != end && *begin != '}') {
-      throw std::format_error("invalid format");
-    }
-    return begin;
+    return ctx.begin();
   }
 
   static auto format(const common::Boolean& content, format_context& ctx)
