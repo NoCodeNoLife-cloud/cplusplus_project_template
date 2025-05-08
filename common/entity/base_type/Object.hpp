@@ -1,5 +1,4 @@
 #pragma once
-#include <format>
 #include <format/GenericFormatter.hpp>
 
 namespace common {

@@ -1,3 +1,4 @@
+#include <regex>
 #include <entity/base_type/String.hpp>
 
 namespace common {
