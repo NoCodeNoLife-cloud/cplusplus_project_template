@@ -1,13 +1,11 @@
 #pragma once
-#include <format>
-#include <iostream>
 #include <entity/base_type/Object.hpp>
 #include <entity/interface/IComparable.hpp>
 
 namespace common {
   class Boolean final : public Object, public IComparable<Boolean> {
   public:
-    explicit Boolean(bool value);
+    explicit Boolean(bool value = false);
     ~Boolean() override;
     explicit operator bool() const;
     [[nodiscard]] auto toString() const -> std::string override;
@@ -19,25 +17,12 @@ namespace common {
     auto operator<=>(const Boolean& other) const -> std::partial_ordering;
 
   private:
-    bool value_{false};
     friend std::formatter<Boolean>;
+    bool value_{false};
   };
   const Boolean True{true};
   const Boolean False{false};
 }
 
 template <>
-struct std::formatter<common::Boolean> {
-  constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {
-    return ctx.begin();
-  }
-
-  static auto format(const common::Boolean& content, format_context& ctx)
-    -> back_insert_iterator<_Fmt_buffer<char>> {
-    return std::format_to(ctx.out(), "{}", content.value_);
-  }
-};
-
-inline auto operator<<(std::ostream& os, const common::Boolean& content) -> std::ostream& {
-  return os << std::format("{}", content);
-}
+struct std::formatter<common::Boolean> : common::GenericFormatter<common::Boolean, &common::Boolean::value_> {};

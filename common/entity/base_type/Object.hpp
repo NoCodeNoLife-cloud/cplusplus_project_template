@@ -1,6 +1,6 @@
 #pragma once
 #include <format>
-#include <iostream>
+#include <format/GenericFormatter.hpp>
 
 namespace common {
   class Object {
@@ -19,16 +19,4 @@ namespace common {
 }
 
 template <>
-struct std::formatter<common::Object> {
-  constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {
-    return ctx.begin();
-  }
-
-  static auto format(const common::Object& content, format_context& ctx) -> back_insert_iterator<_Fmt_buffer<char>> {
-    return std::format_to(ctx.out(), "Object{{hashCode:{}}}", content.hashCode());
-  }
-};
-
-inline auto operator<<(std::ostream& os, const common::Object& object) -> std::ostream& {
-  return os << std::format("{}", object);
-}
+struct std::formatter<common::Object> : common::GenericFormatter<common::Object> {};

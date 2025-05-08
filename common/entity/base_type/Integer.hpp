@@ -1,7 +1,4 @@
 #pragma once
-#include <format>
-#include <iostream>
-#include <string>
 #include <entity/base_type/Object.hpp>
 #include <entity/interface/IComparable.hpp>
 
@@ -10,7 +7,7 @@ namespace common {
   public:
     static constexpr int32_t MIN_VALUE = std::numeric_limits<int32_t>::min();
     static constexpr int32_t MAX_VALUE = std::numeric_limits<int32_t>::max();
-    explicit Integer(int32_t value);
+    explicit Integer(int32_t value = 0);
     ~Integer() override;
     explicit operator int32_t() const;
     [[nodiscard]] std::string toString() const override;
@@ -25,23 +22,10 @@ namespace common {
     auto operator/(const Integer& other) const -> Integer;
 
   private:
-    int32_t value_{0};
     friend std::formatter<Integer>;
+    int32_t value_{0};
   };
 }
 
 template <>
-struct std::formatter<common::Integer> {
-  constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {
-    return ctx.begin();
-  }
-
-  static auto format(const common::Integer& content, format_context& ctx)
-    -> back_insert_iterator<_Fmt_buffer<char>> {
-    return std::format_to(ctx.out(), "{}", content.value_);
-  }
-};
-
-inline auto operator<<(std::ostream& os, const common::Integer& content) -> std::ostream& {
-  return os << std::format("}", content);
-}
+struct std::formatter<common::Integer> : common::GenericFormatter<common::Integer, &common::Integer::value_> {};
