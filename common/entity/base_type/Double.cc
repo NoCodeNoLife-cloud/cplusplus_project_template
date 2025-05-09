@@ -5,11 +5,15 @@ namespace common {
 
   Double::~Double() = default;
 
+  auto Double::clone() const -> std::unique_ptr<ICloneable> {
+    return std::make_unique<Double>(value_);
+  }
+
   Double::operator double() const {
     return value_;
   }
 
-  std::string Double::toString() const {
+  auto Double::toString() const -> std::string {
     return std::format("{}", *this);
   }
 

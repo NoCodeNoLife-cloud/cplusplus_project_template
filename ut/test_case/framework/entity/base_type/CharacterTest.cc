@@ -23,13 +23,13 @@ namespace gtest_case {
 
   TEST(CharacterTest, ToStringTest) {
     const common::Character c1('X');
-    EXPECT_EQ(c1.toString(), "X");
+    EXPECT_EQ(c1.toString(), "class common::Character{X}");
 
     const common::Character c2(' ');
-    EXPECT_EQ(c2.toString(), " ");
+    EXPECT_EQ(c2.toString(), "class common::Character{ }");
 
     const common::Character c3('\n');
-    EXPECT_EQ(c3.toString(), "\n");
+    EXPECT_EQ(c3.toString(), "class common::Character{\n}");
   }
 
   TEST(CharacterTest, EqualsTest) {

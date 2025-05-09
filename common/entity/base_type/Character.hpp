@@ -7,6 +7,7 @@ namespace common {
   public:
     explicit Character(char value);
     ~Character() override;
+    [[nodiscard]] auto clone() const -> std::unique_ptr<ICloneable> override;
     explicit operator char() const;
     [[nodiscard]] auto toString() const -> std::string override;
     [[nodiscard]] auto equals(const Character& other) const -> bool override;
@@ -20,6 +21,7 @@ namespace common {
     static auto toLowerCase(char c) -> int32_t;
     [[nodiscard]] auto characterValue() const -> char;
     auto operator<=>(const Character& other) const -> std::partial_ordering;
+
 
   private:
     friend std::formatter<Character>;

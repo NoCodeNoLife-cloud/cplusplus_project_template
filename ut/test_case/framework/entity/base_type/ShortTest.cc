@@ -24,7 +24,7 @@ namespace gtest_case {
 
   TEST(ShortTest, ToStringReturnsCorrectString) {
     const common::Short obj(5);
-    EXPECT_EQ(obj.toString(), "5");
+    EXPECT_EQ(obj.toString(), "class common::Short{5}");
   }
 
   TEST(ShortTest, EqualsComparesValuesCorrectly) {

@@ -5,11 +5,15 @@ namespace common {
 
   Boolean::~Boolean() = default;
 
+  auto Boolean::clone() const -> std::unique_ptr<ICloneable> {
+    return std::make_unique<Boolean>(value_);
+  }
+
   Boolean::operator bool() const {
     return value_;
   }
 
-  std::string Boolean::toString() const {
+  auto Boolean::toString() const -> std::string {
     return std::format("{}", *this);
   }
 

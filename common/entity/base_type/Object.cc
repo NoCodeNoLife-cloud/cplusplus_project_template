@@ -4,6 +4,10 @@ namespace common {
   Object::Object() = default;
   Object::~Object() = default;
 
+  auto Object::clone() const -> std::unique_ptr<ICloneable> {
+    return std::make_unique<Object>(*this);
+  }
+
   auto Object::getClass() const -> const std::type_info& {
     return typeid(*this);
   }

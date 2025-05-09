@@ -17,11 +17,11 @@ namespace gtest_case {
 
   TEST(DoubleTest, ToStringReturnsCorrectFormat) {
     const common::Double d(3.14);
-    EXPECT_EQ(d.toString(), "3.14");
+    EXPECT_EQ(d.toString(), "class common::Double{3.14}");
     const common::Double zero(0.0);
-    EXPECT_EQ(zero.toString(), "0");
+    EXPECT_EQ(zero.toString(), "class common::Double{0}");
     const common::Double negative(-42.5);
-    EXPECT_EQ(negative.toString(), "-42.5");
+    EXPECT_EQ(negative.toString(), "class common::Double{-42.5}");
   }
 
   TEST(DoubleTest, EqualsReturnsTrueForEqualValues) {

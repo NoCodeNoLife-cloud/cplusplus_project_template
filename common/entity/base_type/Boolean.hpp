@@ -7,6 +7,7 @@ namespace common {
   public:
     explicit Boolean(bool value = false);
     ~Boolean() override;
+    [[nodiscard]] auto clone() const -> std::unique_ptr<ICloneable> override;
     explicit operator bool() const;
     [[nodiscard]] auto toString() const -> std::string override;
     [[nodiscard]] auto boolValue() const -> bool;

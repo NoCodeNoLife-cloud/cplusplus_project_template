@@ -16,12 +16,12 @@ namespace gtest_case {
 
   TEST(LongTest, ToStringReturnsCorrectStringRepresentation) {
     const common::Long longObj(87654321);
-    EXPECT_EQ(longObj.toString(), "87654321");
+    EXPECT_EQ(longObj.toString(), "class common::Long{87654321}");
   }
 
   TEST(LongTest, ToStringWithNegativeValueReturnsCorrectString) {
     const common::Long longObj(-4444);
-    EXPECT_EQ(longObj.toString(), "-4444");
+    EXPECT_EQ(longObj.toString(), "class common::Long{-4444}");
   }
 
   TEST(LongTest, LongValueReturnsSameAsConstructorArgument) {

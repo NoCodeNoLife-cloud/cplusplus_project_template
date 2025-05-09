@@ -9,6 +9,7 @@ namespace common {
     static constexpr int16_t MIN_VALUE = std::numeric_limits<int16_t>::min();
     explicit Short(int16_t value);
     ~Short() override;
+    [[nodiscard]] auto clone() const -> std::unique_ptr<ICloneable> override;
     explicit operator short() const;
     [[nodiscard]] auto toString() const -> std::string override;
     [[nodiscard]] auto shortValue() const -> int16_t;

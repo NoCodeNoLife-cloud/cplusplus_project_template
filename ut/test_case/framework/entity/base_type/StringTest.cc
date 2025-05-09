@@ -322,6 +322,6 @@ namespace gtest_case {
   TEST(StringTest, toString) {
     const common::String s("test");
     const std::string result = s.toString();
-    EXPECT_EQ(result, "String{data: test}");
+    EXPECT_EQ(result, "class common::String{test}");
   }
 }

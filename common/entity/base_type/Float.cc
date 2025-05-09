@@ -5,11 +5,15 @@ namespace common {
 
   Float::~Float() = default;
 
+  auto Float::clone() const -> std::unique_ptr<ICloneable> {
+    return std::make_unique<Float>(value_);
+  }
+
   Float::operator float() const {
     return value_;
   }
 
-  std::string Float::toString() const {
+  auto Float::toString() const -> std::string {
     return std::format("{}", *this);
   }
 

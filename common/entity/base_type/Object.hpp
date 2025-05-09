@@ -1,11 +1,13 @@
 #pragma once
+#include <entity/interface/ICloneable.hpp>
 #include <format/GenericFormatter.hpp>
 
 namespace common {
-  class Object {
+  class Object : public ICloneable {
   public:
     Object();
-    virtual ~Object();
+    ~Object() override;
+    [[nodiscard]] auto clone() const -> std::unique_ptr<ICloneable> override;
     [[nodiscard]] auto getClass() const -> const std::type_info&;
     [[nodiscard]] virtual auto equals(const Object& other) const -> bool;
     [[nodiscard]] virtual auto hashCode() const -> size_t;

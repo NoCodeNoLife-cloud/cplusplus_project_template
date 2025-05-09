@@ -9,6 +9,7 @@ namespace common {
     static constexpr uint8_t MAX_VALUE = std::numeric_limits<uint8_t>::max();
     explicit Byte(uint8_t value = 0);
     ~Byte() override;
+    [[nodiscard]] auto clone() const -> std::unique_ptr<ICloneable> override;
     explicit operator unsigned char() const;
     [[nodiscard]] auto equals(const Byte& other) const -> bool override;
     [[nodiscard]] auto compareTo(const Byte& other) const -> int32_t override;

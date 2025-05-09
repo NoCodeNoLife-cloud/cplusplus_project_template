@@ -8,6 +8,10 @@ namespace common {
 
   String::String(std::string str) : value_(std::move(str)) {}
 
+  auto String::clone() const -> std::unique_ptr<ICloneable> {
+    return std::make_unique<String>(value_);
+  }
+
   auto String::charAt(const int32_t index) const -> char {
     if (index < 0 || index >= value_.size())
       throw std::out_of_range("Index out of bounds");
@@ -248,7 +252,7 @@ namespace common {
     return this->concat(str);
   }
 
-  std::string String::toString() const {
+  auto String::toString() const -> std::string {
     return std::format("{}", *this);
   }
 }

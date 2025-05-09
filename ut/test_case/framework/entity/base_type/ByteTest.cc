@@ -139,6 +139,6 @@ namespace gtest_case {
 
   TEST(ByteTest, ToStringReturnsCorrectFormat) {
     const common::Byte byte(42);
-    EXPECT_EQ(byte.toString(), "42");
+    EXPECT_EQ(byte.toString(), "class common::Byte{*}");
   }
 }

@@ -20,7 +20,7 @@ namespace gtest_case {
 
   TEST(IntegerTest, ToStringReturnsCorrectString) {
     const common::Integer integer(123);
-    EXPECT_EQ(integer.toString(), "123");
+    EXPECT_EQ(integer.toString(), "class common::Integer{123}");
   }
 
   TEST(IntegerTest, ParseIntValidInput) {

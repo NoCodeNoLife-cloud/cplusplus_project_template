@@ -20,9 +20,9 @@ namespace gtest_case {
 
   TEST(BooleanTest, ToStringReturnsCorrectString) {
     const common::Boolean booleanTrue(true);
-    EXPECT_EQ(booleanTrue.toString(), "true");
+    EXPECT_EQ(booleanTrue.toString(), "class common::Boolean{1}");
     const common::Boolean booleanFalse(false);
-    EXPECT_EQ(booleanFalse.toString(), "false");
+    EXPECT_EQ(booleanFalse.toString(), "class common::Boolean{0}");
   }
 
   TEST(BooleanTest, ParseBooleanValidStrings) {

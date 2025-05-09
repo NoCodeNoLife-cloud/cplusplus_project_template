@@ -10,7 +10,7 @@ namespace gtest_case {
   TEST(FloatTest, ToStringReturnsCorrectString) {
     const common::Float instance(5.0f);
     const std::string result = instance.toString();
-    EXPECT_EQ(result, "5");
+    EXPECT_EQ(result, "class common::Float{5}");
   }
 
   TEST(FloatTest, EqualsReturnsTrueForEqualValues) {

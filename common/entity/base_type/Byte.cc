@@ -5,6 +5,10 @@ namespace common {
 
   Byte::~Byte() = default;
 
+  auto Byte::clone() const -> std::unique_ptr<ICloneable> {
+    return std::make_unique<Byte>(value_);
+  }
+
   Byte::operator unsigned char() const {
     return value_;
   }
@@ -17,7 +21,7 @@ namespace common {
     return (value_ > other.value_) - (value_ < other.value_);
   }
 
-  std::string Byte::toString() const {
+  auto Byte::toString() const -> std::string {
     return std::format("{}", *this);
   }
 
