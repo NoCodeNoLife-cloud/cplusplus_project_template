@@ -6,8 +6,7 @@ namespace common {
   public:
     Object();
     virtual ~Object();
-    [[nodiscard]] virtual auto clone() const -> std::unique_ptr<Object>;
-    [[nodiscard]] virtual auto getClass() const -> const std::type_info&;
+    [[nodiscard]] auto getClass() const -> const std::type_info&;
     [[nodiscard]] virtual auto equals(const Object& other) const -> bool;
     [[nodiscard]] virtual auto hashCode() const -> size_t;
     [[nodiscard]] virtual auto toString() const -> std::string;
