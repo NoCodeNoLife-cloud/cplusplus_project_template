@@ -1,10 +1,18 @@
 #include <cctype>
+#include <boost/functional/hash.hpp>
 #include <entity/base_type/Character.hpp>
 
 namespace common {
   Character::Character(const char value) : value_(value) {}
 
   Character::~Character() = default;
+
+  size_t Character::hashCode() const {
+    size_t seed = 0;
+    boost::hash_combine(seed, getClass());
+    boost::hash_combine(seed, value_);
+    return seed;
+  }
 
   std::string Character::toString() const {
     return std::string(getClass().name()) + "{" + std::to_string(value_) + "}";

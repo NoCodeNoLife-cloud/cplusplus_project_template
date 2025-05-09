@@ -7,6 +7,7 @@ namespace common {
   public:
     explicit Boolean(bool value = false);
     ~Boolean() override;
+    [[nodiscard]] auto hashCode() const -> size_t override;
     [[nodiscard]] auto toString() const -> std::string override;
     explicit operator bool() const;
     [[nodiscard]] auto boolValue() const -> bool;

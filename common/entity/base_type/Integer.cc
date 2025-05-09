@@ -1,10 +1,18 @@
 #include <stdexcept>
+#include <boost/functional/hash.hpp>
 #include <entity/base_type/Integer.hpp>
 
 namespace common {
   Integer::Integer(const int32_t value) : value_(value) {}
 
   Integer::~Integer() = default;
+
+  size_t Integer::hashCode() const {
+    size_t seed = 0;
+    boost::hash_combine(seed, getClass());
+    boost::hash_combine(seed, value_);
+    return seed;
+  }
 
   std::string Integer::toString() const {
     return std::string(getClass().name()) + "{" + std::to_string(value_) + "}";

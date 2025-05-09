@@ -1,10 +1,18 @@
 #include <stdexcept>
+#include <boost/functional/hash.hpp>
 #include <entity/base_type/Long.hpp>
 
 namespace common {
   Long::Long(const int64_t value) : value_(value) {}
 
   Long::~Long() = default;
+
+  size_t Long::hashCode() const {
+    size_t seed = 0;
+    boost::hash_combine(seed, getClass());
+    boost::hash_combine(seed, value_);
+    return seed;
+  }
 
   std::string Long::toString() const {
     return std::string(getClass().name()) + "{" + std::to_string(value_) + "}";

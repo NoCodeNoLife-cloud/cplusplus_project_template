@@ -1,10 +1,18 @@
 #include <stdexcept>
+#include <boost/functional/hash.hpp>
 #include <entity/base_type/Float.hpp>
 
 namespace common {
   Float::Float(const float value) : value_(value) {}
 
   Float::~Float() = default;
+
+  size_t Float::hashCode() const {
+    size_t seed = 0;
+    boost::hash_combine(seed, getClass());
+    boost::hash_combine(seed, value_);
+    return seed;
+  }
 
   std::string Float::toString() const {
     return std::string(getClass().name()) + "{" + std::to_string(value_) + "}";

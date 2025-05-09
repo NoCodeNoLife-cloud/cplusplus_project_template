@@ -1,10 +1,18 @@
 #include <stdexcept>
+#include <boost/functional/hash.hpp>
 #include <entity/base_type/Double.hpp>
 
 namespace common {
   Double::Double(const double value) : value_(value) {}
 
   Double::~Double() = default;
+
+  size_t Double::hashCode() const {
+    size_t seed = 0;
+    boost::hash_combine(seed, getClass());
+    boost::hash_combine(seed, value_);
+    return seed;
+  }
 
   std::string Double::toString() const {
     return std::string(getClass().name()) + "{" + std::to_string(value_) + "}";

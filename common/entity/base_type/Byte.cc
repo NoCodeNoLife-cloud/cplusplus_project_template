@@ -1,10 +1,18 @@
 #include <stdexcept>
+#include <boost/functional/hash.hpp>
 #include <entity/base_type/Byte.hpp>
 
 namespace common {
   Byte::Byte(const uint8_t value) : value_(value) {}
 
   Byte::~Byte() = default;
+
+  size_t Byte::hashCode() const {
+    size_t seed = 0;
+    boost::hash_combine(seed, getClass());
+    boost::hash_combine(seed, value_);
+    return seed;
+  }
 
   std::string Byte::toString() const {
     return std::string(getClass().name()) + "{" + std::to_string(value_) + "}";

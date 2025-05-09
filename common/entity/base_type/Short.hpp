@@ -9,8 +9,9 @@ namespace common {
     static constexpr int16_t MIN_VALUE = std::numeric_limits<int16_t>::min();
     explicit Short(int16_t value);
     ~Short() override;
-    explicit operator short() const;
+    [[nodiscard]] auto hashCode() const -> size_t override;
     [[nodiscard]] auto toString() const -> std::string override;
+    explicit operator short() const;
     [[nodiscard]] auto shortValue() const -> int16_t;
     static auto parseShort(const std::string& str) -> Short;
     auto operator<=>(const Short& other) const -> std::partial_ordering;

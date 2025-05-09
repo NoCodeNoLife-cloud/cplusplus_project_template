@@ -1,4 +1,5 @@
 #include <string>
+#include <boost/functional/hash.hpp>
 #include <entity/base_type/Object.hpp>
 
 namespace common {
@@ -10,7 +11,10 @@ namespace common {
   }
 
   auto Object::hashCode() const -> size_t {
-    return reinterpret_cast<size_t>(this);
+    size_t seed = 0;
+    boost::hash_combine(seed, getClass());
+    boost::hash_combine(seed, reinterpret_cast<size_t>(this));
+    return seed;
   }
 
   auto Object::toString() const -> std::string {

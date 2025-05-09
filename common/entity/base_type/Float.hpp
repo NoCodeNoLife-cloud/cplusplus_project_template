@@ -12,6 +12,7 @@ namespace common {
     static constexpr float MIN_VALUE = std::numeric_limits<float>::min();
     explicit Float(float value);
     ~Float() override;
+    [[nodiscard]] auto hashCode() const -> size_t override;
     [[nodiscard]] auto toString() const -> std::string override;
     explicit operator float() const;
     [[nodiscard]] auto floatValue() const -> float;

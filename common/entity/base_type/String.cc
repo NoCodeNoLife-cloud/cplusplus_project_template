@@ -1,4 +1,5 @@
 #include <regex>
+#include <boost/functional/hash.hpp>
 #include <entity/base_type/String.hpp>
 
 namespace common {
@@ -7,6 +8,13 @@ namespace common {
   String::String(const char* str) : value_(str) {}
 
   String::String(std::string str) : value_(std::move(str)) {}
+
+  size_t String::hashCode() const {
+    size_t seed = 0;
+    boost::hash_combine(seed, getClass());
+    boost::hash_combine(seed, value_);
+    return seed;
+  }
 
   std::string String::toString() const {
     return std::string(getClass().name()) + "{" + value_ + "}";
