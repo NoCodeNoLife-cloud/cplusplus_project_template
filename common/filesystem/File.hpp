@@ -1,9 +1,7 @@
 #pragma once
 #include <chrono>
 #include <filesystem>
-#include <iostream>
 #include <string>
-#include <vector>
 
 namespace common {
   class File final {
@@ -11,7 +9,7 @@ namespace common {
     explicit File(const std::string& path);
     explicit File(std::filesystem::path path);
     explicit File(const char* path);
-    ~File() ;
+    ~File();
     [[nodiscard]] auto canExecute() const -> bool;
     [[nodiscard]] auto canRead() const -> bool;
     [[nodiscard]] auto canWrite() const -> bool;
@@ -33,29 +31,11 @@ namespace common {
     [[nodiscard]] auto isHidden() const -> bool;
     [[nodiscard]] auto length() const -> int64_t;
     [[nodiscard]] auto lastModified() const -> int64_t;
-    [[nodiscard]] auto toString() const -> std::string;
     [[nodiscard]] auto toURI() const -> std::string;
     static auto printFilesWithDepth(const std::filesystem::path& file_path) -> void;
     static auto getFileMD5(const std::filesystem::path& filePath) -> std::string;
 
   private:
     std::filesystem::path file_path_;
-    friend std::formatter<File>;
   };
-}
-
-template <>
-struct std::formatter<common::File> {
-  constexpr static auto parse(format_parse_context& ctx) -> format_parse_context::const_iterator {
-    return ctx.begin();
-  }
-
-  static auto format(const common::File& content, format_context& ctx)
-    -> back_insert_iterator<_Fmt_buffer<char>> {
-    return std::format_to(ctx.out(), "File{{path: {}}}", content.file_path_.string());
-  }
-};
-
-inline auto operator<<(std::ostream& os, const common::File& content) -> std::ostream& {
-  return os << std::format("{}", content);
 }

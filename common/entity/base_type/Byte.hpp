@@ -9,6 +9,7 @@ namespace common {
     static constexpr uint8_t MAX_VALUE = std::numeric_limits<uint8_t>::max();
     explicit Byte(uint8_t value = 0);
     ~Byte() override;
+    [[nodiscard]] auto toString() const -> std::string override;
     explicit operator unsigned char() const;
     static auto parseByte(const std::string& str) -> Byte;
     [[nodiscard]] auto byteValue() const -> uint8_t;

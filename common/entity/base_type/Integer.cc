@@ -6,6 +6,10 @@ namespace common {
 
   Integer::~Integer() = default;
 
+  std::string Integer::toString() const {
+    return std::string(getClass().name()) + "{" + std::to_string(value_) + "}";
+  }
+
   Integer::operator int32_t() const {
     return value_;
   }

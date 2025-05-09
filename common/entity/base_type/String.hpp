@@ -7,6 +7,7 @@ namespace common {
     String();
     explicit String(const char* str);
     explicit String(std::string str);
+    [[nodiscard]] auto toString() const -> std::string override;
     [[nodiscard]] auto charAt(int32_t index) const -> char;
     [[nodiscard]] auto length() const -> size_t;
     [[nodiscard]] auto substring(int32_t beginIndex, int32_t endIndex) const -> String;

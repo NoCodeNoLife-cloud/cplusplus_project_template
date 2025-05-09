@@ -9,6 +9,7 @@ namespace common {
     static constexpr int32_t MAX_VALUE = std::numeric_limits<int32_t>::max();
     explicit Integer(int32_t value = 0);
     ~Integer() override;
+    [[nodiscard]] auto toString() const -> std::string override;
     explicit operator int32_t() const;
     [[nodiscard]] auto intValue() const -> int32_t;
     static auto parseInt(const std::string& str) -> Integer;

@@ -6,6 +6,7 @@ namespace common {
   public:
     explicit Character(char value);
     ~Character() override;
+    [[nodiscard]] auto toString() const -> std::string override;
     explicit operator char() const;
     static auto isLetter(char c) -> bool;
     static auto isDigit(char c) -> bool;

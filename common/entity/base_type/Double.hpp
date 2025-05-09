@@ -12,6 +12,7 @@ namespace common {
     static constexpr double MIN_VALUE = std::numeric_limits<double>::min();
     explicit Double(double value);
     ~Double() override;
+    [[nodiscard]] auto toString() const -> std::string override;
     explicit operator double() const;
     [[nodiscard]] auto doubleValue() const -> double;
     static auto parseDouble(const std::string& str) -> Double;

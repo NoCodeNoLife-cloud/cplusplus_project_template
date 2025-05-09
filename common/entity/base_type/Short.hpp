@@ -10,6 +10,7 @@ namespace common {
     explicit Short(int16_t value);
     ~Short() override;
     explicit operator short() const;
+    [[nodiscard]] auto toString() const -> std::string override;
     [[nodiscard]] auto shortValue() const -> int16_t;
     static auto parseShort(const std::string& str) -> Short;
     auto operator<=>(const Short& other) const -> std::partial_ordering;

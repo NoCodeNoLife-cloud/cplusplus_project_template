@@ -8,6 +8,10 @@ namespace common {
 
   String::String(std::string str) : value_(std::move(str)) {}
 
+  std::string String::toString() const {
+    return std::string(getClass().name()) + "{" + value_ + "}";
+  }
+
   auto String::charAt(const int32_t index) const -> char {
     if (index < 0 || index >= value_.size())
       throw std::out_of_range("Index out of bounds");

@@ -6,6 +6,10 @@ namespace common {
 
   Byte::~Byte() = default;
 
+  std::string Byte::toString() const {
+    return std::string(getClass().name()) + "{" + std::to_string(value_) + "}";
+  }
+
   Byte::operator unsigned char() const {
     return value_;
   }

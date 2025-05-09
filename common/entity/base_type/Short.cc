@@ -10,6 +10,10 @@ namespace common {
     return value_;
   }
 
+  std::string Short::toString() const {
+    return std::string(getClass().name()) + "{" + std::to_string(value_) + "}";
+  }
+
   auto Short::shortValue() const -> int16_t {
     return value_;
   }

@@ -6,6 +6,10 @@ namespace common {
 
   Long::~Long() = default;
 
+  std::string Long::toString() const {
+    return std::string(getClass().name()) + "{" + std::to_string(value_) + "}";
+  }
+
   Long::operator int64_t() const {
     return value_;
   }

@@ -6,6 +6,10 @@ namespace common {
 
   Double::~Double() = default;
 
+  std::string Double::toString() const {
+    return std::string(getClass().name()) + "{" + std::to_string(value_) + "}";
+  }
+
   Double::operator double() const {
     return value_;
   }

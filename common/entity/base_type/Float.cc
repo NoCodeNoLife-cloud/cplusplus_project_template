@@ -6,6 +6,10 @@ namespace common {
 
   Float::~Float() = default;
 
+  std::string Float::toString() const {
+    return std::string(getClass().name()) + "{" + std::to_string(value_) + "}";
+  }
+
   Float::operator float() const {
     return value_;
   }

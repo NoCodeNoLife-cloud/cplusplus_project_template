@@ -6,6 +6,10 @@ namespace common {
 
   Character::~Character() = default;
 
+  std::string Character::toString() const {
+    return std::string(getClass().name()) + "{" + std::to_string(value_) + "}";
+  }
+
   Character::operator char() const {
     return value_;
   }

@@ -1,5 +1,6 @@
 #include <array>
 #include <fstream>
+#include <iostream>
 #include <windows.h>
 #include <filesystem/File.hpp>
 #include <openssl/evp.h>
@@ -116,10 +117,6 @@ namespace common {
     const auto sctp = std::chrono::time_point_cast<std::chrono::system_clock::duration>(
       lastWriteTime - std::filesystem::file_time_type::clock::now() + std::chrono::system_clock::now());
     return std::chrono::system_clock::to_time_t(sctp);
-  }
-
-  auto File::toString() const -> std::string {
-    return std::format("{}", *this);
   }
 
   auto File::toURI() const -> std::string {

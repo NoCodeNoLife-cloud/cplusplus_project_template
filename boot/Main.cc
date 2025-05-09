@@ -1,12 +1,11 @@
-#include <iostream>
 #include <aop/LauncherAspect.hpp>
-#include <entity/base_type/Boolean.hpp>
 
 // ReSharper disable once CppDFAConstantFunctionResult
 auto business() -> bool {
   try {
     // Implement business logic here.
     return EXIT_SUCCESS;
+    // ReSharper disable once CppDFAUnreachableCode
   } catch (const std::exception& e) {
     LOG(ERROR) << "Error: " << e.what() << std::endl;
     return EXIT_FAILURE;
