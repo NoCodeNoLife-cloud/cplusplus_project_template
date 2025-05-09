@@ -8,7 +8,9 @@ namespace common {
   public:
     template <typename T>
     auto get(const std::string& key) const -> T;
+
     [[nodiscard]] auto hasKey(const std::string& key) const -> bool;
+
     auto set(const std::string& key, const std::any& value) -> void;
 
   private:

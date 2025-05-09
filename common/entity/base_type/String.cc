@@ -6,7 +6,6 @@ namespace common {
   String::String() = default;
 
   String::String(const char* str) : value_(str) {}
-
   String::String(std::string str) : value_(std::move(str)) {}
 
   size_t String::hashCode() const {

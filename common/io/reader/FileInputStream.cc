@@ -16,7 +16,6 @@ namespace common {
   }
 
   FileInputStream::FileInputStream(const char* name) : FileInputStream(std::string(name)) {}
-
   FileInputStream::FileInputStream(const std::filesystem::path& file) : FileInputStream(file.string()) {}
 
   FileInputStream::~FileInputStream() {

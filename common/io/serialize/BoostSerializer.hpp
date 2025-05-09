@@ -7,10 +7,12 @@
 namespace common {
   template <typename T>
   concept DerivedFromBoostSerializable = std::is_base_of_v<IBoostSerializable<T>, T>;
+
   class BoostSerializer abstract {
   public:
     template <DerivedFromBoostSerializable T>
     static auto serializeObject(const T& obj) -> std::string;
+
     template <DerivedFromBoostSerializable T>
     static auto deserializeObject(const std::string& data) -> T;
   };

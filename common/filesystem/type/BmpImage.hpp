@@ -12,6 +12,7 @@ namespace common {
     uint16_t bf_reserved2_;
     uint32_t bf_off_bits_;
   };
+
   struct BitmapInfoHeader {
     uint32_t bi_size_;
     int32_t bi_width_;
@@ -29,7 +30,9 @@ namespace common {
   class BmpImage {
   public:
     BmpImage(int32_t width, int32_t height);
+
     auto setPixel(int32_t x, int32_t y, uint8_t r, uint8_t g, uint8_t b) -> void;
+
     auto save(const std::string& filename) const -> void;
 
   private:

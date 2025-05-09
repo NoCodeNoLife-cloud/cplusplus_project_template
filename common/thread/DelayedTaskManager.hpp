@@ -12,6 +12,7 @@ namespace common {
   class DelayedTaskManager {
   public:
     auto scheduleTask(int delayMs, std::function<ResultType()> task) -> int;
+
     auto getTaskResult(int taskId) -> std::future<ResultType>;
 
   private:

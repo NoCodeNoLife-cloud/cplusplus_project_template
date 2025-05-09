@@ -12,10 +12,14 @@ namespace common {
   class ThreadPool {
   public:
     ThreadPool(size_t core_threads, size_t max_threads, size_t queue_size, std::chrono::milliseconds idle_time);
+
     ~ThreadPool();
+
     template <class F, class... Args>
     auto Submit(F&& f, Args&&... args) -> std::future<std::invoke_result_t<F, Args...>>;
+
     auto Shutdown() -> void;
+
     auto ShutdownNow() -> void;
 
   private:
@@ -29,7 +33,9 @@ namespace common {
     size_t maxThreadCount_;
     size_t maxQueueSize_;
     std::chrono::milliseconds threadIdleTime_;
+
     auto Worker() -> void;
+
     auto AddWorker() -> bool;
   };
 }

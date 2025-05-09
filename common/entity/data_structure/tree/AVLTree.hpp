@@ -8,19 +8,30 @@ namespace common {
   class AVLTree {
   public:
     AVLTree();
+
     auto insert(T value) -> void;
+
     auto remove(T value) -> void;
+
     auto find(T value) const -> bool;
 
   private:
     std::shared_ptr<TreeNode<T>> root;
+
     auto getHeight(const std::shared_ptr<TreeNode<T>>& node) -> int32_t;
+
     auto getBalance(const std::shared_ptr<TreeNode<T>>& node) -> int32_t;
+
     auto rotateRight(std::shared_ptr<TreeNode<T>> y) -> std::shared_ptr<TreeNode<T>>;
+
     auto rotateLeft(std::shared_ptr<TreeNode<T>> x) -> std::shared_ptr<TreeNode<T>>;
+
     auto insert(std::shared_ptr<TreeNode<T>> node, T value) -> std::shared_ptr<TreeNode<T>>;
+
     auto remove(std::shared_ptr<TreeNode<T>> node, T value) -> std::shared_ptr<TreeNode<T>>;
+
     auto findMin(const std::shared_ptr<TreeNode<T>>& node) const -> std::shared_ptr<TreeNode<T>>;
+
     auto find(const std::shared_ptr<TreeNode<T>>& node, T value) const -> std::shared_ptr<TreeNode<T>>;
   };
 

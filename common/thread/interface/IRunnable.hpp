@@ -4,6 +4,7 @@ namespace common {
   class IRunnable abstract {
   public:
     virtual ~IRunnable() = default;
+
     virtual auto Run(Args... args) -> ReturnType = 0;
   };
 }

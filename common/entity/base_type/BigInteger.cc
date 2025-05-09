@@ -3,9 +3,7 @@
 
 namespace common {
   BigInteger::BigInteger() : value_(0) {}
-
   BigInteger::BigInteger(const std::string& str) : value_(str) {}
-
   BigInteger::BigInteger(const int64_t num) : value_(num) {}
 
   auto BigInteger::operator+(const BigInteger& other) const -> BigInteger {

@@ -3,7 +3,9 @@
 
 namespace gtest_case {
   struct Dummy {};
+
   enum TestEnum { VALUE };
+
   TEST(ClassUtilTest, BasicIntType) {
     constexpr int value = 0;
     EXPECT_EQ(common::ClassUtil::getTypeId(value), "int const & __ptr64");

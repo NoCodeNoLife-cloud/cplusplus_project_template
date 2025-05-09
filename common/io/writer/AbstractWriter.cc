@@ -2,6 +2,7 @@
 
 namespace common {
   AbstractWriter::AbstractWriter() = default;
+
   AbstractWriter::~AbstractWriter() = default;
 
   auto AbstractWriter::append(const char c) -> AbstractWriter& {

@@ -9,9 +9,11 @@ namespace common {
     max_machine_id_ = ~(-1LL << 5),
     max_datacenter_id_ = ~(-1LL << 5),
   };
+
   class SnowflakeGenerator {
   public:
     SnowflakeGenerator(int16_t machine_id, int16_t datacenter_id);
+
     auto NextId() -> int64_t;
 
   private:
@@ -19,7 +21,9 @@ namespace common {
     int64_t sequence_{0};
     int16_t machine_id_;
     std::mutex mutex_;
+
     static auto GetCurrentTimestamp() -> int64_t;
+
     static auto til_next_millis(int64_t last_timestamp) -> int64_t;
   };
 }

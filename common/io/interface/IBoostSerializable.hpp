@@ -9,6 +9,7 @@ namespace common {
 
   private:
     friend class boost::serialization::access;
+
     template <class Archive>
     void serialize(Archive& archive, uint32_t version);
   };

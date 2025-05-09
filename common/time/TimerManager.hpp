@@ -9,6 +9,7 @@ namespace common {
   public:
     explicit TimerManager(boost::asio::io_context& io_context, std::shared_ptr<ITimerTask> task,
                           std::chrono::milliseconds interval);
+
     auto start() -> void;
 
   private:
@@ -16,6 +17,7 @@ namespace common {
     std::shared_ptr<ITimerTask> task_;
     boost::asio::steady_timer timer_;
     std::chrono::milliseconds interval_;
+
     auto schedule_next() -> void;
   };
 }

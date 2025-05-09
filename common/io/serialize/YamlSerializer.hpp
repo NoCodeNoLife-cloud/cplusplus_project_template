@@ -8,6 +8,7 @@ namespace common {
   class YamlSerializer abstract {
   public:
     static void serialize(const T& obj, const std::string& filename);
+
     static T deserialize(const std::string& filename);
   };
 

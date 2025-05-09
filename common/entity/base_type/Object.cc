@@ -4,6 +4,7 @@
 
 namespace common {
   Object::Object() = default;
+
   Object::~Object() = default;
 
   auto Object::getClass() const -> const std::type_info& {

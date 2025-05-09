@@ -6,8 +6,11 @@ namespace common {
   class UnionFind {
   public:
     auto find(const T& x) -> T;
+
     auto unionSets(const T& x, const T& y) -> bool;
+
     auto connected(const T& x, const T& y) -> bool;
+
     std::unordered_map<T, T> parent;
     std::unordered_map<T, int> rank;
 
