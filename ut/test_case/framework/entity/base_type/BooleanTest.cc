@@ -18,13 +18,6 @@ namespace gtest_case {
     EXPECT_FALSE(static_cast<bool>(booleanFalse));
   }
 
-  TEST(BooleanTest, ToStringReturnsCorrectString) {
-    const common::Boolean booleanTrue(true);
-    EXPECT_EQ(booleanTrue.toString(), "class common::Boolean{1}");
-    const common::Boolean booleanFalse(false);
-    EXPECT_EQ(booleanFalse.toString(), "class common::Boolean{0}");
-  }
-
   TEST(BooleanTest, ParseBooleanValidStrings) {
     EXPECT_TRUE(common::Boolean::parseBoolean("true").booleanValue());
     EXPECT_TRUE(common::Boolean::parseBoolean("TRUE").booleanValue());

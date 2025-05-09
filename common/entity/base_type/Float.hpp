@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include <entity/base_type/Object.hpp>
 #include <entity/interface/IComparable.hpp>
 
@@ -14,7 +15,6 @@ namespace common {
     ~Float() override;
     [[nodiscard]] auto clone() const -> std::unique_ptr<ICloneable> override;
     explicit operator float() const;
-    [[nodiscard]] auto toString() const -> std::string override;
     [[nodiscard]] auto equals(const Float& other) const -> bool override;
     [[nodiscard]] auto compareTo(const Float& other) const -> int32_t override;
     [[nodiscard]] auto floatValue() const -> float;
@@ -25,12 +25,7 @@ namespace common {
     auto operator*(const Float& other) const -> Float;
     auto operator/(const Float& other) const -> Float;
 
-
   private:
-    friend std::formatter<Float>;
     float value_{0.0};
   };
 }
-
-template <>
-struct std::formatter<common::Float> : common::GenericFormatter<common::Float, &common::Float::value_> {};

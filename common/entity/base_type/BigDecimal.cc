@@ -34,8 +34,4 @@ namespace common {
     }
     return std::strong_ordering::equal;
   }
-
-  auto BigDecimal::toString() const -> std::string {
-    return value_.convert_to<std::string>();
-  }
 }

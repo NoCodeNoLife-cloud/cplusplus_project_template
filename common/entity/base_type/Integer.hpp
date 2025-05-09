@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include <entity/base_type/Object.hpp>
 #include <entity/interface/IComparable.hpp>
 
@@ -11,7 +12,6 @@ namespace common {
     ~Integer() override;
     [[nodiscard]] auto clone() const -> std::unique_ptr<ICloneable> override;
     explicit operator int32_t() const;
-    [[nodiscard]] std::string toString() const override;
     [[nodiscard]] auto intValue() const -> int32_t;
     static auto parseInt(const std::string& str) -> Integer;
     [[nodiscard]] auto compareTo(const Integer& other) const -> int32_t override;
@@ -23,10 +23,6 @@ namespace common {
     auto operator/(const Integer& other) const -> Integer;
 
   private:
-    friend std::formatter<Integer>;
     int32_t value_{0};
   };
 }
-
-template <>
-struct std::formatter<common::Integer> : common::GenericFormatter<common::Integer, &common::Integer::value_> {};

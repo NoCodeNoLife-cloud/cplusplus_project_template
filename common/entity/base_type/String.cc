@@ -251,8 +251,4 @@ namespace common {
   auto String::operator+(const String& str) const -> String {
     return this->concat(str);
   }
-
-  auto String::toString() const -> std::string {
-    return std::format("{}", *this);
-  }
 }

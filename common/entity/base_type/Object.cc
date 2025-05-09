@@ -1,3 +1,4 @@
+#include <string>
 #include <entity/base_type/Object.hpp>
 
 namespace common {
@@ -24,9 +25,5 @@ namespace common {
 
   auto Object::hashCode() const -> size_t {
     return reinterpret_cast<size_t>(this);
-  }
-
-  auto Object::toString() const -> std::string {
-    return std::format("{}", *this);
   }
 }

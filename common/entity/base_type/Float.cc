@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include <entity/base_type/Float.hpp>
 
 namespace common {
@@ -11,10 +12,6 @@ namespace common {
 
   Float::operator float() const {
     return value_;
-  }
-
-  auto Float::toString() const -> std::string {
-    return std::format("{}", *this);
   }
 
   auto Float::equals(const Float& other) const -> bool {

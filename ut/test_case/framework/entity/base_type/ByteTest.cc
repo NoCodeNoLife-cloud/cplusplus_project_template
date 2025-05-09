@@ -136,9 +136,4 @@ namespace gtest_case {
     const std::string str = "256";
     ASSERT_THROW(common::Byte::parseByte(str), std::out_of_range);
   }
-
-  TEST(ByteTest, ToStringReturnsCorrectFormat) {
-    const common::Byte byte(42);
-    EXPECT_EQ(byte.toString(), "class common::Byte{*}");
-  }
 }

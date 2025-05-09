@@ -1,6 +1,6 @@
 #pragma once
+#include <string>
 #include <entity/interface/ICloneable.hpp>
-#include <format/GenericFormatter.hpp>
 
 namespace common {
   class Object : public ICloneable {
@@ -11,12 +11,5 @@ namespace common {
     [[nodiscard]] auto getClass() const -> const std::type_info&;
     [[nodiscard]] virtual auto equals(const Object& other) const -> bool;
     [[nodiscard]] virtual auto hashCode() const -> size_t;
-    [[nodiscard]] virtual auto toString() const -> std::string;
-
-  private:
-    friend std::formatter<Object>;
   };
 }
-
-template <>
-struct std::formatter<common::Object> : common::GenericFormatter<common::Object> {};

@@ -14,7 +14,6 @@ namespace common {
     auto operator/(const BigInteger& other) const -> BigInteger;
     auto operator%(const BigInteger& other) const -> BigInteger;
     auto operator<=>(const BigInteger& other) const -> std::partial_ordering;
-    [[nodiscard]] auto toString() const -> std::string;
     static auto fromString(const std::string& str) -> BigInteger;
     static auto fromInt(int64_t num) -> BigInteger;
 

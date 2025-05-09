@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include <entity/base_type/Long.hpp>
 
 namespace common {
@@ -11,10 +12,6 @@ namespace common {
 
   Long::operator int64_t() const {
     return value_;
-  }
-
-  auto Long::toString() const -> std::string {
-    return std::format("{}", *this);
   }
 
   auto Long::longValue() const -> int64_t {

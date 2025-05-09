@@ -44,10 +44,6 @@ namespace common {
     return std::strong_ordering::equal;
   }
 
-  auto BigInteger::toString() const -> std::string {
-    return value_.str();
-  }
-
   auto BigInteger::fromString(const std::string& str) -> BigInteger {
     return BigInteger(str);
   }

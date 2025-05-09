@@ -64,10 +64,4 @@ namespace gtest_case {
     const common::Object obj2;
     EXPECT_NE(obj1.hashCode(), obj2.hashCode());
   }
-
-  TEST(ObjectTest, ToStringReturnsNonEmptyString) {
-    const common::Object obj;
-    const std::string str = obj.toString();
-    EXPECT_FALSE(str.empty());
-  }
 }

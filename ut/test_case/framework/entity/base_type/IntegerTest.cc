@@ -18,11 +18,6 @@ namespace gtest_case {
     EXPECT_EQ(integer.intValue(), 100);
   }
 
-  TEST(IntegerTest, ToStringReturnsCorrectString) {
-    const common::Integer integer(123);
-    EXPECT_EQ(integer.toString(), "class common::Integer{123}");
-  }
-
   TEST(IntegerTest, ParseIntValidInput) {
     const common::Integer zero = common::Integer::parseInt("0");
     const common::Integer positive = common::Integer::parseInt("+42");

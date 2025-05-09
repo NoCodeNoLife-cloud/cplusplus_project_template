@@ -14,16 +14,6 @@ namespace gtest_case {
     EXPECT_EQ(static_cast<int64_t>(longObj), -5678);
   }
 
-  TEST(LongTest, ToStringReturnsCorrectStringRepresentation) {
-    const common::Long longObj(87654321);
-    EXPECT_EQ(longObj.toString(), "class common::Long{87654321}");
-  }
-
-  TEST(LongTest, ToStringWithNegativeValueReturnsCorrectString) {
-    const common::Long longObj(-4444);
-    EXPECT_EQ(longObj.toString(), "class common::Long{-4444}");
-  }
-
   TEST(LongTest, LongValueReturnsSameAsConstructorArgument) {
     constexpr int64_t value = 999;
     const common::Long longObj(value);

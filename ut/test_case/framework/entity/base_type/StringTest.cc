@@ -318,10 +318,4 @@ namespace gtest_case {
     EXPECT_TRUE(std::is_eq(s1 <=> s4));
     EXPECT_FALSE(std::is_neq(s1 <=> s4));
   }
-
-  TEST(StringTest, toString) {
-    const common::String s("test");
-    const std::string result = s.toString();
-    EXPECT_EQ(result, "class common::String{test}");
-  }
 }

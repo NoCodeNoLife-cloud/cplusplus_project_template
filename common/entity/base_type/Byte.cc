@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include <entity/base_type/Byte.hpp>
 
 namespace common {
@@ -19,10 +20,6 @@ namespace common {
 
   auto Byte::compareTo(const Byte& other) const -> int32_t {
     return (value_ > other.value_) - (value_ < other.value_);
-  }
-
-  auto Byte::toString() const -> std::string {
-    return std::format("{}", *this);
   }
 
   auto Byte::parseByte(const std::string& str) -> Byte {

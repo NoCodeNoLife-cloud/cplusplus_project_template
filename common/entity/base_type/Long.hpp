@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include <entity/base_type/Object.hpp>
 #include <entity/interface/IComparable.hpp>
 
@@ -11,7 +12,6 @@ namespace common {
     ~Long() override;
     [[nodiscard]] auto clone() const -> std::unique_ptr<ICloneable> override;
     explicit operator int64_t() const;
-    [[nodiscard]] auto toString() const -> std::string override;
     [[nodiscard]] auto longValue() const -> int64_t;
     [[nodiscard]] auto equals(const Long& other) const -> bool override;
     [[nodiscard]] auto compareTo(const Long& other) const -> int32_t override;
@@ -25,9 +25,5 @@ namespace common {
 
   private:
     int64_t value_{0};
-    friend std::formatter<Long>;
   };
 }
-
-template <>
-struct std::formatter<common::Long> : common::GenericFormatter<common::Long, &common::Long::value_> {};

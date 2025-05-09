@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include <entity/base_type/Object.hpp>
 #include <entity/interface/IComparable.hpp>
 
@@ -11,7 +12,6 @@ namespace common {
     ~Short() override;
     [[nodiscard]] auto clone() const -> std::unique_ptr<ICloneable> override;
     explicit operator short() const;
-    [[nodiscard]] auto toString() const -> std::string override;
     [[nodiscard]] auto shortValue() const -> int16_t;
     [[nodiscard]] auto equals(const Short& other) const -> bool override;
     [[nodiscard]] auto compareTo(const Short& other) const -> int32_t override;
@@ -25,9 +25,5 @@ namespace common {
 
   private:
     int16_t value_{0};
-    friend std::formatter<Short>;
   };
 }
-
-template <>
-struct std::formatter<common::Short> : common::GenericFormatter<common::Short, &common::Short::value_> {};

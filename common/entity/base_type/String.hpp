@@ -51,13 +51,8 @@ namespace common {
     [[nodiscard]] auto regionMatches(bool ignoreCase, int32_t tOffset, const String& other, int32_t oOffset, int32_t len) const -> bool;
     auto operator<=>(const String& other) const -> std::partial_ordering;
     auto operator+(const String& str) const -> String;
-    [[nodiscard]] auto toString() const -> std::string override;
 
   private:
     std::string value_{};
-    friend std::formatter<String>;
   };
 }
-
-template <>
-struct std::formatter<common::String> : common::GenericFormatter<common::String, &common::String::value_> {};

@@ -21,17 +21,6 @@ namespace gtest_case {
     EXPECT_EQ(static_cast<char>(c), 'B');
   }
 
-  TEST(CharacterTest, ToStringTest) {
-    const common::Character c1('X');
-    EXPECT_EQ(c1.toString(), "class common::Character{X}");
-
-    const common::Character c2(' ');
-    EXPECT_EQ(c2.toString(), "class common::Character{ }");
-
-    const common::Character c3('\n');
-    EXPECT_EQ(c3.toString(), "class common::Character{\n}");
-  }
-
   TEST(CharacterTest, EqualsTest) {
     const common::Character c1('a');
     const common::Character c2('a');

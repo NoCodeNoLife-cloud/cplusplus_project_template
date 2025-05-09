@@ -1,3 +1,4 @@
+#include <cctype>
 #include <entity/base_type/Character.hpp>
 
 namespace common {
@@ -11,10 +12,6 @@ namespace common {
 
   Character::operator char() const {
     return value_;
-  }
-
-  auto Character::toString() const -> std::string {
-    return std::format("{}", *this);
   }
 
   auto Character::equals(const Character& other) const -> bool {

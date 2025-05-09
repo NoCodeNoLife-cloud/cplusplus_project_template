@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include <entity/base_type/Object.hpp>
 #include <entity/interface/IComparable.hpp>
 
@@ -14,7 +15,6 @@ namespace common {
     ~Double() override;
     [[nodiscard]] auto clone() const -> std::unique_ptr<ICloneable> override;
     explicit operator double() const;
-    [[nodiscard]] auto toString() const -> std::string override;
     [[nodiscard]] auto equals(const Double& other) const -> bool override;
     [[nodiscard]] auto compareTo(const Double& other) const -> int32_t override;
     [[nodiscard]] auto doubleValue() const -> double;
@@ -26,10 +26,6 @@ namespace common {
     auto operator/(const Double& other) const -> Double;
 
   private:
-    friend std::formatter<Double>;
     double value_{0.0};
   };
 }
-
-template <>
-struct std::formatter<common::Double> : common::GenericFormatter<common::Double, &common::Double::value_> {};

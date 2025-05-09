@@ -9,7 +9,6 @@ namespace common {
     ~Character() override;
     [[nodiscard]] auto clone() const -> std::unique_ptr<ICloneable> override;
     explicit operator char() const;
-    [[nodiscard]] auto toString() const -> std::string override;
     [[nodiscard]] auto equals(const Character& other) const -> bool override;
     [[nodiscard]] auto compareTo(const Character& other) const -> int32_t override;
     static auto isLetter(char c) -> bool;
@@ -22,12 +21,7 @@ namespace common {
     [[nodiscard]] auto characterValue() const -> char;
     auto operator<=>(const Character& other) const -> std::partial_ordering;
 
-
   private:
-    friend std::formatter<Character>;
     char value_{0};
   };
 }
-
-template <>
-struct std::formatter<common::Character> : common::GenericFormatter<common::Character, &common::Character::value_> {};

@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include <entity/base_type/Integer.hpp>
 
 namespace common {
@@ -11,10 +12,6 @@ namespace common {
 
   Integer::operator int32_t() const {
     return value_;
-  }
-
-  auto Integer::toString() const -> std::string {
-    return std::format("{}", *this);
   }
 
   auto Integer::intValue() const -> int32_t {

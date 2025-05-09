@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include <entity/base_type/Object.hpp>
 #include <entity/interface/IComparable.hpp>
 
@@ -13,7 +14,6 @@ namespace common {
     explicit operator unsigned char() const;
     [[nodiscard]] auto equals(const Byte& other) const -> bool override;
     [[nodiscard]] auto compareTo(const Byte& other) const -> int32_t override;
-    [[nodiscard]] auto toString() const -> std::string override;
     static auto parseByte(const std::string& str) -> Byte;
     [[nodiscard]] auto byteValue() const -> uint8_t;
     auto operator<=>(const Byte& other) const -> std::partial_ordering;
@@ -21,10 +21,6 @@ namespace common {
     auto operator-(const Byte& other) const -> Byte;
 
   private:
-    friend std::formatter<Byte>;
     uint8_t value_{0};
   };
 }
-
-template <>
-struct std::formatter<common::Byte> : common::GenericFormatter<common::Byte, &common::Byte::value_> {};

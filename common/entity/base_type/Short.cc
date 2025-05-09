@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include <entity/base_type/Short.hpp>
 
 namespace common {
@@ -11,10 +12,6 @@ namespace common {
 
   Short::operator short() const {
     return value_;
-  }
-
-  auto Short::toString() const -> std::string {
-    return std::format("{}", *this);
   }
 
   auto Short::shortValue() const -> int16_t {

@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include <entity/base_type/Boolean.hpp>
 
 namespace common {
@@ -11,10 +12,6 @@ namespace common {
 
   Boolean::operator bool() const {
     return value_;
-  }
-
-  auto Boolean::toString() const -> std::string {
-    return std::format("{}", *this);
   }
 
   auto Boolean::boolValue() const -> bool {

@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include <entity/base_type/Double.hpp>
 
 namespace common {
@@ -11,10 +12,6 @@ namespace common {
 
   Double::operator double() const {
     return value_;
-  }
-
-  auto Double::toString() const -> std::string {
-    return std::format("{}", *this);
   }
 
   auto Double::equals(const Double& other) const -> bool {
