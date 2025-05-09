@@ -14,14 +14,6 @@ namespace common {
     return value_;
   }
 
-  auto Short::equals(const Short& other) const -> bool {
-    return value_ == other.value_;
-  }
-
-  auto Short::compareTo(const Short& other) const -> int32_t {
-    return value_ - other.value_;
-  }
-
   auto Short::parseShort(const std::string& str) -> Short {
     try {
       const auto value = std::stoi(str);

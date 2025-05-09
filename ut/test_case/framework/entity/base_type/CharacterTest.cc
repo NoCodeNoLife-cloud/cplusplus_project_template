@@ -21,26 +21,6 @@ namespace gtest_case {
     EXPECT_EQ(static_cast<char>(c), 'B');
   }
 
-  TEST(CharacterTest, EqualsTest) {
-    const common::Character c1('a');
-    const common::Character c2('a');
-    const common::Character c3('b');
-
-    EXPECT_TRUE(c1.equals(c2));
-    EXPECT_FALSE(c1.equals(c3));
-  }
-
-  TEST(CharacterTest, CompareToTest) {
-    const common::Character c1('a');
-    const common::Character c2('a');
-    const common::Character c3('b');
-    const common::Character c4('A');
-
-    EXPECT_EQ(c1.compareTo(c2), 0);
-    EXPECT_EQ(c3.compareTo(c1), 'b' - 'a');
-    EXPECT_EQ(c4.compareTo(c1), 'A' - 'a');
-  }
-
   TEST(CharacterTest, ComparisonOperatorsTest) {
     const common::Character a('a');
     const common::Character b('b');

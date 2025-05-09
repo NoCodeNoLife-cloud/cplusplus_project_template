@@ -41,25 +41,6 @@ namespace gtest_case {
     EXPECT_THROW(common::Integer::parseInt("-2147483649"), std::out_of_range);
   }
 
-  TEST(IntegerTest, EqualsMethodComparesValues) {
-    const common::Integer a(5);
-    const common::Integer b(5);
-    const common::Integer c(8);
-
-    EXPECT_TRUE(a.equals(b));
-    EXPECT_FALSE(a.equals(c));
-  }
-
-  TEST(IntegerTest, CompareToReturnsCorrectResult) {
-    const common::Integer a(3);
-    const common::Integer b(3);
-    const common::Integer c(7);
-
-    EXPECT_EQ(a.compareTo(b), 0);
-    EXPECT_LT(a.compareTo(c), 0);
-    EXPECT_GT(c.compareTo(a), 0);
-  }
-
   TEST(IntegerTest, EqualityOperatorsWorkCorrectly) {
     const common::Integer a(2);
     const common::Integer b(2);

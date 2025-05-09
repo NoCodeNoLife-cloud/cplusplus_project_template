@@ -10,14 +10,6 @@ namespace common {
     return value_;
   }
 
-  auto Double::equals(const Double& other) const -> bool {
-    return value_ == other.value_;
-  }
-
-  auto Double::compareTo(const Double& other) const -> int32_t {
-    return (value_ > other.value_) - (value_ < other.value_);
-  }
-
   auto Double::doubleValue() const -> double {
     return value_;
   }

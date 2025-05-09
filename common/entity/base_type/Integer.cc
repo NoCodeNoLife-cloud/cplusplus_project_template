@@ -27,14 +27,6 @@ namespace common {
     }
   }
 
-  auto Integer::compareTo(const Integer& other) const -> int32_t {
-    return value_ - other.value_;
-  }
-
-  bool Integer::equals(const Integer& other) const {
-    return value_ == other.value_;
-  }
-
   auto Integer::operator<=>(const Integer& other) const -> std::partial_ordering {
     return value_ <=> other.value_;
   }

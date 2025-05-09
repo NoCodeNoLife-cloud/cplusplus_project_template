@@ -4,17 +4,14 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <entity/interface/IComparable.hpp>
 
 namespace common {
-  class File final : public IComparable<File> {
+  class File final {
   public:
     explicit File(const std::string& path);
     explicit File(std::filesystem::path path);
     explicit File(const char* path);
-    ~File() override;
-    [[nodiscard]] auto compareTo(const File& other) const -> int32_t override;
-    [[nodiscard]] auto equals(const File& other) const -> bool override;
+    ~File() ;
     [[nodiscard]] auto canExecute() const -> bool;
     [[nodiscard]] auto canRead() const -> bool;
     [[nodiscard]] auto canWrite() const -> bool;

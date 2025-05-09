@@ -28,10 +28,6 @@ namespace common {
     return String(std::string(value_ + str.value_));
   }
 
-  auto String::compareTo(const String& anotherString) const -> int32_t {
-    return value_.compare(anotherString.value_);
-  }
-
   auto String::compareToIgnoreCase(const String& anotherString) const -> int32_t {
     std::string lower1 = value_, lower2 = anotherString.value_;
     std::ranges::transform(lower1, lower1.begin(), tolower);
@@ -75,10 +71,6 @@ namespace common {
 
   auto String::toStdString() const -> std::string {
     return value_;
-  }
-
-  auto String::equals(const String& other) const -> bool {
-    return value_ == other.value_;
   }
 
   auto String::codePointAt(const int32_t index) const -> int32_t {
@@ -221,16 +213,14 @@ namespace common {
     return str;
   }
 
-  auto String::regionMatches(const int32_t tOffset, const String& other, const int32_t oOffset, const int32_t len) const
-    -> bool {
+  auto String::regionMatches(const int32_t tOffset, const String& other, const int32_t oOffset, const int32_t len) const -> bool {
     if (tOffset < 0 || oOffset < 0 || tOffset + len > value_.size() || oOffset + len > other.value_.size()) {
       return false;
     }
     return value_.compare(tOffset, len, other.value_, oOffset, len) == 0;
   }
 
-  auto String::regionMatches(const bool ignoreCase, const int32_t tOffset, const String& other, const int32_t oOffset,
-                             const int32_t len) const -> bool {
+  auto String::regionMatches(const bool ignoreCase, const int32_t tOffset, const String& other, const int32_t oOffset, const int32_t len) const -> bool {
     if (!ignoreCase)
       return regionMatches(tOffset, other, oOffset, len);
     std::string thisRegion = value_.substr(tOffset, len);

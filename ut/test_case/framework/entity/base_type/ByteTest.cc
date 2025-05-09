@@ -15,24 +15,6 @@ namespace gtest_case {
     EXPECT_EQ(byte.byteValue(), value);
   }
 
-  TEST(ByteTest, EqualsComparesValuesCorrectly) {
-    const common::Byte byte1(100);
-    const common::Byte byte2(100);
-    const common::Byte byte3(50);
-    EXPECT_TRUE(byte1.equals(byte2));
-    EXPECT_FALSE(byte1.equals(byte3));
-  }
-
-  TEST(ByteTest, CompareToReturnsCorrectResult) {
-    const common::Byte byte1(50);
-    const common::Byte byte2(50);
-    const common::Byte byte3(30);
-    const common::Byte byte4(70);
-    EXPECT_EQ(byte1.compareTo(byte2), 0);
-    EXPECT_GT(byte1.compareTo(byte3), 0);
-    EXPECT_LT(byte1.compareTo(byte4), 0);
-  }
-
   TEST(ByteTest, OperatorEqualityComparesValues) {
     const common::Byte byte1(10);
     const common::Byte byte2(10);

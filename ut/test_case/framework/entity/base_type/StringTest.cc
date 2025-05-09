@@ -51,15 +51,6 @@ namespace gtest_case {
     EXPECT_EQ(result.toStdString(), "abcdef");
   }
 
-  TEST(StringTest, compareTo) {
-    const common::String s1("abc");
-    const common::String s2("abd");
-    const common::String s3("abc");
-    EXPECT_LT(s1.compareTo(s2), 0);
-    EXPECT_GT(s2.compareTo(s1), 0);
-    EXPECT_EQ(s1.compareTo(s3), 0);
-  }
-
   TEST(StringTest, compareToIgnoreCase) {
     const common::String s1("abc");
     const common::String s2("ABC");
@@ -113,14 +104,6 @@ namespace gtest_case {
     const std::string stdStr = "hello";
     const common::String s(stdStr);
     EXPECT_EQ(s.toStdString(), stdStr);
-  }
-
-  TEST(StringTest, equals) {
-    const common::String s1("abc");
-    const common::String s2("abc");
-    const common::String s3("def");
-    EXPECT_TRUE(s1.equals(s2));
-    EXPECT_FALSE(s1.equals(s3));
   }
 
   TEST(StringTest, codePointAt) {

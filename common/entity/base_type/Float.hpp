@@ -1,10 +1,9 @@
 #pragma once
 #include <string>
 #include <entity/base_type/Object.hpp>
-#include <entity/interface/IComparable.hpp>
 
 namespace common {
-  class Float final : public Object, public IComparable<Float> {
+  class Float final : public Object {
   public:
     static constexpr float POSITIVE_INFINITY = std::numeric_limits<float>::infinity();
     static constexpr float NEGATIVE_INFINITY = -std::numeric_limits<float>::infinity();
@@ -14,8 +13,6 @@ namespace common {
     explicit Float(float value);
     ~Float() override;
     explicit operator float() const;
-    [[nodiscard]] auto equals(const Float& other) const -> bool override;
-    [[nodiscard]] auto compareTo(const Float& other) const -> int32_t override;
     [[nodiscard]] auto floatValue() const -> float;
     static auto parseFloat(const std::string& str) -> Float;
     auto operator<=>(const Float& other) const -> std::partial_ordering;

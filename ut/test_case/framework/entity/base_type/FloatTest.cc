@@ -7,36 +7,6 @@ namespace gtest_case {
     EXPECT_EQ(instance.floatValue(), 3.14f);
   }
 
-  TEST(FloatTest, EqualsReturnsTrueForEqualValues) {
-    const common::Float a(2.0f);
-    const common::Float b(2.0f);
-    EXPECT_TRUE(a.equals(b));
-  }
-
-  TEST(FloatTest, EqualsReturnsFalseForDifferentValues) {
-    const common::Float a(2.0f);
-    const common::Float b(3.0f);
-    EXPECT_FALSE(a.equals(b));
-  }
-
-  TEST(FloatTest, CompareToReturnsZeroForEqualValues) {
-    const common::Float a(5.5f);
-    const common::Float b(5.5f);
-    EXPECT_EQ(a.compareTo(b), 0);
-  }
-
-  TEST(FloatTest, CompareToReturnsPositiveWhenGreater) {
-    const common::Float a(10.0f);
-    const common::Float b(5.0f);
-    EXPECT_EQ(a.compareTo(b), 1);
-  }
-
-  TEST(FloatTest, CompareToReturnsNegativeWhenLess) {
-    const common::Float a(1.5f);
-    const common::Float b(2.5f);
-    EXPECT_EQ(a.compareTo(b), -1);
-  }
-
   TEST(FloatTest, EqualityOperatorReturnsTrueForSameValues) {
     const common::Float a(4.2f);
     const common::Float b(4.2f);

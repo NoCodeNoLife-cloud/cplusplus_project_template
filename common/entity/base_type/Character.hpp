@@ -1,15 +1,12 @@
 #pragma once
 #include <entity/base_type/Object.hpp>
-#include <entity/interface/IComparable.hpp>
 
 namespace common {
-  class Character final : public Object, public IComparable<Character> {
+  class Character final : public Object {
   public:
     explicit Character(char value);
     ~Character() override;
     explicit operator char() const;
-    [[nodiscard]] auto equals(const Character& other) const -> bool override;
-    [[nodiscard]] auto compareTo(const Character& other) const -> int32_t override;
     static auto isLetter(char c) -> bool;
     static auto isDigit(char c) -> bool;
     static auto isLetterOrDigit(char c) -> bool;

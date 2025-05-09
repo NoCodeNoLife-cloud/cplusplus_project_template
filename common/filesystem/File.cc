@@ -13,14 +13,6 @@ namespace common {
 
   File::~File() = default;
 
-  auto File::compareTo(const File& other) const -> int32_t {
-    return file_path_.string().compare(other.file_path_.string());
-  }
-
-  auto File::equals(const File& other) const -> bool {
-    return equivalent(file_path_, other.file_path_);
-  }
-
   auto File::canExecute() const -> bool {
     const DWORD attributes = GetFileAttributesW(file_path_.c_str());
     return attributes != INVALID_FILE_ATTRIBUTES && (attributes & FILE_ATTRIBUTE_DIRECTORY) == 0;

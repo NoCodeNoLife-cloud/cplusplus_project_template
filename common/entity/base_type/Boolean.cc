@@ -18,10 +18,6 @@ namespace common {
     return value_;
   }
 
-  auto Boolean::compareTo(const Boolean& other) const -> int32_t {
-    return value_ - other.value_;
-  }
-
   auto Boolean::parseBoolean(const std::string& str) -> Boolean {
     if (str == "true" || str == "TRUE") {
       return Boolean(true);
@@ -34,10 +30,6 @@ namespace common {
 
   auto Boolean::booleanValue() const -> bool {
     return value_;
-  }
-
-  auto Boolean::equals(const Boolean& other) const -> bool {
-    return value_ == other.value_;
   }
 
   auto Boolean::operator<=>(const Boolean& other) const -> std::partial_ordering {

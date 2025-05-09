@@ -14,14 +14,6 @@ namespace common {
     return value_;
   }
 
-  auto Long::equals(const Long& other) const -> bool {
-    return value_ == other.value_;
-  }
-
-  auto Long::compareTo(const Long& other) const -> int32_t {
-    return (value_ > other.value_) - (value_ < other.value_);
-  }
-
   auto Long::parseLong(const std::string& str) -> Long {
     try {
       const int64_t result = std::stoll(str, nullptr, 0);

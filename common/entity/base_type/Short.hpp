@@ -1,10 +1,9 @@
 #pragma once
 #include <string>
 #include <entity/base_type/Object.hpp>
-#include <entity/interface/IComparable.hpp>
 
 namespace common {
-  class Short final : public Object, public IComparable<Short> {
+  class Short final : public Object {
   public:
     static constexpr int16_t MAX_VALUE = std::numeric_limits<int16_t>::max();
     static constexpr int16_t MIN_VALUE = std::numeric_limits<int16_t>::min();
@@ -12,8 +11,6 @@ namespace common {
     ~Short() override;
     explicit operator short() const;
     [[nodiscard]] auto shortValue() const -> int16_t;
-    [[nodiscard]] auto equals(const Short& other) const -> bool override;
-    [[nodiscard]] auto compareTo(const Short& other) const -> int32_t override;
     static auto parseShort(const std::string& str) -> Short;
     auto operator<=>(const Short& other) const -> std::partial_ordering;
     auto operator+(const Short& other) const -> Short;

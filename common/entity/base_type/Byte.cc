@@ -10,14 +10,6 @@ namespace common {
     return value_;
   }
 
-  auto Byte::equals(const Byte& other) const -> bool {
-    return value_ == other.value_;
-  }
-
-  auto Byte::compareTo(const Byte& other) const -> int32_t {
-    return (value_ > other.value_) - (value_ < other.value_);
-  }
-
   auto Byte::parseByte(const std::string& str) -> Byte {
     if (str.empty()) {
       throw std::invalid_argument("Empty string cannot be parsed as byte.");

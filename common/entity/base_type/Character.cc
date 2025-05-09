@@ -10,14 +10,6 @@ namespace common {
     return value_;
   }
 
-  auto Character::equals(const Character& other) const -> bool {
-    return value_ == other.value_;
-  }
-
-  auto Character::compareTo(const Character& other) const -> int32_t {
-    return value_ - other.value_;
-  }
-
   auto Character::isLetter(const char c) -> bool {
     return std::isalpha(c);
   }

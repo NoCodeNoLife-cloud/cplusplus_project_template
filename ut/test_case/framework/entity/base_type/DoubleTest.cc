@@ -15,35 +15,6 @@ namespace gtest_case {
     EXPECT_DOUBLE_EQ(static_cast<double>(d), 3.14);
   }
 
-  TEST(DoubleTest, EqualsReturnsTrueForEqualValues) {
-    const common::Double a(5.0);
-    const common::Double b(5.0);
-    EXPECT_TRUE(a.equals(b));
-  }
-
-  TEST(DoubleTest, EqualsReturnsFalseForDifferentValues) {
-    const common::Double a(5.0);
-    const common::Double b(6.0);
-    EXPECT_FALSE(a.equals(b));
-  }
-
-  TEST(DoubleTest, CompareToReturnsZeroWhenEqual) {
-    const common::Double a(5.0);
-    EXPECT_EQ(a.compareTo(a), 0);
-  }
-
-  TEST(DoubleTest, CompareToReturnsPositiveWhenGreater) {
-    const common::Double a(6.0);
-    const common::Double b(5.0);
-    EXPECT_EQ(a.compareTo(b), 1);
-  }
-
-  TEST(DoubleTest, CompareToReturnsNegativeWhenLess) {
-    const common::Double a(5.0);
-    const common::Double b(6.0);
-    EXPECT_EQ(a.compareTo(b), -1);
-  }
-
   TEST(DoubleTest, ParseDoubleConvertsValidString) {
     const std::string str = "123.45";
     const common::Double d = common::Double::parseDouble(str);

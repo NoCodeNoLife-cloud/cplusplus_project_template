@@ -1,9 +1,8 @@
 #pragma once
 #include <entity/base_type/Object.hpp>
-#include <entity/interface/IComparable.hpp>
 
 namespace common {
-  class String final : public Object, IComparable<String> {
+  class String final : public Object {
   public:
     String();
     explicit String(const char* str);
@@ -12,7 +11,6 @@ namespace common {
     [[nodiscard]] auto length() const -> size_t;
     [[nodiscard]] auto substring(int32_t beginIndex, int32_t endIndex) const -> String;
     [[nodiscard]] auto concat(const String& str) const -> String;
-    [[nodiscard]] auto compareTo(const String& anotherString) const -> int32_t override;
     [[nodiscard]] auto compareToIgnoreCase(const String& anotherString) const -> int32_t;
     [[nodiscard]] auto isEmpty() const -> bool;
     [[nodiscard]] auto contains(const String& str) const -> bool;
@@ -21,7 +19,6 @@ namespace common {
     [[nodiscard]] auto toUpperCase() const -> String;
     [[nodiscard]] auto trim() const -> String;
     [[nodiscard]] auto toStdString() const -> std::string;
-    [[nodiscard]] auto equals(const String& other) const -> bool override;
     [[nodiscard]] auto codePointAt(int32_t index) const -> int32_t;
     [[nodiscard]] auto codePointBefore(int32_t index) const -> int32_t;
     [[nodiscard]] auto codePointCount(int32_t beginIndex, int32_t endIndex) const -> int32_t;

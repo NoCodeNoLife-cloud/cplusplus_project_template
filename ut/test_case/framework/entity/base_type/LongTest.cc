@@ -20,18 +20,6 @@ namespace gtest_case {
     EXPECT_EQ(longObj.longValue(), value);
   }
 
-  TEST(LongTest, EqualsReturnsTrueWhenValuesAreEqual) {
-    const common::Long a(100);
-    const common::Long b(100);
-    EXPECT_TRUE(a.equals(b));
-  }
-
-  TEST(LongTest, EqualsReturnsFalseWhenValuesAreDifferent) {
-    const common::Long a(100);
-    const common::Long b(200);
-    EXPECT_FALSE(a.equals(b));
-  }
-
   TEST(LongTest, EqualityOperatorComparesValuesCorrectly) {
     const common::Long a(50);
     const common::Long b(50);
@@ -72,24 +60,6 @@ namespace gtest_case {
     const common::Long a(80);
     const common::Long b(80);
     EXPECT_TRUE(a >= b);
-  }
-
-  TEST(LongTest, CompareToReturnsZeroForEqualValues) {
-    const common::Long a(123);
-    const common::Long b(123);
-    EXPECT_EQ(a.compareTo(b), 0);
-  }
-
-  TEST(LongTest, CompareToReturnsPositiveWhenLeftIsGreater) {
-    const common::Long a(200);
-    const common::Long b(100);
-    EXPECT_GT(a.compareTo(b), 0);
-  }
-
-  TEST(LongTest, CompareToReturnsNegativeWhenLeftIsLess) {
-    const common::Long a(50);
-    const common::Long b(100);
-    EXPECT_LT(a.compareTo(b), 0);
   }
 
   TEST(LongTest, AdditionOperatorAddsValuesCorrectly) {

@@ -10,14 +10,6 @@ namespace common {
     return value_;
   }
 
-  auto Float::equals(const Float& other) const -> bool {
-    return value_ == other.value_;
-  }
-
-  auto Float::compareTo(const Float& other) const -> int32_t {
-    return (value_ > other.value_) - (value_ < other.value_);
-  }
-
   auto Float::floatValue() const -> float {
     return value_;
   }

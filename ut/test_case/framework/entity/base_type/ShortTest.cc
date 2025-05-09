@@ -22,23 +22,6 @@ namespace gtest_case {
     EXPECT_EQ(converted, 123);
   }
 
-  TEST(ShortTest, EqualsComparesValuesCorrectly) {
-    const common::Short a(10);
-    const common::Short b(10);
-    const common::Short c(20);
-    EXPECT_TRUE(a.equals(b));
-    EXPECT_FALSE(a.equals(c));
-  }
-
-  TEST(ShortTest, CompareToReturnsCorrectResult) {
-    const common::Short a(5);
-    const common::Short b(10);
-    const common::Short c(5);
-    EXPECT_EQ(a.compareTo(c), 0);
-    EXPECT_LT(a.compareTo(b), 0);
-    EXPECT_GT(b.compareTo(a), 0);
-  }
-
   TEST(ShortTest, EqualityOperatorsWorkCorrectly) {
     const common::Short a(5);
     const common::Short b(5);

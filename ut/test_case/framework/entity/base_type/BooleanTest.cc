@@ -29,25 +29,6 @@ namespace gtest_case {
     EXPECT_THROW(common::Boolean::parseBoolean("invalid"), std::invalid_argument);
   }
 
-  TEST(BooleanTest, CompareToReturnsCorrectValues) {
-    const common::Boolean trueObj(true);
-    const common::Boolean falseObj(false);
-    EXPECT_EQ(trueObj.compareTo(trueObj), 0);
-    EXPECT_EQ(falseObj.compareTo(falseObj), 0);
-    EXPECT_EQ(trueObj.compareTo(falseObj), 1);
-    EXPECT_EQ(falseObj.compareTo(trueObj), -1);
-  }
-
-  TEST(BooleanTest, EqualsComparesValueCorrectly) {
-    const common::Boolean true1(true);
-    const common::Boolean true2(true);
-    const common::Boolean false1(false);
-    EXPECT_TRUE(true1.equals(true2));
-    EXPECT_FALSE(true1.equals(false1));
-    EXPECT_TRUE(true1.equals(true1));
-    EXPECT_FALSE(false1.equals(true1));
-  }
-
   TEST(BooleanTest, EqualityOperatorsWorkCorrectly) {
     const common::Boolean a(true);
     const common::Boolean b(true);
