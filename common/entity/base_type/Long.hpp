@@ -10,7 +10,6 @@ namespace common {
     static constexpr int64_t MIN_VALUE = std::numeric_limits<int64_t>::min();
     explicit Long(int64_t value = 0l);
     ~Long() override;
-    [[nodiscard]] auto clone() const -> std::unique_ptr<ICloneable> override;
     explicit operator int64_t() const;
     [[nodiscard]] auto longValue() const -> int64_t;
     [[nodiscard]] auto equals(const Long& other) const -> bool override;

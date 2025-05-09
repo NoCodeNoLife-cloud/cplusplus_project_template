@@ -7,7 +7,6 @@ namespace common {
   public:
     explicit Character(char value);
     ~Character() override;
-    [[nodiscard]] auto clone() const -> std::unique_ptr<ICloneable> override;
     explicit operator char() const;
     [[nodiscard]] auto equals(const Character& other) const -> bool override;
     [[nodiscard]] auto compareTo(const Character& other) const -> int32_t override;

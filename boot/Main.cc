@@ -1,4 +1,6 @@
+#include <iostream>
 #include <aop/LauncherAspect.hpp>
+#include <entity/base_type/Boolean.hpp>
 
 // ReSharper disable once CppDFAConstantFunctionResult
 auto business() -> bool {

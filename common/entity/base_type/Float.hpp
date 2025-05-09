@@ -13,7 +13,6 @@ namespace common {
     static constexpr float MIN_VALUE = std::numeric_limits<float>::min();
     explicit Float(float value);
     ~Float() override;
-    [[nodiscard]] auto clone() const -> std::unique_ptr<ICloneable> override;
     explicit operator float() const;
     [[nodiscard]] auto equals(const Float& other) const -> bool override;
     [[nodiscard]] auto compareTo(const Float& other) const -> int32_t override;

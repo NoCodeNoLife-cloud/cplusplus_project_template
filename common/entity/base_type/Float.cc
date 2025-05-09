@@ -6,10 +6,6 @@ namespace common {
 
   Float::~Float() = default;
 
-  auto Float::clone() const -> std::unique_ptr<ICloneable> {
-    return std::make_unique<Float>(value_);
-  }
-
   Float::operator float() const {
     return value_;
   }

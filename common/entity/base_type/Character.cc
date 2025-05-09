@@ -6,10 +6,6 @@ namespace common {
 
   Character::~Character() = default;
 
-  auto Character::clone() const -> std::unique_ptr<ICloneable> {
-    return std::make_unique<Character>(value_);
-  }
-
   Character::operator char() const {
     return value_;
   }

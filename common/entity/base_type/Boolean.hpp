@@ -8,7 +8,7 @@ namespace common {
   public:
     explicit Boolean(bool value = false);
     ~Boolean() override;
-    [[nodiscard]] auto clone() const -> std::unique_ptr<ICloneable> override;
+    [[nodiscard]] auto toString() const -> std::string override;
     explicit operator bool() const;
     [[nodiscard]] auto boolValue() const -> bool;
     [[nodiscard]] auto compareTo(const Boolean& other) const -> int32_t override;
@@ -16,6 +16,7 @@ namespace common {
     [[nodiscard]] auto booleanValue() const -> bool;
     [[nodiscard]] auto equals(const Boolean& other) const -> bool override;
     auto operator<=>(const Boolean& other) const -> std::partial_ordering;
+
 
   private:
     bool value_{false};

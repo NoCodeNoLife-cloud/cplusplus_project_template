@@ -6,10 +6,6 @@ namespace common {
 
   Double::~Double() = default;
 
-  auto Double::clone() const -> std::unique_ptr<ICloneable> {
-    return std::make_unique<Double>(value_);
-  }
-
   Double::operator double() const {
     return value_;
   }

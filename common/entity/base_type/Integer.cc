@@ -6,10 +6,6 @@ namespace common {
 
   Integer::~Integer() = default;
 
-  auto Integer::clone() const -> std::unique_ptr<ICloneable> {
-    return std::make_unique<Integer>(value_);
-  }
-
   Integer::operator int32_t() const {
     return value_;
   }

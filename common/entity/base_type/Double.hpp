@@ -13,7 +13,6 @@ namespace common {
     static constexpr double MIN_VALUE = std::numeric_limits<double>::min();
     explicit Double(double value);
     ~Double() override;
-    [[nodiscard]] auto clone() const -> std::unique_ptr<ICloneable> override;
     explicit operator double() const;
     [[nodiscard]] auto equals(const Double& other) const -> bool override;
     [[nodiscard]] auto compareTo(const Double& other) const -> int32_t override;

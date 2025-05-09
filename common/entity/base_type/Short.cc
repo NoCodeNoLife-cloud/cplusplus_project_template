@@ -6,10 +6,6 @@ namespace common {
 
   Short::~Short() = default;
 
-  auto Short::clone() const -> std::unique_ptr<ICloneable> {
-    return std::make_unique<Short>(value_);
-  }
-
   Short::operator short() const {
     return value_;
   }

@@ -6,10 +6,6 @@ namespace common {
 
   Long::~Long() = default;
 
-  auto Long::clone() const -> std::unique_ptr<ICloneable> {
-    return std::make_unique<Long>(value_);
-  }
-
   Long::operator int64_t() const {
     return value_;
   }

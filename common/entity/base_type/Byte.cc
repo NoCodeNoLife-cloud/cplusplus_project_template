@@ -6,10 +6,6 @@ namespace common {
 
   Byte::~Byte() = default;
 
-  auto Byte::clone() const -> std::unique_ptr<ICloneable> {
-    return std::make_unique<Byte>(value_);
-  }
-
   Byte::operator unsigned char() const {
     return value_;
   }

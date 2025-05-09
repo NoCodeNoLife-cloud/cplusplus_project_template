@@ -2,12 +2,12 @@
 #include <entity/base_type/Boolean.hpp>
 
 namespace common {
-  Boolean::Boolean(const bool value) : value_(value) {}
+  Boolean::Boolean(const bool value) : Object(), value_(value) {}
 
   Boolean::~Boolean() = default;
 
-  auto Boolean::clone() const -> std::unique_ptr<ICloneable> {
-    return std::make_unique<Boolean>(value_);
+  std::string Boolean::toString() const {
+    return std::string(getClass().name()) + "{" + std::to_string(value_) + "}";
   }
 
   Boolean::operator bool() const {
