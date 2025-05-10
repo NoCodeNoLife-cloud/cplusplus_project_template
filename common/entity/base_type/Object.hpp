@@ -8,6 +8,14 @@ namespace common {
 
     virtual ~Object();
 
+    Object(const Object& other) = default;
+
+    Object& operator=(const Object& other) = default;
+
+    Object(const Object&& other) = default;
+
+    Object& operator=(Object&& other) = default;
+
     [[nodiscard]] auto getClass() const -> const std::type_info&;
 
     [[nodiscard]] virtual auto hashCode() const -> size_t;
