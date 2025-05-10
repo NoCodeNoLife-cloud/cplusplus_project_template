@@ -9,9 +9,9 @@ namespace common {
     explicit String(const char* str);
     explicit String(std::string str);
     String(const String& other);
-    String(String&& other);
+    String(String&& other) noexcept ;
     String& operator=(const String& other);
-    String& operator=(String&& other);
+    String& operator=(String&& other) noexcept ;
     [[nodiscard]] auto hashCode() const -> size_t override;
     [[nodiscard]] auto toString() const -> std::string override;
     [[nodiscard]] auto charAt(int32_t index) const -> char;

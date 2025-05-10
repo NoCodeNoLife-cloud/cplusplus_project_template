@@ -8,8 +8,7 @@ namespace common {
   String::String(const char* str) : value_(str) {}
   String::String(std::string str) : value_(std::move(str)) {}
   String::String(const String& other): value_(other.value_) {}
-  String::String(String&& other): value_(other.value_) {}
-
+  String::String(String&& other) noexcept : value_(other.value_) {} // NOLINT(*-move-constructor-init)
   String& String::operator=(const String& other) {
     if (this != &other) {
       value_ = other.value_;
@@ -17,7 +16,7 @@ namespace common {
     return *this;
   }
 
-  String& String::operator=(String&& other) {
+  String& String::operator=(String&& other) noexcept {
     if (this != &other) {
       value_ = other.value_;
     }
