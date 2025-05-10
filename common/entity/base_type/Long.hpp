@@ -35,6 +35,10 @@ namespace common {
     auto operator%(const Long& other) const -> Long;
 
   private:
+    friend std::formatter<Long>;
     int64_t value_{0};
   };
 }
+
+template <>
+struct std::formatter<common::Long> : common::GenericFormatter<common::Long, &common::Long::value_> {};

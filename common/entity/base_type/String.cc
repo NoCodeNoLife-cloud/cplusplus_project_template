@@ -16,7 +16,7 @@ namespace common {
   }
 
   std::string String::toString() const {
-    return std::string(getClass().name()) + "{" + value_ + "}";
+    return std::format("{}", *this);
   }
 
   auto String::charAt(const int32_t index) const -> char {

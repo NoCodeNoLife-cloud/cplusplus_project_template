@@ -36,6 +36,10 @@ namespace common {
     auto operator/(const Float& other) const -> Float;
 
   private:
+    friend std::formatter<Float>;
     float value_{0.0};
   };
 }
+
+template <>
+struct std::formatter<common::Float> : common::GenericFormatter<common::Float, &common::Float::value_> {};

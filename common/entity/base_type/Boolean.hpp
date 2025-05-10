@@ -24,9 +24,13 @@ namespace common {
     auto operator<=>(const Boolean& other) const -> std::partial_ordering;
 
   private:
+    friend std::formatter<Boolean>;
     bool value_{false};
   };
 
   const Boolean True{true};
   const Boolean False{false};
 }
+
+template <>
+struct std::formatter<common::Boolean> : common::GenericFormatter<common::Boolean, &common::Boolean::value_> {};

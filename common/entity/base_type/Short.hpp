@@ -35,6 +35,10 @@ namespace common {
     auto operator%(const Short& other) const -> Short;
 
   private:
+    friend std::formatter<Short>;
     int16_t value_{0};
   };
 }
+
+template <>
+struct std::formatter<common::Short> : common::GenericFormatter<common::Short, &common::Short::value_> {};

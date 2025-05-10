@@ -1,4 +1,3 @@
-#include <string>
 #include <boost/functional/hash.hpp>
 #include <entity/base_type/Object.hpp>
 
@@ -19,6 +18,6 @@ namespace common {
   }
 
   auto Object::toString() const -> std::string {
-    return std::string(getClass().name()) + "{}";
+    return std::format("{}", *this);
   }
 }

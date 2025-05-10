@@ -11,7 +11,7 @@ namespace common {
     static constexpr double MAX_VALUE = std::numeric_limits<double>::max();
     static constexpr double MIN_VALUE = std::numeric_limits<double>::min();
 
-    explicit Double(double value);
+    explicit Double(double value = 0.0);
 
     ~Double() override;
 
@@ -36,6 +36,10 @@ namespace common {
     auto operator/(const Double& other) const -> Double;
 
   private:
+    friend std::formatter<Double>;
     double value_{0.0};
   };
 }
+
+template <>
+struct std::formatter<common::Double> : common::GenericFormatter<common::Double, &common::Double::value_> {};

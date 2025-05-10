@@ -15,7 +15,7 @@ namespace common {
   }
 
   std::string Byte::toString() const {
-    return std::string(getClass().name()) + "{" + std::to_string(value_) + "}";
+    return std::format("{}", *this);
   }
 
   Byte::operator unsigned char() const {

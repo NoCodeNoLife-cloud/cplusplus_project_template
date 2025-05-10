@@ -15,7 +15,7 @@ namespace common {
   }
 
   std::string Long::toString() const {
-    return std::string(getClass().name()) + "{" + std::to_string(value_) + "}";
+    return std::format("{}", *this);
   }
 
   Long::operator int64_t() const {

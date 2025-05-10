@@ -33,6 +33,10 @@ namespace common {
     auto operator<=>(const Character& other) const -> std::partial_ordering;
 
   private:
+    friend std::formatter<Character>;
     char value_{0};
   };
 }
+
+template <>
+struct std::formatter<common::Character> : common::GenericFormatter<common::Character, &common::Character::value_> {};

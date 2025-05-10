@@ -95,6 +95,10 @@ namespace common {
     auto operator+(const String& str) const -> String;
 
   private:
+    friend std::formatter<String>;
     std::string value_{};
   };
 }
+
+template <>
+struct std::formatter<common::String> : common::GenericFormatter<common::String, &common::String::value_> {};

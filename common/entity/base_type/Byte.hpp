@@ -29,6 +29,10 @@ namespace common {
     auto operator-(const Byte& other) const -> Byte;
 
   private:
+    friend std::formatter<Byte>;
     uint8_t value_{0};
   };
 }
+
+template <>
+struct std::formatter<common::Byte> : common::GenericFormatter<common::Byte, &common::Byte::value_> {};

@@ -19,7 +19,7 @@ namespace common {
   }
 
   std::string Short::toString() const {
-    return std::string(getClass().name()) + "{" + std::to_string(value_) + "}";
+    return std::format("{}", *this);
   }
 
   auto Short::shortValue() const -> int16_t {

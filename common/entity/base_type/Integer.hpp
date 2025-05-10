@@ -33,6 +33,10 @@ namespace common {
     auto operator/(const Integer& other) const -> Integer;
 
   private:
+    friend std::formatter<Integer>;
     int32_t value_{0};
   };
 }
+
+template <>
+struct std::formatter<common::Integer> : common::GenericFormatter<common::Integer, &common::Integer::value_> {};

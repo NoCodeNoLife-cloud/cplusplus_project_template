@@ -15,7 +15,7 @@ namespace common {
   }
 
   std::string Integer::toString() const {
-    return std::string(getClass().name()) + "{" + std::to_string(value_) + "}";
+    return std::format("{}", *this);
   }
 
   Integer::operator int32_t() const {
