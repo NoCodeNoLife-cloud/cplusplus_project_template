@@ -4,8 +4,23 @@
 
 namespace common {
   Float::Float(const float value) : value_(value) {}
-
   Float::~Float() = default;
+  Float::Float(const Float& other): value_(other.value_) {}
+  Float::Float(Float&& other) noexcept: value_(other.value_) {}
+
+  Float& Float::operator=(const Float& other) {
+    if (this != &other) {
+      value_ = other.value_;
+    }
+    return *this;
+  }
+
+  Float& Float::operator=(Float&& other) noexcept {
+    if (this != &other) {
+      value_ = other.value_;
+    }
+    return *this;
+  }
 
   size_t Float::hashCode() const {
     size_t seed = 0;

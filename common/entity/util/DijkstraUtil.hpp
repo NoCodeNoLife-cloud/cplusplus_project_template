@@ -5,11 +5,8 @@ namespace common {
   class DijkstraUtil {
   public:
     explicit DijkstraUtil(const common::Graph& g);
-
     auto compute(int32_t start) -> void;
-
     [[nodiscard]] auto getDistance(int32_t node) const -> int32_t;
-
     [[nodiscard]] auto getDistances() const -> std::vector<int32_t>;
 
   private:

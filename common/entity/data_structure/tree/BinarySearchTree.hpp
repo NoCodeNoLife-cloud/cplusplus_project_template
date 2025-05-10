@@ -8,26 +8,17 @@ namespace common {
   class BinarySearchTree {
   public:
     BinarySearchTree() : root(nullptr) {}
-
     auto insert(T value) -> void;
-
     auto find(T value) const -> bool;
-
     auto remove(T value) -> void;
-
     auto inorderTraversal() const -> void;
 
   private:
     std::shared_ptr<TreeNode<T>> root;
-
     auto insertRecursive(std::shared_ptr<TreeNode<T>> node, T value) -> std::shared_ptr<TreeNode<T>>;
-
     auto findRecursive(const std::shared_ptr<TreeNode<T>>& node, T value) const -> bool;
-
     auto removeRecursive(std::shared_ptr<TreeNode<T>> node, T value) -> std::shared_ptr<TreeNode<T>>;
-
     auto minValueNode(std::shared_ptr<TreeNode<T>> node) -> std::shared_ptr<TreeNode<T>>;
-
     auto inorderTraversalRecursive(const std::shared_ptr<TreeNode<T>>& node) const -> void;
   };
 

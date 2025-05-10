@@ -4,8 +4,23 @@
 
 namespace common {
   Byte::Byte(const uint8_t value) : value_(value) {}
-
   Byte::~Byte() = default;
+  Byte::Byte(const Byte& other): value_(other.value_) {};
+  Byte::Byte(Byte&& other) noexcept: value_(other.value_) {};
+
+  Byte& Byte::operator=(const Byte& other) {
+    if (this != &other) {
+      value_ = other.value_;
+    }
+    return *this;
+  }
+
+  Byte& Byte::operator=(Byte&& other) noexcept {
+    if (this != &other) {
+      value_ = other.value_;
+    }
+    return *this;
+  }
 
   size_t Byte::hashCode() const {
     size_t seed = 0;

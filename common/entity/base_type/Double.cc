@@ -4,8 +4,23 @@
 
 namespace common {
   Double::Double(const double value) : value_(value) {}
-
   Double::~Double() = default;
+  Double::Double(const Double& other) : value_(other.value_) {}
+  Double::Double(Double&& other) noexcept : value_(other.value_) {}
+
+  Double& Double::operator=(const Double& other) {
+    if (this != &other) {
+      value_ = other.value_;
+    }
+    return *this;
+  }
+
+  Double& Double::operator=(Double&& other) noexcept {
+    if (this != &other) {
+      value_ = other.value_;
+    }
+    return *this;
+  }
 
   size_t Double::hashCode() const {
     size_t seed = 0;

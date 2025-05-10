@@ -4,8 +4,23 @@
 
 namespace common {
   Boolean::Boolean(const bool value) : Object(), value_(value) {}
-
   Boolean::~Boolean() = default;
+  Boolean::Boolean(const Boolean& other) : value_(other.value_) {}
+  Boolean::Boolean(Boolean&& other) noexcept: value_(other.value_) {}
+
+  Boolean& Boolean::operator=(const Boolean& other) {
+    if (this != &other) {
+      value_ = other.value_;
+    }
+    return *this;
+  }
+
+  Boolean& Boolean::operator=(Boolean&& other) noexcept {
+    if (this != &other) {
+      value_ = other.value_;
+    }
+    return *this;
+  }
 
   size_t Boolean::hashCode() const {
     size_t seed = 0;

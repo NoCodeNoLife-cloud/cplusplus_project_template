@@ -10,29 +10,21 @@ namespace common {
     static constexpr double NaN = std::numeric_limits<double>::quiet_NaN();
     static constexpr double MAX_VALUE = std::numeric_limits<double>::max();
     static constexpr double MIN_VALUE = std::numeric_limits<double>::min();
-
     explicit Double(double value = 0.0);
-
     ~Double() override;
-
+    Double(const Double& other);
+    Double(Double&& other) noexcept;
+    Double& operator=(const Double& other);
+    Double& operator=(Double&& other) noexcept;
     [[nodiscard]] auto hashCode() const -> size_t override;
-
     [[nodiscard]] auto toString() const -> std::string override;
-
     explicit operator double() const;
-
     [[nodiscard]] auto doubleValue() const -> double;
-
     static auto parseDouble(const std::string& str) -> Double;
-
     auto operator<=>(const Double& other) const -> std::partial_ordering;
-
     auto operator+(const Double& other) const -> Double;
-
     auto operator-(const Double& other) const -> Double;
-
     auto operator*(const Double& other) const -> Double;
-
     auto operator/(const Double& other) const -> Double;
 
   private:

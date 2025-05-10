@@ -7,25 +7,15 @@ namespace common {
   class RedBlackTreeNode {
   public:
     explicit RedBlackTreeNode(const T& value);
-
     auto getData() const -> T;
-
     auto setData(const T& value) -> void;
-
     auto getLeft() const -> std::shared_ptr<RedBlackTreeNode>;
-
     auto setLeft(std::shared_ptr<RedBlackTreeNode> node) -> void;
-
     auto getRight() const -> std::shared_ptr<RedBlackTreeNode>;
-
     auto setRight(std::shared_ptr<RedBlackTreeNode> node) -> void;
-
     auto getParent() const -> std::shared_ptr<RedBlackTreeNode>;
-
     auto setParent(std::shared_ptr<RedBlackTreeNode> node) -> void;
-
     [[nodiscard]] auto getColor() const -> Color;
-
     auto setColor(Color c) -> void;
 
   private:

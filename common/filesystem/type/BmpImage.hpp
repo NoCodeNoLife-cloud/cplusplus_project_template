@@ -30,9 +30,7 @@ namespace common {
   class BmpImage {
   public:
     BmpImage(int32_t width, int32_t height);
-
     auto setPixel(int32_t x, int32_t y, uint8_t r, uint8_t g, uint8_t b) -> void;
-
     auto save(const std::string& filename) const -> void;
 
   private:

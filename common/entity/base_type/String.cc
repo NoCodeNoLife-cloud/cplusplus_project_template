@@ -4,9 +4,25 @@
 
 namespace common {
   String::String() = default;
-
+  String::~String() = default;
   String::String(const char* str) : value_(str) {}
   String::String(std::string str) : value_(std::move(str)) {}
+  String::String(const String& other): value_(other.value_) {}
+  String::String(String&& other): value_(other.value_) {}
+
+  String& String::operator=(const String& other) {
+    if (this != &other) {
+      value_ = other.value_;
+    }
+    return *this;
+  }
+
+  String& String::operator=(String&& other) {
+    if (this != &other) {
+      value_ = other.value_;
+    }
+    return *this;
+  }
 
   size_t String::hashCode() const {
     size_t seed = 0;

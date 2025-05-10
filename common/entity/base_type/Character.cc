@@ -4,8 +4,23 @@
 
 namespace common {
   Character::Character(const char value) : value_(value) {}
-
   Character::~Character() = default;
+  Character::Character(const Character& other): value_(other.value_) {}
+  Character::Character(Character&& other) noexcept: value_(other.value_) {}
+
+  Character& Character::operator=(const Character& other) {
+    if (this != &other) {
+      value_ = other.value_;
+    }
+    return *this;
+  }
+
+  Character& Character::operator=(Character&& other) noexcept {
+    if (this != &other) {
+      value_ = other.value_;
+    }
+    return *this;
+  }
 
   size_t Character::hashCode() const {
     size_t seed = 0;

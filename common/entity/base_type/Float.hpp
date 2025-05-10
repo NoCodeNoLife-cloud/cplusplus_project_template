@@ -10,29 +10,21 @@ namespace common {
     static constexpr float NaN = std::numeric_limits<float>::quiet_NaN();
     static constexpr float MAX_VALUE = std::numeric_limits<float>::max();
     static constexpr float MIN_VALUE = std::numeric_limits<float>::min();
-
     explicit Float(float value);
-
     ~Float() override;
-
+    Float(const Float& other);
+    Float(Float&& other) noexcept;
+    Float& operator=(const Float& other);
+    Float& operator=(Float&& other) noexcept;
     [[nodiscard]] auto hashCode() const -> size_t override;
-
     [[nodiscard]] auto toString() const -> std::string override;
-
     explicit operator float() const;
-
     [[nodiscard]] auto floatValue() const -> float;
-
     static auto parseFloat(const std::string& str) -> Float;
-
     auto operator<=>(const Float& other) const -> std::partial_ordering;
-
     auto operator+(const Float& other) const -> Float;
-
     auto operator-(const Float& other) const -> Float;
-
     auto operator*(const Float& other) const -> Float;
-
     auto operator/(const Float& other) const -> Float;
 
   private:

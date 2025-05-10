@@ -5,7 +5,6 @@ namespace common {
   class ClassUtil abstract {
   public:
     ClassUtil() = delete;
-
     template <typename T>
     static auto getTypeId(const T& t) -> std::string;
   };

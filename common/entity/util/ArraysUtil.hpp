@@ -9,31 +9,22 @@ namespace common {
   public:
     template <typename T>
     static auto asList(const T* array, size_t size) -> std::vector<T>;
-
     template <typename T>
     static auto binarySearch(const T* array, size_t size, const T& key) -> int32_t;
-
     template <typename T>
     static auto binarySearch(const T* array, size_t fromIndex, size_t toIndex, const T& key) -> int32_t;
-
     template <typename T>
     static auto copyOf(const T* original, size_t originalSize, size_t newLength) -> std::vector<T>;
-
     template <typename T>
     static auto copyOfRange(const T* original, size_t from, size_t to) -> std::vector<T>;
-
     template <typename T>
     static auto equals(const T* a, size_t sizeA, const T* b, size_t sizeB) -> bool;
-
     template <typename T>
     static auto fill(T* array, size_t size, const T& value) -> void;
-
     template <typename T>
     static auto sort(T* array, size_t size) -> void;
-
     template <typename T>
     static auto sort(T* array, size_t fromIndex, size_t toIndex) -> void;
-
     template <typename T>
     static auto toString(const T* array, size_t size) -> std::string;
   };

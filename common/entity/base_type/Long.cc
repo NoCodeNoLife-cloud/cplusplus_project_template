@@ -4,8 +4,23 @@
 
 namespace common {
   Long::Long(const int64_t value) : value_(value) {}
-
   Long::~Long() = default;
+  Long::Long(const Long& other) : value_(other.value_) {}
+  Long::Long(Long&& other) noexcept : value_(other.value_) {}
+
+  Long& Long::operator=(const Long& other) {
+    if (this != &other) {
+      value_ = other.value_;
+    }
+    return *this;
+  }
+
+  Long& Long::operator=(Long&& other) noexcept {
+    if (this != &other) {
+      value_ = other.value_;
+    }
+    return *this;
+  }
 
   size_t Long::hashCode() const {
     size_t seed = 0;

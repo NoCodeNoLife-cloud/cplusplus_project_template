@@ -4,8 +4,23 @@
 
 namespace common {
   Short::Short(const int16_t value) : value_(value) {}
-
   Short::~Short() = default;
+  Short::Short(const Short& other): value_(other.value_) {}
+  Short::Short(Short&& other) noexcept: value_(other.value_) {}
+
+  Short& Short::operator=(const Short& other) {
+    if (this != &other) {
+      value_ = other.value_;
+    }
+    return *this;
+  }
+
+  Short& Short::operator=(Short&& other) noexcept {
+    if (this != &other) {
+      value_ = other.value_;
+    }
+    return *this;
+  }
 
   size_t Short::hashCode() const {
     size_t seed = 0;

@@ -12,7 +12,6 @@ namespace common {
   public:
     template <DerivedFromBoostSerializable T>
     static auto serializeObject(const T& obj) -> std::string;
-
     template <DerivedFromBoostSerializable T>
     static auto deserializeObject(const std::string& data) -> T;
   };

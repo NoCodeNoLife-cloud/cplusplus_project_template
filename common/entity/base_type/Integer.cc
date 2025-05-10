@@ -4,8 +4,23 @@
 
 namespace common {
   Integer::Integer(const int32_t value) : value_(value) {}
-
   Integer::~Integer() = default;
+  Integer::Integer(const Integer& other): value_(other.value_) {}
+  Integer::Integer(Integer&& other) noexcept: value_(other.value_) {}
+
+  Integer& Integer::operator=(const Integer& other) {
+    if (this != &other) {
+      value_ = other.value_;
+    }
+    return *this;
+  }
+
+  Integer& Integer::operator=(Integer&& other) noexcept {
+    if (this != &other) {
+      value_ = other.value_;
+    }
+    return *this;
+  }
 
   size_t Integer::hashCode() const {
     size_t seed = 0;

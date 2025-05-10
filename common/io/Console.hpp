@@ -9,19 +9,13 @@ namespace common {
   public:
     template <typename... Args>
     auto format(const std::string& fmt, Args... args) -> void;
-
     template <typename... Args>
     auto printf(const std::string& fmt, Args... args) -> void;
-
     template <typename... Args>
     auto readLine(const std::string& fmt, Args... args) -> std::string;
-
     auto flush() -> void override;
-
     static auto readLine() -> std::string;
-
     static auto writer() -> std::ostream&;
-
     static auto reader() -> std::istream&;
   };
 

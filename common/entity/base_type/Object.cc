@@ -3,8 +3,14 @@
 
 namespace common {
   Object::Object() = default;
-
   Object::~Object() = default;
+  Object::Object(const Object& other) = default;
+  Object::Object(const Object&& other) noexcept {}
+  Object& Object::operator=(const Object& other) = default;
+
+  Object& Object::operator=(Object&& other) noexcept {
+    return *this;
+  }
 
   auto Object::getClass() const -> const std::type_info& {
     return typeid(*this);

@@ -3,7 +3,6 @@
 
 namespace common {
   StringReader::StringReader(std::string s) : source_(std::move(s)), position_(0), mark_position_(0), mark_set_(false) {}
-
   StringReader::~StringReader() = default;
 
   auto StringReader::close() -> void {

@@ -7,31 +7,22 @@ namespace common {
   public:
     static constexpr int16_t MAX_VALUE = std::numeric_limits<int16_t>::max();
     static constexpr int16_t MIN_VALUE = std::numeric_limits<int16_t>::min();
-
     explicit Short(int16_t value);
-
     ~Short() override;
-
+    Short(const Short& other);
+    Short(Short&& other) noexcept;
+    Short& operator=(const Short& other);
+    Short& operator=(Short&& other) noexcept;
     [[nodiscard]] auto hashCode() const -> size_t override;
-
     [[nodiscard]] auto toString() const -> std::string override;
-
     explicit operator short() const;
-
     [[nodiscard]] auto shortValue() const -> int16_t;
-
     static auto parseShort(const std::string& str) -> Short;
-
     auto operator<=>(const Short& other) const -> std::partial_ordering;
-
     auto operator+(const Short& other) const -> Short;
-
     auto operator-(const Short& other) const -> Short;
-
     auto operator*(const Short& other) const -> Short;
-
     auto operator/(const Short& other) const -> Short;
-
     auto operator%(const Short& other) const -> Short;
 
   private:

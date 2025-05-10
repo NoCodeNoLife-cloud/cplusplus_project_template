@@ -7,16 +7,12 @@ namespace common {
   public:
     template <typename Func, typename... Args>
     auto exec(Func&& func, Args&&... args) -> decltype(auto);
-
     virtual ~IAop();
 
   private:
     virtual void onEntry();;
-
     virtual void onExit();;
-
     virtual void onException();;
-
     template <typename T>
     auto handleResult(T&& result) -> decltype(auto);
   };

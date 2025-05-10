@@ -9,7 +9,6 @@ namespace common {
   File::File(const std::string& path) : file_path_(path) {}
   File::File(std::filesystem::path path) : file_path_(std::move(path)) {}
   File::File(const char* path) : file_path_(path) {}
-
   File::~File() = default;
 
   auto File::canExecute() const -> bool {

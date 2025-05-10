@@ -13,31 +13,21 @@ namespace common {
   class JsonSerializer abstract {
   public:
     JsonSerializer() = delete;
-
     template <DerivedFromJsonSerializable T>
     static auto saveObjectToJsonFile(const T& entity, const std::string& filename) -> void;
-
     template <DerivedFromJsonSerializable T>
     static auto loadObjectFromJsonFile(const std::string& filename) -> T;
-
     static auto getStringOrDefault(const rapidjson::Value& json, const char* key, const std::string& defaultValue)
       -> std::string;
-
     static auto getIntOrDefault(const rapidjson::Value& json, const char* key, int32_t defaultValue) -> int32_t;
-
     static auto getDoubleOrDefault(const rapidjson::Value& json, const char* key, double defaultValue) -> double;
-
     static auto getBoolOrDefault(const rapidjson::Value& json, const char* key, bool defaultValue) -> bool;
-
     static auto serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key,
                                const std::string& value) -> void;
-
     static auto serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key, int32_t value)
       -> void;
-
     static auto serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key, double value)
       -> void;
-
     static auto serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key, bool value) -> void;
   };
 

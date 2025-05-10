@@ -3,7 +3,6 @@
 
 namespace common {
   FilterReader::FilterReader(std::shared_ptr<AbstractReader> reader) : in(std::move(reader)) {}
-
   FilterReader::~FilterReader() = default;
 
   auto FilterReader::close() -> void {
