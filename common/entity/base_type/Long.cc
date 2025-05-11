@@ -42,18 +42,20 @@ namespace common {
   }
 
   auto Long::parseLong(const std::string& str) -> Long {
-    try {
-      const int64_t result = std::stoll(str, nullptr, 0);
-      return Long(result);
-    } catch (const std::invalid_argument&) {
+    size_t pos = 0;
+    const int64_t result = std::stoll(str, &pos, 10);
+    if (pos != str.length() || pos == 0) {
       throw std::invalid_argument("Invalid input string for Long conversion");
-    } catch (const std::out_of_range&) {
-      throw std::out_of_range("Value out of range for Long");
     }
+    return Long(result);
   }
 
   auto Long::operator<=>(const Long& other) const -> std::partial_ordering {
     return value_ <=> other.value_;
+  }
+
+  auto Long::operator==(const Long& other) const -> bool {
+    return value_ == other.value_;
   }
 
   auto Long::operator+(const Long& other) const -> Long {
