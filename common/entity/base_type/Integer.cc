@@ -58,6 +58,10 @@ namespace common {
     return value_ <=> other.value_;
   }
 
+  auto Integer::operator==(const Integer& other) const -> bool {
+    return value_ == other.value_;
+  }
+
   auto Integer::operator+(const Integer& other) const -> Integer {
     return Integer(this->value_ + other.value_);
   }

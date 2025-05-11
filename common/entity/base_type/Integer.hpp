@@ -19,6 +19,7 @@ namespace common {
     [[nodiscard]] auto intValue() const -> int32_t;
     static auto parseInt(const std::string& str) -> Integer;
     auto operator<=>(const Integer& other) const -> std::partial_ordering;
+    auto operator==(const Integer& other) const -> bool;
     auto operator+(const Integer& other) const -> Integer;
     auto operator-(const Integer& other) const -> Integer;
     auto operator*(const Integer& other) const -> Integer;
