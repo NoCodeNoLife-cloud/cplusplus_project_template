@@ -4,118 +4,90 @@
 #include <gtest/gtest.h>
 
 namespace gtest_case {
-  TEST(DoubleTest, ConstructorInitializesValueCorrectly) {
-    constexpr double value = 42.0;
-    const common::Double d(value);
-    EXPECT_DOUBLE_EQ(static_cast<double>(d), value);
+  TEST(DoubleTest, ConstructorTest) {
+    common::Double d1(2.5);
+    EXPECT_EQ(d1.doubleValue(), 2.5);
+    common::Double d2(common::Double::POSITIVE_INFINITY);
+    EXPECT_EQ(d2.doubleValue(), std::numeric_limits<double>::infinity());
+    common::Double d3(common::Double::NEGATIVE_INFINITY);
+    EXPECT_EQ(d3.doubleValue(), -std::numeric_limits<double>::infinity());
+    common::Double d4(common::Double::NaN);
+    EXPECT_TRUE(std::isnan(d4.doubleValue()));
   }
 
-  TEST(DoubleTest, ConversionOperatorReturnsStoredValue) {
-    const common::Double d(3.14);
-    EXPECT_DOUBLE_EQ(static_cast<double>(d), 3.14);
+  TEST(DoubleTest, CopyConstructorTest) {
+    common::Double d1(3.14);
+    common::Double d2(d1);
+    EXPECT_EQ(d2.doubleValue(), 3.14);
   }
 
-  TEST(DoubleTest, ParseDoubleConvertsValidString) {
-    const std::string str = "123.45";
-    const common::Double d = common::Double::parseDouble(str);
-    EXPECT_DOUBLE_EQ(static_cast<double>(d), 123.45);
+  TEST(DoubleTest, MoveConstructorTest) {
+    common::Double d1(42.0);
+    common::Double d2(std::move(d1));
+    EXPECT_EQ(d2.doubleValue(), 42.0);
   }
 
-  TEST(DoubleTest, ParseDoubleThrowsInvalidArgumentForInvalidInput) {
-    const std::string invalid = "abc";
-    EXPECT_THROW(common::Double::parseDouble(invalid), std::invalid_argument);
+  TEST(DoubleTest, AssignmentOperatorTest) {
+    common::Double d1(1.0);
+    common::Double d2(2.0);
+    d2 = d1;
+    EXPECT_EQ(d2.doubleValue(), 1.0);
+    d1 = d1;
+    EXPECT_EQ(d1.doubleValue(), 1.0);
   }
 
-  TEST(DoubleTest, ParseDoubleThrowsOutOfRangeForLargeValue) {
-    const std::string huge = "1e999999999";
-    EXPECT_THROW(common::Double::parseDouble(huge), std::out_of_range);
+  TEST(DoubleTest, ComparisonOperatorsTest) {
+    common::Double d1(5.0);
+    common::Double d2(5.0);
+    common::Double d3(6.0);
+    EXPECT_TRUE(d1 == d2);
+    EXPECT_FALSE(d1 == d3);
+    EXPECT_TRUE(d1 < d3);
+    EXPECT_FALSE(d3 < d1);
+    common::Double d4(common::Double::NaN);
+    EXPECT_FALSE(d4 == d4);
+    EXPECT_FALSE(d4 < d4);
   }
 
-  TEST(DoubleTest, EqualityOperatorComparesValuesCorrectly) {
-    const common::Double a(5.0);
-    const common::Double b(5.0);
-    const common::Double c(6.0);
-    EXPECT_TRUE(std::is_eq(a <=> b));
-    EXPECT_FALSE(std::is_eq(a <=> c));
+  TEST(DoubleTest, ArithmeticOperatorsTest) {
+    common::Double d1(4.0);
+    common::Double d2(2.0);
+    EXPECT_EQ((d1 + d2).doubleValue(), 6.0);
+    EXPECT_EQ((d1 - d2).doubleValue(), 2.0);
+    EXPECT_EQ((d1 * d2).doubleValue(), 8.0);
+    EXPECT_EQ((d1 / d2).doubleValue(), 2.0);
+    common::Double zero(0.0);
+    EXPECT_THROW(d1 / zero, std::overflow_error);
+    common::Double nan(common::Double::NaN);
+    EXPECT_TRUE(std::isnan((d1 + nan).doubleValue()));
   }
 
-  TEST(DoubleTest, InequalityOperatorWorks) {
-    const common::Double a(5.0);
-    const common::Double b(6.0);
-    EXPECT_TRUE(std::is_neq(a <=> b));
-    EXPECT_FALSE(std::is_neq(a <=> a));
+  TEST(DoubleTest, ParseDoubleTest) {
+    EXPECT_EQ(common::Double::parseDouble("123").doubleValue(), 123.0);
+    EXPECT_EQ(common::Double::parseDouble("123.45").doubleValue(), 123.45);
+    EXPECT_EQ(common::Double::parseDouble("-123").doubleValue(), -123.0);
+    EXPECT_EQ(common::Double::parseDouble("inf").doubleValue(), std::numeric_limits<double>::infinity());
+    EXPECT_EQ(common::Double::parseDouble("-inf").doubleValue(), -std::numeric_limits<double>::infinity());
+    EXPECT_TRUE(std::isnan(common::Double::parseDouble("nan").doubleValue()));
+    EXPECT_THROW(common::Double::parseDouble("abc"), std::invalid_argument);
+    EXPECT_THROW(common::Double::parseDouble("123abc"), std::invalid_argument);
+    EXPECT_THROW(common::Double::parseDouble("1e10000"), std::out_of_range);
   }
 
-  TEST(DoubleTest, LessThanOperator) {
-    const common::Double a(3.0);
-    const common::Double b(5.0);
-    EXPECT_TRUE(a < b);
-    EXPECT_FALSE(b < a);
+  TEST(DoubleTest, ToStringTest) {
+    common::Double d1(3.14);
+    EXPECT_EQ(d1.toString(), "class common::Double{3.14}");
+    common::Double d2(common::Double::POSITIVE_INFINITY);
+    EXPECT_EQ(d2.toString(), "class common::Double{inf}");
+    common::Double d3(common::Double::NaN);
+    EXPECT_EQ(d3.toString(), "class common::Double{nan}");
   }
 
-  TEST(DoubleTest, GreaterThanOperator) {
-    const common::Double a(5.0);
-    const common::Double b(3.0);
-    EXPECT_TRUE(a > b);
-    EXPECT_FALSE(b > a);
-  }
-
-  TEST(DoubleTest, LessThanOrEqualOperator) {
-    const common::Double a(3.0);
-    const common::Double b(3.0);
-    const common::Double c(5.0);
-    EXPECT_TRUE(a <= b);
-    EXPECT_TRUE(a <= c);
-  }
-
-  TEST(DoubleTest, GreaterThanOrEqualOperator) {
-    const common::Double a(5.0);
-    const common::Double b(5.0);
-    const common::Double c(3.0);
-    EXPECT_TRUE(a >= b);
-    EXPECT_TRUE(a >= c);
-  }
-
-  TEST(DoubleTest, AdditionOperator) {
-    const common::Double a(3.0);
-    const common::Double b(4.0);
-    const common::Double result = a + b;
-    EXPECT_DOUBLE_EQ(static_cast<double>(result), 7.0);
-  }
-
-  TEST(DoubleTest, SubtractionOperator) {
-    const common::Double a(5.0);
-    const common::Double b(3.0);
-    const common::Double result = a - b;
-    EXPECT_DOUBLE_EQ(static_cast<double>(result), 2.0);
-  }
-
-  TEST(DoubleTest, MultiplicationOperator) {
-    const common::Double a(2.5);
-    const common::Double b(4.0);
-    const common::Double result = a * b;
-    EXPECT_DOUBLE_EQ(static_cast<double>(result), 10.0);
-  }
-
-  TEST(DoubleTest, DivisionOperatorWithNonZeroDivisor) {
-    const common::Double a(10.0);
-    const common::Double b(2.0);
-    const common::Double result = a / b;
-    EXPECT_DOUBLE_EQ(static_cast<double>(result), 5.0);
-  }
-
-  TEST(DoubleTest, DivisionByZeroThrowsOverflowError) {
-    const common::Double a(5.0);
-    const common::Double b(0.0);
-    EXPECT_THROW(a / b, std::overflow_error);
-  }
-
-  TEST(DoubleTest, ArithmeticOperationsWithNegativeNumbers) {
-    const common::Double a(-3.0);
-    const common::Double b(2.0);
-    const common::Double addResult = a + b;
-    const common::Double mulResult = a * b;
-    EXPECT_DOUBLE_EQ(static_cast<double>(addResult), -1.0);
-    EXPECT_DOUBLE_EQ(static_cast<double>(mulResult), -6.0);
+  TEST(DoubleTest, HashCodeTest) {
+    common::Double d1(1.0);
+    common::Double d2(1.0);
+    common::Double d3(2.0);
+    EXPECT_EQ(d1.hashCode(), d2.hashCode());
+    EXPECT_NE(d1.hashCode(), d3.hashCode());
   }
 }

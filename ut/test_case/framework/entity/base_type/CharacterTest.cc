@@ -3,24 +3,24 @@
 
 namespace gtest_case {
   TEST(CharacterTest, ConstructorTest) {
-    common::Character c('A');
+    const common::Character c('A');
     EXPECT_EQ(c.characterValue(), 'A');
   }
 
   TEST(CharacterTest, CopyConstructorTest) {
-    common::Character c1('B');
-    common::Character c2(c1);
+    const common::Character c1('B');
+    const common::Character c2(c1);
     EXPECT_EQ(c2.characterValue(), 'B');
   }
 
   TEST(CharacterTest, MoveConstructorTest) {
     common::Character c1('C');
-    common::Character c2(std::move(c1));
+    const common::Character c2(std::move(c1));
     EXPECT_EQ(c2.characterValue(), 'C');
   }
 
   TEST(CharacterTest, CopyAssignmentTest) {
-    common::Character c1('D');
+    const common::Character c1('D');
     common::Character c2('E');
     c2 = c1;
     EXPECT_EQ(c2.characterValue(), 'D');
@@ -34,20 +34,20 @@ namespace gtest_case {
   }
 
   TEST(CharacterTest, HashCodeTest) {
-    common::Character c1('H');
-    common::Character c2('H');
-    common::Character c3('I');
+    const common::Character c1('H');
+    const common::Character c2('H');
+    const common::Character c3('I');
     EXPECT_EQ(c1.hashCode(), c2.hashCode());
     EXPECT_NE(c1.hashCode(), c3.hashCode());
   }
 
   TEST(CharacterTest, ToStringTest) {
-    common::Character c('J');
+    const common::Character c('J');
     EXPECT_EQ(c.toString(), "class common::Character{J}");
   }
 
   TEST(CharacterTest, CharCastTest) {
-    common::Character c('K');
+    const common::Character c('K');
     EXPECT_EQ(static_cast<char>(c), 'K');
   }
 
@@ -94,14 +94,14 @@ namespace gtest_case {
   }
 
   TEST(CharacterTest, CharacterValueTest) {
-    common::Character c('T');
+    const common::Character c('T');
     EXPECT_EQ(c.characterValue(), 'T');
   }
 
   TEST(CharacterTest, ComparisonOperatorsTest) {
-    common::Character c1('U');
-    common::Character c2('V');
-    common::Character c3('U');
+    const common::Character c1('U');
+    const common::Character c2('V');
+    const common::Character c3('U');
 
     EXPECT_EQ(c1 <=> c3, std::partial_ordering::equivalent);
     EXPECT_EQ(c1 <=> c2, std::partial_ordering::less);

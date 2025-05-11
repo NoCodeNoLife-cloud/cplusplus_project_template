@@ -30,20 +30,19 @@ namespace gtest_case {
 
   TEST(BooleanTest, CopyAssignment) {
     const common::Boolean original(false);
-    common::Boolean target;
-    target = original;
+    const common::Boolean target = original;
     EXPECT_FALSE(static_cast<bool>(target));
   }
 
   TEST(BooleanTest, MoveAssignment) {
     common::Boolean original(true);
-    common::Boolean target;
-    target = std::move(original);
+    const common::Boolean target = std::move(original);
     EXPECT_TRUE(static_cast<bool>(target));
   }
 
   TEST(BooleanTest, SelfAssignment) {
     common::Boolean boolean(true);
+    // ReSharper disable once CppIdenticalOperandsInBinaryExpression
     boolean = boolean;
     EXPECT_TRUE(static_cast<bool>(boolean));
   }

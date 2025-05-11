@@ -22,6 +22,7 @@ namespace common {
     [[nodiscard]] auto doubleValue() const -> double;
     static auto parseDouble(const std::string& str) -> Double;
     auto operator<=>(const Double& other) const -> std::partial_ordering;
+    auto operator==(const Double& other) const -> bool;
     auto operator+(const Double& other) const -> Double;
     auto operator-(const Double& other) const -> Double;
     auto operator*(const Double& other) const -> Double;

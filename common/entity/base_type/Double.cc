@@ -43,7 +43,11 @@ namespace common {
 
   auto Double::parseDouble(const std::string& str) -> Double {
     try {
-      const double result = std::stod(str);
+      size_t idx = 0;
+      const double result = std::stod(str, &idx);
+      if (idx != str.size()) {
+        throw std::invalid_argument("Invalid input string for Double conversion");
+      }
       return Double(result);
     } catch (const std::invalid_argument&) {
       throw std::invalid_argument("Invalid input string for Double conversion");
@@ -54,6 +58,10 @@ namespace common {
 
   auto Double::operator<=>(const Double& other) const -> std::partial_ordering {
     return value_ <=> other.value_;
+  }
+
+  auto Double::operator==(const Double& other) const -> bool {
+    return value_ == other.value_;
   }
 
   auto Double::operator+(const Double& other) const -> Double {
