@@ -114,4 +114,4 @@ namespace gtest_case {
     EXPECT_EQ(trueBool.toString(), "class common::Boolean{1}");
     EXPECT_EQ(falseBool.toString(), "class common::Boolean{0}");
   }
-} // namespace gtest_case
+}

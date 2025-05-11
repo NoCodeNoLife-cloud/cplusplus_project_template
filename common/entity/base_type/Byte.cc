@@ -61,6 +61,10 @@ namespace common {
     return value_ <=> other.value_;
   }
 
+  auto Byte::operator==(const Byte& other) const -> bool {
+    return value_ == other.value_;
+  }
+
   auto Byte::operator+(const Byte& other) const -> Byte {
     const int64_t result = static_cast<int64_t>(value_) + static_cast<int64_t>(other.value_);
     if (result > 255) {

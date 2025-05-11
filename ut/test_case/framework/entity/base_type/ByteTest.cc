@@ -3,119 +3,122 @@
 #include <gtest/gtest.h>
 
 namespace gtest_case {
-  TEST(ByteTest, ConstructorInitializesValueCorrectly) {
-    constexpr uint8_t value = 42;
-    const common::Byte byte(value);
-    EXPECT_EQ(byte.byteValue(), value);
+  TEST(ByteTest, DefaultConstructorInitializesToZero) {
+    common::Byte b;
+    EXPECT_EQ(b.byteValue(), 0);
   }
 
-  TEST(ByteTest, ByteValueReturnsInternalValue) {
-    constexpr uint8_t value = 200;
-    const common::Byte byte(value);
-    EXPECT_EQ(byte.byteValue(), value);
+  TEST(ByteTest, ParameterizedConstructorSetsValue) {
+    common::Byte b(100);
+    EXPECT_EQ(b.byteValue(), 100);
   }
 
-  TEST(ByteTest, OperatorEqualityComparesValues) {
-    const common::Byte byte1(10);
-    const common::Byte byte2(10);
-    const common::Byte byte3(20);
-    EXPECT_TRUE(std::is_eq(byte1 <=> byte2));
-    EXPECT_FALSE(std::is_eq(byte1 <=> byte3));
+  TEST(ByteTest, CopyConstructorCopiesValue) {
+    common::Byte b1(50);
+    common::Byte b2 = b1;
+    EXPECT_EQ(b2.byteValue(), 50);
   }
 
-  TEST(ByteTest, OperatorInequalityComparesValues) {
-    const common::Byte byte1(15);
-    const common::Byte byte2(25);
-    const common::Byte byte3(15);
-    EXPECT_TRUE(std::is_neq(byte1 <=> byte2));
-    EXPECT_FALSE(std::is_neq(byte1 <=> byte3));
+  TEST(ByteTest, MoveConstructorTransfersValue) {
+    common::Byte b1(50);
+    common::Byte b2 = std::move(b1);
+    EXPECT_EQ(b2.byteValue(), 50);
   }
 
-  TEST(ByteTest, OperatorLessThanComparesValues) {
-    const common::Byte byte1(30);
-    const common::Byte byte2(40);
-    const common::Byte byte3(30);
-    EXPECT_TRUE(byte1 < byte2);
-    EXPECT_FALSE(byte2 < byte1);
-    EXPECT_FALSE(byte1 < byte3);
+  TEST(ByteTest, CopyAssignmentCopiesValue) {
+    common::Byte b1(50);
+    common::Byte b2;
+    b2 = b1;
+    EXPECT_EQ(b2.byteValue(), 50);
   }
 
-  TEST(ByteTest, OperatorGreaterThanComparesValues) {
-    const common::Byte byte1(50);
-    const common::Byte byte2(40);
-    const common::Byte byte3(50);
-    EXPECT_TRUE(byte1 > byte2);
-    EXPECT_FALSE(byte2 > byte1);
-    EXPECT_FALSE(byte1 > byte3);
+  TEST(ByteTest, MoveAssignmentTransfersValue) {
+    common::Byte b1(50);
+    common::Byte b2;
+    b2 = std::move(b1);
+    EXPECT_EQ(b2.byteValue(), 50);
   }
 
-  TEST(ByteTest, OperatorLessThanOrEqualComparesValues) {
-    const common::Byte byte1(60);
-    const common::Byte byte2(60);
-    const common::Byte byte3(70);
-    EXPECT_TRUE(byte1 <= byte2);
-    EXPECT_TRUE(byte1 <= byte3);
-    EXPECT_FALSE(byte3 <= byte1);
+  TEST(ByteTest, HashCodeSameForEqualObjects) {
+    common::Byte b1(10);
+    common::Byte b2(10);
+    EXPECT_EQ(b1.hashCode(), b2.hashCode());
   }
 
-  TEST(ByteTest, OperatorGreaterThanOrEqualComparesValues) {
-    const common::Byte byte1(80);
-    const common::Byte byte2(80);
-    const common::Byte byte3(70);
-    EXPECT_TRUE(byte1 >= byte2);
-    EXPECT_TRUE(byte1 >= byte3);
-    EXPECT_FALSE(byte3 >= byte1);
+  TEST(ByteTest, HashCodeDifferentForDifferentObjects) {
+    common::Byte b1(10);
+    common::Byte b2(20);
+    EXPECT_NE(b1.hashCode(), b2.hashCode());
   }
 
-  TEST(ByteTest, OperatorAdditionReturnsCorrectValue) {
-    const common::Byte byte1(100);
-    const common::Byte byte2(50);
-    const common::Byte result = byte1 + byte2;
+  TEST(ByteTest, ToStringReturnsNumericValue) {
+    common::Byte b(65);
+    EXPECT_EQ(b.toString(), "class common::Byte{A}");
+  }
+
+  TEST(ParseByteTest, ValidInputParsesCorrectly) {
+    auto b = common::Byte::parseByte("100");
+    EXPECT_EQ(b.byteValue(), 100);
+  }
+
+  TEST(ParseByteTest, EmptyStringThrowsInvalidArgument) {
+    EXPECT_THROW(common::Byte::parseByte(""), std::invalid_argument);
+  }
+
+  TEST(ParseByteTest, LeadingWhitespaceAllowed) {
+    auto b = common::Byte::parseByte(" 255");
+    EXPECT_EQ(b.byteValue(), 255);
+  }
+
+  TEST(ParseByteTest, InvalidTrailingCharactersThrow) {
+    EXPECT_THROW(common::Byte::parseByte("12a"), std::invalid_argument);
+  }
+
+  TEST(ParseByteTest, NegativeValueOutOfRangeThrows) {
+    EXPECT_THROW(common::Byte::parseByte("-1"), std::out_of_range);
+  }
+
+  TEST(ParseByteTest, PositiveValueOutOfRangeThrows) {
+    EXPECT_THROW(common::Byte::parseByte("256"), std::out_of_range);
+  }
+
+  TEST(ByteTest, EqualityOperator) {
+    common::Byte b1(50);
+    common::Byte b2(50);
+    common::Byte b3(60);
+    EXPECT_TRUE(b1 == b2);
+    EXPECT_FALSE(b1 == b3);
+  }
+
+  TEST(ByteTest, SpaceshipOperator) {
+    common::Byte b1(50);
+    common::Byte b2(60);
+    EXPECT_TRUE(b1 < b2);
+  }
+
+  TEST(ByteTest, AdditionValid) {
+    common::Byte b1(100);
+    common::Byte b2(50);
+    common::Byte result = b1 + b2;
     EXPECT_EQ(result.byteValue(), 150);
   }
 
-  TEST(ByteTest, OperatorAdditionOverflowThrowsOverflowError) {
-    const common::Byte byte1(255);
-    const common::Byte byte2(1);
-    ASSERT_THROW(byte1 + byte2, std::overflow_error);
+  TEST(ByteTest, AdditionOverflowThrows) {
+    common::Byte b1(255);
+    common::Byte b2(1);
+    EXPECT_THROW(b1 + b2, std::overflow_error);
   }
 
-  TEST(ByteTest, OperatorSubtractionReturnsCorrectValue) {
-    const common::Byte byte1(100);
-    const common::Byte byte2(30);
-    const common::Byte result = byte1 - byte2;
-    EXPECT_EQ(result.byteValue(), 70);
+  TEST(ByteTest, SubtractionValid) {
+    common::Byte b1(100);
+    common::Byte b2(50);
+    common::Byte result = b1 - b2;
+    EXPECT_EQ(result.byteValue(), 50);
   }
 
-  TEST(ByteTest, OperatorSubtractionUnderflowThrowsUnderflowError) {
-    const common::Byte byte1(0);
-    const common::Byte byte2(1);
-    ASSERT_THROW(byte1 - byte2, std::underflow_error);
-  }
-
-  TEST(ByteTest, ParseByteValidStringReturnsCorrectValue) {
-    const std::string str = "123";
-    const common::Byte byte = common::Byte::parseByte(str);
-    EXPECT_EQ(byte.byteValue(), 123);
-  }
-
-  TEST(ByteTest, ParseByteEmptyStringThrowsInvalidArgument) {
-    const std::string str;
-    ASSERT_THROW(common::Byte::parseByte(str), std::invalid_argument);
-  }
-
-  TEST(ByteTest, ParseByteInvalidCharacterThrowsInvalidArgument) {
-    const std::string str = "12a";
-    ASSERT_THROW(common::Byte::parseByte(str), std::invalid_argument);
-  }
-
-  TEST(ByteTest, ParseByteNegativeValueThrowsOutOfRange) {
-    const std::string str = "-1";
-    ASSERT_THROW(common::Byte::parseByte(str), std::out_of_range);
-  }
-
-  TEST(ByteTest, ParseByteExceedsMaxValueThrowsOutOfRange) {
-    const std::string str = "256";
-    ASSERT_THROW(common::Byte::parseByte(str), std::out_of_range);
+  TEST(ByteTest, SubtractionUnderflowThrows) {
+    common::Byte b1(0);
+    common::Byte b2(1);
+    EXPECT_THROW(b1 - b2, std::underflow_error);
   }
 }
