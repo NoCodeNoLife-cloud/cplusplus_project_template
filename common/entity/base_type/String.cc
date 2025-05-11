@@ -260,6 +260,10 @@ namespace common {
     return value_ <=> other.value_;
   }
 
+  auto String::operator==(const String& other) const -> bool {
+    return value_ == other.value_;
+  }
+
   auto String::operator+(const String& str) const -> String {
     return this->concat(str);
   }

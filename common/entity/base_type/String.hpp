@@ -9,9 +9,9 @@ namespace common {
     explicit String(const char* str);
     explicit String(std::string str);
     String(const String& other);
-    String(String&& other) noexcept ;
+    String(String&& other) noexcept;
     String& operator=(const String& other);
-    String& operator=(String&& other) noexcept ;
+    String& operator=(String&& other) noexcept;
     [[nodiscard]] auto hashCode() const -> size_t override;
     [[nodiscard]] auto toString() const -> std::string override;
     [[nodiscard]] auto charAt(int32_t index) const -> char;
@@ -53,6 +53,7 @@ namespace common {
     [[nodiscard]] auto regionMatches(int32_t tOffset, const String& other, int32_t oOffset, int32_t len) const -> bool;
     [[nodiscard]] auto regionMatches(bool ignoreCase, int32_t tOffset, const String& other, int32_t oOffset, int32_t len) const -> bool;
     auto operator<=>(const String& other) const -> std::partial_ordering;
+    auto operator==(const String& other) const -> bool;
     auto operator+(const String& str) const -> String;
 
   private:
