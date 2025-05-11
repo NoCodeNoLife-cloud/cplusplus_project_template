@@ -18,6 +18,7 @@ namespace common {
     static auto parseBoolean(const std::string& str) -> Boolean;
     [[nodiscard]] auto booleanValue() const -> bool;
     auto operator<=>(const Boolean& other) const -> std::partial_ordering;
+    auto operator==(const Boolean& other) const -> bool;
 
   private:
     friend std::formatter<Boolean>;
