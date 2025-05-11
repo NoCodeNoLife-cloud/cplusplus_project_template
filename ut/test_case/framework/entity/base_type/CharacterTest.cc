@@ -3,88 +3,110 @@
 
 namespace gtest_case {
   TEST(CharacterTest, ConstructorTest) {
-    const common::Character c1('A');
-    EXPECT_EQ(c1.characterValue(), 'A');
-
-    const common::Character c2('z');
-    EXPECT_EQ(c2.characterValue(), 'z');
-
-    const common::Character c3('5');
-    EXPECT_EQ(c3.characterValue(), '5');
-
-    const common::Character c4('#');
-    EXPECT_EQ(c4.characterValue(), '#');
+    common::Character c('A');
+    EXPECT_EQ(c.characterValue(), 'A');
   }
 
-  TEST(CharacterTest, ConversionOperatorTest) {
-    const common::Character c('B');
-    EXPECT_EQ(static_cast<char>(c), 'B');
+  TEST(CharacterTest, CopyConstructorTest) {
+    common::Character c1('B');
+    common::Character c2(c1);
+    EXPECT_EQ(c2.characterValue(), 'B');
   }
 
-  TEST(CharacterTest, ComparisonOperatorsTest) {
-    const common::Character a('a');
-    const common::Character b('b');
-    const common::Character same('a');
+  TEST(CharacterTest, MoveConstructorTest) {
+    common::Character c1('C');
+    common::Character c2(std::move(c1));
+    EXPECT_EQ(c2.characterValue(), 'C');
+  }
 
-    EXPECT_TRUE(std::is_eq(a <=> same));
-    EXPECT_FALSE(std::is_eq(a <=> b));
-    EXPECT_TRUE(std::is_neq(a <=> b));
-    EXPECT_FALSE(std::is_neq(a <=> same));
+  TEST(CharacterTest, CopyAssignmentTest) {
+    common::Character c1('D');
+    common::Character c2('E');
+    c2 = c1;
+    EXPECT_EQ(c2.characterValue(), 'D');
+  }
 
-    EXPECT_TRUE(a < b);
-    EXPECT_FALSE(b < a);
+  TEST(CharacterTest, MoveAssignmentTest) {
+    common::Character c1('F');
+    common::Character c2('G');
+    c2 = std::move(c1);
+    EXPECT_EQ(c2.characterValue(), 'F');
+  }
 
-    EXPECT_TRUE(b > a);
-    EXPECT_FALSE(a > b);
+  TEST(CharacterTest, HashCodeTest) {
+    common::Character c1('H');
+    common::Character c2('H');
+    common::Character c3('I');
+    EXPECT_EQ(c1.hashCode(), c2.hashCode());
+    EXPECT_NE(c1.hashCode(), c3.hashCode());
+  }
 
-    EXPECT_TRUE(a <= same);
-    EXPECT_TRUE(a <= b);
-    EXPECT_FALSE(b <= a);
+  TEST(CharacterTest, ToStringTest) {
+    common::Character c('J');
+    EXPECT_EQ(c.toString(), "class common::Character{J}");
+  }
 
-    EXPECT_TRUE(b >= a);
-    EXPECT_FALSE(a >= b);
+  TEST(CharacterTest, CharCastTest) {
+    common::Character c('K');
+    EXPECT_EQ(static_cast<char>(c), 'K');
   }
 
   TEST(CharacterTest, IsLetterTest) {
-    EXPECT_TRUE(common::Character::isLetter('A'));
-    EXPECT_TRUE(common::Character::isLetter('z'));
-    EXPECT_FALSE(common::Character::isLetter('5'));
+    EXPECT_TRUE(common::Character::isLetter('L'));
+    EXPECT_FALSE(common::Character::isLetter('1'));
     EXPECT_FALSE(common::Character::isLetter('@'));
   }
 
   TEST(CharacterTest, IsDigitTest) {
     EXPECT_TRUE(common::Character::isDigit('3'));
     EXPECT_FALSE(common::Character::isDigit('A'));
-    EXPECT_FALSE(common::Character::isDigit(' '));
+    EXPECT_FALSE(common::Character::isDigit('#'));
   }
 
   TEST(CharacterTest, IsLetterOrDigitTest) {
-    EXPECT_TRUE(common::Character::isLetterOrDigit('A'));
-    EXPECT_TRUE(common::Character::isLetterOrDigit('9'));
-    EXPECT_FALSE(common::Character::isLetterOrDigit('!'));
+    EXPECT_TRUE(common::Character::isLetterOrDigit('M'));
+    EXPECT_TRUE(common::Character::isLetterOrDigit('5'));
+    EXPECT_FALSE(common::Character::isLetterOrDigit('&'));
   }
 
   TEST(CharacterTest, IsUpperCaseTest) {
-    EXPECT_TRUE(common::Character::isUpperCase('A'));
-    EXPECT_FALSE(common::Character::isUpperCase('a'));
-    EXPECT_FALSE(common::Character::isUpperCase('5'));
+    EXPECT_TRUE(common::Character::isUpperCase('N'));
+    EXPECT_FALSE(common::Character::isUpperCase('n'));
+    EXPECT_FALSE(common::Character::isUpperCase('6'));
   }
 
   TEST(CharacterTest, IsLowerCaseTest) {
-    EXPECT_TRUE(common::Character::isLowerCase('z'));
-    EXPECT_FALSE(common::Character::isLowerCase('Z'));
-    EXPECT_FALSE(common::Character::isLowerCase('0'));
+    EXPECT_TRUE(common::Character::isLowerCase('o'));
+    EXPECT_FALSE(common::Character::isLowerCase('O'));
+    EXPECT_FALSE(common::Character::isLowerCase('7'));
   }
 
   TEST(CharacterTest, ToUpperCaseTest) {
-    EXPECT_EQ(common::Character::toUpperCase('a'), static_cast<int32_t>('A'));
-    EXPECT_EQ(common::Character::toUpperCase('A'), static_cast<int32_t>('A'));
-    EXPECT_EQ(common::Character::toUpperCase('5'), static_cast<int32_t>('5'));
+    EXPECT_EQ(common::Character::toUpperCase('p'), 'P');
+    EXPECT_EQ(common::Character::toUpperCase('Q'), 'Q');
+    EXPECT_EQ(common::Character::toUpperCase('2'), '2');
   }
 
   TEST(CharacterTest, ToLowerCaseTest) {
-    EXPECT_EQ(common::Character::toLowerCase('A'), static_cast<int32_t>('a'));
-    EXPECT_EQ(common::Character::toLowerCase('a'), static_cast<int32_t>('a'));
-    EXPECT_EQ(common::Character::toLowerCase('3'), static_cast<int32_t>('3'));
+    EXPECT_EQ(common::Character::toLowerCase('R'), 'r');
+    EXPECT_EQ(common::Character::toLowerCase('s'), 's');
+    EXPECT_EQ(common::Character::toLowerCase('3'), '3');
+  }
+
+  TEST(CharacterTest, CharacterValueTest) {
+    common::Character c('T');
+    EXPECT_EQ(c.characterValue(), 'T');
+  }
+
+  TEST(CharacterTest, ComparisonOperatorsTest) {
+    common::Character c1('U');
+    common::Character c2('V');
+    common::Character c3('U');
+
+    EXPECT_EQ(c1 <=> c3, std::partial_ordering::equivalent);
+    EXPECT_EQ(c1 <=> c2, std::partial_ordering::less);
+    EXPECT_EQ(c2 <=> c1, std::partial_ordering::greater);
+    EXPECT_TRUE(c1 == c3);
+    EXPECT_FALSE(c1 == c2);
   }
 }

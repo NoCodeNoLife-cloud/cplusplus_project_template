@@ -22,6 +22,7 @@ namespace common {
     static auto toLowerCase(char c) -> int32_t;
     [[nodiscard]] auto characterValue() const -> char;
     auto operator<=>(const Character& other) const -> std::partial_ordering;
+    auto operator==(const Character& other) const -> bool;
 
   private:
     friend std::formatter<Character>;
