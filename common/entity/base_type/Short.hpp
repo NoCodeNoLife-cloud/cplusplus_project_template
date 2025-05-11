@@ -19,6 +19,7 @@ namespace common {
     [[nodiscard]] auto shortValue() const -> int16_t;
     static auto parseShort(const std::string& str) -> Short;
     auto operator<=>(const Short& other) const -> std::partial_ordering;
+    auto operator==(const Short& other) const -> bool;
     auto operator+(const Short& other) const -> Short;
     auto operator-(const Short& other) const -> Short;
     auto operator*(const Short& other) const -> Short;

@@ -59,6 +59,10 @@ namespace common {
     return value_ <=> other.value_;
   }
 
+  auto Short::operator==(const Short& other) const -> bool {
+    return value_ == other.value_;
+  }
+
   auto Short::operator+(const Short& other) const -> Short {
     return Short(static_cast<int16_t>(this->value_ + other.value_));
   }

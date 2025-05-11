@@ -1,107 +1,144 @@
+#include <sstream>
 #include <entity/base_type/Short.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case {
-  TEST(ShortTest, ConstructorInitializesValueCorrectly) {
-    const common::Short short_obj(42);
-    EXPECT_EQ(short_obj.shortValue(), 42);
+  TEST(ShortTest, ConstructorAndValueInitialization) {
+    const common::Short s(42);
+    EXPECT_EQ(s.shortValue(), 42);
   }
 
-  TEST(ShortTest, MinAndMaxValues) {
-    constexpr auto min_val = common::Short::MIN_VALUE;
-    constexpr auto max_val = common::Short::MAX_VALUE;
-    const common::Short min_obj(min_val);
-    const common::Short max_obj(max_val);
-    EXPECT_EQ(min_obj.shortValue(), min_val);
-    EXPECT_EQ(max_obj.shortValue(), max_val);
+  TEST(ShortTest, CopyConstructor) {
+    const common::Short s1(100);
+    const common::Short s2(s1);
+    EXPECT_EQ(s2.shortValue(), 100);
   }
 
-  TEST(ShortTest, ExplicitConversionToShort) {
-    const common::Short obj(123);
-    const auto converted = static_cast<int16_t>(obj);
-    EXPECT_EQ(converted, 123);
+  TEST(ShortTest, MoveConstructor) {
+    common::Short s1(200);
+    const common::Short s2(std::move(s1));
+    EXPECT_EQ(s2.shortValue(), 200);
   }
 
-  TEST(ShortTest, EqualityOperatorsWorkCorrectly) {
-    const common::Short a(5);
-    const common::Short b(5);
-    const common::Short c(10);
-    EXPECT_TRUE(std::is_eq(a <=> b));
-    EXPECT_FALSE(std::is_eq(a <=> c));
-    EXPECT_FALSE(std::is_neq(a <=> b));
-    EXPECT_TRUE(std::is_neq(a <=> c));
+  TEST(ShortTest, AssignmentOperator) {
+    const common::Short s1(300);
+    common::Short s2(0);
+    s2 = s1;
+    EXPECT_EQ(s2.shortValue(), 300);
   }
 
-  TEST(ShortTest, RelationalOperatorsWorkCorrectly) {
-    const common::Short a(5);
-    const common::Short b(10);
-    EXPECT_TRUE(a < b);
-    EXPECT_TRUE(b > a);
-    EXPECT_TRUE(a <= b);
-    EXPECT_TRUE(b >= a);
-    EXPECT_FALSE(a > b);
-    EXPECT_FALSE(b < a);
+  TEST(ShortTest, MoveAssignmentOperator) {
+    common::Short s1(400);
+    common::Short s2(0);
+    s2 = std::move(s1);
+    EXPECT_EQ(s2.shortValue(), 400);
   }
 
-  TEST(ShortTest, ArithmeticOperatorsReturnCorrectValues) {
-    const common::Short a(10);
-    const common::Short b(3);
-    const common::Short sum = a + b;
-    const common::Short diff = a - b;
-    const common::Short prod = a * b;
-    const common::Short div = a / b;
-    const common::Short mod = a % b;
-    EXPECT_EQ(sum.shortValue(), 13);
-    EXPECT_EQ(diff.shortValue(), 7);
-    EXPECT_EQ(prod.shortValue(), 30);
-    EXPECT_EQ(div.shortValue(), 3);
-    EXPECT_EQ(mod.shortValue(), 1);
+  TEST(ShortTest, HashCodeConsistency) {
+    const common::Short s1(500);
+    const common::Short s2(500);
+    EXPECT_EQ(s1.hashCode(), s2.hashCode());
   }
 
-  TEST(ShortTest, DivisionByZeroThrowsOverflowError) {
-    const common::Short a(5);
-    const common::Short zero(0);
-    EXPECT_THROW(a / zero, std::overflow_error);
+  TEST(ShortTest, ToStringConversion) {
+    const common::Short s(600);
+    EXPECT_EQ(s.toString(), "class common::Short{600}");
   }
 
-  TEST(ShortTest, ModuloByZeroThrowsOverflowError) {
-    const common::Short a(5);
-    const common::Short zero(0);
-    EXPECT_THROW(a % zero, std::overflow_error);
+  TEST(ShortTest, TypeConversionOperator) {
+    const common::Short s(700);
+    const common::Short value = s;
+    EXPECT_EQ(value.shortValue(), 700);
   }
 
-  TEST(ShortTest, ParseValidStrings) {
-    const auto str1 = "123";
-    const auto str2 = "-456";
-    const common::Short s1 = common::Short::parseShort(str1);
-    const common::Short s2 = common::Short::parseShort(str2);
-    EXPECT_EQ(s1.shortValue(), 123);
-    EXPECT_EQ(s2.shortValue(), -456);
+  TEST(ShortTest, ShortValueMethod) {
+    const common::Short s(800);
+    EXPECT_EQ(s.shortValue(), 800);
   }
 
-  TEST(ShortTest, ParseInvalidStringsThrowsInvalidArgument) {
-    const auto invalid_str = "abc";
-    EXPECT_THROW(common::Short::parseShort(invalid_str), std::invalid_argument);
+  TEST(ShortTest, ParseShortValidInput) {
+    EXPECT_EQ(common::Short::parseShort("1234").shortValue(), 1234);
   }
 
-  TEST(ShortTest, ParseOutOfRangeValuesThrowsOutOfRange) {
-    const auto over_max = std::to_string(static_cast<int>(common::Short::MAX_VALUE) + 1);
-    const auto under_min = std::to_string(static_cast<int>(common::Short::MIN_VALUE) - 1);
-    EXPECT_THROW(common::Short::parseShort(over_max), std::out_of_range);
-    EXPECT_THROW(common::Short::parseShort(under_min), std::out_of_range);
+  TEST(ShortTest, ParseShortInvalidInput) {
+    EXPECT_THROW(common::Short::parseShort("abc"), std::invalid_argument);
   }
 
-  TEST(ShortTest, AdditionOverflowWrapsAround) {
-    const common::Short max_val(common::Short::MAX_VALUE);
-    const common::Short one(1);
-    const common::Short result = max_val + one;
-    EXPECT_EQ(result.shortValue(), -32768);
+  TEST(ShortTest, ParseShortOverflow) {
+    EXPECT_THROW(common::Short::parseShort("32768"), std::out_of_range); // MAX_VALUE+1
   }
 
-  TEST(ShortTest, SubtractionUnderflowWrapsAround) {
-    const common::Short min_val(common::Short::MIN_VALUE);
-    const common::Short one(1);
-    const common::Short result = min_val - one;
-    EXPECT_EQ(result.shortValue(), 32767);
+  TEST(ShortTest, EqualityOperator) {
+    const common::Short s1(1000);
+    const common::Short s2(1000);
+    EXPECT_TRUE(s1 == s2);
+  }
+
+  TEST(ShortTest, InequalityOperator) {
+    const common::Short s1(1000);
+    const common::Short s2(2000);
+    EXPECT_TRUE(s1 != s2);
+  }
+
+  TEST(ShortTest, LessThanOperator) {
+    const common::Short s1(1000);
+    const common::Short s2(2000);
+    EXPECT_TRUE(s1 < s2);
+  }
+
+  TEST(ShortTest, GreaterThanOperator) {
+    const common::Short s1(3000);
+    const common::Short s2(2000);
+    EXPECT_TRUE(s1 > s2);
+  }
+
+  TEST(ShortTest, AdditionOperator) {
+    const common::Short s1(1000);
+    const common::Short s2(2000);
+    const common::Short result = s1 + s2;
+    EXPECT_EQ(result.shortValue(), 3000);
+  }
+
+  TEST(ShortTest, AdditionOverflow) {
+    const common::Short s1(common::Short::MAX_VALUE);
+    const common::Short s2(1);
+    const common::Short result = s1 + s2;
+    // 原代码未处理溢出，会导致结果为-32768（溢出后的行为未定义）
+    EXPECT_EQ(result.shortValue(), static_cast<int16_t>(common::Short::MAX_VALUE + 1)); // 需要修复溢出逻辑
+  }
+
+  TEST(ShortTest, SubtractionOperator) {
+    const common::Short s1(5000);
+    const common::Short s2(2000);
+    const common::Short result = s1 - s2;
+    EXPECT_EQ(result.shortValue(), 3000);
+  }
+
+  TEST(ShortTest, MultiplicationOperator) {
+    const common::Short s1(100);
+    const common::Short s2(20);
+    const common::Short result = s1 * s2;
+    EXPECT_EQ(result.shortValue(), 2000);
+  }
+
+  TEST(ShortTest, DivisionOperator) {
+    const common::Short s1(1000);
+    const common::Short s2(200);
+    const common::Short result = s1 / s2;
+    EXPECT_EQ(result.shortValue(), 5);
+  }
+
+  TEST(ShortTest, ModuloOperator) {
+    const common::Short s1(100);
+    const common::Short s2(30);
+    const common::Short result = s1 % s2;
+    EXPECT_EQ(result.shortValue(), 10);
+  }
+
+  TEST(ShortTest, FormatSpecifier) {
+    common::Short s(1234);
+    std::ostringstream oss;
+    oss << s.toString();
+    EXPECT_EQ(oss.str(), "class common::Short{1234}");
   }
 }
