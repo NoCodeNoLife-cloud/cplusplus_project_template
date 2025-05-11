@@ -5,7 +5,7 @@ namespace common {
   Object::Object() = default;
   Object::~Object() = default;
   Object::Object(const Object& other) = default;
-  Object::Object(const Object&& other) noexcept {}
+  Object::Object(const Object&& other) noexcept {};
   Object& Object::operator=(const Object& other) = default;
 
   Object& Object::operator=(Object&& other) noexcept {
@@ -17,9 +17,7 @@ namespace common {
   }
 
   auto Object::hashCode() const -> size_t {
-    size_t seed = 0;
-    boost::hash_combine(seed, getClass());
-    boost::hash_combine(seed, reinterpret_cast<size_t>(this));
+    constexpr size_t seed = 0;
     return seed;
   }
 
