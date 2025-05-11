@@ -56,6 +56,10 @@ namespace common {
     return value_ <=> other.value_;
   }
 
+  auto Float::operator==(const Float& other) const -> bool {
+    return value_ == other.value_;
+  }
+
   auto Float::operator+(const Float& other) const -> Float {
     return Float(this->value_ + other.value_);
   }

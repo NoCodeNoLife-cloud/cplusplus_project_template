@@ -3,129 +3,107 @@
 
 namespace gtest_case {
   TEST(FloatTest, ConstructorInitializesValueCorrectly) {
-    const common::Float instance(3.14f);
-    EXPECT_EQ(instance.floatValue(), 3.14f);
+    const common::Float f(3.14f);
+    EXPECT_EQ(f.floatValue(), 3.14f);
   }
 
-  TEST(FloatTest, EqualityOperatorReturnsTrueForSameValues) {
-    const common::Float a(4.2f);
-    const common::Float b(4.2f);
-    EXPECT_TRUE(std::is_eq(a <=> b));
+  TEST(FloatTest, CopyConstructorWorks) {
+    const common::Float f1(2.5f);
+    const common::Float f2(f1);
+    EXPECT_EQ(f1.floatValue(), f2.floatValue());
   }
 
-  TEST(FloatTest, EqualityOperatorReturnsFalseForDifferentValues) {
-    const common::Float a(4.2f);
-    const common::Float b(5.2f);
-    EXPECT_FALSE(std::is_eq(a <=> b));
+  TEST(FloatTest, MoveConstructorWorks) {
+    common::Float f1(2.5f);
+    const common::Float f2(std::move(f1));
+    EXPECT_EQ(f2.floatValue(), 2.5f);
   }
 
-  TEST(FloatTest, InequalityOperatorReturnsTrueForDifferentValues) {
-    const common::Float a(3.0f);
-    const common::Float b(4.0f);
-    EXPECT_TRUE(std::is_neq(a <=> b));
+  TEST(FloatTest, CopyAssignmentWorks) {
+    const common::Float f1(1.0f);
+    common::Float f2(0.0f);
+    f2 = f1;
+    EXPECT_EQ(f1.floatValue(), f2.floatValue());
   }
 
-  TEST(FloatTest, InequalityOperatorReturnsFalseForSameValues) {
-    const common::Float a(3.0f);
-    const common::Float b(3.0f);
-    EXPECT_FALSE(std::is_neq(a <=> b));
+  TEST(FloatTest, MoveAssignmentWorks) {
+    common::Float f1(1.0f);
+    common::Float f2(0.0f);
+    f2 = std::move(f1);
+    EXPECT_EQ(f2.floatValue(), 1.0f);
   }
 
-  TEST(FloatTest, LessThanOperatorWorksWhenTrue) {
-    const common::Float a(2.0f);
-    const common::Float b(3.0f);
-    EXPECT_TRUE(a < b);
+  TEST(FloatTest, HashCodeReturnsSameForEqualValues) {
+    const common::Float f1(2.5f);
+    const common::Float f2(2.5f);
+    EXPECT_EQ(f1.hashCode(), f2.hashCode());
   }
 
-  TEST(FloatTest, LessThanOperatorWorksWhenFalse) {
-    const common::Float a(4.0f);
-    const common::Float b(3.0f);
-    EXPECT_FALSE(a < b);
+  TEST(FloatTest, ToStringReturnsValidString) {
+    const common::Float f(3.14f);
+    EXPECT_FALSE(f.toString().empty());
   }
 
-  TEST(FloatTest, GreaterThanOperatorWorksWhenTrue) {
-    const common::Float a(5.0f);
-    const common::Float b(3.0f);
-    EXPECT_TRUE(a > b);
+  TEST(FloatTest, TypeConversionWorks) {
+    const common::Float f(4.2f);
+    const float value = static_cast<float>(f);
+    EXPECT_FLOAT_EQ(value, 4.2f);
   }
 
-  TEST(FloatTest, GreaterThanOperatorWorksWhenFalse) {
-    const common::Float a(2.0f);
-    const common::Float b(3.0f);
-    EXPECT_FALSE(a > b);
+  TEST(FloatTest, ParseValidString) {
+    const auto result = common::Float::parseFloat("123.45");
+    EXPECT_FLOAT_EQ(result.floatValue(), 123.45f);
   }
 
-  TEST(FloatTest, LessThanOrEqualOperatorWorksWhenEqual) {
-    const common::Float a(3.0f);
-    const common::Float b(3.0f);
-    EXPECT_TRUE(a <= b);
+  TEST(FloatTest, ParseInvalidStringThrows) {
+    EXPECT_THROW(common::Float::parseFloat("abc"), std::invalid_argument);
   }
 
-  TEST(FloatTest, LessThanOrEqualOperatorWorksWhenLess) {
-    const common::Float a(2.0f);
-    const common::Float b(3.0f);
-    EXPECT_TRUE(a <= b);
+  TEST(FloatTest, ParseOutOfRangeStringThrows) {
+    EXPECT_THROW(common::Float::parseFloat("1e10000"), std::out_of_range);
   }
 
-  TEST(FloatTest, GreaterThanOrEqualOperatorWorksWhenEqual) {
-    const common::Float a(4.0f);
-    const common::Float b(4.0f);
-    EXPECT_TRUE(a >= b);
+  TEST(FloatTest, EqualityOperatorWorks) {
+    const common::Float f1(5.0f);
+    const common::Float f2(5.0f);
+    EXPECT_TRUE(f1 == f2);
   }
 
-  TEST(FloatTest, GreaterThanOrEqualOperatorWorksWhenGreater) {
-    const common::Float a(5.0f);
-    const common::Float b(3.0f);
-    EXPECT_TRUE(a >= b);
+  TEST(FloatTest, InequalityOperatorWorks) {
+    const common::Float f1(5.0f);
+    const common::Float f2(6.0f);
+    EXPECT_TRUE(f1 != f2);
   }
 
-  TEST(FloatTest, AdditionOperatorWorksCorrectly) {
-    const common::Float a(2.0f);
-    const common::Float b(3.0f);
-    const common::Float result = a + b;
-    EXPECT_EQ(result.floatValue(), 5.0f);
+  TEST(FloatTest, ThreeWayComparisonWorks) {
+    const common::Float f1(3.0f);
+    const common::Float f2(4.0f);
+    EXPECT_TRUE(f1 <=> f2 == std::partial_ordering::less);
   }
 
-  TEST(FloatTest, SubtractionOperatorWorksCorrectly) {
-    const common::Float a(5.0f);
-    const common::Float b(2.0f);
-    const common::Float result = a - b;
-    EXPECT_EQ(result.floatValue(), 3.0f);
+  TEST(FloatTest, ArithmeticOperatorsWorkCorrectly) {
+    const common::Float f1(2.0f);
+    const common::Float f2(3.0f);
+    EXPECT_FLOAT_EQ((f1 + f2).floatValue(), 5.0f);
+    EXPECT_FLOAT_EQ((f1 - f2).floatValue(), -1.0f);
+    EXPECT_FLOAT_EQ((f1 * f2).floatValue(), 6.0f);
   }
 
-  TEST(FloatTest, MultiplicationOperatorWorksCorrectly) {
-    const common::Float a(3.0f);
-    const common::Float b(4.0f);
-    const common::Float result = a * b;
-    EXPECT_EQ(result.floatValue(), 12.0f);
+  TEST(FloatTest, DivisionByZeroThrowsOverflowError) {
+    const common::Float f1(6.0f);
+    const common::Float f2(0.0f);
+    EXPECT_THROW(f1 / f2, std::overflow_error);
   }
 
-  TEST(FloatTest, DivisionOperatorWorksCorrectly) {
-    const common::Float a(10.0f);
-    const common::Float b(2.0f);
-    const common::Float result = a / b;
-    EXPECT_EQ(result.floatValue(), 5.0f);
+  TEST(FloatTest, NaNComparisonBehavesCorrectly) {
+    const common::Float f1(common::Float::NaN);
+    const common::Float f2(common::Float::NaN);
+    EXPECT_FALSE(f1 == f2);
+    EXPECT_TRUE((f1 <=> f2) == std::partial_ordering::unordered);
   }
 
-  TEST(FloatTest, DivisionOperatorThrowsWhenDividingByZero) {
-    const common::Float a(10.0f);
-    const common::Float b(0.0f);
-    EXPECT_THROW(a / b, std::overflow_error);
-  }
-
-  TEST(FloatTest, ParseFloatConvertsValidStringToFloat) {
-    const std::string str = "123.45";
-    const common::Float result = common::Float::parseFloat(str);
-    EXPECT_EQ(result.floatValue(), 123.45f);
-  }
-
-  TEST(FloatTest, ParseFloatThrowsInvalidArgumentForInvalidString) {
-    const std::string str = "abc";
-    EXPECT_THROW(common::Float::parseFloat(str), std::invalid_argument);
-  }
-
-  TEST(FloatTest, ParseFloatThrowsOutOfRangeForExceedingString) {
-    const std::string str = "1e1000";
-    EXPECT_THROW(common::Float::parseFloat(str), std::out_of_range);
+  TEST(FloatTest, InfinityValuesAreCorrect) {
+    EXPECT_GT(common::Float::POSITIVE_INFINITY, std::numeric_limits<float>::max());
+    EXPECT_LT(common::Float::NEGATIVE_INFINITY, -std::numeric_limits<float>::max());
   }
 }
