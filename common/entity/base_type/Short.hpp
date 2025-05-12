@@ -13,9 +13,9 @@ namespace common {
     Short(Short&& other) noexcept;
     Short& operator=(const Short& other);
     Short& operator=(Short&& other) noexcept;
+    explicit operator short() const;
     [[nodiscard]] auto hashCode() const -> size_t override;
     [[nodiscard]] auto toString() const -> std::string override;
-    explicit operator short() const;
     [[nodiscard]] auto shortValue() const -> int16_t;
     static auto parseShort(const std::string& str) -> Short;
     auto operator<=>(const Short& other) const -> std::partial_ordering;

@@ -10,9 +10,9 @@ namespace common {
     Character(Character&& other) noexcept;
     Character& operator=(const Character& other);
     Character& operator=(Character&& other) noexcept;
+    explicit operator char() const;
     [[nodiscard]] auto hashCode() const -> size_t override;
     [[nodiscard]] auto toString() const -> std::string override;
-    explicit operator char() const;
     static auto isLetter(char c) -> bool;
     static auto isDigit(char c) -> bool;
     static auto isLetterOrDigit(char c) -> bool;

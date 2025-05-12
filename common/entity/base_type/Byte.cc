@@ -33,7 +33,7 @@ namespace common {
     return std::format("{}", *this);
   }
 
-  Byte::operator unsigned char() const {
+  Byte::operator uint8_t() const {
     return value_;
   }
 

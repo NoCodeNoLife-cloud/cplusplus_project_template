@@ -16,9 +16,9 @@ namespace common {
     Double(Double&& other) noexcept;
     Double& operator=(const Double& other);
     Double& operator=(Double&& other) noexcept;
+    explicit operator double() const;
     [[nodiscard]] auto hashCode() const -> size_t override;
     [[nodiscard]] auto toString() const -> std::string override;
-    explicit operator double() const;
     [[nodiscard]] auto doubleValue() const -> double;
     static auto parseDouble(const std::string& str) -> Double;
     auto operator<=>(const Double& other) const -> std::partial_ordering;

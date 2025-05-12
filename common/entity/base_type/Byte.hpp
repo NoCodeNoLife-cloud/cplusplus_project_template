@@ -13,9 +13,9 @@ namespace common {
     Byte(Byte&& other) noexcept;
     Byte& operator=(const Byte& other);
     Byte& operator=(Byte&& other) noexcept;
+    explicit operator uint8_t() const;
     [[nodiscard]] auto hashCode() const -> size_t override;
     [[nodiscard]] auto toString() const -> std::string override;
-    explicit operator unsigned char() const;
     static auto parseByte(const std::string& str) -> Byte;
     [[nodiscard]] auto byteValue() const -> uint8_t;
     auto operator<=>(const Byte& other) const -> std::partial_ordering;

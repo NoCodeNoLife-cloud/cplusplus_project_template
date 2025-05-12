@@ -16,9 +16,9 @@ namespace common {
     Float(Float&& other) noexcept;
     Float& operator=(const Float& other);
     Float& operator=(Float&& other) noexcept;
+    explicit operator float() const;
     [[nodiscard]] auto hashCode() const -> size_t override;
     [[nodiscard]] auto toString() const -> std::string override;
-    explicit operator float() const;
     [[nodiscard]] auto floatValue() const -> float;
     static auto parseFloat(const std::string& str) -> Float;
     auto operator<=>(const Float& other) const -> std::partial_ordering;

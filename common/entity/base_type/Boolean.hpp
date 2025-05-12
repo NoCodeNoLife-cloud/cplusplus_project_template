@@ -9,11 +9,11 @@ namespace common {
     ~Boolean() override;
     Boolean(const Boolean& other);
     Boolean(Boolean&& other) noexcept;
+    explicit operator bool() const;
     Boolean& operator=(const Boolean& other);
     Boolean& operator=(Boolean&& other) noexcept;
     [[nodiscard]] auto hashCode() const -> size_t override;
     [[nodiscard]] auto toString() const -> std::string override;
-    explicit operator bool() const;
     [[nodiscard]] auto boolValue() const -> bool;
     static auto parseBoolean(const std::string& str) -> Boolean;
     [[nodiscard]] auto booleanValue() const -> bool;

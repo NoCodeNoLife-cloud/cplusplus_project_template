@@ -23,6 +23,10 @@ namespace common {
     return *this;
   }
 
+  String::operator std::string() const {
+    return value_;
+  }
+
   size_t String::hashCode() const {
     size_t seed = 0;
     boost::hash_combine(seed, getClass());

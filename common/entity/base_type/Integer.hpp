@@ -13,9 +13,9 @@ namespace common {
     Integer(Integer&& other) noexcept;
     Integer& operator=(const Integer& other);
     Integer& operator=(Integer&& other) noexcept;
+    explicit operator int32_t() const;
     [[nodiscard]] auto hashCode() const -> size_t override;
     [[nodiscard]] auto toString() const -> std::string override;
-    explicit operator int32_t() const;
     [[nodiscard]] auto intValue() const -> int32_t;
     static auto parseInt(const std::string& str) -> Integer;
     auto operator<=>(const Integer& other) const -> std::partial_ordering;

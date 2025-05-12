@@ -13,9 +13,9 @@ namespace common {
     Long(Long&& other) noexcept;
     Long& operator=(const Long& other);
     Long& operator=(Long&& other) noexcept;
+    explicit operator int64_t() const;
     [[nodiscard]] auto hashCode() const -> size_t override;
     [[nodiscard]] auto toString() const -> std::string override;
-    explicit operator int64_t() const;
     [[nodiscard]] auto longValue() const -> int64_t;
     static auto parseLong(const std::string& str) -> Long;
     auto operator<=>(const Long& other) const -> std::partial_ordering;

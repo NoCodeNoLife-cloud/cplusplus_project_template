@@ -12,6 +12,7 @@ namespace common {
     String(String&& other) noexcept;
     String& operator=(const String& other);
     String& operator=(String&& other) noexcept;
+    explicit operator std::string() const;
     [[nodiscard]] auto hashCode() const -> size_t override;
     [[nodiscard]] auto toString() const -> std::string override;
     [[nodiscard]] auto charAt(int32_t index) const -> char;
