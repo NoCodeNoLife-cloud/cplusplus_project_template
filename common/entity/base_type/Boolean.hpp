@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
 #include <entity/base_type/Object.hpp>
+#include <io/interface/IBoostSerializable.hpp>
 
 namespace common {
-  class Boolean final : public Object {
+  class Boolean final : public Object, public IBoostSerializable<Boolean> {
   public:
     explicit Boolean(bool value = false);
     ~Boolean() override;
@@ -22,8 +23,16 @@ namespace common {
 
   private:
     friend std::formatter<Boolean>;
+    friend class boost::serialization::access;
     bool value_{false};
+    template <class Archive>
+    auto serialize(Archive& ar, unsigned int version) -> void;
   };
+
+  template <class Archive>
+  auto Boolean::serialize(Archive& ar, const unsigned int version) -> void {
+    ar & value_;
+  }
 
   const Boolean True{true};
   const Boolean False{false};
