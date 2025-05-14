@@ -33,7 +33,7 @@ file(GLOB_RECURSE FRAMEWORK_FILES
 )
 
 #vcpkg dependencies
-find_package(Boost REQUIRED COMPONENTS system thread url asio)
+find_package(Boost REQUIRED COMPONENTS system thread url asio serialization)
 find_package(glog CONFIG REQUIRED)
 find_package(gtest CONFIG REQUIRED)
 find_package(yaml-cpp CONFIG REQUIRED)
@@ -48,6 +48,7 @@ target_link_libraries(${MAIN_PROJECT} PRIVATE glog::glog)
 target_link_libraries(${MAIN_PROJECT} PRIVATE Boost::system)
 target_link_libraries(${MAIN_PROJECT} PRIVATE Boost::thread)
 target_link_libraries(${MAIN_PROJECT} PRIVATE Boost::url)
+target_link_libraries(${MAIN_PROJECT} PRIVATE Boost::serialization)
 target_link_libraries(${MAIN_PROJECT} PRIVATE Boost::asio)
 target_link_libraries(${MAIN_PROJECT} PRIVATE yaml-cpp::yaml-cpp)
 target_link_libraries(${MAIN_PROJECT} PRIVATE RapidJSON rapidjson)

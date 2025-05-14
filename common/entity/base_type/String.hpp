@@ -1,8 +1,9 @@
 #pragma once
 #include <entity/base_type/Object.hpp>
+#include <io/interface/IBoostSerializable.hpp>
 
 namespace common {
-  class String final : public Object {
+  class String final : public Object, public IBoostSerializable<String> {
   public:
     String();
     ~String() override;
@@ -59,8 +60,16 @@ namespace common {
 
   private:
     friend std::formatter<String>;
+    friend class boost::serialization::access;
     std::string value_{};
+    template <class Archive>
+    auto serialize(Archive& ar, unsigned int version) -> void;
   };
+
+  template <class Archive>
+  auto String::serialize(Archive& ar, const unsigned int version) -> void {
+    ar & value_;
+  }
 }
 
 template <>

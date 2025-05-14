@@ -1,8 +1,9 @@
 #pragma once
 #include <entity/base_type/Object.hpp>
+#include <io/interface/IBoostSerializable.hpp>
 
 namespace common {
-  class Character final : public Object {
+  class Character final : public Object, public IBoostSerializable<Character> {
   public:
     explicit Character(char value);
     ~Character() override;
@@ -26,8 +27,16 @@ namespace common {
 
   private:
     friend std::formatter<Character>;
+    friend class boost::serialization::access;
     char value_{0};
+    template <class Archive>
+    auto serialize(Archive& ar, unsigned int version) -> void;
   };
+
+  template <class Archive>
+  auto Character::serialize(Archive& ar, const unsigned int version) -> void {
+    ar & value_;
+  }
 }
 
 template <>

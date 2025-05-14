@@ -11,7 +11,8 @@ auto business() -> bool {
   }
 }
 
-auto main([[maybe_unused]] int32_t argc, [[maybe_unused]] char* argv[]) -> int32_t {
+// ReSharper disable once CppParameterNeverUsed
+auto main(int32_t argc, char* argv[]) -> int32_t {
   common::LauncherAspect launcher;
   launcher.exec(business);
 }
