@@ -3,16 +3,17 @@
 
 namespace common {
   GLogConfig::GLogConfig() {
-    config();
+    doConfig();
   }
 
-  auto GLogConfig::config() const -> void {
+  auto GLogConfig::doConfig() -> bool {
     google::InitGoogleLogging(LOG_NAME.c_str());
     FLAGS_minloglevel = MIN_LOG_LEVEL;
     configLogToStdout();
     if (std::atexit(clean) != 0) {
       throw std::runtime_error("Failed to register cleanup function!");
     }
+    return true;
   }
 
   auto GLogConfig::configLogToStdout() -> void {
