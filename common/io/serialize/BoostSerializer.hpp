@@ -11,25 +11,25 @@ namespace common {
   class BoostSerializer abstract {
   public:
     template <DerivedFromBoostSerializable T>
-    static auto serializeObject(const T& obj) -> std::string;
+    static auto serializeObjectToBinaryString(const T& obj) -> std::string;
     template <DerivedFromBoostSerializable T>
-    static auto deserializeObject(const std::string& data) -> T;
+    static auto deserializeObjectFromBinaryString(const std::string& data) -> T;
   };
 
   template <DerivedFromBoostSerializable T>
-  auto BoostSerializer::serializeObject(const T& obj) -> std::string {
-    std::ostringstream ostringstream;
-    boost::archive::binary_oarchive binaryOarchive(ostringstream);
-    binaryOarchive << obj;
-    return ostringstream.str();
+  auto BoostSerializer::serializeObjectToBinaryString(const T& obj) -> std::string {
+    std::ostringstream o_string_stream;
+    boost::archive::binary_oarchive binary_o_archive(o_string_stream);
+    binary_o_archive << obj;
+    return o_string_stream.str();
   }
 
   template <DerivedFromBoostSerializable T>
-  auto BoostSerializer::deserializeObject(const std::string& data) -> T {
+  auto BoostSerializer::deserializeObjectFromBinaryString(const std::string& data) -> T {
     T t = T();
-    std::istringstream istringstream(data);
-    boost::archive::binary_iarchive binaryIarchive(istringstream);
-    binaryIarchive >> t;
+    std::istringstream i_string_stream(data);
+    boost::archive::binary_iarchive binary_i_archive(i_string_stream);
+    binary_i_archive >> t;
     return t;
   }
 }
