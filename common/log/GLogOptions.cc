@@ -6,7 +6,6 @@ namespace common {
   GLogOptions::GLogOptions(const GLogOptions& other) = default;
   GLogOptions& GLogOptions::operator=(const GLogOptions& other) = default;
   GLogOptions::GLogOptions(GLogOptions&& other) noexcept = default;
-  GLogOptions& GLogOptions::operator=(const GLogOptions&& other) = default;
 
   auto GLogOptions::minLogLevel() const -> int32_t {
     return min_log_level_;

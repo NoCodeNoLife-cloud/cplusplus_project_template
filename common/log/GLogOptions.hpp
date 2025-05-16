@@ -12,7 +12,6 @@ namespace common {
     GLogOptions(const GLogOptions& other);
     GLogOptions& operator=(const GLogOptions& other);
     GLogOptions(GLogOptions&& other) noexcept;
-    GLogOptions& operator=(const GLogOptions&& other);
     [[nodiscard]] auto minLogLevel() const -> int32_t;
     [[nodiscard]] auto logName() const -> std::string;
 
