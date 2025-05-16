@@ -1,10 +1,9 @@
 #pragma once
 #include <string>
 #include <entity/base_type/Object.hpp>
-#include <io/interface/IBoostSerializable.hpp>
 
 namespace common {
-  class Long final : public Object, IBoostSerializable<Long> {
+  class Long final : public Object {
   public:
     static constexpr int64_t MAX_VALUE = std::numeric_limits<int64_t>::max();
     static constexpr int64_t MIN_VALUE = std::numeric_limits<int64_t>::min();
@@ -29,16 +28,8 @@ namespace common {
 
   private:
     friend std::formatter<Long>;
-    friend class boost::serialization::access;
     int64_t value_{0};
-    template <class Archive>
-    auto serialize(Archive& ar, unsigned int version) -> void;
   };
-
-  template <class Archive>
-  auto Long::serialize(Archive& ar, const unsigned int version) -> void {
-    ar & value_;
-  }
 }
 
 template <>

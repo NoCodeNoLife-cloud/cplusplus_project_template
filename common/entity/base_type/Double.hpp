@@ -1,10 +1,9 @@
 #pragma once
 #include <string>
 #include <entity/base_type/Object.hpp>
-#include <io/interface/IBoostSerializable.hpp>
 
 namespace common {
-  class Double final : public Object, public IBoostSerializable<Double> {
+  class Double final : public Object {
   public:
     static constexpr double POSITIVE_INFINITY = std::numeric_limits<double>::infinity();
     static constexpr double NEGATIVE_INFINITY = -std::numeric_limits<double>::infinity();
@@ -31,16 +30,8 @@ namespace common {
 
   private:
     friend std::formatter<Double>;
-    friend class boost::serialization::access;
     double value_{0.0};
-    template <class Archive>
-    auto serialize(Archive& ar, unsigned int version) -> void;
   };
-
-  template <class Archive>
-  auto Double::serialize(Archive& ar, const unsigned int version) -> void {
-    ar & value_;
-  }
 }
 
 template <>

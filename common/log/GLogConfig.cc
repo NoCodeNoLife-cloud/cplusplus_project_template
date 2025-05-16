@@ -3,7 +3,9 @@
 
 namespace common {
   GLogConfig::GLogConfig() {
-    doConfig();
+    if (!doConfig()) {
+      throw std::runtime_error("Failed to load config");
+    }
   }
 
   auto GLogConfig::doConfig() -> bool {
