@@ -1,5 +1,5 @@
 #include <sstream>
-#include <entity/base_type/Short.hpp>
+#include <type/base_type/Short.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case {
@@ -136,7 +136,7 @@ namespace gtest_case {
   }
 
   TEST(ShortTest, FormatSpecifier) {
-    common::Short s(1234);
+    const common::Short s(1234);
     std::ostringstream oss;
     oss << s.toString();
     EXPECT_EQ(oss.str(), "class common::Short{1234}");

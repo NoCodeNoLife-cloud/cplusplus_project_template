@@ -1,4 +1,4 @@
-#include <entity/base_type/Float.hpp>
+#include <type/base_type/Float.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case {

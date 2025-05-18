@@ -1,4 +1,4 @@
-#include <entity/data_structure/tree/BinarySearchTree.hpp>
+#include <type/data_structure/tree/BinarySearchTree.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case {

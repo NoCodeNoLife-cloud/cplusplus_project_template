@@ -1,6 +1,6 @@
 #include <limits>
 #include <stdexcept>
-#include <entity/base_type/Long.hpp>
+#include <type/base_type/Long.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case {

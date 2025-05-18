@@ -1,4 +1,4 @@
-#include <entity/util/ClassUtil.hpp>
+#include <type/util/ClassUtil.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case {

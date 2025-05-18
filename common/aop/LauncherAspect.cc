@@ -1,5 +1,5 @@
 #include <aop/LauncherAspect.hpp>
-#include <log/GLogConfig.hpp>
+#include <service/log/GLogConfig.hpp>
 #include <time/FunctionProfiler.hpp>
 
 namespace common {

@@ -1,5 +1,5 @@
 #pragma once
-#include <entity/util/UnionFind.hpp>
+#include <type/util/UnionFind.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case {

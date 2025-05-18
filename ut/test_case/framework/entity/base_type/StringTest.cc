@@ -1,7 +1,7 @@
 #include <regex>
 #include <stdexcept>
 #include <vector>
-#include <entity/base_type/String.hpp>
+#include <type/base_type/String.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case {

@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include <entity/util/ArraysUtil.hpp>
+#include <type/util/ArraysUtil.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case {

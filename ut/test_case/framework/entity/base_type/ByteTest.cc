@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include <entity/base_type/Byte.hpp>
+#include <type/base_type/Byte.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case {

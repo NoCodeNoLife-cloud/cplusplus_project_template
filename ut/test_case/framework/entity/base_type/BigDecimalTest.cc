@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include <entity/base_type/BigDecimal.hpp>
+#include <type/base_type/BigDecimal.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case {

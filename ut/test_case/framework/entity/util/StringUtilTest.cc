@@ -1,6 +1,6 @@
 #include <string>
 #include <vector>
-#include <entity/util/StringUtil.hpp>
+#include <type/util/StringUtil.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case {

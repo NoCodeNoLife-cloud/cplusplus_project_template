@@ -1,5 +1,5 @@
 #include <string>
-#include <entity/base_type/Integer.hpp>
+#include <type/base_type/Integer.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case {

@@ -1,5 +1,5 @@
 #pragma once
-#include <log/GLogConfig.hpp>
+#include <service/log/GLogConfig.hpp>
 
 namespace common {
   class FunctionProfiler {

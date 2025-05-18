@@ -2,6 +2,7 @@
 #include <functional>
 
 namespace common {
+  // ReSharper disable once CppTemplateParameterNeverUsed
   template <typename Derived>
   class IAop abstract {
   public:

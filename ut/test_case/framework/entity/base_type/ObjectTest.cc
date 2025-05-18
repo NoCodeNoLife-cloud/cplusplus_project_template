@@ -1,6 +1,6 @@
 #include <memory>
 #include <string>
-#include <entity/base_type/Object.hpp>
+#include <type/base_type/Object.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case {

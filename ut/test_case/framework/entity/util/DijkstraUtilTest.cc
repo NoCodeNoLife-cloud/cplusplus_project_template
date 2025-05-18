@@ -1,5 +1,5 @@
-#include <entity/data_structure/graphics/Graph.hpp>
-#include <entity/util/DijkstraUtil.hpp>
+#include <type/data_structure/graphics/Graph.hpp>
+#include <type/util/DijkstraUtil.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case {

@@ -1,4 +1,4 @@
-#include <entity/data_structure/tree/RedBlackTree.hpp>
+#include <type/data_structure/tree/RedBlackTree.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case {

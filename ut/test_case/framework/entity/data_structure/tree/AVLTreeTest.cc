@@ -1,4 +1,4 @@
-#include <entity/data_structure/tree/AVLTree.hpp>
+#include <type/data_structure/tree/AVLTree.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case {

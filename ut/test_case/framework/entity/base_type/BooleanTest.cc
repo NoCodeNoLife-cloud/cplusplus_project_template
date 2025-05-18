@@ -1,6 +1,6 @@
 #include <stdexcept>
 #include <string>
-#include <entity/base_type/Boolean.hpp>
+#include <type/base_type/Boolean.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case {

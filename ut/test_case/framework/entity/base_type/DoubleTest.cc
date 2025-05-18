@@ -1,6 +1,6 @@
 #include <stdexcept>
 #include <string>
-#include <entity/base_type/Double.hpp>
+#include <type/base_type/Double.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case {
