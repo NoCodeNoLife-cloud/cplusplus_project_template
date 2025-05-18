@@ -17,6 +17,7 @@ namespace common {
     template <DerivedFromBoostSerializable T>
     static auto serializeObjectToBinaryString(const T& obj) -> std::string;
     template <DerivedFromBoostSerializable T>
+      requires std::default_initializable<T>
     static auto deserializeObjectFromBinaryString(const std::string& data) -> T;
     template <DerivedFromBoostSerializable T>
     static auto serializeObjectToXMLFile(const T& obj, const std::filesystem::path& filePath) -> bool;
@@ -33,6 +34,7 @@ namespace common {
   }
 
   template <DerivedFromBoostSerializable T>
+    requires std::default_initializable<T>
   auto BoostSerializer::deserializeObjectFromBinaryString(const std::string& data) -> T {
     T t = T();
     std::istringstream i_string_stream(data);
