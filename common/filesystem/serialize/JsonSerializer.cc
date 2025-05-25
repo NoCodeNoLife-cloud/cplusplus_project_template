@@ -1,4 +1,4 @@
-#include <filesystem/io/serialize/JsonSerializer.hpp>
+#include <filesystem/serialize/JsonSerializer.hpp>
 
 namespace common {
   auto JsonSerializer::getStringOrDefault(const rapidjson::Value& json, const char* key,
