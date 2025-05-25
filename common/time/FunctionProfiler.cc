@@ -1,7 +1,7 @@
 #include <iomanip>
 #include <iostream>
 #include <utility>
-#include <filesystem/File.hpp>
+#include <glog/logging.h>
 #include <time/FunctionProfiler.hpp>
 
 namespace common {
@@ -18,8 +18,7 @@ namespace common {
 
   auto FunctionProfiler::getRunTime() const -> void {
     const std::chrono::duration<double, std::milli> duration_ms = end_ - start_;
-    LOG(INFO) << function_name_ << " finish in " << std::fixed << std::setprecision(3) << duration_ms.count() / 1000.0
-      << " s";
+    LOG(INFO) << function_name_ << " finish in " << std::fixed << std::setprecision(3) << duration_ms.count() / 1000.0 << " s";
   }
 
   auto FunctionProfiler::recordEnd(const bool autoPrint) -> void {

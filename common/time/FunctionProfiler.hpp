@@ -1,4 +1,5 @@
 #pragma once
+#include <chrono>
 #include <service/log/GLogConfig.hpp>
 
 namespace common {

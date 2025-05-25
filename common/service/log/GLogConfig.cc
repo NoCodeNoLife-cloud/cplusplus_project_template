@@ -1,5 +1,8 @@
 #include <filesystem/Directory.hpp>
+#include <filesystem/serialize/YamlSerializer.hpp>
+#include <glog/logging.h>
 #include <service/log/GLogConfig.hpp>
+#include "GLogOptions.hpp"
 
 namespace common {
   GLogConfig::GLogConfig() {
@@ -9,17 +12,18 @@ namespace common {
   }
 
   auto GLogConfig::doConfig() -> bool {
-    google::InitGoogleLogging(LOG_NAME.c_str());
-    FLAGS_minloglevel = MIN_LOG_LEVEL;
-    configLogToStdout();
+    const GLogOptions config = YamlSerializer<GLogOptions>::deserialize("../common/service/log/glog_config.yaml");
+    google::InitGoogleLogging(config.logName().c_str());
+    FLAGS_minloglevel = config.minLogLevel();
+    configLogToStdout(config);
     if (std::atexit(clean) != 0) {
       throw std::runtime_error("Failed to register cleanup function!");
     }
     return true;
   }
 
-  auto GLogConfig::configLogToStdout() -> void {
-    FLAGS_logtostderr = true;
+  auto GLogConfig::configLogToStdout(const GLogOptions& glog_options) -> void {
+    FLAGS_logtostderr = glog_options.logToStderr();
   }
 
   auto GLogConfig::clean() -> void {
