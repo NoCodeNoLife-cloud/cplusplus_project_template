@@ -1,5 +1,4 @@
 #include <aop/LauncherAspect.hpp>
-#include <filesystem/serialize/YamlSerializer.hpp>
 #include <glog/logging.h>
 // ReSharper disable once CppDFAConstantFunctionResult
 auto business() -> bool {
