@@ -4,29 +4,36 @@
 #include <service/log/GLogConfig.hpp>
 #include "GLogOptions.hpp"
 
-namespace common {
-  GLogConfig::GLogConfig() {
-    if (!doConfig()) {
-      throw std::runtime_error("Failed to load config");
+namespace common
+{
+    GLogConfig::GLogConfig()
+    {
+        if (!doConfig())
+        {
+            throw std::runtime_error("Failed to load config");
+        }
     }
-  }
 
-  auto GLogConfig::doConfig() -> bool {
-    const GLogOptions config = YamlSerializer<GLogOptions>::deserialize("../common/service/log/glog_config.yaml");
-    google::InitGoogleLogging(config.logName().c_str());
-    FLAGS_minloglevel = config.minLogLevel();
-    configLogToStdout(config);
-    if (std::atexit(clean) != 0) {
-      throw std::runtime_error("Failed to register cleanup function!");
+    auto GLogConfig::doConfig() -> bool
+    {
+        const GLogOptions config = YamlSerializer<GLogOptions>::deserialize("../common/service/log/glog_config.yaml");
+        google::InitGoogleLogging(config.logName().c_str());
+        FLAGS_minloglevel = config.minLogLevel();
+        configLogToStdout(config);
+        if (std::atexit(clean) != 0)
+        {
+            throw std::runtime_error("Failed to register cleanup function!");
+        }
+        return true;
     }
-    return true;
-  }
 
-  auto GLogConfig::configLogToStdout(const GLogOptions& glog_options) -> void {
-    FLAGS_logtostderr = glog_options.logToStderr();
-  }
+    auto GLogConfig::configLogToStdout(const GLogOptions& glog_options) -> void
+    {
+        FLAGS_logtostderr = glog_options.logToStderr();
+    }
 
-  auto GLogConfig::clean() -> void {
-    google::ShutdownGoogleLogging();
-  }
+    auto GLogConfig::clean() -> void
+    {
+        google::ShutdownGoogleLogging();
+    }
 }
