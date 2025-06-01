@@ -4,14 +4,14 @@
 
 namespace common
 {
-    class GLogOptions final
+    class GLogParameters final
     {
     public:
-        GLogOptions();
-        ~GLogOptions();
-        GLogOptions(const GLogOptions& other);
-        GLogOptions& operator=(const GLogOptions& other);
-        GLogOptions(GLogOptions&& other) noexcept;
+        GLogParameters();
+        ~GLogParameters();
+        GLogParameters(const GLogParameters& other);
+        GLogParameters& operator=(const GLogParameters& other);
+        GLogParameters(GLogParameters&& other) noexcept;
         [[nodiscard]] auto minLogLevel() const -> int32_t;
         [[nodiscard]] auto logName() const -> std::string;
         [[nodiscard]] auto logToStderr() const -> bool;
@@ -27,9 +27,9 @@ namespace common
 }
 
 template <>
-struct YAML::convert<common::GLogOptions>
+struct YAML::convert<common::GLogParameters>
 {
-    static auto decode(const Node& node, common::GLogOptions& rhs) -> bool
+    static auto decode(const Node& node, common::GLogParameters& rhs) -> bool
     {
         rhs.minLogLevel(node["min_log_level"].as<int>());
         rhs.logName(node["log_name"].as<std::string>());
@@ -37,7 +37,7 @@ struct YAML::convert<common::GLogOptions>
         return true;
     }
 
-    static auto encode(const common::GLogOptions& rhs) -> Node
+    static auto encode(const common::GLogParameters& rhs) -> Node
     {
         Node node;
         node["min_log_level"] = rhs.minLogLevel();

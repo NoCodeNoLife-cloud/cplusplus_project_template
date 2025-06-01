@@ -1,4 +1,4 @@
-#include "BloomParameters.hpp"
+#include <type/container/BloomParameters.hpp>
 #include <limits>
 
 namespace common

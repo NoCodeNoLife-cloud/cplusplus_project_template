@@ -1,16 +1,16 @@
 #include <iostream>
 #include <queue>
 #include <type/data_structure/graphics/Edge.hpp>
-#include <type/util/DijkstraUtil.hpp>
+#include <algorithm/DijkstraAlgorithm.hpp>
 
 namespace common
 {
-    DijkstraUtil::DijkstraUtil(const Graph& g): graph_(g)
+    DijkstraAlgorithm::DijkstraAlgorithm(const Graph& g): graph_(g)
     {
         distances_.resize(graph_.getNodeCount(), INF);
     }
 
-    auto DijkstraUtil::compute(int32_t start) -> void
+    auto DijkstraAlgorithm::compute(int32_t start) -> void
     {
         distances_[start] = 0;
         std::priority_queue<std::pair<int32_t, int32_t>, std::vector<std::pair<int32_t, int32_t>>, std::greater<>> pq;
@@ -36,12 +36,12 @@ namespace common
         }
     }
 
-    auto DijkstraUtil::getDistance(const int32_t node) const -> int32_t
+    auto DijkstraAlgorithm::getDistance(const int32_t node) const -> int32_t
     {
         return distances_[node];
     }
 
-    auto DijkstraUtil::getDistances() const -> std::vector<int32_t>
+    auto DijkstraAlgorithm::getDistances() const -> std::vector<int32_t>
     {
         return distances_;
     }

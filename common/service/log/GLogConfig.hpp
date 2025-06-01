@@ -1,6 +1,6 @@
 #pragma once
 #include <service/IConfigurable.hpp>
-#include "GLogOptions.hpp"
+#include <service/log/GLogParameters.hpp>
 
 namespace common
 {
@@ -11,7 +11,7 @@ namespace common
 
     private:
         [[nodiscard]] auto doConfig() -> bool override;
-        static auto configLogToStdout(const GLogOptions& glog_options) -> void;
+        static auto configLogToStdout(const GLogParameters& glog_options) -> void;
         static auto clean() -> void;
     };
 }

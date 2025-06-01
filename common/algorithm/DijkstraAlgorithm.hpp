@@ -3,10 +3,10 @@
 
 namespace common
 {
-    class DijkstraUtil
+    class DijkstraAlgorithm
     {
     public:
-        explicit DijkstraUtil(const Graph& g);
+        explicit DijkstraAlgorithm(const Graph& g);
         auto compute(int32_t start) -> void;
         [[nodiscard]] auto getDistance(int32_t node) const -> int32_t;
         [[nodiscard]] auto getDistances() const -> std::vector<int32_t>;

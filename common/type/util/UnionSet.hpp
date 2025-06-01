@@ -4,7 +4,7 @@
 namespace common
 {
     template <typename T>
-    class UnionFind
+    class UnionSet
     {
     public:
         auto find(const T& x) -> T;
@@ -18,7 +18,7 @@ namespace common
     };
 
     template <typename T>
-    auto UnionFind<T>::find(const T& x) -> T
+    auto UnionSet<T>::find(const T& x) -> T
     {
         ensureRegistered(x);
         if (parent[x] != x)
@@ -29,7 +29,7 @@ namespace common
     }
 
     template <typename T>
-    auto UnionFind<T>::unionSets(const T& x, const T& y) -> bool
+    auto UnionSet<T>::unionSets(const T& x, const T& y) -> bool
     {
         T rootX = find(x);
         T rootY = find(y);
@@ -53,13 +53,13 @@ namespace common
     }
 
     template <typename T>
-    auto UnionFind<T>::connected(const T& x, const T& y) -> bool
+    auto UnionSet<T>::connected(const T& x, const T& y) -> bool
     {
         return find(x) == find(y);
     }
 
     template <typename T>
-    auto UnionFind<T>::ensureRegistered(const T& x) -> void
+    auto UnionSet<T>::ensureRegistered(const T& x) -> void
     {
         if (!parent.contains(x))
         {

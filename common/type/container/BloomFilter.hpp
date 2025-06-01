@@ -2,7 +2,7 @@
 #include <iterator>
 #include <string>
 #include <vector>
-#include "BloomParameters.hpp"
+#include <type/container/BloomParameters.hpp>
 
 namespace common
 {

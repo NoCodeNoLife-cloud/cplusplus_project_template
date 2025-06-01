@@ -1,12 +1,12 @@
 #pragma once
-#include <type/util/UnionFind.hpp>
+#include <type/util/UnionSet.hpp>
 #include <gtest/gtest.h>
 
 namespace gtest_case
 {
     TEST(UnionFindTest, SingleElementSelfConnection)
     {
-        common::UnionFind<int> uf;
+        common::UnionSet<int> uf;
         constexpr int x = 1;
         EXPECT_TRUE(uf.connected(x, x));
         EXPECT_EQ(uf.find(x), x);
@@ -14,7 +14,7 @@ namespace gtest_case
 
     TEST(UnionFindTest, TwoElementsUnion)
     {
-        common::UnionFind<int> uf;
+        common::UnionSet<int> uf;
         constexpr int x = 1;
         constexpr int y = 2;
         uf.unionSets(x, y);
@@ -24,7 +24,7 @@ namespace gtest_case
 
     TEST(UnionFindTest, UnionByRankMergeSameRank)
     {
-        common::UnionFind<int> uf;
+        common::UnionSet<int> uf;
         constexpr int x = 1;
         constexpr int y = 2;
         uf.unionSets(x, y);
@@ -35,7 +35,7 @@ namespace gtest_case
 
     TEST(UnionFindTest, PathCompression)
     {
-        common::UnionFind<int> uf;
+        common::UnionSet<int> uf;
         constexpr int a = 1;
         constexpr int b = 2;
         constexpr int c = 3;
@@ -48,7 +48,7 @@ namespace gtest_case
 
     TEST(UnionFindTest, MultipleUnionsTransitivity)
     {
-        common::UnionFind<int> uf;
+        common::UnionSet<int> uf;
         constexpr int x = 1;
         constexpr int y = 2;
         constexpr int z = 3;
@@ -60,7 +60,7 @@ namespace gtest_case
 
     TEST(UnionFindTest, NonExistentElementHandling)
     {
-        common::UnionFind<int> uf;
+        common::UnionSet<int> uf;
         constexpr int x = 1;
         constexpr int y = 2;
         EXPECT_EQ(uf.find(x), x);
@@ -70,7 +70,7 @@ namespace gtest_case
 
     TEST(UnionFindTest, RepeatedUnion)
     {
-        common::UnionFind<int> uf;
+        common::UnionSet<int> uf;
         constexpr int x = 1;
         constexpr int y = 2;
         uf.unionSets(x, y);
@@ -80,7 +80,7 @@ namespace gtest_case
 
     TEST(UnionFindTest, EnsureRegisteredCreatesEntry)
     {
-        common::UnionFind<int> uf;
+        common::UnionSet<int> uf;
         constexpr int x = 1;
         uf.find(x);
         EXPECT_EQ(uf.find(x), x);
