@@ -6,10 +6,10 @@
 
 namespace common
 {
-    class TimerManager
+    class PeriodicActuator
     {
     public:
-        explicit TimerManager(std::shared_ptr<ITimerTask> task, const std::chrono::milliseconds interval);
+        explicit PeriodicActuator(std::shared_ptr<ITimerTask> task, const std::chrono::milliseconds interval);
         auto start() -> void;
 
     private:

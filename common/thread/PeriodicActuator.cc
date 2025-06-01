@@ -1,18 +1,18 @@
-#include <thread/TimerManager.hpp>
+#include <thread/PeriodicActuator.hpp>
 
 namespace common
 {
-    TimerManager::TimerManager(std::shared_ptr<ITimerTask> task, const std::chrono::milliseconds interval): task_(std::move(task)), timer_(ioContext_), interval_(interval)
+    PeriodicActuator::PeriodicActuator(std::shared_ptr<ITimerTask> task, const std::chrono::milliseconds interval): task_(std::move(task)), timer_(ioContext_), interval_(interval)
     {
     }
 
-    auto TimerManager::start() -> void
+    auto PeriodicActuator::start() -> void
     {
         schedule_next();
         ioContext_.run();
     }
 
-    auto TimerManager::schedule_next() -> void
+    auto PeriodicActuator::schedule_next() -> void
     {
         timer_.expires_after(interval_);
         timer_.async_wait(

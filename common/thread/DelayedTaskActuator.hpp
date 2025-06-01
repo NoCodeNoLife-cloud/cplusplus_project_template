@@ -10,7 +10,7 @@
 namespace common
 {
     template <typename ResultType>
-    class DelayedTaskManager
+    class DelayedTaskActuator
     {
     public:
         auto scheduleTask(int delayMs, std::function<ResultType()> task) -> int;
@@ -24,7 +24,7 @@ namespace common
     };
 
     template <typename ResultType>
-    auto DelayedTaskManager<ResultType>::scheduleTask(int delayMs, std::function<ResultType()> task) -> int
+    auto DelayedTaskActuator<ResultType>::scheduleTask(int delayMs, std::function<ResultType()> task) -> int
     {
         std::lock_guard lock(mutex_);
         int taskId = nextTaskId_++;
@@ -46,7 +46,7 @@ namespace common
     }
 
     template <typename ResultType>
-    auto DelayedTaskManager<ResultType>::getTaskResult(int taskId) -> std::future<ResultType>
+    auto DelayedTaskActuator<ResultType>::getTaskResult(int taskId) -> std::future<ResultType>
     {
         std::unique_lock lock(mutex_);
 
