@@ -2,7 +2,7 @@
 #include <iostream>
 #include <utility>
 #include <glog/logging.h>
-#include <time/FunctionProfiler.hpp>
+#include <utils/time/FunctionProfiler.hpp>
 
 namespace common
 {

@@ -1,5 +1,5 @@
 #include <chrono>
-#include <gen/SnowflakeGenerator.hpp>
+#include <utils/gen/SnowflakeGenerator.hpp>
 
 namespace common
 {

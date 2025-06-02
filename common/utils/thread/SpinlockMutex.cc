@@ -1,5 +1,5 @@
 #include <thread>
-#include <thread/SpinlockMutex.hpp>
+#include <utils/thread/SpinlockMutex.hpp>
 
 namespace common
 {

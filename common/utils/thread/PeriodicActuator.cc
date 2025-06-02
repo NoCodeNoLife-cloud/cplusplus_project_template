@@ -1,4 +1,4 @@
-#include <thread/PeriodicActuator.hpp>
+#include <utils/thread/PeriodicActuator.hpp>
 
 namespace common
 {
