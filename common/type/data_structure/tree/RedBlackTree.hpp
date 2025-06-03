@@ -9,7 +9,7 @@ namespace common
     {
     public:
         auto insert(const T& value) -> void;
-        std::shared_ptr<RedBlackTreeNode<T>> root;
+        std::shared_ptr<RedBlackTreeNode<T>> root_;
 
     private:
         auto leftRotate(std::shared_ptr<RedBlackTreeNode<T>> node) -> void;
@@ -21,13 +21,13 @@ namespace common
     auto RedBlackTree<T>::insert(const T& value) -> void
     {
         auto node = std::make_shared<RedBlackTreeNode<T>>(value);
-        if (!root)
+        if (!root_)
         {
-            root = node;
+            root_ = node;
             node->setColor(Color::Black);
             return;
         }
-        std::shared_ptr<RedBlackTreeNode<T>> current = root;
+        std::shared_ptr<RedBlackTreeNode<T>> current = root_;
         std::shared_ptr<RedBlackTreeNode<T>> parent;
         while (current)
         {
@@ -65,7 +65,7 @@ namespace common
         rightChild->setParent(node->getParent());
         if (!node->getParent())
         {
-            root = rightChild;
+            root_ = rightChild;
         }
         else if (node == node->getParent()->getLeft())
         {
@@ -91,7 +91,7 @@ namespace common
         leftChild->setParent(node->getParent());
         if (!node->getParent())
         {
-            root = leftChild;
+            root_ = leftChild;
         }
         else if (node == node->getParent()->getLeft())
         {
@@ -108,7 +108,7 @@ namespace common
     template <typename T>
     auto RedBlackTree<T>::fixInsert(std::shared_ptr<RedBlackTreeNode<T>> node) -> void
     {
-        while (node != root && node->getParent() && node->getParent()->getColor() == Color::Red)
+        while (node != root_ && node->getParent() && node->getParent()->getColor() == Color::Red)
         {
             if (node->getParent() == node->getParent()->getParent()->getLeft())
             {
@@ -161,6 +161,6 @@ namespace common
                 }
             }
         }
-        root->setColor(Color::Black);
+        root_->setColor(Color::Black);
     }
 }

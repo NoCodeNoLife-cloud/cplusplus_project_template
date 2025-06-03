@@ -8,11 +8,11 @@ namespace common
 
     auto PeriodicActuator::start() -> void
     {
-        schedule_next();
+        scheduleNext();
         ioContext_.run();
     }
 
-    auto PeriodicActuator::schedule_next() -> void
+    auto PeriodicActuator::scheduleNext() -> void
     {
         timer_.expires_after(interval_);
         timer_.async_wait(
@@ -21,7 +21,7 @@ namespace common
                 if (!ec)
                 {
                     task_->execute();
-                    schedule_next();
+                    scheduleNext();
                 }
             });
     }

@@ -17,6 +17,6 @@ namespace common
         std::shared_ptr<ITimerTask> task_;
         boost::asio::steady_timer timer_;
         std::chrono::milliseconds interval_;
-        auto schedule_next() -> void;
+        auto scheduleNext() -> void;
     };
 }

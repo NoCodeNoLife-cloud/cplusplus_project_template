@@ -21,75 +21,75 @@ namespace common
         auto setColor(Color c) -> void;
 
     private:
-        T data;
-        std::shared_ptr<RedBlackTreeNode> left;
-        std::shared_ptr<RedBlackTreeNode> right;
-        std::shared_ptr<RedBlackTreeNode> parent;
-        Color color;
+        T data_;
+        std::shared_ptr<RedBlackTreeNode> left_;
+        std::shared_ptr<RedBlackTreeNode> right_;
+        std::shared_ptr<RedBlackTreeNode> parent_;
+        Color color_;
     };
 
     template <typename T>
-    RedBlackTreeNode<T>::RedBlackTreeNode(const T& value) : data(value), color(Color::Red)
+    RedBlackTreeNode<T>::RedBlackTreeNode(const T& value) : data_(value), color_(Color::Red)
     {
     }
 
     template <typename T>
     auto RedBlackTreeNode<T>::getData() const -> T
     {
-        return data;
+        return data_;
     }
 
     template <typename T>
     auto RedBlackTreeNode<T>::setData(const T& value) -> void
     {
-        data = value;
+        data_ = value;
     }
 
     template <typename T>
     auto RedBlackTreeNode<T>::getLeft() const -> std::shared_ptr<RedBlackTreeNode>
     {
-        return left;
+        return left_;
     }
 
     template <typename T>
     auto RedBlackTreeNode<T>::setLeft(std::shared_ptr<RedBlackTreeNode> node) -> void
     {
-        left = node;
+        left_ = node;
     }
 
     template <typename T>
     auto RedBlackTreeNode<T>::getRight() const -> std::shared_ptr<RedBlackTreeNode>
     {
-        return right;
+        return right_;
     }
 
     template <typename T>
     auto RedBlackTreeNode<T>::setRight(std::shared_ptr<RedBlackTreeNode> node) -> void
     {
-        right = node;
+        right_ = node;
     }
 
     template <typename T>
     auto RedBlackTreeNode<T>::getParent() const -> std::shared_ptr<RedBlackTreeNode>
     {
-        return parent;
+        return parent_;
     }
 
     template <typename T>
     auto RedBlackTreeNode<T>::setParent(std::shared_ptr<RedBlackTreeNode> node) -> void
     {
-        parent = node;
+        parent_ = node;
     }
 
     template <typename T>
     auto RedBlackTreeNode<T>::getColor() const -> Color
     {
-        return color;
+        return color_;
     }
 
     template <typename T>
     auto RedBlackTreeNode<T>::setColor(const Color c) -> void
     {
-        color = c;
+        color_ = c;
     }
 }

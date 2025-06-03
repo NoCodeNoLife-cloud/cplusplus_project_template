@@ -39,11 +39,9 @@ namespace common
         template <typename T, typename U>
         static auto generateMultiMap(T minKey, T maxKey, U minValue, U maxValue, int32_t size) -> std::multimap<T, U>;
         template <typename T, typename U>
-        static auto generateUnorderedMap(T minKey, T maxKey, U minValue, U maxValue, int32_t size)
-            -> std::unordered_map<T, U>;
+        static auto generateUnorderedMap(T minKey, T maxKey, U minValue, U maxValue, int32_t size) -> std::unordered_map<T, U>;
         template <typename T, typename U>
-        static auto generateUnorderedMultiMap(T minKey, T maxKey, U minValue, U maxValue, int32_t size)
-            -> std::unordered_multimap<T, U>;
+        static auto generateUnorderedMultiMap(T minKey, T maxKey, U minValue, U maxValue, int32_t size) -> std::unordered_multimap<T, U>;
 
     private:
         static inline auto mt1993764_ = std::mt19937_64(std::random_device{}());

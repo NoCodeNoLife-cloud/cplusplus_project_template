@@ -1,3 +1,4 @@
+#include <iterator>
 #include <type/container/BloomFilter.hpp>
 
 namespace common
@@ -82,7 +83,7 @@ namespace common
         std::size_t bit_index = 0;
         std::size_t bit = 0;
 
-        for (const unsigned int i : salt_)
+        for (const uint32_t i : salt_)
         {
             compute_indices(hash_ap(key_begin, length, i), bit_index, bit);
 
@@ -124,7 +125,7 @@ namespace common
         std::size_t bit_index = 0;
         std::size_t bit = 0;
 
-        for (const unsigned int i : salt_)
+        for (const uint32_t i : salt_)
         {
             compute_indices(hash_ap(key_begin, length, i), bit_index, bit);
 
@@ -189,12 +190,12 @@ namespace common
         return end;
     }
 
-    auto BloomFilter::size() const -> unsigned long long int
+    auto BloomFilter::size() const -> uint64_t
     {
         return table_size_;
     }
 
-    auto BloomFilter::element_count() const -> unsigned long long int
+    auto BloomFilter::element_count() const -> uint64_t
     {
         return inserted_element_count_;
     }
@@ -258,7 +259,7 @@ namespace common
         return *this;
     }
 
-    auto BloomFilter::table() const -> const BloomFilter::cell_type*
+    auto BloomFilter::table() const -> const BloomFilter::cell_type_*
     {
         return bit_table_.data();
     }
@@ -268,7 +269,7 @@ namespace common
         return salt_.size();
     }
 
-    auto BloomFilter::compute_indices(const bloom_type& hash, std::size_t& bit_index, std::size_t& bit) const -> void
+    auto BloomFilter::compute_indices(const bloom_type_& hash, std::size_t& bit_index, std::size_t& bit) const -> void
     {
         bit_index = hash % table_size_;
         bit = bit_index % BITS_PER_CHAR;
@@ -276,9 +277,9 @@ namespace common
 
     auto BloomFilter::generate_unique_salt() -> void
     {
-        constexpr unsigned int pre_def_salt_count = 128;
+        constexpr uint32_t pre_def_salt_count = 128;
 
-        static constexpr bloom_type pre_def_salt[pre_def_salt_count] =
+        static constexpr bloom_type_ pre_def_salt[pre_def_salt_count] =
         {
             0xAAAAAAAA, 0x55555555, 0x33333333, 0xCCCCCCCC,
             0x66666666, 0x99999999, 0xB5B5B5B5, 0x4B4B4B4B,
@@ -316,24 +317,19 @@ namespace common
 
         if (salt_count_ <= pre_def_salt_count)
         {
-            std::copy_n(pre_def_salt,
-                        salt_count_,
-                        std::back_inserter(salt_));
-
+            std::copy_n(pre_def_salt, salt_count_, std::back_inserter(salt_));
             for (std::size_t i = 0; i < salt_.size(); ++i)
             {
-                salt_[i] = salt_[i] * salt_[(i + 3) % salt_.size()] + static_cast<bloom_type>(random_seed_);
+                salt_[i] = salt_[i] * salt_[(i + 3) % salt_.size()] + static_cast<bloom_type_>(random_seed_);
             }
         }
         else
         {
             std::copy_n(pre_def_salt, pre_def_salt_count, std::back_inserter(salt_));
-
-            srand(static_cast<unsigned int>(random_seed_));
-
+            srand(static_cast<uint32_t>(random_seed_));
             while (salt_.size() < salt_count_)
             {
-                bloom_type current_salt = static_cast<bloom_type>(rand()) * static_cast<bloom_type>(rand());
+                bloom_type_ current_salt = static_cast<bloom_type_>(rand()) * static_cast<bloom_type_>(rand());
 
                 if (0 == current_salt)
                     continue;
@@ -346,56 +342,59 @@ namespace common
         }
     }
 
-    auto BloomFilter::hash_ap(const unsigned char* begin, std::size_t remaining_length, bloom_type hash) -> BloomFilter::bloom_type
+    auto BloomFilter::hash_ap(const unsigned char* begin, std::size_t remaining_length, bloom_type_ hash) -> BloomFilter::bloom_type_
     {
         const unsigned char* itr = begin;
 
         while (remaining_length >= 8)
         {
-            const unsigned int& i1 = *reinterpret_cast<const unsigned int*>(itr);
-            itr += sizeof(unsigned int);
-            const unsigned int& i2 = *reinterpret_cast<const unsigned int*>(itr);
-            itr += sizeof(unsigned int);
+            const uint32_t& i1 = *reinterpret_cast<const uint32_t*>(itr);
+            itr += sizeof(uint32_t);
+            const uint32_t& i2 = *reinterpret_cast<const uint32_t*>(itr);
+            itr += sizeof(uint32_t);
 
-            hash ^= hash << 7 ^ i1 * (hash >> 3) ^
-                ~((hash << 11) + (i2 ^ hash >> 5));
+            hash ^= hash << 7 ^ i1 * (hash >> 3) ^ ~((hash << 11) + (i2 ^ hash >> 5));
 
             remaining_length -= 8;
         }
 
         if (remaining_length)
         {
-            unsigned int loop = 0;
+            uint32_t loop = 0;
             if (remaining_length >= 4)
             {
-                const unsigned int& i = *reinterpret_cast<const unsigned int*>(itr);
+                const uint32_t& i = *reinterpret_cast<const uint32_t*>(itr);
 
                 if (loop & 0x01)
+                {
                     hash ^= hash << 7 ^ i * (hash >> 3);
+                }
                 else
+                {
                     hash ^= ~((hash << 11) + (i ^ hash >> 5));
+                }
 
                 ++loop;
-
                 remaining_length -= 4;
-
-                itr += sizeof(unsigned int);
+                itr += sizeof(uint32_t);
             }
 
             if (remaining_length >= 2)
             {
-                const unsigned short& i = *reinterpret_cast<const unsigned short*>(itr);
+                const uint16_t& i = *reinterpret_cast<const uint16_t*>(itr);
 
                 if (loop & 0x01)
+                {
                     hash ^= hash << 7 ^ i * (hash >> 3);
+                }
                 else
+                {
                     hash ^= ~((hash << 11) + (i ^ hash >> 5));
+                }
 
                 ++loop;
-
                 remaining_length -= 2;
-
-                itr += sizeof(unsigned short);
+                itr += sizeof(uint16_t);
             }
 
             if (remaining_length)

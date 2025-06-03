@@ -20,6 +20,6 @@ namespace common
         auto skip(size_t n) -> size_t override;
 
     protected:
-        std::shared_ptr<AbstractReader> in;
+        std::shared_ptr<AbstractReader> in_;
     };
 }

@@ -24,14 +24,14 @@ namespace common
         std::vector<std::thread> workers_;
         std::queue<std::function<void()>> task_queue_;
         std::condition_variable condition_;
-        std::mutex queueMutex_;
+        std::mutex queue_mutex_;
         std::atomic<bool> stop_;
-        std::atomic<size_t> coreThreadCount_;
-        std::atomic<size_t> activeThreadCount_;
-        size_t maxThreadCount_;
-        size_t maxQueueSize_;
-        std::chrono::milliseconds threadIdleTime_;
-        auto Worker() -> void;
-        auto AddWorker() -> bool;
+        std::atomic<size_t> core_thread_count_;
+        std::atomic<size_t> active_thread_count_;
+        size_t max_thread_count_;
+        size_t max_queue_size_;
+        std::chrono::milliseconds thread_idle_time_;
+        auto worker() -> void;
+        auto addWorker() -> bool;
     };
 }

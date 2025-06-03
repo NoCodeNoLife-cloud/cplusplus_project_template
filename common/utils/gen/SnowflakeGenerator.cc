@@ -35,7 +35,7 @@ namespace common
             sequence_ = sequence_ + 1 & static_cast<int64_t>(SnowflakeOption::max_sequence_);
             if (sequence_ == 0)
             {
-                timestamp = til_next_millis(last_timestamp_);
+                timestamp = TilNextMillis(last_timestamp_);
             }
         }
         else
@@ -57,7 +57,7 @@ namespace common
         return timestamp - start_time;
     }
 
-    auto SnowflakeGenerator::til_next_millis(const int64_t last_timestamp) -> int64_t
+    auto SnowflakeGenerator::TilNextMillis(const int64_t last_timestamp) -> int64_t
     {
         int64_t timestamp = GetCurrentTimestamp();
         while (timestamp <= last_timestamp)

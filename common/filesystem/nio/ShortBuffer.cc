@@ -10,14 +10,14 @@ namespace common
         position_ = 0;
     }
 
-    auto ShortBuffer::wrap(const short* data, const size_t size) -> ShortBuffer
+    auto ShortBuffer::wrap(const int16_t* data, const size_t size) -> ShortBuffer
     {
         ShortBuffer sb(size);
-        std::memcpy(sb.buffer_.data(), data, size * sizeof(short));
+        std::memcpy(sb.buffer_.data(), data, size * sizeof(int16_t));
         return sb;
     }
 
-    auto ShortBuffer::get() -> short
+    auto ShortBuffer::get() -> int16_t
     {
         if (position_ >= limit_)
         {
@@ -26,7 +26,7 @@ namespace common
         return buffer_[position_++];
     }
 
-    auto ShortBuffer::get(const size_t index) const -> short
+    auto ShortBuffer::get(const size_t index) const -> int16_t
     {
         if (index >= limit_)
         {
@@ -35,7 +35,7 @@ namespace common
         return buffer_[index];
     }
 
-    auto ShortBuffer::put(const short value) -> void
+    auto ShortBuffer::put(const int16_t value) -> void
     {
         if (position_ >= limit_)
         {
@@ -44,7 +44,7 @@ namespace common
         buffer_[position_++] = value;
     }
 
-    auto ShortBuffer::put(const size_t index, const short value) -> void
+    auto ShortBuffer::put(const size_t index, const int16_t value) -> void
     {
         if (index >= limit_)
         {
@@ -58,12 +58,12 @@ namespace common
         position_ = 0;
     }
 
-    auto ShortBuffer::data() -> short*
+    auto ShortBuffer::data() -> int16_t*
     {
         return buffer_.data();
     }
 
-    auto ShortBuffer::data() const -> const short*
+    auto ShortBuffer::data() const -> const int16_t*
     {
         return buffer_.data();
     }

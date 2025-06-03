@@ -4,9 +4,9 @@
 namespace common
 {
     BloomParameters::BloomParameters(): minimum_size(1),
-                                        maximum_size(std::numeric_limits<unsigned long long int>::max()),
+                                        maximum_size(std::numeric_limits<uint64_t>::max()),
                                         minimum_number_of_hashes(1),
-                                        maximum_number_of_hashes(std::numeric_limits<unsigned int>::max()),
+                                        maximum_number_of_hashes(std::numeric_limits<uint32_t>::max()),
                                         projected_element_count(10000),
                                         false_positive_probability(1.0 / static_cast<double>(projected_element_count)),
                                         random_seed(0xA5A5A5A55A5A5A5AULL)
@@ -58,9 +58,9 @@ namespace common
 
         optimal_parameters_t& parameters = optimal_parameters;
 
-        parameters.number_of_hashes = static_cast<unsigned int>(min_k);
+        parameters.number_of_hashes = static_cast<uint32_t>(min_k);
 
-        parameters.table_size = static_cast<unsigned long long int>(min_m);
+        parameters.table_size = static_cast<uint64_t>(min_m);
 
         parameters.table_size += parameters.table_size % BITS_PER_CHAR != 0 ? BITS_PER_CHAR - parameters.table_size % BITS_PER_CHAR : 0;
 

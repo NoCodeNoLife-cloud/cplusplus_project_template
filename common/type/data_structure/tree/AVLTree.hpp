@@ -15,7 +15,7 @@ namespace common
         auto find(T value) const -> bool;
 
     private:
-        std::shared_ptr<TreeNode<T>> root;
+        std::shared_ptr<TreeNode<T>> root_;
         auto getHeight(const std::shared_ptr<TreeNode<T>>& node) -> int32_t;
         auto getBalance(const std::shared_ptr<TreeNode<T>>& node) -> int32_t;
         auto rotateRight(std::shared_ptr<TreeNode<T>> y) -> std::shared_ptr<TreeNode<T>>;
@@ -27,26 +27,26 @@ namespace common
     };
 
     template <typename T>
-    AVLTree<T>::AVLTree() : root(nullptr)
+    AVLTree<T>::AVLTree() : root_(nullptr)
     {
     }
 
     template <typename T>
     auto AVLTree<T>::insert(T value) -> void
     {
-        root = insert(root, value);
+        root_ = insert(root_, value);
     }
 
     template <typename T>
     auto AVLTree<T>::remove(T value) -> void
     {
-        root = remove(root, value);
+        root_ = remove(root_, value);
     }
 
     template <typename T>
     auto AVLTree<T>::find(T value) const -> bool
     {
-        return find(root, value) != nullptr;
+        return find(root_, value) != nullptr;
     }
 
     template <typename T>

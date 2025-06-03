@@ -17,7 +17,7 @@ namespace common
         [[nodiscard]] auto hashCode() const -> size_t;
 
     private:
-        std::string pattern;
+        std::string pattern_;
         static auto validatePattern(const std::string& pat) -> void;
     };
 }

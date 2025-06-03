@@ -15,7 +15,7 @@ namespace common
         Short(Short&& other) noexcept;
         Short& operator=(const Short& other);
         Short& operator=(Short&& other) noexcept;
-        explicit operator short() const;
+        explicit operator int16_t() const;
         [[nodiscard]] auto hashCode() const -> size_t override;
         [[nodiscard]] auto toString() const -> std::string override;
         [[nodiscard]] auto shortValue() const -> int16_t;

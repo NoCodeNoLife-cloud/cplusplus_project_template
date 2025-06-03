@@ -24,6 +24,6 @@ namespace common
         int16_t machine_id_;
         std::mutex mutex_;
         static auto GetCurrentTimestamp() -> int64_t;
-        static auto til_next_millis(int64_t last_timestamp) -> int64_t;
+        static auto TilNextMillis(int64_t last_timestamp) -> int64_t;
     };
 }

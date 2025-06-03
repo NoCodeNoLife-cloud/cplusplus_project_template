@@ -4,7 +4,7 @@
 
 namespace common
 {
-    Directory::Directory(std::filesystem::path filePath) : file_path_(std::move(filePath))
+    Directory::Directory(std::filesystem::path filePath) : dir_path_(std::move(filePath))
     {
     }
 
@@ -12,7 +12,7 @@ namespace common
     {
         try
         {
-            return std::filesystem::create_directory(file_path_);
+            return std::filesystem::create_directory(dir_path_);
         }
         catch (...)
         {
@@ -22,12 +22,12 @@ namespace common
 
     auto Directory::exists() const -> bool
     {
-        return std::filesystem::exists(file_path_);
+        return std::filesystem::exists(dir_path_);
     }
 
     auto Directory::isDirectory() const -> bool
     {
-        return std::filesystem::is_directory(file_path_);
+        return std::filesystem::is_directory(dir_path_);
     }
 
     auto Directory::list() const -> std::vector<std::string>
@@ -39,7 +39,7 @@ namespace common
     {
         try
         {
-            return std::filesystem::create_directories(file_path_);
+            return std::filesystem::create_directories(dir_path_);
         }
         catch (...)
         {
@@ -51,7 +51,7 @@ namespace common
     {
         try
         {
-            return std::filesystem::remove(file_path_);
+            return std::filesystem::remove(dir_path_);
         }
         catch (...)
         {
@@ -63,7 +63,7 @@ namespace common
     {
         try
         {
-            return std::filesystem::remove_all(file_path_);
+            return std::filesystem::remove_all(dir_path_);
         }
         catch (...)
         {
@@ -83,7 +83,7 @@ namespace common
             }
 
             std::queue<std::pair<std::filesystem::path, std::filesystem::path>> dirQueue;
-            dirQueue.emplace(file_path_, destination);
+            dirQueue.emplace(dir_path_, destination);
 
             while (!dirQueue.empty())
             {
@@ -122,7 +122,7 @@ namespace common
     {
         try
         {
-            std::filesystem::rename(file_path_, destination);
+            std::filesystem::rename(dir_path_, destination);
             return true;
         }
         catch (...)
@@ -136,7 +136,7 @@ namespace common
         std::uintmax_t total = 0;
         try
         {
-            for (const auto& entry : std::filesystem::recursive_directory_iterator(file_path_))
+            for (const auto& entry : std::filesystem::recursive_directory_iterator(dir_path_))
             {
                 if (entry.is_regular_file())
                 {
@@ -154,7 +154,7 @@ namespace common
     {
         try
         {
-            const auto ftime = std::filesystem::last_write_time(file_path_);
+            const auto ftime = std::filesystem::last_write_time(dir_path_);
             return std::chrono::clock_cast<std::chrono::system_clock>(ftime);
         }
         catch (...)
@@ -167,7 +167,7 @@ namespace common
     {
         try
         {
-            return std::filesystem::is_empty(file_path_);
+            return std::filesystem::is_empty(dir_path_);
         }
         catch (...)
         {
@@ -182,14 +182,14 @@ namespace common
         {
             if (recursive)
             {
-                for (const auto& entry : std::filesystem::recursive_directory_iterator(file_path_))
+                for (const auto& entry : std::filesystem::recursive_directory_iterator(dir_path_))
                 {
                     entries.push_back(entry.path().string());
                 }
             }
             else
             {
-                for (const auto& entry : std::filesystem::directory_iterator(file_path_))
+                for (const auto& entry : std::filesystem::directory_iterator(dir_path_))
                 {
                     entries.push_back(entry.path().string());
                 }
@@ -208,14 +208,14 @@ namespace common
         {
             if (recursive)
             {
-                for (const auto& entry : std::filesystem::recursive_directory_iterator(file_path_))
+                for (const auto& entry : std::filesystem::recursive_directory_iterator(dir_path_))
                 {
                     entries.push_back(entry);
                 }
             }
             else
             {
-                for (const auto& entry : std::filesystem::directory_iterator(file_path_))
+                for (const auto& entry : std::filesystem::directory_iterator(dir_path_))
                 {
                     entries.push_back(entry);
                 }
@@ -231,11 +231,11 @@ namespace common
     {
         try
         {
-            if (!std::filesystem::exists(file_path_) || !std::filesystem::is_directory(file_path_))
+            if (!std::filesystem::exists(dir_path_) || !std::filesystem::is_directory(dir_path_))
             {
                 return false;
             }
-            for (const auto& entry : std::filesystem::directory_iterator(file_path_))
+            for (const auto& entry : std::filesystem::directory_iterator(dir_path_))
             {
                 std::filesystem::remove_all(entry.path());
             }

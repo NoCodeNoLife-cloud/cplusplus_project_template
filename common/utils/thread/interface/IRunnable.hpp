@@ -6,6 +6,6 @@ namespace common
     {
     public:
         virtual ~IRunnable() = default;
-        virtual auto Run(Args... args) -> ReturnType = 0;
+        virtual auto run(Args... args) -> ReturnType = 0;
     };
 }

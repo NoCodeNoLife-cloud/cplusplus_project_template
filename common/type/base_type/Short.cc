@@ -44,7 +44,7 @@ namespace common
         return seed;
     }
 
-    Short::operator short() const
+    Short::operator int16_t() const
     {
         return value_;
     }

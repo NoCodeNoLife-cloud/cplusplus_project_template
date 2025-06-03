@@ -24,6 +24,6 @@ namespace common
         [[nodiscard]] auto clearAll() const -> bool;
 
     private:
-        std::filesystem::path file_path_;
+        std::filesystem::path dir_path_;
     };
 }

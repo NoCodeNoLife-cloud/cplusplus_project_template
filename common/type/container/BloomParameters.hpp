@@ -12,26 +12,26 @@ namespace common
         ~BloomParameters();
         auto operator!() const -> bool;
         /// Allowable min/max size of the bloom filter in bits
-        unsigned long long int minimum_size;
-        unsigned long long int maximum_size;
+        uint64_t minimum_size;
+        uint64_t maximum_size;
         /// Allowable min/max number of hash functions
-        unsigned int minimum_number_of_hashes;
-        unsigned int maximum_number_of_hashes;
+        uint32_t minimum_number_of_hashes;
+        uint32_t maximum_number_of_hashes;
         /// The approximate number of elements to be inserted
         /// into the bloom filter, should be within one order
         /// of magnitude. The default is 10000.
-        unsigned long long int projected_element_count;
+        uint64_t projected_element_count;
         /// The approximate false positive probability expected
         /// from the bloom filter. The default is assumed to be
         /// the reciprocal of the projected_element_count.
         double false_positive_probability;
-        unsigned long long int random_seed;
+        uint64_t random_seed;
 
         struct optimal_parameters_t
         {
             optimal_parameters_t();
-            unsigned int number_of_hashes;
-            unsigned long long int table_size;
+            uint32_t number_of_hashes;
+            uint64_t table_size;
         };
 
         optimal_parameters_t optimal_parameters;

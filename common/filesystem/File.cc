@@ -220,7 +220,7 @@ namespace common
         }
 
         std::array<unsigned char, EVP_MAX_MD_SIZE> digest{};
-        unsigned int digestLength;
+        uint32_t digestLength;
         if (EVP_DigestFinal_ex(mdContext.get(), digest.data(), &digestLength) != 1)
         {
             throw std::runtime_error("MD5 finalization failed");
@@ -228,7 +228,7 @@ namespace common
 
         std::ostringstream oss;
         oss << std::hex << std::setfill('0');
-        for (unsigned int i = 0; i < digestLength; ++i)
+        for (uint32_t i = 0; i < digestLength; ++i)
         {
             oss << std::setw(2) << static_cast<unsigned>(digest[i]);
         }

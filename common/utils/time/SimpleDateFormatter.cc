@@ -7,18 +7,18 @@ namespace common
     SimpleDateFormatter::SimpleDateFormatter(const std::string& pattern)
     {
         validatePattern(pattern);
-        this->pattern = pattern;
+        this->pattern_ = pattern;
     }
 
     auto SimpleDateFormatter::applyPattern(const std::string& newPattern) -> void
     {
         validatePattern(newPattern);
-        this->pattern = newPattern;
+        this->pattern_ = newPattern;
     }
 
     auto SimpleDateFormatter::toPattern() const -> std::string
     {
-        return this->pattern;
+        return this->pattern_;
     }
 
     auto SimpleDateFormatter::format(const std::tm& date) const -> std::string
@@ -26,7 +26,7 @@ namespace common
         std::ostringstream oss;
         try
         {
-            oss << std::put_time(&date, pattern.c_str());
+            oss << std::put_time(&date, pattern_.c_str());
         }
         catch (const std::exception& e)
         {
@@ -41,7 +41,7 @@ namespace common
         std::tm date = {};
         try
         {
-            iss >> std::get_time(&date, pattern.c_str());
+            iss >> std::get_time(&date, pattern_.c_str());
             if (iss.fail())
             {
                 throw std::runtime_error("Failed to parse date: " + dateStr);
@@ -56,12 +56,12 @@ namespace common
 
     auto SimpleDateFormatter::equals(const SimpleDateFormatter& other) const -> bool
     {
-        return this->pattern == other.pattern;
+        return this->pattern_ == other.pattern_;
     }
 
     auto SimpleDateFormatter::hashCode() const -> size_t
     {
-        return std::hash<std::string>{}(this->pattern);
+        return std::hash<std::string>{}(this->pattern_);
     }
 
     auto SimpleDateFormatter::validatePattern(const std::string& pat) -> void

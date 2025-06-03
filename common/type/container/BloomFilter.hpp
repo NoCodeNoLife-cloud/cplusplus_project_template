@@ -1,5 +1,4 @@
 #pragma once
-#include <iterator>
 #include <string>
 #include <vector>
 #include <type/container/BloomParameters.hpp>
@@ -17,12 +16,12 @@ namespace common
         0x80 //10000000
     };
 
-    class BloomFilter
+    class BloomFilter final
     {
     protected:
-        typedef unsigned int bloom_type;
-        typedef unsigned char cell_type;
-        typedef std::vector<unsigned char> table_type;
+        typedef uint32_t bloom_type_;
+        typedef unsigned char cell_type_;
+        typedef std::vector<unsigned char> table_type_;
 
     public:
         BloomFilter();
@@ -41,7 +40,7 @@ namespace common
         auto insert(const char* data, const std::size_t& length) -> void;
         template <typename InputIterator>
         auto insert(InputIterator begin, InputIterator end) -> void;
-        virtual auto contains(const unsigned char* key_begin, std::size_t length) const -> bool;
+        auto contains(const unsigned char* key_begin, std::size_t length) const -> bool;
         template <typename T>
         auto contains(const T& t) const -> bool;
         [[nodiscard]] auto contains(const std::string& key) const -> bool;
@@ -50,26 +49,26 @@ namespace common
         auto contains_all(InputIterator begin, InputIterator end) const -> InputIterator;
         template <typename InputIterator>
         auto contains_none(InputIterator begin, InputIterator end) const -> InputIterator;
-        [[nodiscard]] virtual auto size() const -> unsigned long long int;
-        [[nodiscard]] auto element_count() const -> unsigned long long int;
+        [[nodiscard]] auto size() const -> uint64_t;
+        [[nodiscard]] auto element_count() const -> uint64_t;
         [[nodiscard]] auto effective_fpp() const -> double;
         auto operator &=(const BloomFilter& f) -> BloomFilter&;
         auto operator |=(const BloomFilter& f) -> BloomFilter&;
         auto operator ^=(const BloomFilter& f) -> BloomFilter&;
-        [[nodiscard]] auto table() const -> const cell_type*;
+        [[nodiscard]] auto table() const -> const cell_type_*;
         [[nodiscard]] auto hash_count() const -> std::size_t;
 
     protected:
-        virtual auto compute_indices(const bloom_type& hash, std::size_t& bit_index, std::size_t& bit) const -> void;
+        auto compute_indices(const bloom_type_& hash, std::size_t& bit_index, std::size_t& bit) const -> void;
         auto generate_unique_salt() -> void;
-        static auto hash_ap(const unsigned char* begin, std::size_t remaining_length, bloom_type hash) -> bloom_type;
-        std::vector<bloom_type> salt_;
+        static auto hash_ap(const unsigned char* begin, std::size_t remaining_length, bloom_type_ hash) -> bloom_type_;
+        std::vector<bloom_type_> salt_;
         std::vector<unsigned char> bit_table_;
-        unsigned int salt_count_{};
-        unsigned long long int table_size_{};
-        unsigned long long int projected_element_count_{};
-        unsigned long long int inserted_element_count_{};
-        unsigned long long int random_seed_{};
+        uint32_t salt_count_{};
+        uint64_t table_size_{};
+        uint64_t projected_element_count_{};
+        uint64_t inserted_element_count_{};
+        uint64_t random_seed_{};
         double desired_false_positive_probability_{};
     };
 

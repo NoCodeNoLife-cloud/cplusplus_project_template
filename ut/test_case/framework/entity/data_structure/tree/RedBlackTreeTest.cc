@@ -7,7 +7,7 @@ namespace gtest_case
     {
         common::RedBlackTree<int32_t> tree;
         tree.insert(10);
-        const auto root = tree.root;
+        const auto root = tree.root_;
         ASSERT_TRUE(root != nullptr);
         EXPECT_EQ(root->getData(), 10);
         EXPECT_EQ(root->getColor(), common::Color::Black);
@@ -19,7 +19,7 @@ namespace gtest_case
         common::RedBlackTree<int32_t> tree;
         tree.insert(10);
         tree.insert(20);
-        const auto root = tree.root;
+        const auto root = tree.root_;
         ASSERT_TRUE(root != nullptr);
         EXPECT_EQ(root->getData(), 10);
         EXPECT_EQ(root->getColor(), common::Color::Black);
@@ -37,7 +37,7 @@ namespace gtest_case
         tree.insert(10);
         tree.insert(20);
         tree.insert(30);
-        const auto root = tree.root;
+        const auto root = tree.root_;
         ASSERT_TRUE(root != nullptr);
         EXPECT_EQ(root->getData(), 20);
         EXPECT_EQ(root->getColor(), common::Color::Black);
@@ -58,7 +58,7 @@ namespace gtest_case
         tree.insert(10);
         tree.insert(5);
         tree.insert(1);
-        const auto root = tree.root;
+        const auto root = tree.root_;
         ASSERT_TRUE(root != nullptr);
         EXPECT_EQ(root->getData(), 5);
         EXPECT_EQ(root->getColor(), common::Color::Black);
@@ -80,7 +80,7 @@ namespace gtest_case
         tree.insert(5);
         tree.insert(15);
         tree.insert(6);
-        const auto root = tree.root;
+        const auto root = tree.root_;
         ASSERT_TRUE(root != nullptr);
         EXPECT_EQ(root->getData(), 10);
         EXPECT_EQ(root->getColor(), common::Color::Black);
@@ -103,7 +103,7 @@ namespace gtest_case
         common::RedBlackTree<int32_t> tree;
         tree.insert(10);
         tree.insert(10);
-        const auto root = tree.root;
+        const auto root = tree.root_;
         ASSERT_TRUE(root != nullptr);
         const auto right = root->getRight();
         ASSERT_TRUE(right != nullptr);

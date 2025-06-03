@@ -9,7 +9,7 @@ namespace common
     class BinarySearchTree
     {
     public:
-        BinarySearchTree() : root(nullptr)
+        BinarySearchTree() : root_(nullptr)
         {
         }
 
@@ -19,7 +19,7 @@ namespace common
         auto inorderTraversal() const -> void;
 
     private:
-        std::shared_ptr<TreeNode<T>> root;
+        std::shared_ptr<TreeNode<T>> root_;
         auto insertRecursive(std::shared_ptr<TreeNode<T>> node, T value) -> std::shared_ptr<TreeNode<T>>;
         auto findRecursive(const std::shared_ptr<TreeNode<T>>& node, T value) const -> bool;
         auto removeRecursive(std::shared_ptr<TreeNode<T>> node, T value) -> std::shared_ptr<TreeNode<T>>;
@@ -30,7 +30,7 @@ namespace common
     template <typename T>
     auto BinarySearchTree<T>::insert(T value) -> void
     {
-        root = insertRecursive(root, value);
+        root_ = insertRecursive(root_, value);
     }
 
     template <typename T>
@@ -49,7 +49,7 @@ namespace common
     template <typename T>
     auto BinarySearchTree<T>::find(T value) const -> bool
     {
-        return findRecursive(root, value);
+        return findRecursive(root_, value);
     }
 
     template <typename T>
@@ -67,7 +67,7 @@ namespace common
     template <typename T>
     auto BinarySearchTree<T>::remove(T value) -> void
     {
-        root = removeRecursive(root, value);
+        root_ = removeRecursive(root_, value);
     }
 
     template <typename T>
@@ -104,7 +104,7 @@ namespace common
     template <typename T>
     auto BinarySearchTree<T>::inorderTraversal() const -> void
     {
-        inorderTraversalRecursive(root);
+        inorderTraversalRecursive(root_);
         std::cout << std::endl;
     }
 
