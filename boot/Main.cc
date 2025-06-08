@@ -1,11 +1,16 @@
 #include <aop/LauncherAspect.hpp>
 #include <glog/logging.h>
+
+auto mainTask() -> void
+{
+}
+
 // ReSharper disable once CppDFAConstantFunctionResult
 auto business() -> bool
 {
     try
     {
-        // Implement business logic here.
+        mainTask();
         return EXIT_SUCCESS;
         // ReSharper disable once CppDFAUnreachableCode
     }
