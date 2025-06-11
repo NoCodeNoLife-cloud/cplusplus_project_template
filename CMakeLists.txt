@@ -15,11 +15,11 @@ project(${MAIN_PROJECT})
 
 #includes
 include_directories(common)
-include_directories(boot)
+include_directories(app)
 
 #sources
-set(SRC_DIR boot)
-set(SRC_HEADER_DIR boot)
+set(SRC_DIR app)
+set(SRC_HEADER_DIR app)
 file(GLOB_RECURSE SRC_FILES
         ${SRC_HEADER_DIR}/*.hpp
         ${SRC_DIR}/*.cc
