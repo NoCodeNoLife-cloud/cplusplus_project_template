@@ -10,7 +10,5 @@ namespace app
         setWindowTitle("MainWindow");
     }
 
-    MainWindow::~MainWindow()
-    {
-    }
+    MainWindow::~MainWindow() = default;
 }
