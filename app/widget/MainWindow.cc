@@ -1,5 +1,5 @@
-#include <MainWindow.hpp>
 #include <QLabel>
+#include <widget/MainWindow.hpp>
 
 namespace app
 {
