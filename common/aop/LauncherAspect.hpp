@@ -11,7 +11,6 @@ namespace common
 
     private:
         FunctionProfiler timer_;
-        auto onEntry() -> void override;
         auto onExit() -> void override;
     };
 }

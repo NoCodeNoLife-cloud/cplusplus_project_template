@@ -1,23 +1,24 @@
-#include <iostream>
 #include <boot/Startup.hpp>
-#include <service/BoolFunctorRegister.hpp>
+#include <service/log/GLogConfig.hpp>
 
 namespace common
 {
     Startup::Startup()
     {
+        registerTask();
         runAll();
     }
 
-    void Startup::runAll()
+    auto Startup::registerTask() -> void
     {
-        for (const auto& func : BoolFunctorRegister::getRegisteredFunctions())
+        startup_tasks_.push_back(std::move(std::make_unique<GLogConfig>()));
+    }
+
+    auto Startup::runAll() const -> void
+    {
+        for (const auto& task : startup_tasks_)
         {
-            if (!func())
-            {
-                std::cerr << "Function not registered";
-                return;
-            }
+            task->run();
         }
     }
 }

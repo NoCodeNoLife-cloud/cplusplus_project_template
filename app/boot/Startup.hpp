@@ -1,4 +1,8 @@
 #pragma once
+#include <memory>
+#include <vector>
+#include <interface/IStartupTask.hpp>
+
 namespace common
 {
     class Startup
@@ -7,6 +11,8 @@ namespace common
         Startup();
 
     private:
-        static void runAll();
+        std::vector<std::unique_ptr<app::IStartupTask>> startup_tasks_;
+        auto registerTask() -> void;
+        auto runAll() const -> void;
     };
 }

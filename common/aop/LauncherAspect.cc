@@ -8,11 +8,6 @@ namespace common
     {
     }
 
-    auto LauncherAspect::onEntry() -> void
-    {
-        const GLogConfig config{};
-    }
-
     auto LauncherAspect::onExit() -> void
     {
         timer_.recordEnd(true);
