@@ -1,10 +1,9 @@
-#include <widget/MainWindow.hpp>
+#include <iostream>
 #include <QApplication>
 #include <boot/Startup.hpp>
 #include <glog/logging.h>
-
-#include "aop/LauncherAspect.hpp"
-#include "service/log/GLogConfig.hpp"
+#include <widget/MainWindow.hpp>
+#include <aop/LauncherAspect.hpp>
 
 common::Startup startup;
 
