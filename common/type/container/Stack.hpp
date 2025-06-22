@@ -7,9 +7,6 @@ namespace common
     template <typename T, typename Container = std::vector<T>>
     class Stack
     {
-    private:
-        Container data;
-
     public:
         Stack();
 
@@ -27,8 +24,11 @@ namespace common
         auto top() const -> const T&;
         auto top() -> T&;
 
-        auto empty() const -> bool;
-        auto size() const -> size_t;
+        [[nodiscard]] auto empty() const -> bool;
+        [[nodiscard]] auto size() const -> size_t;
+
+    private:
+        Container data;
     };
 
     template <typename T, typename Container>
