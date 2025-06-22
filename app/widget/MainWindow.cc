@@ -1,11 +1,13 @@
 #include <QLabel>
+#include <type/container/Queue.hpp>
 #include <widget/MainWindow.hpp>
 
 namespace app
 {
     MainWindow::MainWindow(QWidget* parent): QMainWindow(parent)
     {
-        const auto label = new QLabel("Hello World", this);;
+        const QString str = "Hello World!";
+        const auto label = new QLabel(str, this);;
         setCentralWidget(label);
         setWindowTitle("MainWindow");
     }
