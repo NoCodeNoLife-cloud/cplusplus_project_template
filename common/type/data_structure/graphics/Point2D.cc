@@ -1,4 +1,4 @@
-#include "Point2D.hpp"
+#include <type/data_structure/graphics/Point2D.hpp>
 
 namespace common
 {

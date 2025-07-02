@@ -1,6 +1,6 @@
 #pragma once
-#include <../../../../../common/type/container/UnionSet.hpp>
 #include <gtest/gtest.h>
+#include <type/container/UnionSet.hpp>
 
 namespace gtest_case
 {
