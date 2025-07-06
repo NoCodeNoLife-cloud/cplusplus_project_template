@@ -13,7 +13,7 @@ namespace common
     template <typename T>
     concept DerivedFromBoostSerializable = std::is_base_of_v<IBoostSerializable<T>, T>;
 
-    class BoostSerializer abstract
+    class BoostObjectSerializer abstract
     {
     public:
         template <DerivedFromBoostSerializable T>
@@ -28,7 +28,7 @@ namespace common
     };
 
     template <DerivedFromBoostSerializable T>
-    auto BoostSerializer::serializeObjectToBinaryString(const T& obj) -> std::string
+    auto BoostObjectSerializer::serializeObjectToBinaryString(const T& obj) -> std::string
     {
         std::ostringstream o_string_stream;
         boost::archive::binary_oarchive binary_o_archive(o_string_stream);
@@ -38,7 +38,7 @@ namespace common
 
     template <DerivedFromBoostSerializable T>
         requires std::default_initializable<T>
-    auto BoostSerializer::deserializeObjectFromBinaryString(const std::string& data) -> T
+    auto BoostObjectSerializer::deserializeObjectFromBinaryString(const std::string& data) -> T
     {
         T t = T();
         std::istringstream i_string_stream(data);
@@ -48,7 +48,7 @@ namespace common
     }
 
     template <DerivedFromBoostSerializable T>
-    auto BoostSerializer::serializeObjectToXMLFile(const T& obj, const std::filesystem::path& filePath) -> bool
+    auto BoostObjectSerializer::serializeObjectToXMLFile(const T& obj, const std::filesystem::path& filePath) -> bool
     {
         try
         {
@@ -64,7 +64,7 @@ namespace common
     }
 
     template <DerivedFromBoostSerializable T>
-    auto BoostSerializer::serializeObjectFromXMLFile(const std::filesystem::path& filePath) -> T
+    auto BoostObjectSerializer::serializeObjectFromXMLFile(const std::filesystem::path& filePath) -> T
     {
         try
         {

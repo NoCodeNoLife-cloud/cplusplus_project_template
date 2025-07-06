@@ -1,4 +1,3 @@
-#include <iostream>
 #include <QApplication>
 #include <boot/Startup.hpp>
 #include <glog/logging.h>

@@ -11,10 +11,10 @@ namespace common
     template <typename T>
     concept DerivedFromJsonSerializable = std::is_base_of_v<IJsonSerializable, T>;
 
-    class JsonSerializer abstract
+    class JsonObjectSerializer abstract
     {
     public:
-        JsonSerializer() = delete;
+        JsonObjectSerializer() = delete;
         template <DerivedFromJsonSerializable T>
         static auto saveObjectToJsonFile(const T& entity, const std::string& filename) -> void;
         template <DerivedFromJsonSerializable T>
@@ -30,7 +30,7 @@ namespace common
     };
 
     template <DerivedFromJsonSerializable T>
-    auto JsonSerializer::saveObjectToJsonFile(const T& entity, const std::string& filename) -> void
+    auto JsonObjectSerializer::saveObjectToJsonFile(const T& entity, const std::string& filename) -> void
     {
         rapidjson::StringBuffer buffer;
         rapidjson::PrettyWriter writer(buffer);
@@ -45,7 +45,7 @@ namespace common
     }
 
     template <DerivedFromJsonSerializable T>
-    auto JsonSerializer::loadObjectFromJsonFile(const std::string& filename) -> T
+    auto JsonObjectSerializer::loadObjectFromJsonFile(const std::string& filename) -> T
     {
         T entity{};
         std::ifstream ifs(filename);

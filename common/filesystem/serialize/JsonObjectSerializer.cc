@@ -1,8 +1,8 @@
-#include <filesystem/serialize/JsonSerializer.hpp>
+#include <filesystem/serialize/JsonObjectSerializer.hpp>
 
 namespace common
 {
-    auto JsonSerializer::getStringOrDefault(const rapidjson::Value& json, const char* key,
+    auto JsonObjectSerializer::getStringOrDefault(const rapidjson::Value& json, const char* key,
                                             const std::string& defaultValue) -> std::string
     {
         if (json.HasMember(key) && json[key].IsString())
@@ -12,7 +12,7 @@ namespace common
         return defaultValue;
     }
 
-    auto JsonSerializer::getIntOrDefault(const rapidjson::Value& json, const char* key, const int32_t defaultValue)
+    auto JsonObjectSerializer::getIntOrDefault(const rapidjson::Value& json, const char* key, const int32_t defaultValue)
         -> int32_t
     {
         if (json.HasMember(key) && json[key].IsInt())
@@ -22,7 +22,7 @@ namespace common
         return defaultValue;
     }
 
-    auto JsonSerializer::getDoubleOrDefault(const rapidjson::Value& json, const char* key, const double defaultValue)
+    auto JsonObjectSerializer::getDoubleOrDefault(const rapidjson::Value& json, const char* key, const double defaultValue)
         -> double
     {
         if (json.HasMember(key) && json[key].IsDouble())
@@ -32,7 +32,7 @@ namespace common
         return defaultValue;
     }
 
-    auto JsonSerializer::getBoolOrDefault(const rapidjson::Value& json, const char* key, const bool defaultValue)
+    auto JsonObjectSerializer::getBoolOrDefault(const rapidjson::Value& json, const char* key, const bool defaultValue)
         -> bool
     {
         if (json.HasMember(key) && json[key].IsBool())
@@ -42,28 +42,28 @@ namespace common
         return defaultValue;
     }
 
-    auto JsonSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key,
+    auto JsonObjectSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key,
                                         const std::string& value) -> void
     {
         writer.Key(key);
         writer.String(value.c_str());
     }
 
-    auto JsonSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key,
+    auto JsonObjectSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key,
                                         const int32_t value) -> void
     {
         writer.Key(key);
         writer.Int(value);
     }
 
-    auto JsonSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key,
+    auto JsonObjectSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key,
                                         const double value) -> void
     {
         writer.Key(key);
         writer.Double(value);
     }
 
-    auto JsonSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key,
+    auto JsonObjectSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key,
                                         const bool value) -> void
     {
         writer.Key(key);

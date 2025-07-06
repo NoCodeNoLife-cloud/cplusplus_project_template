@@ -6,7 +6,7 @@
 namespace common
 {
     template <typename T>
-    class YamlSerializer abstract
+    class YamlObjectSerializer abstract
     {
     public:
         static auto serialize(const T& obj, const std::string& filename) -> void;
@@ -14,7 +14,7 @@ namespace common
     };
 
     template <typename T>
-    auto YamlSerializer<T>::serialize(const T& obj, const std::string& filename) -> void
+    auto YamlObjectSerializer<T>::serialize(const T& obj, const std::string& filename) -> void
     {
         const YAML::Node node = YAML::convert<T>::encode(obj);
         YAML::Emitter emitter;
@@ -34,7 +34,7 @@ namespace common
     }
 
     template <typename T>
-    auto YamlSerializer<T>::deserialize(const std::string& filename) -> T
+    auto YamlObjectSerializer<T>::deserialize(const std::string& filename) -> T
     {
         YAML::Node node = YAML::LoadFile(filename);
         T obj;
