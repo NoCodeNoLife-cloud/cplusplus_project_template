@@ -7,7 +7,7 @@
 
 common::Startup startup;
 
-auto mainTask(int32_t argc, char* argv[]) -> bool
+auto createMainWindow(int32_t argc, char* argv[]) -> bool
 {
     QApplication app(argc, argv);
     app::MainWindow mainWindow;
@@ -16,11 +16,11 @@ auto mainTask(int32_t argc, char* argv[]) -> bool
 }
 
 // ReSharper disable once CppDFAConstantFunctionResult
-auto business(const int32_t argc, char* argv[]) -> bool
+auto mainTask(const int32_t argc, char* argv[]) -> bool
 {
     try
     {
-        mainTask(argc, argv);
+        createMainWindow(argc, argv);
         return EXIT_SUCCESS;
         // ReSharper disable once CppDFAUnreachableCode
     }
@@ -34,5 +34,5 @@ auto business(const int32_t argc, char* argv[]) -> bool
 auto main(const int32_t argc, char* argv[]) -> int32_t
 {
     common::LauncherAspect launcher;
-    launcher.exec(business, argc, argv);
+    launcher.exec(mainTask, argc, argv);
 }

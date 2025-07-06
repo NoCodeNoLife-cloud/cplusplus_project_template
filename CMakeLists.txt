@@ -43,9 +43,11 @@ find_package(yaml-cpp CONFIG REQUIRED)
 find_package(RapidJSON CONFIG REQUIRED)
 find_package(OpenSSL REQUIRED)
 find_package(Qt5 REQUIRED COMPONENTS Widgets)
+find_package(directxmath CONFIG REQUIRED)
 
 #executable
 add_executable(${MAIN_PROJECT} ${SRC_FILES} ${FRAMEWORK_FILES})
+
 
 #link
 target_link_libraries(${MAIN_PROJECT} PRIVATE glog::glog)
@@ -58,6 +60,7 @@ target_link_libraries(${MAIN_PROJECT} PRIVATE yaml-cpp::yaml-cpp)
 target_link_libraries(${MAIN_PROJECT} PRIVATE RapidJSON rapidjson)
 target_link_libraries(${MAIN_PROJECT} PRIVATE OpenSSL::SSL OpenSSL::Crypto)
 target_link_libraries(${MAIN_PROJECT} PRIVATE Qt5::Widgets)
+target_link_libraries(${MAIN_PROJECT} PRIVATE Microsoft::DirectXMath)
 
 #subdirectory
 add_subdirectory(ut)
