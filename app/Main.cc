@@ -4,7 +4,7 @@
 #include <widget/MainWindow.hpp>
 #include <aop/LauncherAspect.hpp>
 
-common::Startup startup;
+coco::Startup startup;
 
 auto createMainWindow(int32_t argc, char* argv[]) -> bool
 {
@@ -32,6 +32,6 @@ auto mainTask(const int32_t argc, char* argv[]) -> bool
 
 auto main(const int32_t argc, char* argv[]) -> int32_t
 {
-    common::LauncherAspect launcher;
+    coco::LauncherAspect launcher;
     launcher.exec(mainTask, argc, argv);
 }

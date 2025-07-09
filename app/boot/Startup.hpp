@@ -3,7 +3,7 @@
 #include <vector>
 #include <interface/IStartupTask.hpp>
 
-namespace common
+namespace coco
 {
     class Startup
     {

@@ -1,7 +1,7 @@
 #include <boot/Startup.hpp>
 #include <service/log/GLogConfig.hpp>
 
-namespace common
+namespace coco
 {
     Startup::Startup()
     {

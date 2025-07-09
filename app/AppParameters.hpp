@@ -12,7 +12,7 @@ namespace app
         AppParameters& operator=(const AppParameters& other);
         AppParameters(AppParameters&& other) noexcept;
 
-        auto appType(const std::string& app_type);
+        auto appType(const std::string& app_type) -> void;
         [[nodiscard]] auto appType() const -> std::string;
 
     private:

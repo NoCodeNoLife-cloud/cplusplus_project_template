@@ -5,7 +5,7 @@ namespace gtest_case
 {
     TEST(BinarySearchTreeTest, InsertAndFindBasic)
     {
-        common::BinarySearchTree<int32_t> tree;
+        coco::BinarySearchTree<int32_t> tree;
         tree.insert(5);
         tree.insert(3);
         tree.insert(7);
@@ -18,13 +18,13 @@ namespace gtest_case
 
     TEST(BinarySearchTreeTest, EmptyTreeFindReturnsFalse)
     {
-        const common::BinarySearchTree<int32_t> tree;
+        const coco::BinarySearchTree<int32_t> tree;
         EXPECT_FALSE(tree.find(1));
     }
 
     TEST(BinarySearchTreeTest, RemoveLeafNode)
     {
-        common::BinarySearchTree<int32_t> tree;
+        coco::BinarySearchTree<int32_t> tree;
         tree.insert(5);
         tree.insert(3);
         tree.remove(3);
@@ -35,7 +35,7 @@ namespace gtest_case
 
     TEST(BinarySearchTreeTest, RemoveNodeWithOneChild)
     {
-        common::BinarySearchTree<int32_t> tree;
+        coco::BinarySearchTree<int32_t> tree;
         tree.insert(5);
         tree.insert(3);
         tree.insert(2);
@@ -48,7 +48,7 @@ namespace gtest_case
 
     TEST(BinarySearchTreeTest, RemoveNodeWithTwoChildren)
     {
-        common::BinarySearchTree<int32_t> tree;
+        coco::BinarySearchTree<int32_t> tree;
         tree.insert(5);
         tree.insert(3);
         tree.insert(7);
@@ -63,7 +63,7 @@ namespace gtest_case
 
     TEST(BinarySearchTreeTest, InorderTraversalOrder)
     {
-        common::BinarySearchTree<int32_t> tree;
+        coco::BinarySearchTree<int32_t> tree;
         tree.insert(5);
         tree.insert(3);
         tree.insert(7);
@@ -78,14 +78,14 @@ namespace gtest_case
 
     TEST(BinarySearchTreeTest, RemoveEmptyTreeNoop)
     {
-        common::BinarySearchTree<int32_t> tree;
+        coco::BinarySearchTree<int32_t> tree;
         tree.remove(1);
         EXPECT_FALSE(tree.find(1));
     }
 
     TEST(BinarySearchTreeTest, DuplicateInserts)
     {
-        common::BinarySearchTree<int32_t> tree;
+        coco::BinarySearchTree<int32_t> tree;
         tree.insert(5);
         tree.insert(5);
 
@@ -94,7 +94,7 @@ namespace gtest_case
 
     TEST(BinarySearchTreeTest, DeleteRootWithTwoChildren)
     {
-        common::BinarySearchTree<int32_t> tree;
+        coco::BinarySearchTree<int32_t> tree;
         tree.insert(10);
         tree.insert(5);
         tree.insert(15);

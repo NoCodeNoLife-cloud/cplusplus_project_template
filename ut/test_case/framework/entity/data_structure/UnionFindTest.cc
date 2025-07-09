@@ -6,7 +6,7 @@ namespace gtest_case
 {
     TEST(UnionFindTest, SingleElementSelfConnection)
     {
-        common::UnionSet<int> uf;
+        coco::UnionSet<int> uf;
         constexpr int x = 1;
         EXPECT_TRUE(uf.connected(x, x));
         EXPECT_EQ(uf.find(x), x);
@@ -14,7 +14,7 @@ namespace gtest_case
 
     TEST(UnionFindTest, TwoElementsUnion)
     {
-        common::UnionSet<int> uf;
+        coco::UnionSet<int> uf;
         constexpr int x = 1;
         constexpr int y = 2;
         uf.unionSets(x, y);
@@ -24,7 +24,7 @@ namespace gtest_case
 
     TEST(UnionFindTest, UnionByRankMergeSameRank)
     {
-        common::UnionSet<int> uf;
+        coco::UnionSet<int> uf;
         constexpr int x = 1;
         constexpr int y = 2;
         uf.unionSets(x, y);
@@ -35,7 +35,7 @@ namespace gtest_case
 
     TEST(UnionFindTest, PathCompression)
     {
-        common::UnionSet<int> uf;
+        coco::UnionSet<int> uf;
         constexpr int a = 1;
         constexpr int b = 2;
         constexpr int c = 3;
@@ -48,7 +48,7 @@ namespace gtest_case
 
     TEST(UnionFindTest, MultipleUnionsTransitivity)
     {
-        common::UnionSet<int> uf;
+        coco::UnionSet<int> uf;
         constexpr int x = 1;
         constexpr int y = 2;
         constexpr int z = 3;
@@ -60,7 +60,7 @@ namespace gtest_case
 
     TEST(UnionFindTest, NonExistentElementHandling)
     {
-        common::UnionSet<int> uf;
+        coco::UnionSet<int> uf;
         constexpr int x = 1;
         constexpr int y = 2;
         EXPECT_EQ(uf.find(x), x);
@@ -70,7 +70,7 @@ namespace gtest_case
 
     TEST(UnionFindTest, RepeatedUnion)
     {
-        common::UnionSet<int> uf;
+        coco::UnionSet<int> uf;
         constexpr int x = 1;
         constexpr int y = 2;
         uf.unionSets(x, y);
@@ -80,7 +80,7 @@ namespace gtest_case
 
     TEST(UnionFindTest, EnsureRegisteredCreatesEntry)
     {
-        common::UnionSet<int> uf;
+        coco::UnionSet<int> uf;
         constexpr int x = 1;
         uf.find(x);
         EXPECT_EQ(uf.find(x), x);

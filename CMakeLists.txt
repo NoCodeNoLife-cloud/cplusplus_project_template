@@ -17,7 +17,7 @@ set(MAIN_PROJECT cpp_project)
 project(${MAIN_PROJECT})
 
 #includes
-include_directories(common)
+include_directories(coco)
 include_directories(app)
 
 #sources
@@ -28,8 +28,8 @@ file(GLOB_RECURSE SRC_FILES
         ${SRC_DIR}/*.cc
 )
 
-set(FRAMEWORK_DIR common)
-set(FRAMEWORK_HEADER_DIR common)
+set(FRAMEWORK_DIR coco)
+set(FRAMEWORK_HEADER_DIR coco)
 file(GLOB_RECURSE FRAMEWORK_FILES
         ${FRAMEWORK_DIR}/*.hpp
         ${FRAMEWORK_HEADER_DIR}/*.cc

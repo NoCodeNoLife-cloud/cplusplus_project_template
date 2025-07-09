@@ -8,7 +8,7 @@ namespace app
     AppParameters& AppParameters::operator=(const AppParameters& other) = default;
     AppParameters::AppParameters(AppParameters&& other) noexcept = default;
 
-    auto AppParameters::appType(const std::string& app_type)
+    auto AppParameters::appType(const std::string& app_type) -> void
     {
         app_type_ = app_type;
     }

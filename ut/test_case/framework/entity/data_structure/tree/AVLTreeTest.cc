@@ -5,14 +5,14 @@ namespace gtest_case
 {
     TEST(AVLTreeTest, InsertSingleNodeCheckExistence)
     {
-        common::AVLTree<int> tree;
+        coco::AVLTree<int> tree;
         tree.insert(10);
         EXPECT_TRUE(tree.find(10));
     }
 
     TEST(AVLTreeTest, InsertDuplicateValueCheckNoGrowth)
     {
-        common::AVLTree<int> tree;
+        coco::AVLTree<int> tree;
         tree.insert(10);
         tree.insert(10);
         EXPECT_TRUE(tree.find(10));
@@ -20,7 +20,7 @@ namespace gtest_case
 
     TEST(AVLTreeTest, InsertLeftLeftCaseCheckRotation)
     {
-        common::AVLTree<int> tree;
+        coco::AVLTree<int> tree;
         tree.insert(30);
         tree.insert(20);
         tree.insert(10);
@@ -31,7 +31,7 @@ namespace gtest_case
 
     TEST(AVLTreeTest, InsertRightRightCaseCheckRotation)
     {
-        common::AVLTree<int> tree;
+        coco::AVLTree<int> tree;
         tree.insert(10);
         tree.insert(20);
         tree.insert(30);
@@ -42,7 +42,7 @@ namespace gtest_case
 
     TEST(AVLTreeTest, InsertLeftRightCaseCheckRotation)
     {
-        common::AVLTree<int> tree;
+        coco::AVLTree<int> tree;
         tree.insert(30);
         tree.insert(10);
         tree.insert(20);
@@ -53,7 +53,7 @@ namespace gtest_case
 
     TEST(AVLTreeTest, InsertRightLeftCaseCheckRotation)
     {
-        common::AVLTree<int> tree;
+        coco::AVLTree<int> tree;
         tree.insert(10);
         tree.insert(30);
         tree.insert(20);
@@ -64,7 +64,7 @@ namespace gtest_case
 
     TEST(AVLTreeTest, RemoveLeafNodeCheckExistence)
     {
-        common::AVLTree<int> tree;
+        coco::AVLTree<int> tree;
         tree.insert(20);
         tree.insert(10);
         tree.insert(30);
@@ -76,7 +76,7 @@ namespace gtest_case
 
     TEST(AVLTreeTest, RemoveNodeWithOneChildCheckStructure)
     {
-        common::AVLTree<int> tree;
+        coco::AVLTree<int> tree;
         tree.insert(20);
         tree.insert(10);
         tree.insert(30);
@@ -90,7 +90,7 @@ namespace gtest_case
 
     TEST(AVLTreeTest, RemoveNodeWithTwoChildrenCheckSuccessor)
     {
-        common::AVLTree<int> tree;
+        coco::AVLTree<int> tree;
         tree.insert(20);
         tree.insert(10);
         tree.insert(30);
@@ -104,7 +104,7 @@ namespace gtest_case
 
     TEST(AVLTreeTest, RemoveRootNodeCheckNewRoot)
     {
-        common::AVLTree<int> tree;
+        coco::AVLTree<int> tree;
         tree.insert(20);
         tree.insert(10);
         tree.insert(30);
@@ -116,14 +116,14 @@ namespace gtest_case
 
     TEST(AVLTreeTest, FindNonExistentValueCheckFalse)
     {
-        common::AVLTree<int> tree;
+        coco::AVLTree<int> tree;
         tree.insert(20);
         EXPECT_FALSE(tree.find(99));
     }
 
     TEST(AVLTreeTest, InsertRemoveCheckEmptyState)
     {
-        common::AVLTree<int> tree;
+        coco::AVLTree<int> tree;
         tree.insert(10);
         tree.remove(10);
         EXPECT_FALSE(tree.find(10));
