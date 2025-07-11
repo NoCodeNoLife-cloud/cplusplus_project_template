@@ -1,12 +1,12 @@
 #include <filesystem/Directory.hpp>
 #include <filesystem/serialize/YamlObjectSerializer.hpp>
 #include <glog/logging.h>
-#include <service/log/GLogConfig.hpp>
+#include <service/log/GLogConfigurator.hpp>
 #include <service/log/GLogParameters.hpp>
 
 namespace coco
 {
-    auto GLogConfig::run() -> bool
+    auto GLogConfigurator::run() -> bool
     {
         if (!doConfig())
         {
@@ -15,7 +15,7 @@ namespace coco
         return true;
     }
 
-    auto GLogConfig::doConfig() -> bool
+    auto GLogConfigurator::doConfig() -> bool
     {
         const GLogParameters config = YamlObjectSerializer<GLogParameters>::deserialize("../coco/service/log/glog_config.yaml");
         google::InitGoogleLogging(config.logName().c_str());
@@ -28,12 +28,12 @@ namespace coco
         return true;
     }
 
-    auto GLogConfig::configLogToStdout(const GLogParameters& glog_options) -> void
+    auto GLogConfigurator::configLogToStdout(const GLogParameters& glog_options) -> void
     {
         FLAGS_logtostderr = glog_options.logToStderr();
     }
 
-    auto GLogConfig::clean() -> void
+    auto GLogConfigurator::clean() -> void
     {
         google::ShutdownGoogleLogging();
     }

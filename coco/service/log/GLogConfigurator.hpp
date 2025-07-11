@@ -5,7 +5,7 @@
 
 namespace coco
 {
-    class GLogConfig final : public IConfigurable, public app::IStartupTask
+    class GLogConfigurator final : public IConfigurable, public app::IStartupTask
     {
     public:
         bool run() override;
