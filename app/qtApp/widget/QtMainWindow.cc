@@ -1,14 +1,13 @@
-#include <QApplication>
+#include <qcoreapplication.h>
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include <QWidget>
+#include <qtApp/widget/QtMainWindow.hpp>
 #include <type/container/Queue.hpp>
-#include <widget/MainWindow.hpp>
 
 namespace app
 {
-    MainWindow::MainWindow(QWidget* parent): QMainWindow(parent)
+    QtMainWindow::QtMainWindow(QWidget* parent): QMainWindow(parent)
     {
         setWindowTitle("MainWindow");
         resize(300, 200);
@@ -27,5 +26,5 @@ namespace app
         layout->addWidget(okButton);
     }
 
-    MainWindow::~MainWindow() = default;
+    QtMainWindow::~QtMainWindow() = default;
 }

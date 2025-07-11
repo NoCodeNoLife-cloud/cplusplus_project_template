@@ -1,7 +1,8 @@
+#include <AppConfigurator.hpp>
 #include <boot/Startup.hpp>
 #include <service/log/GLogConfigurator.hpp>
 
-namespace coco
+namespace app
 {
     Startup::Startup()
     {
@@ -11,7 +12,8 @@ namespace coco
 
     auto Startup::registerTask() -> void
     {
-        startup_tasks_.push_back(std::move(std::make_unique<GLogConfigurator>()));
+        startup_tasks_.push_back(std::move(std::make_unique<coco::GLogConfigurator>()));
+        startup_tasks_.push_back(std::move(std::make_unique<AppConfigurator>()));
     }
 
     auto Startup::runAll() const -> void

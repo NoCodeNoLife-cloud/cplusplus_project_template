@@ -1,5 +1,4 @@
 #include <filesystem/Directory.hpp>
-#include <filesystem/serialize/YamlObjectSerializer.hpp>
 #include <glog/logging.h>
 #include <service/log/GLogConfigurator.hpp>
 #include <service/log/GLogParameters.hpp>
@@ -10,21 +9,21 @@ namespace coco
     {
         if (!doConfig())
         {
-            throw std::runtime_error("Failed to load config");
+            throw std::runtime_error("Configuration GLog failed");
         }
         return true;
     }
 
     auto GLogConfigurator::doConfig() -> bool
     {
-        const GLogParameters config = YamlObjectSerializer<GLogParameters>::deserialize("../coco/service/log/glog_config.yaml");
-        google::InitGoogleLogging(config.logName().c_str());
-        FLAGS_minloglevel = config.minLogLevel();
-        configLogToStdout(config);
+        google::InitGoogleLogging(config_.logName().c_str());
+        FLAGS_minloglevel = config_.minLogLevel();
+        configLogToStdout(config_);
         if (std::atexit(clean) != 0)
         {
             throw std::runtime_error("Failed to register cleanup function!");
         }
+        LOG(INFO) << "Configuring glog...";
         return true;
     }
 

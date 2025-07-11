@@ -1,25 +1,22 @@
 #include <QApplication>
+#include <aop/LauncherAspect.hpp>
 #include <boot/Startup.hpp>
 #include <glog/logging.h>
-#include <widget/MainWindow.hpp>
-#include <aop/LauncherAspect.hpp>
+#include <qtApp/widget/QtMainWindow.hpp>
 
-coco::Startup startup;
+#include "qtApp/QtExecutor.hpp"
 
-auto createMainWindow(int32_t argc, char* argv[]) -> bool
-{
-    QApplication app(argc, argv);
-    app::MainWindow mainWindow;
-    mainWindow.show();
-    return QApplication::exec();
-}
+app::Startup startup;
 
 // ReSharper disable once CppDFAConstantFunctionResult
 auto mainTask(const int32_t argc, char* argv[]) -> bool
 {
     try
     {
-        createMainWindow(argc, argv);
+        if (app::QtExecutor qt_executor; qt_executor.execute(argc, argv))
+        {
+            throw std::runtime_error("Failed to run application");
+        }
         return EXIT_SUCCESS;
         // ReSharper disable once CppDFAUnreachableCode
     }
