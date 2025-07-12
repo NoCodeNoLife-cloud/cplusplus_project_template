@@ -1,5 +1,5 @@
 #pragma once
-#include "interface/IApplicationExecutor.hpp"
+#include <interface/IApplicationExecutor.hpp>
 
 namespace app {
 

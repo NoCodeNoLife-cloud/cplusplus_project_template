@@ -2,9 +2,8 @@
 #include <aop/LauncherAspect.hpp>
 #include <boot/Startup.hpp>
 #include <glog/logging.h>
+#include <qtApp/QtExecutor.hpp>
 #include <qtApp/widget/QtMainWindow.hpp>
-
-#include "qtApp/QtExecutor.hpp"
 
 app::Startup startup;
 
