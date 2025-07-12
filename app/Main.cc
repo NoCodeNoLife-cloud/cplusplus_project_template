@@ -1,18 +1,16 @@
 #include <QApplication>
 #include <aop/LauncherAspect.hpp>
-#include <boot/Startup.hpp>
+#include <boot/AppBoot.hpp>
 #include <glog/logging.h>
 #include <qtApp/QtExecutor.hpp>
 #include <qtApp/widget/QtMainWindow.hpp>
-
-app::Startup startup;
 
 // ReSharper disable once CppDFAConstantFunctionResult
 auto mainTask(const int32_t argc, char* argv[]) -> bool
 {
     try
     {
-        if (app::QtExecutor qt_executor; qt_executor.execute(argc, argv))
+        if (const app::AppBoot app_boot; !app_boot.boot(argc, argv))
         {
             throw std::runtime_error("Failed to run application");
         }

@@ -13,7 +13,7 @@ namespace app
             QApplication app(argc, argv);
             QtMainWindow mainWindow;
             mainWindow.show();
-            return QApplication::exec();
+            return !QApplication::exec();
         }
     };
 }

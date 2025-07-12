@@ -1,4 +1,4 @@
-#include <AppParameters.hpp>
+#include <boot/AppParameters.hpp>
 
 namespace app
 {

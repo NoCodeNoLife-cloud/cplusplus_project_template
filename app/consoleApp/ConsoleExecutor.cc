@@ -1,4 +1,5 @@
 #include <consoleApp/ConsoleExecutor.hpp>
+#include <glog/logging.h>
 
 namespace app
 {
@@ -6,7 +7,8 @@ namespace app
     {
         try
         {
-            // Please enter your execution code here
+            // Enter your execution code here
+            LOG(INFO) << "Hello world";
         }
         catch (...)
         {

@@ -33,7 +33,7 @@ namespace coco
         log_name_ = log_name;
     }
 
-    auto GLogParameters::logToStderr(bool log_to_stderr) -> void
+    auto GLogParameters::logToStderr(const bool log_to_stderr) -> void
     {
         log_to_stderr_ = log_to_stderr;
     }

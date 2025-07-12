@@ -14,9 +14,9 @@ namespace coco
 
     auto Point2D::getY() const -> double { return y_; }
 
-    auto Point2D::setX(double x) -> void { x_ = x; }
+    auto Point2D::setX(const double x) -> void { x_ = x; }
 
-    auto Point2D::setY(double y) -> void { y_ = y; }
+    auto Point2D::setY(const double y) -> void { y_ = y; }
 
     auto Point2D::operator+=(const Point2D& other) -> Point2D&
     {
