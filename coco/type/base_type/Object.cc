@@ -1,5 +1,6 @@
+#include "Object.hpp"
+
 #include <boost/functional/hash.hpp>
-#include <type/base_type/Object.hpp>
 
 namespace coco
 {

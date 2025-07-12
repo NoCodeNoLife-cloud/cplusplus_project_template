@@ -1,6 +1,7 @@
+#include "BufferedInputStream.hpp"
+
 #include <memory>
 #include <stdexcept>
-#include <filesystem/io/reader/BufferedInputStream.hpp>
 
 namespace coco
 {

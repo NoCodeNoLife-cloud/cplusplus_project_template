@@ -1,6 +1,7 @@
 #include <stdexcept>
-#include <type/base_type/Byte.hpp>
 #include <gtest/gtest.h>
+
+#include "type/base_type/Byte.hpp"
 
 namespace gtest_case
 {

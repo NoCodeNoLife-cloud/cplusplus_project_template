@@ -10,8 +10,6 @@ namespace app
         explicit QtMainWindow(QWidget* parent = nullptr);
         ~QtMainWindow() override;
 
-
-
     private:
         Q_OBJECT
     };

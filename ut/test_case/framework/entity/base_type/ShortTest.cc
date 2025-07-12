@@ -1,6 +1,7 @@
 #include <sstream>
-#include <type/base_type/Short.hpp>
 #include <gtest/gtest.h>
+
+#include "type/base_type/Short.hpp"
 
 namespace gtest_case
 {

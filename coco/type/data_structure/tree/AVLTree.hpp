@@ -1,7 +1,8 @@
 #pragma once
 #include <algorithm>
 #include <memory>
-#include <type/data_structure/tree/TreeNode.hpp>
+
+#include "TreeNode.hpp"
 
 namespace coco
 {

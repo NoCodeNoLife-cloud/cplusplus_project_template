@@ -1,5 +1,6 @@
+#include "BmpImage.hpp"
+
 #include <stdexcept>
-#include <filesystem/type/BmpImage.hpp>
 
 namespace coco
 {

@@ -2,7 +2,8 @@
 #include <filesystem>
 #include <fstream>
 #include <vector>
-#include <filesystem/io/reader/AbstractInputStream.hpp>
+
+#include "AbstractInputStream.hpp"
 
 namespace coco
 {

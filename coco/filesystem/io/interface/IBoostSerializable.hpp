@@ -1,5 +1,4 @@
 #pragma once
-
 namespace coco
 {
     // ReSharper disable once CppTemplateParameterNeverUsed

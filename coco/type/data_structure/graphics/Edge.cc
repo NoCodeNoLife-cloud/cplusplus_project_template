@@ -1,4 +1,4 @@
-#include <type/data_structure/graphics/Edge.hpp>
+#include "Edge.hpp"
 
 namespace coco
 {

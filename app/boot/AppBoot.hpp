@@ -1,7 +1,9 @@
 #pragma once
+#include <cstdint>
 #include <string>
-#include <filesystem/serialize/YamlObjectSerializer.hpp>
-#include <boot/AppParameters.hpp>
+
+#include "AppParameters.hpp"
+#include "filesystem/serialize/YamlObjectSerializer.hpp"
 
 namespace app
 {

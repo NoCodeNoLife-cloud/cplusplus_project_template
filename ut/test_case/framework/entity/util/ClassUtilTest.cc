@@ -1,5 +1,6 @@
-#include <type/util/ClassUtil.hpp>
 #include <gtest/gtest.h>
+
+#include "type/util/ClassUtil.hpp"
 
 namespace gtest_case
 {

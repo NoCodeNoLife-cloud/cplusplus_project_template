@@ -1,7 +1,8 @@
 #include <stdexcept>
 #include <string>
-#include <type/base_type/Boolean.hpp>
 #include <gtest/gtest.h>
+
+#include "type/base_type/Boolean.hpp"
 
 namespace gtest_case
 {

@@ -1,7 +1,7 @@
-#include <filesystem/Directory.hpp>
+#include "GLogConfigurator.hpp"
+
 #include <glog/logging.h>
-#include <service/log/GLogConfigurator.hpp>
-#include <service/log/GLogParameters.hpp>
+
 
 namespace coco
 {

@@ -1,4 +1,5 @@
-#include <algorithm/InterpolationAlgorithm.hpp>
+#include "InterpolationAlgorithm.hpp"
+
 #include <stdexcept>
 
 namespace coco

@@ -1,4 +1,4 @@
-#include <utils/thread/PeriodicActuator.hpp>
+#include "PeriodicActuator.hpp"
 
 namespace coco
 {

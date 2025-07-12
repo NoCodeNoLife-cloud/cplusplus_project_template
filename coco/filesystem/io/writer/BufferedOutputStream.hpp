@@ -1,7 +1,8 @@
 #pragma once
 #include <vector>
-#include <filesystem/io/writer/AbstractOutputStream.hpp>
-#include <filesystem/io/writer/FilterOutputStream.hpp>
+
+#include "FilterOutputStream.hpp"
+
 
 namespace coco
 {

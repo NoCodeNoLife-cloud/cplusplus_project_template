@@ -1,6 +1,7 @@
+#include "Character.hpp"
+
 #include <cctype>
 #include <boost/functional/hash.hpp>
-#include <type/base_type/Character.hpp>
 
 namespace coco
 {

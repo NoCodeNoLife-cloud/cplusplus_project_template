@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
-#include <filesystem/io/reader/AbstractInputStream.hpp>
+
+#include "AbstractInputStream.hpp"
 
 namespace coco
 {

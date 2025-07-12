@@ -1,4 +1,4 @@
-#include <filesystem/io/writer/FilterOutputStream.hpp>
+#include "FilterOutputStream.hpp"
 
 namespace coco
 {

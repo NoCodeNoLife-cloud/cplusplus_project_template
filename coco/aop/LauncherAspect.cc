@@ -1,5 +1,6 @@
-#include <aop/LauncherAspect.hpp>
-#include <utils/time/FunctionProfiler.hpp>
+#include "LauncherAspect.hpp"
+
+#include "service/log/GLogConfigurator.hpp"
 
 namespace coco
 {
@@ -16,7 +17,7 @@ namespace coco
 
     auto LauncherAspect::registerTask() -> void
     {
-        startup_tasks_.push_back(std::move(std::make_unique<coco::GLogConfigurator>()));
+        startup_tasks_.push_back(std::move(std::make_unique<GLogConfigurator>()));
     }
 
     auto LauncherAspect::runAll() const -> void

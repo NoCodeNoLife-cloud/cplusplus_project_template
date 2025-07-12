@@ -1,6 +1,7 @@
+#include "Scanner.hpp"
+
 #include <sstream>
 #include <boost/tokenizer.hpp>
-#include <filesystem/io/reader/Scanner.hpp>
 
 namespace coco
 {

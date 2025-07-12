@@ -1,5 +1,5 @@
 #pragma once
-#include <filesystem/io/writer/AbstractWriter.hpp>
+#include "AbstractWriter.hpp"
 
 namespace coco
 {

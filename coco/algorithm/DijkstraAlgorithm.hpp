@@ -1,5 +1,5 @@
 #pragma once
-#include <type/data_structure/graphics/Graph.hpp>
+#include "type/data_structure/graphics/Graph.hpp"
 
 namespace coco
 {

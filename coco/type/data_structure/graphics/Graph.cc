@@ -1,4 +1,4 @@
-#include <type/data_structure/graphics/Graph.hpp>
+#include "Graph.hpp"
 
 namespace coco
 {

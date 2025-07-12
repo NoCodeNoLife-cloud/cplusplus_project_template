@@ -1,5 +1,6 @@
+#include "CharArrayReader.hpp"
+
 #include <stdexcept>
-#include <filesystem/io/reader/CharArrayReader.hpp>
 
 namespace coco
 {

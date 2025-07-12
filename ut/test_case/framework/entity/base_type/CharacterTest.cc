@@ -1,5 +1,6 @@
-#include <type/base_type/Character.hpp>
 #include <gtest/gtest.h>
+
+#include "type/base_type/Character.hpp"
 
 namespace gtest_case
 {

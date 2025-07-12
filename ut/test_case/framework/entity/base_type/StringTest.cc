@@ -1,8 +1,9 @@
 #include <regex>
 #include <stdexcept>
 #include <vector>
-#include <type/base_type/String.hpp>
 #include <gtest/gtest.h>
+
+#include "type/base_type/String.hpp"
 
 namespace gtest_case
 {

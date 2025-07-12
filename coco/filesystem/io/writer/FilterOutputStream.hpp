@@ -1,5 +1,5 @@
 #pragma once
-#include <filesystem/io/writer/AbstractOutputStream.hpp>
+#include "AbstractOutputStream.hpp"
 
 namespace coco
 {

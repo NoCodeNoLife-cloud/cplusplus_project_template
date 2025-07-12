@@ -1,6 +1,7 @@
+#include "Float.hpp"
+
 #include <stdexcept>
 #include <boost/functional/hash.hpp>
-#include <type/base_type/Float.hpp>
 
 namespace coco
 {

@@ -1,6 +1,7 @@
+#include "Boolean.hpp"
+
 #include <stdexcept>
 #include <boost/functional/hash.hpp>
-#include <type/base_type/Boolean.hpp>
 
 namespace coco
 {

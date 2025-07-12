@@ -1,4 +1,4 @@
-#include <filesystem/io/writer/ByteArrayOutputStream.hpp>
+#include "ByteArrayOutputStream.hpp"
 
 namespace coco
 {

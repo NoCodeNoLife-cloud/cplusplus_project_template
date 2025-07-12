@@ -1,7 +1,8 @@
 #pragma once
 #include <memory>
 #include <vector>
-#include <filesystem/io/reader/FilterInputStream.hpp>
+
+#include "FilterInputStream.hpp"
 
 namespace coco
 {

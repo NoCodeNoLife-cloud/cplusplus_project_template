@@ -2,8 +2,9 @@
 #include <fstream>
 #include <vector>
 #include <glog/logging.h>
-#include <filesystem/io/interface/IAppendable.hpp>
-#include <filesystem/io/writer/AbstractWriter.hpp>
+
+#include "AbstractWriter.hpp"
+
 
 namespace coco
 {

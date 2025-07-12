@@ -1,5 +1,6 @@
+#include "AbstractInputStream.hpp"
+
 #include <fstream>
-#include <filesystem/io/reader/AbstractInputStream.hpp>
 
 namespace coco
 {

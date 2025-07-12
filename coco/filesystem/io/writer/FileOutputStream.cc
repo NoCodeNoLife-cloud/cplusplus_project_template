@@ -1,4 +1,4 @@
-#include <filesystem/io/writer/FileOutputStream.hpp>
+#include "FileOutputStream.hpp"
 
 namespace coco
 {

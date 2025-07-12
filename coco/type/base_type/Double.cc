@@ -1,6 +1,7 @@
+#include "Double.hpp"
+
 #include <stdexcept>
 #include <boost/functional/hash.hpp>
-#include <type/base_type/Double.hpp>
 
 namespace coco
 {

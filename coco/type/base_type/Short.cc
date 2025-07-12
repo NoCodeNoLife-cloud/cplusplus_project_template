@@ -1,6 +1,7 @@
+#include "Short.hpp"
+
 #include <stdexcept>
 #include <boost/functional/hash.hpp>
-#include <type/base_type/Short.hpp>
 
 namespace coco
 {

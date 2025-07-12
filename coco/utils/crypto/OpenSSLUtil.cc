@@ -1,9 +1,10 @@
+#include "OpenSSLUtil.hpp"
+
 #include <stdexcept>
 #include <vector>
 #include <openssl/aes.h>
 #include <openssl/evp.h>
 #include <openssl/rand.h>
-#include <utils/crypto/OpenSSLUtil.hpp>
 
 namespace coco
 {

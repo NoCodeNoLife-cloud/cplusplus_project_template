@@ -1,6 +1,7 @@
-#include <boot/AppBoot.hpp>
-#include <consoleApp/ConsoleExecutor.hpp>
-#include <qtApp/QtExecutor.hpp>
+#include "AppBoot.hpp"
+
+#include "consoleApp/ConsoleExecutor.hpp"
+#include "qtApp/QtExecutor.hpp"
 
 namespace app
 {

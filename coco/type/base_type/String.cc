@@ -1,6 +1,7 @@
 #include <regex>
 #include <boost/functional/hash.hpp>
-#include <type/base_type/String.hpp>
+// this "String.hpp" must here
+#include "String.hpp"
 
 namespace coco
 {

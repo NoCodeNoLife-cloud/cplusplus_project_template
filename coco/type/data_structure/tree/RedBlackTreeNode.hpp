@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
-#include <type/data_structure/Color.hpp>
+
+#include "type/data_structure/Color.hpp"
 
 namespace coco
 {

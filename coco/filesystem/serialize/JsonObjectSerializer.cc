@@ -1,9 +1,9 @@
-#include <filesystem/serialize/JsonObjectSerializer.hpp>
+#include "JsonObjectSerializer.hpp"
 
 namespace coco
 {
     auto JsonObjectSerializer::getStringOrDefault(const rapidjson::Value& json, const char* key,
-                                            const std::string& defaultValue) -> std::string
+                                                  const std::string& defaultValue) -> std::string
     {
         if (json.HasMember(key) && json[key].IsString())
         {
@@ -43,28 +43,28 @@ namespace coco
     }
 
     auto JsonObjectSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key,
-                                        const std::string& value) -> void
+                                              const std::string& value) -> void
     {
         writer.Key(key);
         writer.String(value.c_str());
     }
 
     auto JsonObjectSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key,
-                                        const int32_t value) -> void
+                                              const int32_t value) -> void
     {
         writer.Key(key);
         writer.Int(value);
     }
 
     auto JsonObjectSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key,
-                                        const double value) -> void
+                                              const double value) -> void
     {
         writer.Key(key);
         writer.Double(value);
     }
 
     auto JsonObjectSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key,
-                                        const bool value) -> void
+                                              const bool value) -> void
     {
         writer.Key(key);
         writer.Bool(value);

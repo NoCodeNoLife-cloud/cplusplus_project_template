@@ -1,4 +1,4 @@
-#include <filesystem/io/reader/FileInputStream.hpp>
+#include "FileInputStream.hpp"
 
 namespace coco
 {

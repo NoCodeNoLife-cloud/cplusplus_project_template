@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
-#include <filesystem/io/writer/AbstractWriter.hpp>
+
+#include "AbstractWriter.hpp"
 
 namespace coco
 {

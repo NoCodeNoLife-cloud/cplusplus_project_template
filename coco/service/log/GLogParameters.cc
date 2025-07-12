@@ -1,4 +1,4 @@
-#include <service/log/GLogParameters.hpp>
+#include "GLogParameters.hpp"
 
 namespace coco
 {

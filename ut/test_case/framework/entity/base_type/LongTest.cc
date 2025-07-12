@@ -1,7 +1,8 @@
 #include <limits>
 #include <stdexcept>
-#include <type/base_type/Long.hpp>
 #include <gtest/gtest.h>
+
+#include "type/base_type/Long.hpp"
 
 namespace gtest_case
 {

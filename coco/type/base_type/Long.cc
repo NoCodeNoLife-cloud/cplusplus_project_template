@@ -1,6 +1,7 @@
+#include "Long.hpp"
+
 #include <stdexcept>
 #include <boost/functional/hash.hpp>
-#include <type/base_type/Long.hpp>
 
 namespace coco
 {

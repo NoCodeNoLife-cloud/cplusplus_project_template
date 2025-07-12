@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
-#include <type/base_type/Object.hpp>
+
+#include "Object.hpp"
 
 namespace coco
 {

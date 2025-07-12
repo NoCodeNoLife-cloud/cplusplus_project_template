@@ -1,6 +1,7 @@
+#include "Integer.hpp"
+
 #include <stdexcept>
 #include <boost/functional/hash.hpp>
-#include <type/base_type/Integer.hpp>
 
 namespace coco
 {

@@ -1,6 +1,7 @@
 #include <stdexcept>
-#include <type/util/ArraysUtil.hpp>
 #include <gtest/gtest.h>
+
+#include "type/util/ArraysUtil.hpp"
 
 namespace gtest_case
 {

@@ -1,9 +1,9 @@
+#include "QtMainWindow.hpp"
+
 #include <qcoreapplication.h>
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include <qtApp/widget/QtMainWindow.hpp>
-#include <type/container/Queue.hpp>
 
 namespace app
 {

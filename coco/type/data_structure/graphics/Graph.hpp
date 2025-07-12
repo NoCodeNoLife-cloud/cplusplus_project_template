@@ -1,7 +1,8 @@
 #pragma once
 #include <cstdint>
 #include <vector>
-#include <type/data_structure/graphics/Edge.hpp>
+
+#include "Edge.hpp"
 
 namespace coco
 {

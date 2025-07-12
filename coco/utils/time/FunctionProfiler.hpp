@@ -1,6 +1,5 @@
 #pragma once
 #include <chrono>
-#include <service/log/GLogConfigurator.hpp>
 
 namespace coco
 {

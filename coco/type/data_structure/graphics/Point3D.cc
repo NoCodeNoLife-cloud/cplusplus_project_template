@@ -1,5 +1,6 @@
+#include "Point3D.hpp"
+
 #include <cmath>
-#include <type/data_structure/graphics/Point3D.hpp>
 
 namespace coco
 {

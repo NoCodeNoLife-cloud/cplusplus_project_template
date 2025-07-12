@@ -1,5 +1,6 @@
+#include "ByteArrayInputStream.hpp"
+
 #include <stdexcept>
-#include <filesystem/io/reader/ByteArrayInputStream.hpp>
 
 namespace coco
 {

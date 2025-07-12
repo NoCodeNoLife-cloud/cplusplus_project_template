@@ -2,7 +2,8 @@
 #include <format>
 #include <iostream>
 #include <string>
-#include <filesystem/io/interface/IFlushable.hpp>
+
+#include "interface/IFlushable.hpp"
 
 namespace coco
 {

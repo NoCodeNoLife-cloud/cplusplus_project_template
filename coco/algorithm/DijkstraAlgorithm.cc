@@ -1,7 +1,6 @@
-#include <iostream>
+#include "DijkstraAlgorithm.hpp"
+
 #include <queue>
-#include <type/data_structure/graphics/Edge.hpp>
-#include <algorithm/DijkstraAlgorithm.hpp>
 
 namespace coco
 {

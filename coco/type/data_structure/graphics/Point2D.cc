@@ -1,4 +1,4 @@
-#include <type/data_structure/graphics/Point2D.hpp>
+#include "Point2D.hpp"
 
 namespace coco
 {

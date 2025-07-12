@@ -1,4 +1,4 @@
-#include <filesystem/io/writer/StringWriter.hpp>
+#include "StringWriter.hpp"
 
 namespace coco
 {

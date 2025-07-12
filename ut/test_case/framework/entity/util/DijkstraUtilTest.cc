@@ -1,6 +1,7 @@
-#include <algorithm/DijkstraAlgorithm.hpp>
 #include <gtest/gtest.h>
-#include <type/data_structure/graphics/Graph.hpp>
+
+#include "algorithm/DijkstraAlgorithm.hpp"
+#include "type/data_structure/graphics/Graph.hpp"
 
 namespace gtest_case
 {

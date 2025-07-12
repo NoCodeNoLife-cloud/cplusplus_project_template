@@ -1,8 +1,8 @@
 #pragma once
 #include <sstream>
 #include <vector>
-#include <filesystem/io/interface/IAppendable.hpp>
-#include <filesystem/io/writer/AbstractWriter.hpp>
+
+#include "AbstractWriter.hpp"
 
 namespace coco
 {

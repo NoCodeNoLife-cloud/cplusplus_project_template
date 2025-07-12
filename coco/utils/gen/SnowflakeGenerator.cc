@@ -1,5 +1,6 @@
+#include "SnowflakeGenerator.hpp"
+
 #include <chrono>
-#include <utils/gen/SnowflakeGenerator.hpp>
 
 namespace coco
 {

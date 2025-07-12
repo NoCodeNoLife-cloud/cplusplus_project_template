@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
 #include <vector>
-#include <type/container/BloomParameters.hpp>
+
+#include "BloomParameters.hpp"
 
 namespace coco
 {

@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
-#include <filesystem/io/reader/AbstractReader.hpp>
+
+#include "AbstractReader.hpp"
 
 namespace coco
 {

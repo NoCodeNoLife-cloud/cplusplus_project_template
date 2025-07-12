@@ -1,6 +1,7 @@
+#include "FilterInputStream.hpp"
+
 #include <memory>
 #include <stdexcept>
-#include <filesystem/io/reader/FilterInputStream.hpp>
 
 namespace coco
 {

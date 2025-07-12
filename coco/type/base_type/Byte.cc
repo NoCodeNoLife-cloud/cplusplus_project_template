@@ -1,6 +1,7 @@
+#include "Byte.hpp"
+
 #include <stdexcept>
 #include <boost/functional/hash.hpp>
-#include <type/base_type/Byte.hpp>
 
 namespace coco
 {

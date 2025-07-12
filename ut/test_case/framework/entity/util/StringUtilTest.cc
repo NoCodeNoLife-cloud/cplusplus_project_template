@@ -1,7 +1,8 @@
 #include <string>
 #include <vector>
-#include <type/util/StringUtil.hpp>
 #include <gtest/gtest.h>
+
+#include "type/util/StringUtil.hpp"
 
 namespace gtest_case
 {

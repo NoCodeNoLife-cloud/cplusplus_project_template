@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include <yaml-cpp/node/node.h>
 
 namespace app

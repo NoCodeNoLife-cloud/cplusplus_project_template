@@ -1,7 +1,8 @@
 #pragma once
 #define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 #include <codecvt>
-#include <filesystem/io/writer/AbstractWriter.hpp>
+
+#include "AbstractWriter.hpp"
 
 namespace coco
 {

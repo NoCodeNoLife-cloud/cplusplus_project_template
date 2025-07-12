@@ -1,5 +1,6 @@
+#include "SpinlockMutex.hpp"
+
 #include <thread>
-#include <utils/thread/SpinlockMutex.hpp>
 
 namespace coco
 {

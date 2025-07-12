@@ -1,10 +1,9 @@
-#include <QApplication>
-#include <aop/LauncherAspect.hpp>
-#include <boot/AppBoot.hpp>
+#include <cstdlib>
+#include <stdexcept>
 #include <glog/logging.h>
-#include <qtApp/QtExecutor.hpp>
-#include <qtApp/widget/QtMainWindow.hpp>
 
+#include "aop/LauncherAspect.hpp"
+#include "boot/AppBoot.hpp"
 // ReSharper disable once CppDFAConstantFunctionResult
 auto mainTask(const int32_t argc, char* argv[]) -> bool
 {

@@ -1,5 +1,5 @@
 #pragma once
-#include <filesystem/io/reader/FilterReader.hpp>
+#include "FilterReader.hpp"
 
 namespace coco
 {

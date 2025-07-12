@@ -1,7 +1,8 @@
 #include <stdexcept>
 #include <string>
-#include <type/base_type/Double.hpp>
 #include <gtest/gtest.h>
+
+#include "type/base_type/Double.hpp"
 
 namespace gtest_case
 {

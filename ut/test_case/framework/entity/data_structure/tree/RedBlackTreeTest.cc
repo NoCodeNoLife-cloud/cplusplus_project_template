@@ -1,5 +1,6 @@
-#include <type/data_structure/tree/RedBlackTree.hpp>
 #include <gtest/gtest.h>
+
+#include "type/data_structure/tree/RedBlackTree.hpp"
 
 namespace gtest_case
 {

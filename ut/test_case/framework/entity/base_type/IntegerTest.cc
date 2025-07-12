@@ -1,6 +1,7 @@
 #include <string>
-#include <type/base_type/Integer.hpp>
 #include <gtest/gtest.h>
+
+#include "type/base_type/Integer.hpp"
 
 namespace gtest_case
 {

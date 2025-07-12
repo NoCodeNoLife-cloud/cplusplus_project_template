@@ -1,5 +1,6 @@
+#include "BloomFilter.hpp"
+
 #include <iterator>
-#include <type/container/BloomFilter.hpp>
 
 namespace coco
 {
@@ -259,7 +260,7 @@ namespace coco
         return *this;
     }
 
-    auto BloomFilter::table() const -> const BloomFilter::cell_type_*
+    auto BloomFilter::table() const -> const cell_type_*
     {
         return bit_table_.data();
     }
@@ -342,7 +343,7 @@ namespace coco
         }
     }
 
-    auto BloomFilter::hash_ap(const unsigned char* begin, std::size_t remaining_length, bloom_type_ hash) -> BloomFilter::bloom_type_
+    auto BloomFilter::hash_ap(const unsigned char* begin, std::size_t remaining_length, bloom_type_ hash) -> bloom_type_
     {
         const unsigned char* itr = begin;
 

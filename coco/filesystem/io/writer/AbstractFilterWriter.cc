@@ -1,5 +1,6 @@
+#include "AbstractFilterWriter.hpp"
+
 #include <stdexcept>
-#include <filesystem/io/writer/AbstractFilterWriter.hpp>
 
 namespace coco
 {
