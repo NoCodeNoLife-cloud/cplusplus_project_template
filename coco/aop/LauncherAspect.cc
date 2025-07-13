@@ -1,6 +1,8 @@
 #include "LauncherAspect.hpp"
 
+#include "boot/AppFactory.hpp"
 #include "service/log/GLogConfigurator.hpp"
+#include "type/util/ObjectFactory.hpp"
 
 namespace coco
 {
@@ -18,6 +20,7 @@ namespace coco
     auto LauncherAspect::registerTask() -> void
     {
         startup_tasks_.push_back(std::move(std::make_unique<GLogConfigurator>()));
+        startup_tasks_.push_back(std::move(std::make_unique<app::AppFactory>()));
     }
 
     auto LauncherAspect::runAll() const -> void

@@ -1,23 +1,11 @@
 #include "AppBoot.hpp"
 
-#include "consoleApp/ConsoleExecutor.hpp"
-#include "qtApp/QtExecutor.hpp"
+#include "AppFactory.hpp"
 
 namespace app
 {
     auto AppBoot::boot(const int32_t argc, char* argv[]) const -> bool
     {
-        bool result = false;
-        if (config_.appType() == "console")
-        {
-            ConsoleExecutor console_executor;
-            result = console_executor.execute(argc, argv);
-        }
-        else if (config_.appType() == "qt")
-        {
-            QtExecutor qtExecutor;
-            result = qtExecutor.execute(argc, argv);
-        }
-        return result;
+        return AppFactory::createObject(APP_MAP.at(config_.appType()))->execute(argc, argv);
     }
 }
