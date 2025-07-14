@@ -44,7 +44,7 @@ find_package(RapidJSON CONFIG REQUIRED)
 find_package(OpenSSL REQUIRED)
 find_package(Qt5 REQUIRED COMPONENTS Widgets)
 find_package(directxmath CONFIG REQUIRED)
-find_package(protobuf CONFIG REQUIRED)
+find_package(Protobuf CONFIG REQUIRED)
 find_package(gRPC CONFIG REQUIRED)
 
 #protobuf
