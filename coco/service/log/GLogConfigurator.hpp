@@ -15,7 +15,7 @@ namespace coco
         bool run() override;
 
     private:
-        const std::string GLogYAMLPath = "../coco/service/log/glog_config.yaml";
+        const std::string GLogYAMLPath = "../../coco/service/log/glog_config.yaml";
         const GLogParameters config_ = YamlObjectSerializer<GLogParameters>::deserialize(GLogYAMLPath);
 
         [[nodiscard]] auto doConfig() -> bool override;

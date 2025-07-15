@@ -1,26 +1,26 @@
-#cmake
+#Cmake
 cmake_minimum_required(VERSION 3.30)
 set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-#toolchain
+#Toolchain
 if (CMAKE_TOOLCHAIN_FILE)
     message(STATUS "Using toolchain file: ${CMAKE_TOOLCHAIN_FILE}")
 else ()
     message(WARNING "No toolchain file specified. Default toolchain will be used.")
 endif ()
 
-#project
+#Project
 set(MAIN_PROJECT cpp_project)
 project(${MAIN_PROJECT})
 
-#includes
+#Includes
 include_directories(coco)
 include_directories(app)
 
-#sources
+#Sources
 set(SRC_DIR app)
 set(SRC_HEADER_DIR app)
 file(GLOB_RECURSE SRC_FILES
@@ -35,7 +35,7 @@ file(GLOB_RECURSE FRAMEWORK_FILES
         ${FRAMEWORK_HEADER_DIR}/*.cc
 )
 
-#vcpkg dependencies
+#Vcpkg dependencies
 find_package(Boost REQUIRED COMPONENTS system thread url asio serialization)
 find_package(glog CONFIG REQUIRED)
 find_package(gtest CONFIG REQUIRED)
@@ -47,7 +47,7 @@ find_package(directxmath CONFIG REQUIRED)
 find_package(Protobuf CONFIG REQUIRED)
 find_package(gRPC CONFIG REQUIRED)
 
-#protobuf
+#Protobuf
 set(PROTO_SOURCE_DIR "${PROJECT_SOURCE_DIR}/proto" CACHE PATH "Root directory for .proto files")
 set(PROTO_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/generated/proto" CACHE PATH "Output directory for generated code")
 file(GLOB_RECURSE PROTO_FILES "${PROTO_SOURCE_DIR}/*.proto")
@@ -102,24 +102,7 @@ endforeach ()
 
 add_custom_target(generate_proto ALL DEPENDS ${PROTO_SRCS} ${PROTO_HDRS})
 
-#executable
-add_executable(${MAIN_PROJECT} ${SRC_FILES} ${FRAMEWORK_FILES})
-add_dependencies(${MAIN_PROJECT} generate_proto)
-
-#link
-target_link_libraries(${MAIN_PROJECT} PRIVATE glog::glog
-        Boost::system
-        Boost::thread
-        Boost::url
-        Boost::serialization
-        Boost::asio
-        yaml-cpp::yaml-cpp
-        RapidJSON rapidjson
-        OpenSSL::SSL OpenSSL::Crypto
-        Qt5::Widgets
-        Microsoft::DirectXMath
-        gRPC::grpc++ gRPC::grpc++_reflection protobuf::libprotobuf
-)
-
-#subdirectory
+#Subdirectory
 add_subdirectory(ut)
+add_subdirectory(app)
+add_subdirectory(coco)
