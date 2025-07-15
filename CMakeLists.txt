@@ -107,18 +107,19 @@ add_executable(${MAIN_PROJECT} ${SRC_FILES} ${FRAMEWORK_FILES})
 add_dependencies(${MAIN_PROJECT} generate_proto)
 
 #link
-target_link_libraries(${MAIN_PROJECT} PRIVATE glog::glog)
-target_link_libraries(${MAIN_PROJECT} PRIVATE Boost::system)
-target_link_libraries(${MAIN_PROJECT} PRIVATE Boost::thread)
-target_link_libraries(${MAIN_PROJECT} PRIVATE Boost::url)
-target_link_libraries(${MAIN_PROJECT} PRIVATE Boost::serialization)
-target_link_libraries(${MAIN_PROJECT} PRIVATE Boost::asio)
-target_link_libraries(${MAIN_PROJECT} PRIVATE yaml-cpp::yaml-cpp)
-target_link_libraries(${MAIN_PROJECT} PRIVATE RapidJSON rapidjson)
-target_link_libraries(${MAIN_PROJECT} PRIVATE OpenSSL::SSL OpenSSL::Crypto)
-target_link_libraries(${MAIN_PROJECT} PRIVATE Qt5::Widgets)
-target_link_libraries(${MAIN_PROJECT} PRIVATE Microsoft::DirectXMath)
-target_link_libraries(${MAIN_PROJECT} PRIVATE gRPC::grpc++ gRPC::grpc++_reflection protobuf::libprotobuf)
+target_link_libraries(${MAIN_PROJECT} PRIVATE glog::glog
+        Boost::system
+        Boost::thread
+        Boost::url
+        Boost::serialization
+        Boost::asio
+        yaml-cpp::yaml-cpp
+        RapidJSON rapidjson
+        OpenSSL::SSL OpenSSL::Crypto
+        Qt5::Widgets
+        Microsoft::DirectXMath
+        gRPC::grpc++ gRPC::grpc++_reflection protobuf::libprotobuf
+)
 
 #subdirectory
 add_subdirectory(ut)
