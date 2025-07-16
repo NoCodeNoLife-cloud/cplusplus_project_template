@@ -21,22 +21,6 @@ include_directories(coco)  # Include directory for coco library
 include_directories(app)   # Include directory for application source files
 include_directories(proto) # Include directory for protocol buffer files
 
-# Source files collection
-set(SRC_DIR app)
-set(SRC_HEADER_DIR app)
-file(GLOB_RECURSE SRC_FILES
-        ${SRC_HEADER_DIR}/*.hpp  # Collect all .hpp files in the source header directory
-        ${SRC_DIR}/*.cc          # Collect all .cc files in the source directory
-)
-
-# Framework files collection
-set(FRAMEWORK_DIR coco)
-set(FRAMEWORK_HEADER_DIR coco)
-file(GLOB_RECURSE FRAMEWORK_FILES
-        ${FRAMEWORK_DIR}/*.hpp  # Collect all .hpp files in the framework directory
-        ${FRAMEWORK_HEADER_DIR}/*.cc # Collect all .cc files in the framework directory
-)
-
 # Vcpkg dependencies
 find_package(Boost REQUIRED COMPONENTS system thread url asio serialization)  # Find Boost libraries
 find_package(glog CONFIG REQUIRED)                                           # Find Google Logging Library

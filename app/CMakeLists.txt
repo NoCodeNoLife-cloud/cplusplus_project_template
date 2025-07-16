@@ -1,3 +1,9 @@
+# Source files collection
+file(GLOB_RECURSE SRC_FILES
+        *.hpp  # Collect all .hpp files in the app directory
+        *.cc  # Collect all .cc files in the app directory
+)
+
 # Define the executable and its source files and framework files
 add_executable(${MAIN_PROJECT} ${SRC_FILES} ${FRAMEWORK_FILES})
 
