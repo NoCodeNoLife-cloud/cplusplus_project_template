@@ -1,108 +1,56 @@
-#Cmake
+# CMake version requirement and standard settings
 cmake_minimum_required(VERSION 3.30)
 set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-#Toolchain
+# Toolchain configuration
 if (CMAKE_TOOLCHAIN_FILE)
     message(STATUS "Using toolchain file: ${CMAKE_TOOLCHAIN_FILE}")
 else ()
     message(WARNING "No toolchain file specified. Default toolchain will be used.")
 endif ()
 
-#Project
+# Project setup
 set(MAIN_PROJECT cpp_project)
 project(${MAIN_PROJECT})
 
-#Includes
-include_directories(coco)
-include_directories(app)
+# Include directories
+include_directories(coco)  # Include directory for coco library
+include_directories(app)   # Include directory for application source files
+include_directories(proto) # Include directory for protocol buffer files
 
-#Sources
+# Source files collection
 set(SRC_DIR app)
 set(SRC_HEADER_DIR app)
 file(GLOB_RECURSE SRC_FILES
-        ${SRC_HEADER_DIR}/*.hpp
-        ${SRC_DIR}/*.cc
+        ${SRC_HEADER_DIR}/*.hpp  # Collect all .hpp files in the source header directory
+        ${SRC_DIR}/*.cc          # Collect all .cc files in the source directory
 )
 
+# Framework files collection
 set(FRAMEWORK_DIR coco)
 set(FRAMEWORK_HEADER_DIR coco)
 file(GLOB_RECURSE FRAMEWORK_FILES
-        ${FRAMEWORK_DIR}/*.hpp
-        ${FRAMEWORK_HEADER_DIR}/*.cc
+        ${FRAMEWORK_DIR}/*.hpp  # Collect all .hpp files in the framework directory
+        ${FRAMEWORK_HEADER_DIR}/*.cc # Collect all .cc files in the framework directory
 )
 
-#Vcpkg dependencies
-find_package(Boost REQUIRED COMPONENTS system thread url asio serialization)
-find_package(glog CONFIG REQUIRED)
-find_package(gtest CONFIG REQUIRED)
-find_package(yaml-cpp CONFIG REQUIRED)
-find_package(RapidJSON CONFIG REQUIRED)
-find_package(OpenSSL REQUIRED)
-find_package(Qt5 REQUIRED COMPONENTS Widgets)
-find_package(directxmath CONFIG REQUIRED)
-find_package(Protobuf CONFIG REQUIRED)
-find_package(gRPC CONFIG REQUIRED)
+# Vcpkg dependencies
+find_package(Boost REQUIRED COMPONENTS system thread url asio serialization)  # Find Boost libraries
+find_package(glog CONFIG REQUIRED)                                           # Find Google Logging Library
+find_package(gtest CONFIG REQUIRED)                                          # Find Google Test Library
+find_package(yaml-cpp CONFIG REQUIRED)                                       # Find YAML-CPP Library
+find_package(RapidJSON CONFIG REQUIRED)                                      # Find RapidJSON Library
+find_package(OpenSSL REQUIRED)                                               # Find OpenSSL Libraries
+find_package(Qt5 REQUIRED COMPONENTS Widgets)                                # Find Qt Widgets Module
+find_package(directxmath CONFIG REQUIRED)                                    # Find DirectX Math Library
+find_package(Protobuf CONFIG REQUIRED)                                       # Find Protocol Buffers
+find_package(gRPC CONFIG REQUIRED)                                           # Find gRPC
 
-#Protobuf
-set(PROTO_SOURCE_DIR "${PROJECT_SOURCE_DIR}/proto" CACHE PATH "Root directory for .proto files")
-set(PROTO_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/generated/proto" CACHE PATH "Output directory for generated code")
-file(GLOB_RECURSE PROTO_FILES "${PROTO_SOURCE_DIR}/*.proto")
-
-set(PROTO_SRCS "")
-set(PROTO_HDRS "")
-
-find_program(gRPC_CPP_PLUGIN_EXECUTABLE
-        NAMES grpc_cpp_plugin
-        PATHS
-        "$ENV{VCPKG_ROOT}/installed/x64-windows/tools/grpc"
-        "$ENV{ProgramFiles}/gRPC/bin"
-        "/usr/local/bin"
-        DOC "Path to gRPC C++ plugin (new name: grpc_cpp_plugin)"
-)
-
-if (NOT gRPC_CPP_PLUGIN_EXECUTABLE)
-    message(FATAL_ERROR "Could not find gRPC C++ plugin (grpc_cpp_plugin). "
-            "Please verify vcpkg installation or try reinstalling gRPC.")
-endif ()
-
-message(STATUS "gRPC C++ plugin found at: ${gRPC_CPP_PLUGIN_EXECUTABLE}")
-
-foreach (proto_file IN LISTS PROTO_FILES)
-    get_filename_component(proto_name_we ${proto_file} NAME_WE)
-    get_filename_component(proto_rel_path ${proto_file} PATH)
-    file(RELATIVE_PATH proto_sub_dir ${PROTO_SOURCE_DIR} ${proto_rel_path})
-
-    set(pb_cc "${PROTO_OUTPUT_DIR}/${proto_sub_dir}/${proto_name_we}.pb.cc")
-    set(pb_h "${PROTO_OUTPUT_DIR}/${proto_sub_dir}/${proto_name_we}.pb.h")
-    set(grpc_pb_cc "${PROTO_OUTPUT_DIR}/${proto_sub_dir}/${proto_name_we}.grpc.pb.cc")
-    set(grpc_pb_h "${PROTO_OUTPUT_DIR}/${proto_sub_dir}/${proto_name_we}.grpc.pb.h")
-
-    file(MAKE_DIRECTORY "${PROTO_OUTPUT_DIR}/${proto_sub_dir}")
-
-    add_custom_command(
-            OUTPUT ${pb_cc} ${pb_h} ${grpc_pb_cc} ${grpc_pb_h}
-            COMMAND ${Protobuf_PROTOC_EXECUTABLE}
-            ARGS
-            --cpp_out=${PROTO_OUTPUT_DIR}
-            --grpc_out=${PROTO_OUTPUT_DIR}
-            --plugin=protoc-gen-grpc=${gRPC_CPP_PLUGIN_EXECUTABLE}
-            -I${PROTO_SOURCE_DIR}
-            ${proto_file}
-            DEPENDS ${proto_file}
-            COMMENT "Generating gRPC code for ${proto_file}"
-    )
-
-    list(APPEND PROTO_SRCS ${pb_cc} ${grpc_pb_cc})
-    list(APPEND PROTO_HDRS ${pb_h} ${grpc_pb_h})
-endforeach ()
-
-add_custom_target(generate_proto ALL DEPENDS ${PROTO_SRCS} ${PROTO_HDRS})
-
-#Subdirectory
-add_subdirectory(ut)
-add_subdirectory(app)
-add_subdirectory(coco)
+# Subdirectories
+add_subdirectory(ut)     # Add unit test subdirectory
+add_subdirectory(app)    # Add application subdirectory
+add_subdirectory(coco)   # Add coco library subdirectory
+add_subdirectory(proto)  # Add protocol buffer subdirectory
