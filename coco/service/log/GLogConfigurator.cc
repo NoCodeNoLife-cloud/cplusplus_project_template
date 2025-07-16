@@ -23,7 +23,7 @@ namespace coco
         {
             throw std::runtime_error("Failed to register cleanup function!");
         }
-        LOG(INFO) << "Configuring glog...";
+        LOG(INFO) << "configuring glog...";
         return true;
     }
 

@@ -10,8 +10,8 @@ namespace app
 {
     auto AppFactory::registerAll() -> void
     {
-        LOG(INFO) << "Initializing the app launcher...";
-        registerType<ConsoleExecutor>(AppBoot::APP_MAP.at("console"));
-        registerType<QtExecutor>(AppBoot::APP_MAP.at("qt"));
+        LOG(INFO) << "initializing the app launcher...";
+        registerType<ConsoleExecutor>(TYPE.at("console"));
+        registerType<QtExecutor>(TYPE.at("qt"));
     }
 }

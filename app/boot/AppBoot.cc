@@ -1,11 +1,14 @@
 #include "AppBoot.hpp"
 
+#include <glog/logging.h>
+
 #include "AppFactory.hpp"
 
 namespace app
 {
     auto AppBoot::boot(const int32_t argc, char* argv[]) const -> bool
     {
-        return AppFactory::createObject(APP_MAP.at(config_.appType()))->execute(argc, argv);
+        LOG(INFO) << "boot app...";
+        return AppFactory::createObject(AppFactory::TYPE.at(config_.appType()))->execute(argc, argv);
     }
 }

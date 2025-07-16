@@ -7,12 +7,6 @@ namespace app
     class AppParameters
     {
     public:
-        AppParameters();
-        ~AppParameters();
-        AppParameters(const AppParameters& other);
-        AppParameters& operator=(const AppParameters& other);
-        AppParameters(AppParameters&& other) noexcept;
-
         auto appType(const std::string& app_type) -> void;
         [[nodiscard]] auto appType() const -> std::string;
 

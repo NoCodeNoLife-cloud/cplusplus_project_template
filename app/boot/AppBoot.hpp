@@ -10,11 +10,6 @@ namespace app
     class AppBoot final
     {
     public:
-        static const inline std::map<std::string, std::string> APP_MAP{
-            {"console", "ConsoleExecutor"},
-            {"qt", "QtExecutor"}
-        };
-
         auto boot(int32_t argc, char* argv[]) const -> bool;
 
     private:

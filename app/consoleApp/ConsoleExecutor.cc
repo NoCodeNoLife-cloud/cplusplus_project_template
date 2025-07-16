@@ -9,7 +9,7 @@ namespace app
         try
         {
             // Enter your execution code here
-            LOG(INFO) << "Console Application start...";
+            LOG(INFO) << "console Application start...";
         }
         catch (...)
         {

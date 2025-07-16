@@ -22,16 +22,17 @@ include_directories(app)   # Include directory for application source files
 include_directories(proto) # Include directory for protocol buffer files
 
 # Vcpkg dependencies
-find_package(Boost REQUIRED COMPONENTS system thread url asio serialization)  # Find Boost libraries
-find_package(glog CONFIG REQUIRED)                                           # Find Google Logging Library
-find_package(gtest CONFIG REQUIRED)                                          # Find Google Test Library
-find_package(yaml-cpp CONFIG REQUIRED)                                       # Find YAML-CPP Library
-find_package(RapidJSON CONFIG REQUIRED)                                      # Find RapidJSON Library
-find_package(OpenSSL REQUIRED)                                               # Find OpenSSL Libraries
-find_package(Qt5 REQUIRED COMPONENTS Widgets)                                # Find Qt Widgets Module
-find_package(directxmath CONFIG REQUIRED)                                    # Find DirectX Math Library
-find_package(Protobuf CONFIG REQUIRED)                                       # Find Protocol Buffers
-find_package(gRPC CONFIG REQUIRED)                                           # Find gRPC
+find_package(Boost REQUIRED COMPONENTS system thread url asio serialization)
+find_package(glog CONFIG REQUIRED)
+find_package(gtest CONFIG REQUIRED)
+find_package(yaml-cpp CONFIG REQUIRED)
+find_package(RapidJSON CONFIG REQUIRED)
+find_package(OpenSSL REQUIRED)
+find_package(Qt5 REQUIRED COMPONENTS Widgets)
+find_package(directxmath CONFIG REQUIRED)
+find_package(Protobuf CONFIG REQUIRED)
+find_package(gRPC CONFIG REQUIRED)
+find_package(magic_enum CONFIG REQUIRED)
 
 # Subdirectories
 add_subdirectory(ut)     # Add unit test subdirectory
