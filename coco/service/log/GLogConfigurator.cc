@@ -67,3 +67,20 @@ namespace coco
         google::ShutdownGoogleLogging();
     }
 }
+
+auto YAML::convert<coco::GLogConfigurator::GLogParameters>::decode(const Node& node, coco::GLogConfigurator::GLogParameters& rhs) -> bool
+{
+    rhs.minLogLevel(node["min_log_level"].as<int>());
+    rhs.logName(node["log_name"].as<std::string>());
+    rhs.logToStderr(node["log_to_stderr"].as<bool>());
+    return true;
+}
+
+auto YAML::convert<coco::GLogConfigurator::GLogParameters>::encode(const coco::GLogConfigurator::GLogParameters& rhs) -> Node
+{
+    Node node;
+    node["min_log_level"] = rhs.minLogLevel();
+    node["log_name"] = rhs.logName();
+    node["log_to_stderr"] = rhs.logName();
+    return node;
+}

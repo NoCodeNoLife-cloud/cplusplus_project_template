@@ -41,20 +41,6 @@ namespace coco
 template <>
 struct YAML::convert<coco::GLogConfigurator::GLogParameters>
 {
-    static auto decode(const Node& node, coco::GLogConfigurator::GLogParameters& rhs) -> bool
-    {
-        rhs.minLogLevel(node["min_log_level"].as<int>());
-        rhs.logName(node["log_name"].as<std::string>());
-        rhs.logToStderr(node["log_to_stderr"].as<bool>());
-        return true;
-    }
-
-    static auto encode(const coco::GLogConfigurator::GLogParameters& rhs) -> Node
-    {
-        Node node;
-        node["min_log_level"] = rhs.minLogLevel();
-        node["log_name"] = rhs.logName();
-        node["log_to_stderr"] = rhs.logName();
-        return node;
-    }
+    static auto decode(const Node& node, coco::GLogConfigurator::GLogParameters& rhs) -> bool;
+    static auto encode(const coco::GLogConfigurator::GLogParameters& rhs) -> Node;
 };
