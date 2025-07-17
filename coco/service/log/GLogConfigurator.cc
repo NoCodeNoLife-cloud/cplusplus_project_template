@@ -5,6 +5,36 @@
 
 namespace coco
 {
+    auto GLogConfigurator::GLogParameters::minLogLevel() const -> int32_t
+    {
+        return min_log_level_;
+    }
+
+    auto GLogConfigurator::GLogParameters::logName() const -> std::string
+    {
+        return log_name_;
+    }
+
+    auto GLogConfigurator::GLogParameters::logToStderr() const -> bool
+    {
+        return log_to_stderr_;
+    }
+
+    auto GLogConfigurator::GLogParameters::minLogLevel(int32_t min_log_level) -> void
+    {
+        min_log_level_ = min_log_level;
+    }
+
+    auto GLogConfigurator::GLogParameters::logName(const std::string& log_name) -> void
+    {
+        log_name_ = log_name;
+    }
+
+    auto GLogConfigurator::GLogParameters::logToStderr(bool log_to_stderr) -> void
+    {
+        log_to_stderr_ = log_to_stderr;
+    }
+
     auto GLogConfigurator::run() -> bool
     {
         if (!doConfig())
