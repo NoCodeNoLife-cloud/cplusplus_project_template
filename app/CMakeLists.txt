@@ -23,6 +23,6 @@ target_link_libraries(${MAIN_PROJECT} PRIVATE
         OpenSSL::SSL OpenSSL::Crypto
         Qt5::Widgets
         Microsoft::DirectXMath
-        coco
         magic_enum::magic_enum
+        coco
 )
