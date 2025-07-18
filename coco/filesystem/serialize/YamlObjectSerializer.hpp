@@ -1,4 +1,5 @@
 #pragma once
+#include <filesystem>
 #include <fstream>
 #include <string>
 #include <yaml-cpp/yaml.h>
@@ -16,6 +17,10 @@ namespace coco
     template <typename T>
     auto YamlObjectSerializer<T>::serialize(const T& obj, const std::string& filename) -> void
     {
+        if (filename.empty())
+        {
+            throw std::invalid_argument("filename is empty");
+        }
         const YAML::Node node = YAML::convert<T>::encode(obj);
         YAML::Emitter emitter;
         emitter << node;
@@ -36,6 +41,10 @@ namespace coco
     template <typename T>
     auto YamlObjectSerializer<T>::deserialize(const std::string& filename) -> T
     {
+        if (filename.empty() or not std::filesystem::exists(filename))
+        {
+            throw std::runtime_error("Could not open file " + filename);
+        }
         YAML::Node node = YAML::LoadFile(filename);
         T obj;
         if (!YAML::convert<T>::decode(node, obj))
