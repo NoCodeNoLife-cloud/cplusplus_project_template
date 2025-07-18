@@ -12,3 +12,16 @@ namespace app
         return app_type_;
     }
 }
+
+auto YAML::convert<app::AppParameters>::decode(const Node& node, app::AppParameters& rhs) -> bool
+{
+    rhs.appType(node["app_type"].as<std::string>());
+    return true;
+}
+
+auto YAML::convert<app::AppParameters>::encode(const app::AppParameters& rhs) -> Node
+{
+    Node node;
+    node["app_type"] = rhs.appType();
+    return node;
+}
