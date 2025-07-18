@@ -11,7 +11,7 @@ namespace app
     auto AppFactory::registerAll() -> void
     {
         LOG(INFO) << "initializing the app launcher...";
-        registerType<ConsoleExecutor>(TYPE.at("console"));
-        registerType<QtExecutor>(TYPE.at("qt"));
+        registerType<ConsoleExecutor>(static_cast<std::string>(magic_enum::enum_name(AppType::ConsoleExecutor)));
+        registerType<QtExecutor>(static_cast<std::string>(magic_enum::enum_name(AppType::QtExecutor)));
     }
 }
