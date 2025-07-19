@@ -26,7 +26,7 @@ namespace coco
             bool log_to_stderr_{};
         };
 
-        bool run() override;
+        bool execute() override;
 
     private:
         const std::string GLogYAMLPath = "../../coco/service/log/glog_config.yaml";

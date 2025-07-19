@@ -27,7 +27,7 @@ namespace coco
     {
         for (const auto& task : startup_tasks_)
         {
-            task->run();
+            task->execute();
         }
     }
 }

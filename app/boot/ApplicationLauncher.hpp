@@ -13,7 +13,7 @@ namespace app
         auto boot(int32_t argc, char* argv[]) const -> bool;
 
     private:
-        const std::string appYAMLPath = "../../app/boot/config/app_config.yaml";
+        static const inline std::string appYAMLPath = "../../app/boot/config/app_config.yaml";
         const AppParameters config_ = coco::YamlObjectSerializer<AppParameters>::deserialize(appYAMLPath);
     };
 }

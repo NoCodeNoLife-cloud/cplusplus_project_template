@@ -40,7 +40,7 @@ namespace coco
             throw std::runtime_error("Unknown type: " + type_name);
         }
 
-        auto run() -> bool override
+        auto execute() -> bool override
         {
             registerAll();
             return true;

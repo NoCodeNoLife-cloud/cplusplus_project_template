@@ -35,7 +35,7 @@ namespace coco
         log_to_stderr_ = log_to_stderr;
     }
 
-    auto GLogConfigurator::run() -> bool
+    auto GLogConfigurator::execute() -> bool
     {
         if (!doConfig())
         {

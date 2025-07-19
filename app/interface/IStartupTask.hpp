@@ -6,6 +6,6 @@ namespace app
     {
     public:
         virtual ~IStartupTask() = default;
-        virtual auto run() -> bool =0;
+        virtual auto execute() -> bool =0;
     };
 }

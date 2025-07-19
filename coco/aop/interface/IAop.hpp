@@ -13,9 +13,9 @@ namespace coco
         virtual ~IAop();
 
     private:
-        virtual void onEntry();;
-        virtual void onExit();;
-        virtual void onException();;
+        virtual void onEntry();
+        virtual void onExit();
+        virtual void onException();
         template <typename T>
         auto handleResult(T&& result) -> decltype(auto);
     };
