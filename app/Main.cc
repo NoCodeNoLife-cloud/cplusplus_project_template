@@ -3,13 +3,13 @@
 #include <glog/logging.h>
 
 #include "aop/LauncherAspect.hpp"
-#include "boot/AppBoot.hpp"
+#include "boot/ApplicationLauncher.hpp"
 // ReSharper disable once CppDFAConstantFunctionResult
 auto mainTask(const int32_t argc, char* argv[]) -> bool
 {
     try
     {
-        if (const app::AppBoot app_boot; !app_boot.boot(argc, argv))
+        if (const app::ApplicationLauncher app_boot; !app_boot.boot(argc, argv))
         {
             throw std::runtime_error("Failed to run application");
         }

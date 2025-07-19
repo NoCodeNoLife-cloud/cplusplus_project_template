@@ -19,6 +19,5 @@ template <>
 struct YAML::convert<app::AppParameters>
 {
     static auto decode(const Node& node, app::AppParameters& rhs) -> bool;
-
     static auto encode(const app::AppParameters& rhs) -> Node;
 };

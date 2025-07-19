@@ -8,8 +8,8 @@ namespace app
     {
         try
         {
-            // Enter your execution code here
             LOG(INFO) << "console Application start...";
+            // Enter your execution code here
         }
         catch (...)
         {

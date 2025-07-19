@@ -16,9 +16,11 @@ namespace app
             QtExecutor
         };
 
-        static const inline std::map<std::string, std::string> TYPE{
-            {"console", coco::EnumUtil::getEnumClassName(AppType::ConsoleExecutor)},
-            {"qt", coco::EnumUtil::getEnumClassName(AppType::QtExecutor)}
+        static const inline std::string CONSOLE_EXECUTOR_NAME = coco::EnumUtil::getEnumClassName(AppType::ConsoleExecutor);
+        static const inline std::string QT_EXECUTOR_NAME = coco::EnumUtil::getEnumClassName(AppType::QtExecutor);
+        static const inline std::unordered_map<std::string, std::string> TYPE{
+            {"console", CONSOLE_EXECUTOR_NAME},
+            {"qt", QT_EXECUTOR_NAME}
         };
 
     private:

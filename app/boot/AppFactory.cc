@@ -2,7 +2,7 @@
 
 #include <glog/logging.h>
 
-#include "AppBoot.hpp"
+#include "ApplicationLauncher.hpp"
 #include "consoleApp/ConsoleExecutor.hpp"
 #include "qtApp/QtExecutor.hpp"
 
@@ -11,7 +11,7 @@ namespace app
     auto AppFactory::registerAll() -> void
     {
         LOG(INFO) << "initializing the app launcher...";
-        registerType<ConsoleExecutor>(coco::EnumUtil::getEnumClassName(AppType::ConsoleExecutor));
-        registerType<QtExecutor>(coco::EnumUtil::getEnumClassName(AppType::QtExecutor));
+        registerType<ConsoleExecutor>(CONSOLE_EXECUTOR_NAME);
+        registerType<QtExecutor>(QT_EXECUTOR_NAME);
     }
 }
