@@ -27,6 +27,7 @@ namespace common
         auto getNextDelay() -> double;
         auto reset() -> void;
         auto isExhausted() const -> bool;
+        auto getMaxRetries() const -> int;
 
     private:
         unsigned int current_retry_{0};

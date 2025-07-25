@@ -64,4 +64,9 @@ namespace common
         }
         return current_retry_ >= max_retries_;
     }
+
+    auto ExponentialBackoff::getMaxRetries() const -> int
+    {
+        return max_retries_;
+    }
 }
