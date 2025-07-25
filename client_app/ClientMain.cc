@@ -1,12 +1,12 @@
 #include <glog/logging.h>
 
-#include "HeartbeatClient.hpp"
+#include "RpcClient.hpp"
 #include "aop/LauncherAspect.hpp"
 
 auto mainTask() -> bool
 {
-    const client_app::HeartbeatClient client(grpc::CreateChannel("localhost:50051", grpc::InsecureChannelCredentials()));
-    client.SendHeartbeats("client1", 5);
+    const client_app::RpcClient client(grpc::CreateChannel("localhost:50051", grpc::InsecureChannelCredentials()));
+    client.SendHeartbeats("client_1");
     return EXIT_SUCCESS;
 }
 

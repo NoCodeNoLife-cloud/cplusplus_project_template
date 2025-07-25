@@ -10,9 +10,6 @@ file(GLOB_RECURSE SRC_FILES
 # Define the executable and its source files and framework files
 add_executable(${SERVER_PROJECT} ${SRC_FILES} ${FRAMEWORK_FILES})
 
-# Add dependencies to ensure that protobuf is generated before building the main project
-add_dependencies(${SERVER_PROJECT} generate_proto)
-
 # Link required libraries
 target_link_libraries(${SERVER_PROJECT} PRIVATE
         glog::glog

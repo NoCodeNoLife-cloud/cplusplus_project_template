@@ -4,13 +4,14 @@
 #include <grpcpp/server_builder.h>
 #include <grpcpp/security/server_credentials.h>
 
-#include "HeartbeatServiceImpl.hpp"
+#include "RpcServiceImpl.hpp"
 #include "aop/LauncherAspect.hpp"
+#include "generated/RpcService.grpc.pb.h"
 
 void RunServer()
 {
     const std::string server_address("0.0.0.0:50051");
-    server_app::HeartbeatServiceImpl service;
+    server_app::RpcServiceImpl service;
     grpc::ServerBuilder builder;
 
     builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
