@@ -2,8 +2,5 @@ syntax = "proto3";
 
 package rpc;
 
-import "Heartbeat.proto";
-
 service RpcService {
-    rpc SendHeartbeat (signal.HeartbeatRequest) returns (signal.HeartbeatResponse);
 }

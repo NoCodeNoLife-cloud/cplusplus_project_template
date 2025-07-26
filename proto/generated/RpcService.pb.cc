@@ -35,25 +35,19 @@ static constexpr ::_pbi::MigrationSchema* schemas = nullptr;
 static constexpr ::_pb::Message* const* file_default_instances = nullptr;
 const char descriptor_table_protodef_RpcService_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
-    "\n\020RpcService.proto\022\003rpc\032\017Heartbeat.proto"
-    "2R\n\nRpcService\022D\n\rSendHeartbeat\022\030.signal"
-    ".HeartbeatRequest\032\031.signal.HeartbeatResp"
-    "onseb\006proto3"
-};
-static const ::_pbi::DescriptorTable* const descriptor_table_RpcService_2eproto_deps[1] =
-    {
-        &::descriptor_table_Heartbeat_2eproto,
+    "\n\020RpcService.proto\022\003rpc2\014\n\nRpcServiceb\006p"
+    "roto3"
 };
 static ::absl::once_flag descriptor_table_RpcService_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_RpcService_2eproto = {
     false,
     false,
-    132,
+    45,
     descriptor_table_protodef_RpcService_2eproto,
     "RpcService.proto",
     &descriptor_table_RpcService_2eproto_once,
-    descriptor_table_RpcService_2eproto_deps,
-    1,
+    nullptr,
+    0,
     0,
     schemas,
     file_default_instances,

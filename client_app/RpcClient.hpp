@@ -12,8 +12,6 @@ namespace client_app
     public:
         explicit RpcClient(const std::shared_ptr<grpc::Channel>& channel);
 
-        auto SendHeartbeats(const std::string& client_id) const -> void;
-
     private:
         std::unique_ptr<rpc::RpcService::Stub> stub_{};
     };

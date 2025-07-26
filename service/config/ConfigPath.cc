@@ -3,7 +3,7 @@
 
 namespace service
 {
-    auto ConfigPath::getConfigPath(const std::string& config_name)->std::string
+    auto ConfigPath::getConfigPath(const std::string& config_name) -> std::string
     {
         return CONFIG_DIR + config_name;
     }

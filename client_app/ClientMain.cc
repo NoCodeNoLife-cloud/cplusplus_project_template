@@ -5,8 +5,13 @@
 
 auto mainTask() -> bool
 {
-    const client_app::RpcClient client(grpc::CreateChannel("localhost:50051", grpc::InsecureChannelCredentials()));
-    client.SendHeartbeats("client_1");
+    grpc::ChannelArguments channel_args;
+    channel_args.SetTarget("your_target_address");
+    channel_args.SetInt(GRPC_ARG_KEEPALIVE_TIME_MS, 30000);
+    channel_args.SetInt(GRPC_ARG_KEEPALIVE_TIMEOUT_MS, 5000);
+    channel_args.SetInt(GRPC_ARG_KEEPALIVE_PERMIT_WITHOUT_CALLS, 1);
+
+    const client_app::RpcClient client(grpc::CreateCustomChannel("localhost:50051", grpc::InsecureChannelCredentials(), channel_args));
     return EXIT_SUCCESS;
 }
 
