@@ -25,5 +25,6 @@ target_link_libraries(${COMMON_PROJECT} PRIVATE
         RapidJSON rapidjson
         OpenSSL::SSL OpenSSL::Crypto
         Qt5::Widgets
+        magic_enum::magic_enum
         Microsoft::DirectXMath
 )
