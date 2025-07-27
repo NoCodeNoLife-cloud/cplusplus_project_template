@@ -11,7 +11,7 @@ namespace client_app
     {
     public:
         explicit RpcClient(const std::shared_ptr<grpc::Channel>& channel);
-        auto Send(const std::string& message) const -> std::string;
+        [[nodiscard]] auto Send(const std::string& message) const -> std::string;
 
     private:
         std::unique_ptr<rpc::RpcService::Stub> stub_{};
