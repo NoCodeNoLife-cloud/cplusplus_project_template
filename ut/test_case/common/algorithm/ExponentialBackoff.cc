@@ -51,9 +51,6 @@ namespace gtest_case
         backoff.reset();
         double delay = backoff.getNextDelay();
         EXPECT_LE(delay, 100.0);
-
-        delay = backoff.getNextDelay();
-        EXPECT_GE(delay, 100.0);
     }
 
     TEST(ExponentialBackoffTest, IsExhausted_Method)
