@@ -1,5 +1,5 @@
 # Project
-set(CLIENT_PROJECT client_app)
+set(CLIENT_PROJECT client)
 
 # Source files collection
 file(GLOB_RECURSE SRC_FILES

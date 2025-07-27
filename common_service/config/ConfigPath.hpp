@@ -10,6 +10,6 @@ namespace service
         [[nodiscard]] static auto getConfigPath(const std::string& config_name) -> std::string;
 
     private:
-        static inline std::string CONFIG_DIR = "../../service/config/";
+        static inline std::string CONFIG_DIR = "../../common_service/config/";
     };
 }

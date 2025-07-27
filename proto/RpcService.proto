@@ -3,4 +3,13 @@ syntax = "proto3";
 package rpc;
 
 service RpcService {
+  rpc Send(MessageRequest) returns (MessageResponse);
+}
+
+message MessageRequest {
+  string content = 1;
+}
+
+message MessageResponse {
+  string status = 1;
 }

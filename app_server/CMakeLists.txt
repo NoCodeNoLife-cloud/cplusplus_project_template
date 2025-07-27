@@ -1,5 +1,5 @@
 # Project
-set(SERVER_PROJECT server_app)
+set(SERVER_PROJECT server)
 
 # Source files collection
 file(GLOB_RECURSE SRC_FILES

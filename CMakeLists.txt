@@ -19,9 +19,9 @@ project(${MAIN_PROJECT})
 # Include directories
 include_directories(common)
 include_directories(proto)
-include_directories(service)
-include_directories(client_app)
-include_directories(server_app)
+include_directories(common_service)
+include_directories(app_client)
+include_directories(app_server)
 
 # Vcpkg dependencies
 find_package(Boost REQUIRED COMPONENTS system thread url asio serialization)
@@ -39,7 +39,7 @@ find_package(magic_enum CONFIG REQUIRED)
 # Subdirectories
 add_subdirectory(common)
 add_subdirectory(proto)
-add_subdirectory(service)
-add_subdirectory(client_app)
-add_subdirectory(server_app)
+add_subdirectory(common_service)
+add_subdirectory(app_client)
+add_subdirectory(app_server)
 add_subdirectory(ut)
