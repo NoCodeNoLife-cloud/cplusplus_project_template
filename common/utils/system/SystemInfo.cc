@@ -1,5 +1,7 @@
 #include "SystemInfo.hpp"
 
+#include <windows.h>
+
 namespace common
 {
     auto SystemInfo::GetCpuModelFromRegistry() -> std::string
