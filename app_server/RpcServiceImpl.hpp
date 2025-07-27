@@ -4,6 +4,7 @@
 
 namespace server_app
 {
+    /// @brief RPC service implementation
     class RpcServiceImpl final : public rpc::RpcService::Service
     {
     public:

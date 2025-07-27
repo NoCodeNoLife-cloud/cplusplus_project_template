@@ -10,10 +10,12 @@
 
 void RunServer()
 {
+    // Build the server.
     const std::string server_address("0.0.0.0:50051");
     grpc::ServerBuilder builder;
     builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
 
+    // Set the keepalive parameters.
     builder.AddChannelArgument(GRPC_ARG_MAX_CONNECTION_IDLE_MS, 60 * 60 * 1000);
     builder.AddChannelArgument(GRPC_ARG_MAX_CONNECTION_AGE_MS, 2 * 60 * 60 * 1000);
     builder.AddChannelArgument(GRPC_ARG_MAX_CONNECTION_AGE_GRACE_MS, 5 * 60 * 1000);
@@ -40,6 +42,7 @@ auto main(const int32_t, char*) -> int32_t
 {
     try
     {
+        // Launch the application.
         common::LauncherAspect launcher;
         launcher.exec(mainTask);
     }

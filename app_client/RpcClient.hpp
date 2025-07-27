@@ -7,6 +7,7 @@
 
 namespace client_app
 {
+    /// \brief RPC client.
     class RpcClient
     {
     public:
