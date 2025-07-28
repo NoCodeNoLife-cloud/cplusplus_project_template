@@ -1,4 +1,4 @@
-#include "RpcServiceImpl.hpp"
+#include "rpc/RpcServiceImpl.hpp"
 
 #include <glog/logging.h>
 

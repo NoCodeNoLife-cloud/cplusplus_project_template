@@ -483,44 +483,44 @@ const ::google::protobuf::internal::ClassData* MessageResponse::GetClassData()
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::_pbi::TcParseTable<0, 1, 0, 34, 2>
-        MessageResponse::_table_ = {
-            {
-                0,     // no _has_bits_
-                0,     // no _extensions_
-                1, 0,  // max_field_number, fast_idx_mask
-                offsetof(decltype(_table_), field_lookup_table),
-                4294967294,  // skipmap
-                offsetof(decltype(_table_), field_entries),
-                1,                                         // num_field_entries
-                0,                                         // num_aux_entries
-                offsetof(decltype(_table_), field_names),  // no aux_entries
-                _class_data_.base(),
-                nullptr,                            // post_loop_handler
-                ::_pbi::TcParser::GenericFallback,  // fallback
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::_pbi::TcParseTable<0, 1, 0, 34, 2>
+    MessageResponse::_table_ = {
+        {
+            0,     // no _has_bits_
+            0,     // no _extensions_
+            1, 0,  // max_field_number, fast_idx_mask
+            offsetof(decltype(_table_), field_lookup_table),
+            4294967294,  // skipmap
+            offsetof(decltype(_table_), field_entries),
+            1,                                         // num_field_entries
+            0,                                         // num_aux_entries
+            offsetof(decltype(_table_), field_names),  // no aux_entries
+            _class_data_.base(),
+            nullptr,                            // post_loop_handler
+            ::_pbi::TcParser::GenericFallback,  // fallback
 #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-                ::_pbi::TcParser::GetTable<
-                    ::rpc::MessageResponse>(),  // to_prefetch
-#endif                                          // PROTOBUF_PREFETCH_PARSE_TABLE
-            },
-            {{
-                // string status = 1;
-                {::_pbi::TcParser::FastUS1,
-                 {10, 63, 0,
-                  PROTOBUF_FIELD_OFFSET(MessageResponse, _impl_.status_)}},
-            }},
-            {{65535, 65535}},
-            {{
-                // string status = 1;
-                {PROTOBUF_FIELD_OFFSET(MessageResponse, _impl_.status_), 0, 0,
-                 (0 | ::_fl::kFcSingular | ::_fl::kUtf8String |
-                  ::_fl::kRepAString)},
-            }},
-            // no aux_entries
-            {{"\23\6\0\0\0\0\0\0"
-              "rpc.MessageResponse"
-              "status"}},
-        };
+            ::_pbi::TcParser::GetTable<
+                ::rpc::MessageResponse>(),  // to_prefetch
+#endif                                      // PROTOBUF_PREFETCH_PARSE_TABLE
+        },
+        {{
+            // string status = 1;
+            {::_pbi::TcParser::FastUS1,
+             {10, 63, 0,
+              PROTOBUF_FIELD_OFFSET(MessageResponse, _impl_.status_)}},
+        }},
+        {{65535, 65535}},
+        {{
+            // string status = 1;
+            {PROTOBUF_FIELD_OFFSET(MessageResponse, _impl_.status_), 0, 0,
+             (0 | ::_fl::kFcSingular | ::_fl::kUtf8String |
+              ::_fl::kRepAString)},
+        }},
+        // no aux_entries
+        {{"\23\6\0\0\0\0\0\0"
+          "rpc.MessageResponse"
+          "status"}},
+    };
 
 PROTOBUF_NOINLINE void MessageResponse::Clear() {
   // @@protoc_insertion_point(message_clear_start:rpc.MessageResponse)

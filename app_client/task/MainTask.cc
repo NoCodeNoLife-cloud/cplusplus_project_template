@@ -1,9 +1,16 @@
 #include <glog/logging.h>
+#include <grpcpp/create_channel.h>
+#include <grpcpp/support/channel_arguments.h>
 
-#include "RpcClient.hpp"
-#include "aop/LauncherAspect.hpp"
+#include <rpc/RpcClient.hpp>
+#include <task/MainTask.hpp>
 
-auto mainTask() -> bool {
+#include "utils/system/SystemInfo.hpp"
+
+namespace app_client {
+auto MainTask::run() -> bool {
+  logClientInfo();
+
   // Setup channel.
   grpc::ChannelArguments channel_args;
   channel_args.SetInt(GRPC_ARG_KEEPALIVE_TIME_MS, 30000);
@@ -24,12 +31,8 @@ auto mainTask() -> bool {
   return EXIT_SUCCESS;
 }
 
-auto main(const int32_t, char*) -> int32_t {
-  try {
-    // Launch
-    common::LauncherAspect launcher;
-    launcher.exec(mainTask);
-  } catch (const std::exception& e) {
-    LOG(ERROR) << e.what();
-  }
+auto MainTask::logClientInfo() -> void {
+  LOG(INFO) << common::SystemInfo::GetOSVersion();
+  LOG(INFO) << common::SystemInfo::GetCpuModelFromRegistry();
 }
+}  // namespace app_client

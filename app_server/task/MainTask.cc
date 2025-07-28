@@ -1,15 +1,17 @@
+#include "MainTask.hpp"
+
 #include <glog/logging.h>
 #include <grpcpp/security/server_credentials.h>
 #include <grpcpp/server_builder.h>
 
-#include <cstdint>
 #include <cstdlib>
 
-#include "RpcServiceImpl.hpp"
 #include "aop/LauncherAspect.hpp"
 #include "generated/RpcService.grpc.pb.h"
+#include "rpc/RpcServiceImpl.hpp"
 
-void RunServer() {
+namespace app_server {
+auto MainTask::run() -> bool {
   // Build the server.
   const std::string server_address("0.0.0.0:50051");
   grpc::ServerBuilder builder;
@@ -32,19 +34,6 @@ void RunServer() {
   LOG(INFO) << "Server listening on " << server_address << std::endl;
 
   server->Wait();
-}
-
-auto mainTask() -> bool {
-  RunServer();
   return EXIT_SUCCESS;
 }
-
-auto main(const int32_t, char*) -> int32_t {
-  try {
-    // Launch the application.
-    common::LauncherAspect launcher;
-    launcher.exec(mainTask);
-  } catch (const std::exception& e) {
-    LOG(ERROR) << e.what();
-  }
-}
+}  // namespace app_server

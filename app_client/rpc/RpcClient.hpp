@@ -1,5 +1,4 @@
 #pragma once
-
 #include <grpcpp/grpcpp.h>
 
 #include <memory>
