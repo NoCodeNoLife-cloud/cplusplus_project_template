@@ -6,7 +6,7 @@
 namespace client_app {
 RpcClient::RpcClient(const std::shared_ptr<grpc::Channel>& channel)
     : stub_(rpc::RpcService::NewStub(channel)) {
-  CHECK(channel != nullptr);
+  CHECK(channel != nullptr) << "RPC channel cannot be null";
 }
 
 auto RpcClient::Send(const std::string& message) const -> std::string {
@@ -16,10 +16,13 @@ auto RpcClient::Send(const std::string& message) const -> std::string {
   rpc::MessageResponse response;
   grpc::ClientContext context;
 
-  if (const grpc::Status status = stub_->Send(&context, request, &response);
-      status.ok()) {
+  const grpc::Status status = stub_->Send(&context, request, &response);
+  if (status.ok()) {
     return response.status();
   }
+
+  LOG(ERROR) << "RPC failed with error: " << status.error_message()
+             << " (code: " << status.error_code() << ")";
   return "RPC failed";
 }
 }  // namespace client_app

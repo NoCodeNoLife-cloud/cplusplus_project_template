@@ -18,8 +18,18 @@ auto MainTask::run() -> bool {
   channel_args.SetInt(GRPC_ARG_KEEPALIVE_PERMIT_WITHOUT_CALLS, 1);
 
   // Create client.
-  const client_app::RpcClient client(grpc::CreateCustomChannel(
-      "localhost:50051", grpc::InsecureChannelCredentials(), channel_args));
+  const std::string server_address = "localhost:50051";
+  const auto channel = grpc::CreateCustomChannel(
+      server_address, grpc::InsecureChannelCredentials(), channel_args);
+
+  // Check if channel is connected.
+  if (channel->GetState(true) == GRPC_CHANNEL_TRANSIENT_FAILURE) {
+    LOG(ERROR) << "Failed to connect to gRPC server at " << server_address;
+    return EXIT_FAILURE;
+  }
+
+  // Create client.
+  const client_app::RpcClient client(channel);
 
   try {
     // Send a message.
