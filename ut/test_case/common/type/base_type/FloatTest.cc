@@ -10,7 +10,7 @@ TEST(FloatTest, ConstructorInitializesValueCorrectly) {
 
 TEST(FloatTest, CopyConstructorWorks) {
   const common::Float f1(2.5f);
-  const common::Float f2(f1);
+  const common::Float& f2(f1);
   EXPECT_EQ(f1.floatValue(), f2.floatValue());
 }
 
@@ -47,7 +47,7 @@ TEST(FloatTest, ToStringReturnsValidString) {
 
 TEST(FloatTest, TypeConversionWorks) {
   const common::Float f(4.2f);
-  const float value = static_cast<float>(f);
+  const auto value = static_cast<float>(f);
   EXPECT_FLOAT_EQ(value, 4.2f);
 }
 

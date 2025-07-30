@@ -10,7 +10,7 @@ TEST(CharacterTest, ConstructorTest) {
 
 TEST(CharacterTest, CopyConstructorTest) {
   const common::Character c1('B');
-  const common::Character c2(c1);
+  const common::Character& c2(c1);
   EXPECT_EQ(c2.characterValue(), 'B');
 }
 

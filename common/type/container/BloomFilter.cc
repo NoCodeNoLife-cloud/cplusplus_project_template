@@ -1,6 +1,7 @@
 #include "BloomFilter.hpp"
 
 #include <iterator>
+#include <random>
 
 namespace common {
 BloomFilter::BloomFilter() = default;
@@ -60,7 +61,7 @@ BloomFilter::~BloomFilter() = default;
 auto BloomFilter::operator!() const -> bool { return 0 == table_size_; }
 
 auto BloomFilter::clear() -> void {
-  std::fill(bit_table_.begin(), bit_table_.end(),
+  std::ranges::fill(bit_table_,
             static_cast<unsigned char>(0x00));
   inserted_element_count_ = 0;
 }
@@ -121,8 +122,7 @@ auto BloomFilter::contains(const unsigned char* key_begin,
 
 template <typename T>
 auto BloomFilter::contains(const T& t) const -> bool {
-  return contains(reinterpret_cast<const unsigned char*>(&t),
-                  static_cast<std::size_t>(sizeof(T)));
+  return contains(reinterpret_cast<const unsigned char*>(&t), sizeof(T));
 }
 
 auto BloomFilter::contains(const std::string& key) const -> bool {
@@ -265,10 +265,11 @@ auto BloomFilter::generate_unique_salt() -> void {
     }
   } else {
     std::copy_n(pre_def_salt, pre_def_salt_count, std::back_inserter(salt_));
-    srand(static_cast<uint32_t>(random_seed_));
+    // srand(static_cast<uint32_t>(random_seed_));
+    std::mt19937 gen(static_cast<uint32_t>(random_seed_));
+    std::uniform_int_distribution<bloom_type_> distribution;
     while (salt_.size() < salt_count_) {
-      bloom_type_ current_salt =
-          static_cast<bloom_type_>(rand()) * static_cast<bloom_type_>(rand());
+      bloom_type_ current_salt = distribution(gen) * distribution(gen);
 
       if (0 == current_salt) continue;
 

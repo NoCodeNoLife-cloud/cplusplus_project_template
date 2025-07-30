@@ -13,16 +13,16 @@ TEST(ObjectTest, DefaultConstructor) {
 }
 
 TEST(ObjectTest, CopyConstructor) {
-  const common::Object obj1;
-  const common::Object obj2(obj1);
+  const common::Object obj1 = {};
+  const common::Object& obj2(obj1);
   EXPECT_EQ(obj1.getClass(), obj2.getClass());
   EXPECT_EQ(obj1.hashCode(), obj2.hashCode());
 }
 
 TEST(ObjectTest, MoveConstructor) {
-  common::Object obj1;
+  const common::Object obj1;
   const size_t original_hash = obj1.hashCode();
-  const common::Object obj2(std::move(obj1));
+  const common::Object& obj2(obj1);
   EXPECT_EQ(original_hash, obj2.hashCode());
 }
 
@@ -51,15 +51,15 @@ TEST(ObjectTest, ToStringFormat) {
 }
 
 TEST(ObjectTest, AssignmentOperator) {
-  const common::Object obj2;
-  const common::Object obj1 = obj2;
+  const common::Object obj2 = {};
+  const common::Object& obj1 = obj2;
   EXPECT_EQ(obj1.getClass(), obj2.getClass());
   EXPECT_EQ(obj1.hashCode(), obj2.hashCode());
 }
 
 TEST(ObjectTest, MoveAssignmentOperator) {
   common::Object obj2;
-  const common::Object obj1 = std::move(obj2);
+  const common::Object& obj1 = obj2;
   EXPECT_EQ(obj1.hashCode(), obj2.hashCode())
       << "Move assignment doesn't preserve hash";
 }

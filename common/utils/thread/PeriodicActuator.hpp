@@ -9,7 +9,7 @@ namespace common {
 class PeriodicActuator {
  public:
   explicit PeriodicActuator(std::shared_ptr<ITimerTask> task,
-                            const std::chrono::milliseconds interval);
+                            std::chrono::milliseconds interval);
   auto start() -> void;
 
  private:

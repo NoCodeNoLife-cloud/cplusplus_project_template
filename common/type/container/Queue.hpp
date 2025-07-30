@@ -45,7 +45,7 @@ Queue<T>::Queue() = default;
 
 template <typename T>
 Queue<T>::Queue(const Queue& other)
-    : head_(nullptr), tail_(nullptr), queue_size_(0) {
+    : head_(nullptr), tail_(nullptr) {
   if (!other.empty()) {
     head_ = std::make_unique<Node>(other.head_->data_);
     Node* current_new = head_.get();

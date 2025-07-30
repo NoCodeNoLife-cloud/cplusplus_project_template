@@ -35,7 +35,7 @@ auto ClassUtil::getTypeIdByClass() -> std::string {
 }
 
 template <typename T>
-auto ClassUtil::getTypeIdWithCvrByClass(const std::string& t) -> std::string {
+auto ClassUtil::getTypeIdWithCvrByClass(const std::string&) -> std::string {
   return boost::typeindex::type_id_with_cvr<T>().pretty_name();
 }
 }  // namespace common

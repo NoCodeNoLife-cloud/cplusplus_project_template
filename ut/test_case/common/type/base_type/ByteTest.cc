@@ -17,7 +17,7 @@ TEST(ByteTest, ParameterizedConstructorSetsValue) {
 
 TEST(ByteTest, CopyConstructorCopiesValue) {
   const common::Byte b1(50);
-  const common::Byte b2 = b1;
+  const common::Byte& b2 = b1;
   EXPECT_EQ(b2.byteValue(), 50);
 }
 
@@ -29,7 +29,7 @@ TEST(ByteTest, MoveConstructorTransfersValue) {
 
 TEST(ByteTest, CopyAssignmentCopiesValue) {
   const common::Byte b1(50);
-  const common::Byte b2 = b1;
+  const common::Byte& b2 = b1;
   EXPECT_EQ(b2.byteValue(), 50);
 }
 

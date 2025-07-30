@@ -17,7 +17,7 @@ TEST(IntegerTest, ParameterizedConstructorSetsValue) {
 
 TEST(IntegerTest, CopyConstructorCopiesValue) {
   const common::Integer a(100);
-  const common::Integer b(a);
+  const common::Integer& b(a);
   EXPECT_EQ(b.intValue(), 100);
 }
 
@@ -29,7 +29,7 @@ TEST(IntegerTest, MoveConstructorTransfersValue) {
 
 TEST(IntegerTest, CopyAssignmentCopiesValue) {
   const common::Integer a(10);
-  const common::Integer b = a;
+  const common::Integer& b = a;
   EXPECT_EQ(b.intValue(), 10);
 }
 
@@ -64,7 +64,7 @@ TEST(IntegerTest, ToStringReturnsValidString) {
 
 TEST(IntegerTest, TypeConversionToInt32) {
   const common::Integer obj(456);
-  const int32_t value = static_cast<int32_t>(obj);
+  const auto value = static_cast<int32_t>(obj);
   EXPECT_EQ(value, 456);
 }
 

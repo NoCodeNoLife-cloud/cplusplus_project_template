@@ -19,7 +19,7 @@ TEST(DoubleTest, ConstructorTest) {
 
 TEST(DoubleTest, CopyConstructorTest) {
   const common::Double d1(3.14);
-  const common::Double d2(d1);
+  const common::Double& d2(d1);
   EXPECT_EQ(d2.doubleValue(), 3.14);
 }
 

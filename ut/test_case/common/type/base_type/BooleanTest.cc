@@ -20,7 +20,7 @@ TEST(BooleanTest, ValueConstructor) {
 
 TEST(BooleanTest, CopyConstructor) {
   const common::Boolean original(true);
-  const common::Boolean copy(original);
+  const common::Boolean& copy(original);
   EXPECT_TRUE(static_cast<bool>(copy));
 }
 
@@ -32,7 +32,7 @@ TEST(BooleanTest, MoveConstructor) {
 
 TEST(BooleanTest, CopyAssignment) {
   const common::Boolean original(false);
-  const common::Boolean target = original;
+  const common::Boolean& target = original;
   EXPECT_FALSE(static_cast<bool>(target));
 }
 

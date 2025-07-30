@@ -8,9 +8,9 @@ Byte::Byte(const uint8_t value) : value_(value) {}
 
 Byte::~Byte() = default;
 
-Byte::Byte(const Byte& other) : value_(other.value_) {};
+Byte::Byte(const Byte& other) : value_(other.value_) {}
 
-Byte::Byte(Byte&& other) noexcept : value_(other.value_) {};
+Byte::Byte(Byte&& other) noexcept : value_(other.value_) {}
 
 Byte& Byte::operator=(const Byte& other) {
   if (this != &other) {

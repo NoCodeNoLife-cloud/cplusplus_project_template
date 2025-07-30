@@ -1,7 +1,5 @@
 #include "BigInteger.hpp"
 
-#include <iostream>
-
 namespace common {
 BigInteger::BigInteger() : value_(0) {}
 

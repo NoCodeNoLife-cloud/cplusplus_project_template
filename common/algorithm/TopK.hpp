@@ -13,6 +13,6 @@ class TopK final {
 
  private:
   int k;
-  std::priority_queue<int, std::vector<int>, std::greater<int>> minHeap;
+  std::priority_queue<int, std::vector<int>, std::greater<>> minHeap;
 };
 }  // namespace common

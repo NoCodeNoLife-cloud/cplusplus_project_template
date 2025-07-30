@@ -40,7 +40,7 @@ TEST(StringTest, MoveConstructor) {
 
 TEST(StringTest, AssignOperator) {
   const common::String str1("assign");
-  const common::String str2 = str1;
+  const common::String& str2 = str1;
   EXPECT_EQ(str2.toStdString(), "assign");
 }
 

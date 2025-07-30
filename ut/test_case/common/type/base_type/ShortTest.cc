@@ -12,7 +12,7 @@ TEST(ShortTest, ConstructorAndValueInitialization) {
 
 TEST(ShortTest, CopyConstructor) {
   const common::Short s1(100);
-  const common::Short s2(s1);
+  const common::Short& s2(s1);
   EXPECT_EQ(s2.shortValue(), 100);
 }
 
@@ -49,7 +49,7 @@ TEST(ShortTest, ToStringConversion) {
 
 TEST(ShortTest, TypeConversionOperator) {
   const common::Short s(700);
-  const common::Short value = s;
+  const common::Short& value = s;
   EXPECT_EQ(value.shortValue(), 700);
 }
 

@@ -29,7 +29,7 @@ class BloomFilter final {
   auto operator==(const BloomFilter& f) const -> bool;
   auto operator!=(const BloomFilter& f) const -> bool;
   auto operator=(const BloomFilter& f) -> BloomFilter&;
-  virtual ~BloomFilter();
+  ~BloomFilter();
   auto operator!() const -> bool;
   auto clear() -> void;
   auto insert(const unsigned char* key_begin, const std::size_t& length)

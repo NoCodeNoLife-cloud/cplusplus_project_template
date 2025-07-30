@@ -65,5 +65,5 @@ auto ExponentialBackoff::isExhausted() const -> bool {
   return current_retry_ >= max_retries_;
 }
 
-auto ExponentialBackoff::getMaxRetries() const -> int { return max_retries_; }
+auto ExponentialBackoff::getMaxRetries() const -> unsigned int { return max_retries_; }
 }  // namespace common

@@ -51,7 +51,7 @@ TEST(ExponentialBackoffTest, Reset_Method) {
   backoff.getNextDelay();
 
   backoff.reset();
-  double delay = backoff.getNextDelay();
+  const double delay = backoff.getNextDelay();
   EXPECT_LE(delay, 100.0);
 }
 
@@ -72,7 +72,7 @@ TEST(ExponentialBackoffTest, ThreadSafe_Mode) {
   std::vector<std::thread> threads;
 
   for (int i = 0; i < num_threads; ++i) {
-    threads.emplace_back([&]() {
+    threads.emplace_back([&] {
       for (int j = 0; j < 5; ++j) {
         if (backoff.isExhausted()) continue;
         backoff.getNextDelay();

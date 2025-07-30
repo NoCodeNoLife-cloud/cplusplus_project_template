@@ -26,7 +26,7 @@ class ExponentialBackoff {
   auto getNextDelay() -> double;
   auto reset() -> void;
   auto isExhausted() const -> bool;
-  auto getMaxRetries() const -> int;
+  auto getMaxRetries() const -> unsigned int;
 
  private:
   unsigned int current_retry_{0};

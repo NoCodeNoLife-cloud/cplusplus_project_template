@@ -118,7 +118,7 @@ auto Heap<T, Compare>::heapify_up(size_t index) -> void {
 
 template <typename T, typename Compare>
 auto Heap<T, Compare>::heapify_down(size_t index) -> void {
-  size_t size = data_.size();
+  const size_t size = data_.size();
   while (true) {
     size_t left = 2 * index + 1;
     size_t right = 2 * index + 2;
