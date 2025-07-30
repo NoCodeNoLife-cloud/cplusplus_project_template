@@ -1,7 +1,9 @@
 #include "LauncherAspect.hpp"
 
+#include <glog/logging.h>
+
 #include "log/GLogConfigurator.hpp"
-#include "type/util/ObjectFactory.hpp"
+#include "utils/thread/PeriodicActuator.hpp"
 
 namespace common {
 LauncherAspect::LauncherAspect() : timer_("program", true) {
@@ -12,8 +14,7 @@ LauncherAspect::LauncherAspect() : timer_("program", true) {
 auto LauncherAspect::onExit() -> void { timer_.recordEnd(true); }
 
 auto LauncherAspect::registerTask() -> void {
-  startup_tasks_.push_back(
-      std::move(std::make_unique<service::GLogConfigurator>()));
+  startup_tasks_.push_back(std::make_unique<service::GLogConfigurator>());
 }
 
 auto LauncherAspect::runAll() const -> void {
