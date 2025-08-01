@@ -24,6 +24,7 @@ class Directory {
   [[nodiscard]] auto listEntries(bool recursive = false) const
       -> std::vector<std::filesystem::directory_entry>;
   [[nodiscard]] auto clearAll() const -> bool;
+  static auto getCurrentWorkingDirectory() -> std::filesystem::path;
 
  private:
   std::filesystem::path dir_path_;

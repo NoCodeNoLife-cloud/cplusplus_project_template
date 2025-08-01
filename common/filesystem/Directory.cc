@@ -180,4 +180,8 @@ auto Directory::clearAll() const -> bool {
     return false;
   }
 }
+
+auto Directory::getCurrentWorkingDirectory() -> std::filesystem::path {
+  return std::filesystem::current_path();
+}
 }  // namespace common
