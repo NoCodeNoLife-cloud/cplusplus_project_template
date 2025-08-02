@@ -7,8 +7,12 @@ class TopK final {
  public:
   explicit TopK(int k);
 
+  /// @brief Add a number to the TopK.
+  /// @param num The number to add.
   auto add(int num) -> void;
 
+  /// @brief Get the top k numbers.
+  /// @return The top k numbers.
   auto getTopK() -> std::vector<int>;
 
  private:
