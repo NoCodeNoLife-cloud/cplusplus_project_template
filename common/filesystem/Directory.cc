@@ -23,8 +23,6 @@ auto Directory::isDirectory() const -> bool {
   return std::filesystem::is_directory(dir_path_);
 }
 
-auto Directory::list() const -> std::vector<std::string> { return list(false); }
-
 auto Directory::mkdirs() const -> bool {
   try {
     return std::filesystem::create_directories(dir_path_);
@@ -129,17 +127,23 @@ auto Directory::isEmpty() const -> bool {
   }
 }
 
-auto Directory::list(const bool recursive) const -> std::vector<std::string> {
-  std::vector<std::string> entries;
+auto Directory::listDir(const bool recursive = false) const
+    -> std::vector<std::filesystem::directory_entry> {
+  return listDir(dir_path_, recursive);
+}
+auto Directory::listDir(const std::filesystem::path& dir_path,
+                        const bool recursive = false)
+    -> std::vector<std::filesystem::directory_entry> {
+  std::vector<std::filesystem::directory_entry> entries;
   try {
     if (recursive) {
       for (const auto& entry :
-           std::filesystem::recursive_directory_iterator(dir_path_)) {
-        entries.push_back(entry.path().string());
+           std::filesystem::recursive_directory_iterator(dir_path)) {
+        entries.push_back(entry);
       }
     } else {
-      for (const auto& entry : std::filesystem::directory_iterator(dir_path_)) {
-        entries.push_back(entry.path().string());
+      for (const auto& entry : std::filesystem::directory_iterator(dir_path)) {
+        entries.push_back(entry);
       }
     }
   } catch (...) {
@@ -149,21 +153,7 @@ auto Directory::list(const bool recursive) const -> std::vector<std::string> {
 
 auto Directory::listEntries(const bool recursive) const
     -> std::vector<std::filesystem::directory_entry> {
-  std::vector<std::filesystem::directory_entry> entries;
-  try {
-    if (recursive) {
-      for (const auto& entry :
-           std::filesystem::recursive_directory_iterator(dir_path_)) {
-        entries.push_back(entry);
-      }
-    } else {
-      for (const auto& entry : std::filesystem::directory_iterator(dir_path_)) {
-        entries.push_back(entry);
-      }
-    }
-  } catch (...) {
-  }
-  return entries;
+  return listDir(dir_path_, recursive);
 }
 
 auto Directory::clearAll() const -> bool {
