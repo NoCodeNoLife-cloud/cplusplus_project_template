@@ -3,9 +3,7 @@
 #include <stdexcept>
 
 namespace common {
-BufferedWriter::BufferedWriter(std::unique_ptr<std::ofstream> os,
-                               const size_t size)
-    : output_stream_(std::move(os)), buffer_size_(size) {
+BufferedWriter::BufferedWriter(std::unique_ptr<std::ofstream> os, const size_t size) : output_stream_(std::move(os)), buffer_size_(size) {
   if (!output_stream_->is_open()) {
     throw std::runtime_error("Output stream is not open.");
   }
@@ -28,11 +26,9 @@ void BufferedWriter::write(const std::string& str) {
   }
 }
 
-auto BufferedWriter::write(const std::vector<char>& cBuf, const size_t off,
-                           const size_t len) -> void {
+auto BufferedWriter::write(const std::vector<char>& cBuf, const size_t off, const size_t len) -> void {
   if (off + len > cBuf.size()) {
-    throw std::out_of_range(
-        "Offset and length are out of the bounds of the buffer.");
+    throw std::out_of_range("Offset and length are out of the bounds of the buffer.");
   }
   if (len > buffer_size_) {
     flush();
@@ -54,8 +50,7 @@ auto BufferedWriter::newLine() -> BufferedWriter& {
 
 auto BufferedWriter::flush() -> void {
   if (!buffer_.empty()) {
-    output_stream_->write(buffer_.data(),
-                          static_cast<std::streamsize>(buffer_.size()));
+    output_stream_->write(buffer_.data(), static_cast<std::streamsize>(buffer_.size()));
     buffer_.clear();
   }
 }
@@ -83,8 +78,7 @@ BufferedWriter& BufferedWriter::append(const std::string& str) {
   return *this;
 }
 
-BufferedWriter& BufferedWriter::append(const std::string& str,
-                                       const size_t start, const size_t end) {
+BufferedWriter& BufferedWriter::append(const std::string& str, const size_t start, const size_t end) {
   if (start < str.length() && end <= str.length() && start < end) {
     for (size_t i = start; i < end; ++i) {
       buffer_.push_back(static_cast<char>(str[i]));

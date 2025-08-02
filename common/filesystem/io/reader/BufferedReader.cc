@@ -1,9 +1,7 @@
 #include "BufferedReader.hpp"
 
 namespace common {
-BufferedReader::BufferedReader(std::unique_ptr<AbstractReader> reader,
-                               const int32_t size)
-    : reader_(std::move(reader)), buffer_size_(size) {
+BufferedReader::BufferedReader(std::unique_ptr<AbstractReader> reader, const int32_t size) : reader_(std::move(reader)), buffer_size_(size) {
   if (size <= 0) {
     throw std::invalid_argument("Buffer size must be greater than 0");
   }
@@ -38,8 +36,7 @@ int32_t BufferedReader::read() {
   return buffer_[pos_++];
 }
 
-auto BufferedReader::read(std::vector<char>& cBuf, size_t off, size_t len)
-    -> size_t {
+auto BufferedReader::read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t {
   if (off + len > cBuf.size()) {
     return -1;
   }
@@ -55,8 +52,7 @@ auto BufferedReader::read(std::vector<char>& cBuf, size_t off, size_t len)
     }
     size_t bytesAvailable = count_ - pos_;
     const size_t bytesToRead = std::min(bytesAvailable, len);
-    std::copy_n(buffer_.begin() + static_cast<std::ptrdiff_t>(pos_),
-                bytesToRead, cBuf.begin() + static_cast<std::ptrdiff_t>(off));
+    std::copy_n(buffer_.begin() + static_cast<std::ptrdiff_t>(pos_), bytesToRead, cBuf.begin() + static_cast<std::ptrdiff_t>(off));
     totalBytesRead += bytesToRead;
     off += bytesToRead;
     len -= bytesToRead;
@@ -97,8 +93,7 @@ auto BufferedReader::skip(const int64_t n) -> int64_t {
         break;
       }
     }
-    const int64_t bytesToSkip =
-        std::min(static_cast<int64_t>(count_ - pos_), n - skipped);
+    const int64_t bytesToSkip = std::min(static_cast<int64_t>(count_ - pos_), n - skipped);
     pos_ += bytesToSkip;
     skipped += bytesToSkip;
   }

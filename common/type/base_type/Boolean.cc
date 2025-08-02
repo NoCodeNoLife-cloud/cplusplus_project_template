@@ -51,11 +51,7 @@ auto Boolean::parseBoolean(const std::string& str) -> Boolean {
 
 auto Boolean::booleanValue() const -> bool { return value_; }
 
-auto Boolean::operator<=>(const Boolean& other) const -> std::partial_ordering {
-  return value_ <=> other.value_;
-}
+auto Boolean::operator<=>(const Boolean& other) const -> std::partial_ordering { return value_ <=> other.value_; }
 
-auto Boolean::operator==(const Boolean& other) const -> bool {
-  return value_ == other.value_;
-}
+auto Boolean::operator==(const Boolean& other) const -> bool { return value_ == other.value_; }
 }  // namespace common

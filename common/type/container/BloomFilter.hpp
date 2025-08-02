@@ -32,26 +32,22 @@ class BloomFilter final {
   ~BloomFilter();
   auto operator!() const -> bool;
   auto clear() -> void;
-  auto insert(const unsigned char* key_begin, const std::size_t& length)
-      -> void;
+  auto insert(const unsigned char* key_begin, const std::size_t& length) -> void;
   template <typename T>
   auto insert(const T& t) -> void;
   auto insert(const std::string& key) -> void;
   auto insert(const char* data, const std::size_t& length) -> void;
   template <typename InputIterator>
   auto insert(InputIterator begin, InputIterator end) -> void;
-  auto contains(const unsigned char* key_begin, std::size_t length) const
-      -> bool;
+  auto contains(const unsigned char* key_begin, std::size_t length) const -> bool;
   template <typename T>
   auto contains(const T& t) const -> bool;
   [[nodiscard]] auto contains(const std::string& key) const -> bool;
   auto contains(const char* data, const std::size_t& length) const -> bool;
   template <typename InputIterator>
-  auto contains_all(InputIterator begin, InputIterator end) const
-      -> InputIterator;
+  auto contains_all(InputIterator begin, InputIterator end) const -> InputIterator;
   template <typename InputIterator>
-  auto contains_none(InputIterator begin, InputIterator end) const
-      -> InputIterator;
+  auto contains_none(InputIterator begin, InputIterator end) const -> InputIterator;
   [[nodiscard]] auto size() const -> uint64_t;
   [[nodiscard]] auto element_count() const -> uint64_t;
   [[nodiscard]] auto effective_fpp() const -> double;
@@ -62,11 +58,9 @@ class BloomFilter final {
   [[nodiscard]] auto hash_count() const -> std::size_t;
 
  protected:
-  auto compute_indices(const bloom_type_& hash, std::size_t& bit_index,
-                       std::size_t& bit) const -> void;
+  auto compute_indices(const bloom_type_& hash, std::size_t& bit_index, std::size_t& bit) const -> void;
   auto generate_unique_salt() -> void;
-  static auto hash_ap(const unsigned char* begin, std::size_t remaining_length,
-                      bloom_type_ hash) -> bloom_type_;
+  static auto hash_ap(const unsigned char* begin, std::size_t remaining_length, bloom_type_ hash) -> bloom_type_;
   std::vector<bloom_type_> salt_;
   std::vector<unsigned char> bit_table_;
   uint32_t salt_count_{};

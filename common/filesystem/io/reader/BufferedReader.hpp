@@ -6,8 +6,7 @@
 namespace common {
 class BufferedReader final : public AbstractReader {
  public:
-  explicit BufferedReader(std::unique_ptr<AbstractReader> reader,
-                          int32_t size = DEFAULT_BUFFER_SIZE);
+  explicit BufferedReader(std::unique_ptr<AbstractReader> reader, int32_t size = DEFAULT_BUFFER_SIZE);
   ~BufferedReader() override;
   auto close() -> void override;
   auto mark(size_t readAheadLimit) -> void override;

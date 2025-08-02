@@ -7,8 +7,7 @@ class ByteArrayOutputStream final : public AbstractOutputStream {
   ByteArrayOutputStream();
   explicit ByteArrayOutputStream(size_t size);
   auto write(std::byte b) -> void override;
-  auto write(const std::vector<std::byte>& buffer, size_t offset, size_t len)
-      -> void override;
+  auto write(const std::vector<std::byte>& buffer, size_t offset, size_t len) -> void override;
   auto writeTo(AbstractOutputStream& out) const -> void;
   auto reset() -> void;
   [[nodiscard]] auto toByteArray() const -> std::vector<std::byte>;

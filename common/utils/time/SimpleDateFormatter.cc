@@ -14,9 +14,7 @@ auto SimpleDateFormatter::applyPattern(const std::string& newPattern) -> void {
   this->pattern_ = newPattern;
 }
 
-auto SimpleDateFormatter::toPattern() const -> std::string {
-  return this->pattern_;
-}
+auto SimpleDateFormatter::toPattern() const -> std::string { return this->pattern_; }
 
 auto SimpleDateFormatter::format(const std::tm& date) const -> std::string {
   std::ostringstream oss;
@@ -42,14 +40,9 @@ auto SimpleDateFormatter::parse(const std::string& dateStr) const -> std::tm {
   return date;
 }
 
-auto SimpleDateFormatter::equals(const SimpleDateFormatter& other) const
-    -> bool {
-  return this->pattern_ == other.pattern_;
-}
+auto SimpleDateFormatter::equals(const SimpleDateFormatter& other) const -> bool { return this->pattern_ == other.pattern_; }
 
-auto SimpleDateFormatter::hashCode() const -> size_t {
-  return std::hash<std::string>{}(this->pattern_);
-}
+auto SimpleDateFormatter::hashCode() const -> size_t { return std::hash<std::string>{}(this->pattern_); }
 
 auto SimpleDateFormatter::validatePattern(const std::string& pat) -> void {
   if (pat.empty()) {

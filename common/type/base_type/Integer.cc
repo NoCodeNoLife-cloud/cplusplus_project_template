@@ -52,25 +52,15 @@ auto Integer::parseInt(const std::string& str) -> Integer {
   }
 }
 
-auto Integer::operator<=>(const Integer& other) const -> std::partial_ordering {
-  return value_ <=> other.value_;
-}
+auto Integer::operator<=>(const Integer& other) const -> std::partial_ordering { return value_ <=> other.value_; }
 
-auto Integer::operator==(const Integer& other) const -> bool {
-  return value_ == other.value_;
-}
+auto Integer::operator==(const Integer& other) const -> bool { return value_ == other.value_; }
 
-auto Integer::operator+(const Integer& other) const -> Integer {
-  return Integer(this->value_ + other.value_);
-}
+auto Integer::operator+(const Integer& other) const -> Integer { return Integer(this->value_ + other.value_); }
 
-auto Integer::operator-(const Integer& other) const -> Integer {
-  return Integer(this->value_ - other.value_);
-}
+auto Integer::operator-(const Integer& other) const -> Integer { return Integer(this->value_ - other.value_); }
 
-auto Integer::operator*(const Integer& other) const -> Integer {
-  return Integer(this->value_ * other.value_);
-}
+auto Integer::operator*(const Integer& other) const -> Integer { return Integer(this->value_ * other.value_); }
 
 auto Integer::operator/(const Integer& other) const -> Integer {
   if (other.value_ == 0) {

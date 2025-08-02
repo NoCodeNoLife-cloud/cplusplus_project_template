@@ -14,8 +14,7 @@ class FileInputStream final : public AbstractInputStream {
   ~FileInputStream() override;
   auto read() -> std::byte override;
   auto read(std::vector<std::byte>& buffer) -> size_t override;
-  auto read(std::vector<std::byte>& buffer, size_t offset, size_t len)
-      -> size_t override;
+  auto read(std::vector<std::byte>& buffer, size_t offset, size_t len) -> size_t override;
   auto skip(size_t n) -> size_t override;
   auto available() -> size_t override;
   auto close() -> void override;

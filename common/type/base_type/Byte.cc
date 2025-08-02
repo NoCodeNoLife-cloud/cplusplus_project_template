@@ -55,17 +55,12 @@ auto Byte::parseByte(const std::string& str) -> Byte {
 
 auto Byte::byteValue() const -> uint8_t { return value_; }
 
-auto Byte::operator<=>(const Byte& other) const -> std::partial_ordering {
-  return value_ <=> other.value_;
-}
+auto Byte::operator<=>(const Byte& other) const -> std::partial_ordering { return value_ <=> other.value_; }
 
-auto Byte::operator==(const Byte& other) const -> bool {
-  return value_ == other.value_;
-}
+auto Byte::operator==(const Byte& other) const -> bool { return value_ == other.value_; }
 
 auto Byte::operator+(const Byte& other) const -> Byte {
-  const int64_t result =
-      static_cast<int64_t>(value_) + static_cast<int64_t>(other.value_);
+  const int64_t result = static_cast<int64_t>(value_) + static_cast<int64_t>(other.value_);
   if (result > 255) {
     throw std::overflow_error("Byte overflow in addition");
   }
@@ -73,8 +68,7 @@ auto Byte::operator+(const Byte& other) const -> Byte {
 }
 
 auto Byte::operator-(const Byte& other) const -> Byte {
-  const int64_t result =
-      static_cast<int64_t>(value_) - static_cast<int64_t>(other.value_);
+  const int64_t result = static_cast<int64_t>(value_) - static_cast<int64_t>(other.value_);
   if (result < 0) {
     throw std::underflow_error("Byte underflow in subtraction");
   }

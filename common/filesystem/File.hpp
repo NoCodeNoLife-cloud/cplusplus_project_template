@@ -32,8 +32,7 @@ class File final {
   [[nodiscard]] auto length() const -> int64_t;
   [[nodiscard]] auto lastModified() const -> int64_t;
   [[nodiscard]] auto toURI() const -> std::string;
-  static auto printFilesWithDepth(const std::filesystem::path& file_path)
-      -> void;
+  static auto printFilesWithDepth(const std::filesystem::path& file_path) -> void;
   static auto getFileMD5(const std::filesystem::path& filePath) -> std::string;
 
  private:

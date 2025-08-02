@@ -29,8 +29,7 @@ auto IAop<Derived>::exec(Func&& func, Args&&... args) -> decltype(auto) {
       std::invoke(std::forward<Func>(func), std::forward<Args>(args)...);
       onExit();
     } else {
-      auto result =
-          std::invoke(std::forward<Func>(func), std::forward<Args>(args)...);
+      auto result = std::invoke(std::forward<Func>(func), std::forward<Args>(args)...);
       onExit();
       return static_cast<Derived*>(this)->handleResult(result);
     }

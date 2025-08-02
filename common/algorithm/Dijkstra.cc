@@ -3,15 +3,11 @@
 #include <queue>
 
 namespace common {
-Dijkstra::Dijkstra(const Graph& g) : graph_(g) {
-  distances_.resize(graph_.getNodeCount(), INF);
-}
+Dijkstra::Dijkstra(const Graph& g) : graph_(g) { distances_.resize(graph_.getNodeCount(), INF); }
 
 auto Dijkstra::compute(int32_t start) -> void {
   distances_[start] = 0;
-  std::priority_queue<std::pair<int32_t, int32_t>,
-                      std::vector<std::pair<int32_t, int32_t>>, std::greater<>>
-      pq;
+  std::priority_queue<std::pair<int32_t, int32_t>, std::vector<std::pair<int32_t, int32_t>>, std::greater<>> pq;
   pq.emplace(0, start);
 
   while (!pq.empty()) {
@@ -31,11 +27,7 @@ auto Dijkstra::compute(int32_t start) -> void {
   }
 }
 
-auto Dijkstra::getDistance(const int32_t node) const -> int32_t {
-  return distances_[node];
-}
+auto Dijkstra::getDistance(const int32_t node) const -> int32_t { return distances_[node]; }
 
-auto Dijkstra::getDistances() const -> std::vector<int32_t> {
-  return distances_;
-}
+auto Dijkstra::getDistances() const -> std::vector<int32_t> { return distances_; }
 }  // namespace common

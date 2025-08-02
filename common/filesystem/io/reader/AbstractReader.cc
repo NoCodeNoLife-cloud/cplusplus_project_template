@@ -11,9 +11,7 @@ auto AbstractReader::read() -> int32_t {
   return buffer[0];
 }
 
-auto AbstractReader::read(std::vector<char>& cBuf) -> size_t {
-  return read(cBuf, 0, static_cast<int32_t>(cBuf.size()));
-}
+auto AbstractReader::read(std::vector<char>& cBuf) -> size_t { return read(cBuf, 0, static_cast<int32_t>(cBuf.size())); }
 
 auto AbstractReader::markSupported() const -> bool { return false; }
 

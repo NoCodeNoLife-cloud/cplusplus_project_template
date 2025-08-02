@@ -15,11 +15,9 @@ FileInputStream::FileInputStream(const std::string& name) {
   file_name_ = name;
 }
 
-FileInputStream::FileInputStream(const char* name)
-    : FileInputStream(std::string(name)) {}
+FileInputStream::FileInputStream(const char* name) : FileInputStream(std::string(name)) {}
 
-FileInputStream::FileInputStream(const std::filesystem::path& file)
-    : FileInputStream(file.string()) {}
+FileInputStream::FileInputStream(const std::filesystem::path& file) : FileInputStream(file.string()) {}
 
 FileInputStream::~FileInputStream() { close(); }
 
@@ -31,17 +29,13 @@ auto FileInputStream::read() -> std::byte {
   return static_cast<std::byte>(-1);
 }
 
-size_t FileInputStream::read(std::vector<std::byte>& buffer) {
-  return read(buffer, 0, buffer.size());
-}
+size_t FileInputStream::read(std::vector<std::byte>& buffer) { return read(buffer, 0, buffer.size()); }
 
-size_t FileInputStream::read(std::vector<std::byte>& buffer,
-                             const size_t offset, const size_t len) {
+size_t FileInputStream::read(std::vector<std::byte>& buffer, const size_t offset, const size_t len) {
   if (offset + len > buffer.size()) {
     throw std::invalid_argument("Invalid buffer, offset, or length.");
   }
-  file_stream_.read(reinterpret_cast<char*>(buffer.data() + offset),
-                    static_cast<std::streamsize>(len));
+  file_stream_.read(reinterpret_cast<char*>(buffer.data() + offset), static_cast<std::streamsize>(len));
   return file_stream_.gcount();
 }
 

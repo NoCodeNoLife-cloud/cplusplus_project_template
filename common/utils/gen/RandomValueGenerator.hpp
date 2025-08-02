@@ -25,9 +25,7 @@ RandomValueGenerator<T>::RandomValueGenerator() {
 }
 
 template <ValidType T>
-RandomValueGenerator<T>::RandomValueGenerator(
-    const std::mt19937::result_type& seed)
-    : engine_(seed) {}
+RandomValueGenerator<T>::RandomValueGenerator(const std::mt19937::result_type& seed) : engine_(seed) {}
 
 template <ValidType T>
 T RandomValueGenerator<T>::generate(T min, T max) {

@@ -14,8 +14,7 @@ class FileOutputStream final : public AbstractOutputStream {
   ~FileOutputStream() override;
   void write(std::byte b) override;
   void write(const std::vector<std::byte>& buffer) override;
-  void write(const std::vector<std::byte>& buffer, size_t offset,
-             size_t len) override;
+  void write(const std::vector<std::byte>& buffer, size_t offset, size_t len) override;
   void close() override;
   void flush() override;
 

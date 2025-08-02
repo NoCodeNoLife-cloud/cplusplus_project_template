@@ -4,10 +4,7 @@
 #include <glog/logging.h>
 
 namespace client_app {
-RpcClient::RpcClient(const std::shared_ptr<grpc::Channel>& channel)
-    : stub_(rpc::RpcService::NewStub(channel)) {
-  CHECK(channel != nullptr) << "RPC channel cannot be null";
-}
+RpcClient::RpcClient(const std::shared_ptr<grpc::Channel>& channel) : stub_(rpc::RpcService::NewStub(channel)) { CHECK(channel != nullptr) << "RPC channel cannot be null"; }
 
 auto RpcClient::Send(const std::string& message) const -> std::string {
   rpc::MessageRequest request;
@@ -21,8 +18,7 @@ auto RpcClient::Send(const std::string& message) const -> std::string {
     return response.status();
   }
 
-  LOG(ERROR) << "RPC failed with error: " << status.error_message()
-             << " (code: " << status.error_code() << ")";
+  LOG(ERROR) << "RPC failed with error: " << status.error_message() << " (code: " << status.error_code() << ")";
   return "RPC failed";
 }
 }  // namespace client_app

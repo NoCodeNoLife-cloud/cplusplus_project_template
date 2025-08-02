@@ -4,8 +4,6 @@
 namespace common {
 class Interpolation {
  public:
-  static auto linearInterpolation(
-      const std::vector<std::pair<double, double>>& dataPoints, double x)
-      -> double;
+  static auto linearInterpolation(const std::vector<std::pair<double, double>>& dataPoints, double x) -> double;
 };
 }  // namespace common

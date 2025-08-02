@@ -34,9 +34,7 @@ auto ByteBuffer::get(const size_t length) -> std::vector<std::byte> {
   if (length > remaining()) {
     throw std::underflow_error("Insufficient data in buffer");
   }
-  std::vector result(
-      buffer_.begin() + static_cast<std::ptrdiff_t>(position_),
-      buffer_.begin() + static_cast<std::ptrdiff_t>(position_ + length));
+  std::vector result(buffer_.begin() + static_cast<std::ptrdiff_t>(position_), buffer_.begin() + static_cast<std::ptrdiff_t>(position_ + length));
   position_ += length;
   return result;
 }

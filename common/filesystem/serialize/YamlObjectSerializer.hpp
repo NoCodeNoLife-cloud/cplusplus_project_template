@@ -14,8 +14,7 @@ class YamlObjectSerializer abstract {
 };
 
 template <typename T>
-auto YamlObjectSerializer<T>::serialize(const T& obj,
-                                        const std::string& filename) -> void {
+auto YamlObjectSerializer<T>::serialize(const T& obj, const std::string& filename) -> void {
   if (filename.empty()) {
     throw std::invalid_argument("filename is empty");
   }

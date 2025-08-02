@@ -34,5 +34,4 @@ class Short final : public Object {
 }  // namespace common
 
 template <>
-struct std::formatter<common::Short>
-    : common::GenericFormatter<common::Short, &common::Short::value_> {};
+struct std::formatter<common::Short> : common::GenericFormatter<common::Short, &common::Short::value_> {};

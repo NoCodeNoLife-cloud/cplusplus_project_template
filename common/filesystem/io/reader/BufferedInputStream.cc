@@ -4,13 +4,9 @@
 #include <stdexcept>
 
 namespace common {
-BufferedInputStream::BufferedInputStream(
-    std::unique_ptr<AbstractInputStream> in)
-    : BufferedInputStream(std::move(in), DEFAULT_BUFFER_SIZE) {}
+BufferedInputStream::BufferedInputStream(std::unique_ptr<AbstractInputStream> in) : BufferedInputStream(std::move(in), DEFAULT_BUFFER_SIZE) {}
 
-BufferedInputStream::BufferedInputStream(
-    std::unique_ptr<AbstractInputStream> in, const int32_t size)
-    : FilterInputStream(std::move(in)), buf_(size) {
+BufferedInputStream::BufferedInputStream(std::unique_ptr<AbstractInputStream> in, const int32_t size) : FilterInputStream(std::move(in)), buf_(size) {
   if (!&input_stream_) {
     throw std::invalid_argument("Input stream cannot be null");
   }
@@ -19,9 +15,7 @@ BufferedInputStream::BufferedInputStream(
   }
 }
 
-auto BufferedInputStream::available() const -> size_t {
-  return count_ - pos_ + input_stream_->available();
-}
+auto BufferedInputStream::available() const -> size_t { return count_ - pos_ + input_stream_->available(); }
 
 void BufferedInputStream::close() {
   input_stream_->close();
@@ -46,8 +40,7 @@ std::byte BufferedInputStream::read() {
   return buf_[pos_++];
 }
 
-size_t BufferedInputStream::read(std::vector<std::byte>& buffer, size_t offset,
-                                 size_t len) {
+size_t BufferedInputStream::read(std::vector<std::byte>& buffer, size_t offset, size_t len) {
   if (offset + len > static_cast<int32_t>(buffer.size())) {
     throw std::out_of_range("Buffer offset/length out of range");
   }
@@ -62,8 +55,7 @@ size_t BufferedInputStream::read(std::vector<std::byte>& buffer, size_t offset,
       }
     }
     const size_t bytesToRead = std::min(len, bytesAvailable);
-    std::copy_n(buf_.begin() + static_cast<int64_t>(pos_), bytesToRead,
-                buffer.begin() + static_cast<int64_t>(offset));
+    std::copy_n(buf_.begin() + static_cast<int64_t>(pos_), bytesToRead, buffer.begin() + static_cast<int64_t>(offset));
     pos_ += bytesToRead;
     offset += bytesToRead;
     len -= bytesToRead;

@@ -71,9 +71,8 @@ TEST(ClassUtilTest, FunctionPointerType) {
 
 TEST(ClassUtilTest, TemplateInstanceType) {
   const std::vector<std::list<int>> obj;
-  EXPECT_EQ(
-      common::ClassUtil::getTypeId(obj),
-      "class std::vector<class std::list<int,class std::allocator<int> >,class "
-      "std::allocator<class std::list<int,class std::allocator<int> > > >");
+  EXPECT_EQ(common::ClassUtil::getTypeId(obj),
+            "class std::vector<class std::list<int,class std::allocator<int> >,class "
+            "std::allocator<class std::list<int,class std::allocator<int> > > >");
 }
 }  // namespace gtest_case

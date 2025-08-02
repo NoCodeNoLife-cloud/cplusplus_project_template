@@ -4,8 +4,7 @@
 #include <utility>
 
 namespace common {
-Directory::Directory(std::filesystem::path filePath)
-    : dir_path_(std::move(filePath)) {}
+Directory::Directory(std::filesystem::path filePath) : dir_path_(std::move(filePath)) {}
 
 auto Directory::mkdir() const -> bool {
   try {
@@ -15,13 +14,9 @@ auto Directory::mkdir() const -> bool {
   }
 }
 
-auto Directory::exists() const -> bool {
-  return std::filesystem::exists(dir_path_);
-}
+auto Directory::exists() const -> bool { return std::filesystem::exists(dir_path_); }
 
-auto Directory::isDirectory() const -> bool {
-  return std::filesystem::is_directory(dir_path_);
-}
+auto Directory::isDirectory() const -> bool { return std::filesystem::is_directory(dir_path_); }
 
 auto Directory::mkdirs() const -> bool {
   try {
@@ -55,8 +50,7 @@ auto Directory::copy(const std::filesystem::path& destination) const -> bool {
       return false;
     }
 
-    std::queue<std::pair<std::filesystem::path, std::filesystem::path>>
-        dirQueue;
+    std::queue<std::pair<std::filesystem::path, std::filesystem::path>> dirQueue;
     dirQueue.emplace(dir_path_, destination);
 
     while (!dirQueue.empty()) {
@@ -74,9 +68,7 @@ auto Directory::copy(const std::filesystem::path& destination) const -> bool {
           }
           dirQueue.emplace(entryPath, targetPath);
         } else if (entry.is_regular_file()) {
-          std::filesystem::copy_file(
-              entryPath, targetPath,
-              std::filesystem::copy_options::overwrite_existing);
+          std::filesystem::copy_file(entryPath, targetPath, std::filesystem::copy_options::overwrite_existing);
         }
       }
     }
@@ -98,8 +90,7 @@ auto Directory::move(const std::filesystem::path& destination) const -> bool {
 auto Directory::size() const -> std::uintmax_t {
   std::uintmax_t total = 0;
   try {
-    for (const auto& entry :
-         std::filesystem::recursive_directory_iterator(dir_path_)) {
+    for (const auto& entry : std::filesystem::recursive_directory_iterator(dir_path_)) {
       if (entry.is_regular_file()) {
         total += entry.file_size();
       }
@@ -109,8 +100,7 @@ auto Directory::size() const -> std::uintmax_t {
   return total;
 }
 
-auto Directory::lastModifiedTime() const
-    -> std::optional<std::chrono::system_clock::time_point> {
+auto Directory::lastModifiedTime() const -> std::optional<std::chrono::system_clock::time_point> {
   try {
     const auto ftime = std::filesystem::last_write_time(dir_path_);
     return std::chrono::clock_cast<std::chrono::system_clock>(ftime);
@@ -127,18 +117,12 @@ auto Directory::isEmpty() const -> bool {
   }
 }
 
-auto Directory::listDir(const bool recursive = false) const
-    -> std::vector<std::filesystem::directory_entry> {
-  return listDir(dir_path_, recursive);
-}
-auto Directory::listDir(const std::filesystem::path& dir_path,
-                        const bool recursive = false)
-    -> std::vector<std::filesystem::directory_entry> {
+auto Directory::listDir(const bool recursive = false) const -> std::vector<std::filesystem::directory_entry> { return listDir(dir_path_, recursive); }
+auto Directory::listDir(const std::filesystem::path& dir_path, const bool recursive = false) -> std::vector<std::filesystem::directory_entry> {
   std::vector<std::filesystem::directory_entry> entries;
   try {
     if (recursive) {
-      for (const auto& entry :
-           std::filesystem::recursive_directory_iterator(dir_path)) {
+      for (const auto& entry : std::filesystem::recursive_directory_iterator(dir_path)) {
         entries.push_back(entry);
       }
     } else {
@@ -151,15 +135,11 @@ auto Directory::listDir(const std::filesystem::path& dir_path,
   return entries;
 }
 
-auto Directory::listEntries(const bool recursive) const
-    -> std::vector<std::filesystem::directory_entry> {
-  return listDir(dir_path_, recursive);
-}
+auto Directory::listEntries(const bool recursive) const -> std::vector<std::filesystem::directory_entry> { return listDir(dir_path_, recursive); }
 
 auto Directory::clearAll() const -> bool {
   try {
-    if (!std::filesystem::exists(dir_path_) ||
-        !std::filesystem::is_directory(dir_path_)) {
+    if (!std::filesystem::exists(dir_path_) || !std::filesystem::is_directory(dir_path_)) {
       return false;
     }
     for (const auto& entry : std::filesystem::directory_iterator(dir_path_)) {
@@ -171,7 +151,5 @@ auto Directory::clearAll() const -> bool {
   }
 }
 
-auto Directory::getCurrentWorkingDirectory() -> std::filesystem::path {
-  return std::filesystem::current_path();
-}
+auto Directory::getCurrentWorkingDirectory() -> std::filesystem::path { return std::filesystem::current_path(); }
 }  // namespace common

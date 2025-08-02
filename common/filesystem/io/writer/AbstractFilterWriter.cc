@@ -3,9 +3,7 @@
 #include <stdexcept>
 
 namespace common {
-AbstractFilterWriter::AbstractFilterWriter(
-    std::unique_ptr<AbstractWriter> outputWriter)
-    : output_writer_(std::move(outputWriter)) {
+AbstractFilterWriter::AbstractFilterWriter(std::unique_ptr<AbstractWriter> outputWriter) : output_writer_(std::move(outputWriter)) {
   if (!output_writer_) {
     throw std::invalid_argument("Output writer cannot be null");
   }
@@ -20,8 +18,7 @@ void AbstractFilterWriter::write(const char c) {
   output_writer_->write(c);
 }
 
-auto AbstractFilterWriter::write(const std::vector<char>& cBuf,
-                                 const size_t off, const size_t len) -> void {
+auto AbstractFilterWriter::write(const std::vector<char>& cBuf, const size_t off, const size_t len) -> void {
   if (!output_writer_) {
     throw std::runtime_error("Output stream is not available");
   }
@@ -38,8 +35,7 @@ void AbstractFilterWriter::write(const std::vector<char>& cBuf) {
   output_writer_->write(cBuf);
 }
 
-void AbstractFilterWriter::write(const std::string& str, const size_t off,
-                                 const size_t len) {
+void AbstractFilterWriter::write(const std::string& str, const size_t off, const size_t len) {
   if (!output_writer_) {
     throw std::runtime_error("Output stream is not available");
   }

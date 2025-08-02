@@ -50,25 +50,15 @@ auto Float::parseFloat(const std::string& str) -> Float {
   }
 }
 
-auto Float::operator<=>(const Float& other) const -> std::partial_ordering {
-  return value_ <=> other.value_;
-}
+auto Float::operator<=>(const Float& other) const -> std::partial_ordering { return value_ <=> other.value_; }
 
-auto Float::operator==(const Float& other) const -> bool {
-  return value_ == other.value_;
-}
+auto Float::operator==(const Float& other) const -> bool { return value_ == other.value_; }
 
-auto Float::operator+(const Float& other) const -> Float {
-  return Float(this->value_ + other.value_);
-}
+auto Float::operator+(const Float& other) const -> Float { return Float(this->value_ + other.value_); }
 
-auto Float::operator-(const Float& other) const -> Float {
-  return Float(this->value_ - other.value_);
-}
+auto Float::operator-(const Float& other) const -> Float { return Float(this->value_ - other.value_); }
 
-auto Float::operator*(const Float& other) const -> Float {
-  return Float(this->value_ * other.value_);
-}
+auto Float::operator*(const Float& other) const -> Float { return Float(this->value_ * other.value_); }
 
 auto Float::operator/(const Float& other) const -> Float {
   if (other.value_ == 0.0f) {

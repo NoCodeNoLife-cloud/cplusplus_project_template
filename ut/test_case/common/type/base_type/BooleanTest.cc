@@ -64,9 +64,7 @@ TEST(BooleanTest, ParseBooleanFalse) {
   EXPECT_FALSE(result.boolValue());
 }
 
-TEST(BooleanTest, ParseBooleanInvalidInput) {
-  ASSERT_THROW(common::Boolean::parseBoolean("invalid"), std::invalid_argument);
-}
+TEST(BooleanTest, ParseBooleanInvalidInput) { ASSERT_THROW(common::Boolean::parseBoolean("invalid"), std::invalid_argument); }
 
 TEST(BooleanTest, BooleanTypeConversion) {
   const common::Boolean trueBool(true);

@@ -9,8 +9,7 @@ class AbstractReader abstract : public ICloseable, public IReadable {
  public:
   ~AbstractReader() override;
   auto read() -> int32_t override;
-  virtual auto read(std::vector<char>& cBuf, size_t off, size_t len)
-      -> size_t = 0;
+  virtual auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t = 0;
   virtual auto read(std::vector<char>& cBuf) -> size_t;
   [[nodiscard]] virtual auto markSupported() const -> bool;
   virtual auto mark(size_t readAheadLimit) -> void = 0;

@@ -8,22 +8,16 @@ TEST(ExponentialBackoffTest, Constructor_InvalidArguments) {
   EXPECT_THROW(common::ExponentialBackoff(3, 0.0, 2.0), std::invalid_argument);
   EXPECT_THROW(common::ExponentialBackoff(3, -1.0, 2.0), std::invalid_argument);
 
-  EXPECT_THROW(common::ExponentialBackoff(3, 100.0, 1.0),
-               std::invalid_argument);
-  EXPECT_THROW(common::ExponentialBackoff(3, 100.0, 0.5),
-               std::invalid_argument);
+  EXPECT_THROW(common::ExponentialBackoff(3, 100.0, 1.0), std::invalid_argument);
+  EXPECT_THROW(common::ExponentialBackoff(3, 100.0, 0.5), std::invalid_argument);
 
-  EXPECT_THROW(common::ExponentialBackoff(3, 100.0, 2.0, -1.0),
-               std::invalid_argument);
+  EXPECT_THROW(common::ExponentialBackoff(3, 100.0, 2.0, -1.0), std::invalid_argument);
 
-  EXPECT_THROW(common::ExponentialBackoff(3, 100.0, 2.0, 0.0, -1.0),
-               std::invalid_argument);
+  EXPECT_THROW(common::ExponentialBackoff(3, 100.0, 2.0, 0.0, -1.0), std::invalid_argument);
 
-  EXPECT_THROW(common::ExponentialBackoff(3, 100.0, 2.0, 200.0, 100.0),
-               std::invalid_argument);
+  EXPECT_THROW(common::ExponentialBackoff(3, 100.0, 2.0, 200.0, 100.0), std::invalid_argument);
 
-  EXPECT_THROW(common::ExponentialBackoff(3, 50.0, 2.0, 100.0),
-               std::invalid_argument);
+  EXPECT_THROW(common::ExponentialBackoff(3, 50.0, 2.0, 100.0), std::invalid_argument);
 }
 
 TEST(ExponentialBackoffTest, GetNextDelay_BasicBehavior) {

@@ -34,5 +34,4 @@ class Long final : public Object {
 }  // namespace common
 
 template <>
-struct std::formatter<common::Long>
-    : common::GenericFormatter<common::Long, &common::Long::value_> {};
+struct std::formatter<common::Long> : common::GenericFormatter<common::Long, &common::Long::value_> {};

@@ -58,13 +58,9 @@ TEST(ShortTest, ShortValueMethod) {
   EXPECT_EQ(s.shortValue(), 800);
 }
 
-TEST(ShortTest, ParseShortValidInput) {
-  EXPECT_EQ(common::Short::parseShort("1234").shortValue(), 1234);
-}
+TEST(ShortTest, ParseShortValidInput) { EXPECT_EQ(common::Short::parseShort("1234").shortValue(), 1234); }
 
-TEST(ShortTest, ParseShortInvalidInput) {
-  EXPECT_THROW(common::Short::parseShort("abc"), std::invalid_argument);
-}
+TEST(ShortTest, ParseShortInvalidInput) { EXPECT_THROW(common::Short::parseShort("abc"), std::invalid_argument); }
 
 TEST(ShortTest, ParseShortOverflow) {
   EXPECT_THROW(common::Short::parseShort("32768"),
@@ -107,8 +103,7 @@ TEST(ShortTest, AdditionOverflow) {
   const common::Short s2(1);
   const common::Short result = s1 + s2;
   // 原代码未处理溢出，会导致结果为-32768（溢出后的行为未定义）
-  EXPECT_EQ(result.shortValue(), static_cast<int16_t>(common::Short::MAX_VALUE +
-                                                      1));  // 需要修复溢出逻辑
+  EXPECT_EQ(result.shortValue(), static_cast<int16_t>(common::Short::MAX_VALUE + 1));  // 需要修复溢出逻辑
 }
 
 TEST(ShortTest, SubtractionOperator) {

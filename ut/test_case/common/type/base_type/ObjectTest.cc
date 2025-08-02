@@ -60,15 +60,13 @@ TEST(ObjectTest, AssignmentOperator) {
 TEST(ObjectTest, MoveAssignmentOperator) {
   common::Object obj2;
   const common::Object& obj1 = obj2;
-  EXPECT_EQ(obj1.hashCode(), obj2.hashCode())
-      << "Move assignment doesn't preserve hash";
+  EXPECT_EQ(obj1.hashCode(), obj2.hashCode()) << "Move assignment doesn't preserve hash";
 }
 
 TEST(ObjectTest, PolymorphicBehavior) {
   class Derived : public common::Object {};
   const Derived derived;
   const common::Object& base_ref = derived;
-  EXPECT_EQ(base_ref.getClass(), typeid(Derived))
-      << "getClass() should support polymorphism";
+  EXPECT_EQ(base_ref.getClass(), typeid(Derived)) << "getClass() should support polymorphism";
 }
 }  // namespace gtest_case

@@ -19,5 +19,4 @@ class Object {
 }  // namespace common
 
 template <>
-struct std::formatter<common::Object>
-    : common::GenericFormatter<common::Object> {};
+struct std::formatter<common::Object> : common::GenericFormatter<common::Object> {};

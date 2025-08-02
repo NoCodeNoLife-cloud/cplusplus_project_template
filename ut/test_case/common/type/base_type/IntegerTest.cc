@@ -73,21 +73,13 @@ TEST(IntegerTest, IntValueMethod) {
   EXPECT_EQ(obj.intValue(), -789);
 }
 
-TEST(IntegerTest, ParseValidIntegerString) {
-  EXPECT_EQ(common::Integer::parseInt("12345").intValue(), 12345);
-}
+TEST(IntegerTest, ParseValidIntegerString) { EXPECT_EQ(common::Integer::parseInt("12345").intValue(), 12345); }
 
-TEST(IntegerTest, ParseNegativeValue) {
-  EXPECT_EQ(common::Integer::parseInt("-56789").intValue(), -56789);
-}
+TEST(IntegerTest, ParseNegativeValue) { EXPECT_EQ(common::Integer::parseInt("-56789").intValue(), -56789); }
 
-TEST(IntegerTest, ParseInvalidStringThrows) {
-  EXPECT_THROW(common::Integer::parseInt("abc"), std::invalid_argument);
-}
+TEST(IntegerTest, ParseInvalidStringThrows) { EXPECT_THROW(common::Integer::parseInt("abc"), std::invalid_argument); }
 
-TEST(IntegerTest, ParseOutOfRangeValueThrows) {
-  EXPECT_THROW(common::Integer::parseInt("2147483648"), std::out_of_range);
-}
+TEST(IntegerTest, ParseOutOfRangeValueThrows) { EXPECT_THROW(common::Integer::parseInt("2147483648"), std::out_of_range); }
 
 TEST(IntegerTest, EqualityOperatorTrueForSameValues) {
   const common::Integer a(100), b(100);

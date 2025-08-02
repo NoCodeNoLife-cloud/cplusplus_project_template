@@ -33,5 +33,4 @@ class Integer final : public Object {
 }  // namespace common
 
 template <>
-struct std::formatter<common::Integer>
-    : common::GenericFormatter<common::Integer, &common::Integer::value_> {};
+struct std::formatter<common::Integer> : common::GenericFormatter<common::Integer, &common::Integer::value_> {};

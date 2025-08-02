@@ -3,8 +3,7 @@
 #include <stdexcept>
 
 namespace common {
-ByteArrayInputStream::ByteArrayInputStream(const std::vector<std::byte>& buf)
-    : buffer_(buf) {}
+ByteArrayInputStream::ByteArrayInputStream(const std::vector<std::byte>& buf) : buffer_(buf) {}
 
 auto ByteArrayInputStream::read() -> std::byte {
   if (pos_ >= buffer_.size()) {
@@ -20,8 +19,7 @@ size_t ByteArrayInputStream::skip(const size_t n) {
   return bytesToSkip;
 }
 
-size_t ByteArrayInputStream::read(std::vector<std::byte>& cBuf,
-                                  const size_t off, size_t len) {
+size_t ByteArrayInputStream::read(std::vector<std::byte>& cBuf, const size_t off, size_t len) {
   if (off + len > cBuf.size()) {
     throw std::out_of_range("Offset and length exceed the size of the buffer");
   }
@@ -31,8 +29,7 @@ size_t ByteArrayInputStream::read(std::vector<std::byte>& cBuf,
   if (pos_ >= buffer_.size()) {
     return 0;
   }
-  std::copy_n(buffer_.begin() + static_cast<std::ptrdiff_t>(pos_), len,
-              cBuf.begin() + static_cast<std::ptrdiff_t>(off));
+  std::copy_n(buffer_.begin() + static_cast<std::ptrdiff_t>(pos_), len, cBuf.begin() + static_cast<std::ptrdiff_t>(off));
   pos_ += len;
   return len;
 }
@@ -41,9 +38,7 @@ size_t ByteArrayInputStream::available() { return buffer_.size() - pos_; }
 
 void ByteArrayInputStream::reset() { pos_ = mark_position_; }
 
-void ByteArrayInputStream::mark(const size_t readAheadLimit) {
-  mark_position_ = std::min(readAheadLimit, buffer_.size());
-}
+void ByteArrayInputStream::mark(const size_t readAheadLimit) { mark_position_ = std::min(readAheadLimit, buffer_.size()); }
 
 bool ByteArrayInputStream::markSupported() const { return true; }
 

@@ -1,5 +1,5 @@
 #pragma once
-#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING // NOLINT(*-reserved-identifier)
+#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING  // NOLINT(*-reserved-identifier)
 #include <codecvt>
 
 #include "AbstractReader.hpp"
@@ -8,8 +8,7 @@ namespace common {
 class InputStreamReader final : public AbstractReader {
  public:
   explicit InputStreamReader(std::shared_ptr<AbstractReader> input);
-  InputStreamReader(std::shared_ptr<AbstractReader> input,
-                    const std::string& charsetName);
+  InputStreamReader(std::shared_ptr<AbstractReader> input, const std::string& charsetName);
   ~InputStreamReader() override;
   auto read() -> int32_t override;
   auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
@@ -17,7 +16,6 @@ class InputStreamReader final : public AbstractReader {
   auto close() -> void override;
   auto mark(size_t) -> void override;
   auto reset() -> void override;
-
 
  private:
   std::shared_ptr<AbstractReader> reader_;

@@ -49,8 +49,7 @@ template <typename T>
 struct TableStruct_RpcService_2eproto {
   static const ::uint32_t offsets[];
 };
-extern const ::google::protobuf::internal::DescriptorTable
-    descriptor_table_RpcService_2eproto;
+extern const ::google::protobuf::internal::DescriptorTable descriptor_table_RpcService_2eproto;
 namespace rpc {
 class MessageRequest;
 struct MessageRequestDefaultTypeInternal;
@@ -83,21 +82,17 @@ class MessageResponse final : public ::google::protobuf::Message
 #endif
 
   template <typename = void>
-  explicit PROTOBUF_CONSTEXPR MessageResponse(
-      ::google::protobuf::internal::ConstantInitialized);
+  explicit PROTOBUF_CONSTEXPR MessageResponse(::google::protobuf::internal::ConstantInitialized);
 
-  inline MessageResponse(const MessageResponse& from)
-      : MessageResponse(nullptr, from) {}
-  inline MessageResponse(MessageResponse&& from) noexcept
-      : MessageResponse(nullptr, std::move(from)) {}
+  inline MessageResponse(const MessageResponse& from) : MessageResponse(nullptr, from) {}
+  inline MessageResponse(MessageResponse&& from) noexcept : MessageResponse(nullptr, std::move(from)) {}
   inline MessageResponse& operator=(const MessageResponse& from) {
     CopyFrom(from);
     return *this;
   }
   inline MessageResponse& operator=(MessageResponse&& from) noexcept {
     if (this == &from) return *this;
-    if (::google::protobuf::internal::CanMoveWithInternalSwap(
-            GetArena(), from.GetArena())) {
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
       InternalSwap(&from);
     } else {
       CopyFrom(from);
@@ -105,40 +100,19 @@ class MessageResponse final : public ::google::protobuf::Message
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_
-        .unknown_fields<::google::protobuf::UnknownFieldSet>(
-            ::google::protobuf::UnknownFieldSet::default_instance);
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_
-        .mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
-  }
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const ABSL_ATTRIBUTE_LIFETIME_BOUND { return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance); }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() ABSL_ATTRIBUTE_LIFETIME_BOUND { return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>(); }
 
-  static const ::google::protobuf::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::google::protobuf::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::google::protobuf::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const MessageResponse& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const MessageResponse* internal_default_instance() {
-    return reinterpret_cast<const MessageResponse*>(
-        &_MessageResponse_default_instance_);
-  }
+  static const ::google::protobuf::Descriptor* descriptor() { return GetDescriptor(); }
+  static const ::google::protobuf::Descriptor* GetDescriptor() { return default_instance().GetMetadata().descriptor; }
+  static const ::google::protobuf::Reflection* GetReflection() { return default_instance().GetMetadata().reflection; }
+  static const MessageResponse& default_instance() { return *internal_default_instance(); }
+  static inline const MessageResponse* internal_default_instance() { return reinterpret_cast<const MessageResponse*>(&_MessageResponse_default_instance_); }
   static constexpr int kIndexInFileMessages = 1;
   friend void swap(MessageResponse& a, MessageResponse& b) { a.Swap(&b); }
   inline void Swap(MessageResponse* other) {
     if (other == this) return;
-    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(),
-                                                         other->GetArena())) {
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
       InternalSwap(other);
     } else {
       ::google::protobuf::internal::GenericSwap(this, other);
@@ -152,20 +126,14 @@ class MessageResponse final : public ::google::protobuf::Message
 
   // implements Message ----------------------------------------------
 
-  MessageResponse* New(::google::protobuf::Arena* arena = nullptr) const {
-    return ::google::protobuf::Message::DefaultConstruct<MessageResponse>(
-        arena);
-  }
+  MessageResponse* New(::google::protobuf::Arena* arena = nullptr) const { return ::google::protobuf::Message::DefaultConstruct<MessageResponse>(arena); }
   using ::google::protobuf::Message::CopyFrom;
   void CopyFrom(const MessageResponse& from);
   using ::google::protobuf::Message::MergeFrom;
-  void MergeFrom(const MessageResponse& from) {
-    MessageResponse::MergeImpl(*this, from);
-  }
+  void MergeFrom(const MessageResponse& from) { MessageResponse::MergeImpl(*this, from); }
 
  private:
-  static void MergeImpl(::google::protobuf::MessageLite& to_msg,
-                        const ::google::protobuf::MessageLite& from_msg);
+  static void MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg);
 
  public:
   bool IsInitialized() const { return true; }
@@ -173,22 +141,14 @@ class MessageResponse final : public ::google::protobuf::Message
 #if defined(PROTOBUF_CUSTOM_VTABLE)
  private:
   static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
-  static ::uint8_t* _InternalSerialize(
-      const MessageLite& msg, ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream);
+  static ::uint8_t* _InternalSerialize(const MessageLite& msg, ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream);
 
  public:
   ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-    return _InternalSerialize(*this, target, stream);
-  }
+  ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const { return _InternalSerialize(*this, target, stream); }
 #else   // PROTOBUF_CUSTOM_VTABLE
   ::size_t ByteSizeLong() const final;
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
 #endif  // PROTOBUF_CUSTOM_VTABLE
   int GetCachedSize() const { return _impl_._cached_size_.Get(); }
 
@@ -204,17 +164,10 @@ class MessageResponse final : public ::google::protobuf::Message
 
  protected:
   explicit MessageResponse(::google::protobuf::Arena* arena);
-  MessageResponse(::google::protobuf::Arena* arena,
-                  const MessageResponse& from);
-  MessageResponse(::google::protobuf::Arena* arena,
-                  MessageResponse&& from) noexcept
-      : MessageResponse(arena) {
-    *this = ::std::move(from);
-  }
-  const ::google::protobuf::internal::ClassData* GetClassData() const
-      PROTOBUF_FINAL;
-  static void* PlacementNew_(const void*, void* mem,
-                             ::google::protobuf::Arena* arena);
+  MessageResponse(::google::protobuf::Arena* arena, const MessageResponse& from);
+  MessageResponse(::google::protobuf::Arena* arena, MessageResponse&& from) noexcept : MessageResponse(arena) { *this = ::std::move(from); }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem, ::google::protobuf::Arena* arena);
   static constexpr auto InternalNewImpl_();
   static const ::google::protobuf::internal::ClassDataFull _class_data_;
 
@@ -237,8 +190,7 @@ class MessageResponse final : public ::google::protobuf::Message
 
  private:
   const std::string& _internal_status() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_status(
-      const std::string& value);
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_status(const std::string& value);
   std::string* _internal_mutable_status();
 
  public:
@@ -246,8 +198,7 @@ class MessageResponse final : public ::google::protobuf::Message
  private:
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
-  static const ::google::protobuf::internal::TcParseTable<0, 1, 0, 34, 2>
-      _table_;
+  static const ::google::protobuf::internal::TcParseTable<0, 1, 0, 34, 2> _table_;
 
   friend class ::google::protobuf::MessageLite;
   friend class ::google::protobuf::Arena;
@@ -256,15 +207,9 @@ class MessageResponse final : public ::google::protobuf::Message
   using InternalArenaConstructable_ = void;
   using DestructorSkippable_ = void;
   struct Impl_ {
-    inline explicit constexpr Impl_(
-        ::google::protobuf::internal::ConstantInitialized) noexcept;
-    inline explicit Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility,
-        ::google::protobuf::Arena* arena);
-    inline explicit Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility,
-        ::google::protobuf::Arena* arena, const Impl_& from,
-        const MessageResponse& from_msg);
+    inline explicit constexpr Impl_(::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena, const Impl_& from, const MessageResponse& from_msg);
     ::google::protobuf::internal::ArenaStringPtr status_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
@@ -290,21 +235,17 @@ class MessageRequest final : public ::google::protobuf::Message
 #endif
 
   template <typename = void>
-  explicit PROTOBUF_CONSTEXPR MessageRequest(
-      ::google::protobuf::internal::ConstantInitialized);
+  explicit PROTOBUF_CONSTEXPR MessageRequest(::google::protobuf::internal::ConstantInitialized);
 
-  inline MessageRequest(const MessageRequest& from)
-      : MessageRequest(nullptr, from) {}
-  inline MessageRequest(MessageRequest&& from) noexcept
-      : MessageRequest(nullptr, std::move(from)) {}
+  inline MessageRequest(const MessageRequest& from) : MessageRequest(nullptr, from) {}
+  inline MessageRequest(MessageRequest&& from) noexcept : MessageRequest(nullptr, std::move(from)) {}
   inline MessageRequest& operator=(const MessageRequest& from) {
     CopyFrom(from);
     return *this;
   }
   inline MessageRequest& operator=(MessageRequest&& from) noexcept {
     if (this == &from) return *this;
-    if (::google::protobuf::internal::CanMoveWithInternalSwap(
-            GetArena(), from.GetArena())) {
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
       InternalSwap(&from);
     } else {
       CopyFrom(from);
@@ -312,40 +253,19 @@ class MessageRequest final : public ::google::protobuf::Message
     return *this;
   }
 
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_
-        .unknown_fields<::google::protobuf::UnknownFieldSet>(
-            ::google::protobuf::UnknownFieldSet::default_instance);
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_
-        .mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
-  }
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const ABSL_ATTRIBUTE_LIFETIME_BOUND { return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance); }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() ABSL_ATTRIBUTE_LIFETIME_BOUND { return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>(); }
 
-  static const ::google::protobuf::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::google::protobuf::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::google::protobuf::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const MessageRequest& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const MessageRequest* internal_default_instance() {
-    return reinterpret_cast<const MessageRequest*>(
-        &_MessageRequest_default_instance_);
-  }
+  static const ::google::protobuf::Descriptor* descriptor() { return GetDescriptor(); }
+  static const ::google::protobuf::Descriptor* GetDescriptor() { return default_instance().GetMetadata().descriptor; }
+  static const ::google::protobuf::Reflection* GetReflection() { return default_instance().GetMetadata().reflection; }
+  static const MessageRequest& default_instance() { return *internal_default_instance(); }
+  static inline const MessageRequest* internal_default_instance() { return reinterpret_cast<const MessageRequest*>(&_MessageRequest_default_instance_); }
   static constexpr int kIndexInFileMessages = 0;
   friend void swap(MessageRequest& a, MessageRequest& b) { a.Swap(&b); }
   inline void Swap(MessageRequest* other) {
     if (other == this) return;
-    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(),
-                                                         other->GetArena())) {
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
       InternalSwap(other);
     } else {
       ::google::protobuf::internal::GenericSwap(this, other);
@@ -359,19 +279,14 @@ class MessageRequest final : public ::google::protobuf::Message
 
   // implements Message ----------------------------------------------
 
-  MessageRequest* New(::google::protobuf::Arena* arena = nullptr) const {
-    return ::google::protobuf::Message::DefaultConstruct<MessageRequest>(arena);
-  }
+  MessageRequest* New(::google::protobuf::Arena* arena = nullptr) const { return ::google::protobuf::Message::DefaultConstruct<MessageRequest>(arena); }
   using ::google::protobuf::Message::CopyFrom;
   void CopyFrom(const MessageRequest& from);
   using ::google::protobuf::Message::MergeFrom;
-  void MergeFrom(const MessageRequest& from) {
-    MessageRequest::MergeImpl(*this, from);
-  }
+  void MergeFrom(const MessageRequest& from) { MessageRequest::MergeImpl(*this, from); }
 
  private:
-  static void MergeImpl(::google::protobuf::MessageLite& to_msg,
-                        const ::google::protobuf::MessageLite& from_msg);
+  static void MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg);
 
  public:
   bool IsInitialized() const { return true; }
@@ -379,22 +294,14 @@ class MessageRequest final : public ::google::protobuf::Message
 #if defined(PROTOBUF_CUSTOM_VTABLE)
  private:
   static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
-  static ::uint8_t* _InternalSerialize(
-      const MessageLite& msg, ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream);
+  static ::uint8_t* _InternalSerialize(const MessageLite& msg, ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream);
 
  public:
   ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-    return _InternalSerialize(*this, target, stream);
-  }
+  ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const { return _InternalSerialize(*this, target, stream); }
 #else   // PROTOBUF_CUSTOM_VTABLE
   ::size_t ByteSizeLong() const final;
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
 #endif  // PROTOBUF_CUSTOM_VTABLE
   int GetCachedSize() const { return _impl_._cached_size_.Get(); }
 
@@ -411,15 +318,9 @@ class MessageRequest final : public ::google::protobuf::Message
  protected:
   explicit MessageRequest(::google::protobuf::Arena* arena);
   MessageRequest(::google::protobuf::Arena* arena, const MessageRequest& from);
-  MessageRequest(::google::protobuf::Arena* arena,
-                 MessageRequest&& from) noexcept
-      : MessageRequest(arena) {
-    *this = ::std::move(from);
-  }
-  const ::google::protobuf::internal::ClassData* GetClassData() const
-      PROTOBUF_FINAL;
-  static void* PlacementNew_(const void*, void* mem,
-                             ::google::protobuf::Arena* arena);
+  MessageRequest(::google::protobuf::Arena* arena, MessageRequest&& from) noexcept : MessageRequest(arena) { *this = ::std::move(from); }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem, ::google::protobuf::Arena* arena);
   static constexpr auto InternalNewImpl_();
   static const ::google::protobuf::internal::ClassDataFull _class_data_;
 
@@ -442,8 +343,7 @@ class MessageRequest final : public ::google::protobuf::Message
 
  private:
   const std::string& _internal_content() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_content(
-      const std::string& value);
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_content(const std::string& value);
   std::string* _internal_mutable_content();
 
  public:
@@ -451,8 +351,7 @@ class MessageRequest final : public ::google::protobuf::Message
  private:
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
-  static const ::google::protobuf::internal::TcParseTable<0, 1, 0, 34, 2>
-      _table_;
+  static const ::google::protobuf::internal::TcParseTable<0, 1, 0, 34, 2> _table_;
 
   friend class ::google::protobuf::MessageLite;
   friend class ::google::protobuf::Arena;
@@ -461,15 +360,9 @@ class MessageRequest final : public ::google::protobuf::Message
   using InternalArenaConstructable_ = void;
   using DestructorSkippable_ = void;
   struct Impl_ {
-    inline explicit constexpr Impl_(
-        ::google::protobuf::internal::ConstantInitialized) noexcept;
-    inline explicit Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility,
-        ::google::protobuf::Arena* arena);
-    inline explicit Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility,
-        ::google::protobuf::Arena* arena, const Impl_& from,
-        const MessageRequest& from_msg);
+    inline explicit constexpr Impl_(::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena, const Impl_& from, const MessageRequest& from_msg);
     ::google::protobuf::internal::ArenaStringPtr content_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
@@ -497,20 +390,17 @@ inline void MessageRequest::clear_content() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.content_.ClearToEmpty();
 }
-inline const std::string& MessageRequest::content() const
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+inline const std::string& MessageRequest::content() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
   // @@protoc_insertion_point(field_get:rpc.MessageRequest.content)
   return _internal_content();
 }
 template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void MessageRequest::set_content(Arg_&& arg,
-                                                               Args_... args) {
+inline PROTOBUF_ALWAYS_INLINE void MessageRequest::set_content(Arg_&& arg, Args_... args) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.content_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
   // @@protoc_insertion_point(field_set:rpc.MessageRequest.content)
 }
-inline std::string* MessageRequest::mutable_content()
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+inline std::string* MessageRequest::mutable_content() ABSL_ATTRIBUTE_LIFETIME_BOUND {
   std::string* _s = _internal_mutable_content();
   // @@protoc_insertion_point(field_mutable:rpc.MessageRequest.content)
   return _s;
@@ -535,8 +425,7 @@ inline std::string* MessageRequest::release_content() {
 inline void MessageRequest::set_allocated_content(std::string* value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.content_.SetAllocated(value, GetArena());
-  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() &&
-      _impl_.content_.IsDefault()) {
+  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.content_.IsDefault()) {
     _impl_.content_.Set("", GetArena());
   }
   // @@protoc_insertion_point(field_set_allocated:rpc.MessageRequest.content)
@@ -551,20 +440,17 @@ inline void MessageResponse::clear_status() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.status_.ClearToEmpty();
 }
-inline const std::string& MessageResponse::status() const
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+inline const std::string& MessageResponse::status() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
   // @@protoc_insertion_point(field_get:rpc.MessageResponse.status)
   return _internal_status();
 }
 template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void MessageResponse::set_status(Arg_&& arg,
-                                                               Args_... args) {
+inline PROTOBUF_ALWAYS_INLINE void MessageResponse::set_status(Arg_&& arg, Args_... args) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.status_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
   // @@protoc_insertion_point(field_set:rpc.MessageResponse.status)
 }
-inline std::string* MessageResponse::mutable_status()
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+inline std::string* MessageResponse::mutable_status() ABSL_ATTRIBUTE_LIFETIME_BOUND {
   std::string* _s = _internal_mutable_status();
   // @@protoc_insertion_point(field_mutable:rpc.MessageResponse.status)
   return _s;
@@ -589,8 +475,7 @@ inline std::string* MessageResponse::release_status() {
 inline void MessageResponse::set_allocated_status(std::string* value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.status_.SetAllocated(value, GetArena());
-  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() &&
-      _impl_.status_.IsDefault()) {
+  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.status_.IsDefault()) {
     _impl_.status_.Set("", GetArena());
   }
   // @@protoc_insertion_point(field_set_allocated:rpc.MessageResponse.status)

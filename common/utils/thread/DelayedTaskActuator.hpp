@@ -22,15 +22,13 @@ class DelayedTaskActuator {
 };
 
 template <typename ResultType>
-auto DelayedTaskActuator<ResultType>::scheduleTask(
-    int delayMs, std::function<ResultType()> task) -> int {
+auto DelayedTaskActuator<ResultType>::scheduleTask(int delayMs, std::function<ResultType()> task) -> int {
   std::lock_guard lock(mutex_);
   int taskId = nextTaskId_++;
   std::packaged_task<ResultType()> packagedTask(task);
   std::future<ResultType> result = packagedTask.get_future();
 
-  std::thread([this, delayMs,
-               packagedTask = std::move(packagedTask)]() mutable {
+  std::thread([this, delayMs, packagedTask = std::move(packagedTask)]() mutable {
     std::this_thread::sleep_for(std::chrono::milliseconds(delayMs));
     packagedTask();
     {
@@ -44,8 +42,7 @@ auto DelayedTaskActuator<ResultType>::scheduleTask(
 }
 
 template <typename ResultType>
-auto DelayedTaskActuator<ResultType>::getTaskResult(int taskId)
-    -> std::future<ResultType> {
+auto DelayedTaskActuator<ResultType>::getTaskResult(int taskId) -> std::future<ResultType> {
   std::unique_lock lock(mutex_);
 
   cv_.wait(lock, [this, taskId] { return results_.contains(taskId); });

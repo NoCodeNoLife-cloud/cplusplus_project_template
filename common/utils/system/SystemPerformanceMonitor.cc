@@ -12,9 +12,7 @@ auto SystemPerformanceMonitor::GetMemoryUsage() -> MemoryUsage {
   memUsage.total_memory = memInfo.ullTotalPhys;
   memUsage.available_memory = memInfo.ullAvailPhys;
   memUsage.used_memory = memUsage.total_memory - memUsage.available_memory;
-  memUsage.memory_usage_percent = (static_cast<double>(memUsage.used_memory) /
-                                   static_cast<double>(memUsage.total_memory)) *
-                                  100.0;
+  memUsage.memory_usage_percent = (static_cast<double>(memUsage.used_memory) / static_cast<double>(memUsage.total_memory)) * 100.0;
   return memUsage;
 }
 
@@ -43,10 +41,7 @@ auto SystemPerformanceMonitor::GetCpuUsage(int interval) -> CpuUsage {
   ULONGLONG kernelDiff = kernel2.QuadPart - kernel1.QuadPart;
   ULONGLONG userDiff = user2.QuadPart - user1.QuadPart;
   if (ULONGLONG totalDiff = kernelDiff + userDiff; totalDiff != 0) {
-    cpuUsage.cpu_usage_percent =
-        ((static_cast<double>(totalDiff) - static_cast<double>(idleDiff)) *
-         100.0) /
-        static_cast<double>(totalDiff);
+    cpuUsage.cpu_usage_percent = ((static_cast<double>(totalDiff) - static_cast<double>(idleDiff)) * 100.0) / static_cast<double>(totalDiff);
   } else {
     cpuUsage.cpu_usage_percent = 0.0;
   }

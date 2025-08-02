@@ -7,8 +7,7 @@ class Date {
  public:
   Date();
   Date(int32_t year, int32_t month, int32_t day);
-  Date(int32_t year, int32_t month, int32_t day, int32_t hours, int32_t minutes,
-       int32_t seconds);
+  Date(int32_t year, int32_t month, int32_t day, int32_t hours, int32_t minutes, int32_t seconds);
   explicit Date(int64_t timestamp);
   ~Date() = default;
   [[nodiscard]] auto clone() const -> Date;

@@ -12,8 +12,7 @@ class AbstractInputStream abstract : public ICloseable {
   [[nodiscard]] virtual auto markSupported() const -> bool;
   virtual auto read() -> std::byte = 0;
   virtual auto read(std::vector<std::byte>& buffer) -> size_t;
-  virtual auto read(std::vector<std::byte>& buffer, size_t offset, size_t len)
-      -> size_t;
+  virtual auto read(std::vector<std::byte>& buffer, size_t offset, size_t len) -> size_t;
   virtual auto reset() -> void;
   virtual auto skip(size_t n) -> size_t;
 };

@@ -15,14 +15,7 @@ class ObjectFactory : public service::IStartupTask {
  public:
   template <typename V, typename... Args>
   static void registerType(const std::string& type_name, Args&&... args) {
-    registry[type_name] =
-        [args = std::make_tuple(std::forward<Args>(args)...)]() mutable {
-          return std::apply(
-              []<typename... T0>(T0&&... inner_args) -> std::unique_ptr<V> {
-                return std::make_unique<V>(std::forward<T0>(inner_args)...);
-              },
-              args);
-        };
+    registry[type_name] = [args = std::make_tuple(std::forward<Args>(args)...)]() mutable { return std::apply([]<typename... T0>(T0&&... inner_args) -> std::unique_ptr<V> { return std::make_unique<V>(std::forward<T0>(inner_args)...); }, args); };
   }
 
   static std::unique_ptr<T> createObject(const std::string& type_name) {
@@ -41,8 +34,6 @@ class ObjectFactory : public service::IStartupTask {
  private:
   virtual auto registerAll() -> void = 0;
 
-  static inline std::unordered_map<std::string,
-                                   std::function<std::unique_ptr<T>()>>
-      registry;
+  static inline std::unordered_map<std::string, std::function<std::unique_ptr<T>()>> registry;
 };
 }  // namespace common

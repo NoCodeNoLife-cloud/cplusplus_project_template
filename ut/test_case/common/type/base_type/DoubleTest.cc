@@ -69,10 +69,8 @@ TEST(DoubleTest, ParseDoubleTest) {
   EXPECT_EQ(common::Double::parseDouble("123").doubleValue(), 123.0);
   EXPECT_EQ(common::Double::parseDouble("123.45").doubleValue(), 123.45);
   EXPECT_EQ(common::Double::parseDouble("-123").doubleValue(), -123.0);
-  EXPECT_EQ(common::Double::parseDouble("inf").doubleValue(),
-            std::numeric_limits<double>::infinity());
-  EXPECT_EQ(common::Double::parseDouble("-inf").doubleValue(),
-            -std::numeric_limits<double>::infinity());
+  EXPECT_EQ(common::Double::parseDouble("inf").doubleValue(), std::numeric_limits<double>::infinity());
+  EXPECT_EQ(common::Double::parseDouble("-inf").doubleValue(), -std::numeric_limits<double>::infinity());
   EXPECT_TRUE(std::isnan(common::Double::parseDouble("nan").doubleValue()));
   EXPECT_THROW(common::Double::parseDouble("abc"), std::invalid_argument);
   EXPECT_THROW(common::Double::parseDouble("123abc"), std::invalid_argument);

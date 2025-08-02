@@ -19,10 +19,8 @@ auto MainTask::run() -> bool {
 
   // Set the keepalive parameters.
   builder.AddChannelArgument(GRPC_ARG_MAX_CONNECTION_IDLE_MS, 60 * 60 * 1000);
-  builder.AddChannelArgument(GRPC_ARG_MAX_CONNECTION_AGE_MS,
-                             2 * 60 * 60 * 1000);
-  builder.AddChannelArgument(GRPC_ARG_MAX_CONNECTION_AGE_GRACE_MS,
-                             5 * 60 * 1000);
+  builder.AddChannelArgument(GRPC_ARG_MAX_CONNECTION_AGE_MS, 2 * 60 * 60 * 1000);
+  builder.AddChannelArgument(GRPC_ARG_MAX_CONNECTION_AGE_GRACE_MS, 5 * 60 * 1000);
   builder.AddChannelArgument(GRPC_ARG_KEEPALIVE_TIME_MS, 30 * 1000);
   builder.AddChannelArgument(GRPC_ARG_KEEPALIVE_TIMEOUT_MS, 5 * 1000);
   builder.AddChannelArgument(GRPC_ARG_KEEPALIVE_PERMIT_WITHOUT_CALLS, 1);

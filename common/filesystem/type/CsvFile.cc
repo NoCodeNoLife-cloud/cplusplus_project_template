@@ -21,16 +21,14 @@ auto CsvFile::getColumnCount() const -> uint64_t {
   return csv_doc_.GetColumnCount();
 }
 
-auto CsvFile::insertRow(const uint64_t insertIndex,
-                        const std::vector<std::string>& item) -> bool {
+auto CsvFile::insertRow(const uint64_t insertIndex, const std::vector<std::string>& item) -> bool {
   if (!is_valid_) return false;
   if (insertIndex > getRowCount()) {
     std::cerr << "Invalid insert index: " << insertIndex << std::endl;
     return false;
   }
   if (getColumnCount() != 0 && item.size() != getColumnCount()) {
-    std::cerr << "Column count mismatch. Expected: " << getColumnCount()
-              << ", Got: " << item.size() << std::endl;
+    std::cerr << "Column count mismatch. Expected: " << getColumnCount() << ", Got: " << item.size() << std::endl;
     return false;
   }
   try {
@@ -42,9 +40,7 @@ auto CsvFile::insertRow(const uint64_t insertIndex,
   }
 }
 
-auto CsvFile::pushBack(const std::vector<std::string>& item) -> bool {
-  return insertRow(getRowCount(), item);
-}
+auto CsvFile::pushBack(const std::vector<std::string>& item) -> bool { return insertRow(getRowCount(), item); }
 
 auto CsvFile::save(const std::string& path) -> bool {
   if (!is_valid_) return false;

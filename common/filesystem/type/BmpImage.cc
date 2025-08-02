@@ -3,16 +3,14 @@
 #include <stdexcept>
 
 namespace common {
-BmpImage::BmpImage(const int32_t width, const int32_t height)
-    : width_(width), height_(height) {
+BmpImage::BmpImage(const int32_t width, const int32_t height) : width_(width), height_(height) {
   if (width <= 0 || height <= 0) {
     throw std::invalid_argument("Invalid image dimensions");
   }
   pixels_.resize(width * height * 3, 0);
 }
 
-auto BmpImage::setPixel(const int32_t x, const int32_t y, const uint8_t r,
-                        const uint8_t g, const uint8_t b) -> void {
+auto BmpImage::setPixel(const int32_t x, const int32_t y, const uint8_t r, const uint8_t g, const uint8_t b) -> void {
   if (x < 0 || x >= width_ || y < 0 || y >= height_) {
     return;
   }
@@ -26,8 +24,7 @@ auto BmpImage::setPixel(const int32_t x, const int32_t y, const uint8_t r,
 auto BmpImage::save(const std::string& filename) const -> void {
   const int32_t rowSize = width_ * 3 + 3 & ~3;
   const int32_t pixelDataSize = rowSize * height_;
-  const uint64_t fileSize =
-      sizeof(BitMapFileHeader) + sizeof(BitmapInfoHeader) + pixelDataSize;
+  const uint64_t fileSize = sizeof(BitMapFileHeader) + sizeof(BitmapInfoHeader) + pixelDataSize;
   BitMapFileHeader fileHeader{};
   fileHeader.bf_type_ = 0x4D42;
   fileHeader.bf_size_ = fileSize;

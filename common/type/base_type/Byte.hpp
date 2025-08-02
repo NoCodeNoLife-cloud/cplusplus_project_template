@@ -30,5 +30,4 @@ class Byte final : public Object {
 }  // namespace common
 
 template <>
-struct std::formatter<common::Byte>
-    : common::GenericFormatter<common::Byte, &common::Byte::value_> {};
+struct std::formatter<common::Byte> : common::GenericFormatter<common::Byte, &common::Byte::value_> {};

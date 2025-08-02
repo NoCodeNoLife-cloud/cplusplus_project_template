@@ -17,11 +17,7 @@ class ExponentialBackoff {
   /// random_device)
   /// @param thread_safe thread_safe whether to enable thread safety mode
   /// (optional, default false)
-  ExponentialBackoff(unsigned int max_retries, double initial_delay,
-                     double multiplier, double min_delay = 0.0,
-                     double max_cap = std::numeric_limits<double>::infinity(),
-                     unsigned int seed = std::random_device{}(),
-                     bool thread_safe = false);
+  ExponentialBackoff(unsigned int max_retries, double initial_delay, double multiplier, double min_delay = 0.0, double max_cap = std::numeric_limits<double>::infinity(), unsigned int seed = std::random_device{}(), bool thread_safe = false);
 
   auto getNextDelay() -> double;
   auto reset() -> void;

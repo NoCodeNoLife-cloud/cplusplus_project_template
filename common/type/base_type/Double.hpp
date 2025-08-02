@@ -6,10 +6,8 @@
 namespace common {
 class Double final : public Object {
  public:
-  static constexpr double POSITIVE_INFINITY =
-      std::numeric_limits<double>::infinity();
-  static constexpr double NEGATIVE_INFINITY =
-      -std::numeric_limits<double>::infinity();
+  static constexpr double POSITIVE_INFINITY = std::numeric_limits<double>::infinity();
+  static constexpr double NEGATIVE_INFINITY = -std::numeric_limits<double>::infinity();
   static constexpr double NaN = std::numeric_limits<double>::quiet_NaN();
   static constexpr double MAX_VALUE = std::numeric_limits<double>::max();
   static constexpr double MIN_VALUE = std::numeric_limits<double>::min();
@@ -38,5 +36,4 @@ class Double final : public Object {
 }  // namespace common
 
 template <>
-struct std::formatter<common::Double>
-    : common::GenericFormatter<common::Double, &common::Double::value_> {};
+struct std::formatter<common::Double> : common::GenericFormatter<common::Double, &common::Double::value_> {};

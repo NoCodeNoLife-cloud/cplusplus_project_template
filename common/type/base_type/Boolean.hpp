@@ -31,5 +31,4 @@ const Boolean False{false};
 }  // namespace common
 
 template <>
-struct std::formatter<common::Boolean>
-    : common::GenericFormatter<common::Boolean, &common::Boolean::value_> {};
+struct std::formatter<common::Boolean> : common::GenericFormatter<common::Boolean, &common::Boolean::value_> {};

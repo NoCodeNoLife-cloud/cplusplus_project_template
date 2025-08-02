@@ -13,8 +13,7 @@ class FilterInputStream : public AbstractInputStream {
   [[nodiscard]] auto markSupported() const -> bool override;
   auto read() -> std::byte override;
   size_t read(std::vector<std::byte>& buffer) override;
-  size_t read(std::vector<std::byte>& buffer, size_t offset,
-              size_t len) override;
+  size_t read(std::vector<std::byte>& buffer, size_t offset, size_t len) override;
   void reset() override;
   size_t skip(size_t n) override;
   auto close() -> void override;

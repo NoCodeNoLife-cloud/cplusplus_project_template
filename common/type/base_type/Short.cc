@@ -53,25 +53,15 @@ auto Short::parseShort(const std::string& str) -> Short {
   }
 }
 
-auto Short::operator<=>(const Short& other) const -> std::partial_ordering {
-  return value_ <=> other.value_;
-}
+auto Short::operator<=>(const Short& other) const -> std::partial_ordering { return value_ <=> other.value_; }
 
-auto Short::operator==(const Short& other) const -> bool {
-  return value_ == other.value_;
-}
+auto Short::operator==(const Short& other) const -> bool { return value_ == other.value_; }
 
-auto Short::operator+(const Short& other) const -> Short {
-  return Short(static_cast<int16_t>(this->value_ + other.value_));
-}
+auto Short::operator+(const Short& other) const -> Short { return Short(static_cast<int16_t>(this->value_ + other.value_)); }
 
-auto Short::operator-(const Short& other) const -> Short {
-  return Short(static_cast<int16_t>(this->value_ - other.value_));
-}
+auto Short::operator-(const Short& other) const -> Short { return Short(static_cast<int16_t>(this->value_ - other.value_)); }
 
-auto Short::operator*(const Short& other) const -> Short {
-  return Short(static_cast<int16_t>(this->value_ * other.value_));
-}
+auto Short::operator*(const Short& other) const -> Short { return Short(static_cast<int16_t>(this->value_ * other.value_)); }
 
 auto Short::operator/(const Short& other) const -> Short {
   if (other.value_ == 0) {

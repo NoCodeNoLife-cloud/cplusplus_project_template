@@ -27,10 +27,8 @@ class GLogConfigurator final : public IConfigurable, public IStartupTask {
   bool execute() override;
 
  private:
-  const std::string GLogYAMLPath =
-      ConfigPath::getConfigPath("glog_config.yaml");
-  const GLogParameters config_ =
-      common::YamlObjectSerializer<GLogParameters>::deserialize(GLogYAMLPath);
+  const std::string GLogYAMLPath = ConfigPath::getConfigPath("glog_config.yaml");
+  const GLogParameters config_ = common::YamlObjectSerializer<GLogParameters>::deserialize(GLogYAMLPath);
 
   [[nodiscard]] auto doConfig() -> bool override;
   static auto configLogToStdout(const GLogParameters& glog_options) -> void;
@@ -40,8 +38,6 @@ class GLogConfigurator final : public IConfigurable, public IStartupTask {
 
 template <>
 struct YAML::convert<service::GLogConfigurator::GLogParameters> {
-  static auto decode(const Node& node,
-                     service::GLogConfigurator::GLogParameters& rhs) -> bool;
-  static auto encode(const service::GLogConfigurator::GLogParameters& rhs)
-      -> Node;
+  static auto decode(const Node& node, service::GLogConfigurator::GLogParameters& rhs) -> bool;
+  static auto encode(const service::GLogConfigurator::GLogParameters& rhs) -> Node;
 };

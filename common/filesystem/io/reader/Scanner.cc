@@ -35,8 +35,7 @@ auto Scanner::getNextToken(std::string& token) const -> bool {
   return false;
 }
 
-auto Scanner::nextTokens(const char delimiter) const
-    -> std::vector<std::string> {
+auto Scanner::nextTokens(const char delimiter) const -> std::vector<std::string> {
   std::string line;
   std::getline(input_, line);
   std::vector<std::string> tokens;

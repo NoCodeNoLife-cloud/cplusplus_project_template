@@ -32,13 +32,9 @@ inline Point2D operator-(Point2D lhs, const Point2D& rhs) {
   return lhs;
 }
 
-inline bool operator==(const Point2D& lhs, const Point2D& rhs) {
-  return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY();
-}
+inline bool operator==(const Point2D& lhs, const Point2D& rhs) { return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY(); }
 
-inline bool operator!=(const Point2D& lhs, const Point2D& rhs) {
-  return !(lhs == rhs);
-}
+inline bool operator!=(const Point2D& lhs, const Point2D& rhs) { return !(lhs == rhs); }
 
 inline std::ostream& operator<<(std::ostream& os, const Point2D& point) {
   os << "(" << point.getX() << ", " << point.getY() << ")";

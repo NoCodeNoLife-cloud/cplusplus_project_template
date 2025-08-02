@@ -5,8 +5,7 @@
 namespace common {
 Point3D::Point3D() : x_(0), y_(0), z_(0) {}
 
-Point3D::Point3D(const double xVal, const double yVal, const double zVal)
-    : x_(xVal), y_(yVal), z_(zVal) {}
+Point3D::Point3D(const double xVal, const double yVal, const double zVal) : x_(xVal), y_(yVal), z_(zVal) {}
 
 auto Point3D::getX() const -> double { return x_; }
 

@@ -56,8 +56,7 @@ TEST(ArraysUtilTest, BinarySearchWithRange_ReturnsIndexWithinSpecifiedRange) {
 
 TEST(ArraysUtilTest, BinarySearchWithRange_ThrowsExceptionForInvalidRange) {
   constexpr int arr[] = {1, 3, 5};
-  EXPECT_THROW(common::ArraysUtil::binarySearch(arr, 2, 1, 3),
-               std::out_of_range);
+  EXPECT_THROW(common::ArraysUtil::binarySearch(arr, 2, 1, 3), std::out_of_range);
 }
 
 TEST(ArraysUtilTest, CopyOf_ShrinksArraySize) {
@@ -76,24 +75,21 @@ TEST(ArraysUtilTest, CopyOf_ExpandsArraySizeWithDefaultValues) {
 
 TEST(ArraysUtilTest, CopyOfRange_CopiesFullRange) {
   constexpr int original[] = {1, 2, 3, 4};
-  const std::vector<int> result =
-      common::ArraysUtil::copyOfRange(original, 0, 4);
+  const std::vector<int> result = common::ArraysUtil::copyOfRange(original, 0, 4);
   const std::vector expected = {1, 2, 3, 4};
   EXPECT_EQ(result, expected);
 }
 
 TEST(ArraysUtilTest, CopyOfRange_CopiesPartialRange) {
   constexpr int original[] = {1, 2, 3, 4};
-  const std::vector<int> result =
-      common::ArraysUtil::copyOfRange(original, 1, 3);
+  const std::vector<int> result = common::ArraysUtil::copyOfRange(original, 1, 3);
   const std::vector expected = {2, 3};
   EXPECT_EQ(result, expected);
 }
 
 TEST(ArraysUtilTest, CopyOfRange_ThrowsExceptionForFromGreaterThanTo) {
   constexpr int original[] = {1, 2, 3};
-  EXPECT_THROW(common::ArraysUtil::copyOfRange(original, 3, 1),
-               std::out_of_range);
+  EXPECT_THROW(common::ArraysUtil::copyOfRange(original, 3, 1), std::out_of_range);
 }
 
 TEST(ArraysUtilTest, Equals_ReturnsTrueForIdenticalArrays) {

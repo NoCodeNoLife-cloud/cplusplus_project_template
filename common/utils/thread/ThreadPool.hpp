@@ -11,12 +11,10 @@
 namespace common {
 class ThreadPool {
  public:
-  ThreadPool(size_t core_threads, size_t max_threads, size_t queue_size,
-             std::chrono::milliseconds idle_time);
+  ThreadPool(size_t core_threads, size_t max_threads, size_t queue_size, std::chrono::milliseconds idle_time);
   ~ThreadPool();
   template <class F, class... Args>
-  auto Submit(F&& f, Args&&... args)
-      -> std::future<std::invoke_result_t<F, Args...>>;
+  auto Submit(F&& f, Args&&... args) -> std::future<std::invoke_result_t<F, Args...>>;
   auto Shutdown() -> void;
   auto ShutdownNow() -> void;
 

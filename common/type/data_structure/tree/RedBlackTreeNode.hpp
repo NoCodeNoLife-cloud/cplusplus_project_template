@@ -28,8 +28,7 @@ class RedBlackTreeNode {
 };
 
 template <typename T>
-RedBlackTreeNode<T>::RedBlackTreeNode(const T& value)
-    : data_(value), color_(Color::Red) {}
+RedBlackTreeNode<T>::RedBlackTreeNode(const T& value) : data_(value), color_(Color::Red) {}
 
 template <typename T>
 auto RedBlackTreeNode<T>::getData() const -> T {
@@ -47,32 +46,27 @@ auto RedBlackTreeNode<T>::getLeft() const -> std::shared_ptr<RedBlackTreeNode> {
 }
 
 template <typename T>
-auto RedBlackTreeNode<T>::setLeft(std::shared_ptr<RedBlackTreeNode> node)
-    -> void {
+auto RedBlackTreeNode<T>::setLeft(std::shared_ptr<RedBlackTreeNode> node) -> void {
   left_ = node;
 }
 
 template <typename T>
-auto RedBlackTreeNode<T>::getRight() const
-    -> std::shared_ptr<RedBlackTreeNode> {
+auto RedBlackTreeNode<T>::getRight() const -> std::shared_ptr<RedBlackTreeNode> {
   return right_;
 }
 
 template <typename T>
-auto RedBlackTreeNode<T>::setRight(std::shared_ptr<RedBlackTreeNode> node)
-    -> void {
+auto RedBlackTreeNode<T>::setRight(std::shared_ptr<RedBlackTreeNode> node) -> void {
   right_ = node;
 }
 
 template <typename T>
-auto RedBlackTreeNode<T>::getParent() const
-    -> std::shared_ptr<RedBlackTreeNode> {
+auto RedBlackTreeNode<T>::getParent() const -> std::shared_ptr<RedBlackTreeNode> {
   return parent_;
 }
 
 template <typename T>
-auto RedBlackTreeNode<T>::setParent(std::shared_ptr<RedBlackTreeNode> node)
-    -> void {
+auto RedBlackTreeNode<T>::setParent(std::shared_ptr<RedBlackTreeNode> node) -> void {
   parent_ = node;
 }
 

@@ -3,12 +3,9 @@
 #include <stdexcept>
 
 namespace common {
-auto Interpolation::linearInterpolation(
-    const std::vector<std::pair<double, double>>& dataPoints, const double x)
-    -> double {
+auto Interpolation::linearInterpolation(const std::vector<std::pair<double, double>>& dataPoints, const double x) -> double {
   if (dataPoints.size() < 2) {
-    throw std::invalid_argument(
-        "At least two data points are required for linear interpolation.");
+    throw std::invalid_argument("At least two data points are required for linear interpolation.");
   }
 
   for (size_t i = 0; i < dataPoints.size() - 1; ++i) {

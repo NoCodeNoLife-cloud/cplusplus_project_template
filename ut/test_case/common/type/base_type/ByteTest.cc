@@ -61,26 +61,18 @@ TEST(ParseByteTest, ValidInputParsesCorrectly) {
   EXPECT_EQ(b.byteValue(), 100);
 }
 
-TEST(ParseByteTest, EmptyStringThrowsInvalidArgument) {
-  EXPECT_THROW(common::Byte::parseByte(""), std::invalid_argument);
-}
+TEST(ParseByteTest, EmptyStringThrowsInvalidArgument) { EXPECT_THROW(common::Byte::parseByte(""), std::invalid_argument); }
 
 TEST(ParseByteTest, LeadingWhitespaceAllowed) {
   const auto b = common::Byte::parseByte(" 255");
   EXPECT_EQ(b.byteValue(), 255);
 }
 
-TEST(ParseByteTest, InvalidTrailingCharactersThrow) {
-  EXPECT_THROW(common::Byte::parseByte("12a"), std::invalid_argument);
-}
+TEST(ParseByteTest, InvalidTrailingCharactersThrow) { EXPECT_THROW(common::Byte::parseByte("12a"), std::invalid_argument); }
 
-TEST(ParseByteTest, NegativeValueOutOfRangeThrows) {
-  EXPECT_THROW(common::Byte::parseByte("-1"), std::out_of_range);
-}
+TEST(ParseByteTest, NegativeValueOutOfRangeThrows) { EXPECT_THROW(common::Byte::parseByte("-1"), std::out_of_range); }
 
-TEST(ParseByteTest, PositiveValueOutOfRangeThrows) {
-  EXPECT_THROW(common::Byte::parseByte("256"), std::out_of_range);
-}
+TEST(ParseByteTest, PositiveValueOutOfRangeThrows) { EXPECT_THROW(common::Byte::parseByte("256"), std::out_of_range); }
 
 TEST(ByteTest, EqualityOperator) {
   const common::Byte b1(50);

@@ -6,10 +6,8 @@
 namespace common {
 class Float final : public Object {
  public:
-  static constexpr float POSITIVE_INFINITY =
-      std::numeric_limits<float>::infinity();
-  static constexpr float NEGATIVE_INFINITY =
-      -std::numeric_limits<float>::infinity();
+  static constexpr float POSITIVE_INFINITY = std::numeric_limits<float>::infinity();
+  static constexpr float NEGATIVE_INFINITY = -std::numeric_limits<float>::infinity();
   static constexpr float NaN = std::numeric_limits<float>::quiet_NaN();
   static constexpr float MAX_VALUE = std::numeric_limits<float>::max();
   static constexpr float MIN_VALUE = std::numeric_limits<float>::min();
@@ -38,5 +36,4 @@ class Float final : public Object {
 }  // namespace common
 
 template <>
-struct std::formatter<common::Float>
-    : common::GenericFormatter<common::Float, &common::Float::value_> {};
+struct std::formatter<common::Float> : common::GenericFormatter<common::Float, &common::Float::value_> {};

@@ -48,25 +48,15 @@ auto Long::parseLong(const std::string& str) -> Long {
   return Long(result);
 }
 
-auto Long::operator<=>(const Long& other) const -> std::partial_ordering {
-  return value_ <=> other.value_;
-}
+auto Long::operator<=>(const Long& other) const -> std::partial_ordering { return value_ <=> other.value_; }
 
-auto Long::operator==(const Long& other) const -> bool {
-  return value_ == other.value_;
-}
+auto Long::operator==(const Long& other) const -> bool { return value_ == other.value_; }
 
-auto Long::operator+(const Long& other) const -> Long {
-  return Long(this->value_ + other.value_);
-}
+auto Long::operator+(const Long& other) const -> Long { return Long(this->value_ + other.value_); }
 
-auto Long::operator-(const Long& other) const -> Long {
-  return Long(this->value_ - other.value_);
-}
+auto Long::operator-(const Long& other) const -> Long { return Long(this->value_ - other.value_); }
 
-auto Long::operator*(const Long& other) const -> Long {
-  return Long(this->value_ * other.value_);
-}
+auto Long::operator*(const Long& other) const -> Long { return Long(this->value_ * other.value_); }
 
 auto Long::operator/(const Long& other) const -> Long {
   if (other.value_ == 0) {

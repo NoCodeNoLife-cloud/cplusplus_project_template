@@ -1,16 +1,9 @@
 #include "BufferedOutputStream.hpp"
 
 namespace common {
-BufferedOutputStream::BufferedOutputStream(
-    std::unique_ptr<AbstractOutputStream> out)
-    : BufferedOutputStream(std::move(out), DEFAULT_BUFFER_SIZE) {}
+BufferedOutputStream::BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out) : BufferedOutputStream(std::move(out), DEFAULT_BUFFER_SIZE) {}
 
-BufferedOutputStream::BufferedOutputStream(
-    std::unique_ptr<AbstractOutputStream> out, const size_t size)
-    : FilterOutputStream(std::move(out)),
-      bufferSize_(size),
-      buffer_(size),
-      buffer_position_(0) {
+BufferedOutputStream::BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out, const size_t size) : FilterOutputStream(std::move(out)), bufferSize_(size), buffer_(size), buffer_position_(0) {
   if (!&output_stream_) {
     throw std::invalid_argument("Output stream cannot be null");
   }
@@ -33,8 +26,7 @@ void BufferedOutputStream::write(const std::byte b) {
   buffer_[buffer_position_++] = b;
 }
 
-void BufferedOutputStream::write(const std::vector<std::byte>& data,
-                                 const size_t offset, const size_t len) {
+void BufferedOutputStream::write(const std::vector<std::byte>& data, const size_t offset, const size_t len) {
   if (offset + len > data.size()) {
     throw std::out_of_range("Data offset/length out of range");
   }
@@ -43,10 +35,8 @@ void BufferedOutputStream::write(const std::vector<std::byte>& data,
     if (buffer_position_ == bufferSize_) {
       flushBuffer();
     }
-    const size_t bytesToCopy =
-        std::min(len - bytesWritten, bufferSize_ - buffer_position_);
-    std::memcpy(&buffer_[buffer_position_], &data[offset + bytesWritten],
-                bytesToCopy);
+    const size_t bytesToCopy = std::min(len - bytesWritten, bufferSize_ - buffer_position_);
+    std::memcpy(&buffer_[buffer_position_], &data[offset + bytesWritten], bytesToCopy);
     buffer_position_ += bytesToCopy;
     bytesWritten += bytesToCopy;
   }

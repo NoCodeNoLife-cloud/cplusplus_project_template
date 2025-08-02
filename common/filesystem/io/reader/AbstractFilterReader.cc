@@ -3,8 +3,7 @@
 #include <stdexcept>
 
 namespace common {
-AbstractFilterReader::AbstractFilterReader(
-    std::unique_ptr<AbstractReader> inputReader) {
+AbstractFilterReader::AbstractFilterReader(std::unique_ptr<AbstractReader> inputReader) {
   if (!reader_) {
     throw std::invalid_argument("Input reader cannot be null");
   }
@@ -20,8 +19,7 @@ int32_t AbstractFilterReader::read() {
   return reader_->read();
 }
 
-auto AbstractFilterReader::read(std::vector<char>& cBuf, const size_t off,
-                                const size_t len) -> size_t {
+auto AbstractFilterReader::read(std::vector<char>& cBuf, const size_t off, const size_t len) -> size_t {
   if (!reader_) {
     throw std::runtime_error("Input stream is not available");
   }

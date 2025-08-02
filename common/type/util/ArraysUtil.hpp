@@ -10,20 +10,15 @@ class ArraysUtil abstract {
   template <typename T>
   static auto asList(const T* array, size_t size) -> std::vector<T>;
   template <typename T>
-  static auto binarySearch(const T* array, size_t size, const T& key)
-      -> int32_t;
+  static auto binarySearch(const T* array, size_t size, const T& key) -> int32_t;
   template <typename T>
-  static auto binarySearch(const T* array, size_t fromIndex, size_t toIndex,
-                           const T& key) -> int32_t;
+  static auto binarySearch(const T* array, size_t fromIndex, size_t toIndex, const T& key) -> int32_t;
   template <typename T>
-  static auto copyOf(const T* original, size_t originalSize, size_t newLength)
-      -> std::vector<T>;
+  static auto copyOf(const T* original, size_t originalSize, size_t newLength) -> std::vector<T>;
   template <typename T>
-  static auto copyOfRange(const T* original, size_t from, size_t to)
-      -> std::vector<T>;
+  static auto copyOfRange(const T* original, size_t from, size_t to) -> std::vector<T>;
   template <typename T>
-  static auto equals(const T* a, size_t sizeA, const T* b, size_t sizeB)
-      -> bool;
+  static auto equals(const T* a, size_t sizeA, const T* b, size_t sizeB) -> bool;
   template <typename T>
   static auto fill(T* array, size_t size, const T& value) -> void;
   template <typename T>
@@ -40,8 +35,7 @@ auto ArraysUtil::asList(const T* array, size_t size) -> std::vector<T> {
 }
 
 template <typename T>
-auto ArraysUtil::binarySearch(const T* array, size_t size, const T& key)
-    -> int32_t {
+auto ArraysUtil::binarySearch(const T* array, size_t size, const T& key) -> int32_t {
   auto it = std::lower_bound(array, array + size, key);
   if (it != array + size && *it == key) {
     return static_cast<int32_t>(it - array);
@@ -50,8 +44,7 @@ auto ArraysUtil::binarySearch(const T* array, size_t size, const T& key)
 }
 
 template <typename T>
-auto ArraysUtil::binarySearch(const T* array, size_t fromIndex, size_t toIndex,
-                              const T& key) -> int32_t {
+auto ArraysUtil::binarySearch(const T* array, size_t fromIndex, size_t toIndex, const T& key) -> int32_t {
   if (fromIndex >= toIndex) throw std::out_of_range("Invalid range");
   auto start = array + fromIndex;
   auto end = array + toIndex;
@@ -63,8 +56,7 @@ auto ArraysUtil::binarySearch(const T* array, size_t fromIndex, size_t toIndex,
 }
 
 template <typename T>
-auto ArraysUtil::copyOf(const T* original, const size_t originalSize,
-                        size_t newLength) -> std::vector<T> {
+auto ArraysUtil::copyOf(const T* original, const size_t originalSize, size_t newLength) -> std::vector<T> {
   std::vector<T> result(newLength);
   size_t copyLength = std::min(originalSize, newLength);
   std::copy(original, original + copyLength, result.begin());
@@ -72,15 +64,13 @@ auto ArraysUtil::copyOf(const T* original, const size_t originalSize,
 }
 
 template <typename T>
-auto ArraysUtil::copyOfRange(const T* original, size_t from, size_t to)
-    -> std::vector<T> {
+auto ArraysUtil::copyOfRange(const T* original, size_t from, size_t to) -> std::vector<T> {
   if (from > to) throw std::out_of_range("Invalid range");
   return std::vector<T>(original + from, original + to);
 }
 
 template <typename T>
-auto ArraysUtil::equals(const T* a, size_t sizeA, const T* b,
-                        const size_t sizeB) -> bool {
+auto ArraysUtil::equals(const T* a, size_t sizeA, const T* b, const size_t sizeB) -> bool {
   if (sizeA != sizeB) return false;
   return std::equal(a, a + sizeA, b);
 }

@@ -141,9 +141,7 @@ TEST(StringTest, ValueOf_Integers) {
   EXPECT_EQ(common::String::valueOf(-456).toStdString(), "-456");
 }
 
-TEST(StringTest, ValueOf_Floats) {
-  EXPECT_EQ(common::String::valueOf(1.23f).toStdString(), "1.230000");
-}
+TEST(StringTest, ValueOf_Floats) { EXPECT_EQ(common::String::valueOf(1.23f).toStdString(), "1.230000"); }
 
 TEST(StringTest, ValueOf_Boolean) {
   EXPECT_EQ(common::String::valueOf(true).toStdString(), "true");

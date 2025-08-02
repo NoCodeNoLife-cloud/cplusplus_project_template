@@ -3,12 +3,9 @@
 #include <stdexcept>
 
 namespace common {
-PushbackReader::PushbackReader(std::shared_ptr<AbstractReader> reader)
-    : PushbackReader(std::move(reader), DEFAULT_BUFFER_SIZE) {}
+PushbackReader::PushbackReader(std::shared_ptr<AbstractReader> reader) : PushbackReader(std::move(reader), DEFAULT_BUFFER_SIZE) {}
 
-PushbackReader::PushbackReader(std::shared_ptr<AbstractReader> reader,
-                               const size_t size)
-    : FilterReader(std::move(reader)), buffer_(size) {
+PushbackReader::PushbackReader(std::shared_ptr<AbstractReader> reader, const size_t size) : FilterReader(std::move(reader)), buffer_(size) {
   if (size == 0) {
     throw std::invalid_argument("Buffer size must be greater than zero.");
   }
@@ -19,9 +16,7 @@ void PushbackReader::close() {
   buffer_.clear();
 }
 
-void PushbackReader::mark(size_t readAheadLimit) {
-  throw std::runtime_error("mark() not supported.");
-}
+void PushbackReader::mark(size_t readAheadLimit) { throw std::runtime_error("mark() not supported."); }
 
 bool PushbackReader::markSupported() const { return false; }
 
@@ -32,8 +27,7 @@ int32_t PushbackReader::read() {
   return FilterReader::read();
 }
 
-size_t PushbackReader::read(std::vector<char>& cBuf, size_t off,
-                            const size_t len) {
+size_t PushbackReader::read(std::vector<char>& cBuf, size_t off, const size_t len) {
   if (off + len > cBuf.size()) {
     throw std::out_of_range("Buffer overflow.");
   }
@@ -48,13 +42,9 @@ size_t PushbackReader::read(std::vector<char>& cBuf, size_t off,
   return bytesRead;
 }
 
-bool PushbackReader::ready() const {
-  return buffer_pos_ < buffer_.size() || FilterReader::ready();
-}
+bool PushbackReader::ready() const { return buffer_pos_ < buffer_.size() || FilterReader::ready(); }
 
-void PushbackReader::reset() {
-  throw std::runtime_error("reset() not supported.");
-}
+void PushbackReader::reset() { throw std::runtime_error("reset() not supported."); }
 
 size_t PushbackReader::skip(size_t n) {
   size_t skipped = 0;
@@ -70,12 +60,9 @@ size_t PushbackReader::skip(size_t n) {
   return skipped;
 }
 
-auto PushbackReader::unread(const std::vector<char>& cBuf) -> void {
-  unread(cBuf, 0, cBuf.size());
-}
+auto PushbackReader::unread(const std::vector<char>& cBuf) -> void { unread(cBuf, 0, cBuf.size()); }
 
-auto PushbackReader::unread(const std::vector<char>& cBuf, const size_t off,
-                            const size_t len) -> void {
+auto PushbackReader::unread(const std::vector<char>& cBuf, const size_t off, const size_t len) -> void {
   if (len > buffer_pos_) {
     throw std::overflow_error("Pushback buffer overflow.");
   }

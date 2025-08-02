@@ -8,7 +8,5 @@ auto Object::hashCode() const -> size_t {
   return seed;
 }
 
-auto Object::toString() const -> std::string {
-  return std::format("{}", *this);
-}
+auto Object::toString() const -> std::string { return std::format("{}", *this); }
 }  // namespace common

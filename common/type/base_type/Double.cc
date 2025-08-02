@@ -54,25 +54,15 @@ auto Double::parseDouble(const std::string& str) -> Double {
   }
 }
 
-auto Double::operator<=>(const Double& other) const -> std::partial_ordering {
-  return value_ <=> other.value_;
-}
+auto Double::operator<=>(const Double& other) const -> std::partial_ordering { return value_ <=> other.value_; }
 
-auto Double::operator==(const Double& other) const -> bool {
-  return value_ == other.value_;
-}
+auto Double::operator==(const Double& other) const -> bool { return value_ == other.value_; }
 
-auto Double::operator+(const Double& other) const -> Double {
-  return Double(this->value_ + other.value_);
-}
+auto Double::operator+(const Double& other) const -> Double { return Double(this->value_ + other.value_); }
 
-auto Double::operator-(const Double& other) const -> Double {
-  return Double(this->value_ - other.value_);
-}
+auto Double::operator-(const Double& other) const -> Double { return Double(this->value_ - other.value_); }
 
-auto Double::operator*(const Double& other) const -> Double {
-  return Double(this->value_ * other.value_);
-}
+auto Double::operator*(const Double& other) const -> Double { return Double(this->value_ * other.value_); }
 
 auto Double::operator/(const Double& other) const -> Double {
   if (other.value_ == 0.0) {

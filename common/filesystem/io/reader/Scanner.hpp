@@ -10,8 +10,7 @@ class Scanner {
   [[nodiscard]] auto nextDouble() const -> double;
   [[nodiscard]] auto nextLine() const -> std::string;
   auto getNextToken(std::string& token) const -> bool;
-  [[nodiscard]] auto nextTokens(char delimiter = ' ') const
-      -> std::vector<std::string>;
+  [[nodiscard]] auto nextTokens(char delimiter = ' ') const -> std::vector<std::string>;
 
  private:
   std::istream& input_;

@@ -5,8 +5,7 @@ namespace common {
 class CharArrayReader final : public AbstractReader {
  public:
   explicit CharArrayReader(const std::vector<char>& buffer);
-  CharArrayReader(const std::vector<char>& buffer, size_t offset,
-                  size_t length);
+  CharArrayReader(const std::vector<char>& buffer, size_t offset, size_t length);
   ~CharArrayReader() override;
   auto read() -> int32_t override;
   auto read(std::vector<char>& b, size_t off, size_t len) -> size_t override;

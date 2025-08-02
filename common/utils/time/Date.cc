@@ -19,11 +19,8 @@ Date::Date(const int32_t year, const int32_t month, const int32_t day) {
   time_point_ = std::chrono::system_clock::from_time_t(std::mktime(&tm));
 }
 
-Date::Date(const int32_t year, const int32_t month, const int32_t day,
-           const int32_t hours, const int32_t minutes, const int32_t seconds) {
-  if (month < 1 || month > 12 || day < 1 || day > 31 || hours < 0 ||
-      hours > 23 || minutes < 0 || minutes > 59 || seconds < 0 ||
-      seconds > 59) {
+Date::Date(const int32_t year, const int32_t month, const int32_t day, const int32_t hours, const int32_t minutes, const int32_t seconds) {
+  if (month < 1 || month > 12 || day < 1 || day > 31 || hours < 0 || hours > 23 || minutes < 0 || minutes > 59 || seconds < 0 || seconds > 59) {
     throw std::invalid_argument("Invalid date-time components.");
   }
   std::tm tm = {};
@@ -36,30 +33,17 @@ Date::Date(const int32_t year, const int32_t month, const int32_t day,
   time_point_ = std::chrono::system_clock::from_time_t(std::mktime(&tm));
 }
 
-Date::Date(const int64_t timestamp) {
-  time_point_ = std::chrono::system_clock::time_point(
-      std::chrono::milliseconds(timestamp));
-}
+Date::Date(const int64_t timestamp) { time_point_ = std::chrono::system_clock::time_point(std::chrono::milliseconds(timestamp)); }
 
 auto Date::clone() const -> Date { return Date(getTime()); }
 
-auto Date::equals(const Date& other) const -> bool {
-  return time_point_ == other.time_point_;
-}
+auto Date::equals(const Date& other) const -> bool { return time_point_ == other.time_point_; }
 
-auto Date::after(const Date& other) const -> bool {
-  return time_point_ > other.time_point_;
-}
+auto Date::after(const Date& other) const -> bool { return time_point_ > other.time_point_; }
 
-auto Date::before(const Date& other) const -> bool {
-  return time_point_ < other.time_point_;
-}
+auto Date::before(const Date& other) const -> bool { return time_point_ < other.time_point_; }
 
-auto Date::getTime() const -> int64_t {
-  return std::chrono::duration_cast<std::chrono::milliseconds>(
-             time_point_.time_since_epoch())
-      .count();
-}
+auto Date::getTime() const -> int64_t { return std::chrono::duration_cast<std::chrono::milliseconds>(time_point_.time_since_epoch()).count(); }
 
 auto Date::getYear() const -> int32_t { return toTm().tm_year + 1900; }
 
@@ -74,9 +58,7 @@ auto Date::toString() const -> std::string {
   return oss.str();
 }
 
-auto Date::hashCode() const -> size_t {
-  return std::hash<int64_t>()(getTime());
-}
+auto Date::hashCode() const -> size_t { return std::hash<int64_t>()(getTime()); }
 
 auto Date::toTm() const -> std::tm {
   const auto timeT = std::chrono::system_clock::to_time_t(time_point_);

@@ -31,6 +31,4 @@ class Character final : public Object {
 }  // namespace common
 
 template <>
-struct std::formatter<common::Character>
-    : common::GenericFormatter<common::Character, &common::Character::value_> {
-};
+struct std::formatter<common::Character> : common::GenericFormatter<common::Character, &common::Character::value_> {};

@@ -1,7 +1,7 @@
 #include <glog/logging.h>
 
-#include "task/MainTask.hpp"
 #include "aop/LauncherAspect.hpp"
+#include "task/MainTask.hpp"
 
 auto main(const int32_t, char*) -> int32_t {
   try {

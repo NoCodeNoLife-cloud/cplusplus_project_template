@@ -3,11 +3,7 @@
 #include <utility>
 
 namespace common {
-StringReader::StringReader(std::string s)
-    : source_(std::move(s)),
-      position_(0),
-      mark_position_(0),
-      mark_set_(false) {}
+StringReader::StringReader(std::string s) : source_(std::move(s)), position_(0), mark_position_(0), mark_set_(false) {}
 
 StringReader::~StringReader() = default;
 
@@ -32,8 +28,7 @@ int32_t StringReader::read() {
   return source_[position_++];
 }
 
-auto StringReader::read(std::vector<char>& cBuf, const size_t off,
-                        const size_t len) -> size_t {
+auto StringReader::read(std::vector<char>& cBuf, const size_t off, const size_t len) -> size_t {
   if (off >= cBuf.size()) {
     throw std::invalid_argument("Offset is out of bounds of the buffer");
   }

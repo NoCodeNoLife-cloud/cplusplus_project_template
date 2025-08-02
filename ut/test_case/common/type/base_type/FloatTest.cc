@@ -56,13 +56,9 @@ TEST(FloatTest, ParseValidString) {
   EXPECT_FLOAT_EQ(result.floatValue(), 123.45f);
 }
 
-TEST(FloatTest, ParseInvalidStringThrows) {
-  EXPECT_THROW(common::Float::parseFloat("abc"), std::invalid_argument);
-}
+TEST(FloatTest, ParseInvalidStringThrows) { EXPECT_THROW(common::Float::parseFloat("abc"), std::invalid_argument); }
 
-TEST(FloatTest, ParseOutOfRangeStringThrows) {
-  EXPECT_THROW(common::Float::parseFloat("1e10000"), std::out_of_range);
-}
+TEST(FloatTest, ParseOutOfRangeStringThrows) { EXPECT_THROW(common::Float::parseFloat("1e10000"), std::out_of_range); }
 
 TEST(FloatTest, EqualityOperatorWorks) {
   const common::Float f1(5.0f);
@@ -104,9 +100,7 @@ TEST(FloatTest, NaNComparisonBehavesCorrectly) {
 }
 
 TEST(FloatTest, InfinityValuesAreCorrect) {
-  EXPECT_GT(common::Float::POSITIVE_INFINITY,
-            std::numeric_limits<float>::max());
-  EXPECT_LT(common::Float::NEGATIVE_INFINITY,
-            -std::numeric_limits<float>::max());
+  EXPECT_GT(common::Float::POSITIVE_INFINITY, std::numeric_limits<float>::max());
+  EXPECT_LT(common::Float::NEGATIVE_INFINITY, -std::numeric_limits<float>::max());
 }
 }  // namespace gtest_case

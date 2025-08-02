@@ -44,8 +44,7 @@ auto RedBlackTree<T>::insert(const T& value) -> void {
 }
 
 template <typename T>
-auto RedBlackTree<T>::leftRotate(std::shared_ptr<RedBlackTreeNode<T>> node)
-    -> void {
+auto RedBlackTree<T>::leftRotate(std::shared_ptr<RedBlackTreeNode<T>> node) -> void {
   auto rightChild = node->getRight();
   node->setRight(rightChild->getLeft());
   if (rightChild->getLeft()) {
@@ -64,8 +63,7 @@ auto RedBlackTree<T>::leftRotate(std::shared_ptr<RedBlackTreeNode<T>> node)
 }
 
 template <typename T>
-auto RedBlackTree<T>::rightRotate(std::shared_ptr<RedBlackTreeNode<T>> node)
-    -> void {
+auto RedBlackTree<T>::rightRotate(std::shared_ptr<RedBlackTreeNode<T>> node) -> void {
   auto leftChild = node->getLeft();
   node->setLeft(leftChild->getRight());
   if (leftChild->getRight()) {
@@ -84,10 +82,8 @@ auto RedBlackTree<T>::rightRotate(std::shared_ptr<RedBlackTreeNode<T>> node)
 }
 
 template <typename T>
-auto RedBlackTree<T>::fixInsert(std::shared_ptr<RedBlackTreeNode<T>> node)
-    -> void {
-  while (node != root_ && node->getParent() &&
-         node->getParent()->getColor() == Color::Red) {
+auto RedBlackTree<T>::fixInsert(std::shared_ptr<RedBlackTreeNode<T>> node) -> void {
+  while (node != root_ && node->getParent() && node->getParent()->getColor() == Color::Red) {
     if (node->getParent() == node->getParent()->getParent()->getLeft()) {
       auto uncle = node->getParent()->getParent()->getRight();
       if (uncle && uncle->getColor() == Color::Red) {

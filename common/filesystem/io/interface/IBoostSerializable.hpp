@@ -14,8 +14,7 @@ class IBoostSerializable abstract {
 
 template <typename T>
 template <class Archive>
-void IBoostSerializable<T>::serialize(Archive& archive,
-                                      const uint32_t version) {
+void IBoostSerializable<T>::serialize(Archive& archive, const uint32_t version) {
   static_cast<T*>(this)->serializeImpl(archive, version);
 }
 }  // namespace common

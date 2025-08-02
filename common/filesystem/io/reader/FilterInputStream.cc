@@ -4,9 +4,7 @@
 #include <stdexcept>
 
 namespace common {
-FilterInputStream::FilterInputStream(
-    std::unique_ptr<AbstractInputStream> inputStream)
-    : input_stream_(std::move(inputStream)) {}
+FilterInputStream::FilterInputStream(std::unique_ptr<AbstractInputStream> inputStream) : input_stream_(std::move(inputStream)) {}
 
 FilterInputStream::~FilterInputStream() = default;
 
@@ -45,8 +43,7 @@ size_t FilterInputStream::read(std::vector<std::byte>& buffer) {
   return input_stream_->read(buffer);
 }
 
-size_t FilterInputStream::read(std::vector<std::byte>& buffer,
-                               const size_t offset, const size_t len) {
+size_t FilterInputStream::read(std::vector<std::byte>& buffer, const size_t offset, const size_t len) {
   if (!input_stream_) {
     throw std::runtime_error("Input stream is not available");
   }

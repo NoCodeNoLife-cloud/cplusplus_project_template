@@ -10,8 +10,7 @@ class BufferedOutputStream final : public FilterOutputStream {
   BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out, size_t size);
   ~BufferedOutputStream() override;
   auto write(std::byte b) -> void override;
-  auto write(const std::vector<std::byte>& data, size_t offset, size_t len)
-      -> void override;
+  auto write(const std::vector<std::byte>& data, size_t offset, size_t len) -> void override;
   auto flush() -> void override;
   auto close() -> void override;
 

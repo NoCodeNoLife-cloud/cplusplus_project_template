@@ -19,8 +19,7 @@ auto MainTask::run() -> bool {
 
   // Create client.
   const std::string server_address = "localhost:50051";
-  const auto channel = grpc::CreateCustomChannel(
-      server_address, grpc::InsecureChannelCredentials(), channel_args);
+  const auto channel = grpc::CreateCustomChannel(server_address, grpc::InsecureChannelCredentials(), channel_args);
 
   // Check if channel is connected.
   if (channel->GetState(true) == GRPC_CHANNEL_TRANSIENT_FAILURE) {
