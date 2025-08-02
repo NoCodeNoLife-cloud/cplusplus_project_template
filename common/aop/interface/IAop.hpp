@@ -17,11 +17,11 @@ class IAop abstract {
 
  private:
   /// @brief Function to be executed before the function call
-  virtual void onEntry();
+  virtual auto onEntry() -> void;
   /// @brief Function to be executed after the function call
-  virtual void onExit();
+  virtual auto onExit() -> void;
   /// @brief Function to be executed when an exception is thrown
-  virtual void onException();
+  virtual auto onException() -> void;
 
   /// @brief Function to handle the result
   template <typename T>
@@ -51,13 +51,13 @@ template <typename Derived>
 IAop<Derived>::~IAop() = default;
 
 template <typename Derived>
-void IAop<Derived>::onEntry() {}
+auto IAop<Derived>::onEntry() -> void {}
 
 template <typename Derived>
-void IAop<Derived>::onExit() {}
+auto IAop<Derived>::onExit() -> void {}
 
 template <typename Derived>
-void IAop<Derived>::onException() {}
+auto IAop<Derived>::onException() -> void {}
 
 template <typename Derived>
 template <typename T>

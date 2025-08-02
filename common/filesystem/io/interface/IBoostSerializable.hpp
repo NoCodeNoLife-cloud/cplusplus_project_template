@@ -8,13 +8,17 @@ class IBoostSerializable abstract {
 
  private:
   friend class boost::serialization::access;
+
+  /// @brief Serialization implementation
+  /// @param archive Archive
+  /// @param version Version
   template <class Archive>
-  void serialize(Archive& archive, uint32_t version);
+  auto serialize(Archive& archive, uint32_t version) -> void;
 };
 
 template <typename T>
 template <class Archive>
-void IBoostSerializable<T>::serialize(Archive& archive, const uint32_t version) {
+auto IBoostSerializable<T>::serialize(Archive& archive, const uint32_t version) -> void {
   static_cast<T*>(this)->serializeImpl(archive, version);
 }
 }  // namespace common

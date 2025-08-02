@@ -8,8 +8,12 @@ namespace common {
 class FunctionProfilerAspect final : public IAop<FunctionProfilerAspect> {
  public:
   explicit FunctionProfilerAspect(std::string function_name);
-  inline void onEntry() override;
-  inline void onExit() override;
+
+  /// @brief Entry point
+  inline auto onEntry() -> void override;
+
+  /// @brief Exit point
+  inline auto onExit() -> void override;
 
  private:
   FunctionProfiler timer_;

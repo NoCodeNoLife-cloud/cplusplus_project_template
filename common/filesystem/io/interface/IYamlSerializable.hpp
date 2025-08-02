@@ -5,7 +5,14 @@ namespace common {
 class IYamlSerializable abstract {
  public:
   virtual ~IYamlSerializable() = default;
+
+  /// @brief Encode the object to YAML node.
+  /// @return YAML node.
   [[nodiscard]] virtual auto encode() const -> YAML::Node = 0;
+
+  /// @brief Decode the object from YAML node.
+  /// @param node YAML node.
+  /// @return True if decoding is successful.
   virtual auto decode(const YAML::Node& node) -> bool = 0;
 };
 }  // namespace common
