@@ -10,21 +10,49 @@ class Queue {
   Queue(const Queue& other);
   Queue(Queue&& other) noexcept;
 
+  /// @brief Copy assignment operator
+  /// @param other The queue to copy from
+  /// @return Reference to this queue
   auto operator=(const Queue& other) -> Queue&;
+
+  /// @brief Move assignment operator
+  /// @param other The queue to move from
+  /// @return Reference to this queue
   auto operator=(Queue&& other) noexcept -> Queue&;
 
+  /// @brief Swap the contents of this queue with another
+  /// @param other The queue to swap with
   auto swap(Queue& other) noexcept -> void;
 
+  /// @brief Add an element to the back of the queue
+  /// @param value The value to add
   auto push(const T& value) -> void;
+
+  /// @brief Remove the element from the front of the queue
   auto pop() -> void;
 
+  /// @brief Get a reference to the front element
+  /// @return Reference to the front element
   auto front() -> T&;
+
+  /// @brief Get a const reference to the front element
+  /// @return Const reference to the front element
   auto front() const -> const T&;
 
+  /// @brief Get a reference to the back element
+  /// @return Reference to the back element
   auto back() -> T&;
+
+  /// @brief Get a const reference to the back element
+  /// @return Const reference to the back element
   auto back() const -> const T&;
 
+  /// @brief Check if the queue is empty
+  /// @return True if the queue is empty, false otherwise
   [[nodiscard]] auto empty() const -> bool;
+
+  /// @brief Get the number of elements in the queue
+  /// @return The number of elements in the queue
   [[nodiscard]] auto size() const -> size_t;
 
  private:

@@ -10,17 +10,50 @@ class BinarySearchTree {
  public:
   BinarySearchTree() : root_(nullptr) {}
 
+  /// @brief Inserts a value into the binary search tree.
+  /// @param value The value to be inserted.
   auto insert(T value) -> void;
+
+  /// @brief Finds a value in the binary search tree.
+  /// @param value The value to be searched.
+  /// @return True if the value is found, false otherwise.
   auto find(T value) const -> bool;
+
+  /// @brief Removes a value from the binary search tree.
+  /// @param value The value to be removed.
   auto remove(T value) -> void;
+
+  /// @brief Performs an inorder traversal of the binary search tree.
   auto inorderTraversal() const -> void;
 
  private:
   std::shared_ptr<TreeNode<T>> root_;
+
+  /// @brief Recursively inserts a value into the binary search tree.
+  /// @param node The current node in the recursion.
+  /// @param value The value to be inserted.
+  /// @return The updated node after insertion.
   auto insertRecursive(std::shared_ptr<TreeNode<T>> node, T value) -> std::shared_ptr<TreeNode<T>>;
+
+  /// @brief Recursively finds a value in the binary search tree.
+  /// @param node The current node in the recursion.
+  /// @param value The value to be searched.
+  /// @return True if the value is found, false otherwise.
   auto findRecursive(const std::shared_ptr<TreeNode<T>>& node, T value) const -> bool;
+
+  /// @brief Recursively removes a value from the binary search tree.
+  /// @param node The current node in the recursion.
+  /// @param value The value to be removed.
+  /// @return The updated node after removal.
   auto removeRecursive(std::shared_ptr<TreeNode<T>> node, T value) -> std::shared_ptr<TreeNode<T>>;
+
+  /// @brief Finds the node with the minimum value in a subtree.
+  /// @param node The root of the subtree.
+  /// @return The node with the minimum value.
   auto minValueNode(std::shared_ptr<TreeNode<T>> node) -> std::shared_ptr<TreeNode<T>>;
+
+  /// @brief Recursively performs an inorder traversal of the binary search tree.
+  /// @param node The current node in the recursion.
   auto inorderTraversalRecursive(const std::shared_ptr<TreeNode<T>>& node) const -> void;
 };
 

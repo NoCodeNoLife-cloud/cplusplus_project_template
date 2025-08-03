@@ -11,11 +11,28 @@ class GLogConfigurator final : public IConfigurable, public IStartupTask {
  public:
   class GLogParameters final {
    public:
+    /// @brief Get the minimum log level.
+    /// @return The minimum log level as an integer.
     [[nodiscard]] auto minLogLevel() const -> int32_t;
+
+    /// @brief Get the log name.
+    /// @return The log name as a string.
     [[nodiscard]] auto logName() const -> std::string;
+
+    /// @brief Check if logging to stderr is enabled.
+    /// @return True if logging to stderr is enabled, false otherwise.
     [[nodiscard]] auto logToStderr() const -> bool;
+
+    /// @brief Set the minimum log level.
+    /// @param min_log_level The minimum log level to set.
     auto minLogLevel(int32_t min_log_level) -> void;
+
+    /// @brief Set the log name.
+    /// @param log_name The log name to set.
     auto logName(const std::string& log_name) -> void;
+
+    /// @brief Enable or disable logging to stderr.
+    /// @param log_to_stderr True to enable logging to stderr, false to disable.
     auto logToStderr(bool log_to_stderr) -> void;
 
    private:
@@ -24,14 +41,23 @@ class GLogConfigurator final : public IConfigurable, public IStartupTask {
     bool log_to_stderr_{};
   };
 
+  /// @brief Execute the startup task.
+  /// @return True if the task was executed successfully, false otherwise.
   bool execute() override;
 
  private:
   const std::string GLogYAMLPath = ConfigPath::getConfigPath("glog_config.yaml");
   const GLogParameters config_ = common::YamlObjectSerializer<GLogParameters>::deserialize(GLogYAMLPath);
 
+  /// @brief Perform the configuration.
+  /// @return True if the configuration was successful, false otherwise.
   [[nodiscard]] auto doConfig() -> bool override;
+
+  /// @brief Configure logging to stdout based on the provided options.
+  /// @param glog_options The logging options to use for configuration.
   static auto configLogToStdout(const GLogParameters& glog_options) -> void;
+
+  /// @brief Clean up any resources used by the configurator.
   static auto clean() -> void;
 };
 }  // namespace service

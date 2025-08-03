@@ -32,6 +32,9 @@ class BloomParameters final {
   };
 
   optimal_parameters_t optimal_parameters;
+  /// @brief Computes the optimal parameters for the bloom filter based on the
+  ///        projected element count and false positive probability.
+  /// @return true if the parameters were successfully computed, false otherwise.
   auto compute_optimal_parameters() -> bool;
 };
 }  // namespace common

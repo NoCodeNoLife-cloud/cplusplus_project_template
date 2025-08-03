@@ -14,37 +14,151 @@
 namespace common {
 class ContainerGenerator abstract {
  public:
+  /// @brief Generate a vector with random values within the specified range.
+  /// @tparam T The type of the elements.
+  /// @param minValue The minimum value (inclusive).
+  /// @param maxValue The maximum value (inclusive).
+  /// @param size The number of elements to generate.
+  /// @return A vector containing the generated values.
   template <typename T>
   static auto generateVector(T minValue, T maxValue, int32_t size) -> std::vector<T>;
+
+  /// @brief Generate a deque with random values within the specified range.
+  /// @tparam T The type of the elements.
+  /// @param minValue The minimum value (inclusive).
+  /// @param maxValue The maximum value (inclusive).
+  /// @param size The number of elements to generate.
+  /// @return A deque containing the generated values.
   template <typename T>
   static auto generateDeque(T minValue, T maxValue, int32_t size) -> std::deque<T>;
+
+  /// @brief Generate a list with random values within the specified range.
+  /// @tparam T The type of the elements.
+  /// @param minValue The minimum value (inclusive).
+  /// @param maxValue The maximum value (inclusive).
+  /// @param size The number of elements to generate.
+  /// @return A list containing the generated values.
   template <typename T>
   static auto generateList(T minValue, T maxValue, int32_t size) -> std::list<T>;
+
+  /// @brief Generate a forward list with random values within the specified range.
+  /// @tparam T The type of the elements.
+  /// @param minValue The minimum value (inclusive).
+  /// @param maxValue The maximum value (inclusive).
+  /// @param size The number of elements to generate.
+  /// @return A forward list containing the generated values.
   template <typename T>
   static auto generateForwardList(T minValue, T maxValue, int32_t size) -> std::forward_list<T>;
+
+  /// @brief Generate an array with random values within the specified range.
+  /// @tparam T The type of the elements.
+  /// @tparam N The size of the array.
+  /// @param minValue The minimum value (inclusive).
+  /// @param maxValue The maximum value (inclusive).
+  /// @return An array containing the generated values.
   template <typename T, size_t N>
   static auto generateArray(T minValue, T maxValue) -> std::array<T, N>;
+
+  /// @brief Generate a set with random values within the specified range.
+  /// @tparam T The type of the elements.
+  /// @param minValue The minimum value (inclusive).
+  /// @param maxValue The maximum value (inclusive).
+  /// @param size The number of elements to generate.
+  /// @return A set containing the generated values.
   template <typename T>
   static auto generateSet(T minValue, T maxValue, int32_t size) -> std::set<T>;
+
+  /// @brief Generate an unordered set with random values within the specified range.
+  /// @tparam T The type of the elements.
+  /// @param minValue The minimum value (inclusive).
+  /// @param maxValue The maximum value (inclusive).
+  /// @param size The number of elements to generate.
+  /// @return An unordered set containing the generated values.
   template <typename T>
   static auto generateUnorderedSet(T minValue, T maxValue, int32_t size) -> std::unordered_set<T>;
+
+  /// @brief Generate a multiset with random values within the specified range.
+  /// @tparam T The type of the elements.
+  /// @param minValue The minimum value (inclusive).
+  /// @param maxValue The maximum value (inclusive).
+  /// @param size The number of elements to generate.
+  /// @return A multiset containing the generated values.
   template <typename T>
   static auto generateMultiSet(T minValue, T maxValue, int32_t size) -> std::multiset<T>;
+
+  /// @brief Generate an unordered multiset with random values within the specified range.
+  /// @tparam T The type of the elements.
+  /// @param minValue The minimum value (inclusive).
+  /// @param maxValue The maximum value (inclusive).
+  /// @param size The number of elements to generate.
+  /// @return An unordered multiset containing the generated values.
   template <typename T>
   static auto generateUnorderedMultiSet(T minValue, T maxValue, int32_t size) -> std::unordered_multiset<T>;
+
+  /// @brief Generate a map with random key-value pairs within the specified ranges.
+  /// @tparam T The type of the keys.
+  /// @tparam U The type of the values.
+  /// @param minKey The minimum key value (inclusive).
+  /// @param maxKey The maximum key value (inclusive).
+  /// @param minValue The minimum value (inclusive).
+  /// @param maxValue The maximum value (inclusive).
+  /// @param size The number of key-value pairs to generate.
+  /// @return A map containing the generated key-value pairs.
   template <typename T, typename U>
   static auto generateMap(T minKey, T maxKey, U minValue, U maxValue, int32_t size) -> std::map<T, U>;
+
+  /// @brief Generate a multimap with random key-value pairs within the specified ranges.
+  /// @tparam T The type of the keys.
+  /// @tparam U The type of the values.
+  /// @param minKey The minimum key value (inclusive).
+  /// @param maxKey The maximum key value (inclusive).
+  /// @param minValue The minimum value (inclusive).
+  /// @param maxValue The maximum value (inclusive).
+  /// @param size The number of key-value pairs to generate.
+  /// @return A multimap containing the generated key-value pairs.
   template <typename T, typename U>
   static auto generateMultiMap(T minKey, T maxKey, U minValue, U maxValue, int32_t size) -> std::multimap<T, U>;
+
+  /// @brief Generate an unordered map with random key-value pairs within the specified ranges.
+  /// @tparam T The type of the keys.
+  /// @tparam U The type of the values.
+  /// @param minKey The minimum key value (inclusive).
+  /// @param maxKey The maximum key value (inclusive).
+  /// @param minValue The minimum value (inclusive).
+  /// @param maxValue The maximum value (inclusive).
+  /// @param size The number of key-value pairs to generate.
+  /// @return An unordered map containing the generated key-value pairs.
   template <typename T, typename U>
   static auto generateUnorderedMap(T minKey, T maxKey, U minValue, U maxValue, int32_t size) -> std::unordered_map<T, U>;
+
+  /// @brief Generate an unordered multimap with random key-value pairs within the specified ranges.
+  /// @tparam T The type of the keys.
+  /// @tparam U The type of the values.
+  /// @param minKey The minimum key value (inclusive).
+  /// @param maxKey The maximum key value (inclusive).
+  /// @param minValue The minimum value (inclusive).
+  /// @param maxValue The maximum value (inclusive).
+  /// @param size The number of key-value pairs to generate.
+  /// @return An unordered multimap containing the generated key-value pairs.
   template <typename T, typename U>
   static auto generateUnorderedMultiMap(T minKey, T maxKey, U minValue, U maxValue, int32_t size) -> std::unordered_multimap<T, U>;
 
  private:
   static inline auto mt1993764_ = std::mt19937_64(std::random_device{}());
+
+  /// @brief Generate a random value within the specified range.
+  /// @tparam T The type of the value.
+  /// @param minValue The minimum value (inclusive).
+  /// @param maxValue The maximum value (inclusive).
+  /// @return A random value within the specified range.
   template <typename T>
   static auto NextValue(T minValue, T maxValue) -> T;
+
+  /// @brief Check if the parameters are valid.
+  /// @tparam T The type of the values.
+  /// @param minValue The minimum value.
+  /// @param maxValue The maximum value.
+  /// @param size The size of the container.
   template <typename T>
   static auto Check(T minValue, T maxValue, int32_t size) -> void;
 };

@@ -11,7 +11,15 @@ namespace common {
 template <typename ResultType>
 class DelayedTaskActuator {
  public:
+  /// @brief Schedules a task to be executed after a specified delay.
+  /// @param delayMs The delay in milliseconds before the task is executed.
+  /// @param task The task to be executed.
+  /// @return The ID of the scheduled task.
   auto scheduleTask(int delayMs, std::function<ResultType()> task) -> int;
+
+  /// @brief Retrieves the result of a scheduled task.
+  /// @param taskId The ID of the task whose result is to be retrieved.
+  /// @return A future object that will hold the result of the task.
   auto getTaskResult(int taskId) -> std::future<ResultType>;
 
  private:

@@ -5,13 +5,29 @@ namespace common {
 template <typename T>
 class UnionSet {
  public:
+  /// @brief Finds the root of the set containing element x with path compression.
+  /// @param x The element to find the root for.
+  /// @return The root of the set containing element x.
   auto find(const T& x) -> T;
+
+  /// @brief Unites the sets that contain elements x and y.
+  /// @param x First element
+  /// @param y Second element
+  /// @return True if the sets were successfully united, false if they were already in the same set.
   auto unionSets(const T& x, const T& y) -> bool;
+
+  /// @brief Checks if elements x and y are in the same set.
+  /// @param x First element
+  /// @param y Second element
+  /// @return True if x and y are connected (in the same set), false otherwise.
   auto connected(const T& x, const T& y) -> bool;
+
   std::unordered_map<T, T> parent;
   std::unordered_map<T, int> rank;
 
  private:
+  /// @brief Ensures that the element x is registered in the UnionSet.
+  /// @param x The element to register.
   auto ensureRegistered(const T& x) -> void;
 };
 

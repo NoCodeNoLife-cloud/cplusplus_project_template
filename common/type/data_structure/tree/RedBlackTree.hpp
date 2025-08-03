@@ -7,12 +7,23 @@ namespace common {
 template <typename T>
 class RedBlackTree {
  public:
-  auto insert(const T& value) -> void;
   std::shared_ptr<RedBlackTreeNode<T>> root_;
 
+  /// @brief Insert a value into the red-black tree
+  /// @param value The value to insert
+  auto insert(const T& value) -> void;
+
  private:
+  /// @brief Perform a left rotation on the given node
+  /// @param node The node to rotate
   auto leftRotate(std::shared_ptr<RedBlackTreeNode<T>> node) -> void;
+
+  /// @brief Perform a right rotation on the given node
+  /// @param node The node to rotate
   auto rightRotate(std::shared_ptr<RedBlackTreeNode<T>> node) -> void;
+
+  /// @brief Fix the red-black tree after insertion
+  /// @param node The node that was inserted
   auto fixInsert(std::shared_ptr<RedBlackTreeNode<T>> node) -> void;
 };
 

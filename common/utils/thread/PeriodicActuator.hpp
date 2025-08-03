@@ -9,6 +9,10 @@ namespace common {
 class PeriodicActuator {
  public:
   explicit PeriodicActuator(std::shared_ptr<ITimerTask> task, std::chrono::milliseconds interval);
+
+  /// @brief Start the periodic actuator to begin executing the task at specified intervals.
+  /// @details This function initializes the timer and starts the first execution of the task.
+  ///          The task will then be rescheduled automatically based on the configured interval.
   auto start() -> void;
 
  private:

@@ -11,6 +11,11 @@ class RandomValueGenerator {
  public:
   RandomValueGenerator();
   explicit RandomValueGenerator(const std::mt19937::result_type& seed);
+
+  /// @brief Generates a random value between min and max (inclusive).
+  /// @param min The minimum value.
+  /// @param max The maximum value.
+  /// @return A random value of type T between min and max.
   T generate(T min, T max);
 
  private:

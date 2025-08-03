@@ -6,15 +6,30 @@ class ClassUtil abstract {
  public:
   ClassUtil() = delete;
 
+  /// @brief Get the type id of the given object.
+  /// @tparam T Type of the object.
+  /// @param t The object to get type id from.
+  /// @return std::string The pretty name of the type.
   template <typename T>
   static auto getTypeId(const T& t) -> std::string;
 
+  /// @brief Get the type id with CVR (const, volatile, reference) of the given object.
+  /// @tparam T Type of the object.
+  /// @param t The object to get type id with CVR from.
+  /// @return std::string The pretty name of the type with CVR.
   template <typename T>
   static auto getTypeIdWithCvr(const T& t) -> std::string;
 
+  /// @brief Get the type id by class type.
+  /// @tparam T Type of the class.
+  /// @return std::string The pretty name of the type.
   template <typename T>
   static auto getTypeIdByClass() -> std::string;
 
+  /// @brief Get the type id with CVR by class type.
+  /// @tparam T Type of the class.
+  /// @param t Placeholder parameter, not used in implementation.
+  /// @return std::string The pretty name of the type with CVR.
   template <typename T>
   static auto getTypeIdWithCvrByClass(const std::string& t) -> std::string;
 };

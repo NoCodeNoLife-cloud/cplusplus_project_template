@@ -8,15 +8,45 @@ template <typename T>
 class RedBlackTreeNode {
  public:
   explicit RedBlackTreeNode(const T& value);
+
+  /// @brief Get the data stored in the node
+  /// @return The data stored in the node
   auto getData() const -> T;
+
+  /// @brief Set the data stored in the node
+  /// @param value The new value to store in the node
   auto setData(const T& value) -> void;
+
+  /// @brief Get the left child node
+  /// @return A shared pointer to the left child node
   auto getLeft() const -> std::shared_ptr<RedBlackTreeNode>;
+
+  /// @brief Set the left child node
+  /// @param node A shared pointer to the new left child node
   auto setLeft(std::shared_ptr<RedBlackTreeNode> node) -> void;
+
+  /// @brief Get the right child node
+  /// @return A shared pointer to the right child node
   auto getRight() const -> std::shared_ptr<RedBlackTreeNode>;
+
+  /// @brief Set the right child node
+  /// @param node A shared pointer to the new right child node
   auto setRight(std::shared_ptr<RedBlackTreeNode> node) -> void;
+
+  /// @brief Get the parent node
+  /// @return A shared pointer to the parent node
   auto getParent() const -> std::shared_ptr<RedBlackTreeNode>;
+
+  /// @brief Set the parent node
+  /// @param node A shared pointer to the new parent node
   auto setParent(std::shared_ptr<RedBlackTreeNode> node) -> void;
+
+  /// @brief Get the color of the node
+  /// @return The color of the node
   [[nodiscard]] auto getColor() const -> Color;
+
+  /// @brief Set the color of the node
+  /// @param c The new color for the node
   auto setColor(Color c) -> void;
 
  private:

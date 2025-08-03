@@ -13,6 +13,9 @@ enum class SnowflakeOption {
 class SnowflakeGenerator {
  public:
   SnowflakeGenerator(int16_t machine_id, int16_t datacenter_id);
+
+  /// @brief Generate the next unique ID.
+  /// @return The next unique ID.
   auto NextId() -> int64_t;
 
  private:
@@ -20,7 +23,14 @@ class SnowflakeGenerator {
   int64_t sequence_{0};
   int16_t machine_id_;
   std::mutex mutex_;
+
+  /// @brief Get current timestamp in milliseconds.
+  /// @return Current timestamp.
   static auto GetCurrentTimestamp() -> int64_t;
+
+  /// @brief Wait until next millisecond when sequence number overflows.
+  /// @param last_timestamp The last timestamp.
+  /// @return The next valid timestamp.
   static auto TilNextMillis(int64_t last_timestamp) -> int64_t;
 };
 }  // namespace common
