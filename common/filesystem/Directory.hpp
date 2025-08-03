@@ -10,6 +10,11 @@ class Directory {
   /// @return true if the directory was created successfully, false otherwise
   [[nodiscard]] auto mkdir() const -> bool;
 
+  /// @brief Create directories recursively
+  /// @param exist_ok If true, no error will be thrown if the directory already exists
+  /// @return true if the directories were created successfully, false otherwise
+  [[nodiscard]] auto mkdirs(bool exist_ok = false) const -> bool;
+
   /// @brief Check if the directory exists
   /// @return true if the directory exists, false otherwise
   [[nodiscard]] auto exists() const -> bool;

@@ -14,6 +14,29 @@ auto Directory::mkdir() const -> bool {
   }
 }
 
+auto Directory::mkdirs(const bool exist_ok) const -> bool {
+  try {
+    if (exist_ok) {
+      return std::filesystem::create_directories(dir_path_);
+    }
+    // Check if any part of the path already exists
+    if (std::filesystem::exists(dir_path_)) {
+      return false;
+    }
+    // For parent directories, we need to check recursively
+    auto parent = dir_path_.parent_path();
+    while (!parent.empty() && parent != dir_path_.root_path()) {
+      if (std::filesystem::exists(parent) && !std::filesystem::is_directory(parent)) {
+        return false;
+      }
+      parent = parent.parent_path();
+    }
+    return std::filesystem::create_directories(dir_path_);
+  } catch (...) {
+    return false;
+  }
+}
+
 auto Directory::exists() const -> bool { return std::filesystem::exists(dir_path_); }
 
 auto Directory::isDirectory() const -> bool { return std::filesystem::is_directory(dir_path_); }
