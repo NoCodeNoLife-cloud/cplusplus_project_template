@@ -10,18 +10,40 @@
 #include "filesystem/io/interface/IBoostSerializable.hpp"
 
 namespace common {
+/// @brief Concept to check if a type T is derived from IBoostSerializable<T>
+/// @tparam T The type to check
 template <typename T>
 concept DerivedFromBoostSerializable = std::is_base_of_v<IBoostSerializable<T>, T>;
 
 class BoostObjectSerializer abstract {
  public:
+  /// @brief Serializes an object to a binary string representation.
+  /// @tparam T The type of the object to serialize, must derive from IBoostSerializable.
+  /// @param obj The object to serialize.
+  /// @return A string containing the binary serialized data.
   template <DerivedFromBoostSerializable T>
   static auto serializeObjectToBinaryString(const T& obj) -> std::string;
+
+  /// @brief Deserializes an object from a binary string representation.
+  /// @tparam T The type of the object to deserialize, must derive from IBoostSerializable and be default initializable.
+  /// @param data The binary string data to deserialize from.
+  /// @return The deserialized object.
   template <DerivedFromBoostSerializable T>
     requires std::default_initializable<T>
   static auto deserializeObjectFromBinaryString(const std::string& data) -> T;
+
+  /// @brief Serializes an object to an XML file.
+  /// @tparam T The type of the object to serialize, must derive from IBoostSerializable.
+  /// @param obj The object to serialize.
+  /// @param filePath The path to the file where the XML data will be saved.
+  /// @return True if the serialization was successful, false otherwise.
   template <DerivedFromBoostSerializable T>
   static auto serializeObjectToXMLFile(const T& obj, const std::filesystem::path& filePath) -> bool;
+
+  /// @brief Deserializes an object from an XML file.
+  /// @tparam T The type of the object to deserialize, must derive from IBoostSerializable.
+  /// @param filePath The path to the XML file to deserialize from.
+  /// @return The deserialized object.
   template <DerivedFromBoostSerializable T>
   static auto serializeObjectFromXMLFile(const std::filesystem::path& filePath) -> T;
 };

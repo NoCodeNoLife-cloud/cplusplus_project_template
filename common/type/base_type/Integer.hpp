@@ -12,18 +12,61 @@ class Integer final : public Object {
   ~Integer() override;
   Integer(const Integer& other);
   Integer(Integer&& other) noexcept;
+
+  /// @brief Copy assignment operator
   Integer& operator=(const Integer& other);
+
+  /// @brief Move assignment operator
   Integer& operator=(Integer&& other) noexcept;
+
+  /// @brief Conversion operator to int32_t
   explicit operator int32_t() const;
+
+  /// @brief Returns the hash code of this integer
+  /// @return The hash code
   [[nodiscard]] auto hashCode() const -> size_t override;
+
+  /// @brief Converts this integer to a string representation
+  /// @return String representation of this integer
   [[nodiscard]] auto toString() const -> std::string override;
+
+  /// @brief Returns the int32_t value of this integer
+  /// @return The int32_t value
   [[nodiscard]] auto intValue() const -> int32_t;
+
+  /// @brief Parses a string to create an Integer object
+  /// @param str The string to parse
+  /// @return The parsed Integer object
   static auto parseInt(const std::string& str) -> Integer;
+
+  /// @brief Three-way comparison operator
+  /// @param other The other Integer to compare with
+  /// @return The comparison result
   auto operator<=>(const Integer& other) const -> std::partial_ordering;
+
+  /// @brief Equality comparison operator
+  /// @param other The other Integer to compare with
+  /// @return True if equal, false otherwise
   auto operator==(const Integer& other) const -> bool;
+
+  /// @brief Addition operator
+  /// @param other The other Integer to add
+  /// @return The result of the addition
   auto operator+(const Integer& other) const -> Integer;
+
+  /// @brief Subtraction operator
+  /// @param other The other Integer to subtract
+  /// @return The result of the subtraction
   auto operator-(const Integer& other) const -> Integer;
+
+  /// @brief Multiplication operator
+  /// @param other The other Integer to multiply
+  /// @return The result of the multiplication
   auto operator*(const Integer& other) const -> Integer;
+
+  /// @brief Division operator
+  /// @param other The other Integer to divide by
+  /// @return The result of the division
   auto operator/(const Integer& other) const -> Integer;
 
  private:

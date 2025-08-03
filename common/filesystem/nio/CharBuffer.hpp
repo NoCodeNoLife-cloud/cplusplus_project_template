@@ -7,10 +7,27 @@ namespace common {
 class CharBuffer final : public IBuffer {
  public:
   explicit CharBuffer(size_t cap);
+
+  /// @brief Compacts the buffer by removing processed characters.
+  /// @return void
   auto compact() -> void;
+
+  /// @brief Puts a single character into the buffer.
+  /// @param c The character to put into the buffer.
+  /// @return void
   auto put(char c) -> void;
+
+  /// @brief Puts a UTF-16 string into the buffer.
+  /// @param src The UTF-16 string to put into the buffer.
+  /// @return void
   auto put(const std::u16string& src) -> void;
+
+  /// @brief Gets a single character from the buffer.
+  /// @return The character retrieved from the buffer.
   auto get() -> char16_t;
+
+  /// @brief Gets the remaining unprocessed characters as a string.
+  /// @return The remaining characters in the buffer as a string.
   [[nodiscard]] auto getRemaining() const -> std::string;
 
  private:
