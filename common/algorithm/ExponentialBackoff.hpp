@@ -3,6 +3,11 @@
 #include <random>
 
 namespace common {
+/// @brief A utility class for exponential backoff algorithm.
+/// @details This class implements an exponential backoff strategy,
+///          where the delay time increases exponentially after each retry attempt.
+///          It supports thread safety and customizable parameters such as initial delay,
+///          multiplier, minimum delay, maximum delay cap, and maximum number of retries.
 class ExponentialBackoff {
  public:
   /// @brief Construct a new Exponential Backoff object

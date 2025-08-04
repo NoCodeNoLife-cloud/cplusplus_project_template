@@ -2,7 +2,8 @@
 #include "utils/time/FunctionProfiler.hpp"
 
 namespace app_client {
-
+/// @brief A class that represents a client task
+/// @details This class is responsible for running the main task and logging client info
 class ClientTask {
  public:
   explicit ClientTask(const std::string &project_name_) : timer_(project_name_) {}

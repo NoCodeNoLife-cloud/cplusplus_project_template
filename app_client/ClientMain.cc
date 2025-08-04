@@ -3,6 +3,7 @@
 #include "log/GLogConfigurator.hpp"
 #include "task/ClientTask.hpp"
 
+
 auto main(const int32_t, char*[]) -> int32_t {
   service::GLogConfigurator log_configurator;
   log_configurator.execute();

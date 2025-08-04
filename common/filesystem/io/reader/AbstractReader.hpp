@@ -5,6 +5,10 @@
 #include "filesystem/io/interface/IReadable.hpp"
 
 namespace common {
+/// @brief Abstract base class for reading character streams.
+/// This class provides a standard interface for reading character data from various sources.
+/// It implements the ICloseable and IReadable interfaces and provides standard implementations
+/// for some common reading operations.
 class AbstractReader abstract : public ICloseable, public IReadable {
  public:
   ~AbstractReader() override;

@@ -4,6 +4,8 @@
 #include "AbstractInputStream.hpp"
 
 namespace common {
+/// @brief A filter stream is a stream that filters another input stream.
+/// This class is the basis for all input streams that filter another input stream.
 class FilterInputStream : public AbstractInputStream {
  public:
   explicit FilterInputStream(std::unique_ptr<AbstractInputStream> inputStream);

@@ -4,6 +4,8 @@
 #include "AbstractInputStream.hpp"
 
 namespace common {
+/// @brief A ByteArrayInputStream contains an internal buffer that contains bytes that may be read from the stream.
+/// ByteArrayInputStream uses a std::vector<std::byte> as the internal buffer.
 class ByteArrayInputStream final : public AbstractInputStream {
  public:
   explicit ByteArrayInputStream(const std::vector<std::byte>& buf);

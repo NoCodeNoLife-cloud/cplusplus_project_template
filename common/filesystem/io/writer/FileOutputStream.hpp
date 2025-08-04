@@ -6,6 +6,10 @@
 #include "AbstractOutputStream.hpp"
 
 namespace common {
+/// @brief A class for writing data to a file.
+/// @details This class provides methods for writing bytes to a file, either
+/// appending to or overwriting the file's contents. It inherits from
+/// AbstractOutputStream to provide a consistent interface for output streams.
 class FileOutputStream final : public AbstractOutputStream {
  public:
   FileOutputStream(const std::string& name, bool append);

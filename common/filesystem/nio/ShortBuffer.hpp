@@ -4,6 +4,10 @@
 #include "interface/IBuffer.hpp"
 
 namespace common {
+/// @brief A buffer for short integer (int16_t) data.
+/// ShortBuffer provides a way to store, read, and write short integer data in a
+/// sequential manner. It implements the IBuffer interface and supports operations
+/// like get, put, and rewind.
 class ShortBuffer final : public IBuffer {
  public:
   explicit ShortBuffer(size_t capacity);

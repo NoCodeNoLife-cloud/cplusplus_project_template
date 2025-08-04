@@ -2,6 +2,8 @@
 #include <string>
 
 namespace common {
+/// @brief Interface for appendable objects.
+/// @tparam T The type of the object that implements this interface.
 template <typename T>
 class IAppendable abstract {
  public:

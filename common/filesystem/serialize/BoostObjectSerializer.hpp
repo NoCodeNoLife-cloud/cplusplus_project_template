@@ -10,8 +10,10 @@
 #include "filesystem/io/interface/IBoostSerializable.hpp"
 
 namespace common {
-/// @brief Concept to check if a type T is derived from IBoostSerializable<T>
-/// @tparam T The type to check
+/// @class BoostObjectSerializer
+/// @brief A utility class for serializing and deserializing objects using Boost.Serialization.
+/// This class provides static methods to convert objects to and from binary strings and XML files.
+/// The objects must derive from IBoostSerializable to be serializable.
 template <typename T>
 concept DerivedFromBoostSerializable = std::is_base_of_v<IBoostSerializable<T>, T>;
 

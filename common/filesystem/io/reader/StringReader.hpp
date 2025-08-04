@@ -5,6 +5,10 @@
 #include "AbstractReader.hpp"
 
 namespace common {
+/// @brief A StringReader class that reads data from a string.
+/// @details This class implements the AbstractReader interface to provide functionality
+///          for reading characters from a string. It supports marking and resetting
+///          to a previous position in the string.
 class StringReader final : public AbstractReader {
  public:
   explicit StringReader(std::string s);

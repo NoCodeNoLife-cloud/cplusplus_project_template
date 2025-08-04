@@ -16,6 +16,17 @@ static const unsigned char bit_mask[BITS_PER_CHAR] = {
     0x80   // 10000000
 };
 
+/// @brief A Bloom filter implementation for probabilistic set membership testing.
+/// A Bloom filter is a space-efficient probabilistic data structure that is used to test
+/// whether an element is a member of a set. False positive matches are possible, but false
+/// negatives are not. In other words, a query returns either "possibly in set" or "definitely
+/// not in set".
+/// The Bloom filter uses multiple hash functions to map elements to positions in a bit array.
+/// When adding an element, the corresponding bits are set to 1. When querying for an element,
+/// if any of the corresponding bits are 0, the element is definitely not in the set.
+/// @tparam bloom_type_ The type used for hash values (uint32_t)
+/// @tparam cell_type_ The type used for bit array cells (unsigned char)
+/// @tparam table_type_ The type used for the bit array (std::vector<unsigned char>)
 class BloomFilter final {
  protected:
   typedef uint32_t bloom_type_;

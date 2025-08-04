@@ -2,6 +2,11 @@
 #include <functional>
 
 namespace common {
+/// @brief Interface class for Aspect-Oriented Programming (AOP) functionalities.
+/// This class provides a template-based interface for implementing AOP concepts
+/// such as before/after method execution advice, exception handling, and result processing.
+/// @tparam Derived The derived class that implements the specific AOP behavior.
+/// The derived class can override the virtual methods to customize the AOP behavior.
 // ReSharper disable once CppTemplateParameterNeverUsed
 template <typename Derived>
 class IAop abstract {

@@ -7,11 +7,12 @@ auto main(const int32_t, char*) -> int32_t {
   service::GLogConfigurator log_configurator;
   log_configurator.execute();
 
+  LOG(INFO) << "Starting application...";
   try {
-    // Launch the application.
-    app_server::ServiceTask service_task;
-    service_task.run();
+    app_server::ServiceTask::run();
   } catch (const std::exception& e) {
-    LOG(ERROR) << e.what();
+    LOG(ERROR) << "Exception occurred: " << e.what();
+  } catch (...) {
+    LOG(ERROR) << "Unknown exception occurred.";
   }
 }

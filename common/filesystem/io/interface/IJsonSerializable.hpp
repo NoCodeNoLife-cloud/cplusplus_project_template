@@ -4,6 +4,11 @@
 #include <rapidjson/writer.h>
 
 namespace common {
+/// @brief Interface for JSON serializable objects.
+/// This interface defines the contract for objects that can be serialized to
+/// and deserialized from JSON format using the RapidJSON library. Any class
+/// that implements this interface must provide implementations for the
+/// serialize and deserialize methods.
 class IJsonSerializable abstract {
  public:
   virtual ~IJsonSerializable() = default;

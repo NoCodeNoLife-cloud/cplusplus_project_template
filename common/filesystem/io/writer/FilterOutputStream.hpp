@@ -2,6 +2,9 @@
 #include "AbstractOutputStream.hpp"
 
 namespace common {
+/// @brief A filter output stream that wraps another output stream.
+/// This class provides a base for output stream filters that modify or enhance
+/// the behavior of the underlying output stream.
 class FilterOutputStream : public AbstractOutputStream {
  public:
   explicit FilterOutputStream(std::shared_ptr<AbstractOutputStream> outputStream);

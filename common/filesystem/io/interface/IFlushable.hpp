@@ -1,5 +1,9 @@
 #pragma once
-namespace common {
+namespace common
+{
+/// @brief Interface for flushable objects.
+/// This interface defines a contract for objects that can be flushed,
+/// typically used for streams or buffers that need to ensure all data is written out.
 class IFlushable abstract {
  public:
   virtual ~IFlushable() = default;

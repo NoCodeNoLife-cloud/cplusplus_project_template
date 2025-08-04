@@ -4,6 +4,7 @@
 #include "AbstractReader.hpp"
 
 namespace common {
+/// @brief Buffered character-input stream.
 class BufferedReader final : public AbstractReader {
  public:
   explicit BufferedReader(std::unique_ptr<AbstractReader> reader, int32_t size = DEFAULT_BUFFER_SIZE);

@@ -2,7 +2,9 @@
 #include "generated/RpcService.grpc.pb.h"
 
 namespace server_app {
-/// @brief RPC service implementation
+/// @brief RPC service implementation for handling remote procedure calls
+/// @details This class implements the gRPC service interface defined in RpcService.grpc.pb.h
+/// and provides the actual business logic for handling RPC requests.
 class RpcServiceImpl final : public rpc::RpcService::Service {
  public:
   /// @brief Send message to the server

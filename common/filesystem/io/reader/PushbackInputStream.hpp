@@ -2,6 +2,10 @@
 #include "FilterInputStream.hpp"
 
 namespace common {
+/// @brief A pushback input stream allows bytes to be pushed back into the stream.
+/// This class wraps another input stream and provides the ability to "unread" bytes,
+/// making them available to be read again. This is useful for parsers that need to
+/// look ahead in the input stream.
 class PushbackInputStream final : public FilterInputStream {
  public:
   PushbackInputStream(std::unique_ptr<AbstractInputStream> inputStream, size_t bufferSize);

@@ -5,6 +5,9 @@
 #include "AbstractWriter.hpp"
 
 namespace common {
+/// @brief A writer that writes data to an in-memory string buffer.
+/// This class provides functionality to write characters and strings to an internal
+/// string buffer, which can then be retrieved as a string.
 class StringWriter final : public AbstractWriter, public IAppendable<StringWriter> {
  public:
   explicit StringWriter(size_t initialSize);

@@ -6,6 +6,9 @@
 #include "interface/IFlushable.hpp"
 
 namespace common {
+/// @brief Provides console input/output operations with formatting capabilities.
+/// This class implements the IFlushable interface and offers methods for formatted
+/// output, input reading, and stream management.
 class Console final : public IFlushable {
  public:
   /// @brief Formats and prints a string to the console.

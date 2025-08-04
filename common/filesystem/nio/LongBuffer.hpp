@@ -4,6 +4,7 @@
 #include "interface/IBuffer.hpp"
 
 namespace common {
+/// @brief A buffer that stores 64-bit signed integers
 class LongBuffer final : public IBuffer {
  public:
   explicit LongBuffer(std::size_t capacity);

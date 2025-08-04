@@ -4,6 +4,11 @@
 namespace common {
 static constexpr std::size_t BITS_PER_CHAR = 0x08;
 
+/// @brief Parameters for configuring a Bloom filter
+/// This class encapsulates all the parameters needed to configure a Bloom filter,
+/// including size constraints, hash function counts, and optimization parameters.
+/// It provides functionality to compute optimal parameters based on expected element
+/// count and desired false positive probability.
 class BloomParameters final {
  public:
   BloomParameters();

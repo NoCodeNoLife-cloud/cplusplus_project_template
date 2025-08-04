@@ -6,6 +6,9 @@
 #include "utils/format/GenericFormatter.hpp"
 
 namespace common {
+/// @brief Base class for all objects in the system.
+/// @details This class provides basic functionality for type information, hashing, and string representation.
+/// It is designed to be inherited by other classes that need these features.
 class Object {
  public:
   virtual ~Object() = default;

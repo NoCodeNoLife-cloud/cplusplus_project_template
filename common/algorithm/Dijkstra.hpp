@@ -2,6 +2,7 @@
 #include "type/data_structure/graphics/Graph.hpp"
 
 namespace common {
+/// @brief Dijkstra's algorithm for finding the shortest paths from a single source node to all other nodes in a graph with non-negative edge weights.
 class Dijkstra {
  public:
   explicit Dijkstra(const Graph& g);

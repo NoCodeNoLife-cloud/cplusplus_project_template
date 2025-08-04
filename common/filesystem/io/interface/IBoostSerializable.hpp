@@ -2,6 +2,8 @@
 namespace common {
 // ReSharper disable once CppTemplateParameterNeverUsed
 template <typename T>
+/// @brief Interface for Boost serialization
+/// @tparam T The type to be serialized
 class IBoostSerializable abstract {
  public:
   virtual ~IBoostSerializable() = default;

@@ -4,6 +4,10 @@
 #include "interface/IBuffer.hpp"
 
 namespace common {
+/// @brief A character buffer that implements the IBuffer interface.
+/// @details This class provides functionality for managing a buffer of characters,
+///          including operations such as putting and getting characters, compacting
+///          the buffer, and retrieving remaining unprocessed characters.
 class CharBuffer final : public IBuffer {
  public:
   explicit CharBuffer(size_t cap);

@@ -4,6 +4,9 @@
 #include "FilterOutputStream.hpp"
 
 namespace common {
+/// @brief A buffered output stream that writes data to an underlying output stream.
+/// This class buffers the data written to it and flushes it to the underlying stream
+/// when the buffer is full or when explicitly requested.
 class BufferedOutputStream final : public FilterOutputStream {
  public:
   explicit BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out);

@@ -4,6 +4,10 @@
 #include <string>
 
 namespace common {
+/// @brief A class to handle CSV file operations using rapidcsv library
+/// @details This class provides functionalities to read, modify and save CSV files.
+/// It encapsulates the rapidcsv::Document object and provides a simplified interface
+/// for common CSV operations.
 class CsvFile {
  public:
   explicit CsvFile(const std::string& file_path);

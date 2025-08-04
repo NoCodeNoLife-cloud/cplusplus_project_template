@@ -2,6 +2,10 @@
 #include "AbstractReader.hpp"
 
 namespace common {
+/// @brief A reader class that reads from a character array.
+/// This class provides methods to read characters from an internal buffer,
+/// supporting operations like reading single characters, skipping characters,
+/// marking positions in the stream, and resetting to marked positions.
 class CharArrayReader final : public AbstractReader {
  public:
   explicit CharArrayReader(const std::vector<char>& buffer);

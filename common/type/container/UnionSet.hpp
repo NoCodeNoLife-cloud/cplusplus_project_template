@@ -2,6 +2,15 @@
 #include <unordered_map>
 
 namespace common {
+/// @brief A Union-Find (Disjoint Set Union) data structure implementation.
+/// This class provides efficient operations for disjoint sets, including:
+/// - Finding the root of a set with path compression
+/// - Uniting two sets with union by rank
+/// - Checking if two elements are in the same set
+///
+/// The implementation uses two hash maps:
+/// - `parent`: Maps each element to its parent in the set
+/// - `rank`: Maps each element to its rank (used for union by rank optimization)
 template <typename T>
 class UnionSet {
  public:

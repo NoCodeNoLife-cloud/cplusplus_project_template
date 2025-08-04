@@ -2,6 +2,11 @@
 #include "AbstractWriter.hpp"
 
 namespace common {
+/// @brief A class for writing character data to a buffer in memory.
+/// CharArrayWriter is a utility class that allows you to write character data
+/// to an internal buffer. The buffer automatically expands as needed to hold
+/// more data. You can retrieve the contents of the buffer as either a string
+/// or a character array.
 class CharArrayWriter final : public AbstractWriter, IAppendable<CharArrayWriter> {
  public:
   CharArrayWriter();

@@ -6,6 +6,8 @@
 #include "generated/RpcService.grpc.pb.h"
 
 namespace client_app {
+/// @brief RPC client for communicating with the server.
+/// @details This class provides methods to interact with the RPC service.
 class RpcClient {
  public:
   explicit RpcClient(const std::shared_ptr<grpc::Channel>& channel);

@@ -2,6 +2,8 @@
 #include "AbstractOutputStream.hpp"
 
 namespace common {
+/// @brief A ByteArrayOutputStream is an output stream that writes data into a byte array.
+/// The buffer automatically grows as data is written to it.
 class ByteArrayOutputStream final : public AbstractOutputStream {
  public:
   ByteArrayOutputStream();

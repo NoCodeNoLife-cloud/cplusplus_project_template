@@ -4,6 +4,10 @@
 #include <string>
 
 namespace common {
+/// @brief A class representing a file in the file system
+/// This class provides various operations that can be performed on files,
+/// such as checking permissions, creating, deleting, renaming, and retrieving
+/// file properties like size, modification time, and path information.
 class File final {
  public:
   explicit File(const std::string& path);

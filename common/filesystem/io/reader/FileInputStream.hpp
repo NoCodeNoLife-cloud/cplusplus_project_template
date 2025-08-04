@@ -6,6 +6,10 @@
 #include "AbstractInputStream.hpp"
 
 namespace common {
+/// @brief A FileInputStream class for reading data from a file.
+/// @details This class provides functionality to read bytes from a file,
+///          including methods for reading single bytes, multiple bytes,
+///          skipping bytes, checking available bytes, and closing the stream.
 class FileInputStream final : public AbstractInputStream {
  public:
   explicit FileInputStream(const std::string& name);

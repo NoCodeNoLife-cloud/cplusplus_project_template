@@ -3,6 +3,9 @@
 #include <vector>
 
 namespace common {
+/// @brief A simple stack implementation using a container.
+/// @tparam T The type of elements stored in the stack.
+/// @tparam Container The underlying container type used to store elements. Defaults to std::vector<T>.
 template <typename T, typename Container = std::vector<T>>
 class Stack {
  public:

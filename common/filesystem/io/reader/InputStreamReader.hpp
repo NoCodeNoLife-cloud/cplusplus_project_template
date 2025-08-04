@@ -5,6 +5,9 @@
 #include "AbstractReader.hpp"
 
 namespace common {
+/// @brief InputStreamReader is a class for reading characters from a byte stream.
+/// This class inherits from AbstractReader and provides functionality to read characters
+/// from an input stream with specified charset encoding.
 class InputStreamReader final : public AbstractReader {
  public:
   explicit InputStreamReader(std::shared_ptr<AbstractReader> input);

@@ -3,6 +3,7 @@
 #include <string>
 
 namespace common {
+/// @brief A class representing a big integer using boost::multiprecision::cpp_int
 class BigInteger {
  public:
   BigInteger();

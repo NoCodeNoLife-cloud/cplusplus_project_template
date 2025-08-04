@@ -28,9 +28,11 @@ auto ServiceTask::run() -> bool {
   builder.RegisterService(&service);
 
   const std::unique_ptr server(builder.BuildAndStart());
-  LOG(INFO) << "Server listening on " << server_address << std::endl;
+  LOG(INFO) << "Server listening on " << server_address;
 
+  LOG(INFO) << "gRPC server started and waiting for connections...";
   server->Wait();
+  LOG(INFO) << "gRPC server shutdown complete.";
   return EXIT_SUCCESS;
 }
 }  // namespace app_server

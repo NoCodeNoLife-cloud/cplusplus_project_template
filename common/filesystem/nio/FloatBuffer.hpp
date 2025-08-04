@@ -4,6 +4,9 @@
 #include "interface/IBuffer.hpp"
 
 namespace common {
+/// @brief A buffer that stores float values.
+/// @details This class provides methods to put and get float values from a buffer.
+/// It is designed to be used in a network I/O context.
 class FloatBuffer final : public IBuffer {
  public:
   explicit FloatBuffer(size_t capacity);

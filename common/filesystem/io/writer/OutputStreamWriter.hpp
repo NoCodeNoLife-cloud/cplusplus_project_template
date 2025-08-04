@@ -5,6 +5,10 @@
 #include "AbstractWriter.hpp"
 
 namespace common {
+/// @brief A writer that converts character streams to byte streams using a specified charset
+/// OutputStreamWriter is a bridge from character streams to byte streams: Characters written to it
+/// are encoded into bytes using the specified charset. The charset can be specified by name or
+/// defaults to the system's default charset.
 class OutputStreamWriter final : public AbstractWriter {
  public:
   OutputStreamWriter(std::unique_ptr<AbstractWriter> outputStream, const std::string& charsetName);
