@@ -3,12 +3,12 @@
 #include <grpcpp/support/channel_arguments.h>
 
 #include <rpc/RpcClient.hpp>
-#include <task/MainTask.hpp>
+#include <task/ClientTask.hpp>
 
 #include "utils/system/SystemInfo.hpp"
 
 namespace app_client {
-auto MainTask::run() -> bool {
+auto ClientTask::run() -> bool {
   logClientInfo();
 
   // Setup channel.
@@ -30,17 +30,18 @@ auto MainTask::run() -> bool {
   // Create client.
   const client_app::RpcClient client(channel);
 
-  try {
-    // Send a message.
-    LOG(INFO) << client.Send("hello world");
-  } catch (const std::exception& e) {
-    LOG(ERROR) << e.what();
+  // Send a message.
+  const std::string message = "hello world";
+  if (const auto result = client.Send(message); result != "Message received successfully") {
+    LOG(ERROR) << "Failed to send message: " << message;
+    return EXIT_FAILURE;
   }
 
+  timer_.recordEnd(true);
   return EXIT_SUCCESS;
 }
 
-auto MainTask::logClientInfo() -> void {
+auto ClientTask::logClientInfo() -> void {
   LOG(INFO) << common::SystemInfo::GetOSVersion();
   LOG(INFO) << common::SystemInfo::GetCpuModelFromRegistry();
 }

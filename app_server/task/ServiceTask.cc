@@ -1,4 +1,4 @@
-#include "MainTask.hpp"
+#include "ServiceTask.hpp"
 
 #include <glog/logging.h>
 #include <grpcpp/security/server_credentials.h>
@@ -6,12 +6,11 @@
 
 #include <cstdlib>
 
-#include "aop/LauncherAspect.hpp"
 #include "generated/RpcService.grpc.pb.h"
 #include "rpc/RpcServiceImpl.hpp"
 
 namespace app_server {
-auto MainTask::run() -> bool {
+auto ServiceTask::run() -> bool {
   // Build the server.
   const std::string server_address("0.0.0.0:50051");
   grpc::ServerBuilder builder;

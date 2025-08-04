@@ -1,13 +1,12 @@
 #include <glog/logging.h>
 
-#include "aop/LauncherAspect.hpp"
-#include "task/MainTask.hpp"
+#include "task/ServiceTask.hpp"
 
 auto main(const int32_t, char*) -> int32_t {
   try {
     // Launch the application.
-    common::LauncherAspect launcher;
-    launcher.exec(app_server::MainTask::run);
+    app_server::ServiceTask service_task;
+    service_task.run();
   } catch (const std::exception& e) {
     LOG(ERROR) << e.what();
   }

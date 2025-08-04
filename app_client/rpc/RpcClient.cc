@@ -19,6 +19,6 @@ auto RpcClient::Send(const std::string& message) const -> std::string {
   }
 
   LOG(ERROR) << "RPC failed with error: " << status.error_message() << " (code: " << status.error_code() << ")";
-  return "RPC failed";
+  throw std::runtime_error("RPC failed");
 }
 }  // namespace client_app
