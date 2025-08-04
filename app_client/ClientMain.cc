@@ -1,8 +1,12 @@
 #include <glog/logging.h>
 
+#include "log/GLogConfigurator.hpp"
 #include "task/ClientTask.hpp"
 
 auto main(const int32_t, char*[]) -> int32_t {
+  service::GLogConfigurator log_configurator;
+  log_configurator.execute();
+
   try {
     LOG(INFO) << "Application starting...";
     app_client::ClientTask main_task("project");
