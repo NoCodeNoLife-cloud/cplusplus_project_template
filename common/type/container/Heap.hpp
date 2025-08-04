@@ -1,8 +1,12 @@
 #pragma once
 #include <functional>
 #include <stdexcept>
+#include <vector>
 
 namespace common {
+/// @brief A heap data structure implementation.
+/// @tparam T The type of elements stored in the heap.
+/// @tparam Compare The comparison function object type that defines the heap order.
 template <typename T, typename Compare = std::less<T>>
 class Heap {
  public:
