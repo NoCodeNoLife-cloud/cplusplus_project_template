@@ -4,6 +4,9 @@
 #include "type/data_structure/Color.hpp"
 
 namespace common {
+/// \brief A node in a Red-Black Tree
+///
+/// \tparam T The type of data stored in the node
 template <typename T>
 class RedBlackTreeNode {
  public:

@@ -2,6 +2,10 @@
 #include <cstdint>
 
 namespace app {
+/// @brief Interface for application execution functionality.
+/// This interface defines the contract for classes that execute applications
+/// with command-line arguments. Implementations should handle the application
+/// lifecycle and return appropriate success/failure status.
 class IApplicationExecutor abstract {
  public:
   virtual ~IApplicationExecutor() = default;

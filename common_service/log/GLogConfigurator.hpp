@@ -7,6 +7,10 @@
 #include "interface/IStartupTask.hpp"
 
 namespace service {
+/// @brief Configurator class for Google Logging (glog) library.
+/// This class handles the configuration and initialization of the glog logging system
+/// by reading parameters from a YAML configuration file and setting up the appropriate
+/// logging options.
 class GLogConfigurator final : public IConfigurable, public IStartupTask {
  public:
   class GLogParameters final {

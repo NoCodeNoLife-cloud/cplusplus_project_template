@@ -1,5 +1,8 @@
 #pragma once
 namespace common {
+/// @brief A class representing a point in 3D space.
+/// The Point3D class provides basic functionality for working with points in three-dimensional space,
+/// including setting and getting coordinates, and calculating distances between points.
 class Point3D {
  public:
   Point3D();

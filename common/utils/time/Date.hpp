@@ -3,6 +3,11 @@
 #include <string>
 
 namespace common {
+/// @brief A class representing a specific instant in time, with millisecond precision.
+/// The Date class represents a specific point in time, measured in milliseconds
+/// since the Unix epoch (January 1, 1970, 00:00:00 GMT). It provides methods
+/// for creating, manipulating, and comparing dates, as well as converting
+/// between different date representations.
 class Date {
  public:
   Date();

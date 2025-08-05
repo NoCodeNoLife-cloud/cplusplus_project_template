@@ -3,6 +3,7 @@
 #include <string>
 
 namespace common {
+/// @brief Utility class for time-related operations
 class Clock {
  public:
   /// @brief Get current date and time as a string

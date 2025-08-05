@@ -2,6 +2,9 @@
 #include <iostream>
 
 namespace common {
+/// @brief A 2D point class
+/// @details This class represents a point in 2D space with x and y coordinates.
+///          It provides basic operations such as addition, subtraction, and comparison.
 class Point2D {
  public:
   Point2D();

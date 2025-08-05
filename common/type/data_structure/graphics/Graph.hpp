@@ -5,6 +5,10 @@
 #include "Edge.hpp"
 
 namespace common {
+/// @brief A class representing a graph data structure
+/// @details This class provides functionality to create a graph with a specified number of nodes,
+///          add edges between nodes with weights, and retrieve adjacency information.
+///          The graph is represented using an adjacency list.
 class Graph {
  public:
   /// @brief Construct a graph with n nodes

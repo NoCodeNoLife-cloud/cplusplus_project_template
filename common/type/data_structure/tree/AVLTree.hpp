@@ -5,6 +5,13 @@
 #include "TreeNode.hpp"
 
 namespace common {
+/// @brief A self-balancing binary search tree implementation (AVL Tree)
+/// An AVL tree is a self-balancing binary search tree where the heights of the two child
+/// subtrees of any node differ by at most one. This implementation uses shared pointers
+/// for memory management and automatic cleanup.
+/// The tree maintains balance through rotations during insertions and deletions,
+/// ensuring O(log n) time complexity for search, insert, and delete operations.
+/// @tparam T The type of data stored in the tree. Must be comparable with <, >, and == operators.
 template <typename T>
 class AVLTree {
  public:

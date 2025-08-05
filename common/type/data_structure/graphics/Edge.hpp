@@ -2,6 +2,10 @@
 #include <cstdint>
 
 namespace common {
+/// @brief Data structure for representing an edge in a graph
+/// @details This class stores information about an edge, including
+///          the target vertex and the weight of the edge. It provides
+///          methods to get and set these values.
 class Edge {
  public:
   /// @brief Construct an Edge with target vertex and weight

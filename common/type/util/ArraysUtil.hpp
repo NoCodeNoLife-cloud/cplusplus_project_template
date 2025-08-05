@@ -5,6 +5,10 @@
 #include <vector>
 
 namespace common {
+/// @brief Utility class for array operations.
+/// @details This class provides static methods to perform various operations on arrays,
+///          such as converting to a vector, binary search, copying, comparison, filling,
+///          sorting, and generating string representations.
 class ArraysUtil abstract {
  public:
   /// @brief Converts an array to a vector.

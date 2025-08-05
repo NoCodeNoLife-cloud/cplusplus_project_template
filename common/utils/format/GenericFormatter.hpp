@@ -3,6 +3,11 @@
 #include <sstream>
 
 namespace common {
+/// @brief A generic formatter for structured data types.
+/// This struct provides a mechanism to format any type `T` with specified members
+/// into a string representation. It is intended to be used with std::format.
+/// @tparam T The type of the object to be formatted.
+/// @tparam Members A pack of member pointers or functions that return the values to be included in the formatted output.
 template <typename T, auto... Members>
 struct GenericFormatter {
   /// @brief Parses the format string for the generic formatter.

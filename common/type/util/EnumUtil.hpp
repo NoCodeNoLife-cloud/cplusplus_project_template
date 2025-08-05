@@ -3,6 +3,9 @@
 #include <string>
 
 namespace common {
+/// @brief Utility class for enum operations.
+/// This class provides static methods to work with enums,
+/// such as converting enum values to their string representations.
 class EnumUtil {
  public:
   /// @brief Get the class name of an enum value as a string.

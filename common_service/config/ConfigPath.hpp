@@ -2,6 +2,9 @@
 #include <string>
 
 namespace service {
+/// @brief Utility class for managing configuration file paths
+/// @details This class provides functionality to resolve configuration file paths
+///          relative to the configured configuration directory
 class ConfigPath {
  public:
   /// @brief Get the full path of the configuration file by name

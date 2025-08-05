@@ -1,5 +1,8 @@
 #pragma once
 namespace common {
+/// @brief Interface for a runnable task that can be executed with arguments and return a result.
+/// @tparam ReturnType The type of the value returned by the task.
+/// @tparam Args The types of the arguments that the task accepts.
 template <typename ReturnType, typename... Args>
 class IRunnable abstract {
  public:

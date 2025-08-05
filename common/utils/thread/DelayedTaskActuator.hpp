@@ -8,6 +8,8 @@
 #include <unordered_map>
 
 namespace common {
+/// @brief A class that executes tasks with a specified delay.
+/// @tparam ResultType The type of the result returned by the task.
 template <typename ResultType>
 class DelayedTaskActuator {
  public:

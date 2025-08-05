@@ -9,6 +9,7 @@
 #include <vector>
 
 namespace common {
+
 class ThreadPool {
  public:
   ThreadPool(size_t core_threads, size_t max_threads, size_t queue_size, std::chrono::milliseconds idle_time);

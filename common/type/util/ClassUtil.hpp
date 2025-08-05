@@ -2,6 +2,10 @@
 #include <boost/type_index.hpp>
 
 namespace common {
+/// @brief Utility class for type identification at runtime.
+/// This class provides a set of static methods to retrieve the type information
+/// of objects or classes using boost::typeindex. It is designed as an abstract
+/// class with deleted constructor to prevent instantiation.
 class ClassUtil abstract {
  public:
   ClassUtil() = delete;

@@ -10,6 +10,8 @@
 #include "interface/IStartupTask.hpp"
 
 namespace common {
+/// @brief A factory class for creating objects of type T.
+/// @tparam T The base type of objects that this factory can create.
 template <typename T>
 class ObjectFactory : public service::IStartupTask {
  public:

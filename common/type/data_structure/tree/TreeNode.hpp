@@ -2,6 +2,8 @@
 #include <memory>
 
 namespace common {
+/// @brief A tree node class that contains a value and pointers to left and right children.
+/// @tparam T The type of the value stored in the node.
 template <typename T>
 class TreeNode {
  public:

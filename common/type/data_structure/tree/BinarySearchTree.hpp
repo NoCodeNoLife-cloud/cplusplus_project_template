@@ -5,6 +5,8 @@
 #include "TreeNode.hpp"
 
 namespace common {
+/// @brief A binary search tree implementation.
+/// @tparam T The type of data stored in the tree.
 template <typename T>
 class BinarySearchTree {
  public:

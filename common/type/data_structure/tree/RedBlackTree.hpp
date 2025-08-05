@@ -4,6 +4,8 @@
 #include "RedBlackTreeNode.hpp"
 
 namespace common {
+/// @brief A red-black tree implementation
+/// @tparam T The type of data stored in the tree
 template <typename T>
 class RedBlackTree {
  public:

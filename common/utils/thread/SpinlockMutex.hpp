@@ -2,6 +2,10 @@
 #include <atomic>
 
 namespace common {
+/// @brief A spinlock mutex implementation using atomic_flag for synchronization.
+/// This class provides a simple and efficient synchronization mechanism
+/// suitable for protecting small critical sections where the lock is held
+/// for a short duration.
 class SpinlockMutex {
  public:
   SpinlockMutex();

@@ -1,5 +1,7 @@
 #pragma once
 namespace common {
+/// @brief Enumeration representing various colors.
+/// Each color is assigned a unique integer value.
 enum class Color {
   Red = 0,
   Black = 1,

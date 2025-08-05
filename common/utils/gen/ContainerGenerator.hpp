@@ -12,6 +12,10 @@
 #include <vector>
 
 namespace common {
+/// @brief A utility class for generating various STL containers with random values.
+/// This class provides static methods to generate vectors, dequeue, lists, forward lists,
+/// arrays, sets, multiset, unordered sets, unordered multiset, maps, multimaps,
+/// unordered maps, and unordered multimaps populated with random data within specified ranges.
 class ContainerGenerator abstract {
  public:
   /// @brief Generate a vector with random values within the specified range.

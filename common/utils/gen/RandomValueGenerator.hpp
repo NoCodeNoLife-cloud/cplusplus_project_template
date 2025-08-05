@@ -3,9 +3,13 @@
 #include <type_traits>
 
 namespace common {
+/// @brief A class template for generating random values of integral or floating-point types.
+/// @tparam T The type of the values to generate. Must be an integral or floating-point type.
 template <typename T>
 concept ValidType = std::is_integral_v<T> || std::is_floating_point_v<T>;
 
+/// @brief A class template for generating random values of integral or floating-point types.
+/// @tparam T The type of the values to generate. Must be an integral or floating-point type.
 template <ValidType T>
 class RandomValueGenerator {
  public:

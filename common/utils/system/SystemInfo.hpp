@@ -3,6 +3,10 @@
 #include <vector>
 
 namespace common {
+/// @brief A utility class for retrieving system hardware and OS information.
+/// The SystemInfo class provides static methods to fetch various system details
+/// such as CPU model, memory information, OS version, motherboard details,
+/// graphics card info, disk drives, and BIOS information.
 struct MotherboardInfo {
   std::string manufacturer;
   std::string model;
@@ -10,6 +14,10 @@ struct MotherboardInfo {
   std::string systemSerial;
 };
 
+/// @brief A utility class for retrieving system hardware and OS information.
+/// The SystemInfo class provides static methods to fetch various system details
+/// such as CPU model, memory information, OS version, motherboard details,
+/// graphics card info, disk drives, and BIOS information.
 class SystemInfo {
  public:
   /// @brief Get CPU model from registry

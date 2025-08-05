@@ -3,6 +3,9 @@
 #include <vector>
 
 namespace common {
+/// @brief Utility class for OpenSSL cryptographic operations.
+/// This class provides methods for key derivation, encryption, and decryption
+/// using OpenSSL's AES-256-CBC algorithm with PBKDF2 key derivation.
 class OpenSSLUtil {
  public:
   /// @brief Derives a key from the given password and salt using PBKDF2.
