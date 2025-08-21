@@ -9,7 +9,7 @@ namespace common {
 /// and deserialized from JSON format using the RapidJSON library. Any class
 /// that implements this interface must provide implementations for the
 /// serialize and deserialize methods.
-class IJsonSerializable abstract {
+class IJsonSerializable {
  public:
   virtual ~IJsonSerializable() = default;
 

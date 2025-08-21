@@ -4,7 +4,7 @@
 #include "AbstractReader.hpp"
 
 namespace common {
-/// @brief AbstractFilterReader is an abstract base class that serves as a filter for other readers.
+/// @brief AbstractFilterReader is an  base class that serves as a filter for other readers.
 /// It implements the AbstractReader interface and delegates all operations to an underlying reader.
 /// This class follows the decorator pattern, allowing additional functionality to be added to readers
 /// by wrapping them with filter implementations.

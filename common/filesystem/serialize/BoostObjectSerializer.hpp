@@ -17,7 +17,7 @@ namespace common {
 template <typename T>
 concept DerivedFromBoostSerializable = std::is_base_of_v<IBoostSerializable<T>, T>;
 
-class BoostObjectSerializer abstract {
+class BoostObjectSerializer {
  public:
   /// @brief Serializes an object to a binary string representation.
   /// @tparam T The type of the object to serialize, must derive from IBoostSerializable.

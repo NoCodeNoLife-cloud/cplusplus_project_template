@@ -3,7 +3,7 @@ namespace service {
 /// @brief Interface for configurable services.
 /// @details This interface provides a contract for services that require configuration.
 ///          Implementing classes must provide a configuration mechanism through doConfig().
-class IConfigurable abstract {
+class IConfigurable {
  public:
   virtual ~IConfigurable() = default;
 

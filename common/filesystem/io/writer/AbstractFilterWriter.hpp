@@ -7,7 +7,7 @@ namespace common {
 /// @brief Abstract base class for filter writers.
 /// This class provides a common interface for writers that filter or transform data before writing it to an underlying output writer.
 /// Subclasses should implement the specific filtering or transformation logic.
-class AbstractFilterWriter abstract : public AbstractWriter {
+class AbstractFilterWriter : public AbstractWriter {
  public:
   explicit AbstractFilterWriter(std::unique_ptr<AbstractWriter> outputWriter);
   ~AbstractFilterWriter() override;

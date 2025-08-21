@@ -5,7 +5,7 @@ namespace common {
 /// @brief Interface for YAML serializable objects.
 /// @details This interface provides methods to encode and decode objects to and from YAML nodes.
 /// @note This interface is intended to be implemented by classes that need YAML serialization.
-class IYamlSerializable abstract {
+class IYamlSerializable {
  public:
   virtual ~IYamlSerializable() = default;
 

@@ -47,7 +47,6 @@ class PushbackReader final : public FilterReader {
   /// @return the total number of characters read into the buffer, or -1 if there is no more data because the end of the stream has been reached
   auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
 
-
   /// @brief Tells whether this stream is ready to be read.
   /// @details A stream is ready to be read if there are characters available in the pushback buffer,
   /// or if the underlying input stream is ready to be read.

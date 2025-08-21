@@ -9,7 +9,7 @@ namespace common {
 /// @details This class provides static methods to perform various operations on arrays,
 ///          such as converting to a vector, binary search, copying, comparison, filling,
 ///          sorting, and generating string representations.
-class ArraysUtil abstract {
+class ArraysUtil {
  public:
   /// @brief Converts an array to a vector.
   /// @tparam T The type of elements in the array.

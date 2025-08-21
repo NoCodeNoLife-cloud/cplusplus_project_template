@@ -6,7 +6,7 @@ namespace common {
 /// - Capacity is the maximum number of elements the buffer can hold
 /// - Limit is the index of the first element that should not be read/written
 /// - Position is the index of the next element to be read/written
-class IBuffer abstract {
+class IBuffer {
  public:
   virtual ~IBuffer();
 

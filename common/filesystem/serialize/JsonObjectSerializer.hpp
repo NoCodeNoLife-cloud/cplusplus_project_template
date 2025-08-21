@@ -16,13 +16,13 @@ namespace common {
 template <typename T>
 concept DerivedFromJsonSerializable = std::is_base_of_v<IJsonSerializable, T>;
 
-  /// @brief A concept that checks if a type T is derived from IJsonSerializable
-  /// This concept is used to constrain template parameters in the JsonObjectSerializer class
-  /// to ensure that only types that implement the IJsonSerializable interface can be used
-  /// with the serialization and deserialization methods.
-  /// @tparam T The type to check
-  /// @return true if T is derived from IJsonSerializable, false otherwise
-class JsonObjectSerializer abstract {
+/// @brief A concept that checks if a type T is derived from IJsonSerializable
+/// This concept is used to constrain template parameters in the JsonObjectSerializer class
+/// to ensure that only types that implement the IJsonSerializable interface can be used
+/// with the serialization and deserialization methods.
+/// @tparam T The type to check
+/// @return true if T is derived from IJsonSerializable, false otherwise
+class JsonObjectSerializer {
  public:
   JsonObjectSerializer() = delete;
 

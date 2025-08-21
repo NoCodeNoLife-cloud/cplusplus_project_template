@@ -16,7 +16,7 @@ namespace common {
 /// This class provides static methods to generate vectors, dequeue, lists, forward lists,
 /// arrays, sets, multiset, unordered sets, unordered multiset, maps, multimaps,
 /// unordered maps, and unordered multimaps populated with random data within specified ranges.
-class ContainerGenerator abstract {
+class ContainerGenerator {
  public:
   /// @brief Generate a vector with random values within the specified range.
   /// @tparam T The type of the elements.

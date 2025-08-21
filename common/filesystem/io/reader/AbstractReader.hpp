@@ -9,7 +9,7 @@ namespace common {
 /// This class provides a standard interface for reading character data from various sources.
 /// It implements the ICloseable and IReadable interfaces and provides standard implementations
 /// for some common reading operations.
-class AbstractReader abstract : public ICloseable, public IReadable {
+class AbstractReader : public ICloseable, public IReadable {
  public:
   ~AbstractReader() override;
 

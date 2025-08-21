@@ -5,7 +5,7 @@
 
 namespace common {
 /// @brief Abstract base class for all input streams.
-class AbstractInputStream abstract : public ICloseable {
+class AbstractInputStream : public ICloseable {
  public:
   ~AbstractInputStream() override;
 

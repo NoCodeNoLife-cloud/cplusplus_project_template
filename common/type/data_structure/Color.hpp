@@ -12,4 +12,4 @@ enum class Color {
   Cyan = 6,
   Magenta = 7,
 };
-}
+}  // namespace common

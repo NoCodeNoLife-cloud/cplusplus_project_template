@@ -4,9 +4,9 @@
 namespace common {
 /// @brief Utility class for type identification at runtime.
 /// This class provides a set of static methods to retrieve the type information
-/// of objects or classes using boost::typeindex. It is designed as an abstract
+/// of objects or classes using boost::typeindex. It is designed as an
 /// class with deleted constructor to prevent instantiation.
-class ClassUtil abstract {
+class ClassUtil {
  public:
   ClassUtil() = delete;
 

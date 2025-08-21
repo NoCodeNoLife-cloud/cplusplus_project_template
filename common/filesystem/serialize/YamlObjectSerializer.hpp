@@ -9,7 +9,7 @@ namespace common {
 /// @brief Abstract base class for serializing and deserializing objects to and from YAML format.
 /// @tparam T The type of object to be serialized/deserialized.
 template <typename T>
-class YamlObjectSerializer abstract {
+class YamlObjectSerializer {
  public:
   static auto serialize(const T& obj, const std::string& filename) -> void;
   static auto deserialize(const std::string& filename) -> T;

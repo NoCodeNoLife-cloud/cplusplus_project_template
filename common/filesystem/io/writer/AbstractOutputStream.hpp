@@ -11,7 +11,7 @@ namespace common {
 /// It defines pure virtual methods that must be implemented by concrete subclasses.
 /// The class also implements the ICloseable and IFlushable interfaces to provide
 /// standard close and flush functionality.
-class AbstractOutputStream abstract : public ICloseable, public IFlushable {
+class AbstractOutputStream : public ICloseable, public IFlushable {
  public:
   ~AbstractOutputStream() override;
 

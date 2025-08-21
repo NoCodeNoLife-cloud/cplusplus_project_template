@@ -5,7 +5,7 @@ namespace common {
 /// and executed by a timer. Implementations of this interface should
 /// provide the logic for what should happen when the timer triggers
 /// the task execution.
-class ITimerTask abstract {
+class ITimerTask {
  public:
   virtual ~ITimerTask() = default;
 

@@ -5,7 +5,7 @@ namespace service {
 /// Startup tasks are used to perform initialization operations that are required
 /// for the service to function properly. These tasks are executed in the order
 /// they are registered.
-class IStartupTask abstract {
+class IStartupTask {
  public:
   virtual ~IStartupTask() = default;
 

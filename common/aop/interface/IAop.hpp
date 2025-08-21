@@ -9,7 +9,7 @@ namespace common {
 /// The derived class can override the virtual methods to customize the AOP behavior.
 // ReSharper disable once CppTemplateParameterNeverUsed
 template <typename Derived>
-class IAop abstract {
+class IAop {
  public:
   /// @brief Execute the function with the given arguments
   /// @param func Function to be executed

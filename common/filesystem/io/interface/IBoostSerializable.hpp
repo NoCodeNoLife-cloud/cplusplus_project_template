@@ -4,7 +4,7 @@ namespace common {
 template <typename T>
 /// @brief Interface for Boost serialization
 /// @tparam T The type to be serialized
-class IBoostSerializable abstract {
+class IBoostSerializable {
  public:
   virtual ~IBoostSerializable() = default;
 
