@@ -1,7 +1,7 @@
 #pragma once
 #include <cstdint>
 
-namespace app {
+namespace service {
 /// @brief Interface for application execution functionality.
 /// This interface defines the contract for classes that execute applications
 /// with command-line arguments. Implementations should handle the application
