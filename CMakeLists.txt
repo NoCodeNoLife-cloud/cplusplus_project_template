@@ -32,7 +32,7 @@ include_directories(app_client)
 include_directories(app_server)
 
 # Vcpkg dependencies
-find_package(Boost REQUIRED COMPONENTS system thread url asio serialization)
+find_package(boost CONFIG REQUIRED)
 find_package(glog CONFIG REQUIRED)
 find_package(gtest CONFIG REQUIRED)
 find_package(yaml-cpp CONFIG REQUIRED)

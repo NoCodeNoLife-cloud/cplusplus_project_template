@@ -19,10 +19,7 @@ add_executable(${TEST_PROJECT}
 target_link_libraries(${TEST_PROJECT} PRIVATE
         GTest::gtest_main GTest::gtest
         glog::glog
-        Boost::system
-        Boost::thread
-        Boost::url
-        Boost::asio
+        ${Boost_INCLUDE_DIRS}
         yaml-cpp::yaml-cpp
         RapidJSON rapidjson
         OpenSSL::SSL OpenSSL::Crypto

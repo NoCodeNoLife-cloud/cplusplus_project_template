@@ -16,11 +16,7 @@ target_include_directories(${COMMON_PROJECT} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 # Link required libraries
 target_link_libraries(${COMMON_PROJECT} PRIVATE
         glog::glog
-        Boost::system
-        Boost::thread
-        Boost::url
-        Boost::serialization
-        Boost::asio
+        ${Boost_INCLUDE_DIRS}
         yaml-cpp::yaml-cpp
         RapidJSON rapidjson
         OpenSSL::SSL OpenSSL::Crypto
