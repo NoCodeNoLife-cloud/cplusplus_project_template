@@ -44,13 +44,18 @@ class GLogConfigurator final : public IConfigurable, public IStartupTask {
     bool log_to_stderr_{};
   };
 
+  explicit GLogConfigurator(const std::string& GLogYAMLPath) {
+    GLogYAMLPath_ = GLogYAMLPath;
+    config_ = common::YamlObjectSerializer<GLogParameters>::deserialize(GLogYAMLPath_);
+  }
+
   /// @brief Execute the startup task.
   /// @return True if the task was executed successfully, false otherwise.
   bool execute() override;
 
  private:
-  const std::string GLogYAMLPath = "../../log/glog_config.yaml";
-  const GLogParameters config_ = common::YamlObjectSerializer<GLogParameters>::deserialize(GLogYAMLPath);
+  std::string GLogYAMLPath_{};
+  GLogParameters config_;
 
   /// @brief Perform the configuration.
   /// @return True if the configuration was successful, false otherwise.

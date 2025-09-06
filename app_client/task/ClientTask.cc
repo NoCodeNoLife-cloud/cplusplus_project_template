@@ -21,8 +21,8 @@ auto ClientTask::RpcOptions::setKeepaliveTimeoutMs(const int value) -> void { ke
 
 auto ClientTask::RpcOptions::setKeepalivePermitWithoutCalls(const int value) -> void { keepalive_permit_without_calls_ = value; }
 
-auto ClientTask::init() -> void {
-  service::GLogConfigurator log_configurator;
+auto ClientTask::init() const -> void {
+  service::GLogConfigurator log_configurator{config_path_};
   log_configurator.execute();
 
   LOG(INFO) << "Application starting...";

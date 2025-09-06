@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 namespace app_server {
 /// @brief A class that holds gRPC configuration options
@@ -40,7 +41,7 @@ class ServiceTask {
  public:
   /// @brief Initialize the service task and its associated resources
   /// @return true if initialization was successful
-  static auto init() -> void;
+  auto init() const -> void;
 
   /// @brief Run the main task
   /// @return true if the task was successful
@@ -55,6 +56,7 @@ class ServiceTask {
   static auto exit() -> void;
 
  private:
+  const std::string config_path_ = "../../app_server/config/glog_config.yaml";
   GrpcOptions grpc_options_;
 };
 }  // namespace app_server

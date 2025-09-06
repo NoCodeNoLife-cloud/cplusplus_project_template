@@ -33,8 +33,8 @@ auto GrpcOptions::setKeepaliveTimeoutMs(const int value) -> void { keepalive_tim
 
 auto GrpcOptions::setKeepalivePermitWithoutCalls(const int value) -> void { keepalive_permit_without_calls_ = value; }
 
-auto ServiceTask::init() -> void {
-  service::GLogConfigurator log_configurator;
+auto ServiceTask::init() const -> void {
+  service::GLogConfigurator log_configurator{config_path_};
   log_configurator.execute();
   LOG(INFO) << "ServiceTask starting...";
 }

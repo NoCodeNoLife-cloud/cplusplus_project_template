@@ -33,7 +33,7 @@ class ClientTask {
 
   /// @brief Initialize the client task
   /// @return true if initialization was successful
-  static auto init() -> void;
+  auto init() const -> void;
 
   /// @brief Run the main task
   /// @return true if the task was successful
@@ -52,6 +52,7 @@ class ClientTask {
   [[nodiscard]] auto createChannel() const -> std::shared_ptr<grpc::Channel>;
 
  private:
+  const std::string config_path_ = "../../app_client/config/glog_config.yaml";
   common::FunctionProfiler timer_;
   RpcOptions rpc_options_;
 };
