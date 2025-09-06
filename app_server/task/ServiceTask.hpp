@@ -58,8 +58,8 @@ class ServiceTask {
   static auto exit() -> void;
 
  private:
-  const std::string config_path_ = "../../app_server/config/glog_config.yaml";
-  const std::string grpc_config_path_ = "../../app_server/config/grpc_config.yaml";
+  const std::string config_path_ = "../../app_server/config/glog.yaml";
+  const std::string grpc_config_path_ = "../../app_server/config/grpc.yaml";
   GrpcOptions grpc_options_;
 };
 }  // namespace app_server

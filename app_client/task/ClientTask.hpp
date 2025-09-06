@@ -53,8 +53,8 @@ class ClientTask {
   [[nodiscard]] auto createChannel() const -> std::shared_ptr<grpc::Channel>;
 
  private:
-  const std::string config_path_ = "../../app_client/config/glog_config.yaml";
-  const std::string rpc_config_path_ = "../../app_client/config/grpc_config.yaml";
+  const std::string config_path_ = "../../app_client/config/glog.yaml";
+  const std::string rpc_config_path_ = "../../app_client/config/grpc.yaml";
   GrpcOptions rpc_options_;
   fox::FunctionProfiler timer_;
 };
