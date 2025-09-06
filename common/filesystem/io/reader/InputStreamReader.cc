@@ -1,6 +1,6 @@
 #include "InputStreamReader.hpp"
 
-namespace common {
+namespace fox {
 InputStreamReader::InputStreamReader(std::shared_ptr<AbstractReader> input) : reader_(std::move(input)) {
   if (!reader_) {
     throw std::invalid_argument("Input stream cannot be null");
@@ -73,4 +73,4 @@ auto InputStreamReader::close() -> void {
 auto InputStreamReader::mark(size_t) -> void { throw std::runtime_error("Mark not supported"); }
 
 auto InputStreamReader::reset() -> void { throw std::runtime_error("Reset not supported"); }
-}  // namespace common
+}  // namespace fox

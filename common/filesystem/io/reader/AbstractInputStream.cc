@@ -2,7 +2,7 @@
 
 #include <fstream>
 
-namespace common {
+namespace fox {
 AbstractInputStream::~AbstractInputStream() = default;
 
 auto AbstractInputStream::mark(int32_t readLimit) -> void { throw std::runtime_error("mark not supported"); }
@@ -39,4 +39,4 @@ auto AbstractInputStream::skip(const size_t n) -> size_t {
   }
   return skipped;
 }
-}  // namespace common
+}  // namespace fox

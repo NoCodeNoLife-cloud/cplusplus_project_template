@@ -1,5 +1,5 @@
 #pragma once
-namespace common {
+namespace fox {
 /// @brief Interface for timer tasks that can be executed by a timer.
 /// This interface defines the contract for tasks that can be scheduled
 /// and executed by a timer. Implementations of this interface should
@@ -12,4 +12,4 @@ class ITimerTask {
   /// @brief Executes the timer task.
   virtual void execute() = 0;
 };
-}  // namespace common
+}  // namespace fox

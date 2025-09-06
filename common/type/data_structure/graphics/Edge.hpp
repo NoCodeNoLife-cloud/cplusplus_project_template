@@ -1,7 +1,7 @@
 #pragma once
 #include <cstdint>
 
-namespace common {
+namespace fox {
 /// @brief Data structure for representing an edge in a graph
 /// @details This class stores information about an edge, including
 ///          the target vertex and the weight of the edge. It provides
@@ -33,4 +33,4 @@ class Edge {
   int32_t to_{0};
   int32_t weight_{0};
 };
-}  // namespace common
+}  // namespace fox

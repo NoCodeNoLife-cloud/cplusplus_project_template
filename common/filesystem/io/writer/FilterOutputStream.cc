@@ -1,6 +1,6 @@
 #include "FilterOutputStream.hpp"
 
-namespace common {
+namespace fox {
 FilterOutputStream::FilterOutputStream(std::shared_ptr<AbstractOutputStream> outputStream) : output_stream_(std::move(outputStream)) {}
 
 FilterOutputStream::~FilterOutputStream() = default;
@@ -43,4 +43,4 @@ auto FilterOutputStream::close() -> void {
   flush();
   output_stream_->close();
 }
-}  // namespace common
+}  // namespace fox

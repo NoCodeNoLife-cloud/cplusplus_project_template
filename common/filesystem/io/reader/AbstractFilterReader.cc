@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 AbstractFilterReader::AbstractFilterReader(std::unique_ptr<AbstractReader> inputReader) {
   if (!reader_) {
     throw std::invalid_argument("Input reader cannot be null");
@@ -70,4 +70,4 @@ auto AbstractFilterReader::close() -> void {
   }
   reader_->close();
 }
-}  // namespace common
+}  // namespace fox

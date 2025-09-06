@@ -2,7 +2,7 @@
 #include <boost/algorithm/string.hpp>
 #include <string>
 
-namespace common {
+namespace fox {
 /// @brief A utility class for scanning and parsing input streams.
 /// The Scanner class provides methods for reading various data types from an input stream,
 /// such as integers, doubles, strings, and lines. It also supports reading tokens separated
@@ -44,4 +44,4 @@ class Scanner {
  private:
   std::istream& input_;
 };
-}  // namespace common
+}  // namespace fox

@@ -3,7 +3,7 @@
 
 #include "AbstractInputStream.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A ByteArrayInputStream contains an internal buffer that contains bytes that may be read from the stream.
 /// ByteArrayInputStream uses a std::vector<std::byte> as the internal buffer.
 class ByteArrayInputStream final : public AbstractInputStream {
@@ -49,4 +49,4 @@ class ByteArrayInputStream final : public AbstractInputStream {
   size_t pos_{0};
   size_t mark_position_{0};
 };
-}  // namespace common
+}  // namespace fox

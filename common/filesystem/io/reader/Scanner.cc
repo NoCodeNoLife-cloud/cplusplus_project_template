@@ -3,7 +3,7 @@
 #include <boost/tokenizer.hpp>
 #include <sstream>
 
-namespace common {
+namespace fox {
 Scanner::Scanner(std::istream& input_stream) : input_(input_stream) {}
 
 auto Scanner::nextInt() const -> int32_t {
@@ -42,4 +42,4 @@ auto Scanner::nextTokens(const char delimiter) const -> std::vector<std::string>
   split(tokens, line, boost::is_any_of(std::string(1, delimiter)));
   return tokens;
 }
-}  // namespace common
+}  // namespace fox

@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 
-namespace common {
+namespace fox {
 /// @brief A 2D point class
 /// @details This class represents a point in 2D space with x and y coordinates.
 ///          It provides basic operations such as addition, subtraction, and comparison.
@@ -63,4 +63,4 @@ inline std::ostream& operator<<(std::ostream& os, const Point2D& point) {
   os << "(" << point.getX() << ", " << point.getY() << ")";
   return os;
 }
-}  // namespace common
+}  // namespace fox

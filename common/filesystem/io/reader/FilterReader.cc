@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 FilterReader::FilterReader(std::shared_ptr<AbstractReader> reader) : in_(std::move(reader)) {}
 
 FilterReader::~FilterReader() = default;
@@ -29,4 +29,4 @@ bool FilterReader::ready() const { return in_->ready(); }
 auto FilterReader::reset() -> void { in_->reset(); }
 
 size_t FilterReader::skip(const size_t n) { return in_->skip(n); }
-}  // namespace common
+}  // namespace fox

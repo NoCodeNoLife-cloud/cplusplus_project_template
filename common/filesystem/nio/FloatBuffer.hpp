@@ -3,7 +3,7 @@
 
 #include "interface/IBuffer.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A buffer that stores float values.
 /// @details This class provides methods to put and get float values from a buffer.
 /// It is designed to be used in a network I/O context.
@@ -36,4 +36,4 @@ class FloatBuffer final : public IBuffer {
  private:
   std::vector<float> buffer_{};
 };
-}  // namespace common
+}  // namespace fox

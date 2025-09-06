@@ -2,10 +2,10 @@
 
 #include <utility>
 
-namespace common {
+namespace fox {
 FunctionProfilerAspect::FunctionProfilerAspect(std::string function_name) : timer_(std::move(function_name), false) {}
 
 void FunctionProfilerAspect::onEntry() { timer_.recordStart(); }
 
 void FunctionProfilerAspect::onExit() { timer_.recordEnd(true); }
-}  // namespace common
+}  // namespace fox

@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <vector>
 
-namespace common {
+namespace fox {
 /// @brief A heap data structure implementation.
 /// @tparam T The type of elements stored in the heap.
 /// @tparam Compare The comparison function object type that defines the heap order.
@@ -174,4 +174,4 @@ auto Heap<T, Compare>::heapify_down(size_t index) -> void {
     index = swap_index;
   }
 }
-}  // namespace common
+}  // namespace fox

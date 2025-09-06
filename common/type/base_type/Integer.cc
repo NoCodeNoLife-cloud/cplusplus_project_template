@@ -1,3 +1,3 @@
 #include "Integer.hpp"
 
-namespace common {}  // namespace common
+namespace fox {}  // namespace fox

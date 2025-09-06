@@ -1,7 +1,7 @@
 #pragma once
 #include <windows.h>
 
-namespace common {
+namespace fox {
 /// @brief Structure to hold system memory usage information
 /// This struct contains the total physical memory, available memory, used memory,
 /// and the percentage of memory currently in use.
@@ -31,4 +31,4 @@ class SystemPerformanceMonitor {
   /// @return CpuUsage struct containing CPU usage percentage
   static auto GetCpuUsage(int interval = 1) -> CpuUsage;
 };
-}  // namespace common
+}  // namespace fox

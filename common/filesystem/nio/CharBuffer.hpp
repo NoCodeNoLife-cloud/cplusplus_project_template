@@ -3,7 +3,7 @@
 
 #include "interface/IBuffer.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A character buffer that implements the IBuffer interface.
 /// @details This class provides functionality for managing a buffer of characters,
 ///          including operations such as putting and getting characters, compacting
@@ -37,4 +37,4 @@ class CharBuffer final : public IBuffer {
  private:
   std::string buffer_{};
 };
-}  // namespace common
+}  // namespace fox

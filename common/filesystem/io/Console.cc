@@ -1,6 +1,6 @@
 #include "Console.hpp"
 
-namespace common {
+namespace fox {
 auto Console::flush() -> void { std::cout.flush(); }
 
 auto Console::readLine() -> std::string {
@@ -12,4 +12,4 @@ auto Console::readLine() -> std::string {
 auto Console::writer() -> std::ostream& { return std::cout; }
 
 auto Console::reader() -> std::istream& { return std::cin; }
-}  // namespace common
+}  // namespace fox

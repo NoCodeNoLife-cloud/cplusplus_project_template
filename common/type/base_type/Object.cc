@@ -1,6 +1,6 @@
 #include "Object.hpp"
 
-namespace common {
+namespace fox {
 auto Object::getClass() const -> const std::type_info& { return typeid(*this); }
 
 auto Object::hashCode() const -> size_t {
@@ -9,4 +9,4 @@ auto Object::hashCode() const -> size_t {
 }
 
 auto Object::toString() const -> std::string { return std::format("{}", *this); }
-}  // namespace common
+}  // namespace fox

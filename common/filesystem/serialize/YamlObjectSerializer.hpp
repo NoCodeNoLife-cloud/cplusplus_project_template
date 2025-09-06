@@ -5,7 +5,7 @@
 #include <fstream>
 #include <string>
 
-namespace common {
+namespace fox {
 /// @brief Abstract base class for serializing and deserializing objects to and from YAML format.
 /// @tparam T The type of object to be serialized/deserialized.
 template <typename T>
@@ -47,4 +47,4 @@ auto YamlObjectSerializer<T>::deserialize(const std::string& filename) -> T {
   }
   return obj;
 }
-}  // namespace common
+}  // namespace fox

@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-namespace common {
+namespace fox {
 Point3D::Point3D() : x_(0), y_(0), z_(0) {}
 
 Point3D::Point3D(const double xVal, const double yVal, const double zVal) : x_(xVal), y_(yVal), z_(zVal) {}
@@ -25,4 +25,4 @@ auto Point3D::distanceTo(const Point3D& other) const -> double {
   const double dz = z_ - other.z_;
   return std::sqrt(dx * dx + dy * dy + dz * dz);
 }
-}  // namespace common
+}  // namespace fox

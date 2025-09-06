@@ -1,6 +1,6 @@
 #include "AbstractOutputStream.hpp"
 
-namespace common {
+namespace fox {
 AbstractOutputStream::~AbstractOutputStream() = default;
 
 auto AbstractOutputStream::write(const std::vector<std::byte>& buffer) -> void { write(buffer, 0, static_cast<int32_t>(buffer.size())); }
@@ -13,4 +13,4 @@ auto AbstractOutputStream::write(const std::vector<std::byte>& buffer, const siz
     write(buffer[offset + i]);
   }
 }
-}  // namespace common
+}  // namespace fox

@@ -1,6 +1,6 @@
 #include "BufferedOutputStream.hpp"
 
-namespace common {
+namespace fox {
 BufferedOutputStream::BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out) : BufferedOutputStream(std::move(out), DEFAULT_BUFFER_SIZE) {}
 
 BufferedOutputStream::BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out, const size_t size) : FilterOutputStream(std::move(out)), bufferSize_(size), buffer_(size), buffer_position_(0) {
@@ -55,4 +55,4 @@ auto BufferedOutputStream::flushBuffer() -> void {
     buffer_position_ = 0;
   }
 }
-}  // namespace common
+}  // namespace fox

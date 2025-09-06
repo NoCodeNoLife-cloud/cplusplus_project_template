@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 IntBuffer::IntBuffer(const size_t capacity) : buffer_(capacity) {
   capacity_ = capacity;
   limit_ = capacity;
@@ -36,4 +36,4 @@ auto IntBuffer::put(const size_t index, const int32_t value) -> void {
   }
   buffer_[index] = value;
 }
-}  // namespace common
+}  // namespace fox

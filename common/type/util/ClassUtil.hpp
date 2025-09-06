@@ -1,13 +1,13 @@
 #pragma once
 #include <boost/type_index.hpp>
 
-namespace common {
+namespace fox {
 template <typename T>
 struct ReflectTraits;
 
 /*
  * template<>
- * struct common::ReflectTraits<Employee> {
+ * struct fox::ReflectTraits<Employee> {
  *     static constexpr auto fields = std::make_tuple(
  *         std::make_pair("name", &Employee::getName),
  *         std::make_pair("id", &Employee::getId),
@@ -119,4 +119,4 @@ template <typename T, typename M>
 auto ClassUtil::invoke_helper(const T& obj, M member) -> decltype((obj.*member)()) {
   return (obj.*member)();
 }
-}  // namespace common
+}  // namespace fox

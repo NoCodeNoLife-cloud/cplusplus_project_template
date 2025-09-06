@@ -4,7 +4,7 @@
 
 #include "Edge.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A class representing a graph data structure
 /// @details This class provides functionality to create a graph with a specified number of nodes,
 ///          add edges between nodes with weights, and retrieve adjacency information.
@@ -34,4 +34,4 @@ class Graph {
   int32_t num_nodes_;
   std::vector<std::vector<Edge>> adj_list_{};
 };
-}  // namespace common
+}  // namespace fox

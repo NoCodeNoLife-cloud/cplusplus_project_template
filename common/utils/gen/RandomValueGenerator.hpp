@@ -2,7 +2,7 @@
 #include <random>
 #include <type_traits>
 
-namespace common {
+namespace fox {
 /// @brief A class template for generating random values of integral or floating-point types.
 /// @tparam T The type of the values to generate. Must be an integral or floating-point type.
 template <typename T>
@@ -50,4 +50,4 @@ T RandomValueGenerator<T>::generate(T min, T max) {
     return dist(engine_);
   }
 }
-}  // namespace common
+}  // namespace fox

@@ -1,6 +1,6 @@
 #include "FileInputStream.hpp"
 
-namespace common {
+namespace fox {
 FileInputStream::FileInputStream(const std::string& name) {
   if (!std::filesystem::exists(name)) {
     throw std::ios_base::failure("FileNotFoundException: File does not exist.");
@@ -59,4 +59,4 @@ auto FileInputStream::close() -> void {
 }
 
 bool FileInputStream::markSupported() const { return false; }
-}  // namespace common
+}  // namespace fox

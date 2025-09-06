@@ -1,5 +1,5 @@
 #pragma once
-namespace common {
+namespace fox {
 /// @brief Interface for a runnable task that can be executed with arguments and return a result.
 /// @tparam ReturnType The type of the value returned by the task.
 /// @tparam Args The types of the arguments that the task accepts.
@@ -13,4 +13,4 @@ class IRunnable {
   /// @return ReturnType The result of the task execution.
   virtual auto run(Args... args) -> ReturnType = 0;
 };
-}  // namespace common
+}  // namespace fox

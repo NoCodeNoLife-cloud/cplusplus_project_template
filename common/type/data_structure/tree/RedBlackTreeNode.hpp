@@ -3,7 +3,7 @@
 
 #include "type/data_structure/Color.hpp"
 
-namespace common {
+namespace fox {
 /// \brief A node in a Red-Black Tree
 ///
 /// \tparam T The type of data stored in the node
@@ -112,4 +112,4 @@ template <typename T>
 auto RedBlackTreeNode<T>::setColor(const Color c) -> void {
   color_ = c;
 }
-}  // namespace common
+}  // namespace fox

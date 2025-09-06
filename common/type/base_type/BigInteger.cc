@@ -1,6 +1,6 @@
 #include "BigInteger.hpp"
 
-namespace common {
+namespace fox {
 BigInteger::BigInteger() : value_(0) {}
 
 BigInteger::BigInteger(const std::string& str) : value_(str) {}
@@ -40,4 +40,4 @@ auto BigInteger::operator<=>(const BigInteger& other) const -> std::partial_orde
 auto BigInteger::fromString(const std::string& str) -> BigInteger { return BigInteger(str); }
 
 auto BigInteger::fromInt(const int64_t num) -> BigInteger { return BigInteger(num); }
-}  // namespace common
+}  // namespace fox

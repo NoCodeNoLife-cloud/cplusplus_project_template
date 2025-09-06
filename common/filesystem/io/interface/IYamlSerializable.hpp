@@ -1,7 +1,7 @@
 #pragma once
 #include <yaml-cpp/node/convert.h>
 
-namespace common {
+namespace fox {
 /// @brief Interface for YAML serializable objects.
 /// @details This interface provides methods to encode and decode objects to and from YAML nodes.
 /// @note This interface is intended to be implemented by classes that need YAML serialization.
@@ -18,7 +18,7 @@ class IYamlSerializable {
   /// @return True if decoding is successful.
   virtual auto decode(const YAML::Node& node) -> bool = 0;
 };
-}  // namespace common
+}  // namespace fox
 
 template <typename T>
 struct YAML::convert {

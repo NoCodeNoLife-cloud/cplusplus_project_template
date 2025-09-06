@@ -4,20 +4,20 @@
 
 namespace gtest_case {
 TEST(AVLTreeTest, InsertSingleNodeCheckExistence) {
-  common::AVLTree<int> tree;
+  fox::AVLTree<int> tree;
   tree.insert(10);
   EXPECT_TRUE(tree.find(10));
 }
 
 TEST(AVLTreeTest, InsertDuplicateValueCheckNoGrowth) {
-  common::AVLTree<int> tree;
+  fox::AVLTree<int> tree;
   tree.insert(10);
   tree.insert(10);
   EXPECT_TRUE(tree.find(10));
 }
 
 TEST(AVLTreeTest, InsertLeftLeftCaseCheckRotation) {
-  common::AVLTree<int> tree;
+  fox::AVLTree<int> tree;
   tree.insert(30);
   tree.insert(20);
   tree.insert(10);
@@ -27,7 +27,7 @@ TEST(AVLTreeTest, InsertLeftLeftCaseCheckRotation) {
 }
 
 TEST(AVLTreeTest, InsertRightRightCaseCheckRotation) {
-  common::AVLTree<int> tree;
+  fox::AVLTree<int> tree;
   tree.insert(10);
   tree.insert(20);
   tree.insert(30);
@@ -37,7 +37,7 @@ TEST(AVLTreeTest, InsertRightRightCaseCheckRotation) {
 }
 
 TEST(AVLTreeTest, InsertLeftRightCaseCheckRotation) {
-  common::AVLTree<int> tree;
+  fox::AVLTree<int> tree;
   tree.insert(30);
   tree.insert(10);
   tree.insert(20);
@@ -47,7 +47,7 @@ TEST(AVLTreeTest, InsertLeftRightCaseCheckRotation) {
 }
 
 TEST(AVLTreeTest, InsertRightLeftCaseCheckRotation) {
-  common::AVLTree<int> tree;
+  fox::AVLTree<int> tree;
   tree.insert(10);
   tree.insert(30);
   tree.insert(20);
@@ -57,7 +57,7 @@ TEST(AVLTreeTest, InsertRightLeftCaseCheckRotation) {
 }
 
 TEST(AVLTreeTest, RemoveLeafNodeCheckExistence) {
-  common::AVLTree<int> tree;
+  fox::AVLTree<int> tree;
   tree.insert(20);
   tree.insert(10);
   tree.insert(30);
@@ -68,7 +68,7 @@ TEST(AVLTreeTest, RemoveLeafNodeCheckExistence) {
 }
 
 TEST(AVLTreeTest, RemoveNodeWithOneChildCheckStructure) {
-  common::AVLTree<int> tree;
+  fox::AVLTree<int> tree;
   tree.insert(20);
   tree.insert(10);
   tree.insert(30);
@@ -81,7 +81,7 @@ TEST(AVLTreeTest, RemoveNodeWithOneChildCheckStructure) {
 }
 
 TEST(AVLTreeTest, RemoveNodeWithTwoChildrenCheckSuccessor) {
-  common::AVLTree<int> tree;
+  fox::AVLTree<int> tree;
   tree.insert(20);
   tree.insert(10);
   tree.insert(30);
@@ -94,7 +94,7 @@ TEST(AVLTreeTest, RemoveNodeWithTwoChildrenCheckSuccessor) {
 }
 
 TEST(AVLTreeTest, RemoveRootNodeCheckNewRoot) {
-  common::AVLTree<int> tree;
+  fox::AVLTree<int> tree;
   tree.insert(20);
   tree.insert(10);
   tree.insert(30);
@@ -105,13 +105,13 @@ TEST(AVLTreeTest, RemoveRootNodeCheckNewRoot) {
 }
 
 TEST(AVLTreeTest, FindNonExistentValueCheckFalse) {
-  common::AVLTree<int> tree;
+  fox::AVLTree<int> tree;
   tree.insert(20);
   EXPECT_FALSE(tree.find(99));
 }
 
 TEST(AVLTreeTest, InsertRemoveCheckEmptyState) {
-  common::AVLTree<int> tree;
+  fox::AVLTree<int> tree;
   tree.insert(10);
   tree.remove(10);
   EXPECT_FALSE(tree.find(10));

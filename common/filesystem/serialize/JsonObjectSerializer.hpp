@@ -8,7 +8,7 @@
 
 #include "filesystem/io/interface/IJsonSerializable.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A utility class for serializing and deserializing objects to and from JSON format.
 /// This class provides static methods for saving/loading objects that implement the IJsonSerializable interface,
 /// as well as helper functions for reading primitive types from JSON with default value fallbacks
@@ -124,4 +124,4 @@ auto JsonObjectSerializer::loadObjectFromJsonFile(const std::string& filename) -
   }
   return entity;
 }
-}  // namespace common
+}  // namespace fox

@@ -5,7 +5,7 @@
 
 #include "utils/format/GenericFormatter.hpp"
 
-namespace common {
+namespace fox {
 /// @brief Base class for all objects in the system.
 /// @details This class provides basic functionality for type information, hashing, and string representation.
 /// It is designed to be inherited by other classes that need these features.
@@ -28,7 +28,7 @@ class Object {
  private:
   friend std::formatter<Object>;
 };
-}  // namespace common
+}  // namespace fox
 
 template <>
-struct std::formatter<common::Object> : common::GenericFormatter<common::Object> {};
+struct std::formatter<fox::Object> : fox::GenericFormatter<fox::Object> {};

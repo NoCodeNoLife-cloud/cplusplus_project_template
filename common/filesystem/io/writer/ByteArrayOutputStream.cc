@@ -1,6 +1,6 @@
 #include "ByteArrayOutputStream.hpp"
 
-namespace common {
+namespace fox {
 ByteArrayOutputStream::ByteArrayOutputStream() : buf_(32) {}
 
 ByteArrayOutputStream::ByteArrayOutputStream(const size_t size) { buf_.resize(size); }
@@ -38,4 +38,4 @@ auto ByteArrayOutputStream::close() -> void {}
 auto ByteArrayOutputStream::flush() -> void {
   // No operation for ByteArrayOutputStream.
 }
-}  // namespace common
+}  // namespace fox

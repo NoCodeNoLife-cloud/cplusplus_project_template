@@ -2,7 +2,7 @@
 #include <queue>
 #include <vector>
 
-namespace common {
+namespace fox {
 /// @brief A class to maintain the top K the largest numbers from a stream of integers.
 /// The TopK class uses a min-heap to efficiently track the top K the largest numbers.
 /// When a new number is added, it is compared with the smallest number in the heap.
@@ -24,4 +24,4 @@ class TopK final {
   int k;
   std::priority_queue<int, std::vector<int>, std::greater<>> minHeap;
 };
-}  // namespace common
+}  // namespace fox

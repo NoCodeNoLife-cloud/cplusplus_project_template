@@ -1,6 +1,6 @@
 #include "AbstractWriter.hpp"
 
-namespace common {
+namespace fox {
 AbstractWriter::AbstractWriter() = default;
 AbstractWriter::~AbstractWriter() = default;
 
@@ -35,4 +35,4 @@ auto AbstractWriter::write(const std::string& str, const size_t off, const size_
     write(buf, 0, buf.size());
   }
 }
-}  // namespace common
+}  // namespace fox

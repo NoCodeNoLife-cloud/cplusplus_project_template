@@ -4,7 +4,7 @@
 
 #include "AbstractWriter.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A writer that converts character streams to byte streams using a specified charset
 /// OutputStreamWriter is a bridge from character streams to byte streams: Characters written to it
 /// are encoded into bytes using the specified charset. The charset can be specified by name or
@@ -76,4 +76,4 @@ class OutputStreamWriter final : public AbstractWriter {
   std::string charset_;
   bool closed_;
 };
-}  // namespace common
+}  // namespace fox

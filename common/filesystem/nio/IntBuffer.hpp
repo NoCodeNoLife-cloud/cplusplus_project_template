@@ -3,7 +3,7 @@
 
 #include "interface/IBuffer.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A buffer that stores 32-bit integers.
 /// @details This class provides a way to store and manipulate a sequence of 32-bit integers in a buffer.
 /// It implements the IBuffer interface and provides methods to get and put integers in the buffer.
@@ -32,4 +32,4 @@ class IntBuffer final : public IBuffer {
  private:
   std::vector<int32_t> buffer_{};
 };
-}  // namespace common
+}  // namespace fox

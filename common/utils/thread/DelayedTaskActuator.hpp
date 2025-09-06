@@ -7,7 +7,7 @@
 #include <thread>
 #include <unordered_map>
 
-namespace common {
+namespace fox {
 /// @brief A class that executes tasks with a specified delay.
 /// @tparam ResultType The type of the result returned by the task.
 template <typename ResultType>
@@ -61,4 +61,4 @@ auto DelayedTaskActuator<ResultType>::getTaskResult(int taskId) -> std::future<R
   results_.erase(taskId);
   return result;
 }
-}  // namespace common
+}  // namespace fox

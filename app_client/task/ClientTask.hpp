@@ -53,7 +53,7 @@ class ClientTask {
 
  private:
   const std::string config_path_ = "../../app_client/config/glog_config.yaml";
-  common::FunctionProfiler timer_;
+  fox::FunctionProfiler timer_;
   RpcOptions rpc_options_;
 };
 

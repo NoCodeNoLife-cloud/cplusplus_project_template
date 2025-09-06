@@ -46,7 +46,7 @@ class GLogConfigurator final : public IConfigurable, public IStartupTask {
 
   explicit GLogConfigurator(const std::string& GLogYAMLPath) {
     GLogYAMLPath_ = GLogYAMLPath;
-    config_ = common::YamlObjectSerializer<GLogParameters>::deserialize(GLogYAMLPath_);
+    config_ = fox::YamlObjectSerializer<GLogParameters>::deserialize(GLogYAMLPath_);
   }
 
   /// @brief Execute the startup task.

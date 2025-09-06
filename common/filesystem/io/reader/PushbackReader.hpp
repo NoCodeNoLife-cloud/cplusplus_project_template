@@ -1,7 +1,7 @@
 #pragma once
 #include "FilterReader.hpp"
 
-namespace common {
+namespace fox {
 /// @brief Provides a buffering wrapper around another reader, allowing characters to be "pushed back" into the stream.
 /// @details The PushbackReader class allows characters to be pushed back into the stream after they have been read.
 /// This is useful for situations where a program needs to look ahead in the input stream and then return to the original position.
@@ -94,4 +94,4 @@ class PushbackReader final : public FilterReader {
   std::vector<char> buffer_;
   size_t buffer_pos_{DEFAULT_BUFFER_SIZE};
 };
-}  // namespace common
+}  // namespace fox

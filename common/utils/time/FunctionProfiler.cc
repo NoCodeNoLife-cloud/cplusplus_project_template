@@ -6,7 +6,7 @@
 #include <iostream>
 #include <utility>
 
-namespace common {
+namespace fox {
 FunctionProfiler::FunctionProfiler(std::string function_name, const bool autoStart) : function_name_(std::move(function_name)) {
   if (autoStart) {
     recordStart();
@@ -26,4 +26,4 @@ auto FunctionProfiler::recordEnd(const bool autoPrint) -> void {
     getRunTime();
   }
 }
-}  // namespace common
+}  // namespace fox

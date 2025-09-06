@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-namespace common {
+namespace fox {
 /// @brief Interface for appendable objects.
 /// @tparam T The type of the object that implements this interface.
 template <typename T>
@@ -26,4 +26,4 @@ class IAppendable {
   /// @return A reference to the string.
   virtual auto append(const std::string& str, size_t start, size_t end) -> T& = 0;
 };
-}  // namespace common
+}  // namespace fox

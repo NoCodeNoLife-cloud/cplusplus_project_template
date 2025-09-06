@@ -5,7 +5,7 @@
 
 #include "interface/IFlushable.hpp"
 
-namespace common {
+namespace fox {
 /// @brief Provides console input/output operations with formatting capabilities.
 /// This class implements the IFlushable interface and offers methods for formatted
 /// output, input reading, and stream management.
@@ -64,4 +64,4 @@ auto Console::readLine(const std::string& fmt, Args... args) -> std::string {
   format(fmt, args...);
   return readLine();
 }
-}  // namespace common
+}  // namespace fox

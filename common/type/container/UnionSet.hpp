@@ -1,7 +1,7 @@
 #pragma once
 #include <unordered_map>
 
-namespace common {
+namespace fox {
 /// @brief A Union-Find (Disjoint Set Union) data structure implementation.
 /// This class provides efficient operations for disjoint sets, including:
 /// - Finding the root of a set with path compression
@@ -79,4 +79,4 @@ auto UnionSet<T>::ensureRegistered(const T& x) -> void {
     rank[x] = 1;
   }
 }
-}  // namespace common
+}  // namespace fox

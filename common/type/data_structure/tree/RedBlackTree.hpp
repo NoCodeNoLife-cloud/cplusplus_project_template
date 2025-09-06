@@ -3,7 +3,7 @@
 
 #include "RedBlackTreeNode.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A red-black tree implementation
 /// @tparam T The type of data stored in the tree
 template <typename T>
@@ -137,4 +137,4 @@ auto RedBlackTree<T>::fixInsert(std::shared_ptr<RedBlackTreeNode<T>> node) -> vo
   }
   root_->setColor(Color::Black);
 }
-}  // namespace common
+}  // namespace fox

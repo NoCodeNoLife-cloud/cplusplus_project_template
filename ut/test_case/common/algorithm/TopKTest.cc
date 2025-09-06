@@ -3,7 +3,7 @@
 #include "algorithm/TopK.hpp"
 
 TEST(TopKTest, BasicTest) {
-  common::TopK topK(3);
+  fox::TopK topK(3);
   topK.add(4);
   topK.add(5);
   topK.add(8);
@@ -16,7 +16,7 @@ TEST(TopKTest, BasicTest) {
 }
 
 TEST(TopKTest, LessThanKElements) {
-  common::TopK topK(5);
+  fox::TopK topK(5);
   topK.add(10);
   topK.add(20);
   topK.add(30);
@@ -27,7 +27,7 @@ TEST(TopKTest, LessThanKElements) {
 }
 
 TEST(TopKTest, EqualToKElements) {
-  common::TopK topK(3);
+  fox::TopK topK(3);
   topK.add(1);
   topK.add(2);
   topK.add(3);
@@ -39,7 +39,7 @@ TEST(TopKTest, EqualToKElements) {
 }
 
 TEST(TopKTest, Duplicates) {
-  common::TopK topK(3);
+  fox::TopK topK(3);
   topK.add(5);
   topK.add(5);
   topK.add(5);
@@ -52,7 +52,7 @@ TEST(TopKTest, Duplicates) {
 }
 
 TEST(TopKTest, LargeNumbers) {
-  common::TopK topK(2);
+  fox::TopK topK(2);
   topK.add(1000000);
   topK.add(999999);
   topK.add(1000001);

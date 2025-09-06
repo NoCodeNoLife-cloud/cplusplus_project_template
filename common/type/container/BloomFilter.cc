@@ -3,7 +3,7 @@
 #include <iterator>
 #include <random>
 
-namespace common {
+namespace fox {
 BloomFilter::BloomFilter() = default;
 
 BloomFilter::BloomFilter(const BloomParameters& p) : projected_element_count_(p.projected_element_count), random_seed_(p.random_seed * 0xA5A5A5A5 + 1), desired_false_positive_probability_(p.false_positive_probability) {
@@ -266,4 +266,4 @@ auto BloomFilter::hash_ap(const unsigned char* begin, std::size_t remaining_leng
 
   return hash;
 }
-}  // namespace common
+}  // namespace fox

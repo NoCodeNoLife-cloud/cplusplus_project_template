@@ -1,7 +1,7 @@
 #pragma once
 #include <cmath>
 
-namespace common {
+namespace fox {
 static constexpr std::size_t BITS_PER_CHAR = 0x08;
 
 /// @brief Parameters for configuring a Bloom filter
@@ -42,4 +42,4 @@ class BloomParameters final {
   /// @return true if the parameters were successfully computed, false otherwise.
   auto compute_optimal_parameters() -> bool;
 };
-}  // namespace common
+}  // namespace fox

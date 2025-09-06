@@ -4,7 +4,7 @@
 
 #include "TreeNode.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A binary search tree implementation.
 /// @tparam T The type of data stored in the tree.
 template <typename T>
@@ -128,4 +128,4 @@ auto BinarySearchTree<T>::inorderTraversalRecursive(const std::shared_ptr<TreeNo
   std::cout << node->data << " ";
   inorderTraversalRecursive(node->right);
 }
-}  // namespace common
+}  // namespace fox

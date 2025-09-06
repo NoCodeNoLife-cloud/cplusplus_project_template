@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 PushbackReader::PushbackReader(std::shared_ptr<AbstractReader> reader) : PushbackReader(std::move(reader), DEFAULT_BUFFER_SIZE) {}
 
 PushbackReader::PushbackReader(std::shared_ptr<AbstractReader> reader, const size_t size) : FilterReader(std::move(reader)), buffer_(size) {
@@ -77,4 +77,4 @@ auto PushbackReader::unread(const int32_t c) -> void {
   }
   buffer_[--buffer_pos_] = static_cast<char>(c);
 }
-}  // namespace common
+}  // namespace fox

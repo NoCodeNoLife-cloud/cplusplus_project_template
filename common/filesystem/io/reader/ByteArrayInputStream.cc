@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 ByteArrayInputStream::ByteArrayInputStream(const std::vector<std::byte>& buf) : buffer_(buf) {}
 
 auto ByteArrayInputStream::read() -> std::byte {
@@ -45,4 +45,4 @@ bool ByteArrayInputStream::markSupported() const { return true; }
 auto ByteArrayInputStream::close() -> void {
   // do nothing
 }
-}  // namespace common
+}  // namespace fox

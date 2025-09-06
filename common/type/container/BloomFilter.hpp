@@ -4,7 +4,7 @@
 
 #include "BloomParameters.hpp"
 
-namespace common {
+namespace fox {
 static const unsigned char bit_mask[BITS_PER_CHAR] = {
     0x01,  // 00000001
     0x02,  // 00000010
@@ -207,4 +207,4 @@ inline BloomFilter operator^(const BloomFilter& a, const BloomFilter& b) {
   result ^= b;
   return result;
 }
-}  // namespace common
+}  // namespace fox

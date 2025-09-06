@@ -3,7 +3,7 @@
 #include <fstream>
 #include <vector>
 
-namespace common {
+namespace fox {
 #pragma pack(push, 1)
 /// @brief BMP file header structure
 /// @details This structure represents the BMP file header which contains
@@ -69,4 +69,4 @@ class BmpImage {
   int32_t height_;
   std::vector<uint8_t> pixels_;
 };
-}  // namespace common
+}  // namespace fox

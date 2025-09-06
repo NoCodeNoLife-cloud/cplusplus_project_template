@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-namespace common {
+namespace fox {
 /// @brief A utility class for formatting and parsing dates based on a pattern.
 /// The SimpleDateFormatter class provides methods to format std::tm objects into
 /// strings and parse strings back into std::tm objects using a specified pattern.
@@ -45,4 +45,4 @@ class SimpleDateFormatter {
   /// @param pat The pattern to validate.
   static auto validatePattern(const std::string& pat) -> void;
 };
-}  // namespace common
+}  // namespace fox

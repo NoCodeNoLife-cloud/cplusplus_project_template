@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 AbstractFilterWriter::AbstractFilterWriter(std::unique_ptr<AbstractWriter> outputWriter) : output_writer_(std::move(outputWriter)) {
   if (!output_writer_) {
     throw std::invalid_argument("Output writer cannot be null");
@@ -66,4 +66,4 @@ auto AbstractFilterWriter::close() -> void {
   flush();
   output_writer_->close();
 }
-}  // namespace common
+}  // namespace fox

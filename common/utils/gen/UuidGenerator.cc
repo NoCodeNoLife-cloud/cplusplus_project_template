@@ -4,10 +4,10 @@
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 
-namespace common {
+namespace fox {
 // ReSharper disable once CppDFAConstantFunctionResult
 auto UuidGenerator::GenerateRandomUuid() -> std::string {
   static auto generator = boost::uuids::random_generator();
   return boost::uuids::to_string(generator());
 }
-}  // namespace common
+}  // namespace fox

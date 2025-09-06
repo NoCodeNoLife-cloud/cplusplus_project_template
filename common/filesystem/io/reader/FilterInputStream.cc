@@ -3,7 +3,7 @@
 #include <memory>
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 FilterInputStream::FilterInputStream(std::unique_ptr<AbstractInputStream> inputStream) : input_stream_(std::move(inputStream)) {}
 
 FilterInputStream::~FilterInputStream() = default;
@@ -65,4 +65,4 @@ size_t FilterInputStream::skip(const size_t n) {
 }
 
 auto FilterInputStream::close() -> void { input_stream_->close(); }
-}  // namespace common
+}  // namespace fox

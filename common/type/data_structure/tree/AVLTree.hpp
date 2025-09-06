@@ -4,7 +4,7 @@
 
 #include "TreeNode.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A self-balancing binary search tree implementation (AVL Tree)
 /// An AVL tree is a self-balancing binary search tree where the heights of the two child
 /// subtrees of any node differ by at most one. This implementation uses shared pointers
@@ -199,4 +199,4 @@ auto AVLTree<T>::find(const std::shared_ptr<TreeNode<T>>& node, T value) const -
   if (value == node->data) return node;
   return value < node->data ? find(node->left, value) : find(node->right, value);
 }
-}  // namespace common
+}  // namespace fox

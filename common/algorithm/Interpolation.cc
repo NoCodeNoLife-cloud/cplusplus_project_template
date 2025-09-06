@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 auto Interpolation::linearInterpolation(const std::vector<std::pair<double, double>>& dataPoints, const double x) -> double {
   if (dataPoints.size() < 2) {
     throw std::invalid_argument("At least two data points are required for linear interpolation.");
@@ -21,4 +21,4 @@ auto Interpolation::linearInterpolation(const std::vector<std::pair<double, doub
 
   throw std::out_of_range("The x-value exceeds the range of the data points.");
 }
-}  // namespace common
+}  // namespace fox

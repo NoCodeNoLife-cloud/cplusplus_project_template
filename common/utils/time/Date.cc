@@ -5,7 +5,7 @@
 #include <sstream>
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 Date::Date() : time_point_(std::chrono::system_clock::now()) {}
 
 Date::Date(const int32_t year, const int32_t month, const int32_t day) {
@@ -66,4 +66,4 @@ auto Date::toTm() const -> std::tm {
   localtime_s(&tm, &timeT);
   return tm;
 }
-}  // namespace common
+}  // namespace fox

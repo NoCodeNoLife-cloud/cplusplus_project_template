@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 BigDecimal::BigDecimal(const std::string& str) : value_(str) {}
 
 BigDecimal::BigDecimal(const double num) : value_(num) {}
@@ -29,4 +29,4 @@ auto BigDecimal::operator<=>(const BigDecimal& other) const -> std::partial_orde
   }
   return std::strong_ordering::equal;
 }
-}  // namespace common
+}  // namespace fox

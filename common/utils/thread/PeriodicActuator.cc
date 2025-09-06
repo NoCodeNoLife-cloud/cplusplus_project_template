@@ -1,6 +1,6 @@
 #include "PeriodicActuator.hpp"
 
-namespace common {
+namespace fox {
 PeriodicActuator::PeriodicActuator(std::shared_ptr<ITimerTask> task, const std::chrono::milliseconds interval) : task_(std::move(task)), timer_(ioContext_), interval_(interval) {}
 
 auto PeriodicActuator::start() -> void {
@@ -17,4 +17,4 @@ auto PeriodicActuator::scheduleNext() -> void {
     }
   });
 }
-}  // namespace common
+}  // namespace fox

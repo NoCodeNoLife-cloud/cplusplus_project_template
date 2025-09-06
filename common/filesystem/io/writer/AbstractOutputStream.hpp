@@ -5,7 +5,7 @@
 #include "filesystem/io/interface/ICloseable.hpp"
 #include "filesystem/io/interface/IFlushable.hpp"
 
-namespace common {
+namespace fox {
 /// @brief Abstract base class for all output stream implementations.
 /// @details This class provides the basic contract for writing data to an output stream.
 /// It defines pure virtual methods that must be implemented by concrete subclasses.
@@ -29,4 +29,4 @@ class AbstractOutputStream : public ICloseable, public IFlushable {
   /// @param len The number of bytes to write.
   virtual auto write(const std::vector<std::byte>& buffer, size_t offset, size_t len) -> void;
 };
-}  // namespace common
+}  // namespace fox

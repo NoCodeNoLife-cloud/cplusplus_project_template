@@ -4,7 +4,7 @@
 
 #include "AbstractReader.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A StringReader class that reads data from a string.
 /// @details This class implements the AbstractReader interface to provide functionality
 ///          for reading characters from a string. It supports marking and resetting
@@ -54,4 +54,4 @@ class StringReader final : public AbstractReader {
   size_t mark_position_;
   bool mark_set_;
 };
-}  // namespace common
+}  // namespace fox

@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <sstream>
 
-namespace common {
+namespace fox {
 SimpleDateFormatter::SimpleDateFormatter(const std::string& pattern) {
   validatePattern(pattern);
   this->pattern_ = pattern;
@@ -49,4 +49,4 @@ auto SimpleDateFormatter::validatePattern(const std::string& pat) -> void {
     throw std::invalid_argument("Pattern cannot be empty.");
   }
 }
-}  // namespace common
+}  // namespace fox

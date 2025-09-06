@@ -4,7 +4,7 @@
 
 #include "AbstractReader.hpp"
 
-namespace common {
+namespace fox {
 /// @brief InputStreamReader is a class for reading characters from a byte stream.
 /// This class inherits from AbstractReader and provides functionality to read characters
 /// from an input stream with specified charset encoding.
@@ -41,4 +41,4 @@ class InputStreamReader final : public AbstractReader {
   std::shared_ptr<AbstractReader> reader_;
   std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> converter_;
 };
-}  // namespace common
+}  // namespace fox

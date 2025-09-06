@@ -3,7 +3,7 @@
 
 #include "AbstractReader.hpp"
 
-namespace common {
+namespace fox {
 /// @brief Buffered character-input stream.
 class BufferedReader final : public AbstractReader {
  public:
@@ -57,4 +57,4 @@ class BufferedReader final : public AbstractReader {
   size_t mark_limit_{0};
   bool fillBuffer();
 };
-}  // namespace common
+}  // namespace fox

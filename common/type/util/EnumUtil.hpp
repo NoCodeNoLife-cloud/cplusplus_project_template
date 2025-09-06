@@ -2,7 +2,7 @@
 #include <magic_enum/magic_enum.hpp>
 #include <string>
 
-namespace common {
+namespace fox {
 /// @brief Utility class for enum operations.
 /// This class provides static methods to work with enums,
 /// such as converting enum values to their string representations.
@@ -20,4 +20,4 @@ template <typename T>
 auto EnumUtil::getEnumClassName(T t) -> std::string {
   return static_cast<std::string>(magic_enum::enum_name(t));
 }
-}  // namespace common
+}  // namespace fox

@@ -1,7 +1,7 @@
 #pragma once
 #include <mutex>
 
-namespace common {
+namespace fox {
 /// @brief A class to generate unique IDs using the Snowflake algorithm.
 /// The Snowflake algorithm generates IDs that are roughly ordered by time,
 /// and consist of a timestamp, machine ID, datacenter ID, and a sequence number.
@@ -24,7 +24,7 @@ enum class SnowflakeOption {
 /// This implementation is thread-safe using a mutex to protect internal state during ID generation.
 /// Example usage:
 /// @code
-///   common::SnowflakeGenerator generator(1, 1);
+///   fox::SnowflakeGenerator generator(1, 1);
 ///   int64_t id = generator.NextId();
 /// @endcode
 class SnowflakeGenerator {
@@ -50,4 +50,4 @@ class SnowflakeGenerator {
   /// @return The next valid timestamp.
   static auto TilNextMillis(int64_t last_timestamp) -> int64_t;
 };
-}  // namespace common
+}  // namespace fox

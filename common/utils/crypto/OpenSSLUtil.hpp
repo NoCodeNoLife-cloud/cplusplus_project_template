@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-namespace common {
+namespace fox {
 /// @brief Utility class for OpenSSL cryptographic operations.
 /// This class provides methods for key derivation, encryption, and decryption
 /// using OpenSSL's AES-256-CBC algorithm with PBKDF2 key derivation.
@@ -28,4 +28,4 @@ class OpenSSLUtil {
   /// @return The decrypted plaintext as a string.
   static auto decryptAES256CBC(const std::vector<unsigned char>& ciphertext, const std::string& password, unsigned char salt[16]) -> std::string;
 };
-}  // namespace common
+}  // namespace fox

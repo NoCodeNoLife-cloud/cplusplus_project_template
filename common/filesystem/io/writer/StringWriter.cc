@@ -1,6 +1,6 @@
 #include "StringWriter.hpp"
 
-namespace common {
+namespace fox {
 StringWriter::StringWriter(const size_t initialSize) {
   buffer_.str(std::string(initialSize, '\0'));
   buffer_.seekp(0);
@@ -51,4 +51,4 @@ auto StringWriter::write(const std::vector<char>& cBuf, const size_t off, const 
   }
   buffer_.write(cBuf.data() + off, static_cast<std::streamsize>(len));
 }
-}  // namespace common
+}  // namespace fox

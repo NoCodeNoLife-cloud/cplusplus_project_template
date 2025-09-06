@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-namespace common {
+namespace fox {
 /// @brief A utility class for retrieving system hardware and OS information.
 /// The SystemInfo class provides static methods to fetch various system details
 /// such as CPU model, memory information, OS version, motherboard details,
@@ -48,4 +48,4 @@ class SystemInfo {
   /// @return Vector of BIOS info strings
   static auto GetBIOSInfo() -> std::vector<std::string>;
 };
-}  // namespace common
+}  // namespace fox

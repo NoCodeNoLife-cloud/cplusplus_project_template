@@ -1,6 +1,6 @@
 #include "OutputStreamWriter.hpp"
 
-namespace common {
+namespace fox {
 OutputStreamWriter::OutputStreamWriter(std::unique_ptr<AbstractWriter> outputStream, const std::string& charsetName) : output_writer_(std::move(outputStream)), charset_(charsetName), closed_(false) {
   if (charsetName != "UTF-8") {
     throw std::invalid_argument("Unsupported encoding: " + charsetName);
@@ -78,4 +78,4 @@ auto OutputStreamWriter::toString() const -> std::string {
   }
   return output_writer_->toString();
 }
-}  // namespace common
+}  // namespace fox

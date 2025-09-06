@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-namespace common {
+namespace fox {
 /// @brief A utility class for string manipulation operations.
 /// This class provides static methods for common string operations such as splitting and concatenating strings.
 class StringUtil {
@@ -19,4 +19,4 @@ class StringUtil {
   /// @return A single string composed of all elements in the vector separated by the specified character.
   [[nodiscard]] static auto concatenate(const std::vector<std::string>& source, char split_char) -> std::string;
 };
-}  // namespace common
+}  // namespace fox

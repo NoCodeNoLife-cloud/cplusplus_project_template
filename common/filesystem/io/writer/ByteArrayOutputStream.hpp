@@ -1,7 +1,7 @@
 #pragma once
 #include "AbstractOutputStream.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A ByteArrayOutputStream is an output stream that writes data into a byte array.
 /// The buffer automatically grows as data is written to it.
 class ByteArrayOutputStream final : public AbstractOutputStream {
@@ -48,4 +48,4 @@ class ByteArrayOutputStream final : public AbstractOutputStream {
   std::vector<std::byte> buf_;
   size_t count_{0};
 };
-}  // namespace common
+}  // namespace fox

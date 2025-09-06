@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 BufferedWriter::BufferedWriter(std::unique_ptr<std::ofstream> os, const size_t size) : output_stream_(std::move(os)), buffer_size_(size) {
   if (!output_stream_->is_open()) {
     throw std::runtime_error("Output stream is not open.");
@@ -97,4 +97,4 @@ auto BufferedWriter::toString() const -> std::string {
   }
   return str;
 }
-}  // namespace common
+}  // namespace fox

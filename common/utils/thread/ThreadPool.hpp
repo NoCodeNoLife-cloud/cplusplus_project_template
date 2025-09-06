@@ -8,7 +8,7 @@
 #include <thread>
 #include <vector>
 
-namespace common {
+namespace fox {
 
 class ThreadPool {
  public:
@@ -49,4 +49,4 @@ class ThreadPool {
   /// @return true if a new worker was added, false otherwise
   auto addWorker() -> bool;
 };
-}  // namespace common
+}  // namespace fox

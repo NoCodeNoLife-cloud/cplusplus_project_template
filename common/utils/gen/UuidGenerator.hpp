@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-namespace common {
+namespace fox {
 /// @brief A utility class for generating UUIDs.
 /// This class provides functionality to generate random UUID strings.
 class UuidGenerator {
@@ -10,4 +10,4 @@ class UuidGenerator {
   /// @return A string representation of the generated UUID.
   static auto GenerateRandomUuid() -> std::string;
 };
-}  // namespace common
+}  // namespace fox

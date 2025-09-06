@@ -1,7 +1,7 @@
 #pragma once
 #include "type/data_structure/graphics/Graph.hpp"
 
-namespace common {
+namespace fox {
 /// @brief Dijkstra's algorithm for finding the shortest paths from a single source node to all other nodes in a graph with non-negative edge weights.
 class Dijkstra {
  public:
@@ -25,4 +25,4 @@ class Dijkstra {
   std::vector<int32_t> distances_;
   const int32_t INF = std::numeric_limits<int32_t>::max();
 };
-}  // namespace common
+}  // namespace fox

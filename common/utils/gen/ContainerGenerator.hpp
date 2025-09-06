@@ -11,7 +11,7 @@
 #include <unordered_set>
 #include <vector>
 
-namespace common {
+namespace fox {
 /// @brief A utility class for generating various STL containers with random values.
 /// This class provides static methods to generate vectors, dequeue, lists, forward lists,
 /// arrays, sets, multiset, unordered sets, unordered multiset, maps, multimaps,
@@ -321,4 +321,4 @@ auto ContainerGenerator::Check(T minValue, T maxValue, const int32_t size) -> vo
     throw std::invalid_argument("ContainerGenerator: invalid parameters");
   }
 }
-}  // namespace common
+}  // namespace fox

@@ -9,7 +9,7 @@
 
 #include "filesystem/io/interface/IBoostSerializable.hpp"
 
-namespace common {
+namespace fox {
 /// @class BoostObjectSerializer
 /// @brief A utility class for serializing and deserializing objects using Boost.Serialization.
 /// This class provides static methods to convert objects to and from binary strings and XML files.
@@ -92,4 +92,4 @@ auto BoostObjectSerializer::serializeObjectFromXMLFile(const std::filesystem::pa
     throw std::runtime_error(e.what());
   }
 }
-}  // namespace common
+}  // namespace fox

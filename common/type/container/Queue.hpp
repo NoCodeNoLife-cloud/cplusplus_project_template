@@ -2,7 +2,7 @@
 #include <memory>
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 /// @brief A queue data structure implementation using linked nodes with smart pointers
 /// @tparam T The type of elements stored in the queue
 template <typename T>
@@ -193,4 +193,4 @@ auto Queue<T>::size() const -> size_t {
 
 template <typename T>
 Queue<T>::Node::Node(T value) : data_(value), next_(nullptr) {}
-}  // namespace common
+}  // namespace fox

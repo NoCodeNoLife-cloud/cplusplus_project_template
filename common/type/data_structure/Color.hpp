@@ -1,5 +1,5 @@
 #pragma once
-namespace common {
+namespace fox {
 /// @brief Enumeration representing various colors.
 /// Each color is assigned a unique integer value.
 enum class Color {
@@ -12,4 +12,4 @@ enum class Color {
   Cyan = 6,
   Magenta = 7,
 };
-}  // namespace common
+}  // namespace fox

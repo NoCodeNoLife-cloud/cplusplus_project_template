@@ -3,7 +3,7 @@
 #include <queue>
 #include <utility>
 
-namespace common {
+namespace fox {
 Directory::Directory(std::filesystem::path filePath) : dir_path_(std::move(filePath)) {}
 
 auto Directory::mkdir() const -> bool {
@@ -175,4 +175,4 @@ auto Directory::clearAll() const -> bool {
 }
 
 auto Directory::getCurrentWorkingDirectory() -> std::filesystem::path { return std::filesystem::current_path(); }
-}  // namespace common
+}  // namespace fox

@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 LongBuffer::LongBuffer(const std::size_t capacity) : buffer_(capacity) {
   capacity_ = capacity;
   limit_ = capacity;
@@ -22,4 +22,4 @@ auto LongBuffer::put(const int64_t value) -> void {
   }
   buffer_[position_++] = value;
 }
-}  // namespace common
+}  // namespace fox

@@ -1,6 +1,6 @@
 #include "BufferedReader.hpp"
 
-namespace common {
+namespace fox {
 BufferedReader::BufferedReader(std::unique_ptr<AbstractReader> reader, const int32_t size) : reader_(std::move(reader)), buffer_size_(size) {
   if (size <= 0) {
     throw std::invalid_argument("Buffer size must be greater than 0");
@@ -105,4 +105,4 @@ bool BufferedReader::fillBuffer() {
   count_ = reader_->read(buffer_, 0, buffer_size_);
   return count_ > 0;
 }
-}  // namespace common
+}  // namespace fox

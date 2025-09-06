@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 ByteBuffer::ByteBuffer(const size_t capacity) : buffer_(capacity) {
   capacity_ = capacity;
   limit_ = capacity;
@@ -38,4 +38,4 @@ auto ByteBuffer::get(const size_t length) -> std::vector<std::byte> {
   position_ += length;
   return result;
 }
-}  // namespace common
+}  // namespace fox

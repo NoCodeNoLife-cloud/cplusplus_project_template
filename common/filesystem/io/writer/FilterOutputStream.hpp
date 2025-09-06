@@ -1,7 +1,7 @@
 #pragma once
 #include "AbstractOutputStream.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A filter output stream that wraps another output stream.
 /// This class provides a base for output stream filters that modify or enhance
 /// the behavior of the underlying output stream.
@@ -33,4 +33,4 @@ class FilterOutputStream : public AbstractOutputStream {
  protected:
   std::shared_ptr<AbstractOutputStream> output_stream_;
 };
-}  // namespace common
+}  // namespace fox

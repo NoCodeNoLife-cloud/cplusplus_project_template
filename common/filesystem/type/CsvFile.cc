@@ -1,6 +1,6 @@
 #include "CsvFile.hpp"
 
-namespace common {
+namespace fox {
 CsvFile::CsvFile(const std::string& file_path) : file_path_(file_path) {
   try {
     csv_doc_ = rapidcsv::Document(file_path);
@@ -56,4 +56,4 @@ auto CsvFile::save(const std::string& path) -> bool {
     return false;
   }
 }
-}  // namespace common
+}  // namespace fox

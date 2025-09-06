@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-namespace common {
+namespace fox {
 
 class Integer {
   static const inline std::pair<int32_t, std::string> valueSymbols[] = {
@@ -23,4 +23,4 @@ class Integer {
   }
 };
 
-}  // namespace common
+}  // namespace fox

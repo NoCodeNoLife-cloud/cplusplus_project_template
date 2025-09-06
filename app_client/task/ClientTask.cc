@@ -79,7 +79,7 @@ auto ClientTask::exit() -> void {
 }
 
 auto ClientTask::logClientInfo() -> void {
-  LOG(INFO) << common::SystemInfo::GetOSVersion();
-  LOG(INFO) << common::SystemInfo::GetCpuModelFromRegistry();
+  LOG(INFO) << fox::SystemInfo::GetOSVersion();
+  LOG(INFO) << fox::SystemInfo::GetCpuModelFromRegistry();
 }
 }  // namespace app_client

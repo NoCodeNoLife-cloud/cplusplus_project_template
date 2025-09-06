@@ -3,7 +3,7 @@
 #include <memory>
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 BufferedInputStream::BufferedInputStream(std::unique_ptr<AbstractInputStream> in) : BufferedInputStream(std::move(in), DEFAULT_BUFFER_SIZE) {}
 
 BufferedInputStream::BufferedInputStream(std::unique_ptr<AbstractInputStream> in, const int32_t size) : FilterInputStream(std::move(in)), buf_(size) {
@@ -102,4 +102,4 @@ auto BufferedInputStream::fillBuffer() -> void {
     count_ = 0;
   }
 }
-}  // namespace common
+}  // namespace fox

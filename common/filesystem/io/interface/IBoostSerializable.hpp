@@ -1,5 +1,5 @@
 #pragma once
-namespace common {
+namespace fox {
 // ReSharper disable once CppTemplateParameterNeverUsed
 template <typename T>
 /// @brief Interface for Boost serialization
@@ -23,4 +23,4 @@ template <class Archive>
 auto IBoostSerializable<T>::serialize(Archive& archive, const uint32_t version) -> void {
   static_cast<T*>(this)->serializeImpl(archive, version);
 }
-}  // namespace common
+}  // namespace fox

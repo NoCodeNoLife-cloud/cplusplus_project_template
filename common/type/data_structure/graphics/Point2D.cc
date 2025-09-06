@@ -1,6 +1,6 @@
 #include "Point2D.hpp"
 
-namespace common {
+namespace fox {
 Point2D::Point2D() : x_(0.0), y_(0.0) {}
 
 Point2D::Point2D(const double x, const double y) : x_(x), y_(y) {}
@@ -26,4 +26,4 @@ auto Point2D::operator-=(const Point2D& other) -> Point2D& {
 }
 
 auto Point2D::operator-() const -> Point2D { return {-x_, -y_}; }
-}  // namespace common
+}  // namespace fox

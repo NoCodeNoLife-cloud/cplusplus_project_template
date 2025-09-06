@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <vector>
 
-namespace common {
+namespace fox {
 auto OpenSSLUtil::deriveKey(const std::string& password, unsigned char key[32], unsigned char salt[16]) -> void { EVP_BytesToKey(EVP_aes_256_cbc(), EVP_sha1(), salt, reinterpret_cast<const unsigned char*>(password.c_str()), static_cast<int>(password.size()), 1, key, nullptr); }
 
 auto OpenSSLUtil::encryptAES256CBC(const std::string& plaintext, const std::string& password, unsigned char salt[16]) -> std::vector<unsigned char> {
@@ -62,4 +62,4 @@ auto OpenSSLUtil::decryptAES256CBC(const std::vector<unsigned char>& ciphertext,
   EVP_CIPHER_CTX_free(ctx);
   return {reinterpret_cast<const char*>(plaintext.data()), static_cast<std::string::size_type>(plaintext_len)};
 }
-}  // namespace common
+}  // namespace fox

@@ -1,7 +1,7 @@
 #pragma once
 #include <atomic>
 
-namespace common {
+namespace fox {
 /// @brief A spinlock mutex implementation using atomic_flag for synchronization.
 /// This class provides a simple and efficient synchronization mechanism
 /// suitable for protecting small critical sections where the lock is held
@@ -19,4 +19,4 @@ class SpinlockMutex {
  private:
   std::atomic_flag flag_;
 };
-}  // namespace common
+}  // namespace fox

@@ -1,6 +1,6 @@
 #include "AbstractReader.hpp"
 
-namespace common {
+namespace fox {
 AbstractReader::~AbstractReader() = default;
 
 auto AbstractReader::read() -> int32_t {
@@ -28,4 +28,4 @@ auto AbstractReader::skip(const size_t n) -> size_t {
   }
   return skipped;
 }
-}  // namespace common
+}  // namespace fox

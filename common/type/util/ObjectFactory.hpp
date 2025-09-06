@@ -9,7 +9,7 @@
 
 #include "interface/IStartupTask.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A factory class for creating objects of type T.
 /// @tparam T The base type of objects that this factory can create.
 template <typename T>
@@ -56,4 +56,4 @@ auto ObjectFactory<T>::execute() -> bool {
   registerAll();
   return true;
 }
-}  // namespace common
+}  // namespace fox

@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 PushbackInputStream::PushbackInputStream(std::unique_ptr<AbstractInputStream> inputStream, const size_t bufferSize) : FilterInputStream(std::move(inputStream)), pushback_buffer_(bufferSize), buffer_pos_(bufferSize) {}
 
 PushbackInputStream::~PushbackInputStream() = default;
@@ -49,4 +49,4 @@ void PushbackInputStream::unread(const std::byte b) {
   }
   pushback_buffer_[--buffer_pos_] = b;
 }
-}  // namespace common
+}  // namespace fox

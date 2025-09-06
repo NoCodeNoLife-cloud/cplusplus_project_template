@@ -5,7 +5,7 @@
 #include "filesystem/io/interface/ICloseable.hpp"
 #include "filesystem/io/interface/IFlushable.hpp"
 
-namespace common {
+namespace fox {
 /// @brief Abstract base class for writers that provides basic functionality for writing characters and strings.
 class AbstractWriter : public ICloseable, public IFlushable, IAppendable<AbstractWriter> {
  public:
@@ -57,4 +57,4 @@ class AbstractWriter : public ICloseable, public IFlushable, IAppendable<Abstrac
   /// @return A string representation of the writer's content.
   [[nodiscard]] virtual auto toString() const -> std::string = 0;
 };
-}  // namespace common
+}  // namespace fox

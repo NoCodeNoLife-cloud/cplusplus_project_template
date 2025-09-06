@@ -1,6 +1,6 @@
 #include "StringUtil.hpp"
 
-namespace common {
+namespace fox {
 auto StringUtil::split(const std::string& target, const char split_char) -> std::vector<std::string> {
   std::vector<std::string> result;
   size_t start = 0;
@@ -23,4 +23,4 @@ auto StringUtil::concatenate(const std::vector<std::string>& source, const char 
   }
   return result;
 }
-}  // namespace common
+}  // namespace fox

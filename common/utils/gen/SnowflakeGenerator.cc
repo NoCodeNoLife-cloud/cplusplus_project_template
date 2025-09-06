@@ -2,7 +2,7 @@
 
 #include <chrono>
 
-namespace common {
+namespace fox {
 SnowflakeGenerator::SnowflakeGenerator(const int16_t machine_id, const int16_t datacenter_id) {
   if (machine_id < 0 || machine_id > static_cast<int64_t>(SnowflakeOption::max_machine_id_)) {
     throw std::invalid_argument("Machine ID out of range (0-31)");
@@ -52,4 +52,4 @@ auto SnowflakeGenerator::TilNextMillis(const int64_t last_timestamp) -> int64_t 
   }
   return timestamp;
 }
-}  // namespace common
+}  // namespace fox

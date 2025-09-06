@@ -2,7 +2,7 @@
 #include <chrono>
 #include <string>
 
-namespace common {
+namespace fox {
 /// @brief A class representing a specific instant in time, with millisecond precision.
 /// The Date class represents a specific point in time, measured in milliseconds
 /// since the Unix epoch (January 1, 1970, 00:00:00 GMT). It provides methods
@@ -52,4 +52,4 @@ class Date {
   /// @brief Converts the time point to a std::tm structure.
   [[nodiscard]] auto toTm() const -> std::tm;
 };
-}  // namespace common
+}  // namespace fox

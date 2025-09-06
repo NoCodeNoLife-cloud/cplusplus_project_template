@@ -1,5 +1,5 @@
 #pragma once
-namespace common {
+namespace fox {
 /// @brief Interface for a buffer that manages a sequence of elements
 /// This interface provides methods for managing a buffer's position, limit, and capacity.
 /// The buffer follows the standard buffer semantics where:
@@ -52,4 +52,4 @@ class IBuffer {
   size_t limit_{0};
   size_t capacity_{0};
 };
-}  // namespace common
+}  // namespace fox

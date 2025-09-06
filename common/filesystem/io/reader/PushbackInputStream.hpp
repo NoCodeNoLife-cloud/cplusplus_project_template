@@ -1,7 +1,7 @@
 #pragma once
 #include "FilterInputStream.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A pushback input stream allows bytes to be pushed back into the stream.
 /// This class wraps another input stream and provides the ability to "unread" bytes,
 /// making them available to be read again. This is useful for parsers that need to
@@ -49,4 +49,4 @@ class PushbackInputStream final : public FilterInputStream {
   std::vector<std::byte> pushback_buffer_;
   size_t buffer_pos_{0};
 };
-}  // namespace common
+}  // namespace fox

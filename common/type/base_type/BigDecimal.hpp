@@ -2,7 +2,7 @@
 #include <boost/multiprecision/cpp_dec_float.hpp>
 #include <string>
 
-namespace common {
+namespace fox {
 /// @brief A class for high-precision decimal arithmetic
 /// @details This class uses boost::multiprecision::cpp_dec_float_100 for underlying storage
 ///          to provide high precision decimal operations.
@@ -39,4 +39,4 @@ class BigDecimal {
  private:
   boost::multiprecision::cpp_dec_float_100 value_;
 };
-}  // namespace common
+}  // namespace fox

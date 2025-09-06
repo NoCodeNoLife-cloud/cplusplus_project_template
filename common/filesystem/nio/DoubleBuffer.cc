@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 DoubleBuffer::DoubleBuffer(const size_t capacity) : buffer_(capacity) {
   position_ = 0;
   limit_ = capacity;
@@ -30,4 +30,4 @@ auto DoubleBuffer::get() -> double {
   }
   return buffer_[position_++];
 }
-}  // namespace common
+}  // namespace fox

@@ -2,7 +2,7 @@
 #include <chrono>
 #include <string>
 
-namespace common {
+namespace fox {
 /// @brief Utility class for time-related operations
 class Clock {
  public:
@@ -12,4 +12,4 @@ class Clock {
   /// @brief Get current date and time as a compressed string
   static auto getCompressedCurrentDateTimeString() -> std::string;
 };
-}  // namespace common
+}  // namespace fox

@@ -3,7 +3,7 @@
 
 #include "AbstractReader.hpp"
 
-namespace common {
+namespace fox {
 /// @brief AbstractFilterReader is an  base class that serves as a filter for other readers.
 /// It implements the AbstractReader interface and delegates all operations to an underlying reader.
 /// This class follows the decorator pattern, allowing additional functionality to be added to readers
@@ -50,4 +50,4 @@ class AbstractFilterReader final : public AbstractReader {
  protected:
   std::unique_ptr<AbstractReader> reader_;
 };
-}  // namespace common
+}  // namespace fox

@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 FloatBuffer::FloatBuffer(const size_t capacity) : buffer_(capacity, 0.0f) {
   limit_ = capacity;
   position_ = 0;
@@ -41,4 +41,4 @@ auto FloatBuffer::get(const size_t length) -> std::vector<float> {
   position_ += length;
   return result;
 }
-}  // namespace common
+}  // namespace fox

@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-namespace common {
+namespace fox {
 /// @brief Utility class for array operations.
 /// @details This class provides static methods to perform various operations on arrays,
 ///          such as converting to a vector, binary search, copying, comparison, filling,
@@ -171,4 +171,4 @@ auto ArraysUtil::toString(const T* array, const size_t size) -> std::string {
   oss << "]";
   return oss.str();
 }
-}  // namespace common
+}  // namespace fox

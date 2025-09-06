@@ -4,7 +4,7 @@
 #include <span>
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 CharBuffer::CharBuffer(const size_t cap) : buffer_(cap, u'\0') {
   position_ = 0;
   limit_ = cap;
@@ -42,4 +42,4 @@ auto CharBuffer::get() -> char16_t {
 }
 
 auto CharBuffer::getRemaining() const -> std::string { return {buffer_.begin() + static_cast<std::ptrdiff_t>(position_), buffer_.begin() + static_cast<std::ptrdiff_t>(limit_)}; }
-}  // namespace common
+}  // namespace fox

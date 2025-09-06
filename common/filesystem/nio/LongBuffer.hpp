@@ -3,7 +3,7 @@
 
 #include "interface/IBuffer.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A buffer that stores 64-bit signed integers
 class LongBuffer final : public IBuffer {
  public:
@@ -20,4 +20,4 @@ class LongBuffer final : public IBuffer {
  private:
   std::vector<int64_t> buffer_{};
 };
-}  // namespace common
+}  // namespace fox

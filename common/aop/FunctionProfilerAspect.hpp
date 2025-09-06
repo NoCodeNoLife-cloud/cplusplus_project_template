@@ -4,7 +4,7 @@
 #include "interface/IAop.hpp"
 #include "utils/time/FunctionProfiler.hpp"
 
-namespace common {
+namespace fox {
 /// @brief This class is an aspect for profiling function execution time.
 /// It implements the IAop interface to provide entry and exit points
 /// for measuring the duration of function calls.
@@ -22,4 +22,4 @@ class FunctionProfilerAspect final : public IAop<FunctionProfilerAspect> {
   FunctionProfiler timer_;
   std::string function_name_;
 };
-}  // namespace common
+}  // namespace fox

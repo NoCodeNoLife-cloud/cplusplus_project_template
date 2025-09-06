@@ -2,7 +2,7 @@
 
 #include <thread>
 
-namespace common {
+namespace fox {
 SpinlockMutex::SpinlockMutex() = default;
 
 auto SpinlockMutex::lock() -> void {
@@ -12,4 +12,4 @@ auto SpinlockMutex::lock() -> void {
 }
 
 auto SpinlockMutex::unlock() -> void { flag_.clear(std::memory_order_release); }
-}  // namespace common
+}  // namespace fox

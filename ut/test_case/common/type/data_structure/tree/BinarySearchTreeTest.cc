@@ -4,7 +4,7 @@
 
 namespace gtest_case {
 TEST(BinarySearchTreeTest, InsertAndFindBasic) {
-  common::BinarySearchTree<int32_t> tree;
+  fox::BinarySearchTree<int32_t> tree;
   tree.insert(5);
   tree.insert(3);
   tree.insert(7);
@@ -16,12 +16,12 @@ TEST(BinarySearchTreeTest, InsertAndFindBasic) {
 }
 
 TEST(BinarySearchTreeTest, EmptyTreeFindReturnsFalse) {
-  const common::BinarySearchTree<int32_t> tree;
+  const fox::BinarySearchTree<int32_t> tree;
   EXPECT_FALSE(tree.find(1));
 }
 
 TEST(BinarySearchTreeTest, RemoveLeafNode) {
-  common::BinarySearchTree<int32_t> tree;
+  fox::BinarySearchTree<int32_t> tree;
   tree.insert(5);
   tree.insert(3);
   tree.remove(3);
@@ -31,7 +31,7 @@ TEST(BinarySearchTreeTest, RemoveLeafNode) {
 }
 
 TEST(BinarySearchTreeTest, RemoveNodeWithOneChild) {
-  common::BinarySearchTree<int32_t> tree;
+  fox::BinarySearchTree<int32_t> tree;
   tree.insert(5);
   tree.insert(3);
   tree.insert(2);
@@ -43,7 +43,7 @@ TEST(BinarySearchTreeTest, RemoveNodeWithOneChild) {
 }
 
 TEST(BinarySearchTreeTest, RemoveNodeWithTwoChildren) {
-  common::BinarySearchTree<int32_t> tree;
+  fox::BinarySearchTree<int32_t> tree;
   tree.insert(5);
   tree.insert(3);
   tree.insert(7);
@@ -57,7 +57,7 @@ TEST(BinarySearchTreeTest, RemoveNodeWithTwoChildren) {
 }
 
 TEST(BinarySearchTreeTest, InorderTraversalOrder) {
-  common::BinarySearchTree<int32_t> tree;
+  fox::BinarySearchTree<int32_t> tree;
   tree.insert(5);
   tree.insert(3);
   tree.insert(7);
@@ -71,13 +71,13 @@ TEST(BinarySearchTreeTest, InorderTraversalOrder) {
 }
 
 TEST(BinarySearchTreeTest, RemoveEmptyTreeNoop) {
-  common::BinarySearchTree<int32_t> tree;
+  fox::BinarySearchTree<int32_t> tree;
   tree.remove(1);
   EXPECT_FALSE(tree.find(1));
 }
 
 TEST(BinarySearchTreeTest, DuplicateInserts) {
-  common::BinarySearchTree<int32_t> tree;
+  fox::BinarySearchTree<int32_t> tree;
   tree.insert(5);
   tree.insert(5);
 
@@ -85,7 +85,7 @@ TEST(BinarySearchTreeTest, DuplicateInserts) {
 }
 
 TEST(BinarySearchTreeTest, DeleteRootWithTwoChildren) {
-  common::BinarySearchTree<int32_t> tree;
+  fox::BinarySearchTree<int32_t> tree;
   tree.insert(10);
   tree.insert(5);
   tree.insert(15);

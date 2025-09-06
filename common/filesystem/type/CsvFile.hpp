@@ -3,7 +3,7 @@
 
 #include <string>
 
-namespace common {
+namespace fox {
 /// @brief A class to handle CSV file operations using rapidcsv library
 /// @details This class provides functionalities to read, modify and save CSV files.
 /// It encapsulates the rapidcsv::Document object and provides a simplified interface
@@ -41,4 +41,4 @@ class CsvFile {
   rapidcsv::Document csv_doc_{};
   bool is_valid_{false};
 };
-}  // namespace common
+}  // namespace fox

@@ -1,6 +1,6 @@
 #include "TopK.hpp"
 
-namespace common {
+namespace fox {
 TopK::TopK(const int k) : k(k) {}
 
 auto TopK::add(const int num) -> void {
@@ -23,4 +23,4 @@ auto TopK::getTopK() -> std::vector<int> {
   }
   return result;
 }
-}  // namespace common
+}  // namespace fox

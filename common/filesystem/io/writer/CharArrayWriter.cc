@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 CharArrayWriter::CharArrayWriter() = default;
 
 CharArrayWriter::CharArrayWriter(const int32_t initialSize) {
@@ -79,4 +79,4 @@ auto CharArrayWriter::close() -> void {
   buf_.clear();
   count_ = 0;
 }
-}  // namespace common
+}  // namespace fox

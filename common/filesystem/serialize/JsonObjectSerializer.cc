@@ -1,6 +1,6 @@
 #include "JsonObjectSerializer.hpp"
 
-namespace common {
+namespace fox {
 auto JsonObjectSerializer::getStringOrDefault(const rapidjson::Value& json, const char* key, const std::string& defaultValue) -> std::string {
   if (json.HasMember(key) && json[key].IsString()) {
     return json[key].GetString();
@@ -48,4 +48,4 @@ auto JsonObjectSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuf
   writer.Key(key);
   writer.Bool(value);
 }
-}  // namespace common
+}  // namespace fox

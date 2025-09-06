@@ -2,7 +2,7 @@
 
 #include <windows.h>
 
-namespace common {
+namespace fox {
 auto SystemInfo::GetCpuModelFromRegistry() -> std::string {
   HKEY hKey;
 
@@ -248,4 +248,4 @@ auto SystemInfo::GetBIOSInfo() -> std::vector<std::string> {
 
   return adapters;
 }
-}  // namespace common
+}  // namespace fox

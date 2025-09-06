@@ -5,7 +5,7 @@
 
 #include "AbstractOutputStream.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A class for writing data to a file.
 /// @details This class provides methods for writing bytes to a file, either
 /// appending to or overwriting the file's contents. It inherits from
@@ -41,4 +41,4 @@ class FileOutputStream final : public AbstractOutputStream {
   std::ofstream file_stream_;
   std::string file_name_{};
 };
-}  // namespace common
+}  // namespace fox

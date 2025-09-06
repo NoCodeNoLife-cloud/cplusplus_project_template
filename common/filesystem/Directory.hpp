@@ -1,7 +1,7 @@
 #pragma once
 #include <filesystem>
 
-namespace common {
+namespace fox {
 /// @brief A class for directory operations
 /// @details This class provides various operations for directories, such as creation, deletion, listing contents, etc.
 class Directory {
@@ -86,4 +86,4 @@ class Directory {
  private:
   std::filesystem::path dir_path_;
 };
-}  // namespace common
+}  // namespace fox

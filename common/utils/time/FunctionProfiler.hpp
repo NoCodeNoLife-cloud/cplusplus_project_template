@@ -2,7 +2,7 @@
 #include <chrono>
 #include <string>
 
-namespace common {
+namespace fox {
 /// @brief A utility class for profiling function execution time.
 /// This class provides functionality to measure and print the execution time
 /// of a function. It records the start and end times, and calculates the
@@ -26,4 +26,4 @@ class FunctionProfiler {
   std::chrono::time_point<std::chrono::steady_clock> end_;
   std::string function_name_;
 };
-}  // namespace common
+}  // namespace fox

@@ -5,7 +5,7 @@
 
 namespace gtest_case {
 TEST(DijkstraAlgorithmTest, SimpleGraph) {
-  common::Graph graph(5);
+  fox::Graph graph(5);
   graph.addEdge(0, 1, 10);
   graph.addEdge(0, 4, 20);
   graph.addEdge(1, 2, 30);
@@ -13,7 +13,7 @@ TEST(DijkstraAlgorithmTest, SimpleGraph) {
   graph.addEdge(2, 3, 50);
   graph.addEdge(3, 4, 60);
 
-  common::Dijkstra dijkstra(graph);
+  fox::Dijkstra dijkstra(graph);
   dijkstra.compute(0);
 
   EXPECT_EQ(dijkstra.getDistance(0), 0);
@@ -24,11 +24,11 @@ TEST(DijkstraAlgorithmTest, SimpleGraph) {
 }
 
 TEST(DijkstraAlgorithmTest, DisconnectedGraph) {
-  common::Graph graph(5);
+  fox::Graph graph(5);
   graph.addEdge(0, 1, 10);
   graph.addEdge(1, 2, 30);
 
-  common::Dijkstra dijkstra(graph);
+  fox::Dijkstra dijkstra(graph);
   dijkstra.compute(0);
 
   EXPECT_EQ(dijkstra.getDistance(0), 0);

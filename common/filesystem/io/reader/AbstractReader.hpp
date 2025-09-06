@@ -4,7 +4,7 @@
 #include "filesystem/io/interface/ICloseable.hpp"
 #include "filesystem/io/interface/IReadable.hpp"
 
-namespace common {
+namespace fox {
 /// @brief Abstract base class for reading character streams.
 /// This class provides a standard interface for reading character data from various sources.
 /// It implements the ICloseable and IReadable interfaces and provides standard implementations
@@ -49,4 +49,4 @@ class AbstractReader : public ICloseable, public IReadable {
   /// @return The number of characters actually skipped
   virtual auto skip(size_t n) -> size_t;
 };
-}  // namespace common
+}  // namespace fox

@@ -3,7 +3,7 @@
 #include <rapidjson/stringbuffer.h>
 #include <rapidjson/writer.h>
 
-namespace common {
+namespace fox {
 /// @brief Interface for JSON serializable objects.
 /// This interface defines the contract for objects that can be serialized to
 /// and deserialized from JSON format using the RapidJSON library. Any class
@@ -19,4 +19,4 @@ class IJsonSerializable {
   /// @brief Deserializes the object from JSON.
   virtual auto deserialize(const rapidjson::Value& json) -> void = 0;
 };
-}  // namespace common
+}  // namespace fox

@@ -6,7 +6,7 @@
 
 #include "AbstractWriter.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A buffered writer that writes data to an output stream with buffering.
 /// This class provides efficient writing operations by buffering the output data
 /// before writing it to the underlying output stream.
@@ -62,4 +62,4 @@ class BufferedWriter final : public AbstractWriter, public IAppendable<BufferedW
   std::vector<char> buffer_;
   size_t buffer_size_;
 };
-}  // namespace common
+}  // namespace fox

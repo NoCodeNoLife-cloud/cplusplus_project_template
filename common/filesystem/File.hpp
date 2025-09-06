@@ -3,7 +3,7 @@
 #include <filesystem>
 #include <string>
 
-namespace common {
+namespace fox {
 /// @brief A class representing a file in the file system
 /// This class provides various operations that can be performed on files,
 /// such as checking permissions, creating, deleting, renaming, and retrieving
@@ -116,4 +116,4 @@ class File final {
  private:
   std::filesystem::path file_path_;
 };
-}  // namespace common
+}  // namespace fox

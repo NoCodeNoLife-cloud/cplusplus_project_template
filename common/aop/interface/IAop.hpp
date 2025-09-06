@@ -1,7 +1,7 @@
 #pragma once
 #include <functional>
 
-namespace common {
+namespace fox {
 /// @brief Interface class for Aspect-Oriented Programming (AOP) functionalities.
 /// This class provides a template-based interface for implementing AOP concepts
 /// such as before/after method execution advice, exception handling, and result processing.
@@ -69,4 +69,4 @@ template <typename T>
 auto IAop<Derived>::handleResult(T&& result) -> decltype(auto) {
   return std::forward<T>(result);
 }
-}  // namespace common
+}  // namespace fox

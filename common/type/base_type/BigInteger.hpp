@@ -2,7 +2,7 @@
 #include <boost/multiprecision/cpp_int.hpp>
 #include <string>
 
-namespace common {
+namespace fox {
 /// @brief A class representing a big integer using boost::multiprecision::cpp_int
 class BigInteger {
  public:
@@ -53,4 +53,4 @@ class BigInteger {
  private:
   boost::multiprecision::cpp_int value_;
 };
-}  // namespace common
+}  // namespace fox

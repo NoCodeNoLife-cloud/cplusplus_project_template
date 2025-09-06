@@ -3,7 +3,7 @@
 
 #include "filesystem/io/interface/ICloseable.hpp"
 
-namespace common {
+namespace fox {
 /// @brief Abstract base class for all input streams.
 class AbstractInputStream : public ICloseable {
  public:
@@ -37,4 +37,4 @@ class AbstractInputStream : public ICloseable {
   /// @brief Skips over and discards n bytes of data from this input stream.
   virtual auto skip(size_t n) -> size_t;
 };
-}  // namespace common
+}  // namespace fox

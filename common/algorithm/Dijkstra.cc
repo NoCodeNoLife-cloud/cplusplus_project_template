@@ -2,7 +2,7 @@
 
 #include <queue>
 
-namespace common {
+namespace fox {
 Dijkstra::Dijkstra(const Graph& g) : graph_(g) { distances_.resize(graph_.getNodeCount(), INF); }
 
 auto Dijkstra::compute(int32_t start) -> void {
@@ -30,4 +30,4 @@ auto Dijkstra::compute(int32_t start) -> void {
 auto Dijkstra::getDistance(const int32_t node) const -> int32_t { return distances_[node]; }
 
 auto Dijkstra::getDistances() const -> std::vector<int32_t> { return distances_; }
-}  // namespace common
+}  // namespace fox

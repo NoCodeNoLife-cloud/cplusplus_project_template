@@ -3,7 +3,7 @@
 
 #include "interface/IBuffer.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A DoubleBuffer class that implements the IBuffer interface for handling double precision floating point numbers.
 /// This class provides functionality to put and get double values from a buffer with a specified capacity.
 class DoubleBuffer final : public IBuffer {
@@ -27,4 +27,4 @@ class DoubleBuffer final : public IBuffer {
  private:
   std::vector<double> buffer_;
 };
-}  // namespace common
+}  // namespace fox

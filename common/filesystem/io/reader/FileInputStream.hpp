@@ -5,7 +5,7 @@
 
 #include "AbstractInputStream.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A FileInputStream class for reading data from a file.
 /// @details This class provides functionality to read bytes from a file,
 ///          including methods for reading single bytes, multiple bytes,
@@ -53,4 +53,4 @@ class FileInputStream final : public AbstractInputStream {
   std::ifstream file_stream_;
   std::string file_name_{};
 };
-}  // namespace common
+}  // namespace fox

@@ -1,6 +1,6 @@
 #include "ExponentialBackoff.hpp"
 
-namespace common {
+namespace fox {
 ExponentialBackoff::ExponentialBackoff(const unsigned int max_retries, const double initial_delay, const double multiplier, const double min_delay, const double max_cap, const unsigned int seed, const bool thread_safe) : max_retries_(max_retries), initial_delay_(initial_delay), multiplier_(multiplier), min_delay_(min_delay), max_cap_(max_cap), rng_(seed), thread_safe_(thread_safe) {
   if (initial_delay <= 0) throw std::invalid_argument("Initial delay must be greater than 0.");
   if (multiplier <= 1) throw std::invalid_argument("Multiplier must be greater than 1.");
@@ -49,4 +49,4 @@ auto ExponentialBackoff::isExhausted() const -> bool {
 }
 
 auto ExponentialBackoff::getMaxRetries() const -> unsigned int { return max_retries_; }
-}  // namespace common
+}  // namespace fox

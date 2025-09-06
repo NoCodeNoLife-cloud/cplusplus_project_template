@@ -1,6 +1,6 @@
 #include "FileOutputStream.hpp"
 
-namespace common {
+namespace fox {
 FileOutputStream::FileOutputStream(const std::string& name, const bool append) {
   if (std::filesystem::exists(name) && std::filesystem::is_directory(name)) {
     throw std::ios_base::failure("FileNotFoundException: Path is a directory.");
@@ -50,4 +50,4 @@ void FileOutputStream::flush() {
   }
   file_stream_.flush();
 }
-}  // namespace common
+}  // namespace fox

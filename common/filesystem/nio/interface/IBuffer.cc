@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 IBuffer::~IBuffer() = default;
 
 auto IBuffer::capacity() const -> size_t { return capacity_; }
@@ -43,4 +43,4 @@ auto IBuffer::remaining() const -> size_t { return limit_ - position_; }
 auto IBuffer::hasRemaining() const -> bool { return position_ < limit_; }
 
 void IBuffer::rewind() { position_ = 0; }
-}  // namespace common
+}  // namespace fox

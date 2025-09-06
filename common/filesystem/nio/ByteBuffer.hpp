@@ -4,7 +4,7 @@
 
 #include "interface/IBuffer.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A byte buffer implementation that manages a fixed-size buffer of bytes.
 /// This class provides methods for putting and getting bytes, supporting both
 /// single-byte operations and bulk operations with vectors of bytes.
@@ -32,4 +32,4 @@ class ByteBuffer final : public IBuffer {
  private:
   std::vector<std::byte> buffer_;
 };
-}  // namespace common
+}  // namespace fox

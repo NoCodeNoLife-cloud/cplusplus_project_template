@@ -1,7 +1,7 @@
 #pragma once
 #include "AbstractWriter.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A class for writing character data to a buffer in memory.
 /// CharArrayWriter is a utility class that allows you to write character data
 /// to an internal buffer. The buffer automatically expands as needed to hold
@@ -75,4 +75,4 @@ class CharArrayWriter final : public AbstractWriter, IAppendable<CharArrayWriter
   std::vector<char> buf_;
   size_t count_{0};
 };
-}  // namespace common
+}  // namespace fox

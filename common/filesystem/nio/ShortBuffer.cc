@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 ShortBuffer::ShortBuffer(const size_t capacity) : buffer_(capacity) {
   capacity_ = capacity;
   limit_ = capacity;
@@ -48,4 +48,4 @@ void ShortBuffer::rewind() { position_ = 0; }
 auto ShortBuffer::data() -> int16_t* { return buffer_.data(); }
 
 auto ShortBuffer::data() const -> const int16_t* { return buffer_.data(); }
-}  // namespace common
+}  // namespace fox

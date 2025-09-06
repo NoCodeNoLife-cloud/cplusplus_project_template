@@ -3,7 +3,7 @@
 
 #include "AbstractWriter.hpp"
 
-namespace common {
+namespace fox {
 /// @brief Abstract base class for filter writers.
 /// This class provides a common interface for writers that filter or transform data before writing it to an underlying output writer.
 /// Subclasses should implement the specific filtering or transformation logic.
@@ -59,4 +59,4 @@ class AbstractFilterWriter : public AbstractWriter {
  protected:
   std::unique_ptr<AbstractWriter> output_writer_;
 };
-}  // namespace common
+}  // namespace fox

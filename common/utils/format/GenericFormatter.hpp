@@ -2,7 +2,7 @@
 #include <format>
 #include <sstream>
 
-namespace common {
+namespace fox {
 /// @brief A generic formatter for structured data types.
 /// This struct provides a mechanism to format any type `T` with specified members
 /// into a string representation. It is intended to be used with std::format.
@@ -37,4 +37,4 @@ auto GenericFormatter<T, Members...>::format(const T& content, std::format_conte
 
   return std::format_to(ctx.out(), "{}", oss.str());
 }
-}  // namespace common
+}  // namespace fox

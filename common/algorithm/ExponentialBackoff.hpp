@@ -2,7 +2,7 @@
 #include <mutex>
 #include <random>
 
-namespace common {
+namespace fox {
 /// @brief A utility class for exponential backoff algorithm.
 /// @details This class implements an exponential backoff strategy,
 ///          where the delay time increases exponentially after each retry attempt.
@@ -46,4 +46,4 @@ class ExponentialBackoff {
   mutable std::mutex mutex_;
   const bool thread_safe_{false};
 };
-}  // namespace common
+}  // namespace fox

@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 CharArrayReader::CharArrayReader(const std::vector<char>& buffer) : buf_(buffer), count_(buffer.size()) {}
 
 CharArrayReader::CharArrayReader(const std::vector<char>& buffer, const size_t offset, const size_t length) {
@@ -51,4 +51,4 @@ auto CharArrayReader::close() -> void {
   marked_pos_ = 0;
   count_ = 0;
 }
-}  // namespace common
+}  // namespace fox

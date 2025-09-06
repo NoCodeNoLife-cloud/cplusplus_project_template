@@ -3,7 +3,7 @@
 
 #include "AbstractReader.hpp"
 
-namespace common {
+namespace fox {
 /// @brief A FilterReader is a subclass of AbstractReader that acts as a wrapper for another AbstractReader.
 /// It can be used to extend the functionality of the wrapped reader by overriding methods as needed.
 class FilterReader : public AbstractReader {
@@ -51,4 +51,4 @@ class FilterReader : public AbstractReader {
  protected:
   std::shared_ptr<AbstractReader> in_;
 };
-}  // namespace common
+}  // namespace fox

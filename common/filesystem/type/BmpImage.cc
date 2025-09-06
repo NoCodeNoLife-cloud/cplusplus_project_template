@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common {
+namespace fox {
 BmpImage::BmpImage(const int32_t width, const int32_t height) : width_(width), height_(height) {
   if (width <= 0 || height <= 0) {
     throw std::invalid_argument("Invalid image dimensions");
@@ -50,4 +50,4 @@ auto BmpImage::save(const std::string& filename) const -> void {
     file.write(padding, rowSize - width_ * 3);
   }
 }
-}  // namespace common
+}  // namespace fox

@@ -1,6 +1,6 @@
 #include "ThreadPool.hpp"
 
-namespace common {
+namespace fox {
 ThreadPool::ThreadPool(const size_t core_threads, const size_t max_threads, const size_t queue_size, const std::chrono::milliseconds idle_time) : stop_(false), core_thread_count_(core_threads), max_thread_count_(max_threads), max_queue_size_(queue_size), thread_idle_time_(idle_time) {
   for (size_t i = 0; i < core_thread_count_; ++i) {
     addWorker();
@@ -79,4 +79,4 @@ auto ThreadPool::addWorker() -> bool {
   workers_.emplace_back([this] { worker(); });
   return true;
 }
-}  // namespace common
+}  // namespace fox

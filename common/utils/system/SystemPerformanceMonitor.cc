@@ -3,7 +3,7 @@
 #include <chrono>
 #include <thread>
 
-namespace common {
+namespace fox {
 auto SystemPerformanceMonitor::GetMemoryUsage() -> MemoryUsage {
   MemoryUsage memUsage{};
   MEMORYSTATUSEX memInfo;
@@ -47,4 +47,4 @@ auto SystemPerformanceMonitor::GetCpuUsage(int interval) -> CpuUsage {
   }
   return cpuUsage;
 }
-}  // namespace common
+}  // namespace fox

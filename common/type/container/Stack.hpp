@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <vector>
 
-namespace common {
+namespace fox {
 /// @brief A simple stack implementation using a container.
 /// @tparam T The type of elements stored in the stack.
 /// @tparam Container The underlying container type used to store elements. Defaults to std::vector<T>.
@@ -114,4 +114,4 @@ template <typename T, typename Container>
 auto Stack<T, Container>::size() const -> size_t {
   return data.size();
 }
-}  // namespace common
+}  // namespace fox

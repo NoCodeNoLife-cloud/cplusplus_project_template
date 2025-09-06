@@ -7,7 +7,7 @@
 #include <fstream>
 #include <iostream>
 
-namespace common {
+namespace fox {
 File::File(const std::string& path) : file_path_(path) {}
 
 File::File(std::filesystem::path path) : file_path_(std::move(path)) {}
@@ -161,4 +161,4 @@ auto File::getFileMD5(const std::filesystem::path& filePath) -> std::string {
 
   return oss.str();
 }
-}  // namespace common
+}  // namespace fox
