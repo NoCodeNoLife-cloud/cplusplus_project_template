@@ -244,7 +244,7 @@ PROTOBUF_NOINLINE void MessageRequest::Clear() {
   // string content = 1;
   if (!this_._internal_content().empty()) {
     const std::string& _s = this_._internal_content();
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "rpc.MessageRequest.content");
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(_s.data(), static_cast<int32_t>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "rpc.MessageRequest.content");
     target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
@@ -441,7 +441,7 @@ PROTOBUF_NOINLINE void MessageResponse::Clear() {
   // string status = 1;
   if (!this_._internal_status().empty()) {
     const std::string& _s = this_._internal_status();
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "rpc.MessageResponse.status");
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(_s.data(), static_cast<int32_t>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "rpc.MessageResponse.status");
     target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 

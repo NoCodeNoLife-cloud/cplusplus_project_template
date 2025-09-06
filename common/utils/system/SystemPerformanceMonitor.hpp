@@ -1,6 +1,8 @@
 #pragma once
 #include <windows.h>
 
+#include <cstdint>
+
 namespace fox {
 /// @brief Structure to hold system memory usage information
 /// This struct contains the total physical memory, available memory, used memory,
@@ -29,6 +31,6 @@ class SystemPerformanceMonitor {
   /// @brief Get the current CPU usage of the system
   /// @param interval Time interval in seconds for measuring CPU usage, default is 1 second
   /// @return CpuUsage struct containing CPU usage percentage
-  static auto GetCpuUsage(int interval = 1) -> CpuUsage;
+  static auto GetCpuUsage(int32_t interval = 1) -> CpuUsage;
 };
 }  // namespace fox

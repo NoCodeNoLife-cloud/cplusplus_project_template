@@ -10,7 +10,7 @@ TEST(TopKTest, BasicTest) {
   topK.add(2);
 
   const std::vector expected = {4, 5, 8};
-  const std::vector<int> result = topK.getTopK();
+  const std::vector<int32_t> result = topK.getTopK();
 
   EXPECT_EQ(result, expected);
 }
@@ -21,7 +21,7 @@ TEST(TopKTest, LessThanKElements) {
   topK.add(20);
   topK.add(30);
   const std::vector expected = {10, 20, 30};
-  const std::vector<int> result = topK.getTopK();
+  const std::vector<int32_t> result = topK.getTopK();
 
   EXPECT_EQ(result, expected);
 }
@@ -33,7 +33,7 @@ TEST(TopKTest, EqualToKElements) {
   topK.add(3);
 
   const std::vector expected = {1, 2, 3};
-  const std::vector<int> result = topK.getTopK();
+  const std::vector<int32_t> result = topK.getTopK();
 
   EXPECT_EQ(result, expected);
 }
@@ -46,7 +46,7 @@ TEST(TopKTest, Duplicates) {
   topK.add(5);
 
   const std::vector expected = {5, 5, 5};
-  const std::vector<int> result = topK.getTopK();
+  const std::vector<int32_t> result = topK.getTopK();
 
   EXPECT_EQ(result, expected);
 }
@@ -58,7 +58,7 @@ TEST(TopKTest, LargeNumbers) {
   topK.add(1000001);
 
   const std::vector expected = {1000000, 1000001};
-  const std::vector<int> result = topK.getTopK();
+  const std::vector<int32_t> result = topK.getTopK();
 
   EXPECT_EQ(result, expected);
 }

@@ -18,7 +18,7 @@ class ExponentialBackoff {
   /// @param max_cap Maximum delay limit (unit: milliseconds, optional, default is infinity)
   /// @param seed Random number seed (for testing, optional, default use random_device)
   /// @param thread_safe thread_safe whether to enable thread safety mode (optional, default false)
-  ExponentialBackoff(unsigned int max_retries, double initial_delay, double multiplier, double min_delay = 0.0, double max_cap = std::numeric_limits<double>::infinity(), unsigned int seed = std::random_device{}(), bool thread_safe = false);
+  ExponentialBackoff(uint32_t max_retries, double initial_delay, double multiplier, double min_delay = 0.0, double max_cap = std::numeric_limits<double>::infinity(), uint32_t seed = std::random_device{}(), bool thread_safe = false);
 
   /// @brief Get the next delay.
   /// @return The next delay
@@ -33,11 +33,11 @@ class ExponentialBackoff {
 
   /// @brief Get the maximum number of retries.
   /// @return The maximum number of retries
-  auto getMaxRetries() const -> unsigned int;
+  auto getMaxRetries() const -> uint32_t;
 
  private:
-  unsigned int current_retry_{0};
-  const unsigned int max_retries_{0};
+  uint32_t current_retry_{0};
+  const uint32_t max_retries_{0};
   const double initial_delay_{0.0};
   const double multiplier_{0.0};
   const double min_delay_{0.0};

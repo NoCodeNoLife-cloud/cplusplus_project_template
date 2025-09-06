@@ -32,7 +32,7 @@ class UnionSet {
   auto connected(const T& x, const T& y) -> bool;
 
   std::unordered_map<T, T> parent;
-  std::unordered_map<T, int> rank;
+  std::unordered_map<T, int32_t> rank;
 
  private:
   /// @brief Ensures that the element x is registered in the UnionSet.

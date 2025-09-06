@@ -13,7 +13,7 @@ auto SystemInfo::GetCpuModelFromRegistry() -> std::string {
     RegCloseKey(hKey);
 
     if (regResult == ERROR_SUCCESS) {
-      if (const int len = WideCharToMultiByte(CP_UTF8, 0, cpuName, -1, nullptr, 0, nullptr, nullptr); len > 0) {
+      if (const int32_t len = WideCharToMultiByte(CP_UTF8, 0, cpuName, -1, nullptr, 0, nullptr, nullptr); len > 0) {
         std::string cpuModel(len - 1,
                              0);  // len includes null terminator, so subtract 1
         WideCharToMultiByte(CP_UTF8, 0, cpuName, -1, &cpuModel[0], len, nullptr, nullptr);
@@ -38,7 +38,7 @@ auto SystemInfo::GetMemoryDetails() -> std::string {
     DWORD size = sizeof(memInfo);
 
     if (RegQueryValueExW(hKey, L"DeviceDesc", nullptr, nullptr, reinterpret_cast<LPBYTE>(memInfo), &size) == ERROR_SUCCESS) {
-      if (const int len = WideCharToMultiByte(CP_UTF8, 0, memInfo, -1, nullptr, 0, nullptr, nullptr); len > 0) {
+      if (const int32_t len = WideCharToMultiByte(CP_UTF8, 0, memInfo, -1, nullptr, 0, nullptr, nullptr); len > 0) {
         result.resize(len - 1);  // len includes null terminator, so subtract 1
         WideCharToMultiByte(CP_UTF8, 0, memInfo, -1, &result[0], len, nullptr, nullptr);
       }
@@ -61,7 +61,7 @@ auto SystemInfo::GetOSVersion() -> std::string {
     DWORD size = sizeof(osInfo);
 
     if (RegQueryValueExW(hKey, L"ProductName", nullptr, nullptr, reinterpret_cast<LPBYTE>(osInfo), &size) == ERROR_SUCCESS) {
-      if (const int len = WideCharToMultiByte(CP_UTF8, 0, osInfo, -1, nullptr, 0, nullptr, nullptr); len > 0) {
+      if (const int32_t len = WideCharToMultiByte(CP_UTF8, 0, osInfo, -1, nullptr, 0, nullptr, nullptr); len > 0) {
         result.resize(len - 1);  // len includes null terminator, so subtract 1
         WideCharToMultiByte(CP_UTF8, 0, osInfo, -1, &result[0], len, nullptr, nullptr);
       }
@@ -69,7 +69,7 @@ auto SystemInfo::GetOSVersion() -> std::string {
       wchar_t buildNum[64];
       size = sizeof(buildNum);
       if (RegQueryValueExW(hKey, L"CurrentBuildNumber", nullptr, nullptr, reinterpret_cast<LPBYTE>(buildNum), &size) == ERROR_SUCCESS) {
-        if (const int buildLen = WideCharToMultiByte(CP_UTF8, 0, buildNum, -1, nullptr, 0, nullptr, nullptr); buildLen > 0) {
+        if (const int32_t buildLen = WideCharToMultiByte(CP_UTF8, 0, buildNum, -1, nullptr, 0, nullptr, nullptr); buildLen > 0) {
           char buildStr[64];
           WideCharToMultiByte(CP_UTF8, 0, buildNum, -1, buildStr, sizeof(buildStr), nullptr, nullptr);
           result += " (Build ";
@@ -97,7 +97,7 @@ auto SystemInfo::GetMotherboardInfo() -> MotherboardInfo {
     size = sizeof(buffer);
 
     if (RegQueryValueExW(hKey, L"BaseBoardManufacturer", nullptr, nullptr, reinterpret_cast<LPBYTE>(buffer), &size) == ERROR_SUCCESS) {
-      if (const int len = WideCharToMultiByte(CP_UTF8, 0, buffer, -1, nullptr, 0, nullptr, nullptr); len > 0) {
+      if (const int32_t len = WideCharToMultiByte(CP_UTF8, 0, buffer, -1, nullptr, 0, nullptr, nullptr); len > 0) {
         info.manufacturer.resize(len - 1);  // len includes null terminator, so subtract 1
         WideCharToMultiByte(CP_UTF8, 0, buffer, -1, &info.manufacturer[0], len, nullptr, nullptr);
       }
@@ -105,7 +105,7 @@ auto SystemInfo::GetMotherboardInfo() -> MotherboardInfo {
 
     size = sizeof(buffer);
     if (RegQueryValueExW(hKey, L"BaseBoardProduct", nullptr, nullptr, reinterpret_cast<LPBYTE>(buffer), &size) == ERROR_SUCCESS) {
-      if (const int len = WideCharToMultiByte(CP_UTF8, 0, buffer, -1, nullptr, 0, nullptr, nullptr); len > 0) {
+      if (const int32_t len = WideCharToMultiByte(CP_UTF8, 0, buffer, -1, nullptr, 0, nullptr, nullptr); len > 0) {
         info.model.resize(len - 1);  // len includes null terminator, so subtract 1
         WideCharToMultiByte(CP_UTF8, 0, buffer, -1, &info.model[0], len, nullptr, nullptr);
       }
@@ -113,7 +113,7 @@ auto SystemInfo::GetMotherboardInfo() -> MotherboardInfo {
 
     size = sizeof(buffer);
     if (RegQueryValueExW(hKey, L"BiosVersion", nullptr, nullptr, reinterpret_cast<LPBYTE>(buffer), &size) == ERROR_SUCCESS) {
-      if (const int len = WideCharToMultiByte(CP_UTF8, 0, buffer, -1, nullptr, 0, nullptr, nullptr); len > 0) {
+      if (const int32_t len = WideCharToMultiByte(CP_UTF8, 0, buffer, -1, nullptr, 0, nullptr, nullptr); len > 0) {
         info.biosVersion.resize(len - 1);  // len includes null terminator, so subtract 1
         WideCharToMultiByte(CP_UTF8, 0, buffer, -1, &info.biosVersion[0], len, nullptr, nullptr);
       }
@@ -129,7 +129,7 @@ auto SystemInfo::GetMotherboardInfo() -> MotherboardInfo {
     DWORD size = sizeof(buffer);
 
     if (RegQueryValueExW(hKey, L"SystemSerialNumber", nullptr, nullptr, reinterpret_cast<LPBYTE>(buffer), &size) == ERROR_SUCCESS || RegQueryValueExW(hKey, L"ProductId", nullptr, nullptr, reinterpret_cast<LPBYTE>(buffer), &size) == ERROR_SUCCESS) {
-      if (const int len = WideCharToMultiByte(CP_UTF8, 0, buffer, -1, nullptr, 0, nullptr, nullptr); len > 0) {
+      if (const int32_t len = WideCharToMultiByte(CP_UTF8, 0, buffer, -1, nullptr, 0, nullptr, nullptr); len > 0) {
         info.systemSerial.resize(len - 1);  // len includes null terminator, so subtract 1
         WideCharToMultiByte(CP_UTF8, 0, buffer, -1, &info.systemSerial[0], len, nullptr, nullptr);
       }
@@ -159,7 +159,7 @@ auto SystemInfo::GetGraphicsCardInfo() -> std::string {
         DWORD size = sizeof(deviceDesc);
 
         if (RegQueryValueExW(hSubKey, L"DeviceDesc", nullptr, nullptr, reinterpret_cast<LPBYTE>(deviceDesc), &size) == ERROR_SUCCESS) {
-          if (const int len = WideCharToMultiByte(CP_UTF8, 0, deviceDesc, -1, nullptr, 0, nullptr, nullptr); len > 0) {
+          if (const int32_t len = WideCharToMultiByte(CP_UTF8, 0, deviceDesc, -1, nullptr, 0, nullptr, nullptr); len > 0) {
             result.resize(len - 1);  // len includes null terminator, so subtract 1
             WideCharToMultiByte(CP_UTF8, 0, deviceDesc, -1, &result[0], len, nullptr, nullptr);
           }
@@ -190,7 +190,7 @@ auto SystemInfo::GetDiskDriveInfo() -> std::vector<std::string> {
 
     while (RegEnumValueW(hKey, index++, valueName, &valueNameSize, nullptr, nullptr, reinterpret_cast<LPBYTE>(valueData), &valueDataSize) == ERROR_SUCCESS) {
       if (wcscmp(valueName, L"0") != 0) {
-        if (const int len = WideCharToMultiByte(CP_UTF8, 0, valueData, -1, nullptr, 0, nullptr, nullptr); len > 0) {
+        if (const int32_t len = WideCharToMultiByte(CP_UTF8, 0, valueData, -1, nullptr, 0, nullptr, nullptr); len > 0) {
           std::string driveInfo(len - 1, 0);  // len includes null terminator, so subtract 1
           WideCharToMultiByte(CP_UTF8, 0, valueData, -1, &driveInfo[0], len, nullptr, nullptr);
           drives.emplace_back(std::move(driveInfo));
@@ -229,7 +229,7 @@ auto SystemInfo::GetBIOSInfo() -> std::vector<std::string> {
           DWORD size = sizeof(adapterName);
 
           if (RegQueryValueExW(hSubKey, L"DriverDesc", nullptr, nullptr, reinterpret_cast<LPBYTE>(adapterName), &size) == ERROR_SUCCESS) {
-            if (const int len = WideCharToMultiByte(CP_UTF8, 0, adapterName, -1, nullptr, 0, nullptr, nullptr); len > 0) {
+            if (const int32_t len = WideCharToMultiByte(CP_UTF8, 0, adapterName, -1, nullptr, 0, nullptr, nullptr); len > 0) {
               std::string name(len - 1, 0);  // len includes null terminator, so subtract 1
               WideCharToMultiByte(CP_UTF8, 0, adapterName, -1, &name[0], len, nullptr, nullptr);
               adapters.emplace_back(std::move(name));

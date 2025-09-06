@@ -62,12 +62,12 @@ TEST(ExponentialBackoffTest, ThreadSafe_Mode) {
   fox::ExponentialBackoff backoff(3, 100.0, 2.0, 0.0, 1000.0, 12345u, true);
 
   std::atomic call_count{0};
-  constexpr int num_threads = 10;
+  constexpr int32_t num_threads = 10;
   std::vector<std::thread> threads;
 
-  for (int i = 0; i < num_threads; ++i) {
+  for (int32_t i = 0; i < num_threads; ++i) {
     threads.emplace_back([&] {
-      for (int j = 0; j < 5; ++j) {
+      for (int32_t j = 0; j < 5; ++j) {
         if (backoff.isExhausted()) continue;
         backoff.getNextDelay();
         // 可选：验证 delay 在预期范围内

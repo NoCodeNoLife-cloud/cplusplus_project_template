@@ -131,7 +131,7 @@ auto Heap<T, Compare>::empty() const -> bool {
 
 template <typename T, typename Compare>
 auto Heap<T, Compare>::heapify() -> void {
-  for (int i = data_.size() / 2 - 1; i >= 0; --i) {
+  for (int32_t i = data_.size() / 2 - 1; i >= 0; --i) {
     heapify_down(i);
   }
 }

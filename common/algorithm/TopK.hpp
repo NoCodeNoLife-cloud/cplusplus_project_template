@@ -10,18 +10,18 @@ namespace fox {
 /// This ensures that the heap always contains the top K the largest numbers seen so far.
 class TopK final {
  public:
-  explicit TopK(int k);
+  explicit TopK(int32_t k);
 
   /// @brief Add a number to the TopK.
   /// @param num The number to add.
-  auto add(int num) -> void;
+  auto add(int32_t num) -> void;
 
   /// @brief Get the top k numbers.
   /// @return The top k numbers.
-  auto getTopK() -> std::vector<int>;
+  auto getTopK() -> std::vector<int32_t>;
 
  private:
-  int k;
-  std::priority_queue<int, std::vector<int>, std::greater<>> minHeap;
+  int32_t k;
+  std::priority_queue<int32_t, std::vector<int32_t>, std::greater<>> minHeap;
 };
 }  // namespace fox

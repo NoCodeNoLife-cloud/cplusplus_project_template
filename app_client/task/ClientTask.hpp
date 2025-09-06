@@ -8,22 +8,22 @@
 namespace app_client {
 class GrpcOptions {
   /// @brief Time interval between keepalive pings (in milliseconds)
-  int keepalive_time_ms_{30 * 1000};
+  int32_t keepalive_time_ms_{30 * 1000};
   /// @brief Timeout for keepalive ping acknowledgment (in milliseconds)
-  int keepalive_timeout_ms_{5 * 1000};
+  int32_t keepalive_timeout_ms_{5 * 1000};
   /// @brief Whether to permit keepalive pings when there are no active calls (1 = true, 0 = false)
-  int keepalive_permit_without_calls_{1};
+  int32_t keepalive_permit_without_calls_{1};
 
  public:
   // Getters
-  [[nodiscard]] auto keepaliveTimeMs() const -> int;
-  [[nodiscard]] auto keepaliveTimeoutMs() const -> int;
-  [[nodiscard]] auto keepalivePermitWithoutCalls() const -> int;
+  [[nodiscard]] auto keepaliveTimeMs() const -> int32_t;
+  [[nodiscard]] auto keepaliveTimeoutMs() const -> int32_t;
+  [[nodiscard]] auto keepalivePermitWithoutCalls() const -> int32_t;
 
   // Setters
-  auto keepaliveTimeMs(int value) -> void;
-  auto keepaliveTimeoutMs(int value) -> void;
-  auto keepalivePermitWithoutCalls(int value) -> void;
+  auto keepaliveTimeMs(int32_t value) -> void;
+  auto keepaliveTimeoutMs(int32_t value) -> void;
+  auto keepalivePermitWithoutCalls(int32_t value) -> void;
 };
 
 /// @brief A class that represents a client task

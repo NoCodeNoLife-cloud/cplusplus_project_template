@@ -16,7 +16,7 @@ auto SystemPerformanceMonitor::GetMemoryUsage() -> MemoryUsage {
   return memUsage;
 }
 
-auto SystemPerformanceMonitor::GetCpuUsage(int interval) -> CpuUsage {
+auto SystemPerformanceMonitor::GetCpuUsage(int32_t interval) -> CpuUsage {
   CpuUsage cpuUsage{};
   FILETIME idleTime1, kernelTime1, userTime1;
   FILETIME idleTime2, kernelTime2, userTime2;

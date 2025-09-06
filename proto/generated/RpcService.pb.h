@@ -108,7 +108,7 @@ class MessageResponse final : public ::google::protobuf::Message
   static const ::google::protobuf::Reflection* GetReflection() { return default_instance().GetMetadata().reflection; }
   static const MessageResponse& default_instance() { return *internal_default_instance(); }
   static inline const MessageResponse* internal_default_instance() { return reinterpret_cast<const MessageResponse*>(&_MessageResponse_default_instance_); }
-  static constexpr int kIndexInFileMessages = 1;
+  static constexpr int32_t kIndexInFileMessages = 1;
   friend void swap(MessageResponse& a, MessageResponse& b) { a.Swap(&b); }
   inline void Swap(MessageResponse* other) {
     if (other == this) return;
@@ -150,7 +150,7 @@ class MessageResponse final : public ::google::protobuf::Message
   ::size_t ByteSizeLong() const final;
   ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
 #endif  // PROTOBUF_CUSTOM_VTABLE
-  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+  int32_t GetCachedSize() const { return _impl_._cached_size_.Get(); }
 
  private:
   void SharedCtor(::google::protobuf::Arena* arena);
@@ -176,7 +176,7 @@ class MessageResponse final : public ::google::protobuf::Message
   // nested types ----------------------------------------------------
 
   // accessors -------------------------------------------------------
-  enum : int {
+  enum : int32_t {
     kStatusFieldNumber = 1,
   };
   // string status = 1;
@@ -261,7 +261,7 @@ class MessageRequest final : public ::google::protobuf::Message
   static const ::google::protobuf::Reflection* GetReflection() { return default_instance().GetMetadata().reflection; }
   static const MessageRequest& default_instance() { return *internal_default_instance(); }
   static inline const MessageRequest* internal_default_instance() { return reinterpret_cast<const MessageRequest*>(&_MessageRequest_default_instance_); }
-  static constexpr int kIndexInFileMessages = 0;
+  static constexpr int32_t kIndexInFileMessages = 0;
   friend void swap(MessageRequest& a, MessageRequest& b) { a.Swap(&b); }
   inline void Swap(MessageRequest* other) {
     if (other == this) return;
@@ -303,7 +303,7 @@ class MessageRequest final : public ::google::protobuf::Message
   ::size_t ByteSizeLong() const final;
   ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
 #endif  // PROTOBUF_CUSTOM_VTABLE
-  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+  int32_t GetCachedSize() const { return _impl_._cached_size_.Get(); }
 
  private:
   void SharedCtor(::google::protobuf::Arena* arena);
@@ -329,7 +329,7 @@ class MessageRequest final : public ::google::protobuf::Message
   // nested types ----------------------------------------------------
 
   // accessors -------------------------------------------------------
-  enum : int {
+  enum : int32_t {
     kContentFieldNumber = 1,
   };
   // string content = 1;

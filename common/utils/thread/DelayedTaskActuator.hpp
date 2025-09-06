@@ -17,24 +17,24 @@ class DelayedTaskActuator {
   /// @param delayMs The delay in milliseconds before the task is executed.
   /// @param task The task to be executed.
   /// @return The ID of the scheduled task.
-  auto scheduleTask(int delayMs, std::function<ResultType()> task) -> int;
+  auto scheduleTask(int32_t delayMs, std::function<ResultType()> task) -> int32_t;
 
   /// @brief Retrieves the result of a scheduled task.
   /// @param taskId The ID of the task whose result is to be retrieved.
   /// @return A future object that will hold the result of the task.
-  auto getTaskResult(int taskId) -> std::future<ResultType>;
+  auto getTaskResult(int32_t taskId) -> std::future<ResultType>;
 
  private:
   mutable std::mutex mutex_;
   std::condition_variable cv_;
-  std::unordered_map<int, std::future<ResultType>> results_;
-  int nextTaskId_{0};
+  std::unordered_map<int32_t, std::future<ResultType>> results_;
+  int32_t nextTaskId_{0};
 };
 
 template <typename ResultType>
-auto DelayedTaskActuator<ResultType>::scheduleTask(int delayMs, std::function<ResultType()> task) -> int {
+auto DelayedTaskActuator<ResultType>::scheduleTask(int32_t delayMs, std::function<ResultType()> task) -> int32_t {
   std::lock_guard lock(mutex_);
-  int taskId = nextTaskId_++;
+  int32_t taskId = nextTaskId_++;
   std::packaged_task<ResultType()> packagedTask(task);
   std::future<ResultType> result = packagedTask.get_future();
 
@@ -52,7 +52,7 @@ auto DelayedTaskActuator<ResultType>::scheduleTask(int delayMs, std::function<Re
 }
 
 template <typename ResultType>
-auto DelayedTaskActuator<ResultType>::getTaskResult(int taskId) -> std::future<ResultType> {
+auto DelayedTaskActuator<ResultType>::getTaskResult(int32_t taskId) -> std::future<ResultType> {
   std::unique_lock lock(mutex_);
 
   cv_.wait(lock, [this, taskId] { return results_.contains(taskId); });

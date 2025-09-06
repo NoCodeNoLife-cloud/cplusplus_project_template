@@ -29,7 +29,7 @@ auto GLogConfigurator::configLogToStdout(const GLogParameters& glog_options) -> 
 auto GLogConfigurator::clean() -> void { google::ShutdownGoogleLogging(); }
 }  // namespace service
 auto YAML::convert<service::GLogParameters>::decode(const Node& node, service::GLogParameters& rhs) -> bool {
-  rhs.minLogLevel(node["minLogLevel"].as<int>());
+  rhs.minLogLevel(node["minLogLevel"].as<int32_t>());
   rhs.logName(node["logName"].as<std::string>());
   rhs.logToStderr(node["logToStderr"].as<bool>());
   return true;

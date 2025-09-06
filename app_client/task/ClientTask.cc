@@ -9,12 +9,12 @@
 #include "utils/system/SystemInfo.hpp"
 
 namespace app_client {
-auto GrpcOptions::keepaliveTimeMs() const -> int { return keepalive_time_ms_; }
-auto GrpcOptions::keepaliveTimeoutMs() const -> int { return keepalive_timeout_ms_; }
-auto GrpcOptions::keepalivePermitWithoutCalls() const -> int { return keepalive_permit_without_calls_; }
-auto GrpcOptions::keepaliveTimeMs(const int value) -> void { keepalive_time_ms_ = value; }
-auto GrpcOptions::keepaliveTimeoutMs(const int value) -> void { keepalive_timeout_ms_ = value; }
-auto GrpcOptions::keepalivePermitWithoutCalls(const int value) -> void { keepalive_permit_without_calls_ = value; }
+auto GrpcOptions::keepaliveTimeMs() const -> int32_t { return keepalive_time_ms_; }
+auto GrpcOptions::keepaliveTimeoutMs() const -> int32_t { return keepalive_timeout_ms_; }
+auto GrpcOptions::keepalivePermitWithoutCalls() const -> int32_t { return keepalive_permit_without_calls_; }
+auto GrpcOptions::keepaliveTimeMs(const int32_t value) -> void { keepalive_time_ms_ = value; }
+auto GrpcOptions::keepaliveTimeoutMs(const int32_t value) -> void { keepalive_timeout_ms_ = value; }
+auto GrpcOptions::keepalivePermitWithoutCalls(const int32_t value) -> void { keepalive_permit_without_calls_ = value; }
 auto ClientTask::init() -> void {
   LOG(INFO) << "Initializing GLog configuration from: " << config_path_;
   service::GLogConfigurator log_configurator{config_path_};
@@ -85,9 +85,9 @@ auto ClientTask::logClientInfo() -> void {
 }
 }  // namespace app_client
 auto YAML::convert<app_client::GrpcOptions>::decode(const Node& node, app_client::GrpcOptions& rhs) -> bool {
-  rhs.keepalivePermitWithoutCalls(node["keepalivePermitWithoutCalls"].as<int>());
-  rhs.keepaliveTimeMs(node["keepaliveTimeMs"].as<int>());
-  rhs.keepaliveTimeoutMs(node["keepaliveTimeoutMs"].as<int>());
+  rhs.keepalivePermitWithoutCalls(node["keepalivePermitWithoutCalls"].as<int32_t>());
+  rhs.keepaliveTimeMs(node["keepaliveTimeMs"].as<int32_t>());
+  rhs.keepaliveTimeoutMs(node["keepaliveTimeoutMs"].as<int32_t>());
   return true;
 }
 auto YAML::convert<app_client::GrpcOptions>::encode(const app_client::GrpcOptions& rhs) -> Node {

@@ -4,20 +4,20 @@
 
 namespace gtest_case {
 TEST(AVLTreeTest, InsertSingleNodeCheckExistence) {
-  fox::AVLTree<int> tree;
+  fox::AVLTree<int32_t> tree;
   tree.insert(10);
   EXPECT_TRUE(tree.find(10));
 }
 
 TEST(AVLTreeTest, InsertDuplicateValueCheckNoGrowth) {
-  fox::AVLTree<int> tree;
+  fox::AVLTree<int32_t> tree;
   tree.insert(10);
   tree.insert(10);
   EXPECT_TRUE(tree.find(10));
 }
 
 TEST(AVLTreeTest, InsertLeftLeftCaseCheckRotation) {
-  fox::AVLTree<int> tree;
+  fox::AVLTree<int32_t> tree;
   tree.insert(30);
   tree.insert(20);
   tree.insert(10);
@@ -27,7 +27,7 @@ TEST(AVLTreeTest, InsertLeftLeftCaseCheckRotation) {
 }
 
 TEST(AVLTreeTest, InsertRightRightCaseCheckRotation) {
-  fox::AVLTree<int> tree;
+  fox::AVLTree<int32_t> tree;
   tree.insert(10);
   tree.insert(20);
   tree.insert(30);
@@ -37,7 +37,7 @@ TEST(AVLTreeTest, InsertRightRightCaseCheckRotation) {
 }
 
 TEST(AVLTreeTest, InsertLeftRightCaseCheckRotation) {
-  fox::AVLTree<int> tree;
+  fox::AVLTree<int32_t> tree;
   tree.insert(30);
   tree.insert(10);
   tree.insert(20);
@@ -47,7 +47,7 @@ TEST(AVLTreeTest, InsertLeftRightCaseCheckRotation) {
 }
 
 TEST(AVLTreeTest, InsertRightLeftCaseCheckRotation) {
-  fox::AVLTree<int> tree;
+  fox::AVLTree<int32_t> tree;
   tree.insert(10);
   tree.insert(30);
   tree.insert(20);
@@ -57,7 +57,7 @@ TEST(AVLTreeTest, InsertRightLeftCaseCheckRotation) {
 }
 
 TEST(AVLTreeTest, RemoveLeafNodeCheckExistence) {
-  fox::AVLTree<int> tree;
+  fox::AVLTree<int32_t> tree;
   tree.insert(20);
   tree.insert(10);
   tree.insert(30);
@@ -68,7 +68,7 @@ TEST(AVLTreeTest, RemoveLeafNodeCheckExistence) {
 }
 
 TEST(AVLTreeTest, RemoveNodeWithOneChildCheckStructure) {
-  fox::AVLTree<int> tree;
+  fox::AVLTree<int32_t> tree;
   tree.insert(20);
   tree.insert(10);
   tree.insert(30);
@@ -81,7 +81,7 @@ TEST(AVLTreeTest, RemoveNodeWithOneChildCheckStructure) {
 }
 
 TEST(AVLTreeTest, RemoveNodeWithTwoChildrenCheckSuccessor) {
-  fox::AVLTree<int> tree;
+  fox::AVLTree<int32_t> tree;
   tree.insert(20);
   tree.insert(10);
   tree.insert(30);
@@ -94,7 +94,7 @@ TEST(AVLTreeTest, RemoveNodeWithTwoChildrenCheckSuccessor) {
 }
 
 TEST(AVLTreeTest, RemoveRootNodeCheckNewRoot) {
-  fox::AVLTree<int> tree;
+  fox::AVLTree<int32_t> tree;
   tree.insert(20);
   tree.insert(10);
   tree.insert(30);
@@ -105,13 +105,13 @@ TEST(AVLTreeTest, RemoveRootNodeCheckNewRoot) {
 }
 
 TEST(AVLTreeTest, FindNonExistentValueCheckFalse) {
-  fox::AVLTree<int> tree;
+  fox::AVLTree<int32_t> tree;
   tree.insert(20);
   EXPECT_FALSE(tree.find(99));
 }
 
 TEST(AVLTreeTest, InsertRemoveCheckEmptyState) {
-  fox::AVLTree<int> tree;
+  fox::AVLTree<int32_t> tree;
   tree.insert(10);
   tree.remove(10);
   EXPECT_FALSE(tree.find(10));

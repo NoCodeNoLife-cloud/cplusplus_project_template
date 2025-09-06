@@ -14,7 +14,7 @@ TEST(SystemPerformanceMonitorTest, GetMemoryUsage_ValuesAreValid) {
 }
 
 TEST(SystemPerformanceMonitorTest, GetCpuUsage_NormalInterval) {
-  constexpr int interval = 1;
+  constexpr int32_t interval = 1;
 
   const auto [cpu_usage_percent] = fox::SystemPerformanceMonitor::GetCpuUsage(interval);
 
@@ -23,7 +23,7 @@ TEST(SystemPerformanceMonitorTest, GetCpuUsage_NormalInterval) {
 }
 
 TEST(SystemPerformanceMonitorTest, GetCpuUsage_ZeroInterval) {
-  constexpr int interval = 0;
+  constexpr int32_t interval = 0;
 
   const auto [cpu_usage_percent] = fox::SystemPerformanceMonitor::GetCpuUsage(interval);
 
@@ -31,7 +31,7 @@ TEST(SystemPerformanceMonitorTest, GetCpuUsage_ZeroInterval) {
 }
 
 TEST(SystemPerformanceMonitorTest, GetCpuUsage_NegativeInterval) {
-  constexpr int interval = -1;
+  constexpr int32_t interval = -1;
 
   const auto [cpu_usage_percent] = fox::SystemPerformanceMonitor::GetCpuUsage(interval);
   EXPECT_DOUBLE_EQ(cpu_usage_percent, 0.0);

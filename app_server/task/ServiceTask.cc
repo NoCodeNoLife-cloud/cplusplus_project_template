@@ -9,18 +9,18 @@
 #include "rpc/RpcServiceImpl.hpp"
 
 namespace app_server {
-auto GrpcOptions::maxConnectionIdleMs() const -> int { return max_connection_idle_ms_; }
-auto GrpcOptions::maxConnectionAgeMs() const -> int { return max_connection_age_ms_; }
-auto GrpcOptions::maxConnectionAgeGraceMs() const -> int { return max_connection_age_grace_ms_; }
-auto GrpcOptions::keepaliveTimeMs() const -> int { return keepalive_time_ms_; }
-auto GrpcOptions::keepaliveTimeoutMs() const -> int { return keepalive_timeout_ms_; }
-auto GrpcOptions::keepalivePermitWithoutCalls() const -> int { return keepalive_permit_without_calls_; }
-auto GrpcOptions::maxConnectionIdleMs(const int value) -> void { max_connection_idle_ms_ = value; }
-auto GrpcOptions::maxConnectionAgeMs(const int value) -> void { max_connection_age_ms_ = value; }
-auto GrpcOptions::maxConnectionAgeGraceMs(const int value) -> void { max_connection_age_grace_ms_ = value; }
-auto GrpcOptions::keepaliveTimeMs(const int value) -> void { keepalive_time_ms_ = value; }
-auto GrpcOptions::keepaliveTimeoutMs(const int value) -> void { keepalive_timeout_ms_ = value; }
-auto GrpcOptions::keepalivePermitWithoutCalls(const int value) -> void { keepalive_permit_without_calls_ = value; }
+auto GrpcOptions::maxConnectionIdleMs() const -> int32_t { return max_connection_idle_ms_; }
+auto GrpcOptions::maxConnectionAgeMs() const -> int32_t { return max_connection_age_ms_; }
+auto GrpcOptions::maxConnectionAgeGraceMs() const -> int32_t { return max_connection_age_grace_ms_; }
+auto GrpcOptions::keepaliveTimeMs() const -> int32_t { return keepalive_time_ms_; }
+auto GrpcOptions::keepaliveTimeoutMs() const -> int32_t { return keepalive_timeout_ms_; }
+auto GrpcOptions::keepalivePermitWithoutCalls() const -> int32_t { return keepalive_permit_without_calls_; }
+auto GrpcOptions::maxConnectionIdleMs(const int32_t value) -> void { max_connection_idle_ms_ = value; }
+auto GrpcOptions::maxConnectionAgeMs(const int32_t value) -> void { max_connection_age_ms_ = value; }
+auto GrpcOptions::maxConnectionAgeGraceMs(const int32_t value) -> void { max_connection_age_grace_ms_ = value; }
+auto GrpcOptions::keepaliveTimeMs(const int32_t value) -> void { keepalive_time_ms_ = value; }
+auto GrpcOptions::keepaliveTimeoutMs(const int32_t value) -> void { keepalive_timeout_ms_ = value; }
+auto GrpcOptions::keepalivePermitWithoutCalls(const int32_t value) -> void { keepalive_permit_without_calls_ = value; }
 auto ServiceTask::init() -> void {
   LOG(INFO) << "Initializing ServiceTask with config path: " << config_path_;
   service::GLogConfigurator log_configurator{config_path_};
@@ -75,12 +75,12 @@ auto ServiceTask::exit() -> void {
 }
 }  // namespace app_server
 auto YAML::convert<app_server::GrpcOptions>::decode(const Node& node, app_server::GrpcOptions& rhs) -> bool {
-  rhs.maxConnectionIdleMs(node["maxConnectionIdleMs"].as<int>());
-  rhs.maxConnectionAgeMs(node["maxConnectionAgeMs"].as<int>());
-  rhs.maxConnectionAgeGraceMs(node["maxConnectionAgeGraceMs"].as<int>());
-  rhs.keepaliveTimeMs(node["keepaliveTimeMs"].as<int>());
-  rhs.keepaliveTimeoutMs(node["keepaliveTimeoutMs"].as<int>());
-  rhs.keepalivePermitWithoutCalls(node["keepalivePermitWithoutCalls"].as<int>());
+  rhs.maxConnectionIdleMs(node["maxConnectionIdleMs"].as<int32_t>());
+  rhs.maxConnectionAgeMs(node["maxConnectionAgeMs"].as<int32_t>());
+  rhs.maxConnectionAgeGraceMs(node["maxConnectionAgeGraceMs"].as<int32_t>());
+  rhs.keepaliveTimeMs(node["keepaliveTimeMs"].as<int32_t>());
+  rhs.keepaliveTimeoutMs(node["keepaliveTimeoutMs"].as<int32_t>());
+  rhs.keepalivePermitWithoutCalls(node["keepalivePermitWithoutCalls"].as<int32_t>());
   return true;
 }
 auto YAML::convert<app_server::GrpcOptions>::encode(const app_server::GrpcOptions& rhs) -> Node {
