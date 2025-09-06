@@ -1,10 +1,9 @@
 #pragma once
 #include <string>
 
-#include "config/ConfigPath.hpp"
 #include "filesystem/serialize/YamlObjectSerializer.hpp"
-#include "interface/IConfigurable.hpp"
-#include "interface/IStartupTask.hpp"
+#include "service/interface/IConfigurable.hpp"
+#include "service/interface/IStartupTask.hpp"
 
 namespace service {
 /// @brief Configurator class for Google Logging (glog) library.
@@ -50,7 +49,7 @@ class GLogConfigurator final : public IConfigurable, public IStartupTask {
   bool execute() override;
 
  private:
-  const std::string GLogYAMLPath = ConfigPath::getConfigPath("glog_config.yaml");
+  const std::string GLogYAMLPath = "../../log/glog_config.yaml";
   const GLogParameters config_ = common::YamlObjectSerializer<GLogParameters>::deserialize(GLogYAMLPath);
 
   /// @brief Perform the configuration.
