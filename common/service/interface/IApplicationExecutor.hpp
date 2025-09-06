@@ -16,4 +16,4 @@ class IApplicationExecutor {
   /// @return true if the execution was successful, false otherwise.
   [[nodiscard]] virtual auto execute(int32_t argc, char* argv[]) -> bool = 0;
 };
-}  // namespace app
+}  // namespace service
