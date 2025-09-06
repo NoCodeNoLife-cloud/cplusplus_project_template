@@ -27,7 +27,7 @@ project(${MAIN_PROJECT})
 # Include directories
 include_directories(common)
 include_directories(proto)
-include_directories(log)
+include_directories(glog)
 include_directories(app_client)
 include_directories(app_server)
 
@@ -47,7 +47,7 @@ find_package(magic_enum CONFIG REQUIRED)
 # Subdirectories
 add_subdirectory(common)
 add_subdirectory(proto)
-add_subdirectory(log)
+add_subdirectory(glog)
 add_subdirectory(app_client)
 add_subdirectory(app_server)
 add_subdirectory(ut)

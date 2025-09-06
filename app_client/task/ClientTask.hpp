@@ -1,39 +1,40 @@
 #pragma once
 // ReSharper disable once CppUnusedIncludeDirective
 #include <grpcpp/grpcpp.h>
+#include <yaml-cpp/node/node.h>
 
 #include "utils/time/FunctionProfiler.hpp"
 
 namespace app_client {
+class GrpcOptions {
+  /// @brief Time interval between keepalive pings (in milliseconds)
+  int keepalive_time_ms_{30 * 1000};
+  /// @brief Timeout for keepalive ping acknowledgment (in milliseconds)
+  int keepalive_timeout_ms_{5 * 1000};
+  /// @brief Whether to permit keepalive pings when there are no active calls (1 = true, 0 = false)
+  int keepalive_permit_without_calls_{1};
+
+ public:
+  // Getters
+  [[nodiscard]] auto keepaliveTimeMs() const -> int;
+  [[nodiscard]] auto keepaliveTimeoutMs() const -> int;
+  [[nodiscard]] auto keepalivePermitWithoutCalls() const -> int;
+
+  // Setters
+  auto keepaliveTimeMs(int value) -> void;
+  auto keepaliveTimeoutMs(int value) -> void;
+  auto keepalivePermitWithoutCalls(int value) -> void;
+};
+
 /// @brief A class that represents a client task
 /// @details This class is responsible for running the main task and logging client info
 class ClientTask {
-  class RpcOptions {
-    /// @brief Time interval between keepalive pings (in milliseconds)
-    int keepalive_time_ms_ = 30 * 1000;
-    /// @brief Timeout for keepalive ping acknowledgment (in milliseconds)
-    int keepalive_timeout_ms_ = 5 * 1000;
-    /// @brief Whether to permit keepalive pings when there are no active calls (1 = true, 0 = false)
-    int keepalive_permit_without_calls_ = 1;
-
-   public:
-    // Getters
-    [[nodiscard]] auto getKeepaliveTimeMs() const -> int;
-    [[nodiscard]] auto getKeepaliveTimeoutMs() const -> int;
-    [[nodiscard]] auto getKeepalivePermitWithoutCalls() const -> int;
-
-    // Setters
-    auto setKeepaliveTimeMs(int value) -> void;
-    auto setKeepaliveTimeoutMs(int value) -> void;
-    auto setKeepalivePermitWithoutCalls(int value) -> void;
-  };
-
  public:
-  explicit ClientTask(const std::string &project_name_) : timer_(project_name_) {}
+  explicit ClientTask(const std::string& project_name_) : timer_(project_name_) {}
 
   /// @brief Initialize the client task
   /// @return true if initialization was successful
-  auto init() const -> void;
+  auto init() -> void;
 
   /// @brief Run the main task
   /// @return true if the task was successful
@@ -53,8 +54,14 @@ class ClientTask {
 
  private:
   const std::string config_path_ = "../../app_client/config/glog_config.yaml";
+  const std::string rpc_config_path_ = "../../app_client/config/grpc_config.yaml";
+  GrpcOptions rpc_options_;
   fox::FunctionProfiler timer_;
-  RpcOptions rpc_options_;
 };
-
 }  // namespace app_client
+
+template <>
+struct YAML::convert<app_client::GrpcOptions> {
+  static auto decode(const Node& node, app_client::GrpcOptions& rhs) -> bool;
+  static auto encode(const app_client::GrpcOptions& rhs) -> Node;
+};

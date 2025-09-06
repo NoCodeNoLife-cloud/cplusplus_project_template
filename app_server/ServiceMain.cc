@@ -3,6 +3,6 @@
 #include "task/ServiceTask.hpp"
 
 auto main(const int32_t, char*[]) -> int32_t {
-  const app_server::ServiceTask service_task;
+  app_server::ServiceTask service_task;
   service_task.run();
 }
