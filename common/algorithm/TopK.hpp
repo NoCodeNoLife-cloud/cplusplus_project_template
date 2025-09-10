@@ -10,15 +10,32 @@ namespace fox {
 /// This ensures that the heap always contains the top K the largest numbers seen so far.
 class TopK final {
  public:
-  explicit TopK(int32_t k);
+  explicit TopK(const int32_t k) : k(k) {}
 
   /// @brief Add a number to the TopK.
   /// @param num The number to add.
-  auto add(int32_t num) -> void;
+  auto add(const int32_t num) -> void {
+    if (minHeap.size() < k) {
+      minHeap.push(num);
+    } else if (num > minHeap.top()) {
+      minHeap.pop();
+      minHeap.push(num);
+    }
+  }
 
   /// @brief Get the top k numbers.
   /// @return The top k numbers.
-  auto getTopK() -> std::vector<int32_t>;
+  auto getTopK() -> std::vector<int32_t> {
+    std::vector<int32_t> result;
+    while (!minHeap.empty()) {
+      result.push_back(minHeap.top());
+      minHeap.pop();
+    }
+    for (int32_t num : result) {
+      minHeap.push(num);
+    }
+    return result;
+  }
 
  private:
   int32_t k;

@@ -1,4 +1,6 @@
 #pragma once
+#include <stdexcept>
+
 #include "FilterReader.hpp"
 
 namespace fox {
@@ -9,33 +11,46 @@ namespace fox {
 /// When reading, it first checks this buffer before reading from the underlying reader.
 class PushbackReader final : public FilterReader {
  public:
-  explicit PushbackReader(std::shared_ptr<AbstractReader> reader);
-  PushbackReader(std::shared_ptr<AbstractReader> reader, size_t size);
+  explicit PushbackReader(std::shared_ptr<AbstractReader> reader) : PushbackReader(std::move(reader), DEFAULT_BUFFER_SIZE) {}
+
+  PushbackReader(std::shared_ptr<AbstractReader> reader, const size_t size) : FilterReader(std::move(reader)), buffer_(size) {
+    if (size == 0) {
+      throw std::invalid_argument("Buffer size must be greater than zero.");
+    }
+  }
 
   /// @brief Closes this pushback reader and releases any system resources associated with it.
   /// @details Once the stream has been closed, further read(), unread(), ready(), mark(),
   /// reset(), or skip() invocations will throw an IOException.
   /// Closing a previously closed stream has no effect.
-  auto close() -> void override;
+  auto close() -> void override {
+    FilterReader::close();
+    buffer_.clear();
+  }
 
   /// @brief Marks the current position in this stream.
   /// @details A subsequent call to the reset() method repositions this stream at the last marked position so that subsequent reads re-read the same bytes.
   /// The readAheadLimit argument tells this stream to allow that many bytes to be read before the mark position gets invalidated.
   /// @param readAheadLimit the maximum limit of bytes that can be read before the mark position becomes invalid
-  auto mark(size_t readAheadLimit) -> void override;
+  auto mark(size_t readAheadLimit) -> void override { throw std::runtime_error("mark() not supported."); }
 
   /// @brief Tests if this stream supports the mark() and reset() methods.
   /// @details Whether mark() and reset() are supported is an invariant property of a particular stream instance.
   /// The markSupported() method of FilterReader returns true.
   /// @return true if this stream supports the mark() and reset() methods; false otherwise
-  [[nodiscard]] auto markSupported() const -> bool override;
+  [[nodiscard]] auto markSupported() const -> bool override { return false; }
 
   /// @brief Reads a single character.
   /// @details This method will block until a character is available, an I/O error occurs, or the end of the stream is reached.
   /// If the pushback buffer is not empty, a character from the pushback buffer is returned.
   /// Otherwise, a character from the underlying input stream is returned.
   /// @return The character read, or -1 if the end of the stream has been reached
-  auto read() -> int32_t override;
+  auto read() -> int32_t override {
+    if (buffer_pos_ < buffer_.size()) {
+      return buffer_[buffer_pos_++];
+    }
+    return FilterReader::read();
+  }
 
   /// @brief Reads up to len characters of data from this stream into an array of characters.
   /// @details This method will block until some input is available, an I/O error occurs, or the end of the stream is reached.
@@ -45,34 +60,59 @@ class PushbackReader final : public FilterReader {
   /// @param off the start offset in the destination array cBuf
   /// @param len the maximum number of characters read
   /// @return the total number of characters read into the buffer, or -1 if there is no more data because the end of the stream has been reached
-  auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
+  auto read(std::vector<char>& cBuf, size_t off, const size_t len) -> size_t override {
+    if (off + len > cBuf.size()) {
+      throw std::out_of_range("Buffer overflow.");
+    }
+    size_t bytesRead = 0;
+    while (buffer_pos_ < buffer_.size() && bytesRead < len) {
+      cBuf[off++] = buffer_[buffer_pos_++];
+      bytesRead++;
+    }
+    if (bytesRead < len) {
+      bytesRead += FilterReader::read(cBuf, off, len - bytesRead);
+    }
+    return bytesRead;
+  }
 
   /// @brief Tells whether this stream is ready to be read.
   /// @details A stream is ready to be read if there are characters available in the pushback buffer,
   /// or if the underlying input stream is ready to be read.
   /// @return true if the next read() is guaranteed not to block for input, false otherwise.
   /// Note that returning false does not guarantee that the next read() will block.
-  [[nodiscard]] auto ready() const -> bool override;
+  [[nodiscard]] auto ready() const -> bool override { return buffer_pos_ < buffer_.size() || FilterReader::ready(); }
 
   /// @brief Repositions this stream to the position at the time the mark() method was last called on this stream.
   /// @details This method will block until a character is available, an I/O error occurs, or the end of the stream is reached.
   /// If the pushback buffer is not empty, a character from the pushback buffer is returned.
   /// Otherwise, a character from the underlying input stream is returned.
-  auto reset() -> void override;
+  auto reset() -> void override { throw std::runtime_error("reset() not supported."); }
 
   /// @brief Skips n characters from the input stream.
   /// @details This method will block until n characters are available, an I/O error occurs, or the end of the stream is reached.
   /// Characters in the pushback buffer are skipped first, then characters from the underlying input stream are skipped.
   /// @param n the number of characters to skip
   /// @return the actual number of characters skipped
-  auto skip(size_t n) -> size_t override;
+  auto skip(size_t n) -> size_t override {
+    size_t skipped = 0;
+    if (buffer_pos_ < buffer_.size()) {
+      const size_t bufferRemaining = buffer_.size() - buffer_pos_;
+      skipped = std::min(n, bufferRemaining);
+      buffer_pos_ += skipped;
+      n -= skipped;
+    }
+    if (n > 0) {
+      skipped += FilterReader::skip(n);
+    }
+    return skipped;
+  }
 
   /// @brief Pushes back all characters of the given array into the pushback buffer.
   /// @details This method pushes back all characters of the given array into the pushback buffer.
   /// The characters are pushed back in reverse order, so that the next read operation will read
   /// the characters in the same order as they appear in the array.
   /// @param cbuf the array of characters to push back
-  auto unread(const std::vector<char>& cbuf) -> void;
+  auto unread(const std::vector<char>& cbuf) -> void { unread(cbuf, 0, cbuf.size()); }
 
   /// @brief Pushes back a portion of the given character array into the pushback buffer.
   /// @details This method pushes back len characters from the given array starting at offset off
@@ -81,13 +121,25 @@ class PushbackReader final : public FilterReader {
   /// @param cBuf the array of characters to push back
   /// @param off the start offset in the array
   /// @param len the number of characters to push back
-  auto unread(const std::vector<char>& cBuf, size_t off, size_t len) -> void;
+  auto unread(const std::vector<char>& cBuf, const size_t off, const size_t len) -> void {
+    if (len > buffer_pos_) {
+      throw std::overflow_error("Pushback buffer overflow.");
+    }
+    for (size_t i = 0; i < len; ++i) {
+      buffer_[--buffer_pos_] = cBuf[off + len - 1 - i];
+    }
+  }
 
   /// @brief Pushes back a single character into the pushback buffer.
   /// @details This method pushes back a single character into the pushback buffer.
   /// The character is pushed back so that the next read operation will read this character.
   /// @param c the character to push back
-  auto unread(int32_t c) -> void;
+  auto unread(const int32_t c) -> void {
+    if (buffer_pos_ == 0) {
+      throw std::overflow_error("Pushback buffer overflow.");
+    }
+    buffer_[--buffer_pos_] = static_cast<char>(c);
+  }
 
  private:
   static constexpr size_t DEFAULT_BUFFER_SIZE = 1024;

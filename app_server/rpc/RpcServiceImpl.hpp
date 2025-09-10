@@ -1,4 +1,6 @@
 #pragma once
+#include <glog/logging.h>
+
 #include "generated/RpcService.grpc.pb.h"
 
 namespace server_app {
@@ -12,6 +14,15 @@ class RpcServiceImpl final : public rpc::RpcService::Service {
   /// @param[in] request Message request
   /// @param[out] response Message response
   /// @return Status of the operation
-  auto Send(grpc::ServerContext* context, const rpc::MessageRequest* request, rpc::MessageResponse* response) -> grpc::Status override;
+  auto Send(grpc::ServerContext* context, const rpc::MessageRequest* request, rpc::MessageResponse* response) -> grpc::Status override{
+    if (!context || !request || !response) {
+      LOG(ERROR) << "Invalid input parameters: context=" << context << ", request=" << request << ", response=" << response;
+      return {grpc::StatusCode::INVALID_ARGUMENT, "Invalid input parameters"};
+    }
+
+    LOG(INFO) << "Received message from client: " << request->content() << " (peer=" << context->peer() << ")";
+    response->set_status("Message received successfully");
+    return grpc::Status::OK;
+  }
 };
 }  // namespace server_app
