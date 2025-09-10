@@ -14,7 +14,7 @@ class RpcServiceImpl final : public rpc::RpcService::Service {
   /// @param[in] request Message request
   /// @param[out] response Message response
   /// @return Status of the operation
-  auto Send(grpc::ServerContext* context, const rpc::MessageRequest* request, rpc::MessageResponse* response) -> grpc::Status override{
+  auto Send(grpc::ServerContext* context, const rpc::MessageRequest* request, rpc::MessageResponse* response) -> grpc::Status override {
     if (!context || !request || !response) {
       LOG(ERROR) << "Invalid input parameters: context=" << context << ", request=" << request << ", response=" << response;
       return {grpc::StatusCode::INVALID_ARGUMENT, "Invalid input parameters"};

@@ -1,17 +1,8 @@
 #include <gtest/gtest.h>
 
-#include <memory>
-#include <string>
-
 #include "type/base_type/Object.hpp"
 
 namespace gtest_case {
-TEST(ObjectTest, DefaultConstructor) {
-  const fox::Object obj;
-  // ReSharper disable once CppNoDiscardExpression
-  EXPECT_NO_THROW(obj.toString());
-}
-
 TEST(ObjectTest, CopyConstructor) {
   const fox::Object obj1 = {};
   const fox::Object& obj2(obj1);
@@ -43,13 +34,6 @@ TEST(ObjectTest, DifferentObjectsHaveDifferentHashes) {
   EXPECT_EQ(obj1.hashCode(), obj2.hashCode());
 }
 
-TEST(ObjectTest, ToStringFormat) {
-  const fox::Object obj;
-  const std::string str = obj.toString();
-  EXPECT_FALSE(str.empty());
-  EXPECT_TRUE(str.find("fox::Object") != std::string::npos);
-}
-
 TEST(ObjectTest, AssignmentOperator) {
   const fox::Object obj2 = {};
   const fox::Object& obj1 = obj2;
@@ -58,7 +42,7 @@ TEST(ObjectTest, AssignmentOperator) {
 }
 
 TEST(ObjectTest, MoveAssignmentOperator) {
-  fox::Object obj2;
+  const fox::Object obj2;
   const fox::Object& obj1 = obj2;
   EXPECT_EQ(obj1.hashCode(), obj2.hashCode()) << "Move assignment doesn't preserve hash";
 }

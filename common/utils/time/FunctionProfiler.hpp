@@ -1,6 +1,10 @@
 #pragma once
+#include <glog/logging.h>
+
 #include <chrono>
+#include <iomanip>
 #include <string>
+#include <utility>
 
 namespace fox {
 /// @brief A utility class for profiling function execution time.
@@ -9,17 +13,29 @@ namespace fox {
 /// duration between them.
 class FunctionProfiler {
  public:
-  explicit FunctionProfiler(std::string function_name, bool autoStart = false);
+  explicit FunctionProfiler(std::string function_name, bool autoStart = false) : function_name_(std::move(function_name)) {
+    if (autoStart) {
+      recordStart();
+    }
+  }
 
   /// @brief Records the start time of the function execution.
-  auto recordStart() -> void;
+  auto recordStart() -> void { start_ = std::chrono::high_resolution_clock::now(); }
 
   /// @brief Records the end time of the function execution.
   /// @param autoPrint If true, automatically prints the runtime.
-  auto recordEnd(bool autoPrint = false) -> void;
+  auto recordEnd(bool autoPrint = false) -> void {
+    end_ = std::chrono::high_resolution_clock::now();
+    if (autoPrint) {
+      getRunTime();
+    }
+  }
 
   /// @brief Gets the runtime of the function execution.
-  auto getRunTime() const -> void;
+  auto getRunTime() const -> void {
+    const std::chrono::duration<double, std::milli> duration_ms = end_ - start_;
+    LOG(INFO) << function_name_ << " finish in " << std::fixed << std::setprecision(3) << duration_ms.count() / 1000.0 << " s";
+  }
 
  private:
   std::chrono::time_point<std::chrono::steady_clock> start_;

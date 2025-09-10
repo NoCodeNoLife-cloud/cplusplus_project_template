@@ -12,33 +12,41 @@ class Point2D {
 
   /// @brief Get the X coordinate
   /// @return X coordinate value
-  [[nodiscard]] auto getX() const -> double;
+  [[nodiscard]] auto getX() const -> double { return x_; }
 
   /// @brief Get the Y coordinate
   /// @return Y coordinate value
-  [[nodiscard]] auto getY() const -> double;
+  [[nodiscard]] auto getY() const -> double { return y_; }
 
   /// @brief Set the X coordinate
   /// @param x X coordinate value
-  auto setX(double x) -> void;
+  auto setX(const double x) -> void { x_ = x; }
 
   /// @brief Set the Y coordinate
   /// @param y Y coordinate value
-  auto setY(double y) -> void;
+  auto setY(const double y) -> void { y_ = y; }
 
   /// @brief Add another Point2D to this point
   /// @param other Point2D to add
   /// @return Reference to this point
-  auto operator+=(const Point2D& other) -> Point2D&;
+  auto operator+=(const Point2D& other) -> Point2D& {
+    x_ += other.x_;
+    y_ += other.y_;
+    return *this;
+  }
 
   /// @brief Subtract another Point2D from this point
   /// @param other Point2D to subtract
   /// @return Reference to this point
-  auto operator-=(const Point2D& other) -> Point2D&;
+  auto operator-=(const Point2D& other) -> Point2D& {
+    x_ -= other.x_;
+    y_ -= other.y_;
+    return *this;
+  }
 
   /// @brief Negate this point
   /// @return Negated point
-  auto operator-() const -> Point2D;
+  auto operator-() const -> Point2D { return {-x_, -y_}; }
 
  private:
   double x_;

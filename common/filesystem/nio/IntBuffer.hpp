@@ -1,4 +1,5 @@
 #pragma once
+#include <stdexcept>
 #include <vector>
 
 #include "interface/IBuffer.hpp"
@@ -9,25 +10,50 @@ namespace fox {
 /// It implements the IBuffer interface and provides methods to get and put integers in the buffer.
 class IntBuffer final : public IBuffer {
  public:
-  explicit IntBuffer(size_t capacity);
+  explicit IntBuffer(size_t capacity) {
+    capacity_ = capacity;
+    limit_ = capacity;
+    position_ = 0;
+    buffer_.resize(capacity);
+  }
 
   /// @brief Get the current element and advance the position.
   /// @return The current element.
-  auto get() -> int32_t;
+  auto get() -> int32_t {
+    if (position_ >= limit_) {
+      throw std::out_of_range("Buffer underflow.");
+    }
+    return buffer_[position_++];
+  }
 
   /// @brief Get the element at the specified index.
   /// @param index The index of the element to get.
   /// @return The element at the specified index.
-  [[nodiscard]] auto get(size_t index) const -> int32_t;
+  [[nodiscard]] auto get(size_t index) const -> int32_t {
+    if (index >= limit_) {
+      throw std::out_of_range("Index out of bounds.");
+    }
+    return buffer_[index];
+  }
 
   /// @brief Put the specified value at the current position and advance the position.
   /// @param value The value to put.
-  auto put(int32_t value) -> void;
+  auto put(int32_t value) -> void {
+    if (position_ >= limit_) {
+      throw std::out_of_range("Buffer overflow.");
+    }
+    buffer_[position_++] = value;
+  }
 
   /// @brief Put the specified value at the specified index.
   /// @param index The index at which to put the value.
   /// @param value The value to put.
-  auto put(size_t index, int32_t value) -> void;
+  auto put(size_t index, int32_t value) -> void {
+    if (index >= limit_) {
+      throw std::out_of_range("Index out of bounds.");
+    }
+    buffer_[index] = value;
+  }
 
  private:
   std::vector<int32_t> buffer_{};

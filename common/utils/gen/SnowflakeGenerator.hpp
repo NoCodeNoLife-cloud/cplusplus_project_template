@@ -1,4 +1,5 @@
 #pragma once
+#include <chrono>
 #include <mutex>
 
 namespace fox {
@@ -29,11 +30,41 @@ enum class SnowflakeOption {
 /// @endcode
 class SnowflakeGenerator {
  public:
-  SnowflakeGenerator(int16_t machine_id, int16_t datacenter_id);
+  SnowflakeGenerator(int16_t machine_id, int16_t datacenter_id) {
+    if (machine_id < 0 || machine_id > static_cast<int64_t>(SnowflakeOption::max_machine_id_)) {
+      throw std::invalid_argument("Machine ID out of range (0-31)");
+    }
+    if (datacenter_id < 0 || datacenter_id > static_cast<int64_t>(SnowflakeOption::max_datacenter_id_)) {
+      throw std::invalid_argument("Datacenter ID out of range (0-31)");
+    }
+    machine_id_ = static_cast<int16_t>(datacenter_id << 5 | machine_id);
+  }
 
   /// @brief Generate the next unique ID.
   /// @return The next unique ID.
-  auto NextId() -> int64_t;
+  auto NextId() -> int64_t {
+    std::lock_guard lock(mutex_);
+    int64_t timestamp = GetCurrentTimestamp();
+
+    if (timestamp < last_timestamp_) {
+      do {
+        timestamp = GetCurrentTimestamp();
+      } while (timestamp < last_timestamp_);
+    }
+
+    if (timestamp == last_timestamp_) {
+      sequence_ = sequence_ + 1 & static_cast<int64_t>(SnowflakeOption::max_sequence_);
+      if (sequence_ == 0) {
+        timestamp = TilNextMillis(last_timestamp_);
+      }
+    } else {
+      sequence_ = 0;
+    }
+
+    last_timestamp_ = timestamp;
+
+    return timestamp << (static_cast<int64_t>(SnowflakeOption::machine_bits_) + static_cast<int64_t>(SnowflakeOption::sequence_bits_)) | static_cast<int64_t>(machine_id_) << static_cast<int64_t>(SnowflakeOption::sequence_bits_) | sequence_;
+  }
 
  private:
   int64_t last_timestamp_{-1};
@@ -43,11 +74,23 @@ class SnowflakeGenerator {
 
   /// @brief Get current timestamp in milliseconds.
   /// @return Current timestamp.
-  static auto GetCurrentTimestamp() -> int64_t;
+  static auto GetCurrentTimestamp() -> int64_t {
+    const auto now = std::chrono::system_clock::now();
+    const auto duration = now.time_since_epoch();
+    const int64_t timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+    constexpr int64_t start_time = 1288855200000LL;
+    return timestamp - start_time;
+  }
 
   /// @brief Wait until next millisecond when sequence number overflows.
   /// @param last_timestamp The last timestamp.
   /// @return The next valid timestamp.
-  static auto TilNextMillis(int64_t last_timestamp) -> int64_t;
+  static auto TilNextMillis(int64_t last_timestamp) -> int64_t {
+    int64_t timestamp = GetCurrentTimestamp();
+    while (timestamp <= last_timestamp) {
+      timestamp = GetCurrentTimestamp();
+    }
+    return timestamp;
+  }
 };
 }  // namespace fox

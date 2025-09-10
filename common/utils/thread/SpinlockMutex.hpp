@@ -1,5 +1,6 @@
 #pragma once
 #include <atomic>
+#include <thread>
 
 namespace fox {
 /// @brief A spinlock mutex implementation using atomic_flag for synchronization.
@@ -8,13 +9,17 @@ namespace fox {
 /// for a short duration.
 class SpinlockMutex {
  public:
-  SpinlockMutex();
+  SpinlockMutex() = default;
 
   /// @brief Locks the spinlock, blocking until the lock is acquired.
-  auto lock() -> void;
+  auto lock() -> void {
+    while (flag_.test_and_set(std::memory_order_acquire)) {
+      std::this_thread::yield();
+    }
+  }
 
   /// @brief Unlocks the spinlock, allowing other threads to acquire it.
-  auto unlock() -> void;
+  auto unlock() -> void { flag_.clear(std::memory_order_release); }
 
  private:
   std::atomic_flag flag_;

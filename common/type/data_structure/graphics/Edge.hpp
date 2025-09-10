@@ -11,23 +11,23 @@ class Edge {
   /// @brief Construct an Edge with target vertex and weight
   /// @param to Target vertex
   /// @param weight Edge weight
-  Edge(int32_t to, int32_t weight);
+  Edge(const int32_t to, const int32_t weight) : to_(to), weight_(weight) {}
 
   /// @brief Get target vertex
   /// @return Target vertex
-  [[nodiscard]] auto to() const -> int32_t;
+  [[nodiscard]] auto to() const -> int32_t { return to_; }
 
   /// @brief Get edge weight
   /// @return Edge weight
-  [[nodiscard]] auto weight() const -> int32_t;
+  [[nodiscard]] auto weight() const -> int32_t { return weight_; }
 
   /// @brief Set target vertex
   /// @param to Target vertex
-  auto setTo(int32_t to) -> void;
+  auto setTo(const int32_t to) -> void { to_ = to; }
 
   /// @brief Set edge weight
   /// @param weight Edge weight
-  auto setWeight(int32_t weight) -> void;
+  auto setWeight(const int32_t weight) -> void { weight_ = weight; }
 
  private:
   int32_t to_{0};

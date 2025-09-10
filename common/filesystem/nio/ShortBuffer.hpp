@@ -1,4 +1,5 @@
 #pragma once
+#include <stdexcept>
 #include <vector>
 
 #include "interface/IBuffer.hpp"
@@ -10,42 +11,70 @@ namespace fox {
 /// like get, put, and rewind.
 class ShortBuffer final : public IBuffer {
  public:
-  explicit ShortBuffer(size_t capacity);
+  explicit ShortBuffer(const size_t capacity) : buffer_(capacity) {
+    capacity_ = capacity;
+    limit_ = capacity;
+    position_ = 0;
+  }
 
   /// @brief Wraps an existing array of int16_t data into a ShortBuffer.
   /// @param data Pointer to the data to wrap.
   /// @param size Size of the data array.
   /// @return A new ShortBuffer instance wrapping the provided data.
-  static auto wrap(const int16_t* data, size_t size) -> ShortBuffer;
+  static auto wrap(const int16_t* data, const size_t size) -> ShortBuffer {
+    ShortBuffer sb(size);
+    std::memcpy(sb.buffer_.data(), data, size * sizeof(int16_t));
+    return sb;
+  }
 
   /// @brief Reads the next int16_t value from the buffer.
   /// @return The next int16_t value.
-  auto get() -> int16_t;
+  auto get() -> int16_t {
+    if (position_ >= limit_) {
+      throw std::out_of_range("Position exceeds limit.");
+    }
+    return buffer_[position_++];
+  }
 
   /// @brief Reads an int16_t value at the specified index.
   /// @param index Index of the value to read.
   /// @return The int16_t value at the specified index.
-  [[nodiscard]] auto get(size_t index) const -> int16_t;
+  [[nodiscard]] auto get(const size_t index) const -> int16_t {
+    if (index >= limit_) {
+      throw std::out_of_range("Index exceeds limit.");
+    }
+    return buffer_[index];
+  }
 
   /// @brief Writes an int16_t value to the buffer at the current position.
   /// @param value The value to write.
-  auto put(int16_t value) -> void;
+  auto put(const int16_t value) -> void {
+    if (position_ >= limit_) {
+      throw std::out_of_range("Position exceeds limit.");
+    }
+    buffer_[position_++] = value;
+  }
 
   /// @brief Writes an int16_t value to the buffer at the specified index.
   /// @param index Index where the value should be written.
   /// @param value The value to write.
-  auto put(size_t index, int16_t value) -> void;
+  auto put(const size_t index, const int16_t value) -> void {
+    if (index >= limit_) {
+      throw std::out_of_range("Index exceeds limit.");
+    }
+    buffer_[index] = value;
+  }
 
   /// @brief Resets the position of the buffer to zero.
-  auto rewind() -> void override;
+  auto rewind() -> void override { position_ = 0; }
 
   /// @brief Returns a pointer to the underlying data array.
   /// @return Pointer to the data array.
-  auto data() -> int16_t*;
+  auto data() -> int16_t* { return buffer_.data(); }
 
   /// @brief Returns a const pointer to the underlying data array.
   /// @return Const pointer to the data array.
-  [[nodiscard]] auto data() const -> const int16_t*;
+  [[nodiscard]] auto data() const -> const int16_t* { return buffer_.data(); }
 
  private:
   std::vector<int16_t> buffer_{};
