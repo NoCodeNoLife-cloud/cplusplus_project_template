@@ -1,9 +1,6 @@
 # CMake version requirement and standard settings
 cmake_minimum_required(VERSION 3.30)
 set(CMAKE_CXX_STANDARD 26)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTOUIC ON)
 
 set(default_build_type "Debug")
 if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
@@ -38,7 +35,6 @@ find_package(gtest CONFIG REQUIRED)
 find_package(yaml-cpp CONFIG REQUIRED)
 find_package(RapidJSON CONFIG REQUIRED)
 find_package(OpenSSL REQUIRED)
-find_package(Qt5 REQUIRED COMPONENTS Widgets)
 find_package(directxmath CONFIG REQUIRED)
 find_package(Protobuf CONFIG REQUIRED)
 find_package(gRPC CONFIG REQUIRED)

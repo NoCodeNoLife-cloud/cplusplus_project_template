@@ -1,26 +1,19 @@
 # Project
 set(COMMON_PROJECT common_pkg)
 
-# Collecting public library source files
-file(GLOB_RECURSE COMMON_FILES
-        *.hpp
-        *.cc
-)
-
 # Creating a Common Library Target
-add_library(${COMMON_PROJECT} ${COMMON_FILES})
+add_library(${COMMON_PROJECT} INTERFACE)
 
 # Set the header file path
-target_include_directories(${COMMON_PROJECT} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${COMMON_PROJECT} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Link required libraries
-target_link_libraries(${COMMON_PROJECT} PRIVATE
+target_link_libraries(${COMMON_PROJECT} INTERFACE
         glog::glog
-        ${Boost_INCLUDE_DIRS}
+        Boost::headers
         yaml-cpp::yaml-cpp
         RapidJSON rapidjson
         OpenSSL::SSL OpenSSL::Crypto
-        Qt5::Widgets
         magic_enum::magic_enum
         Microsoft::DirectXMath
 )

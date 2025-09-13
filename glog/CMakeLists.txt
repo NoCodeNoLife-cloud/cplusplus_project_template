@@ -1,21 +1,15 @@
 # Project
-set(LOG_SERVICE common_service)
-
-# Collecting public library source files
-file(GLOB_RECURSE SERVICE_FILES
-        *.hpp
-        *.cc
-)
+set(LOG_SERVICE glog_service)
 
 # Creating a Common Library Target
-add_library(${LOG_SERVICE} ${SERVICE_FILES})
+add_library(${LOG_SERVICE} INTERFACE)
 
 # Set the header file path
-target_include_directories(${LOG_SERVICE} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${LOG_SERVICE} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Link required libraries
-target_link_libraries(${LOG_SERVICE} PRIVATE
+target_link_libraries(${LOG_SERVICE} INTERFACE
         glog::glog
-        ${Boost_INCLUDE_DIRS}
+        Boost::headers}
         yaml-cpp::yaml-cpp
 )
