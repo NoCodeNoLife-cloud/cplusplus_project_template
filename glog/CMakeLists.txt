@@ -10,6 +10,6 @@ target_include_directories(${LOG_SERVICE} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 # Link required libraries
 target_link_libraries(${LOG_SERVICE} INTERFACE
         glog::glog
-        Boost::headers}
+        Boost::headers
         yaml-cpp::yaml-cpp
 )

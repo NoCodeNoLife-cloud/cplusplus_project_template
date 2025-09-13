@@ -1,34 +1,14 @@
 #pragma once
 // ReSharper disable once CppUnusedIncludeDirective
 #include <grpcpp/grpcpp.h>
-#include <yaml-cpp/node/node.h>
 
 #include "GLogConfigurator.hpp"
+#include "GrpcOptions.hpp"
 #include "rpc/RpcClient.hpp"
 #include "utils/system/SystemInfo.hpp"
 #include "utils/time/FunctionProfiler.hpp"
 
 namespace app_client {
-class GrpcOptions {
-  /// @brief Time interval between keepalive pings (in milliseconds)
-  int32_t keepalive_time_ms_{30 * 1000};
-  /// @brief Timeout for keepalive ping acknowledgment (in milliseconds)
-  int32_t keepalive_timeout_ms_{5 * 1000};
-  /// @brief Whether to permit keepalive pings when there are no active calls (1 = true, 0 = false)
-  int32_t keepalive_permit_without_calls_{1};
-
- public:
-  // Getters
-  [[nodiscard]] auto keepaliveTimeMs() const -> int32_t { return keepalive_time_ms_; }
-  [[nodiscard]] auto keepaliveTimeoutMs() const -> int32_t { return keepalive_timeout_ms_; }
-  [[nodiscard]] auto keepalivePermitWithoutCalls() const -> int32_t { return keepalive_permit_without_calls_; }
-
-  // Setters
-  auto keepaliveTimeMs(const int32_t value) -> void { keepalive_time_ms_ = value; }
-  auto keepaliveTimeoutMs(const int32_t value) -> void { keepalive_timeout_ms_ = value; }
-  auto keepalivePermitWithoutCalls(const int32_t value) -> void { keepalive_permit_without_calls_ = value; }
-};
-
 /// @brief A class that represents a client task
 /// @details This class is responsible for running the main task and logging client info
 class ClientTask {
@@ -125,20 +105,3 @@ class ClientTask {
   fox::FunctionProfiler timer_;
 };
 }  // namespace app_client
-
-template <>
-struct YAML::convert<app_client::GrpcOptions> {
-  static auto decode(const Node& node, app_client::GrpcOptions& rhs) -> bool {
-    rhs.keepalivePermitWithoutCalls(node["keepalivePermitWithoutCalls"].as<int32_t>());
-    rhs.keepaliveTimeMs(node["keepaliveTimeMs"].as<int32_t>());
-    rhs.keepaliveTimeoutMs(node["keepaliveTimeoutMs"].as<int32_t>());
-    return true;
-  }
-  static auto encode(const app_client::GrpcOptions& rhs) -> Node {
-    Node node;
-    node["keepalivePermitWithoutCalls"] = rhs.keepalivePermitWithoutCalls();
-    node["keepaliveTimeMs"] = rhs.keepaliveTimeMs();
-    node["keepaliveTimeoutMs"] = rhs.keepaliveTimeoutMs();
-    return node;
-  }
-};
