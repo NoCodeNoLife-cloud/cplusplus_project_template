@@ -27,174 +27,329 @@
 
 #include "RpcService.pb.h"
 
-namespace rpc {
+namespace rpc
+{
 
-class RpcService final {
- public:
-  static constexpr char const* service_full_name() { return "rpc.RpcService"; }
-  class StubInterface {
-   public:
-    virtual ~StubInterface() {}
-    virtual ::grpc::Status Send(::grpc::ClientContext* context, const ::rpc::MessageRequest& request, ::rpc::MessageResponse* response) = 0;
-    std::unique_ptr<::grpc::ClientAsyncResponseReaderInterface<::rpc::MessageResponse>> AsyncSend(::grpc::ClientContext* context, const ::rpc::MessageRequest& request, ::grpc::CompletionQueue* cq) { return std::unique_ptr<::grpc::ClientAsyncResponseReaderInterface<::rpc::MessageResponse>>(AsyncSendRaw(context, request, cq)); }
-    std::unique_ptr<::grpc::ClientAsyncResponseReaderInterface<::rpc::MessageResponse>> PrepareAsyncSend(::grpc::ClientContext* context, const ::rpc::MessageRequest& request, ::grpc::CompletionQueue* cq) { return std::unique_ptr<::grpc::ClientAsyncResponseReaderInterface<::rpc::MessageResponse>>(PrepareAsyncSendRaw(context, request, cq)); }
-    class async_interface {
-     public:
-      virtual ~async_interface() {}
-      virtual void Send(::grpc::ClientContext* context, const ::rpc::MessageRequest* request, ::rpc::MessageResponse* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void Send(::grpc::ClientContext* context, const ::rpc::MessageRequest* request, ::rpc::MessageResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+class RpcService final
+{
+  public:
+    static constexpr char const *service_full_name()
+    {
+        return "rpc.RpcService";
+    }
+    class StubInterface
+    {
+      public:
+        virtual ~StubInterface()
+        {
+        }
+        virtual ::grpc::Status Send(::grpc::ClientContext *context, const ::rpc::MessageRequest &request,
+                                    ::rpc::MessageResponse *response) = 0;
+        std::unique_ptr<::grpc::ClientAsyncResponseReaderInterface<::rpc::MessageResponse>> AsyncSend(
+            ::grpc::ClientContext *context, const ::rpc::MessageRequest &request, ::grpc::CompletionQueue *cq)
+        {
+            return std::unique_ptr<::grpc::ClientAsyncResponseReaderInterface<::rpc::MessageResponse>>(
+                AsyncSendRaw(context, request, cq));
+        }
+        std::unique_ptr<::grpc::ClientAsyncResponseReaderInterface<::rpc::MessageResponse>> PrepareAsyncSend(
+            ::grpc::ClientContext *context, const ::rpc::MessageRequest &request, ::grpc::CompletionQueue *cq)
+        {
+            return std::unique_ptr<::grpc::ClientAsyncResponseReaderInterface<::rpc::MessageResponse>>(
+                PrepareAsyncSendRaw(context, request, cq));
+        }
+        class async_interface
+        {
+          public:
+            virtual ~async_interface()
+            {
+            }
+            virtual void Send(::grpc::ClientContext *context, const ::rpc::MessageRequest *request,
+                              ::rpc::MessageResponse *response, std::function<void(::grpc::Status)>) = 0;
+            virtual void Send(::grpc::ClientContext *context, const ::rpc::MessageRequest *request,
+                              ::rpc::MessageResponse *response, ::grpc::ClientUnaryReactor *reactor) = 0;
+        };
+        typedef class async_interface experimental_async_interface;
+        virtual class async_interface *async()
+        {
+            return nullptr;
+        }
+        class async_interface *experimental_async()
+        {
+            return async();
+        }
+
+      private:
+        virtual ::grpc::ClientAsyncResponseReaderInterface<::rpc::MessageResponse> *AsyncSendRaw(
+            ::grpc::ClientContext *context, const ::rpc::MessageRequest &request, ::grpc::CompletionQueue *cq) = 0;
+        virtual ::grpc::ClientAsyncResponseReaderInterface<::rpc::MessageResponse> *PrepareAsyncSendRaw(
+            ::grpc::ClientContext *context, const ::rpc::MessageRequest &request, ::grpc::CompletionQueue *cq) = 0;
     };
-    typedef class async_interface experimental_async_interface;
-    virtual class async_interface* async() { return nullptr; }
-    class async_interface* experimental_async() { return async(); }
+    class Stub final : public StubInterface
+    {
+      public:
+        Stub(const std::shared_ptr<::grpc::ChannelInterface> &channel,
+             const ::grpc::StubOptions &options = ::grpc::StubOptions());
+        ::grpc::Status Send(::grpc::ClientContext *context, const ::rpc::MessageRequest &request,
+                            ::rpc::MessageResponse *response) override;
+        std::unique_ptr<::grpc::ClientAsyncResponseReader<::rpc::MessageResponse>> AsyncSend(
+            ::grpc::ClientContext *context, const ::rpc::MessageRequest &request, ::grpc::CompletionQueue *cq)
+        {
+            return std::unique_ptr<::grpc::ClientAsyncResponseReader<::rpc::MessageResponse>>(
+                AsyncSendRaw(context, request, cq));
+        }
+        std::unique_ptr<::grpc::ClientAsyncResponseReader<::rpc::MessageResponse>> PrepareAsyncSend(
+            ::grpc::ClientContext *context, const ::rpc::MessageRequest &request, ::grpc::CompletionQueue *cq)
+        {
+            return std::unique_ptr<::grpc::ClientAsyncResponseReader<::rpc::MessageResponse>>(
+                PrepareAsyncSendRaw(context, request, cq));
+        }
+        class async final : public StubInterface::async_interface
+        {
+          public:
+            void Send(::grpc::ClientContext *context, const ::rpc::MessageRequest *request,
+                      ::rpc::MessageResponse *response, std::function<void(::grpc::Status)>) override;
+            void Send(::grpc::ClientContext *context, const ::rpc::MessageRequest *request,
+                      ::rpc::MessageResponse *response, ::grpc::ClientUnaryReactor *reactor) override;
 
-   private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface<::rpc::MessageResponse>* AsyncSendRaw(::grpc::ClientContext* context, const ::rpc::MessageRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface<::rpc::MessageResponse>* PrepareAsyncSendRaw(::grpc::ClientContext* context, const ::rpc::MessageRequest& request, ::grpc::CompletionQueue* cq) = 0;
-  };
-  class Stub final : public StubInterface {
-   public:
-    Stub(const std::shared_ptr<::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
-    ::grpc::Status Send(::grpc::ClientContext* context, const ::rpc::MessageRequest& request, ::rpc::MessageResponse* response) override;
-    std::unique_ptr<::grpc::ClientAsyncResponseReader<::rpc::MessageResponse>> AsyncSend(::grpc::ClientContext* context, const ::rpc::MessageRequest& request, ::grpc::CompletionQueue* cq) { return std::unique_ptr<::grpc::ClientAsyncResponseReader<::rpc::MessageResponse>>(AsyncSendRaw(context, request, cq)); }
-    std::unique_ptr<::grpc::ClientAsyncResponseReader<::rpc::MessageResponse>> PrepareAsyncSend(::grpc::ClientContext* context, const ::rpc::MessageRequest& request, ::grpc::CompletionQueue* cq) { return std::unique_ptr<::grpc::ClientAsyncResponseReader<::rpc::MessageResponse>>(PrepareAsyncSendRaw(context, request, cq)); }
-    class async final : public StubInterface::async_interface {
-     public:
-      void Send(::grpc::ClientContext* context, const ::rpc::MessageRequest* request, ::rpc::MessageResponse* response, std::function<void(::grpc::Status)>) override;
-      void Send(::grpc::ClientContext* context, const ::rpc::MessageRequest* request, ::rpc::MessageResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+          private:
+            friend class Stub;
+            explicit async(Stub *stub) : stub_(stub)
+            {
+            }
+            Stub *stub()
+            {
+                return stub_;
+            }
+            Stub *stub_;
+        };
+        class async *async() override
+        {
+            return &async_stub_;
+        }
 
-     private:
-      friend class Stub;
-      explicit async(Stub* stub) : stub_(stub) {}
-      Stub* stub() { return stub_; }
-      Stub* stub_;
+      private:
+        std::shared_ptr<::grpc::ChannelInterface> channel_;
+        class async async_stub_{this};
+        ::grpc::ClientAsyncResponseReader<::rpc::MessageResponse> *AsyncSendRaw(::grpc::ClientContext *context,
+                                                                                const ::rpc::MessageRequest &request,
+                                                                                ::grpc::CompletionQueue *cq) override;
+        ::grpc::ClientAsyncResponseReader<::rpc::MessageResponse> *PrepareAsyncSendRaw(
+            ::grpc::ClientContext *context, const ::rpc::MessageRequest &request, ::grpc::CompletionQueue *cq) override;
+        const ::grpc::internal::RpcMethod rpcmethod_Send_;
     };
-    class async* async() override { return &async_stub_; }
+    static std::unique_ptr<Stub> NewStub(const std::shared_ptr<::grpc::ChannelInterface> &channel,
+                                         const ::grpc::StubOptions &options = ::grpc::StubOptions());
 
-   private:
-    std::shared_ptr<::grpc::ChannelInterface> channel_;
-    class async async_stub_{this};
-    ::grpc::ClientAsyncResponseReader<::rpc::MessageResponse>* AsyncSendRaw(::grpc::ClientContext* context, const ::rpc::MessageRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader<::rpc::MessageResponse>* PrepareAsyncSendRaw(::grpc::ClientContext* context, const ::rpc::MessageRequest& request, ::grpc::CompletionQueue* cq) override;
-    const ::grpc::internal::RpcMethod rpcmethod_Send_;
-  };
-  static std::unique_ptr<Stub> NewStub(const std::shared_ptr<::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
+    class Service : public ::grpc::Service
+    {
+      public:
+        Service();
+        virtual ~Service();
+        virtual ::grpc::Status Send(::grpc::ServerContext *context, const ::rpc::MessageRequest *request,
+                                    ::rpc::MessageResponse *response);
+    };
+    template <class BaseClass> class WithAsyncMethod_Send : public BaseClass
+    {
+      private:
+        void BaseClassMustBeDerivedFromService(const Service * /*service*/)
+        {
+        }
 
-  class Service : public ::grpc::Service {
-   public:
-    Service();
-    virtual ~Service();
-    virtual ::grpc::Status Send(::grpc::ServerContext* context, const ::rpc::MessageRequest* request, ::rpc::MessageResponse* response);
-  };
-  template <class BaseClass>
-  class WithAsyncMethod_Send : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+      public:
+        WithAsyncMethod_Send()
+        {
+            ::grpc::Service::MarkMethodAsync(0);
+        }
+        ~WithAsyncMethod_Send() override
+        {
+            BaseClassMustBeDerivedFromService(this);
+        }
+        // disable synchronous version of this method
+        ::grpc::Status Send(::grpc::ServerContext * /*context*/, const ::rpc::MessageRequest * /*request*/,
+                            ::rpc::MessageResponse * /*response*/) override
+        {
+            abort();
+            return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+        }
+        void RequestSend(::grpc::ServerContext *context, ::rpc::MessageRequest *request,
+                         ::grpc::ServerAsyncResponseWriter<::rpc::MessageResponse> *response,
+                         ::grpc::CompletionQueue *new_call_cq, ::grpc::ServerCompletionQueue *notification_cq,
+                         void *tag)
+        {
+            ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
+        }
+    };
+    typedef WithAsyncMethod_Send<Service> AsyncService;
+    template <class BaseClass> class WithCallbackMethod_Send : public BaseClass
+    {
+      private:
+        void BaseClassMustBeDerivedFromService(const Service * /*service*/)
+        {
+        }
 
-   public:
-    WithAsyncMethod_Send() { ::grpc::Service::MarkMethodAsync(0); }
-    ~WithAsyncMethod_Send() override { BaseClassMustBeDerivedFromService(this); }
-    // disable synchronous version of this method
-    ::grpc::Status Send(::grpc::ServerContext* /*context*/, const ::rpc::MessageRequest* /*request*/, ::rpc::MessageResponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestSend(::grpc::ServerContext* context, ::rpc::MessageRequest* request, ::grpc::ServerAsyncResponseWriter<::rpc::MessageResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void* tag) { ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag); }
-  };
-  typedef WithAsyncMethod_Send<Service> AsyncService;
-  template <class BaseClass>
-  class WithCallbackMethod_Send : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+      public:
+        WithCallbackMethod_Send()
+        {
+            ::grpc::Service::MarkMethodCallback(
+                0, new ::grpc::internal::CallbackUnaryHandler<::rpc::MessageRequest, ::rpc::MessageResponse>(
+                       [this](::grpc::CallbackServerContext *context, const ::rpc::MessageRequest *request,
+                              ::rpc::MessageResponse *response) { return this->Send(context, request, response); }));
+        }
+        void SetMessageAllocatorFor_Send(
+            ::grpc::MessageAllocator<::rpc::MessageRequest, ::rpc::MessageResponse> *allocator)
+        {
+            ::grpc::internal::MethodHandler *const handler = ::grpc::Service::GetHandler(0);
+            static_cast<::grpc::internal::CallbackUnaryHandler<::rpc::MessageRequest, ::rpc::MessageResponse> *>(
+                handler)
+                ->SetMessageAllocator(allocator);
+        }
+        ~WithCallbackMethod_Send() override
+        {
+            BaseClassMustBeDerivedFromService(this);
+        }
+        // disable synchronous version of this method
+        ::grpc::Status Send(::grpc::ServerContext * /*context*/, const ::rpc::MessageRequest * /*request*/,
+                            ::rpc::MessageResponse * /*response*/) override
+        {
+            abort();
+            return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+        }
+        virtual ::grpc::ServerUnaryReactor *Send(::grpc::CallbackServerContext * /*context*/,
+                                                 const ::rpc::MessageRequest * /*request*/,
+                                                 ::rpc::MessageResponse * /*response*/)
+        {
+            return nullptr;
+        }
+    };
+    typedef WithCallbackMethod_Send<Service> CallbackService;
+    typedef CallbackService ExperimentalCallbackService;
+    template <class BaseClass> class WithGenericMethod_Send : public BaseClass
+    {
+      private:
+        void BaseClassMustBeDerivedFromService(const Service * /*service*/)
+        {
+        }
 
-   public:
-    WithCallbackMethod_Send() {
-      ::grpc::Service::MarkMethodCallback(0, new ::grpc::internal::CallbackUnaryHandler<::rpc::MessageRequest, ::rpc::MessageResponse>([this](::grpc::CallbackServerContext* context, const ::rpc::MessageRequest* request, ::rpc::MessageResponse* response) { return this->Send(context, request, response); }));
-    }
-    void SetMessageAllocatorFor_Send(::grpc::MessageAllocator<::rpc::MessageRequest, ::rpc::MessageResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-      static_cast<::grpc::internal::CallbackUnaryHandler<::rpc::MessageRequest, ::rpc::MessageResponse>*>(handler)->SetMessageAllocator(allocator);
-    }
-    ~WithCallbackMethod_Send() override { BaseClassMustBeDerivedFromService(this); }
-    // disable synchronous version of this method
-    ::grpc::Status Send(::grpc::ServerContext* /*context*/, const ::rpc::MessageRequest* /*request*/, ::rpc::MessageResponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    virtual ::grpc::ServerUnaryReactor* Send(::grpc::CallbackServerContext* /*context*/, const ::rpc::MessageRequest* /*request*/, ::rpc::MessageResponse* /*response*/) { return nullptr; }
-  };
-  typedef WithCallbackMethod_Send<Service> CallbackService;
-  typedef CallbackService ExperimentalCallbackService;
-  template <class BaseClass>
-  class WithGenericMethod_Send : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+      public:
+        WithGenericMethod_Send()
+        {
+            ::grpc::Service::MarkMethodGeneric(0);
+        }
+        ~WithGenericMethod_Send() override
+        {
+            BaseClassMustBeDerivedFromService(this);
+        }
+        // disable synchronous version of this method
+        ::grpc::Status Send(::grpc::ServerContext * /*context*/, const ::rpc::MessageRequest * /*request*/,
+                            ::rpc::MessageResponse * /*response*/) override
+        {
+            abort();
+            return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+        }
+    };
+    template <class BaseClass> class WithRawMethod_Send : public BaseClass
+    {
+      private:
+        void BaseClassMustBeDerivedFromService(const Service * /*service*/)
+        {
+        }
 
-   public:
-    WithGenericMethod_Send() { ::grpc::Service::MarkMethodGeneric(0); }
-    ~WithGenericMethod_Send() override { BaseClassMustBeDerivedFromService(this); }
-    // disable synchronous version of this method
-    ::grpc::Status Send(::grpc::ServerContext* /*context*/, const ::rpc::MessageRequest* /*request*/, ::rpc::MessageResponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-  };
-  template <class BaseClass>
-  class WithRawMethod_Send : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+      public:
+        WithRawMethod_Send()
+        {
+            ::grpc::Service::MarkMethodRaw(0);
+        }
+        ~WithRawMethod_Send() override
+        {
+            BaseClassMustBeDerivedFromService(this);
+        }
+        // disable synchronous version of this method
+        ::grpc::Status Send(::grpc::ServerContext * /*context*/, const ::rpc::MessageRequest * /*request*/,
+                            ::rpc::MessageResponse * /*response*/) override
+        {
+            abort();
+            return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+        }
+        void RequestSend(::grpc::ServerContext *context, ::grpc::ByteBuffer *request,
+                         ::grpc::ServerAsyncResponseWriter<::grpc::ByteBuffer> *response,
+                         ::grpc::CompletionQueue *new_call_cq, ::grpc::ServerCompletionQueue *notification_cq,
+                         void *tag)
+        {
+            ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
+        }
+    };
+    template <class BaseClass> class WithRawCallbackMethod_Send : public BaseClass
+    {
+      private:
+        void BaseClassMustBeDerivedFromService(const Service * /*service*/)
+        {
+        }
 
-   public:
-    WithRawMethod_Send() { ::grpc::Service::MarkMethodRaw(0); }
-    ~WithRawMethod_Send() override { BaseClassMustBeDerivedFromService(this); }
-    // disable synchronous version of this method
-    ::grpc::Status Send(::grpc::ServerContext* /*context*/, const ::rpc::MessageRequest* /*request*/, ::rpc::MessageResponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestSend(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter<::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void* tag) { ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag); }
-  };
-  template <class BaseClass>
-  class WithRawCallbackMethod_Send : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+      public:
+        WithRawCallbackMethod_Send()
+        {
+            ::grpc::Service::MarkMethodRawCallback(
+                0, new ::grpc::internal::CallbackUnaryHandler<::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+                       [this](::grpc::CallbackServerContext *context, const ::grpc::ByteBuffer *request,
+                              ::grpc::ByteBuffer *response) { return this->Send(context, request, response); }));
+        }
+        ~WithRawCallbackMethod_Send() override
+        {
+            BaseClassMustBeDerivedFromService(this);
+        }
+        // disable synchronous version of this method
+        ::grpc::Status Send(::grpc::ServerContext * /*context*/, const ::rpc::MessageRequest * /*request*/,
+                            ::rpc::MessageResponse * /*response*/) override
+        {
+            abort();
+            return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+        }
+        virtual ::grpc::ServerUnaryReactor *Send(::grpc::CallbackServerContext * /*context*/,
+                                                 const ::grpc::ByteBuffer * /*request*/,
+                                                 ::grpc::ByteBuffer * /*response*/)
+        {
+            return nullptr;
+        }
+    };
+    template <class BaseClass> class WithStreamedUnaryMethod_Send : public BaseClass
+    {
+      private:
+        void BaseClassMustBeDerivedFromService(const Service * /*service*/)
+        {
+        }
 
-   public:
-    WithRawCallbackMethod_Send() {
-      ::grpc::Service::MarkMethodRawCallback(0, new ::grpc::internal::CallbackUnaryHandler<::grpc::ByteBuffer, ::grpc::ByteBuffer>([this](::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Send(context, request, response); }));
-    }
-    ~WithRawCallbackMethod_Send() override { BaseClassMustBeDerivedFromService(this); }
-    // disable synchronous version of this method
-    ::grpc::Status Send(::grpc::ServerContext* /*context*/, const ::rpc::MessageRequest* /*request*/, ::rpc::MessageResponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    virtual ::grpc::ServerUnaryReactor* Send(::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/) { return nullptr; }
-  };
-  template <class BaseClass>
-  class WithStreamedUnaryMethod_Send : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-
-   public:
-    WithStreamedUnaryMethod_Send() {
-      ::grpc::Service::MarkMethodStreamed(0, new ::grpc::internal::StreamedUnaryHandler<::rpc::MessageRequest, ::rpc::MessageResponse>([this](::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer<::rpc::MessageRequest, ::rpc::MessageResponse>* streamer) { return this->StreamedSend(context, streamer); }));
-    }
-    ~WithStreamedUnaryMethod_Send() override { BaseClassMustBeDerivedFromService(this); }
-    // disable regular version of this method
-    ::grpc::Status Send(::grpc::ServerContext* /*context*/, const ::rpc::MessageRequest* /*request*/, ::rpc::MessageResponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedSend(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer<::rpc::MessageRequest, ::rpc::MessageResponse>* server_unary_streamer) = 0;
-  };
-  typedef WithStreamedUnaryMethod_Send<Service> StreamedUnaryService;
-  typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_Send<Service> StreamedService;
+      public:
+        WithStreamedUnaryMethod_Send()
+        {
+            ::grpc::Service::MarkMethodStreamed(
+                0, new ::grpc::internal::StreamedUnaryHandler<::rpc::MessageRequest, ::rpc::MessageResponse>(
+                       [this](::grpc::ServerContext *context,
+                              ::grpc::ServerUnaryStreamer<::rpc::MessageRequest, ::rpc::MessageResponse> *streamer) {
+                           return this->StreamedSend(context, streamer);
+                       }));
+        }
+        ~WithStreamedUnaryMethod_Send() override
+        {
+            BaseClassMustBeDerivedFromService(this);
+        }
+        // disable regular version of this method
+        ::grpc::Status Send(::grpc::ServerContext * /*context*/, const ::rpc::MessageRequest * /*request*/,
+                            ::rpc::MessageResponse * /*response*/) override
+        {
+            abort();
+            return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+        }
+        // replace default version of method with streamed unary
+        virtual ::grpc::Status StreamedSend(
+            ::grpc::ServerContext *context,
+            ::grpc::ServerUnaryStreamer<::rpc::MessageRequest, ::rpc::MessageResponse> *server_unary_streamer) = 0;
+    };
+    typedef WithStreamedUnaryMethod_Send<Service> StreamedUnaryService;
+    typedef Service SplitStreamedService;
+    typedef WithStreamedUnaryMethod_Send<Service> StreamedService;
 };
 
-}  // namespace rpc
+} // namespace rpc
 
 #include <grpcpp/ports_undef.inc>
-#endif  // GRPC_RpcService_2eproto__INCLUDED
+#endif // GRPC_RpcService_2eproto__INCLUDED
