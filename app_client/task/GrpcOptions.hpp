@@ -7,6 +7,7 @@ namespace app_client {
 /// that can be used to customize the behavior of gRPC channels and connections.
 /// The configuration parameters can be loaded from a YAML configuration file.
 class GrpcOptions {
+ private:
   /// @brief Time interval between keepalive pings (in milliseconds)
   /// @details This parameter controls how often the client sends keepalive pings
   /// to the server to ensure the connection is still alive.
@@ -50,7 +51,7 @@ class GrpcOptions {
   /// @param value 1 to permit, 0 to not permit
   auto keepalivePermitWithoutCalls(const int32_t value) -> void { keepalive_permit_without_calls_ = value; }
 };
-} // namespace app_client
+}  // namespace app_client
 /// @brief YAML serialization specialization for GrpcOptions.
 /// Provides methods to encode and decode GrpcOptions to/from YAML nodes.
 template <>

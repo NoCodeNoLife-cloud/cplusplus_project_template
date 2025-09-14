@@ -24,12 +24,12 @@ class ServiceTask {
 
     LOG(INFO) << "Loading gRPC configuration from: " << grpc_config_path_;
     grpc_options_ = fox::YamlObjectSerializer<GrpcOptions>::deserialize(grpc_config_path_);
+
+    // Validate gRPC parameters after loading them
+    validateGrpcParameters();
+
     LOG(INFO) << "gRPC configuration loaded successfully";
-    LOG(INFO) << "gRPC Options - Max Connection Idle: " << grpc_options_.maxConnectionIdleMs()
-              << "ms, Max Connection Age: " << grpc_options_.maxConnectionAgeMs()
-              << "ms, Keepalive Time: " << grpc_options_.keepaliveTimeMs()
-              << "ms, Keepalive Timeout: " << grpc_options_.keepaliveTimeoutMs()
-              << "ms, Permit Without Calls: " << grpc_options_.keepalivePermitWithoutCalls();
+    LOG(INFO) << "gRPC Options - Max Connection Idle: " << grpc_options_.maxConnectionIdleMs() << "ms, Max Connection Age: " << grpc_options_.maxConnectionAgeMs() << "ms, Keepalive Time: " << grpc_options_.keepaliveTimeMs() << "ms, Keepalive Timeout: " << grpc_options_.keepaliveTimeoutMs() << "ms, Permit Without Calls: " << grpc_options_.keepalivePermitWithoutCalls();
     LOG(INFO) << "ServiceTask starting...";
   }
 
@@ -108,5 +108,57 @@ class ServiceTask {
   const std::string config_path_ = "../../app_server/config/glog.yaml";
   const std::string grpc_config_path_ = "../../app_server/config/grpc.yaml";
   GrpcOptions grpc_options_;
+
+  /// @brief Validate gRPC parameters for correctness
+  /// @details This function checks that the gRPC parameters are within reasonable ranges
+  auto validateGrpcParameters() const -> void {
+    // Validate max connection idle time
+    if (grpc_options_.maxConnectionIdleMs() <= 0) {
+      LOG(WARNING) << "Invalid max connection idle time: " << grpc_options_.maxConnectionIdleMs() << "ms. Using default value of 3600000ms.";
+    }
+
+    // Validate max connection age
+    if (grpc_options_.maxConnectionAgeMs() <= 0) {
+      LOG(WARNING) << "Invalid max connection age: " << grpc_options_.maxConnectionAgeMs() << "ms. Using default value of 7200000ms.";
+    }
+
+    // Validate max connection age grace period
+    if (grpc_options_.maxConnectionAgeGraceMs() < 0) {
+      LOG(WARNING) << "Invalid max connection age grace period: " << grpc_options_.maxConnectionAgeGraceMs() << "ms. Using default value of 300000ms.";
+    }
+
+    // Validate keepalive time (should be positive)
+    if (grpc_options_.keepaliveTimeMs() <= 0) {
+      LOG(WARNING) << "Invalid keepalive time: " << grpc_options_.keepaliveTimeMs() << "ms. Using default value of 30000ms.";
+    }
+
+    // Validate keepalive timeout (should be positive)
+    if (grpc_options_.keepaliveTimeoutMs() <= 0) {
+      LOG(WARNING) << "Invalid keepalive timeout: " << grpc_options_.keepaliveTimeoutMs() << "ms. Using default value of 5000ms.";
+    }
+
+    // Validate keepalive permit without calls (should be 0 or 1)
+    if (grpc_options_.keepalivePermitWithoutCalls() != 0 && grpc_options_.keepalivePermitWithoutCalls() != 1) {
+      LOG(WARNING) << "Invalid keepalive permit without calls: " << grpc_options_.keepalivePermitWithoutCalls() << ". Valid values are 0 or 1. Using default value of 1.";
+    }
+
+    // Check for potentially problematic combinations
+    if (grpc_options_.maxConnectionIdleMs() > 0 && grpc_options_.maxConnectionIdleMs() < 1000) {
+      LOG(WARNING) << "Max connection idle time is set to a very short interval (" << grpc_options_.maxConnectionIdleMs() << "ms). This may cause excessive connection churn.";
+    }
+
+    if (grpc_options_.keepaliveTimeMs() > 0 && grpc_options_.keepaliveTimeMs() < 1000) {
+      LOG(WARNING) << "Keepalive time is set to a very short interval (" << grpc_options_.keepaliveTimeMs() << "ms). This may cause excessive network traffic.";
+    }
+
+    if (grpc_options_.keepaliveTimeoutMs() > 0 && grpc_options_.keepaliveTimeoutMs() > grpc_options_.keepaliveTimeMs()) {
+      LOG(WARNING) << "Keepalive timeout (" << grpc_options_.keepaliveTimeoutMs() << "ms) is greater than keepalive time (" << grpc_options_.keepaliveTimeMs() << "ms). This may lead to unexpected connection issues.";
+    }
+
+    // Check age vs idle time relationship
+    if (grpc_options_.maxConnectionAgeMs() > 0 && grpc_options_.maxConnectionIdleMs() > 0 && grpc_options_.maxConnectionAgeMs() < grpc_options_.maxConnectionIdleMs()) {
+      LOG(WARNING) << "Max connection age (" << grpc_options_.maxConnectionAgeMs() << "ms) is less than max connection idle time (" << grpc_options_.maxConnectionIdleMs() << "ms). This may lead to unexpected connection behavior.";
+    }
+  }
 };
 }  // namespace app_server

@@ -9,6 +9,9 @@ namespace fox {
 /// If the new number is larger, the smallest number is removed and the new number is added.
 /// This ensures that the heap always contains the top K the largest numbers seen so far.
 class TopK final {
+  int32_t k;
+  std::priority_queue<int32_t, std::vector<int32_t>, std::greater<>> minHeap;
+
  public:
   explicit TopK(const int32_t k) : k(k) {}
 
@@ -36,9 +39,5 @@ class TopK final {
     }
     return result;
   }
-
- private:
-  int32_t k;
-  std::priority_queue<int32_t, std::vector<int32_t>, std::greater<>> minHeap;
 };
 }  // namespace fox

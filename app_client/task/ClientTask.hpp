@@ -26,9 +26,7 @@ class ClientTask {
     LOG(INFO) << "Loading RPC configuration from: " << rpc_config_path_;
     rpc_options_ = fox::YamlObjectSerializer<GrpcOptions>::deserialize(rpc_config_path_);
     LOG(INFO) << "RPC configuration loaded successfully";
-    LOG(INFO) << "RPC Options - Keepalive Time: " << rpc_options_.keepaliveTimeMs()
-              << "ms, Timeout: " << rpc_options_.keepaliveTimeoutMs()
-              << "ms, Permit Without Calls: " << rpc_options_.keepalivePermitWithoutCalls();
+    LOG(INFO) << "RPC Options - Keepalive Time: " << rpc_options_.keepaliveTimeMs() << "ms, Timeout: " << rpc_options_.keepaliveTimeoutMs() << "ms, Permit Without Calls: " << rpc_options_.keepalivePermitWithoutCalls();
 
     LOG(INFO) << "Application starting...";
     logClientInfo();
@@ -90,15 +88,17 @@ class ClientTask {
   /// @return A shared pointer to the created gRPC channel
   [[nodiscard]] auto createChannel() const -> std::shared_ptr<grpc::Channel> {
     LOG(INFO) << "Setting up gRPC channel with custom arguments";
+
+    // Validate gRPC parameters before using them
+    validateGrpcParameters();
+
     // Setup channel.
     grpc::ChannelArguments channel_args;
     channel_args.SetInt(GRPC_ARG_KEEPALIVE_TIME_MS, rpc_options_.keepaliveTimeMs());
     channel_args.SetInt(GRPC_ARG_KEEPALIVE_TIMEOUT_MS, rpc_options_.keepaliveTimeoutMs());
     channel_args.SetInt(GRPC_ARG_KEEPALIVE_PERMIT_WITHOUT_CALLS, rpc_options_.keepalivePermitWithoutCalls());
 
-    LOG(INFO) << "Channel arguments set - Time: " << rpc_options_.keepaliveTimeMs()
-              << "ms, Timeout: " << rpc_options_.keepaliveTimeoutMs()
-              << "ms, Permit without calls: " << rpc_options_.keepalivePermitWithoutCalls();
+    LOG(INFO) << "Channel arguments set - Time: " << rpc_options_.keepaliveTimeMs() << "ms, Timeout: " << rpc_options_.keepaliveTimeoutMs() << "ms, Permit without calls: " << rpc_options_.keepalivePermitWithoutCalls();
 
     // Create client.
     const std::string server_address = "localhost:50051";
@@ -124,5 +124,33 @@ class ClientTask {
   const std::string rpc_config_path_ = "../../app_client/config/grpc.yaml";
   GrpcOptions rpc_options_;
   fox::FunctionProfiler timer_;
+
+  /// @brief Validate gRPC parameters for correctness
+  /// @details This function checks that the gRPC parameters are within reasonable ranges
+  auto validateGrpcParameters() const -> void {
+    // Validate keepalive time (should be positive)
+    if (rpc_options_.keepaliveTimeMs() <= 0) {
+      LOG(WARNING) << "Invalid keepalive time: " << rpc_options_.keepaliveTimeMs() << "ms. Using default value of 30000ms.";
+    }
+
+    // Validate keepalive timeout (should be positive)
+    if (rpc_options_.keepaliveTimeoutMs() <= 0) {
+      LOG(WARNING) << "Invalid keepalive timeout: " << rpc_options_.keepaliveTimeoutMs() << "ms. Using default value of 5000ms.";
+    }
+
+    // Validate keepalive permit without calls (should be 0 or 1)
+    if (rpc_options_.keepalivePermitWithoutCalls() != 0 && rpc_options_.keepalivePermitWithoutCalls() != 1) {
+      LOG(WARNING) << "Invalid keepalive permit without calls: " << rpc_options_.keepalivePermitWithoutCalls() << ". Valid values are 0 or 1. Using default value of 1.";
+    }
+
+    // Check for potentially problematic combinations
+    if (rpc_options_.keepaliveTimeMs() > 0 && rpc_options_.keepaliveTimeMs() < 1000) {
+      LOG(WARNING) << "Keepalive time is set to a very short interval (" << rpc_options_.keepaliveTimeMs() << "ms). This may cause excessive network traffic.";
+    }
+
+    if (rpc_options_.keepaliveTimeoutMs() > 0 && rpc_options_.keepaliveTimeoutMs() > rpc_options_.keepaliveTimeMs()) {
+      LOG(WARNING) << "Keepalive timeout (" << rpc_options_.keepaliveTimeoutMs() << "ms) is greater than keepalive time (" << rpc_options_.keepaliveTimeMs() << "ms). This may lead to unexpected connection issues.";
+    }
+  }
 };
 }  // namespace app_client

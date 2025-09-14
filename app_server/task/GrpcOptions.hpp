@@ -4,19 +4,6 @@
 namespace app_server {
 /// @brief A class that holds gRPC configuration options
 class GrpcOptions {
-  /// @brief Maximum time a connection can remain idle before being closed (in milliseconds)
-  int32_t max_connection_idle_ms_{60 * 60 * 1000};
-  /// @brief Maximum age of a connection before it is gracefully closed (in milliseconds)
-  int32_t max_connection_age_ms_{2 * 60 * 60 * 1000};
-  /// @brief Grace period after max connection age before force closing (in milliseconds)
-  int32_t max_connection_age_grace_ms_{5 * 60 * 1000};
-  /// @brief Time interval between keepalive pings (in milliseconds)
-  int32_t keepalive_time_ms_{30 * 1000};
-  /// @brief Timeout for keepalive ping acknowledgment (in milliseconds)
-  int32_t keepalive_timeout_ms_{5 * 1000};
-  /// @brief Whether to permit keepalive pings when there are no active calls (1 = true, 0 = false)
-  int32_t keepalive_permit_without_calls_{1};
-
  public:
   // Getters
   /// @brief Get the maximum connection idle time in milliseconds
@@ -67,6 +54,20 @@ class GrpcOptions {
   /// @brief Set whether to permit keepalive pings without active calls
   /// @param value 1 to permit, 0 to not permit
   auto keepalivePermitWithoutCalls(const int32_t value) -> void { keepalive_permit_without_calls_ = value; }
+
+ private:
+  /// @brief Maximum time a connection can remain idle before being closed (in milliseconds)
+  int32_t max_connection_idle_ms_{60 * 60 * 1000};
+  /// @brief Maximum age of a connection before it is gracefully closed (in milliseconds)
+  int32_t max_connection_age_ms_{2 * 60 * 60 * 1000};
+  /// @brief Grace period after max connection age before force closing (in milliseconds)
+  int32_t max_connection_age_grace_ms_{5 * 60 * 1000};
+  /// @brief Time interval between keepalive pings (in milliseconds)
+  int32_t keepalive_time_ms_{30 * 1000};
+  /// @brief Timeout for keepalive ping acknowledgment (in milliseconds)
+  int32_t keepalive_timeout_ms_{5 * 1000};
+  /// @brief Whether to permit keepalive pings when there are no active calls (1 = true, 0 = false)
+  int32_t keepalive_permit_without_calls_{1};
 };
 }  // namespace app_server
 
