@@ -1,6 +1,8 @@
 #pragma once
+#include <algorithm>
 #include <filesystem>
 #include <fstream>
+#include <ios>
 #include <vector>
 
 #include "AbstractInputStream.hpp"
@@ -32,7 +34,7 @@ class FileInputStream final : public AbstractInputStream {
   /// @brief Read a single byte from the stream.
   /// @return The byte read or EOF (-1) if the end of the stream is reached.
   auto read() -> std::byte override {
-    std::byte byte;
+    std::byte byte{};
     if (file_stream_.read(reinterpret_cast<char*>(&byte), 1)) {
       return byte;
     }
@@ -50,29 +52,70 @@ class FileInputStream final : public AbstractInputStream {
   /// @param len The number of bytes to read.
   /// @return The number of bytes read.
   auto read(std::vector<std::byte>& buffer, size_t offset, size_t len) -> size_t override {
-    if (offset + len > buffer.size()) {
+    if (offset > buffer.size() || len > buffer.size() - offset) {
       throw std::invalid_argument("Invalid buffer, offset, or length.");
     }
+
+    if (!file_stream_.good()) {
+      return 0;
+    }
+
     file_stream_.read(reinterpret_cast<char*>(buffer.data() + offset), static_cast<std::streamsize>(len));
-    return file_stream_.gcount();
+    const auto bytes_read = file_stream_.gcount();
+    return static_cast<size_t>(bytes_read);
   }
 
   /// @brief Skip bytes in the stream.
   /// @param n The number of bytes to skip.
   /// @return The number of bytes skipped.
   auto skip(size_t n) -> size_t override {
+    if (!file_stream_.good()) {
+      return 0;
+    }
+
+    const auto current_pos = file_stream_.tellg();
+    if (current_pos == std::streampos(-1)) {
+      return 0;
+    }
+
     file_stream_.seekg(static_cast<std::streamoff>(n), std::ios::cur);
-    return file_stream_.good() ? static_cast<std::streamoff>(n) : 0;
+    if (!file_stream_.good()) {
+      // Restore the original position if seek failed
+      file_stream_.seekg(current_pos, std::ios::beg);
+      return 0;
+    }
+
+    const auto new_pos = file_stream_.tellg();
+    if (new_pos == std::streampos(-1)) {
+      return 0;
+    }
+
+    const auto skipped = new_pos - current_pos;
+    return static_cast<size_t>(skipped);
   }
 
   /// @brief Get the number of bytes available to read.
   /// @return The number of bytes available to read.
   auto available() -> size_t override {
+    if (!file_stream_.good()) {
+      return 0;
+    }
+
     const auto current = file_stream_.tellg();
+    if (current == std::streampos(-1)) {
+      return 0;
+    }
+
     file_stream_.seekg(0, std::ios::end);
     const auto end = file_stream_.tellg();
     file_stream_.seekg(current, std::ios::beg);
-    return end - current;
+
+    if (end == std::streampos(-1)) {
+      return 0;
+    }
+
+    const auto available_bytes = end - current;
+    return static_cast<size_t>(std::max(available_bytes, static_cast<std::streamoff>(0)));
   }
 
   /// @brief Close the stream.

@@ -1,5 +1,7 @@
 #pragma once
 #include <functional>
+#include <type_traits>
+#include <utility>
 
 namespace fox {
 /// @brief Interface class for Aspect-Oriented Programming (AOP) functionalities.
@@ -18,15 +20,17 @@ class IAop {
   template <typename Func, typename... Args>
   auto exec(Func&& func, Args&&... args) -> decltype(auto);
 
-  virtual ~IAop();
+  virtual ~IAop() = default;
 
  private:
   /// @brief Function to be executed before the function call
-  virtual auto onEntry() -> void;
+  virtual auto onEntry() -> void {}
+
   /// @brief Function to be executed after the function call
-  virtual auto onExit() -> void;
+  virtual auto onExit() -> void {}
+
   /// @brief Function to be executed when an exception is thrown
-  virtual auto onException() -> void;
+  virtual auto onException() -> void {}
 
   /// @brief Function to handle the result
   template <typename T>
@@ -36,33 +40,21 @@ class IAop {
 template <typename Derived>
 template <typename Func, typename... Args>
 auto IAop<Derived>::exec(Func&& func, Args&&... args) -> decltype(auto) {
-  onEntry();
+  this->onEntry();
   try {
     if constexpr (std::is_void_v<std::invoke_result_t<Func, Args...>>) {
       std::invoke(std::forward<Func>(func), std::forward<Args>(args)...);
-      onExit();
+      this->onExit();
     } else {
       auto result = std::invoke(std::forward<Func>(func), std::forward<Args>(args)...);
-      onExit();
-      return static_cast<Derived*>(this)->handleResult(result);
+      this->onExit();
+      return static_cast<Derived*>(this)->handleResult(std::move(result));
     }
   } catch (...) {
-    onException();
+    this->onException();
     throw;
   }
 }
-
-template <typename Derived>
-IAop<Derived>::~IAop() = default;
-
-template <typename Derived>
-auto IAop<Derived>::onEntry() -> void {}
-
-template <typename Derived>
-auto IAop<Derived>::onExit() -> void {}
-
-template <typename Derived>
-auto IAop<Derived>::onException() -> void {}
 
 template <typename Derived>
 template <typename T>

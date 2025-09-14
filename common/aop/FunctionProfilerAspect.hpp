@@ -10,16 +10,23 @@ namespace fox {
 /// for measuring the duration of function calls.
 class FunctionProfilerAspect final : public IAop<FunctionProfilerAspect> {
  public:
-  explicit FunctionProfilerAspect(std::string function_name) : timer_(std::move(function_name), false) {}
+  /// @brief Construct a FunctionProfilerAspect with the given function name
+  /// @param function_name The name of the function to profile
+  explicit FunctionProfilerAspect(std::string function_name);
 
-  /// @brief Entry point
-  auto onEntry() -> void override { timer_.recordStart(); }
+  /// @brief Entry point - records the start time of the function
+  auto onEntry() -> void override;
 
-  /// @brief Exit point
-  auto onExit() -> void override { timer_.recordEnd(true); }
+  /// @brief Exit point - records the end time of the function and prints the result
+  auto onExit() -> void override;
 
  private:
   FunctionProfiler timer_;
-  std::string function_name_;
 };
+
+inline FunctionProfilerAspect::FunctionProfilerAspect(std::string function_name) : timer_(std::move(function_name), false) {}
+
+inline auto FunctionProfilerAspect::onEntry() -> void { timer_.recordStart(); }
+
+inline auto FunctionProfilerAspect::onExit() -> void { timer_.recordEnd(true); }
 }  // namespace fox

@@ -1,29 +1,32 @@
 #pragma once
+#include <cstddef>
 #include <string>
 
 namespace fox {
 /// @brief Interface for appendable objects.
+/// This interface provides methods for appending characters and strings to objects.
 /// @tparam T The type of the object that implements this interface.
 template <typename T>
 class IAppendable {
  public:
+  /// @brief Virtual destructor for proper cleanup of derived classes
   virtual ~IAppendable() = default;
 
-  /// @brief Append a character to the string.
-  /// @param c The character to append.
-  /// @return A reference to the string.
+  /// @brief Append a character to the object
+  /// @param c The character to append
+  /// @return A reference to the object for method chaining
   virtual auto append(char c) -> T& = 0;
 
-  /// @brief Append a string to the string.
-  /// @param str The string to append.
-  /// @return A reference to the string.
+  /// @brief Append a string to the object
+  /// @param str The string to append
+  /// @return A reference to the object for method chaining
   virtual auto append(const std::string& str) -> T& = 0;
 
-  /// @brief Append a substring to the string.
-  /// @param str The string to append.
-  /// @param start The start index of the substring.
-  /// @param end The end index of the substring.
-  /// @return A reference to the string.
+  /// @brief Append a substring to the object
+  /// @param str The string to append
+  /// @param start The start index of the substring (inclusive)
+  /// @param end The end index of the substring (exclusive)
+  /// @return A reference to the object for method chaining
   virtual auto append(const std::string& str, size_t start, size_t end) -> T& = 0;
 };
 }  // namespace fox
