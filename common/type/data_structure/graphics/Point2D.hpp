@@ -3,100 +3,100 @@
 
 namespace fox
 {
-/// @brief A 2D point class
-/// @details This class represents a point in 2D space with x and y coordinates.
-///          It provides basic operations such as addition, subtraction, and comparison.
-class Point2D
-{
-  public:
-    Point2D();
-    Point2D(double x, double y);
-
-    /// @brief Get the X coordinate
-    /// @return X coordinate value
-    [[nodiscard]] auto getX() const -> double
+    /// @brief A 2D point class
+    /// @details This class represents a point in 2D space with x and y coordinates.
+    ///          It provides basic operations such as addition, subtraction, and comparison.
+    class Point2D
     {
-        return x_;
+    public:
+        Point2D();
+        Point2D(double x, double y);
+
+        /// @brief Get the X coordinate
+        /// @return X coordinate value
+        [[nodiscard]] auto getX() const -> double
+        {
+            return x_;
+        }
+
+        /// @brief Get the Y coordinate
+        /// @return Y coordinate value
+        [[nodiscard]] auto getY() const -> double
+        {
+            return y_;
+        }
+
+        /// @brief Set the X coordinate
+        /// @param x X coordinate value
+        auto setX(const double x) -> void
+        {
+            x_ = x;
+        }
+
+        /// @brief Set the Y coordinate
+        /// @param y Y coordinate value
+        auto setY(const double y) -> void
+        {
+            y_ = y;
+        }
+
+        /// @brief Add another Point2D to this point
+        /// @param other Point2D to add
+        /// @return Reference to this point
+        auto operator+=(const Point2D& other) -> Point2D&
+        {
+            x_ += other.x_;
+            y_ += other.y_;
+            return *this;
+        }
+
+        /// @brief Subtract another Point2D from this point
+        /// @param other Point2D to subtract
+        /// @return Reference to this point
+        auto operator-=(const Point2D& other) -> Point2D&
+        {
+            x_ -= other.x_;
+            y_ -= other.y_;
+            return *this;
+        }
+
+        /// @brief Negate this point
+        /// @return Negated point
+        auto operator-() const -> Point2D
+        {
+            return {-x_, -y_};
+        }
+
+    private:
+        double x_;
+        double y_;
+    };
+
+    inline Point2D operator+(Point2D lhs, const Point2D& rhs)
+    {
+        lhs += rhs;
+        return lhs;
     }
 
-    /// @brief Get the Y coordinate
-    /// @return Y coordinate value
-    [[nodiscard]] auto getY() const -> double
+    inline Point2D operator-(Point2D lhs, const Point2D& rhs)
     {
-        return y_;
+        lhs -= rhs;
+        return lhs;
     }
 
-    /// @brief Set the X coordinate
-    /// @param x X coordinate value
-    auto setX(const double x) -> void
+    inline bool operator==(const Point2D& lhs, const Point2D& rhs)
     {
-        x_ = x;
+        return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY();
     }
 
-    /// @brief Set the Y coordinate
-    /// @param y Y coordinate value
-    auto setY(const double y) -> void
+    inline bool operator!=(const Point2D& lhs, const Point2D& rhs)
     {
-        y_ = y;
+        return !(lhs == rhs);
     }
 
-    /// @brief Add another Point2D to this point
-    /// @param other Point2D to add
-    /// @return Reference to this point
-    auto operator+=(const Point2D &other) -> Point2D &
+    inline std::ostream& operator<<(std::ostream& os, const Point2D& point)
     {
-        x_ += other.x_;
-        y_ += other.y_;
-        return *this;
+        os << "(" << point.getX() << ", " << point.getY() << ")";
+        return os;
     }
-
-    /// @brief Subtract another Point2D from this point
-    /// @param other Point2D to subtract
-    /// @return Reference to this point
-    auto operator-=(const Point2D &other) -> Point2D &
-    {
-        x_ -= other.x_;
-        y_ -= other.y_;
-        return *this;
-    }
-
-    /// @brief Negate this point
-    /// @return Negated point
-    auto operator-() const -> Point2D
-    {
-        return {-x_, -y_};
-    }
-
-  private:
-    double x_;
-    double y_;
-};
-
-inline Point2D operator+(Point2D lhs, const Point2D &rhs)
-{
-    lhs += rhs;
-    return lhs;
-}
-
-inline Point2D operator-(Point2D lhs, const Point2D &rhs)
-{
-    lhs -= rhs;
-    return lhs;
-}
-
-inline bool operator==(const Point2D &lhs, const Point2D &rhs)
-{
-    return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY();
-}
-
-inline bool operator!=(const Point2D &lhs, const Point2D &rhs)
-{
-    return !(lhs == rhs);
-}
-
-inline std::ostream &operator<<(std::ostream &os, const Point2D &point)
-{
-    os << "(" << point.getX() << ", " << point.getY() << ")";
-    return os;
-}
 } // namespace fox

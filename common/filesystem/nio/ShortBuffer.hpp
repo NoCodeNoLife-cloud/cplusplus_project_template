@@ -6,98 +6,98 @@
 
 namespace fox
 {
-/// @brief A buffer for short integer (int16_t) data.
-/// ShortBuffer provides a way to store, read, and write short integer data in a
-/// sequential manner. It implements the IBuffer interface and supports operations
-/// like get, put, and rewind.
-class ShortBuffer final : public IBuffer
-{
-  public:
-    explicit ShortBuffer(const size_t capacity) : buffer_(capacity)
+    /// @brief A buffer for short integer (int16_t) data.
+    /// ShortBuffer provides a way to store, read, and write short integer data in a
+    /// sequential manner. It implements the IBuffer interface and supports operations
+    /// like get, put, and rewind.
+    class ShortBuffer final : public IBuffer
     {
-        capacity_ = capacity;
-        limit_ = capacity;
-        position_ = 0;
-    }
-
-    /// @brief Wraps an existing array of int16_t data into a ShortBuffer.
-    /// @param data Pointer to the data to wrap.
-    /// @param size Size of the data array.
-    /// @return A new ShortBuffer instance wrapping the provided data.
-    static auto wrap(const int16_t *data, const size_t size) -> ShortBuffer
-    {
-        ShortBuffer sb(size);
-        std::memcpy(sb.buffer_.data(), data, size * sizeof(int16_t));
-        return sb;
-    }
-
-    /// @brief Reads the next int16_t value from the buffer.
-    /// @return The next int16_t value.
-    auto get() -> int16_t
-    {
-        if (position_ >= limit_)
+    public:
+        explicit ShortBuffer(const size_t capacity) : buffer_(capacity)
         {
-            throw std::out_of_range("Position exceeds limit.");
+            capacity_ = capacity;
+            limit_ = capacity;
+            position_ = 0;
         }
-        return buffer_[position_++];
-    }
 
-    /// @brief Reads an int16_t value at the specified index.
-    /// @param index Index of the value to read.
-    /// @return The int16_t value at the specified index.
-    [[nodiscard]] auto get(const size_t index) const -> int16_t
-    {
-        if (index >= limit_)
+        /// @brief Wraps an existing array of int16_t data into a ShortBuffer.
+        /// @param data Pointer to the data to wrap.
+        /// @param size Size of the data array.
+        /// @return A new ShortBuffer instance wrapping the provided data.
+        static auto wrap(const int16_t* data, const size_t size) -> ShortBuffer
         {
-            throw std::out_of_range("Index exceeds limit.");
+            ShortBuffer sb(size);
+            std::memcpy(sb.buffer_.data(), data, size * sizeof(int16_t));
+            return sb;
         }
-        return buffer_[index];
-    }
 
-    /// @brief Writes an int16_t value to the buffer at the current position.
-    /// @param value The value to write.
-    auto put(const int16_t value) -> void
-    {
-        if (position_ >= limit_)
+        /// @brief Reads the next int16_t value from the buffer.
+        /// @return The next int16_t value.
+        auto get() -> int16_t
         {
-            throw std::out_of_range("Position exceeds limit.");
+            if (position_ >= limit_)
+            {
+                throw std::out_of_range("Position exceeds limit.");
+            }
+            return buffer_[position_++];
         }
-        buffer_[position_++] = value;
-    }
 
-    /// @brief Writes an int16_t value to the buffer at the specified index.
-    /// @param index Index where the value should be written.
-    /// @param value The value to write.
-    auto put(const size_t index, const int16_t value) -> void
-    {
-        if (index >= limit_)
+        /// @brief Reads an int16_t value at the specified index.
+        /// @param index Index of the value to read.
+        /// @return The int16_t value at the specified index.
+        [[nodiscard]] auto get(const size_t index) const -> int16_t
         {
-            throw std::out_of_range("Index exceeds limit.");
+            if (index >= limit_)
+            {
+                throw std::out_of_range("Index exceeds limit.");
+            }
+            return buffer_[index];
         }
-        buffer_[index] = value;
-    }
 
-    /// @brief Resets the position of the buffer to zero.
-    auto rewind() -> void override
-    {
-        position_ = 0;
-    }
+        /// @brief Writes an int16_t value to the buffer at the current position.
+        /// @param value The value to write.
+        auto put(const int16_t value) -> void
+        {
+            if (position_ >= limit_)
+            {
+                throw std::out_of_range("Position exceeds limit.");
+            }
+            buffer_[position_++] = value;
+        }
 
-    /// @brief Returns a pointer to the underlying data array.
-    /// @return Pointer to the data array.
-    auto data() -> int16_t *
-    {
-        return buffer_.data();
-    }
+        /// @brief Writes an int16_t value to the buffer at the specified index.
+        /// @param index Index where the value should be written.
+        /// @param value The value to write.
+        auto put(const size_t index, const int16_t value) -> void
+        {
+            if (index >= limit_)
+            {
+                throw std::out_of_range("Index exceeds limit.");
+            }
+            buffer_[index] = value;
+        }
 
-    /// @brief Returns a const pointer to the underlying data array.
-    /// @return Const pointer to the data array.
-    [[nodiscard]] auto data() const -> const int16_t *
-    {
-        return buffer_.data();
-    }
+        /// @brief Resets the position of the buffer to zero.
+        auto rewind() -> void override
+        {
+            position_ = 0;
+        }
 
-  private:
-    std::vector<int16_t> buffer_{};
-};
+        /// @brief Returns a pointer to the underlying data array.
+        /// @return Pointer to the data array.
+        auto data() -> int16_t*
+        {
+            return buffer_.data();
+        }
+
+        /// @brief Returns a const pointer to the underlying data array.
+        /// @return Const pointer to the data array.
+        [[nodiscard]] auto data() const -> const int16_t*
+        {
+            return buffer_.data();
+        }
+
+    private:
+        std::vector<int16_t> buffer_{};
+    };
 } // namespace fox
