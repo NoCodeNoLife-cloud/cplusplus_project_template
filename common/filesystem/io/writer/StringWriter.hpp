@@ -12,13 +12,13 @@ namespace fox
     class StringWriter final : public AbstractWriter, public IAppendable<StringWriter>
     {
     public:
-        explicit StringWriter(const size_t initialSize);
+        explicit StringWriter(size_t initialSize);
         ~StringWriter() override;
 
         /// @brief Appends the specified character to this writer.
         /// @param c The character to append.
         /// @return A reference to this StringWriter.
-        auto append(const char c) -> StringWriter& override;
+        auto append(char c) -> StringWriter& override;
 
         /// @brief Appends the specified string to this writer.
         /// @param csq The string to append.
@@ -30,7 +30,7 @@ namespace fox
         /// @param start The starting index of the subsequence.
         /// @param end The ending index of the subsequence.
         /// @return A reference to this StringWriter.
-        auto append(const std::string& csq, const size_t start, const size_t end) -> StringWriter& override;
+        auto append(const std::string& csq, size_t start, size_t end) -> StringWriter& override;
 
         /// @brief Closes the writer and releases any associated resources.
         auto close() -> void override;
@@ -48,7 +48,7 @@ namespace fox
 
         /// @brief Writes a single character to the writer.
         /// @param c The character to write.
-        auto write(const char c) -> void override;
+        auto write(char c) -> void override;
 
         /// @brief Writes the specified string to the writer.
         /// @param str The string to write.
@@ -58,13 +58,13 @@ namespace fox
         /// @param str The string to write.
         /// @param off The offset from which to start writing.
         /// @param len The number of characters to write.
-        auto write(const std::string& str, const size_t off, const size_t len) -> void override;
+        auto write(const std::string& str, size_t off, size_t len) -> void override;
 
         /// @brief Writes a portion of the specified character array to the writer.
         /// @param cBuf The character array to write.
         /// @param off The offset from which to start writing.
         /// @param len The number of characters to write.
-        auto write(const std::vector<char>& cBuf, const size_t off, const size_t len) -> void override;
+        auto write(const std::vector<char>& cBuf, size_t off, size_t len) -> void override;
 
     private:
         std::ostringstream buffer_;

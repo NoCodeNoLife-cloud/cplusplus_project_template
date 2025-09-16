@@ -44,11 +44,11 @@ namespace fox
     template <typename T>
     auto YamlObjectSerializer<T>::deserialize(const std::string& filename) -> T
     {
-        if (filename.empty() or not std::filesystem::exists(filename))
+        if (filename.empty() || !std::filesystem::exists(filename))
         {
             throw std::runtime_error("Could not open file " + filename);
         }
-        YAML::Node node = YAML::LoadFile(filename);
+        const YAML::Node node = YAML::LoadFile(filename);
         T obj;
         if (!YAML::convert<T>::decode(node, obj))
         {

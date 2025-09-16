@@ -14,17 +14,17 @@ namespace fox
     public:
         ByteArrayOutputStream();
 
-        explicit ByteArrayOutputStream(const size_t size);
+        explicit ByteArrayOutputStream(size_t size);
 
         /// @brief Writes a single byte to the stream.
         /// @param b The byte to write.
-        auto write(const std::byte b) -> void override;
+        auto write(std::byte b) -> void override;
 
         /// @brief Writes a sequence of bytes to the stream from the specified buffer.
         /// @param buffer The buffer containing bytes to write.
         /// @param offset The start offset in the buffer.
         /// @param len The number of bytes to write.
-        auto write(const std::vector<std::byte>& buffer, const size_t offset, const size_t len) -> void override;
+        auto write(const std::vector<std::byte>& buffer, size_t offset, size_t len) -> void override;
 
         /// @brief Writes the complete contents of this byte array output stream to the specified output stream.
         /// @param out The output stream to which to write the data.
@@ -58,7 +58,7 @@ namespace fox
     private:
         /// @brief Ensures that the buffer has at least the specified capacity.
         /// @param additionalCapacity The additional capacity needed.
-        auto ensureCapacity(const size_t additionalCapacity) -> void;
+        auto ensureCapacity(size_t additionalCapacity) -> void;
     };
 
     inline ByteArrayOutputStream::ByteArrayOutputStream() : buf_(32), count_(0)

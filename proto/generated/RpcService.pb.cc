@@ -28,7 +28,7 @@ namespace _fl = ::google::protobuf::internal::field_layout;
 
 namespace rpc
 {
-    inline constexpr MessageResponse::Impl_::Impl_(::_pbi::ConstantInitialized) noexcept
+    constexpr MessageResponse::Impl_::Impl_(::_pbi::ConstantInitialized) noexcept
         : status_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()),
           _cached_size_{0}
     {
@@ -65,7 +65,7 @@ namespace rpc
     MessageResponseDefaultTypeInternal
     _MessageResponse_default_instance_;
 
-    inline constexpr MessageRequest::Impl_::Impl_(::_pbi::ConstantInitialized) noexcept
+    constexpr MessageRequest::Impl_::Impl_(::_pbi::ConstantInitialized) noexcept
         : content_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()),
           _cached_size_{0}
     {
@@ -171,6 +171,7 @@ namespace rpc
     : ::google::protobuf::Message(arena, _class_data_.base())
     {
 
+
 #else  // PROTOBUF_CUSTOM_VTABLE
         : ::google::protobuf::Message(arena)
     {
@@ -191,6 +192,7 @@ namespace rpc
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(arena, _class_data_.base())
     {
+
 
 #else  // PROTOBUF_CUSTOM_VTABLE
         : ::google::protobuf::Message(arena)
@@ -442,6 +444,7 @@ namespace rpc
     : ::google::protobuf::Message(arena, _class_data_.base())
     {
 
+
 #else  // PROTOBUF_CUSTOM_VTABLE
         : ::google::protobuf::Message(arena)
     {
@@ -462,6 +465,7 @@ namespace rpc
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(arena, _class_data_.base())
     {
+
 
 #else  // PROTOBUF_CUSTOM_VTABLE
         : ::google::protobuf::Message(arena)

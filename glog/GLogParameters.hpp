@@ -2,6 +2,7 @@
 #include <yaml-cpp/node/node.h>
 
 #include <string>
+#include <cstdint>
 
 namespace service
 {
@@ -13,51 +14,63 @@ namespace service
     public:
         /// @brief Get the minimum log level.
         /// @return The minimum log level as an integer.
-        [[nodiscard]] auto minLogLevel() const -> int32_t
-        {
-            return min_log_level_;
-        }
+        [[nodiscard]] auto minLogLevel() const noexcept -> int32_t;
 
         /// @brief Get the log name.
         /// @return The log name as a string.
-        [[nodiscard]] auto logName() const -> std::string
-        {
-            return log_name_;
-        }
+        [[nodiscard]] auto logName() const noexcept -> std::string;
 
         /// @brief Check if logging to stderr is enabled.
         /// @return True if logging to stderr is enabled, false otherwise.
-        [[nodiscard]] auto logToStderr() const -> bool
-        {
-            return log_to_stderr_;
-        }
+        [[nodiscard]] auto logToStderr() const noexcept -> bool;
 
         /// @brief Set the minimum log level.
         /// @param min_log_level The minimum log level to set.
-        auto minLogLevel(const int32_t min_log_level) -> void
-        {
-            min_log_level_ = min_log_level;
-        }
+        auto minLogLevel(int32_t min_log_level) noexcept -> void;
 
         /// @brief Set the log name.
         /// @param log_name The log name to set.
-        auto logName(const std::string& log_name) -> void
-        {
-            log_name_ = log_name;
-        }
+        auto logName(const std::string& log_name) -> void;
 
         /// @brief Enable or disable logging to stderr.
         /// @param log_to_stderr True to enable logging to stderr, false to disable.
-        auto logToStderr(const bool log_to_stderr) -> void
-        {
-            log_to_stderr_ = log_to_stderr;
-        }
+        auto logToStderr(bool log_to_stderr) noexcept -> void;
 
     private:
         int32_t min_log_level_{};
         std::string log_name_{};
         bool log_to_stderr_{};
     };
+
+    inline auto GLogParameters::minLogLevel() const noexcept -> int32_t
+    {
+        return min_log_level_;
+    }
+
+    inline auto GLogParameters::logName() const noexcept -> std::string
+    {
+        return log_name_;
+    }
+
+    inline auto GLogParameters::logToStderr() const noexcept -> bool
+    {
+        return log_to_stderr_;
+    }
+
+    inline auto GLogParameters::minLogLevel(const int32_t min_log_level) noexcept -> void
+    {
+        min_log_level_ = min_log_level;
+    }
+
+    inline auto GLogParameters::logName(const std::string& log_name) -> void
+    {
+        log_name_ = log_name;
+    }
+
+    inline auto GLogParameters::logToStderr(const bool log_to_stderr) noexcept -> void
+    {
+        log_to_stderr_ = log_to_stderr;
+    }
 } // namespace service
 
 /// @brief YAML serialization specialization for GLogParameters.

@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <cstdint>
 
 namespace fox
 {
@@ -9,15 +10,16 @@ namespace fox
     class TreeNode
     {
     public:
-        explicit TreeNode(T value);
+        explicit TreeNode(T value) noexcept;
+
         T data;
-        std::shared_ptr<TreeNode> left{};
-        std::shared_ptr<TreeNode> right{};
+        std::shared_ptr<TreeNode<T>> left{};
+        std::shared_ptr<TreeNode<T>> right{};
         int32_t height{1};
     };
 
     template <typename T>
-    TreeNode<T>::TreeNode(T value) : data(value)
+    TreeNode<T>::TreeNode(T value) noexcept : data(value)
     {
     }
 } // namespace fox

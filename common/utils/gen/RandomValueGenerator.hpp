@@ -1,6 +1,8 @@
 #pragma once
 #include <random>
 #include <type_traits>
+#include <algorithm>
+#include <cstdint>
 
 namespace fox
 {
@@ -16,13 +18,14 @@ namespace fox
     {
     public:
         RandomValueGenerator();
-        explicit RandomValueGenerator(const std::mt19937::result_type& seed);
+
+        explicit RandomValueGenerator(const std::mt19937::result_type& seed) noexcept;
 
         /// @brief Generates a random value between min and max (inclusive).
         /// @param min The minimum value.
         /// @param max The maximum value.
         /// @return A random value of type T between min and max.
-        T generate(T min, T max);
+        [[nodiscard]] auto generate(T min, T max) -> T;
 
     private:
         std::mt19937 engine_;
@@ -37,12 +40,12 @@ namespace fox
     }
 
     template <ValidType T>
-    RandomValueGenerator<T>::RandomValueGenerator(const std::mt19937::result_type& seed) : engine_(seed)
+    RandomValueGenerator<T>::RandomValueGenerator(const std::mt19937::result_type& seed) noexcept : engine_(seed)
     {
     }
 
     template <ValidType T>
-    T RandomValueGenerator<T>::generate(T min, T max)
+    auto RandomValueGenerator<T>::generate(T min, T max) -> T
     {
         if (min > max)
         {

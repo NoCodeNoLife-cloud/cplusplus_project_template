@@ -13,16 +13,16 @@ namespace fox
     class FloatBuffer final : public IBuffer
     {
     public:
-        explicit FloatBuffer(const size_t capacity);
+        explicit FloatBuffer(size_t capacity);
 
         /// @brief Allocates a new FloatBuffer with the specified capacity.
         /// @param capacity The capacity of the buffer.
         /// @return A new FloatBuffer instance.
-        static auto allocate(const size_t capacity) -> FloatBuffer;
+        static auto allocate(size_t capacity) -> FloatBuffer;
 
         /// @brief Puts a single float value into the buffer.
         /// @param value The float value to put.
-        auto put(const float value) -> void;
+        auto put(float value) -> void;
 
         /// @brief Puts a vector of float values into the buffer.
         /// @param values The vector of float values to put.
@@ -35,7 +35,7 @@ namespace fox
         /// @brief Gets a vector of float values from the buffer.
         /// @param length The number of elements to retrieve.
         /// @return A vector containing the retrieved float values.
-        auto get(const size_t length) -> std::vector<float>;
+        auto get(size_t length) -> std::vector<float>;
 
     private:
         std::vector<float> buffer_{};

@@ -1,6 +1,8 @@
 #pragma once
 #include <boost/multiprecision/cpp_int.hpp>
 #include <string>
+#include <compare>
+#include <stdexcept>
 
 namespace fox
 {
@@ -8,99 +10,131 @@ namespace fox
     class BigInteger
     {
     public:
-        BigInteger() : value_(0)
-        {
-        }
+        BigInteger() noexcept;
 
-        explicit BigInteger(const std::string& str) : value_(str)
-        {
-        }
+        explicit BigInteger(const std::string& str);
 
-        explicit BigInteger(const int64_t num) : value_(num)
-        {
-        }
+        explicit BigInteger(int64_t num) noexcept;
 
         /// @brief Addition operator
         /// @param other The BigInteger to add
         /// @return The result of the addition
-        auto operator+(const BigInteger& other) const -> BigInteger
-        {
-            return BigInteger((value_ + other.value_).convert_to<std::string>());
-        }
+        auto operator+(const BigInteger& other) const noexcept -> BigInteger;
 
         /// @brief Subtraction operator
         /// @param other The BigInteger to subtract
         /// @return The result of the subtraction
-        auto operator-(const BigInteger& other) const -> BigInteger
-        {
-            return BigInteger((value_ - other.value_).convert_to<std::string>());
-        }
+        auto operator-(const BigInteger& other) const noexcept -> BigInteger;
 
         /// @brief Multiplication operator
         /// @param other The BigInteger to multiply
         /// @return The result of the multiplication
-        auto operator*(const BigInteger& other) const -> BigInteger
-        {
-            return BigInteger((value_ * other.value_).convert_to<std::string>());
-        }
+        auto operator*(const BigInteger& other) const noexcept -> BigInteger;
 
         /// @brief Division operator
         /// @param other The BigInteger to divide by
         /// @return The result of the division
-        auto operator/(const BigInteger& other) const -> BigInteger
-        {
-            if (other.value_ == 0)
-            {
-                throw std::invalid_argument("Division by zero");
-            }
-            return BigInteger((value_ / other.value_).convert_to<std::string>());
-        }
+        auto operator/(const BigInteger& other) const -> BigInteger;
 
         /// @brief Modulus operator
         /// @param other The BigInteger to modulo by
         /// @return The result of the modulus operation
-        auto operator%(const BigInteger& other) const -> BigInteger
-        {
-            if (other.value_ == 0)
-            {
-                throw std::invalid_argument("Modulo by zero");
-            }
-            return BigInteger((value_ % other.value_).convert_to<std::string>());
-        }
+        auto operator%(const BigInteger& other) const -> BigInteger;
 
         /// @brief Three-way comparison operator
         /// @param other The BigInteger to compare with
         /// @return The result of the comparison
-        auto operator<=>(const BigInteger& other) const -> std::partial_ordering
-        {
-            if (value_ < other.value_)
-            {
-                return std::strong_ordering::less;
-            }
-            if (value_ > other.value_)
-            {
-                return std::strong_ordering::greater;
-            }
-            return std::strong_ordering::equal;
-        }
+        auto operator<=>(const BigInteger& other) const noexcept -> std::strong_ordering;
+
+        /// @brief Equality comparison operator
+        /// @param other The BigInteger to compare with
+        /// @return true if the values are equal, false otherwise
+        auto operator==(const BigInteger& other) const noexcept -> bool;
 
         /// @brief Create a BigInteger from a string
         /// @param str The string to convert
         /// @return The resulting BigInteger
-        static auto fromString(const std::string& str) -> BigInteger
-        {
-            return BigInteger(str);
-        }
+        static auto fromString(const std::string& str) -> BigInteger;
 
         /// @brief Create a BigInteger from an int64_t
         /// @param num The int64_t to convert
         /// @return The resulting BigInteger
-        static auto fromInt(const int64_t num) -> BigInteger
-        {
-            return BigInteger(num);
-        }
+        static auto fromInt(int64_t num) noexcept -> BigInteger;
 
     private:
         boost::multiprecision::cpp_int value_;
     };
+
+    inline BigInteger::BigInteger() noexcept : value_(0)
+    {
+    }
+
+    inline BigInteger::BigInteger(const std::string& str) : value_(str)
+    {
+    }
+
+    inline BigInteger::BigInteger(const int64_t num) noexcept : value_(num)
+    {
+    }
+
+    inline auto BigInteger::operator+(const BigInteger& other) const noexcept -> BigInteger
+    {
+        return BigInteger((value_ + other.value_).convert_to<std::string>());
+    }
+
+    inline auto BigInteger::operator-(const BigInteger& other) const noexcept -> BigInteger
+    {
+        return BigInteger((value_ - other.value_).convert_to<std::string>());
+    }
+
+    inline auto BigInteger::operator*(const BigInteger& other) const noexcept -> BigInteger
+    {
+        return BigInteger((value_ * other.value_).convert_to<std::string>());
+    }
+
+    inline auto BigInteger::operator/(const BigInteger& other) const -> BigInteger
+    {
+        if (other.value_ == 0)
+        {
+            throw std::invalid_argument("Division by zero");
+        }
+        return BigInteger((value_ / other.value_).convert_to<std::string>());
+    }
+
+    inline auto BigInteger::operator%(const BigInteger& other) const -> BigInteger
+    {
+        if (other.value_ == 0)
+        {
+            throw std::invalid_argument("Modulo by zero");
+        }
+        return BigInteger((value_ % other.value_).convert_to<std::string>());
+    }
+
+    inline auto BigInteger::operator<=>(const BigInteger& other) const noexcept -> std::strong_ordering
+    {
+        if (value_ < other.value_)
+        {
+            return std::strong_ordering::less;
+        }
+        if (value_ > other.value_)
+        {
+            return std::strong_ordering::greater;
+        }
+        return std::strong_ordering::equal;
+    }
+
+    inline auto BigInteger::operator==(const BigInteger& other) const noexcept -> bool
+    {
+        return value_ == other.value_;
+    }
+
+    inline auto BigInteger::fromString(const std::string& str) -> BigInteger
+    {
+        return BigInteger(str);
+    }
+
+    inline auto BigInteger::fromInt(const int64_t num) noexcept -> BigInteger
+    {
+        return BigInteger(num);
+    }
 } // namespace fox

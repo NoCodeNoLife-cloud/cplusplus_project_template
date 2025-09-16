@@ -1,6 +1,7 @@
 #pragma once
 #include <algorithm>
 #include <memory>
+#include <cstdint>
 
 #include "TreeNode.hpp"
 
@@ -18,6 +19,7 @@ namespace fox
     {
     public:
         AVLTree();
+
         /// @brief Insert a value into the AVL tree
         /// @param value The value to insert
         /// @return void
@@ -39,12 +41,12 @@ namespace fox
         /// @brief Get the height of a node
         /// @param node The node to get the height of
         /// @return int32_t The height of the node
-        auto getHeight(const std::shared_ptr<TreeNode<T>>& node) -> int32_t;
+        auto getHeight(const std::shared_ptr<TreeNode<T>>& node) const noexcept -> int32_t;
 
         /// @brief Get the balance factor of a node
         /// @param node The node to get the balance factor of
         /// @return int32_t The balance factor of the node
-        auto getBalance(const std::shared_ptr<TreeNode<T>>& node) -> int32_t;
+        auto getBalance(const std::shared_ptr<TreeNode<T>>& node) const noexcept -> int32_t;
 
         /// @brief Rotate a subtree to the right
         /// @param y The root of the subtree to rotate
@@ -81,9 +83,7 @@ namespace fox
     };
 
     template <typename T>
-    AVLTree<T>::AVLTree() : root_(nullptr)
-    {
-    }
+    AVLTree<T>::AVLTree() = default;
 
     template <typename T>
     auto AVLTree<T>::insert(T value) -> void
@@ -104,13 +104,13 @@ namespace fox
     }
 
     template <typename T>
-    auto AVLTree<T>::getHeight(const std::shared_ptr<TreeNode<T>>& node) -> int32_t
+    auto AVLTree<T>::getHeight(const std::shared_ptr<TreeNode<T>>& node) const noexcept -> int32_t
     {
         return node ? node->height : 0;
     }
 
     template <typename T>
-    auto AVLTree<T>::getBalance(const std::shared_ptr<TreeNode<T>>& node) -> int32_t
+    auto AVLTree<T>::getBalance(const std::shared_ptr<TreeNode<T>>& node) const noexcept -> int32_t
     {
         return node ? getHeight(node->left) - getHeight(node->right) : 0;
     }

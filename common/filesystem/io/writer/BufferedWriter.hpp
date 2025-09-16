@@ -14,7 +14,7 @@ namespace fox
     class BufferedWriter final : public AbstractWriter, public IAppendable<BufferedWriter>
     {
     public:
-        explicit BufferedWriter(std::unique_ptr<std::ofstream> os, const size_t size = DEFAULT_BUFFER_SIZE);
+        explicit BufferedWriter(std::unique_ptr<std::ofstream> os, size_t size = DEFAULT_BUFFER_SIZE);
 
         ~BufferedWriter() override;
 
@@ -26,7 +26,7 @@ namespace fox
         /// @param cBuf The character buffer to write from.
         /// @param off The offset in the buffer to start writing from.
         /// @param len The number of characters to write.
-        auto write(const std::vector<char>& cBuf, const size_t off, const size_t len) -> void override;
+        auto write(const std::vector<char>& cBuf, size_t off, size_t len) -> void override;
 
         /// @brief Writes a newline character to the buffer.
         /// @return A reference to this BufferedWriter instance.
@@ -41,7 +41,7 @@ namespace fox
         /// @brief Appends a single character to the buffer.
         /// @param c The character to append.
         /// @return A reference to this BufferedWriter instance.
-        auto append(const char c) -> BufferedWriter& override;
+        auto append(char c) -> BufferedWriter& override;
 
         /// @brief Appends a string to the buffer.
         /// @param str The string to append.
@@ -53,7 +53,7 @@ namespace fox
         /// @param start The starting index of the substring.
         /// @param end The ending index of the substring.
         /// @return A reference to this BufferedWriter instance.
-        auto append(const std::string& str, const size_t start, const size_t end) -> BufferedWriter& override;
+        auto append(const std::string& str, size_t start, size_t end) -> BufferedWriter& override;
 
         /// @brief Converts the buffer content to a string representation.
         /// @return The string representation of the buffer content.

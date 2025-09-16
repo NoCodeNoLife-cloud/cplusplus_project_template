@@ -11,12 +11,12 @@ namespace fox
     class DoubleBuffer final : public IBuffer
     {
     public:
-        explicit DoubleBuffer(const size_t capacity);
+        explicit DoubleBuffer(size_t capacity);
 
         /// @brief Puts a single double value into the buffer.
         /// @param value The double value to be put into the buffer.
         /// @return Reference to the current DoubleBuffer object.
-        auto put(const double value) -> DoubleBuffer&;
+        auto put(double value) -> DoubleBuffer&;
 
         /// @brief Puts a vector of double values into the buffer.
         /// @param values The vector of double values to be put into the buffer.

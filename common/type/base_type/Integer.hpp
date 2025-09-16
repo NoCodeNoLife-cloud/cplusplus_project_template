@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <utility>
 
 namespace fox
 {
@@ -11,22 +12,28 @@ namespace fox
         };
 
     public:
-        static std::string intToRoman(int32_t num)
-        {
-            std::string roman;
-            for (const auto& [value, symbol] : valueSymbols)
-            {
-                while (num >= value)
-                {
-                    num -= value;
-                    roman += symbol;
-                }
-                if (num == 0)
-                {
-                    break;
-                }
-            }
-            return roman;
-        }
+        /// @brief Converts an integer to its Roman numeral representation
+        /// @param num The integer to convert (must be between 1 and 3999)
+        /// @return The Roman numeral representation as a string
+        [[nodiscard]] static auto intToRoman(int32_t num) noexcept -> std::string;
     };
+
+    inline auto Integer::intToRoman(const int32_t num) noexcept -> std::string
+    {
+        std::string roman;
+        int32_t remaining = num;
+        for (const auto& [value, symbol] : valueSymbols)
+        {
+            while (remaining >= value)
+            {
+                remaining -= value;
+                roman += symbol;
+            }
+            if (remaining == 0)
+            {
+                break;
+            }
+        }
+        return roman;
+    }
 } // namespace fox

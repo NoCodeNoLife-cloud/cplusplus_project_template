@@ -20,7 +20,7 @@ namespace fox
 
         /// @brief Marks the current position in this input stream.
         /// @param readAheadLimit Limit on the number of bytes that can be read ahead.
-        auto mark(const size_t readAheadLimit) -> void override;
+        auto mark(size_t readAheadLimit) -> void override;
 
         /// @brief Tests if this input stream supports the mark and reset methods.
         /// @return true if this stream type supports the mark and reset methods; false otherwise.
@@ -35,7 +35,7 @@ namespace fox
         /// @param off The offset at which to begin storing characters.
         /// @param len The maximum number of characters to read.
         /// @return The number of characters read, or -1 if the end of the stream has been reached.
-        auto read(std::vector<char>& cBuf, const size_t off, const size_t len) -> size_t override;
+        auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
 
         /// @brief Reads characters into an array of characters.
         /// @param cBuf The buffer into which characters are to be read.
@@ -50,7 +50,7 @@ namespace fox
         auto reset() -> void override;
 
         /// @brief Skips over and discards n bytes of data from this input stream.
-        auto skip(const size_t n) -> size_t override;
+        auto skip(size_t n) -> size_t override;
 
     protected:
         std::shared_ptr<AbstractReader> in_;

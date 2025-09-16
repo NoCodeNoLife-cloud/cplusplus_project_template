@@ -3,6 +3,7 @@
 #include <fstream>
 #include <stdexcept>
 #include <vector>
+#include <string>
 
 namespace fox
 {
@@ -55,14 +56,7 @@ namespace fox
     class BmpImage
     {
     public:
-        BmpImage(const int32_t width, const int32_t height) : width_(width), height_(height)
-        {
-            if (width <= 0 || height <= 0)
-            {
-                throw std::invalid_argument("Invalid image dimensions");
-            }
-            pixels_.resize(width * height * 3, 0);
-        }
+        explicit BmpImage(int32_t width, int32_t height) noexcept(false);
 
         /// @brief Sets the color of a pixel at the specified coordinates
         /// @param x The x-coordinate of the pixel
@@ -70,57 +64,73 @@ namespace fox
         /// @param r The red component of the color (0-255)
         /// @param g The green component of the color (0-255)
         /// @param b The blue component of the color (0-255)
-        auto setPixel(const int32_t x, const int32_t y, const uint8_t r, const uint8_t g, const uint8_t b) -> void
-        {
-            if (x < 0 || x >= width_ || y < 0 || y >= height_)
-            {
-                return;
-            }
-            const int32_t invertedY = height_ - 1 - y;
-            const size_t index = (invertedY * width_ + x) * 3;
-            pixels_[index] = b;
-            pixels_[index + 1] = g;
-            pixels_[index + 2] = r;
-        }
+        auto setPixel(int32_t x, int32_t y, uint8_t r, uint8_t g, uint8_t b) const noexcept -> void;
 
         /// @brief Saves the BMP image to a file
         /// @param filename The name of the file to save the image to
-        auto save(const std::string& filename) const -> void
-        {
-            const int32_t rowSize = width_ * 3 + 3 & ~3;
-            const int32_t pixelDataSize = rowSize * height_;
-            const uint64_t fileSize = sizeof(BitMapFileHeader) + sizeof(BitmapInfoHeader) + pixelDataSize;
-            BitMapFileHeader fileHeader{};
-            fileHeader.bf_type_ = 0x4D42;
-            fileHeader.bf_size_ = fileSize;
-            fileHeader.bf_off_bits_ = sizeof(BitMapFileHeader) + sizeof(BitmapInfoHeader);
-            BitmapInfoHeader infoHeader{};
-            infoHeader.bi_size_ = sizeof(BitmapInfoHeader);
-            infoHeader.bi_width_ = width_;
-            infoHeader.bi_height_ = height_;
-            infoHeader.bi_planes_ = 1;
-            infoHeader.bi_bit_count_ = 24;
-            infoHeader.bi_compression_ = 0;
-            infoHeader.bi_size_image_ = pixelDataSize;
-            std::ofstream file(filename, std::ios::binary | std::ios::trunc);
-            if (!file)
-            {
-                throw std::runtime_error("can't create file: " + filename);
-            }
-            file.write(reinterpret_cast<const char*>(&fileHeader), sizeof(fileHeader));
-            file.write(reinterpret_cast<const char*>(&infoHeader), sizeof(infoHeader));
-            constexpr char padding[3] = {};
-            for (int32_t y = 0; y < height_; ++y)
-            {
-                const int32_t rowStart = y * width_ * 3;
-                file.write(reinterpret_cast<const char*>(&pixels_[rowStart]), width_ * 3);
-                file.write(padding, rowSize - width_ * 3);
-            }
-        }
+        auto save(const std::string& filename) const -> void;
 
     private:
         int32_t width_;
         int32_t height_;
-        std::vector<uint8_t> pixels_;
+        mutable std::vector<uint8_t> pixels_;
     };
+
+    inline BmpImage::BmpImage(const int32_t width, const int32_t height) noexcept(false) : width_(width),
+        height_(height)
+    {
+        if (width <= 0 || height <= 0)
+        {
+            throw std::invalid_argument("Invalid image dimensions");
+        }
+        pixels_.resize(static_cast<size_t>(width) * static_cast<size_t>(height) * 3, 0);
+    }
+
+    inline auto BmpImage::setPixel(const int32_t x, const int32_t y, const uint8_t r, const uint8_t g,
+                                   const uint8_t b) const noexcept -> void
+    {
+        if (x < 0 || x >= width_ || y < 0 || y >= height_)
+        {
+            return;
+        }
+        const int32_t invertedY = height_ - 1 - y;
+        const size_t index = static_cast<size_t>(invertedY * width_ + x) * 3;
+        pixels_[index] = b;
+        pixels_[index + 1] = g;
+        pixels_[index + 2] = r;
+    }
+
+    inline auto BmpImage::save(const std::string& filename) const -> void
+    {
+        const int32_t rowSize = (width_ * 3 + 3) & ~3;
+        const int32_t pixelDataSize = rowSize * height_;
+        const uint64_t fileSize = sizeof(BitMapFileHeader) + sizeof(BitmapInfoHeader) + static_cast<uint64_t>(
+            pixelDataSize);
+        BitMapFileHeader fileHeader{};
+        fileHeader.bf_type_ = 0x4D42;
+        fileHeader.bf_size_ = fileSize;
+        fileHeader.bf_off_bits_ = sizeof(BitMapFileHeader) + sizeof(BitmapInfoHeader);
+        BitmapInfoHeader infoHeader{};
+        infoHeader.bi_size_ = sizeof(BitmapInfoHeader);
+        infoHeader.bi_width_ = width_;
+        infoHeader.bi_height_ = height_;
+        infoHeader.bi_planes_ = 1;
+        infoHeader.bi_bit_count_ = 24;
+        infoHeader.bi_compression_ = 0;
+        infoHeader.bi_size_image_ = pixelDataSize;
+        std::ofstream file(filename, std::ios::binary | std::ios::trunc);
+        if (!file)
+        {
+            throw std::runtime_error("can't create file: " + filename);
+        }
+        file.write(reinterpret_cast<const char*>(&fileHeader), sizeof(fileHeader));
+        file.write(reinterpret_cast<const char*>(&infoHeader), sizeof(infoHeader));
+        constexpr char padding[3] = {};
+        for (int32_t y = 0; y < height_; ++y)
+        {
+            const size_t rowStart = static_cast<size_t>(y * width_ * 3);
+            file.write(reinterpret_cast<const char*>(&pixels_[rowStart]), width_ * 3);
+            file.write(padding, rowSize - width_ * 3);
+        }
+    }
 } // namespace fox

@@ -14,7 +14,7 @@ namespace fox
     class ByteBuffer final : public IBuffer
     {
     public:
-        explicit ByteBuffer(const size_t capacity);
+        explicit ByteBuffer(size_t capacity);
 
         /// @brief Puts bytes from a vector into the buffer
         /// @param src The source vector of bytes to put into the buffer
@@ -22,7 +22,7 @@ namespace fox
 
         /// @brief Puts a single byte into the buffer
         /// @param value The byte value to put into the buffer
-        void put(const std::byte value);
+        void put(std::byte value);
 
         /// @brief Gets a single byte from the buffer
         /// @return The byte retrieved from the buffer
@@ -31,7 +31,7 @@ namespace fox
         /// @brief Gets a specified number of bytes from the buffer
         /// @param length The number of bytes to retrieve
         /// @return A vector containing the retrieved bytes
-        auto get(const size_t length) -> std::vector<std::byte>;
+        auto get(size_t length) -> std::vector<std::byte>;
 
     private:
         std::vector<std::byte> buffer_;

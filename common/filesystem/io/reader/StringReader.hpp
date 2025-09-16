@@ -24,7 +24,7 @@ namespace fox
         /// @brief Marks the current position in the stream.
         /// @param readAheadLimit the maximum number of characters that can be read from the stream before the mark position
         /// becomes invalid.
-        auto mark(const size_t readAheadLimit) -> void override;
+        auto mark(size_t readAheadLimit) -> void override;
 
         /// @brief Tests if this input stream supports the mark and reset methods.
         /// @return true if this stream type supports the mark and reset methods; false otherwise.
@@ -41,7 +41,7 @@ namespace fox
         /// @param len The maximum number of characters to read.
         /// @return The total number of characters read into the buffer, or -1 if there is no more data because the end of
         /// the string has been reached.
-        [[nodiscard]] auto read(std::vector<char>& cBuf, const size_t off, const size_t len) -> size_t override;
+        [[nodiscard]] auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
 
         /// @brief Tests if this input stream is ready to be read.
         /// @return true if the next read() is guaranteed not to block for input, false otherwise.
@@ -53,7 +53,7 @@ namespace fox
         /// @brief Skips over and discards n characters from the input stream.
         /// @param ns The number of characters to skip.
         /// @return The actual number of characters skipped.
-        auto skip(const size_t ns) -> size_t override;
+        auto skip(size_t ns) -> size_t override;
 
     private:
         std::string source_;

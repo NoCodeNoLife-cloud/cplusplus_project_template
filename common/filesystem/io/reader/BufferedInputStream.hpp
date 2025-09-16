@@ -12,7 +12,7 @@ namespace fox
     {
     public:
         explicit BufferedInputStream(std::unique_ptr<AbstractInputStream> in);
-        BufferedInputStream(std::unique_ptr<AbstractInputStream> in, const int32_t size);
+        BufferedInputStream(std::unique_ptr<AbstractInputStream> in, int32_t size);
 
         /// @brief Returns the number of bytes that can be read (or skipped over) from this input stream without blocking.
         /// @return the number of bytes that can be read (or skipped over) from this input stream without blocking.

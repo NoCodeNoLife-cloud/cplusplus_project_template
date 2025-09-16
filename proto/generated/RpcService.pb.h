@@ -82,11 +82,11 @@ namespace rpc
         /* @@protoc_insertion_point(class_definition:rpc.MessageResponse) */
     {
     public:
-        inline MessageResponse() : MessageResponse(nullptr)
+        MessageResponse() : MessageResponse(nullptr)
         {
         }
 
-        ~MessageResponse() PROTOBUF_FINAL;
+        ~MessageResponse();
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
         void operator delete(MessageResponse* msg, std::destroying_delete_t)
@@ -99,21 +99,21 @@ namespace rpc
         template <typename = void>
         explicit PROTOBUF_CONSTEXPR MessageResponse(::google::protobuf::internal::ConstantInitialized);
 
-        inline MessageResponse(const MessageResponse& from) : MessageResponse(nullptr, from)
+        MessageResponse(const MessageResponse& from) : MessageResponse(nullptr, from)
         {
         }
 
-        inline MessageResponse(MessageResponse&& from) noexcept : MessageResponse(nullptr, std::move(from))
+        MessageResponse(MessageResponse&& from) noexcept : MessageResponse(nullptr, std::move(from))
         {
         }
 
-        inline MessageResponse& operator=(const MessageResponse& from)
+        MessageResponse& operator=(const MessageResponse& from)
         {
             CopyFrom(from);
             return *this;
         }
 
-        inline MessageResponse& operator=(MessageResponse&& from) noexcept
+        MessageResponse& operator=(MessageResponse&& from) noexcept
         {
             if (this == &from)
                 return *this;
@@ -128,13 +128,13 @@ namespace rpc
             return *this;
         }
 
-        inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const ABSL_ATTRIBUTE_LIFETIME_BOUND
+        const ::google::protobuf::UnknownFieldSet& unknown_fields() const ABSL_ATTRIBUTE_LIFETIME_BOUND
         {
             return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(
                 ::google::protobuf::UnknownFieldSet::default_instance);
         }
 
-        inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() ABSL_ATTRIBUTE_LIFETIME_BOUND
+        ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() ABSL_ATTRIBUTE_LIFETIME_BOUND
         {
             return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
         }
@@ -159,7 +159,7 @@ namespace rpc
             return *internal_default_instance();
         }
 
-        static inline const MessageResponse* internal_default_instance()
+        static const MessageResponse* internal_default_instance()
         {
             return reinterpret_cast<const MessageResponse*>(&_MessageResponse_default_instance_);
         }
@@ -171,7 +171,7 @@ namespace rpc
             a.Swap(&b);
         }
 
-        inline void Swap(MessageResponse* other)
+        void Swap(MessageResponse* other)
         {
             if (other == this)
                 return;
@@ -218,7 +218,7 @@ namespace rpc
             return true;
         }
 
-        ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+        ABSL_ATTRIBUTE_REINITIALIZES void Clear();
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     private:
         static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
@@ -235,9 +235,9 @@ namespace rpc
             return _InternalSerialize(*this, target, stream);
         }
 #else  // PROTOBUF_CUSTOM_VTABLE
-        ::size_t ByteSizeLong() const final;
+        ::size_t ByteSizeLong() const;
         ::uint8_t* _InternalSerialize(::uint8_t* target,
-                                      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+                                      ::google::protobuf::io::EpsCopyOutputStream* stream) const;
 #endif // PROTOBUF_CUSTOM_VTABLE
         int GetCachedSize() const
         {
@@ -267,7 +267,7 @@ namespace rpc
             *this = ::std::move(from);
         }
 
-        const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+        const ::google::protobuf::internal::ClassData* GetClassData() const;
         static void* PlacementNew_(const void*, void* mem, ::google::protobuf::Arena* arena);
         static constexpr auto InternalNewImpl_();
         static const ::google::protobuf::internal::ClassDataFull _class_data_;
@@ -312,7 +312,7 @@ namespace rpc
 
         struct Impl_
         {
-            inline explicit constexpr Impl_(::google::protobuf::internal::ConstantInitialized) noexcept;
+            explicit constexpr Impl_(::google::protobuf::internal::ConstantInitialized) noexcept;
             inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                                   ::google::protobuf::Arena* arena);
             inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
@@ -336,11 +336,11 @@ namespace rpc
         /* @@protoc_insertion_point(class_definition:rpc.MessageRequest) */
     {
     public:
-        inline MessageRequest() : MessageRequest(nullptr)
+        MessageRequest() : MessageRequest(nullptr)
         {
         }
 
-        ~MessageRequest() PROTOBUF_FINAL;
+        ~MessageRequest();
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
         void operator delete(MessageRequest* msg, std::destroying_delete_t)
@@ -353,21 +353,21 @@ namespace rpc
         template <typename = void>
         explicit PROTOBUF_CONSTEXPR MessageRequest(::google::protobuf::internal::ConstantInitialized);
 
-        inline MessageRequest(const MessageRequest& from) : MessageRequest(nullptr, from)
+        MessageRequest(const MessageRequest& from) : MessageRequest(nullptr, from)
         {
         }
 
-        inline MessageRequest(MessageRequest&& from) noexcept : MessageRequest(nullptr, std::move(from))
+        MessageRequest(MessageRequest&& from) noexcept : MessageRequest(nullptr, std::move(from))
         {
         }
 
-        inline MessageRequest& operator=(const MessageRequest& from)
+        MessageRequest& operator=(const MessageRequest& from)
         {
             CopyFrom(from);
             return *this;
         }
 
-        inline MessageRequest& operator=(MessageRequest&& from) noexcept
+        MessageRequest& operator=(MessageRequest&& from) noexcept
         {
             if (this == &from)
                 return *this;
@@ -382,13 +382,13 @@ namespace rpc
             return *this;
         }
 
-        inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const ABSL_ATTRIBUTE_LIFETIME_BOUND
+        const ::google::protobuf::UnknownFieldSet& unknown_fields() const ABSL_ATTRIBUTE_LIFETIME_BOUND
         {
             return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(
                 ::google::protobuf::UnknownFieldSet::default_instance);
         }
 
-        inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() ABSL_ATTRIBUTE_LIFETIME_BOUND
+        ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() ABSL_ATTRIBUTE_LIFETIME_BOUND
         {
             return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
         }
@@ -413,7 +413,7 @@ namespace rpc
             return *internal_default_instance();
         }
 
-        static inline const MessageRequest* internal_default_instance()
+        static const MessageRequest* internal_default_instance()
         {
             return reinterpret_cast<const MessageRequest*>(&_MessageRequest_default_instance_);
         }
@@ -425,7 +425,7 @@ namespace rpc
             a.Swap(&b);
         }
 
-        inline void Swap(MessageRequest* other)
+        void Swap(MessageRequest* other)
         {
             if (other == this)
                 return;
@@ -472,7 +472,7 @@ namespace rpc
             return true;
         }
 
-        ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+        ABSL_ATTRIBUTE_REINITIALIZES void Clear();
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     private:
         static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
@@ -489,9 +489,9 @@ namespace rpc
             return _InternalSerialize(*this, target, stream);
         }
 #else  // PROTOBUF_CUSTOM_VTABLE
-        ::size_t ByteSizeLong() const final;
+        ::size_t ByteSizeLong() const;
         ::uint8_t* _InternalSerialize(::uint8_t* target,
-                                      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+                                      ::google::protobuf::io::EpsCopyOutputStream* stream) const;
 #endif // PROTOBUF_CUSTOM_VTABLE
         int GetCachedSize() const
         {
@@ -521,7 +521,7 @@ namespace rpc
             *this = ::std::move(from);
         }
 
-        const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+        const ::google::protobuf::internal::ClassData* GetClassData() const;
         static void* PlacementNew_(const void*, void* mem, ::google::protobuf::Arena* arena);
         static constexpr auto InternalNewImpl_();
         static const ::google::protobuf::internal::ClassDataFull _class_data_;
@@ -566,7 +566,7 @@ namespace rpc
 
         struct Impl_
         {
-            inline explicit constexpr Impl_(::google::protobuf::internal::ConstantInitialized) noexcept;
+            explicit constexpr Impl_(::google::protobuf::internal::ConstantInitialized) noexcept;
             inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                                   ::google::protobuf::Arena* arena);
             inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
@@ -610,7 +610,7 @@ namespace rpc
     }
 
     template <typename Arg_, typename... Args_>
-    inline PROTOBUF_ALWAYS_INLINE void MessageRequest::set_content(Arg_&& arg, Args_... args)
+    PROTOBUF_ALWAYS_INLINE void MessageRequest::set_content(Arg_&& arg, Args_... args)
     {
         ::google::protobuf::internal::TSanWrite(&_impl_);
         _impl_.content_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
@@ -678,7 +678,7 @@ namespace rpc
     }
 
     template <typename Arg_, typename... Args_>
-    inline PROTOBUF_ALWAYS_INLINE void MessageResponse::set_status(Arg_&& arg, Args_... args)
+    PROTOBUF_ALWAYS_INLINE void MessageResponse::set_status(Arg_&& arg, Args_... args)
     {
         ::google::protobuf::internal::TSanWrite(&_impl_);
         _impl_.status_.Set(static_cast<Arg_&&>(arg), args..., GetArena());

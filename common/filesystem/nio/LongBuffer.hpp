@@ -10,7 +10,7 @@ namespace fox
     class LongBuffer final : public IBuffer
     {
     public:
-        explicit LongBuffer(const std::size_t capacity);
+        explicit LongBuffer(std::size_t capacity);
 
         /// @brief Get the current value from the buffer
         /// @return The current value
@@ -18,7 +18,7 @@ namespace fox
 
         /// @brief Put a value into the buffer
         /// @param value The value to put
-        auto put(const int64_t value) -> void;
+        auto put(int64_t value) -> void;
 
     private:
         std::vector<int64_t> buffer_{};

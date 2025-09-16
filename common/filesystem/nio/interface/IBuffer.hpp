@@ -24,7 +24,7 @@ namespace fox
 
         /// @brief Set the position of the buffer
         /// @param newPosition The new position to set
-        virtual auto position(const size_t newPosition) -> void;
+        virtual auto position(size_t newPosition) -> void;
 
         /// @brief Get the limit of the buffer
         /// @return The limit of the buffer
@@ -32,7 +32,7 @@ namespace fox
 
         /// @brief Set the limit of the buffer
         /// @param newLimit The new limit to set
-        virtual auto limit(const size_t newLimit) -> void;
+        virtual auto limit(size_t newLimit) -> void;
 
         /// @brief Clear the buffer by resetting position and limit
         virtual void clear();

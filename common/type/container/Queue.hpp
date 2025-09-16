@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <stdexcept>
+#include <utility>
 
 namespace fox
 {
@@ -11,7 +12,9 @@ namespace fox
     {
     public:
         Queue();
+
         Queue(const Queue& other);
+
         Queue(Queue&& other) noexcept;
 
         /// @brief Copy assignment operator
@@ -53,11 +56,11 @@ namespace fox
 
         /// @brief Check if the queue is empty
         /// @return True if the queue is empty, false otherwise
-        [[nodiscard]] auto empty() const -> bool;
+        [[nodiscard]] auto empty() const noexcept -> bool;
 
         /// @brief Get the number of elements in the queue
         /// @return The number of elements in the queue
-        [[nodiscard]] auto size() const -> size_t;
+        [[nodiscard]] auto size() const noexcept -> size_t;
 
     private:
         struct Node
@@ -96,8 +99,8 @@ namespace fox
     }
 
     template <typename T>
-    Queue<T>::Queue(Queue&& other) noexcept
-        : head_(std::move(other.head_)), tail_(other.tail_), queue_size_(other.queue_size_)
+    Queue<T>::Queue(Queue&& other) noexcept : head_(std::move(other.head_)), tail_(other.tail_),
+                                              queue_size_(other.queue_size_)
     {
         other.tail_ = nullptr;
         other.queue_size_ = 0;
@@ -180,16 +183,6 @@ namespace fox
     }
 
     template <typename T>
-    auto Queue<T>::back() -> T&
-    {
-        if (empty())
-        {
-            throw std::out_of_range("Queue is empty");
-        }
-        return tail_->data_;
-    }
-
-    template <typename T>
     auto Queue<T>::front() const -> const T&
     {
         if (empty())
@@ -197,6 +190,16 @@ namespace fox
             throw std::out_of_range("Queue is empty");
         }
         return head_->data_;
+    }
+
+    template <typename T>
+    auto Queue<T>::back() -> T&
+    {
+        if (empty())
+        {
+            throw std::out_of_range("Queue is empty");
+        }
+        return tail_->data_;
     }
 
     template <typename T>
@@ -210,19 +213,19 @@ namespace fox
     }
 
     template <typename T>
-    auto Queue<T>::empty() const -> bool
+    auto Queue<T>::empty() const noexcept -> bool
     {
         return queue_size_ == 0;
     }
 
     template <typename T>
-    auto Queue<T>::size() const -> size_t
+    auto Queue<T>::size() const noexcept -> size_t
     {
         return queue_size_;
     }
 
     template <typename T>
-    Queue<T>::Node::Node(T value) : data_(value), next_(nullptr)
+    Queue<T>::Node::Node(T value) : data_(std::move(value)), next_(nullptr)
     {
     }
 } // namespace fox

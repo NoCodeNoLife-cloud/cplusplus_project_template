@@ -12,9 +12,7 @@ namespace fox
     class BinarySearchTree
     {
     public:
-        BinarySearchTree() : root_(nullptr)
-        {
-        }
+        BinarySearchTree() noexcept;
 
         /// @brief Inserts a value into the binary search tree.
         /// @param value The value to be inserted.
@@ -64,9 +62,33 @@ namespace fox
     };
 
     template <typename T>
+    BinarySearchTree<T>::BinarySearchTree() noexcept : root_(nullptr)
+    {
+    }
+
+    template <typename T>
     auto BinarySearchTree<T>::insert(T value) -> void
     {
         root_ = insertRecursive(root_, value);
+    }
+
+    template <typename T>
+    auto BinarySearchTree<T>::find(T value) const -> bool
+    {
+        return findRecursive(root_, value);
+    }
+
+    template <typename T>
+    auto BinarySearchTree<T>::remove(T value) -> void
+    {
+        root_ = removeRecursive(root_, value);
+    }
+
+    template <typename T>
+    auto BinarySearchTree<T>::inorderTraversal() const -> void
+    {
+        inorderTraversalRecursive(root_);
+        std::cout << std::endl;
     }
 
     template <typename T>
@@ -83,12 +105,6 @@ namespace fox
     }
 
     template <typename T>
-    auto BinarySearchTree<T>::find(T value) const -> bool
-    {
-        return findRecursive(root_, value);
-    }
-
-    template <typename T>
     auto BinarySearchTree<T>::findRecursive(const std::shared_ptr<TreeNode<T>>& node, T value) const -> bool
     {
         if (!node)
@@ -98,12 +114,6 @@ namespace fox
         if (value < node->data)
             return findRecursive(node->left, value);
         return findRecursive(node->right, value);
-    }
-
-    template <typename T>
-    auto BinarySearchTree<T>::remove(T value) -> void
-    {
-        root_ = removeRecursive(root_, value);
     }
 
     template <typename T>
@@ -135,13 +145,6 @@ namespace fox
         while (current && current->left)
             current = current->left;
         return current;
-    }
-
-    template <typename T>
-    auto BinarySearchTree<T>::inorderTraversal() const -> void
-    {
-        inorderTraversalRecursive(root_);
-        std::cout << std::endl;
     }
 
     template <typename T>

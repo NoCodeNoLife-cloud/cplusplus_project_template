@@ -9,92 +9,126 @@ namespace fox
     class Point2D
     {
     public:
-        Point2D();
-        Point2D(double x, double y);
+        Point2D() noexcept;
+
+        Point2D(double x, double y) noexcept;
 
         /// @brief Get the X coordinate
         /// @return X coordinate value
-        [[nodiscard]] auto getX() const -> double
-        {
-            return x_;
-        }
+        [[nodiscard]] auto getX() const noexcept -> double;
 
         /// @brief Get the Y coordinate
         /// @return Y coordinate value
-        [[nodiscard]] auto getY() const -> double
-        {
-            return y_;
-        }
+        [[nodiscard]] auto getY() const noexcept -> double;
 
         /// @brief Set the X coordinate
         /// @param x X coordinate value
-        auto setX(const double x) -> void
-        {
-            x_ = x;
-        }
+        auto setX(double x) noexcept -> void;
 
         /// @brief Set the Y coordinate
         /// @param y Y coordinate value
-        auto setY(const double y) -> void
-        {
-            y_ = y;
-        }
+        auto setY(double y) noexcept -> void;
 
         /// @brief Add another Point2D to this point
         /// @param other Point2D to add
         /// @return Reference to this point
-        auto operator+=(const Point2D& other) -> Point2D&
-        {
-            x_ += other.x_;
-            y_ += other.y_;
-            return *this;
-        }
+        auto operator+=(const Point2D& other) noexcept -> Point2D&;
 
         /// @brief Subtract another Point2D from this point
         /// @param other Point2D to subtract
         /// @return Reference to this point
-        auto operator-=(const Point2D& other) -> Point2D&
-        {
-            x_ -= other.x_;
-            y_ -= other.y_;
-            return *this;
-        }
+        auto operator-=(const Point2D& other) noexcept -> Point2D&;
 
         /// @brief Negate this point
         /// @return Negated point
-        auto operator-() const -> Point2D
-        {
-            return {-x_, -y_};
-        }
+        auto operator-() const noexcept -> Point2D;
+
+        // Friend operators
+        friend auto operator+(Point2D lhs, const Point2D& rhs) noexcept -> Point2D;
+
+        friend auto operator-(Point2D lhs, const Point2D& rhs) noexcept -> Point2D;
+
+        friend auto operator==(const Point2D& lhs, const Point2D& rhs) noexcept -> bool;
+
+        friend auto operator!=(const Point2D& lhs, const Point2D& rhs) noexcept -> bool;
+
+        friend auto operator<<(std::ostream& os, const Point2D& point) -> std::ostream&;
 
     private:
         double x_;
         double y_;
     };
 
-    inline Point2D operator+(Point2D lhs, const Point2D& rhs)
+    inline Point2D::Point2D() noexcept : x_(0.0), y_(0.0)
+    {
+    }
+
+    inline Point2D::Point2D(double x, double y) noexcept : x_(x), y_(y)
+    {
+    }
+
+    inline auto Point2D::getX() const noexcept -> double
+    {
+        return x_;
+    }
+
+    inline auto Point2D::getY() const noexcept -> double
+    {
+        return y_;
+    }
+
+    inline auto Point2D::setX(const double x) noexcept -> void
+    {
+        x_ = x;
+    }
+
+    inline auto Point2D::setY(const double y) noexcept -> void
+    {
+        y_ = y;
+    }
+
+    inline auto Point2D::operator+=(const Point2D& other) noexcept -> Point2D&
+    {
+        x_ += other.x_;
+        y_ += other.y_;
+        return *this;
+    }
+
+    inline auto Point2D::operator-=(const Point2D& other) noexcept -> Point2D&
+    {
+        x_ -= other.x_;
+        y_ -= other.y_;
+        return *this;
+    }
+
+    inline auto Point2D::operator-() const noexcept -> Point2D
+    {
+        return {-x_, -y_};
+    }
+
+    inline Point2D operator+(Point2D lhs, const Point2D& rhs) noexcept
     {
         lhs += rhs;
         return lhs;
     }
 
-    inline Point2D operator-(Point2D lhs, const Point2D& rhs)
+    inline Point2D operator-(Point2D lhs, const Point2D& rhs) noexcept
     {
         lhs -= rhs;
         return lhs;
     }
 
-    inline bool operator==(const Point2D& lhs, const Point2D& rhs)
+    inline auto operator==(const Point2D& lhs, const Point2D& rhs) noexcept -> bool
     {
         return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY();
     }
 
-    inline bool operator!=(const Point2D& lhs, const Point2D& rhs)
+    inline bool operator!=(const Point2D& lhs, const Point2D& rhs) noexcept
     {
         return !(lhs == rhs);
     }
 
-    inline std::ostream& operator<<(std::ostream& os, const Point2D& point)
+    inline auto operator<<(std::ostream& os, const Point2D& point) -> std::ostream&
     {
         os << "(" << point.getX() << ", " << point.getY() << ")";
         return os;

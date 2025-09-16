@@ -10,17 +10,19 @@ namespace fox
     class EnumUtil
     {
     public:
+        EnumUtil() = delete;
+
         /// @brief Get the class name of an enum value as a string.
         /// @tparam T The enum type.
-        /// @param t The enum value.
+        /// @param value The enum value.
         /// @return std::string The name of the enum value as a string.
         template <typename T>
-        static auto getEnumClassName(T t) -> std::string;
+        [[nodiscard]] static auto getEnumClassName(T value) noexcept -> std::string;
     };
 
     template <typename T>
-    auto EnumUtil::getEnumClassName(T t) -> std::string
+    auto EnumUtil::getEnumClassName(const T value) noexcept -> std::string
     {
-        return static_cast<std::string>(magic_enum::enum_name(t));
+        return static_cast<std::string>(magic_enum::enum_name(value));
     }
 } // namespace fox

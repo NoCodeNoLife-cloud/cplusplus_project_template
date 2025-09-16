@@ -15,7 +15,7 @@ namespace fox
     class CharBuffer final : public IBuffer
     {
     public:
-        explicit CharBuffer(const size_t cap);
+        explicit CharBuffer(size_t cap);
 
         /// @brief Compacts the buffer by removing processed characters.
         /// @return void
@@ -24,7 +24,7 @@ namespace fox
         /// @brief Puts a single character into the buffer.
         /// @param c The character to put into the buffer.
         /// @return void
-        auto put(const char c) -> void;
+        auto put(char c) -> void;
 
         /// @brief Puts a string into the buffer.
         /// @param src The string to put into the buffer.

@@ -1,5 +1,6 @@
 #pragma once
 #include <unordered_map>
+#include <cstdint>
 
 namespace fox
 {
@@ -25,13 +26,13 @@ namespace fox
         /// @param x First element
         /// @param y Second element
         /// @return True if the sets were successfully united, false if they were already in the same set.
-        auto unionSets(const T& x, const T& y) -> bool;
+        [[nodiscard]] auto unionSets(const T& x, const T& y) -> bool;
 
         /// @brief Checks if elements x and y are in the same set.
         /// @param x First element
         /// @param y Second element
         /// @return True if x and y are connected (in the same set), false otherwise.
-        auto connected(const T& x, const T& y) -> bool;
+        [[nodiscard]] auto connected(const T& x, const T& y) const -> bool;
 
         std::unordered_map<T, T> parent;
         std::unordered_map<T, int32_t> rank;
@@ -79,15 +80,18 @@ namespace fox
     }
 
     template <typename T>
-    auto UnionSet<T>::connected(const T& x, const T& y) -> bool
+    auto UnionSet<T>::connected(const T& x, const T& y) const -> bool
     {
+        // Need to ensure elements are registered before checking connection
+        const_cast<UnionSet*>(this)->ensureRegistered(x);
+        const_cast<UnionSet*>(this)->ensureRegistered(y);
         return find(x) == find(y);
     }
 
     template <typename T>
     auto UnionSet<T>::ensureRegistered(const T& x) -> void
     {
-        if (!parent.contains(x))
+        if (parent.find(x) == parent.end())
         {
             parent[x] = x;
             rank[x] = 1;

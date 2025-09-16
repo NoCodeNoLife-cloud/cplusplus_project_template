@@ -63,7 +63,7 @@ namespace fox
         /// This method skips over and discards n characters from the input stream.
         /// @param n Number of characters to skip
         /// @return The number of characters actually skipped
-        virtual auto skip(const size_t n) -> size_t;
+        virtual auto skip(size_t n) -> size_t;
     };
 
     inline AbstractReader::~AbstractReader() = default;

@@ -2,6 +2,8 @@
 #include <functional>
 #include <stdexcept>
 #include <vector>
+#include <cstdint>
+#include <utility>
 
 namespace fox
 {
@@ -13,6 +15,7 @@ namespace fox
     {
     public:
         Heap();
+
         template <typename Iterator>
         Heap(Iterator begin, Iterator end);
 
@@ -42,11 +45,11 @@ namespace fox
 
         /// @brief Returns the number of elements in the heap.
         /// @return The number of elements.
-        [[nodiscard]] auto size() const -> size_t;
+        [[nodiscard]] auto size() const noexcept -> size_t;
 
         /// @brief Checks if the heap is empty.
         /// @return True if the heap is empty, false otherwise.
-        [[nodiscard]] auto empty() const -> bool;
+        [[nodiscard]] auto empty() const noexcept -> bool;
 
     private:
         std::vector<T> data_;
@@ -132,13 +135,13 @@ namespace fox
     }
 
     template <typename T, typename Compare>
-    auto Heap<T, Compare>::size() const -> size_t
+    auto Heap<T, Compare>::size() const noexcept -> size_t
     {
         return data_.size();
     }
 
     template <typename T, typename Compare>
-    auto Heap<T, Compare>::empty() const -> bool
+    auto Heap<T, Compare>::empty() const noexcept -> bool
     {
         return data_.empty();
     }
@@ -146,9 +149,9 @@ namespace fox
     template <typename T, typename Compare>
     auto Heap<T, Compare>::heapify() -> void
     {
-        for (int32_t i = data_.size() / 2 - 1; i >= 0; --i)
+        for (std::int32_t i = static_cast<std::int32_t>(data_.size()) / 2 - 1; i >= 0; --i)
         {
-            heapify_down(i);
+            heapify_down(static_cast<size_t>(i));
         }
     }
 
@@ -157,7 +160,7 @@ namespace fox
     {
         while (index > 0)
         {
-            size_t parent = (index - 1) / 2;
+            const size_t parent = (index - 1) / 2;
             if (!compare(data_[parent], data_[index]))
             {
                 break;
@@ -173,8 +176,8 @@ namespace fox
         const size_t size = data_.size();
         while (true)
         {
-            size_t left = 2 * index + 1;
-            size_t right = 2 * index + 2;
+            const size_t left = 2 * index + 1;
+            const size_t right = 2 * index + 2;
             size_t swap_index = index;
 
             if (left < size && compare(data_[index], data_[left]))

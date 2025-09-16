@@ -6,6 +6,7 @@
 #include <mutex>
 #include <thread>
 #include <unordered_map>
+#include <cstdint>
 
 namespace fox
 {
@@ -19,12 +20,12 @@ namespace fox
         /// @param delayMs The delay in milliseconds before the task is executed.
         /// @param task The task to be executed.
         /// @return The ID of the scheduled task.
-        auto scheduleTask(int32_t delayMs, std::function<ResultType()> task) -> int32_t;
+        [[nodiscard]] auto scheduleTask(int32_t delayMs, std::function<ResultType()> task) -> int32_t;
 
         /// @brief Retrieves the result of a scheduled task.
         /// @param taskId The ID of the task whose result is to be retrieved.
         /// @return A future object that will hold the result of the task.
-        auto getTaskResult(int32_t taskId) -> std::future<ResultType>;
+        [[nodiscard]] auto getTaskResult(int32_t taskId) -> std::future<ResultType>;
 
     private:
         mutable std::mutex mutex_;
@@ -34,10 +35,11 @@ namespace fox
     };
 
     template <typename ResultType>
-    auto DelayedTaskActuator<ResultType>::scheduleTask(int32_t delayMs, std::function<ResultType()> task) -> int32_t
+    auto DelayedTaskActuator<ResultType>::scheduleTask(const int32_t delayMs,
+                                                       std::function<ResultType()> task) -> int32_t
     {
-        std::lock_guard lock(mutex_);
-        int32_t taskId = nextTaskId_++;
+        std::lock_guard<std::mutex> lock(mutex_);
+        const int32_t taskId = nextTaskId_++;
         std::packaged_task<ResultType()> packagedTask(task);
         std::future<ResultType> result = packagedTask.get_future();
 
@@ -46,7 +48,7 @@ namespace fox
             std::this_thread::sleep_for(std::chrono::milliseconds(delayMs));
             packagedTask();
             {
-                std::lock_guard lock1(mutex_);
+                std::lock_guard<std::mutex> lock1(mutex_);
                 cv_.notify_one();
             }
         }).detach();
@@ -56,9 +58,9 @@ namespace fox
     }
 
     template <typename ResultType>
-    auto DelayedTaskActuator<ResultType>::getTaskResult(int32_t taskId) -> std::future<ResultType>
+    auto DelayedTaskActuator<ResultType>::getTaskResult(const int32_t taskId) -> std::future<ResultType>
     {
-        std::unique_lock lock(mutex_);
+        std::unique_lock<std::mutex> lock(mutex_);
 
         cv_.wait(lock, [this, taskId] { return results_.contains(taskId); });
 

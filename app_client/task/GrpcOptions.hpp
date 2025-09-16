@@ -24,15 +24,15 @@ namespace app_client
 
         /// @brief Set the keepalive time interval in milliseconds
         /// @param value The keepalive time interval in milliseconds
-        auto keepaliveTimeMs(const int32_t value) -> void;
+        auto keepaliveTimeMs(int32_t value) -> void;
 
         /// @brief Set the keepalive timeout in milliseconds
         /// @param value The keepalive timeout in milliseconds
-        auto keepaliveTimeoutMs(const int32_t value) -> void;
+        auto keepaliveTimeoutMs(int32_t value) -> void;
 
         /// @brief Set whether to permit keepalive pings without active calls
         /// @param value 1 to permit, 0 to not permit
-        auto keepalivePermitWithoutCalls(const int32_t value) -> void;
+        auto keepalivePermitWithoutCalls(int32_t value) -> void;
 
     private:
         /// @brief Time interval between keepalive pings (in milliseconds)

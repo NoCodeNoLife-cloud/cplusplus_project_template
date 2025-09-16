@@ -2,6 +2,8 @@
 #include <glog/logging.h>
 
 #include <string>
+#include <stdexcept>
+#include <cstdlib>
 
 #include "GLogParameters.hpp"
 #include "filesystem/serialize/YamlObjectSerializer.hpp"
@@ -17,22 +19,11 @@ namespace service
     class GLogConfigurator final : public IConfigurable, public IStartupTask
     {
     public:
-        explicit GLogConfigurator(const std::string& GLogYAMLPath)
-        {
-            GLogYAMLPath_ = GLogYAMLPath;
-            config_ = fox::YamlObjectSerializer<GLogParameters>::deserialize(GLogYAMLPath_);
-        }
+        explicit GLogConfigurator(const std::string& GLogYAMLPath);
 
         /// @brief Execute the startup task.
         /// @return True if the task was executed successfully, false otherwise.
-        bool execute() override
-        {
-            if (!doConfig())
-            {
-                throw std::runtime_error("Configuration GLog failed");
-            }
-            return true;
-        }
+        auto execute() -> bool override;
 
     private:
         std::string GLogYAMLPath_{};
@@ -40,30 +31,50 @@ namespace service
 
         /// @brief Perform the configuration.
         /// @return True if the configuration was successful, false otherwise.
-        [[nodiscard]] auto doConfig() -> bool override
-        {
-            google::InitGoogleLogging(config_.logName().c_str());
-            FLAGS_minloglevel = config_.minLogLevel();
-            configLogToStdout(config_);
-            if (std::atexit(clean) != 0)
-            {
-                throw std::runtime_error("Failed to register cleanup function!");
-            }
-            LOG(INFO) << "configuring glog...";
-            return true;
-        }
+        [[nodiscard]] auto doConfig() -> bool override;
 
         /// @brief Configure logging to stdout based on the provided options.
         /// @param glog_options The logging options to use for configuration.
-        static auto configLogToStdout(const GLogParameters& glog_options) -> void
-        {
-            FLAGS_logtostderr = glog_options.logToStderr();
-        }
+        static auto configLogToStdout(const GLogParameters& glog_options) noexcept -> void;
 
         /// @brief Clean up any resources used by the configurator.
-        static auto clean() -> void
-        {
-            google::ShutdownGoogleLogging();
-        }
+        static auto clean() noexcept -> void;
     };
+
+    inline GLogConfigurator::GLogConfigurator(const std::string& GLogYAMLPath) : GLogYAMLPath_(GLogYAMLPath),
+        config_(fox::YamlObjectSerializer<GLogParameters>::deserialize(GLogYAMLPath_))
+    {
+    }
+
+    inline auto GLogConfigurator::execute() -> bool
+    {
+        if (!doConfig())
+        {
+            throw std::runtime_error("Configuration GLog failed");
+        }
+        return true;
+    }
+
+    inline auto GLogConfigurator::doConfig() -> bool
+    {
+        google::InitGoogleLogging(config_.logName().c_str());
+        FLAGS_minloglevel = config_.minLogLevel();
+        configLogToStdout(config_);
+        if (std::atexit(clean) != 0)
+        {
+            throw std::runtime_error("Failed to register cleanup function!");
+        }
+        LOG(INFO) << "configuring glog...";
+        return true;
+    }
+
+    inline auto GLogConfigurator::configLogToStdout(const GLogParameters& glog_options) noexcept -> void
+    {
+        FLAGS_logtostderr = glog_options.logToStderr();
+    }
+
+    inline auto GLogConfigurator::clean() noexcept -> void
+    {
+        google::ShutdownGoogleLogging();
+    }
 } // namespace service

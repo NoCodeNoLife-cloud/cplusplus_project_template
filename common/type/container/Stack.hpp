@@ -1,6 +1,8 @@
 #pragma once
 #include <stdexcept>
 #include <vector>
+#include <utility>
+#include <iterator>
 
 namespace fox
 {
@@ -46,11 +48,11 @@ namespace fox
 
         /// @brief Checks whether the stack is empty.
         /// @return True if the stack is empty, false otherwise.
-        [[nodiscard]] auto empty() const -> bool;
+        [[nodiscard]] auto empty() const noexcept -> bool;
 
         /// @brief Returns the number of elements in the stack.
         /// @return The number of elements in the stack.
-        [[nodiscard]] auto size() const -> size_t;
+        [[nodiscard]] auto size() const noexcept -> size_t;
 
     private:
         Container data;
@@ -61,12 +63,8 @@ namespace fox
 
     template <typename T, typename Container>
     template <typename Iterator>
-    Stack<T, Container>::Stack(Iterator begin, Iterator end)
+    Stack<T, Container>::Stack(Iterator begin, Iterator end) : data(begin, end)
     {
-        for (auto it = begin; it != end; ++it)
-        {
-            push(*it);
-        }
     }
 
     template <typename T, typename Container>
@@ -119,13 +117,13 @@ namespace fox
     }
 
     template <typename T, typename Container>
-    auto Stack<T, Container>::empty() const -> bool
+    auto Stack<T, Container>::empty() const noexcept -> bool
     {
         return data.empty();
     }
 
     template <typename T, typename Container>
-    auto Stack<T, Container>::size() const -> size_t
+    auto Stack<T, Container>::size() const noexcept -> size_t
     {
         return data.size();
     }

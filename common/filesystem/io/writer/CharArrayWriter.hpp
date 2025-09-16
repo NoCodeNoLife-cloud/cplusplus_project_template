@@ -16,25 +16,25 @@ namespace fox
     public:
         CharArrayWriter();
 
-        explicit CharArrayWriter(const int32_t initialSize);
+        explicit CharArrayWriter(int32_t initialSize);
 
         ~CharArrayWriter() override;
 
         /// @brief Writes a single character to the buffer.
         /// @param c The character to write.
-        void write(const char c) override;
+        void write(char c) override;
 
         /// @brief Writes a portion of a character array to the buffer.
         /// @param cBuf The character array to write from.
         /// @param off The offset in the array to start writing from.
         /// @param len The number of characters to write.
-        auto write(const std::vector<char>& cBuf, const size_t off, const size_t len) -> void override;
+        auto write(const std::vector<char>& cBuf, size_t off, size_t len) -> void override;
 
         /// @brief Writes a portion of a string to the buffer.
         /// @param str The string to write from.
         /// @param off The offset in the string to start writing from.
         /// @param len The number of characters to write.
-        void write(const std::string& str, const size_t off, const size_t len) override;
+        void write(const std::string& str, size_t off, size_t len) override;
 
         /// @brief Writes the contents of this writer to another writer.
         /// @param out The writer to write to.
@@ -50,12 +50,12 @@ namespace fox
         /// @param start The starting index of the subsequence.
         /// @param end The ending index of the subsequence.
         /// @return A reference to this writer.
-        CharArrayWriter& append(const std::string& csq, const size_t start, const size_t end) override;
+        CharArrayWriter& append(const std::string& csq, size_t start, size_t end) override;
 
         /// @brief Appends a single character to the buffer.
         /// @param c The character to append.
         /// @return A reference to this writer.
-        CharArrayWriter& append(const char c) override;
+        CharArrayWriter& append(char c) override;
 
         /// @brief Resets the buffer to empty.
         auto reset() -> void;

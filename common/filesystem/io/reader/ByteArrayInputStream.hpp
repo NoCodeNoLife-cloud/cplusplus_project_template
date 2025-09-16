@@ -23,12 +23,12 @@ namespace fox
         /// @param len the maximum number of bytes to read.
         /// @return the total number of bytes read into the buffer, or 0 if there is no more data because the end of the
         /// stream has been reached.
-        auto read(std::vector<std::byte>& cBuf, const size_t off, size_t len) -> size_t override;
+        auto read(std::vector<std::byte>& cBuf, size_t off, size_t len) -> size_t override;
 
         /// @brief Skips over and discards n bytes of data from this input stream.
         /// @param n the number of bytes to be skipped.
         /// @return the total number of bytes skipped.
-        auto skip(const size_t n) -> size_t override;
+        auto skip(size_t n) -> size_t override;
 
         /// @brief Returns the number of bytes that can be read (or skipped over) from this input stream without blocking by
         /// the next caller of a method for this input stream.
@@ -40,7 +40,7 @@ namespace fox
 
         /// @brief Marks the current position in this input stream.
         /// @param readLimit the maximum limit of bytes that can be read ahead.
-        auto mark(const int32_t readLimit) -> void override;
+        auto mark(int32_t readLimit) -> void override;
 
         /// @brief Tests if this input stream supports the mark and reset methods.
         /// @return true if this stream instance supports the mark and reset methods; false otherwise.

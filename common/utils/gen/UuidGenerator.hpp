@@ -11,13 +11,17 @@ namespace fox
     class UuidGenerator
     {
     public:
+        UuidGenerator() = delete;
+
         /// @brief Generates a random UUID string.
         /// @return A string representation of the generated UUID.
-        // ReSharper disable once CppDFAConstantFunctionResult
-        static auto GenerateRandomUuid() -> std::string
-        {
-            static auto generator = boost::uuids::random_generator();
-            return boost::uuids::to_string(generator());
-        }
+        [[nodiscard]] static auto GenerateRandomUuid() noexcept -> std::string;
     };
+
+    // ReSharper disable once CppDFAConstantFunctionResult
+    inline auto UuidGenerator::GenerateRandomUuid() noexcept -> std::string
+    {
+        static auto generator = boost::uuids::random_generator();
+        return boost::uuids::to_string(generator());
+    }
 } // namespace fox

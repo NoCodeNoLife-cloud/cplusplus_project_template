@@ -17,7 +17,7 @@ namespace fox
     public:
         explicit PushbackReader(std::shared_ptr<AbstractReader> reader);
 
-        PushbackReader(std::shared_ptr<AbstractReader> reader, const size_t size);
+        PushbackReader(std::shared_ptr<AbstractReader> reader, size_t size);
 
         /// @brief Closes this pushback reader and releases any system resources associated with it.
         /// @details Once the stream has been closed, further read(), unread(), ready(), mark(),
@@ -54,7 +54,7 @@ namespace fox
         /// @param len the maximum number of characters read
         /// @return the total number of characters read into the buffer, or -1 if there is no more data because the end of
         /// the stream has been reached
-        auto read(std::vector<char>& cBuf, size_t off, const size_t len) -> size_t override;
+        auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
 
         /// @brief Tells whether this stream is ready to be read.
         /// @details A stream is ready to be read if there are characters available in the pushback buffer,
@@ -91,13 +91,13 @@ namespace fox
         /// @param cBuf the array of characters to push back
         /// @param off the start offset in the array
         /// @param len the number of characters to push back
-        auto unread(const std::vector<char>& cBuf, const size_t off, const size_t len) -> void;
+        auto unread(const std::vector<char>& cBuf, size_t off, size_t len) -> void;
 
         /// @brief Pushes back a single character into the pushback buffer.
         /// @details This method pushes back a single character into the pushback buffer.
         /// The character is pushed back so that the next read operation will read this character.
         /// @param c the character to push back
-        auto unread(const int32_t c) -> void;
+        auto unread(int32_t c) -> void;
 
     private:
         static constexpr size_t DEFAULT_BUFFER_SIZE = 1024;

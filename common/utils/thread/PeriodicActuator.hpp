@@ -13,19 +13,12 @@ namespace fox
     class PeriodicActuator
     {
     public:
-        explicit PeriodicActuator(std::shared_ptr<ITimerTask> task, const std::chrono::milliseconds interval)
-            : task_(std::move(task)), timer_(ioContext_), interval_(interval)
-        {
-        }
+        explicit PeriodicActuator(std::shared_ptr<ITimerTask> task, std::chrono::milliseconds interval) noexcept;
 
         /// @brief Start the periodic actuator to begin executing the task at specified intervals.
         /// @details This function initializes the timer and starts the first execution of the task.
         ///          The task will then be rescheduled automatically based on the configured interval.
-        auto start() -> void
-        {
-            scheduleNext();
-            ioContext_.run();
-        }
+        auto start() -> void;
 
     private:
         boost::asio::io_context ioContext_;
@@ -33,17 +26,31 @@ namespace fox
         boost::asio::steady_timer timer_;
         std::chrono::milliseconds interval_;
 
-        auto scheduleNext() -> void
-        {
-            timer_.expires_after(interval_);
-            timer_.async_wait([this](const boost::system::error_code& ec)
-            {
-                if (!ec)
-                {
-                    task_->execute();
-                    scheduleNext();
-                }
-            });
-        }
+        auto scheduleNext() -> void;
     };
+
+    inline PeriodicActuator::PeriodicActuator(std::shared_ptr<ITimerTask> task,
+                                              const std::chrono::milliseconds interval) noexcept :
+        task_(std::move(task)), timer_(ioContext_), interval_(interval)
+    {
+    }
+
+    inline auto PeriodicActuator::start() -> void
+    {
+        scheduleNext();
+        ioContext_.run();
+    }
+
+    inline auto PeriodicActuator::scheduleNext() -> void
+    {
+        timer_.expires_after(interval_);
+        timer_.async_wait([this](const boost::system::error_code& ec)
+        {
+            if (!ec)
+            {
+                task_->execute();
+                scheduleNext();
+            }
+        });
+    }
 } // namespace fox

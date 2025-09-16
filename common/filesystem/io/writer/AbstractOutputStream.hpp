@@ -30,7 +30,7 @@ namespace fox
         /// @param buffer The buffer containing bytes to be written.
         /// @param offset The start offset in the buffer.
         /// @param len The number of bytes to write.
-        virtual auto write(const std::vector<std::byte>& buffer, const size_t offset, const size_t len) -> void;
+        virtual auto write(const std::vector<std::byte>& buffer, size_t offset, size_t len) -> void;
     };
 
     inline AbstractOutputStream::~AbstractOutputStream() = default;

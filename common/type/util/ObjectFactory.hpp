@@ -7,7 +7,7 @@
 #include <unordered_map>
 #include <utility>
 
-#include "interface/IStartupTask.hpp"
+#include "service/interface/IStartupTask.hpp"
 
 namespace fox
 {
@@ -23,16 +23,16 @@ namespace fox
         /// @param type_name The name to register the type under.
         /// @param args The arguments to forward to the constructor of V.
         template <typename V, typename... Args>
-        static void registerType(const std::string& type_name, Args&&... args);
+        static auto registerType(const std::string& type_name, Args&&... args) -> void;
 
         /// @brief Creates an object of the specified type.
         /// @param type_name The name of the type to create.
         /// @return A unique pointer to the created object.
-        static std::unique_ptr<T> createObject(const std::string& type_name);
+        [[nodiscard]] static auto createObject(const std::string& type_name) -> std::unique_ptr<T>;
 
         /// @brief Executes the startup task.
         /// @return True if successful, false otherwise.
-        auto execute() -> bool override;
+        auto execute() noexcept -> bool override;
 
     private:
         /// @brief Registers all types with the factory.
@@ -43,7 +43,7 @@ namespace fox
 
     template <typename T>
     template <typename V, typename... Args>
-    void ObjectFactory<T>::registerType(const std::string& type_name, Args&&... args)
+    auto ObjectFactory<T>::registerType(const std::string& type_name, Args&&... args) -> void
     {
         registry_[type_name] = [args = std::make_tuple(std::forward<Args>(args)...)]() mutable
         {
@@ -57,7 +57,7 @@ namespace fox
     }
 
     template <typename T>
-    std::unique_ptr<T> ObjectFactory<T>::createObject(const std::string& type_name)
+    auto ObjectFactory<T>::createObject(const std::string& type_name) -> std::unique_ptr<T>
     {
         auto it = registry_.find(type_name);
         if (it != registry_.end())
@@ -68,7 +68,7 @@ namespace fox
     }
 
     template <typename T>
-    auto ObjectFactory<T>::execute() -> bool
+    auto ObjectFactory<T>::execute() noexcept -> bool
     {
         registerAll();
         return true;

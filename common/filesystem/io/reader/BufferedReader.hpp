@@ -9,14 +9,14 @@ namespace fox
     class BufferedReader final : public AbstractReader
     {
     public:
-        explicit BufferedReader(std::unique_ptr<AbstractReader> reader, const int32_t size = DEFAULT_BUFFER_SIZE);
+        explicit BufferedReader(std::unique_ptr<AbstractReader> reader, int32_t size = DEFAULT_BUFFER_SIZE);
         ~BufferedReader() override;
 
         /// @brief Close the stream.
         auto close() -> void override;
 
         /// @brief Mark the present position in the stream.
-        auto mark(const size_t readAheadLimit) -> void override;
+        auto mark(size_t readAheadLimit) -> void override;
 
         /// @brief Tell whether this stream supports the mark() operation.
         /// @return true if the stream supports mark(), false otherwise.
@@ -47,7 +47,7 @@ namespace fox
         /// @brief Skip characters.
         /// @param n The number of characters to skip.
         /// @return The number of characters actually skipped.
-        auto skip(const int64_t n) -> int64_t;
+        auto skip(int64_t n) -> int64_t;
 
     private:
         static constexpr size_t DEFAULT_BUFFER_SIZE = 8192;

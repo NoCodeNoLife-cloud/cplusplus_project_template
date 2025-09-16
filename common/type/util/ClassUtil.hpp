@@ -1,5 +1,9 @@
 #pragma once
 #include <boost/type_index.hpp>
+#include <string>
+#include <unordered_map>
+#include <format>
+#include <tuple>
 
 namespace fox
 {
@@ -26,34 +30,33 @@ namespace fox
         /// @param t The object to get type id from.
         /// @return std::string The pretty name_ of the type.
         template <typename T>
-        static auto getTypeId(const T& t) -> std::string;
+        [[nodiscard]] static auto getTypeId(const T& /*t*/) noexcept -> std::string;
 
         /// @brief Get the type id with CVR (const, volatile, reference) of the given object.
         /// @tparam T Type of the object.
         /// @param t The object to get type id with CVR from.
         /// @return std::string The pretty name_ of the type with CVR.
         template <typename T>
-        static auto getTypeIdWithCvr(const T& t) -> std::string;
+        [[nodiscard]] static auto getTypeIdWithCvr(const T& /*t*/) noexcept -> std::string;
 
         /// @brief Get the type id by class type.
         /// @tparam T Type of the class.
         /// @return std::string The pretty name_ of the type.
         template <typename T>
-        static auto getTypeIdByClass() -> std::string;
+        [[nodiscard]] static auto getTypeIdByClass() noexcept -> std::string;
 
         /// @brief Get the type id with CVR by class type.
         /// @tparam T Type of the class.
-        /// @param t Placeholder parameter, not used in implementation.
         /// @return std::string The pretty name_ of the type with CVR.
         template <typename T>
-        static auto getTypeIdWithCvrByClass(const std::string& t) -> std::string;
+        [[nodiscard]] static auto getTypeIdWithCvrByClass() noexcept -> std::string;
 
         /// @brief Get the fields of the given object.
         /// @tparam T Type of the object.
         /// @param obj The object to get fields from.
         /// @return std::unordered_map<std::string, std::string> A map of field names to their string representations.
         template <typename T>
-        static std::unordered_map<std::string, std::string> getFields(const T& obj);
+        [[nodiscard]] static auto getFields(const T& obj) -> std::unordered_map<std::string, std::string>;
 
     private:
         /// @brief Helper function to invoke member pointers.
@@ -63,7 +66,7 @@ namespace fox
         /// @param member The member pointer.
         /// @return The result of invoking the member pointer.
         template <typename T, typename M>
-        static auto invokeHelper(const T& obj, M member) -> decltype(obj.*member);
+        [[nodiscard]] static auto invokeHelper(const T& obj, M member) -> decltype(obj.*member);
 
         /// @brief Helper function to invoke member functions.
         /// @tparam T Type of the object.
@@ -72,35 +75,35 @@ namespace fox
         /// @param member The member function pointer.
         /// @return The result of invoking the member function.
         template <typename T, typename M>
-        static auto invokeHelper(const T& obj, M member) -> decltype((obj.*member)());
+        [[nodiscard]] static auto invokeHelper(const T& obj, M member) -> decltype((obj.*member)());
     };
 
     template <typename T>
-    auto ClassUtil::getTypeId(const T&) -> std::string
+    auto ClassUtil::getTypeId(const T&) noexcept -> std::string
     {
         return boost::typeindex::type_id<T>().pretty_name();
     }
 
     template <typename T>
-    auto ClassUtil::getTypeIdWithCvr(const T&) -> std::string
+    auto ClassUtil::getTypeIdWithCvr(const T&) noexcept -> std::string
     {
         return boost::typeindex::type_id_with_cvr<T>().pretty_name();
     }
 
     template <typename T>
-    auto ClassUtil::getTypeIdByClass() -> std::string
+    auto ClassUtil::getTypeIdByClass() noexcept -> std::string
     {
         return boost::typeindex::type_id<T>().pretty_name();
     }
 
     template <typename T>
-    auto ClassUtil::getTypeIdWithCvrByClass(const std::string&) -> std::string
+    auto ClassUtil::getTypeIdWithCvrByClass() noexcept -> std::string
     {
         return boost::typeindex::type_id_with_cvr<T>().pretty_name();
     }
 
     template <typename T>
-    std::unordered_map<std::string, std::string> ClassUtil::getFields(const T& obj)
+    auto ClassUtil::getFields(const T& obj) -> std::unordered_map<std::string, std::string>
     {
         std::unordered_map<std::string, std::string> field_map;
         constexpr auto fields = ReflectTraits<T>::fields;
