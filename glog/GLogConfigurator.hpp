@@ -4,6 +4,7 @@
 #include <string>
 #include <stdexcept>
 #include <cstdlib>
+#include <utility>
 
 #include "GLogParameters.hpp"
 #include "filesystem/serialize/YamlObjectSerializer.hpp"
@@ -19,7 +20,7 @@ namespace service
     class GLogConfigurator final : public IConfigurable, public IStartupTask
     {
     public:
-        explicit GLogConfigurator(const std::string& GLogYAMLPath);
+        explicit GLogConfigurator(std::string GLogYAMLPath);
 
         /// @brief Execute the startup task.
         /// @return True if the task was executed successfully, false otherwise.
@@ -41,8 +42,7 @@ namespace service
         static auto clean() noexcept -> void;
     };
 
-    inline GLogConfigurator::GLogConfigurator(const std::string& GLogYAMLPath) : GLogYAMLPath_(GLogYAMLPath),
-        config_(fox::YamlObjectSerializer<GLogParameters>::deserialize(GLogYAMLPath_))
+    inline GLogConfigurator::GLogConfigurator(std::string GLogYAMLPath) : GLogYAMLPath_(std::move(GLogYAMLPath)), config_(fox::YamlObjectSerializer<GLogParameters>::deserialize(GLogYAMLPath_))
     {
     }
 
