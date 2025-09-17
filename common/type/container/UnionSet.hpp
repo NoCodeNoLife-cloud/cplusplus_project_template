@@ -82,10 +82,12 @@ namespace fox
     template <typename T>
     auto UnionSet<T>::connected(const T& x, const T& y) const -> bool
     {
-        // Need to ensure elements are registered before checking connection
+        // Cast away const to register elements if needed
+        // This is safe because ensureRegistered only adds new elements if they don't exist
         const_cast<UnionSet*>(this)->ensureRegistered(x);
         const_cast<UnionSet*>(this)->ensureRegistered(y);
-        return find(x) == find(y);
+        // Cast away const for find operations
+        return const_cast<UnionSet*>(this)->find(x) == const_cast<UnionSet*>(this)->find(y);
     }
 
     template <typename T>

@@ -11,7 +11,7 @@ namespace fox
     /// @details This class provides static methods to perform various operations on arrays,
     ///          such as converting to a vector, binary search, copying, comparison, filling,
     ///          sorting, and generating string representations.
-    class ArraysUtil
+    class ArraysToolkit
     {
     public:
         /// @brief Converts an array to a vector.
@@ -104,13 +104,13 @@ namespace fox
     };
 
     template <typename T>
-    auto ArraysUtil::asList(const T* array, size_t size) -> std::vector<T>
+    auto ArraysToolkit::asList(const T* array, size_t size) -> std::vector<T>
     {
         return std::vector<T>(array, array + size);
     }
 
     template <typename T>
-    auto ArraysUtil::binarySearch(const T* array, size_t size, const T& key) -> int32_t
+    auto ArraysToolkit::binarySearch(const T* array, size_t size, const T& key) -> int32_t
     {
         auto it = std::lower_bound(array, array + size, key);
         if (it != array + size && *it == key)
@@ -121,7 +121,7 @@ namespace fox
     }
 
     template <typename T>
-    auto ArraysUtil::binarySearch(const T* array, size_t fromIndex, size_t toIndex, const T& key) -> int32_t
+    auto ArraysToolkit::binarySearch(const T* array, size_t fromIndex, size_t toIndex, const T& key) -> int32_t
     {
         if (fromIndex >= toIndex)
             throw std::out_of_range("Invalid range");
@@ -136,7 +136,7 @@ namespace fox
     }
 
     template <typename T>
-    auto ArraysUtil::copyOf(const T* original, const size_t originalSize, size_t newLength) -> std::vector<T>
+    auto ArraysToolkit::copyOf(const T* original, const size_t originalSize, size_t newLength) -> std::vector<T>
     {
         std::vector<T> result(newLength);
         size_t copyLength = std::min(originalSize, newLength);
@@ -145,7 +145,7 @@ namespace fox
     }
 
     template <typename T>
-    auto ArraysUtil::copyOfRange(const T* original, size_t from, size_t to) -> std::vector<T>
+    auto ArraysToolkit::copyOfRange(const T* original, size_t from, size_t to) -> std::vector<T>
     {
         if (from > to)
             throw std::out_of_range("Invalid range");
@@ -153,7 +153,7 @@ namespace fox
     }
 
     template <typename T>
-    auto ArraysUtil::equals(const T* a, size_t sizeA, const T* b, const size_t sizeB) -> bool
+    auto ArraysToolkit::equals(const T* a, size_t sizeA, const T* b, const size_t sizeB) -> bool
     {
         if (sizeA != sizeB)
             return false;
@@ -161,19 +161,19 @@ namespace fox
     }
 
     template <typename T>
-    auto ArraysUtil::fill(T* array, size_t size, const T& value) -> void
+    auto ArraysToolkit::fill(T* array, size_t size, const T& value) -> void
     {
         std::fill(array, array + size, value);
     }
 
     template <typename T>
-    auto ArraysUtil::sort(T* array, size_t size) -> void
+    auto ArraysToolkit::sort(T* array, size_t size) -> void
     {
         std::sort(array, array + size);
     }
 
     template <typename T>
-    auto ArraysUtil::sort(T* array, size_t fromIndex, size_t toIndex) -> void
+    auto ArraysToolkit::sort(T* array, size_t fromIndex, size_t toIndex) -> void
     {
         if (fromIndex >= toIndex)
             throw std::out_of_range("Invalid range");
@@ -181,7 +181,7 @@ namespace fox
     }
 
     template <typename T>
-    auto ArraysUtil::toString(const T* array, const size_t size) -> std::string
+    auto ArraysToolkit::toString(const T* array, const size_t size) -> std::string
     {
         std::ostringstream oss;
         oss << "[";

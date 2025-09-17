@@ -14,10 +14,10 @@ namespace fox
     /// @brief Utility class for OpenSSL cryptographic operations.
     /// This class provides methods for key derivation, encryption, and decryption
     /// using OpenSSL's AES-256-CBC algorithm with PBKDF2 key derivation.
-    class OpenSSLUtil
+    class OpenSSLToolkit
     {
     public:
-        OpenSSLUtil() = delete;
+        OpenSSLToolkit() = delete;
 
         /// @brief Derives a key from the given password and salt using PBKDF2.
         /// @param password The password to derive the key from.
@@ -45,7 +45,7 @@ namespace fox
                                                    unsigned char salt[16]) -> std::string;
     };
 
-    inline auto OpenSSLUtil::deriveKey(const std::string& password, unsigned char key[32],
+    inline auto OpenSSLToolkit::deriveKey(const std::string& password, unsigned char key[32],
                                        unsigned char salt[16]) noexcept -> void
     {
         EVP_BytesToKey(EVP_aes_256_cbc(), EVP_sha1(), salt,
@@ -53,7 +53,7 @@ namespace fox
                        static_cast<int32_t>(password.size()), 1, key, nullptr);
     }
 
-    inline auto OpenSSLUtil::encryptAES256CBC(const std::string& plaintext, const std::string& password,
+    inline auto OpenSSLToolkit::encryptAES256CBC(const std::string& plaintext, const std::string& password,
                                               unsigned char salt[16]) -> std::vector<unsigned char>
     {
         unsigned char key[32];
@@ -102,7 +102,7 @@ namespace fox
         return result;
     }
 
-    inline auto OpenSSLUtil::decryptAES256CBC(const std::vector<unsigned char>& ciphertext, const std::string& password,
+    inline auto OpenSSLToolkit::decryptAES256CBC(const std::vector<unsigned char>& ciphertext, const std::string& password,
                                               unsigned char salt[16]) -> std::string
     {
         if (ciphertext.size() < AES_BLOCK_SIZE)

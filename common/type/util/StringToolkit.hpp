@@ -6,10 +6,10 @@ namespace fox
 {
     /// @brief A utility class for string manipulation operations.
     /// This class provides static methods for common string operations such as splitting and concatenating strings.
-    class StringUtil
+    class StringToolkit
     {
     public:
-        StringUtil() = delete;
+        StringToolkit() = delete;
 
         /// @brief Splits a string into a vector of strings based on a specified character.
         /// @param target The string to be split.
@@ -26,7 +26,7 @@ namespace fox
                                               char split_char) noexcept -> std::string;
     };
 
-    inline auto StringUtil::split(const std::string& target, const char split_char) noexcept -> std::vector<std::string>
+    inline auto StringToolkit::split(const std::string& target, const char split_char) noexcept -> std::vector<std::string>
     {
         std::vector<std::string> result;
         size_t start = 0;
@@ -41,7 +41,7 @@ namespace fox
         return result;
     }
 
-    inline auto StringUtil::concatenate(const std::vector<std::string>& source,
+    inline auto StringToolkit::concatenate(const std::vector<std::string>& source,
                                         const char split_char) noexcept -> std::string
     {
         if (source.empty())

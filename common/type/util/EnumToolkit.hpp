@@ -7,10 +7,10 @@ namespace fox
     /// @brief Utility class for enum operations.
     /// This class provides static methods to work with enums,
     /// such as converting enum values to their string representations.
-    class EnumUtil
+    class EnumToolkit
     {
     public:
-        EnumUtil() = delete;
+        EnumToolkit() = delete;
 
         /// @brief Get the class name of an enum value as a string.
         /// @tparam T The enum type.
@@ -21,7 +21,7 @@ namespace fox
     };
 
     template <typename T>
-    auto EnumUtil::getEnumClassName(const T value) noexcept -> std::string
+    auto EnumToolkit::getEnumClassName(const T value) noexcept -> std::string
     {
         return static_cast<std::string>(magic_enum::enum_name(value));
     }

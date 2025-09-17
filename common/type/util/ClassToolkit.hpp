@@ -20,10 +20,10 @@ namespace fox
     /// This class provides a set of static methods to retrieve the type information
     /// of objects or classes using boost::typeindex. It is designed as a
     /// class with deleted constructor to prevent instantiation.
-    class ClassUtil
+    class ClassToolkit
     {
     public:
-        ClassUtil() = delete;
+        ClassToolkit() = delete;
 
         /// @brief Get the type id of the given object.
         /// @tparam T Type of the object.
@@ -79,31 +79,31 @@ namespace fox
     };
 
     template <typename T>
-    auto ClassUtil::getTypeId(const T&) noexcept -> std::string
+    auto ClassToolkit::getTypeId(const T&) noexcept -> std::string
     {
         return boost::typeindex::type_id<T>().pretty_name();
     }
 
     template <typename T>
-    auto ClassUtil::getTypeIdWithCvr(const T&) noexcept -> std::string
+    auto ClassToolkit::getTypeIdWithCvr(const T&) noexcept -> std::string
     {
         return boost::typeindex::type_id_with_cvr<T>().pretty_name();
     }
 
     template <typename T>
-    auto ClassUtil::getTypeIdByClass() noexcept -> std::string
+    auto ClassToolkit::getTypeIdByClass() noexcept -> std::string
     {
         return boost::typeindex::type_id<T>().pretty_name();
     }
 
     template <typename T>
-    auto ClassUtil::getTypeIdWithCvrByClass() noexcept -> std::string
+    auto ClassToolkit::getTypeIdWithCvrByClass() noexcept -> std::string
     {
         return boost::typeindex::type_id_with_cvr<T>().pretty_name();
     }
 
     template <typename T>
-    auto ClassUtil::getFields(const T& obj) -> std::unordered_map<std::string, std::string>
+    auto ClassToolkit::getFields(const T& obj) -> std::unordered_map<std::string, std::string>
     {
         std::unordered_map<std::string, std::string> field_map;
         constexpr auto fields = ReflectTraits<T>::fields;
@@ -120,13 +120,13 @@ namespace fox
     }
 
     template <typename T, typename M>
-    auto ClassUtil::invokeHelper(const T& obj, M member) -> decltype(obj.*member)
+    auto ClassToolkit::invokeHelper(const T& obj, M member) -> decltype(obj.*member)
     {
         return obj.*member;
     }
 
     template <typename T, typename M>
-    auto ClassUtil::invokeHelper(const T& obj, M member) -> decltype((obj.*member)())
+    auto ClassToolkit::invokeHelper(const T& obj, M member) -> decltype((obj.*member)())
     {
         return (obj.*member)();
     }

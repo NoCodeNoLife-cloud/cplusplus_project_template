@@ -17,6 +17,10 @@ namespace fox
         /// @param value The value to insert
         auto insert(const T& value) -> void;
 
+        /// @brief Get the root node for testing purposes
+        /// @return A shared pointer to the root node
+        [[nodiscard]] auto getRoot() const noexcept -> std::shared_ptr<RedBlackTreeNode<T>>;
+
     private:
         std::shared_ptr<RedBlackTreeNode<T>> root_;
 
@@ -55,7 +59,7 @@ namespace fox
             {
                 current = current->getLeft();
             }
-            else
+            else  // value >= current->getData()
             {
                 current = current->getRight();
             }
@@ -70,6 +74,12 @@ namespace fox
             parent->setRight(node);
         }
         fixInsert(node);
+    }
+
+    template <typename T>
+    auto RedBlackTree<T>::getRoot() const noexcept -> std::shared_ptr<RedBlackTreeNode<T>>
+    {
+        return root_;
     }
 
     template <typename T>
