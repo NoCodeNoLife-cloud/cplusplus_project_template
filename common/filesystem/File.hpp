@@ -127,6 +127,28 @@ namespace fox
         /// @return The MD5 hash as a string
         static auto getFileMD5(const std::filesystem::path& filePath) -> std::string;
 
+        /// @brief Copies the file to the destination path
+        /// @param dest The destination file path
+        /// @return true if the file was copied successfully, false otherwise
+        [[nodiscard]] auto copyTo(const File& dest) const -> bool;
+
+        /// @brief Gets the file extension
+        /// @return The file extension as a string (including the dot)
+        [[nodiscard]] auto getExtension() const noexcept -> std::string;
+
+        /// @brief Sets the last modified time of the file
+        /// @param time The time to set as last modified time
+        /// @return true if the time was set successfully, false otherwise
+        [[nodiscard]] auto setLastModified(int64_t time) const noexcept -> bool;
+
+        /// @brief Sets the file as read-only
+        /// @return true if the file was set as read-only successfully, false otherwise
+        [[nodiscard]] auto setReadOnly() const noexcept -> bool;
+
+        /// @brief Gets the file size in a human-readable format
+        /// @return The file size as a string with appropriate units (B, KB, MB, GB)
+        [[nodiscard]] auto getSizeString() const noexcept -> std::string;
+
     private:
         std::filesystem::path file_path_;
     };
@@ -420,6 +442,107 @@ namespace fox
         for (unsigned int i = 0; i < digestLength; ++i)
         {
             oss << std::setw(2) << static_cast<unsigned>(digest[i]);
+        }
+
+        return oss.str();
+    }
+
+    // Implementation of new functions
+
+    inline auto File::copyTo(const File& dest) const -> bool
+    {
+        try
+        {
+            std::filesystem::copy_file(file_path_, dest.file_path_, std::filesystem::copy_options::overwrite_existing);
+            return true;
+        }
+        catch (const std::filesystem::filesystem_error&)
+        {
+            return false;
+        }
+    }
+
+    inline auto File::getExtension() const noexcept -> std::string
+    {
+        try
+        {
+            const auto extension = file_path_.extension();
+            return extension.string();
+        }
+        catch (...)
+        {
+            return std::string{};
+        }
+    }
+
+    inline auto File::setLastModified(int64_t time) const noexcept -> bool
+    {
+        try
+        {
+            const auto timePoint = std::chrono::system_clock::from_time_t(static_cast<time_t>(time));
+            const auto fileTime = std::chrono::time_point_cast<std::filesystem::file_time_type::duration>(
+                timePoint - std::chrono::system_clock::now() + std::filesystem::file_time_type::clock::now());
+            std::filesystem::last_write_time(file_path_, fileTime);
+            return true;
+        }
+        catch (...)
+        {
+            return false;
+        }
+    }
+
+    inline auto File::setReadOnly() const noexcept -> bool
+    {
+        try
+        {
+            const DWORD attributes = GetFileAttributesW(file_path_.c_str());
+            if (attributes == INVALID_FILE_ATTRIBUTES)
+            {
+                return false;
+            }
+
+            if (SetFileAttributesW(file_path_.c_str(), attributes | FILE_ATTRIBUTE_READONLY))
+            {
+                return true;
+            }
+            return false;
+        }
+        catch (...)
+        {
+            return false;
+        }
+    }
+
+    inline auto File::getSizeString() const noexcept -> std::string
+    {
+        const auto size = length();
+        if (size < 0)
+        {
+            return "Unknown";
+        }
+
+        constexpr int64_t KB = 1024;
+        constexpr int64_t MB = KB * 1024;
+        constexpr int64_t GB = MB * 1024;
+
+        std::ostringstream oss;
+        oss << std::fixed << std::setprecision(2);
+
+        if (size >= GB)
+        {
+            oss << static_cast<double>(size) / GB << " GB";
+        }
+        else if (size >= MB)
+        {
+            oss << static_cast<double>(size) / MB << " MB";
+        }
+        else if (size >= KB)
+        {
+            oss << static_cast<double>(size) / KB << " KB";
+        }
+        else
+        {
+            oss << size << " B";
         }
 
         return oss.str();
