@@ -22,6 +22,10 @@ namespace app_client
         /// @return 1 if permitted, 0 if not permitted
         [[nodiscard]] auto keepalivePermitWithoutCalls() const -> int32_t;
 
+        /// @brief Get the server address
+        /// @return The server address as a string
+        [[nodiscard]] auto serverAddress() const -> const std::string&;
+
         /// @brief Set the keepalive time interval in milliseconds
         /// @param value The keepalive time interval in milliseconds
         auto keepaliveTimeMs(int32_t value) -> void;
@@ -33,6 +37,10 @@ namespace app_client
         /// @brief Set whether to permit keepalive pings without active calls
         /// @param value 1 to permit, 0 to not permit
         auto keepalivePermitWithoutCalls(int32_t value) -> void;
+
+        /// @brief Set the server address
+        /// @param value The server address as a string
+        auto serverAddress(const std::string& value) -> void;
 
     private:
         /// @brief Time interval between keepalive pings (in milliseconds)
@@ -52,6 +60,11 @@ namespace app_client
         /// When set to false, keepalive pings are only sent when there are active calls.
         /// Default value is true (1).
         int32_t keepalive_permit_without_calls_{1};
+
+        /// @brief The server address to connect to
+        /// @details This parameter specifies the address and port of the gRPC server
+        /// Default value is localhost:50051
+        std::string server_address_{"localhost:50051"};
     };
 
     inline auto GrpcOptions::keepaliveTimeMs() const -> int32_t
@@ -69,6 +82,11 @@ namespace app_client
         return keepalive_permit_without_calls_;
     }
 
+    inline auto GrpcOptions::serverAddress() const -> const std::string&
+    {
+        return server_address_;
+    }
+
     inline auto GrpcOptions::keepaliveTimeMs(const int32_t value) -> void
     {
         keepalive_time_ms_ = value;
@@ -82,6 +100,11 @@ namespace app_client
     inline auto GrpcOptions::keepalivePermitWithoutCalls(const int32_t value) -> void
     {
         keepalive_permit_without_calls_ = value;
+    }
+
+    inline auto GrpcOptions::serverAddress(const std::string& value) -> void
+    {
+        server_address_ = value;
     }
 } // namespace app_client
 
@@ -107,6 +130,7 @@ inline auto YAML::convert<app_client::GrpcOptions>::decode(const Node& node, app
     rhs.keepaliveTimeMs(node["keepaliveTimeMs"].as<int32_t>());
     rhs.keepaliveTimeoutMs(node["keepaliveTimeoutMs"].as<int32_t>());
     rhs.keepalivePermitWithoutCalls(node["keepalivePermitWithoutCalls"].as<int32_t>());
+    rhs.serverAddress(node["serverAddress"].as<std::string>());
     return true;
 }
 
@@ -116,5 +140,6 @@ inline auto YAML::convert<app_client::GrpcOptions>::encode(const app_client::Grp
     node["keepaliveTimeMs"] = rhs.keepaliveTimeMs();
     node["keepaliveTimeoutMs"] = rhs.keepaliveTimeoutMs();
     node["keepalivePermitWithoutCalls"] = rhs.keepalivePermitWithoutCalls();
+    node["serverAddress"] = rhs.serverAddress();
     return node;
 }

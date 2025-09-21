@@ -31,6 +31,10 @@ namespace app_server
         /// @return 1 if permitted, 0 if not permitted
         [[nodiscard]] auto keepalivePermitWithoutCalls() const -> int32_t;
 
+        /// @brief Get the server address
+        /// @return The server address as a string
+        [[nodiscard]] auto serverAddress() const -> const std::string&;
+
         /// @brief Set the maximum connection idle time in milliseconds
         /// @param value The maximum connection idle time in milliseconds
         auto maxConnectionIdleMs(int32_t value) -> void;
@@ -55,6 +59,10 @@ namespace app_server
         /// @param value 1 to permit, 0 to not permit
         auto keepalivePermitWithoutCalls(int32_t value) -> void;
 
+        /// @brief Set the server address
+        /// @param value The server address as a string
+        auto serverAddress(const std::string& value) -> void;
+
     private:
         /// @brief Maximum time a connection can remain idle before being closed (in milliseconds)
         int32_t max_connection_idle_ms_{60 * 60 * 1000};
@@ -68,6 +76,10 @@ namespace app_server
         int32_t keepalive_timeout_ms_{5 * 1000};
         /// @brief Whether to permit keepalive pings when there are no active calls (1 = true, 0 = false)
         int32_t keepalive_permit_without_calls_{1};
+        /// @brief The server address to listen on
+        /// @details This parameter specifies the address and port of the gRPC server
+        /// Default value is 0.0.0.0:50051
+        std::string server_address_{"0.0.0.0:50051"};
     };
 
     inline auto GrpcOptions::maxConnectionIdleMs() const -> int32_t
@@ -100,6 +112,11 @@ namespace app_server
         return keepalive_permit_without_calls_;
     }
 
+    inline auto GrpcOptions::serverAddress() const -> const std::string&
+    {
+        return server_address_;
+    }
+
     inline auto GrpcOptions::maxConnectionIdleMs(const int32_t value) -> void
     {
         max_connection_idle_ms_ = value;
@@ -129,6 +146,11 @@ namespace app_server
     {
         keepalive_permit_without_calls_ = value;
     }
+
+    inline auto GrpcOptions::serverAddress(const std::string& value) -> void
+    {
+        server_address_ = value;
+    }
 } // namespace app_server
 
 /// @brief YAML serialization specialization for GrpcOptions.
@@ -156,6 +178,7 @@ inline auto YAML::convert<app_server::GrpcOptions>::decode(const Node& node, app
     rhs.keepaliveTimeMs(node["keepaliveTimeMs"].as<int32_t>());
     rhs.keepaliveTimeoutMs(node["keepaliveTimeoutMs"].as<int32_t>());
     rhs.keepalivePermitWithoutCalls(node["keepalivePermitWithoutCalls"].as<int32_t>());
+    rhs.serverAddress(node["serverAddress"].as<std::string>());
     return true;
 }
 
@@ -168,5 +191,6 @@ inline auto YAML::convert<app_server::GrpcOptions>::encode(const app_server::Grp
     node["keepaliveTimeMs"] = rhs.keepaliveTimeMs();
     node["keepaliveTimeoutMs"] = rhs.keepaliveTimeoutMs();
     node["keepalivePermitWithoutCalls"] = rhs.keepalivePermitWithoutCalls();
+    node["serverAddress"] = rhs.serverAddress();
     return node;
 }

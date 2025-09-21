@@ -63,6 +63,11 @@ namespace fox
         /// @return true if the directory was moved successfully, false otherwise
         [[nodiscard]] auto move(const std::filesystem::path& destination) const noexcept -> bool;
 
+        /// @brief Rename the directory
+        /// @param newName The new name for the directory
+        /// @return true if the directory was renamed successfully, false otherwise
+        [[nodiscard]] auto rename(const std::string& newName) const noexcept -> bool;
+
         /// @brief Get the size of the directory
         /// @return The size of the directory in bytes
         [[nodiscard]] auto size() const noexcept -> std::uintmax_t;
@@ -260,6 +265,21 @@ namespace fox
         try
         {
             std::filesystem::rename(dir_path_, destination);
+            return true;
+        }
+        catch (...)
+        {
+            return false;
+        }
+    }
+
+    inline auto Directory::rename(const std::string& newName) const noexcept -> bool
+    {
+        try
+        {
+            auto newPath = dir_path_;
+            newPath.replace_filename(newName);
+            std::filesystem::rename(dir_path_, newPath);
             return true;
         }
         catch (...)

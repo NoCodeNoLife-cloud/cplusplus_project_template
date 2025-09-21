@@ -4,3 +4,4 @@ maxConnectionAgeGraceMs: 300000
 keepaliveTimeMs: 30000
 keepaliveTimeoutMs: 5000
 keepalivePermitWithoutCalls: 1
+serverAddress: "0.0.0.0:50051"

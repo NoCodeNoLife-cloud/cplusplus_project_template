@@ -15,21 +15,28 @@ namespace app_client
     class ClientTask
     {
     public:
+        /// @brief Construct a ClientTask with the specified project name
+        /// @param project_name_ The name of the project for profiling purposes
         explicit ClientTask(const std::string& project_name_);
 
         /// @brief Initialize the client task
-        /// @return true if initialization was successful
+        /// @details Sets up logging, loads configuration, and logs system information
+        /// @return void
         auto init() -> void;
 
         /// @brief Run the main task
-        /// @return true if the task was successful
+        /// @details Initializes the client, creates a gRPC channel, sends a message to the server,
+        /// and exits cleanly
+        /// @return void
         auto run() -> void;
 
         /// @brief Exit the client task
-        /// @return true if exit was successful
+        /// @details Records the end time and logs completion
+        /// @return void
         auto exit() -> void;
 
-        /// @brief Logs client info
+        /// @brief Logs client system information
+        /// @details Logs OS version and CPU model to the application log
         static auto logClientInfo() -> void;
 
         /// @brief Create a gRPC channel with custom arguments
@@ -45,11 +52,13 @@ namespace app_client
 
         /// @brief Validate gRPC parameters for correctness
         /// @details This function checks that the gRPC parameters are within reasonable ranges
+        /// and logs warnings for potentially problematic configurations
         auto validateGrpcParameters() const -> void;
     };
 
     inline ClientTask::ClientTask(const std::string& project_name_) : timer_(project_name_)
     {
+        timer_.recordStart();
     }
 
     inline auto ClientTask::init() -> void
@@ -144,7 +153,7 @@ namespace app_client
             << "ms, Permit without calls: " << rpc_options_.keepalivePermitWithoutCalls();
 
         // Create client.
-        const std::string server_address = "localhost:50051";
+        const std::string server_address = rpc_options_.serverAddress();
         LOG(INFO) << "Creating channel to server at: " << server_address;
         const auto channel =
             grpc::CreateCustomChannel(server_address, grpc::InsecureChannelCredentials(), channel_args);
@@ -203,6 +212,12 @@ namespace app_client
             LOG(WARNING) << "Keepalive timeout (" << rpc_options_.keepaliveTimeoutMs()
                 << "ms) is greater than keepalive time (" << rpc_options_.keepaliveTimeMs()
                 << "ms). This may lead to unexpected connection issues.";
+        }
+
+        // Validate server address
+        if (rpc_options_.serverAddress().empty())
+        {
+            LOG(WARNING) << "Server address is empty. Using default value localhost:50051.";
         }
     }
 } // namespace app_client

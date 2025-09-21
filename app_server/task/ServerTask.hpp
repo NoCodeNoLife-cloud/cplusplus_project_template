@@ -3,48 +3,62 @@
 #include <grpcpp/server_builder.h>
 
 #include <string>
+#include <utility>
 
 #include "GLogConfigurator.hpp"
 #include "GrpcOptions.hpp"
 #include "filesystem/serialize/YamlObjectSerializer.hpp"
 #include "rpc/RpcServiceImpl.hpp"
+#include "utils/time/FunctionProfiler.hpp"
 
 namespace app_server
 {
-    /// @brief ServiceTask is responsible for managing the main service loop
-    /// and coordinating various subsystems within the application server.
-    class ServiceTask
+    /// @brief ServerTask is responsible for managing the main service loop
+    /// @details This class coordinates various subsystems within the application server,
+    /// initializes the gRPC server, loads configurations, and manages the server lifecycle.
+    class ServerTask
     {
     public:
+        /// @brief Construct a ServerTask with the specified name
+        /// @param name The name of the server task for profiling purposes
+        explicit ServerTask(std::string name);
+
         /// @brief Initialize the service task and its associated resources
-        /// @return true if initialization was successful
+        /// @details Sets up logging, loads configuration, and validates gRPC parameters
         auto init() -> void;
 
         /// @brief Run the main task
-        /// @return true if the task was successful
+        /// @details Initializes the server, establishes gRPC connection, and starts listening
         auto run() -> void;
 
         /// @brief Establish a gRPC connection to the specified service
-        /// @return true if the connection was successfully established
-        auto establishGrpcConnection() const -> void;
+        /// @details Configures and starts the gRPC server with specified options
+        auto establishGrpcConnection() -> void;
 
         /// @brief Exit the service task and clean up resources
-        /// @return true if the task was successfully terminated
-        static auto exit() -> void;
+        /// @details Shuts down the gRPC server and performs cleanup operations
+        auto exit() const -> void;
 
     private:
         const std::string config_path_ = "../../app_server/config/glog.yaml";
         const std::string grpc_config_path_ = "../../app_server/config/grpc.yaml";
         GrpcOptions grpc_options_;
+        fox::FunctionProfiler timer_;
+        std::unique_ptr<grpc::Server> server_;
 
         /// @brief Validate gRPC parameters for correctness
         /// @details This function checks that the gRPC parameters are within reasonable ranges
+        /// and logs warnings for potentially problematic configurations
         auto validateGrpcParameters() const -> void;
     };
 
-    inline auto ServiceTask::init() -> void
+    inline ServerTask::ServerTask(std::string name) : timer_(std::move(name))
     {
-        LOG(INFO) << "Initializing ServiceTask with config path: " << config_path_;
+    }
+
+    inline auto ServerTask::init() -> void
+    {
+        LOG(INFO) << "Initializing ServerTask with config path: " << config_path_;
         service::GLogConfigurator log_configurator{config_path_};
         log_configurator.execute();
         LOG(INFO) << "GLog configuration initialized successfully";
@@ -60,11 +74,13 @@ namespace app_server
             << "ms, Max Connection Age: " << grpc_options_.maxConnectionAgeMs()
             << "ms, Keepalive Time: " << grpc_options_.keepaliveTimeMs()
             << "ms, Keepalive Timeout: " << grpc_options_.keepaliveTimeoutMs()
-            << "ms, Permit Without Calls: " << grpc_options_.keepalivePermitWithoutCalls();
-        LOG(INFO) << "ServiceTask starting...";
+            << "ms, Permit Without Calls: " << grpc_options_.keepalivePermitWithoutCalls()
+            << ", Server Address: " << grpc_options_.serverAddress();
+        LOG(INFO) << "ServerTask starting...";
+        timer_.recordStart();
     }
 
-    inline auto ServiceTask::run() -> void
+    inline auto ServerTask::run() -> void
     {
         try
         {
@@ -80,16 +96,16 @@ namespace app_server
         {
             LOG(ERROR) << "Unknown exception occurred.";
         }
-        LOG(INFO) << "ServiceTask completed.";
+        LOG(INFO) << "ServerTask completed.";
     }
 
-    inline auto ServiceTask::establishGrpcConnection() const -> void
+    inline auto ServerTask::establishGrpcConnection() -> void
     {
         LOG(INFO) << "Establishing gRPC connection...";
         try
         {
             // Build the server.
-            const std::string server_address("0.0.0.0:50051");
+            const std::string server_address = grpc_options_.serverAddress();
             LOG(INFO) << "Configuring server to listen on: " << server_address;
             grpc::ServerBuilder builder;
             builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
@@ -116,8 +132,8 @@ namespace app_server
             builder.RegisterService(&service);
             LOG(INFO) << "Service registered successfully";
 
-            const std::unique_ptr server(builder.BuildAndStart());
-            if (!server)
+            server_ = builder.BuildAndStart();
+            if (!server_)
             {
                 LOG(ERROR) << "Failed to build and start gRPC server";
                 return;
@@ -125,7 +141,7 @@ namespace app_server
 
             LOG(INFO) << "Server listening on " << server_address;
             LOG(INFO) << "gRPC server started and waiting for connections...";
-            server->Wait();
+            server_->Wait();
         }
         catch (const std::exception& e)
         {
@@ -138,13 +154,17 @@ namespace app_server
         LOG(INFO) << "gRPC connection established.";
     }
 
-    inline auto ServiceTask::exit() -> void
+    inline auto ServerTask::exit() const -> void
     {
         LOG(INFO) << "Shutting down service task...";
-        LOG(INFO) << "gRPC server shutdown complete.";
+        if (server_) {
+            server_->Shutdown();
+            LOG(INFO) << "gRPC server shutdown complete.";
+        }
+        LOG(INFO) << "Service task shutdown complete.";
     }
 
-    inline auto ServiceTask::validateGrpcParameters() const -> void
+    inline auto ServerTask::validateGrpcParameters() const -> void
     {
         // Validate max connection idle time
         if (grpc_options_.maxConnectionIdleMs() <= 0)
@@ -186,6 +206,12 @@ namespace app_server
         {
             LOG(WARNING) << "Invalid keepalive permit without calls: " << grpc_options_.keepalivePermitWithoutCalls()
                 << ". Valid values are 0 or 1. Using default value of 1.";
+        }
+
+        // Validate server address
+        if (grpc_options_.serverAddress().empty())
+        {
+            LOG(WARNING) << "Server address is empty. Using default value 0.0.0.0:50051.";
         }
 
         // Check for potentially problematic combinations

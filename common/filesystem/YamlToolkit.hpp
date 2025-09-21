@@ -72,13 +72,12 @@ namespace fox
                 file.close();
                 return true;
             }
+            return false;
         }
-        catch (const std::exception& e)
+        catch (...)
         {
-            std::cerr << "Error creating YAML file: " << e.what() << std::endl;
+            return false;
         }
-
-        return false;
     }
 
     inline auto YamlToolkit::read(const std::string& filepath) -> YAML::Node
@@ -89,19 +88,25 @@ namespace fox
             {
                 return YAML::LoadFile(filepath);
             }
+            return YAML::Node();
         }
-        catch (const std::exception& e)
+        catch (...)
         {
-            std::cerr << "Error reading YAML file: " << e.what() << std::endl;
+            return YAML::Node();
         }
-
-        return YAML::Node();
     }
 
     inline auto YamlToolkit::update(const std::string& filepath, const YAML::Node& data) -> bool
     {
-        // Update is essentially the same as create - overwrite the file with new data
-        return create(filepath, data);
+        try
+        {
+            // Update is essentially the same as create - overwrite the file with new data
+            return create(filepath, data);
+        }
+        catch (...)
+        {
+            return false;
+        }
     }
 
     inline auto YamlToolkit::remove(const std::string& filepath) -> bool
@@ -112,13 +117,12 @@ namespace fox
             {
                 return std::filesystem::remove(filepath);
             }
+            return false;
         }
-        catch (const std::exception& e)
+        catch (...)
         {
-            std::cerr << "Error removing YAML file: " << e.what() << std::endl;
+            return false;
         }
-
-        return false;
     }
 
     inline auto YamlToolkit::getValue(const std::string& filepath, const std::string& key) -> YAML::Node
@@ -130,13 +134,12 @@ namespace fox
             {
                 return root[key];
             }
+            return YAML::Node();
         }
-        catch (const std::exception& e)
+        catch (...)
         {
-            std::cerr << "Error getting value from YAML file: " << e.what() << std::endl;
+            return YAML::Node();
         }
-
-        return YAML::Node();
     }
 
     inline auto YamlToolkit::setValue(const std::string& filepath, const std::string& key, const YAML::Node& value) -> bool
@@ -152,11 +155,9 @@ namespace fox
             root[key] = value;
             return create(filepath, root);
         }
-        catch (const std::exception& e)
+        catch (...)
         {
-            std::cerr << "Error setting value in YAML file: " << e.what() << std::endl;
+            return false;
         }
-
-        return false;
     }
-} // fox
+} // namespace fox
