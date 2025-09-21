@@ -3,11 +3,11 @@ import shutil
 import argparse
 
 def delete_cmake_dirs(root_dir):
-    for dirpath, dir_names, _ in os.walk(root_dir):
+    for dir_path, dir_names, _ in os.walk(root_dir):
         # Copy the current directory name list to avoid problems caused by modifying during traversal
         for dirname in dir_names[:]:
             if 'cmake-build-debug' in dirname:
-                full_path = os.path.join(dirpath, dirname)
+                full_path = os.path.join(dir_path, dirname)
                 print(f"Deleting {full_path}...")
                 try:
                     shutil.rmtree(full_path)
