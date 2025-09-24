@@ -14,27 +14,47 @@ namespace fox
     class BufferedOutputStream final : public FilterOutputStream
     {
     public:
+        /// @brief Constructs a buffered output stream with default buffer size.
+        /// @param out The underlying output stream.
+        /// @throws std::invalid_argument if out is null.
         explicit BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out);
 
+        /// @brief Constructs a buffered output stream with specified buffer size.
+        /// @param out The underlying output stream.
+        /// @param size The buffer size in bytes.
+        /// @throws std::invalid_argument if out is null or size is 0.
         BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out, size_t size);
 
         ~BufferedOutputStream() override;
 
         /// @brief Writes a single byte to the buffer.
         /// @param b The byte to write.
-        auto write(std::byte b) -> void override;
+        void write(std::byte b) override;
 
         /// @brief Writes a sequence of bytes to the buffer.
         /// @param data The data to write.
         /// @param offset The start offset in the data.
         /// @param len The number of bytes to write.
-        auto write(const std::vector<std::byte>& data, size_t offset, size_t len) -> void override;
+        /// @throws std::out_of_range if offset + len exceeds data size.
+        void write(const std::vector<std::byte>& data, size_t offset, size_t len) override;
 
         /// @brief Flushes the buffer by writing all buffered bytes to the underlying output stream.
-        auto flush() -> void override;
+        void flush() override;
 
         /// @brief Closes the stream by flushing the buffer and closing the underlying output stream.
-        auto close() -> void override;
+        void close() override;
+
+        /// @brief Returns the current size of the buffer.
+        /// @return The buffer size in bytes.
+        [[nodiscard]] size_t getBufferSize() const noexcept;
+
+        /// @brief Returns the number of bytes currently in the buffer.
+        /// @return The number of bytes buffered.
+        [[nodiscard]] size_t getBufferedDataSize() const noexcept;
+
+        /// @brief Checks if the stream is closed.
+        /// @return True if the stream is closed, false otherwise.
+        [[nodiscard]] bool isClosed() const noexcept override;
 
     protected:
         static constexpr size_t DEFAULT_BUFFER_SIZE = 8192;
@@ -42,7 +62,8 @@ namespace fox
         std::vector<std::byte> buffer_;
         size_t buffer_position_;
 
-        auto flushBuffer() -> void;
+        /// @brief Flushes the internal buffer to the underlying output stream.
+        void flushBuffer();
     };
 
     inline BufferedOutputStream::BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out) : BufferedOutputStream(
@@ -122,12 +143,27 @@ namespace fox
         output_stream_->close();
     }
 
-    inline auto BufferedOutputStream::flushBuffer() -> void
+    inline void BufferedOutputStream::flushBuffer()
     {
         if (buffer_position_ > 0 && output_stream_)
         {
             output_stream_->write(buffer_, 0, buffer_position_);
             buffer_position_ = 0;
         }
+    }
+
+    inline size_t BufferedOutputStream::getBufferSize() const noexcept
+    {
+        return bufferSize_;
+    }
+
+    inline size_t BufferedOutputStream::getBufferedDataSize() const noexcept
+    {
+        return buffer_position_;
+    }
+
+    inline bool BufferedOutputStream::isClosed() const noexcept
+    {
+        return output_stream_ == nullptr;
     }
 }

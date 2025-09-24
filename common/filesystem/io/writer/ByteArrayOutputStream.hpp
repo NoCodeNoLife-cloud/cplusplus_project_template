@@ -12,8 +12,12 @@ namespace fox
     class ByteArrayOutputStream final : public AbstractOutputStream
     {
     public:
+        /// @brief Constructs a new byte array output stream with default buffer size.
         ByteArrayOutputStream();
 
+        /// @brief Constructs a new byte array output stream with the specified initial size.
+        /// @param size The initial size of the buffer.
+        /// @throws std::invalid_argument if size is zero.
         explicit ByteArrayOutputStream(size_t size);
 
         /// @brief Writes a single byte to the stream.
@@ -24,6 +28,7 @@ namespace fox
         /// @param buffer The buffer containing bytes to write.
         /// @param offset The start offset in the buffer.
         /// @param len The number of bytes to write.
+        /// @throws std::out_of_range if offset and length are out of the bounds of the buffer.
         auto write(const std::vector<std::byte>& buffer, size_t offset, size_t len) -> void override;
 
         /// @brief Writes the complete contents of this byte array output stream to the specified output stream.
@@ -51,6 +56,10 @@ namespace fox
         /// @brief Flushes this output stream and forces any buffered output bytes to be written out.
         auto flush() -> void override;
 
+        /// @brief Returns the current capacity of the buffer.
+        /// @return The current capacity of the buffer.
+        [[nodiscard]] auto capacity() const -> size_t;
+
     protected:
         std::vector<std::byte> buf_;
         size_t count_;
@@ -59,6 +68,9 @@ namespace fox
         /// @brief Ensures that the buffer has at least the specified capacity.
         /// @param additionalCapacity The additional capacity needed.
         auto ensureCapacity(size_t additionalCapacity) -> void;
+
+    public:
+        auto isClosed() const -> bool override;
     };
 
     inline ByteArrayOutputStream::ByteArrayOutputStream() : buf_(32), count_(0)
@@ -79,8 +91,8 @@ namespace fox
         buf_[count_++] = b;
     }
 
-    inline void ByteArrayOutputStream::write(const std::vector<std::byte>& buffer, const size_t offset,
-                                             const size_t len)
+    inline auto ByteArrayOutputStream::write(const std::vector<std::byte>& buffer, const size_t offset,
+                                             const size_t len) -> void
     {
         if (len == 0)
         {
@@ -128,11 +140,17 @@ namespace fox
 
     inline auto ByteArrayOutputStream::close() -> void
     {
+        // No operation for ByteArrayOutputStream.
     }
 
     inline auto ByteArrayOutputStream::flush() -> void
     {
         // No operation for ByteArrayOutputStream.
+    }
+
+    inline auto ByteArrayOutputStream::capacity() const -> size_t
+    {
+        return buf_.size();
     }
 
     inline auto ByteArrayOutputStream::ensureCapacity(const size_t additionalCapacity) -> void

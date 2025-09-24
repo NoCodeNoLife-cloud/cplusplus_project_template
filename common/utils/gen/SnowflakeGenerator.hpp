@@ -72,7 +72,7 @@ namespace fox
 
     inline auto SnowflakeGenerator::NextId() -> int64_t
     {
-        std::lock_guard<std::mutex> lock(mutex_);
+        std::lock_guard lock(mutex_);
         int64_t timestamp = GetCurrentTimestamp();
 
         if (timestamp < last_timestamp_)

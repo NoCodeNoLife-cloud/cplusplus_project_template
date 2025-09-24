@@ -89,7 +89,7 @@ namespace fox
             throw std::underflow_error("Insufficient data in buffer");
         }
 
-        std::vector<std::byte> result(buffer_.begin() + static_cast<std::ptrdiff_t>(position_),
+        std::vector result(buffer_.begin() + static_cast<std::ptrdiff_t>(position_),
                                       buffer_.begin() + static_cast<std::ptrdiff_t>(position_ + length));
         position_ += length;
         return result;

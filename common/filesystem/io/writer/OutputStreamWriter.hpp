@@ -145,7 +145,7 @@ namespace fox
     {
         if (!str.empty())
         {
-            write(std::vector<char>(str.begin(), str.end()));
+            write(std::vector(str.begin(), str.end()));
         }
     }
 
@@ -160,7 +160,7 @@ namespace fox
         {
             throw std::out_of_range("Offset and length exceed string size");
         }
-        write(std::vector<char>(str.begin() + static_cast<std::string::difference_type>(off),
+        write(std::vector(str.begin() + static_cast<std::string::difference_type>(off),
                                 str.begin() + static_cast<std::string::difference_type>(off + len)));
     }
 

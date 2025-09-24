@@ -20,22 +20,23 @@ namespace fox
 
         /// @brief Writes a single byte to the output stream.
         /// @param b The byte to be written.
-        virtual auto write(std::byte b) -> void = 0;
+        virtual void write(std::byte b) = 0;
 
         /// @brief Writes all bytes from the specified buffer to the output stream.
         /// @param buffer The buffer containing bytes to be written.
-        virtual auto write(const std::vector<std::byte>& buffer) -> void;
+        virtual void write(const std::vector<std::byte>& buffer);
 
         /// @brief Writes a specified number of bytes from the buffer starting at the given offset to the output stream.
         /// @param buffer The buffer containing bytes to be written.
         /// @param offset The start offset in the buffer.
         /// @param len The number of bytes to write.
-        virtual auto write(const std::vector<std::byte>& buffer, size_t offset, size_t len) -> void;
+        /// @throws std::out_of_range if offset + len exceeds buffer size.
+        virtual void write(const std::vector<std::byte>& buffer, size_t offset, size_t len);
     };
 
     inline AbstractOutputStream::~AbstractOutputStream() = default;
 
-    inline auto AbstractOutputStream::write(const std::vector<std::byte>& buffer) -> void
+    inline void AbstractOutputStream::write(const std::vector<std::byte>& buffer)
     {
         if (!buffer.empty())
         {
@@ -43,8 +44,7 @@ namespace fox
         }
     }
 
-    inline auto AbstractOutputStream::write(const std::vector<std::byte>& buffer, const size_t offset,
-                                            const size_t len) -> void
+    inline void AbstractOutputStream::write(const std::vector<std::byte>& buffer, const size_t offset, const size_t len)
     {
         if (offset + len > buffer.size())
         {

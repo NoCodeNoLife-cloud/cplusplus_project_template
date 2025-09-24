@@ -13,8 +13,8 @@ namespace fox
         explicit TreeNode(T value) noexcept;
 
         T data;
-        std::shared_ptr<TreeNode<T>> left{};
-        std::shared_ptr<TreeNode<T>> right{};
+        std::shared_ptr<TreeNode> left{};
+        std::shared_ptr<TreeNode> right{};
         int32_t height{1};
     };
 

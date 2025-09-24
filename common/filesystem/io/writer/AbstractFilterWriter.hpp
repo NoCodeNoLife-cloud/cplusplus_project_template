@@ -14,6 +14,9 @@ namespace fox
     class AbstractFilterWriter : public AbstractWriter
     {
     public:
+        /// @brief Constructs a filter writer with the specified output writer.
+        /// @param outputWriter The underlying writer to which filtered data will be written.
+        /// @throws std::invalid_argument if outputWriter is null.
         explicit AbstractFilterWriter(std::unique_ptr<AbstractWriter> outputWriter);
 
         ~AbstractFilterWriter() override;
@@ -22,7 +25,7 @@ namespace fox
         /// This method overrides the base class method to provide filtering functionality.
         /// The character is processed and then passed to the underlying output writer.
         /// @param c The character to write.
-        auto write(char c) -> void override;
+        void write(char c) override;
 
         /// @brief Writes a sequence of characters from a vector to the output writer.
         /// This method overrides the base class method to provide filtering functionality.
@@ -30,13 +33,14 @@ namespace fox
         /// @param cBuf The vector containing the characters to write.
         /// @param off The starting offset in the vector.
         /// @param len The number of characters to write.
-        auto write(const std::vector<char>& cBuf, size_t off, size_t len) -> void override;
+        /// @throws std::out_of_range if off + len exceeds the buffer size.
+        void write(const std::vector<char>& cBuf, size_t off, size_t len) override;
 
         /// @brief Writes a sequence of characters from a vector to the output writer.
         /// This method overrides the base class method to provide filtering functionality.
         /// The characters are processed and then passed to the underlying output writer.
         /// @param cBuf The vector containing the characters to write.
-        auto write(const std::vector<char>& cBuf) -> void override;
+        void write(const std::vector<char>& cBuf) override;
 
         /// @brief Writes a sequence of characters from a string to the output writer.
         /// This method overrides the base class method to provide filtering functionality.
@@ -44,23 +48,24 @@ namespace fox
         /// @param str The string containing the characters to write.
         /// @param off The starting offset in the string.
         /// @param len The number of characters to write.
-        auto write(const std::string& str, size_t off, size_t len) -> void override;
+        /// @throws std::out_of_range if off + len exceeds the string size.
+        void write(const std::string& str, size_t off, size_t len) override;
 
         /// @brief Writes a sequence of characters from a string to the output writer.
         /// This method overrides the base class method to provide filtering functionality.
         /// The characters are processed and then passed to the underlying output writer.
         /// @param str The string containing the characters to write.
-        auto write(const std::string& str) -> void override;
+        void write(const std::string& str) override;
 
         /// @brief Flushes the output writer.
         /// This method overrides the base class method to provide filtering functionality.
         /// It ensures that any buffered data is written to the underlying output writer.
-        auto flush() -> void override;
+        void flush() override;
 
         /// @brief Closes the output writer.
         /// This method overrides the base class method to provide filtering functionality.
         /// It ensures that the underlying output writer is also closed.
-        auto close() -> void override;
+        void close() override;
 
     protected:
         std::unique_ptr<AbstractWriter> output_writer_;
@@ -68,7 +73,7 @@ namespace fox
     private:
         /// @brief Checks if the output stream is available.
         /// @throws std::runtime_error if the output stream is not available.
-        auto checkOutputStream() const -> void;
+        void checkOutputStream() const;
     };
 
     inline AbstractFilterWriter::AbstractFilterWriter(std::unique_ptr<AbstractWriter> outputWriter)
@@ -88,7 +93,7 @@ namespace fox
         output_writer_->write(c);
     }
 
-    inline auto AbstractFilterWriter::write(const std::vector<char>& cBuf, const size_t off, const size_t len) -> void
+    inline void AbstractFilterWriter::write(const std::vector<char>& cBuf, const size_t off, const size_t len)
     {
         checkOutputStream();
         if (off + len > cBuf.size())
@@ -120,20 +125,20 @@ namespace fox
         output_writer_->write(str);
     }
 
-    inline auto AbstractFilterWriter::flush() -> void
+    inline void AbstractFilterWriter::flush()
     {
         checkOutputStream();
         output_writer_->flush();
     }
 
-    inline auto AbstractFilterWriter::close() -> void
+    inline void AbstractFilterWriter::close()
     {
         checkOutputStream();
         flush();
         output_writer_->close();
     }
 
-    inline auto AbstractFilterWriter::checkOutputStream() const -> void
+    inline void AbstractFilterWriter::checkOutputStream() const
     {
         if (!output_writer_)
         {

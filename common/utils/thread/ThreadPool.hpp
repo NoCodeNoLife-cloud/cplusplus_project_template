@@ -81,7 +81,7 @@ namespace fox
             std::bind(std::forward<F>(f), std::forward<Args>(args)...));
         std::future<return_type> res = task->get_future();
         {
-            std::unique_lock<std::mutex> lock(queue_mutex_);
+            std::unique_lock lock(queue_mutex_);
             if (task_queue_.size() >= max_queue_size_)
             {
                 throw std::runtime_error("Task queue is full");
@@ -95,7 +95,7 @@ namespace fox
     inline auto ThreadPool::Shutdown() -> void
     {
         {
-            std::unique_lock<std::mutex> lock(queue_mutex_);
+            std::unique_lock lock(queue_mutex_);
             stop_ = true;
         }
         condition_.notify_all();
@@ -109,7 +109,7 @@ namespace fox
     inline auto ThreadPool::ShutdownNow() -> void
     {
         {
-            std::unique_lock<std::mutex> lock(queue_mutex_);
+            std::unique_lock lock(queue_mutex_);
             stop_ = true;
             while (!task_queue_.empty())
             {
@@ -130,7 +130,7 @@ namespace fox
         {
             std::function<void()> task;
             {
-                std::unique_lock<std::mutex> lock(queue_mutex_);
+                std::unique_lock lock(queue_mutex_);
                 condition_.wait_for(lock, thread_idle_time_, [this] { return stop_ || !task_queue_.empty(); });
                 if (stop_ && task_queue_.empty())
                     return;
