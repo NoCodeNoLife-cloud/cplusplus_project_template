@@ -192,4 +192,4 @@ namespace fox
         }
         root_->setColor(Color::Black);
     }
-} // namespace fox
+}

@@ -192,4 +192,4 @@ namespace fox
                    ? std::distance(dataPoints.begin(), prevIt)
                    : std::distance(dataPoints.begin(), nextIt);
     }
-} // namespace fox
+}

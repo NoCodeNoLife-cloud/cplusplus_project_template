@@ -122,4 +122,4 @@ namespace fox
     {
         return buffer_.data();
     }
-} // namespace fox
+}

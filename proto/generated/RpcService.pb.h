@@ -27,7 +27,6 @@
 #include "google/protobuf/message.h"
 #include "google/protobuf/message_lite.h"
 #include "google/protobuf/metadata_lite.h"
-#include "google/protobuf/repeated_field.h" // IWYU pragma: export
 #include "google/protobuf/unknown_field_set.h"
 // @@protoc_insertion_point(includes)
 
@@ -624,24 +623,6 @@ namespace rpc
         return _s;
     }
 
-    inline const std::string& MessageRequest::_internal_content() const
-    {
-        ::google::protobuf::internal::TSanRead(&_impl_);
-        return _impl_.content_.Get();
-    }
-
-    inline void MessageRequest::_internal_set_content(const std::string& value)
-    {
-        ::google::protobuf::internal::TSanWrite(&_impl_);
-        _impl_.content_.Set(value, GetArena());
-    }
-
-    inline std::string* MessageRequest::_internal_mutable_content()
-    {
-        ::google::protobuf::internal::TSanWrite(&_impl_);
-        return _impl_.content_.Mutable(GetArena());
-    }
-
     inline std::string* MessageRequest::release_content()
     {
         ::google::protobuf::internal::TSanWrite(&_impl_);
@@ -658,6 +639,24 @@ namespace rpc
             _impl_.content_.Set("", GetArena());
         }
         // @@protoc_insertion_point(field_set_allocated:rpc.MessageRequest.content)
+    }
+
+    inline const std::string& MessageRequest::_internal_content() const
+    {
+        ::google::protobuf::internal::TSanRead(&_impl_);
+        return _impl_.content_.Get();
+    }
+
+    inline void MessageRequest::_internal_set_content(const std::string& value)
+    {
+        ::google::protobuf::internal::TSanWrite(&_impl_);
+        _impl_.content_.Set(value, GetArena());
+    }
+
+    inline std::string* MessageRequest::_internal_mutable_content()
+    {
+        ::google::protobuf::internal::TSanWrite(&_impl_);
+        return _impl_.content_.Mutable(GetArena());
     }
 
     // -------------------------------------------------------------------
@@ -692,24 +691,6 @@ namespace rpc
         return _s;
     }
 
-    inline const std::string& MessageResponse::_internal_status() const
-    {
-        ::google::protobuf::internal::TSanRead(&_impl_);
-        return _impl_.status_.Get();
-    }
-
-    inline void MessageResponse::_internal_set_status(const std::string& value)
-    {
-        ::google::protobuf::internal::TSanWrite(&_impl_);
-        _impl_.status_.Set(value, GetArena());
-    }
-
-    inline std::string* MessageResponse::_internal_mutable_status()
-    {
-        ::google::protobuf::internal::TSanWrite(&_impl_);
-        return _impl_.status_.Mutable(GetArena());
-    }
-
     inline std::string* MessageResponse::release_status()
     {
         ::google::protobuf::internal::TSanWrite(&_impl_);
@@ -728,6 +709,24 @@ namespace rpc
         // @@protoc_insertion_point(field_set_allocated:rpc.MessageResponse.status)
     }
 
+    inline const std::string& MessageResponse::_internal_status() const
+    {
+        ::google::protobuf::internal::TSanRead(&_impl_);
+        return _impl_.status_.Get();
+    }
+
+    inline void MessageResponse::_internal_set_status(const std::string& value)
+    {
+        ::google::protobuf::internal::TSanWrite(&_impl_);
+        _impl_.status_.Set(value, GetArena());
+    }
+
+    inline std::string* MessageResponse::_internal_mutable_status()
+    {
+        ::google::protobuf::internal::TSanWrite(&_impl_);
+        return _impl_.status_.Mutable(GetArena());
+    }
+
 #ifdef __GNUC__
 #pragma GCC diagnostic pop
 #endif // __GNUC__
@@ -736,7 +735,5 @@ namespace rpc
 } // namespace rpc
 
 // @@protoc_insertion_point(global_scope)
-
-#include "google/protobuf/port_undef.inc"
 
 #endif // RpcService_2eproto_2epb_2eh

@@ -141,4 +141,4 @@ namespace fox
         }
         reader_->close();
     }
-} // namespace fox
+}

@@ -25,4 +25,4 @@ namespace fox
     {
         return static_cast<std::string>(magic_enum::enum_name(value));
     }
-} // namespace fox
+}

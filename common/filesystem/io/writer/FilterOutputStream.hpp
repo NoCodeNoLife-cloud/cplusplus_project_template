@@ -79,4 +79,4 @@ namespace fox
     protected:
         std::shared_ptr<AbstractOutputStream> output_stream_;
     };
-} // namespace fox
+}

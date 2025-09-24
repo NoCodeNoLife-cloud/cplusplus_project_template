@@ -1,6 +1,7 @@
 #pragma once
-#include <cstddef>
 #include <string>
+#include <string_view>
+#include <initializer_list>
 
 namespace fox
 {
@@ -30,5 +31,20 @@ namespace fox
         /// @param end The end index of the substring (exclusive)
         /// @return A reference to the object for method chaining
         virtual auto append(const std::string& str, size_t start, size_t end) -> T& = 0;
+
+        /// @brief Append a string view to the object
+        /// @param str The string view to append
+        /// @return A reference to the object for method chaining
+        virtual auto append(std::string_view str) -> T& = 0;
+
+        /// @brief Append a C-style string to the object
+        /// @param str The C-style string to append
+        /// @return A reference to the object for method chaining
+        virtual auto append(const char* str) -> T& = 0;
+
+        /// @brief Append characters from an initializer list to the object
+        /// @param chars The characters to append
+        /// @return A reference to the object for method chaining
+        virtual auto append(std::initializer_list<char> chars) -> T& = 0;
     };
-} // namespace fox
+}

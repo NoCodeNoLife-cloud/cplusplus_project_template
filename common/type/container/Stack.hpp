@@ -127,4 +127,4 @@ namespace fox
     {
         return data.size();
     }
-} // namespace fox
+}

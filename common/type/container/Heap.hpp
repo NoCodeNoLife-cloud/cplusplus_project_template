@@ -202,4 +202,4 @@ namespace fox
             index = swap_index;
         }
     }
-} // namespace fox
+}

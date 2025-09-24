@@ -118,4 +118,4 @@ namespace fox
             write(buf, 0, buf.size());
         }
     }
-} // namespace fox
+}

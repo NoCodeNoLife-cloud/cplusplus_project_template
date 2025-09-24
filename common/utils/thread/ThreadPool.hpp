@@ -162,4 +162,4 @@ namespace fox
         workers_.emplace_back([this] { worker(); });
         return true;
     }
-} // namespace fox
+}

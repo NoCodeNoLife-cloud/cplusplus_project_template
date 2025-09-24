@@ -94,4 +94,4 @@ namespace fox
         const double dz = z_ - other.z_;
         return std::sqrt(dx * dx + dy * dy + dz * dz);
     }
-} // namespace fox
+}

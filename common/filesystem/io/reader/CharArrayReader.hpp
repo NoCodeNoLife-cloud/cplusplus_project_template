@@ -131,4 +131,4 @@ namespace fox
         marked_pos_ = 0;
         count_ = 0;
     }
-} // namespace fox
+}

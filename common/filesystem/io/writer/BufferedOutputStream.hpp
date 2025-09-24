@@ -130,4 +130,4 @@ namespace fox
             buffer_position_ = 0;
         }
     }
-} // namespace fox
+}

@@ -171,4 +171,4 @@ namespace fox
         std::ifstream file_stream_;
         std::string file_name_{};
     };
-} // namespace fox
+}

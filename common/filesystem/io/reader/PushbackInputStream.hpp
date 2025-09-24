@@ -151,4 +151,4 @@ namespace fox
         }
         pushback_buffer_[--buffer_pos_] = b;
     }
-} // namespace fox
+}

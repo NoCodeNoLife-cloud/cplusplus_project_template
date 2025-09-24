@@ -228,4 +228,4 @@ namespace fox
     Queue<T>::Node::Node(T value) : data_(std::move(value)), next_(nullptr)
     {
     }
-} // namespace fox
+}

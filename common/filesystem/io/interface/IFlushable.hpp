@@ -15,5 +15,33 @@ namespace fox
         /// This method ensures that any buffered data is written out to the underlying destination.
         /// Implementation should handle any errors that may occur during the flush operation.
         virtual auto flush() -> void = 0;
+
+        /// @brief Flush the stream or buffer with exception safety.
+        /// This method ensures that any buffered data is written out to the underlying destination
+        /// and handles any exceptions that may occur during the flush operation.
+        /// @return true if flush was successful, false otherwise
+        virtual auto flushSafe() -> bool;
+
+        /// @brief Check if the object needs to be flushed.
+        /// @return true if there is buffered data that needs to be flushed, false otherwise
+        virtual auto isFlushNeeded() const -> bool;
     };
-} // namespace fox
+
+    inline auto IFlushable::flushSafe() -> bool
+    {
+        try {
+            flush();
+            return true;
+        }
+        catch (...) {
+            return false;
+        }
+    }
+
+    inline auto IFlushable::isFlushNeeded() const -> bool
+    {
+        // Default implementation returns true, indicating that flush is always needed
+        // Derived classes can override this method based on actual conditions
+        return true;
+    }
+}

@@ -547,4 +547,4 @@ namespace fox
 
         return oss.str();
     }
-} // namespace fox
+}

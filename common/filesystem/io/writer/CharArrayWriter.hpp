@@ -218,4 +218,4 @@ namespace fox
             buf_.resize(minCapacity);
         }
     }
-} // namespace fox
+}

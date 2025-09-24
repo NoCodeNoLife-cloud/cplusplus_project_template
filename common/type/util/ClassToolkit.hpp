@@ -130,4 +130,4 @@ namespace fox
     {
         return (obj.*member)();
     }
-} // namespace fox
+}

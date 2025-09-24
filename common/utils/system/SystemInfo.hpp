@@ -389,4 +389,4 @@ namespace fox
 
         return adapters;
     }
-} // namespace fox
+}

@@ -29,4 +29,4 @@ namespace fox
         /// @param json Const reference to a RapidJSON value containing the JSON data to parse
         virtual auto deserialize(const rapidjson::Value& json) -> void = 0;
     };
-} // namespace fox
+}

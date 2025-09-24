@@ -124,4 +124,4 @@ namespace fox
 
         return true;
     }
-} // namespace fox
+}

@@ -149,4 +149,4 @@ namespace fox
         position_ += charsToSkip;
         return charsToSkip;
     }
-} // namespace fox
+}

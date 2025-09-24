@@ -177,4 +177,4 @@ namespace fox
     {
         throw std::runtime_error("Reset not supported");
     }
-} // namespace fox
+}

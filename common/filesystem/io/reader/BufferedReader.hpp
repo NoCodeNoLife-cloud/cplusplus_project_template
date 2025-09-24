@@ -201,4 +201,4 @@ namespace fox
         count_ = reader_->read(buffer_, 0, buffer_size_);
         return count_ > 0;
     }
-} // namespace fox
+}

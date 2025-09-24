@@ -18,4 +18,4 @@ namespace fox
         /// @return The byte value read, or -1 if the end of the stream has been reached
         virtual auto read() -> size_t = 0;
     };
-} // namespace fox
+}

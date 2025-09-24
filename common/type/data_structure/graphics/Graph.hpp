@@ -66,4 +66,4 @@ namespace fox
     {
         return num_nodes_;
     }
-} // namespace fox
+}

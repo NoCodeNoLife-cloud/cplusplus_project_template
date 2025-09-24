@@ -241,4 +241,4 @@ namespace fox
         }
         buffer_[--buffer_pos_] = static_cast<char>(c);
     }
-} // namespace fox
+}

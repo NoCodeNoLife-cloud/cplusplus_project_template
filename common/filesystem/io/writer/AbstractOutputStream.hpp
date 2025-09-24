@@ -56,4 +56,4 @@ namespace fox
             write(buffer[offset + i]);
         }
     }
-} // namespace fox
+}

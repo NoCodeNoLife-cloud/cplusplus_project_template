@@ -15,4 +15,4 @@ namespace fox
         /// @return ReturnType The result of the task execution.
         [[nodiscard]] virtual auto run(Args... args) -> ReturnType = 0;
     };
-} // namespace fox
+}

@@ -91,4 +91,4 @@ namespace fox
     {
         return std::cin;
     }
-} // namespace fox
+}

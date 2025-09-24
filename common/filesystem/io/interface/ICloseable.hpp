@@ -15,5 +15,25 @@ namespace fox
         /// This method should release any system resources held by the implementing class.
         /// After calling this method, the resource should no longer be usable.
         virtual auto close() -> void = 0;
+
+        /// @brief Check if the resource is closed.
+        /// @return true if the resource is closed, false otherwise
+        virtual auto isClosed() const -> bool = 0;
+
+        /// @brief Close the resource with exception handling.
+        /// This method attempts to close the resource and handles any exceptions that may occur.
+        /// @return true if the resource was successfully closed, false otherwise
+        virtual auto closeSafe() -> bool;
     };
-} // namespace fox
+
+    inline auto ICloseable::closeSafe() -> bool
+    {
+        try {
+            close();
+            return true;
+        }
+        catch (...) {
+            return false;
+        }
+    }
+}

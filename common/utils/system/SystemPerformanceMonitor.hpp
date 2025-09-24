@@ -98,4 +98,4 @@ namespace fox
 
         return cpuUsage;
     }
-} // namespace fox
+}

@@ -194,4 +194,4 @@ namespace fox
         oss << "]";
         return oss.str();
     }
-} // namespace fox
+}

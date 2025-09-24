@@ -68,4 +68,4 @@ namespace fox
         results_.erase(taskId);
         return result;
     }
-} // namespace fox
+}

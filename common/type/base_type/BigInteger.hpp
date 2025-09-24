@@ -137,4 +137,4 @@ namespace fox
     {
         return BigInteger(num);
     }
-} // namespace fox
+}

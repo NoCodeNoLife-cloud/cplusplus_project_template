@@ -361,4 +361,4 @@ namespace fox
     {
         return std::filesystem::current_path();
     }
-} // namespace fox
+}

@@ -73,4 +73,4 @@ namespace fox
         registerAll();
         return true;
     }
-} // namespace fox
+}

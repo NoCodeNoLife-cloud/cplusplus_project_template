@@ -123,4 +123,4 @@ namespace fox
     {
         // do nothing
     }
-} // namespace fox
+}

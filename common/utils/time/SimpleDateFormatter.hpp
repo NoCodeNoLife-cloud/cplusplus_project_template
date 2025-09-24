@@ -119,4 +119,4 @@ namespace fox
             throw std::invalid_argument("Pattern cannot be empty.");
         }
     }
-} // namespace fox
+}

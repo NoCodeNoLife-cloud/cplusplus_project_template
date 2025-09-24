@@ -369,4 +369,4 @@ namespace fox
             throw std::invalid_argument("ContainerGenerator: invalid parameters");
         }
     }
-} // namespace fox
+}

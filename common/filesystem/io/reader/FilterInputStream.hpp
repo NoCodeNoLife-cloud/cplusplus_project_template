@@ -145,4 +145,4 @@ namespace fox
             input_stream_->close();
         }
     }
-} // namespace fox
+}

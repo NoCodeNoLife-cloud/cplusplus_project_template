@@ -107,4 +107,4 @@ namespace fox
         }
         return skipped;
     }
-} // namespace fox
+}

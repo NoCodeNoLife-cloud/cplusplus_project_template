@@ -11,7 +11,7 @@ namespace fox
     /// @details It implements the IAop interface to provide entry and exit points
     /// for measuring the duration of function calls. This aspect can be used
     /// with the AOP framework to automatically profile function execution.
-    class FunctionProfilerAspect final : public IAop<FunctionProfilerAspect>
+    class FunctionProfilerAspect : public IAop<FunctionProfilerAspect>
     {
     public:
         /// @brief Construct a FunctionProfilerAspect with the given function name
@@ -26,23 +26,33 @@ namespace fox
         /// @details Called when exiting the function to be profiled
         auto onExit() -> void override;
 
+        /// @brief Exception point - records the end time when exception occurs
+        /// @details Called when function exits with exception
+        auto onException() -> void;
+
     private:
-        FunctionProfiler timer_;
+        FunctionProfiler profiler_;
+        std::string function_name_;
     };
 
-    inline FunctionProfilerAspect::FunctionProfilerAspect(std::string function_name)
-        : timer_(std::move(function_name), true)
+    inline FunctionProfilerAspect::FunctionProfilerAspect(std::string function_name) : profiler_(function_name, true), function_name_(std::move(function_name))
     {
     }
 
     inline auto FunctionProfilerAspect::onEntry() -> void
     {
-        LOG(INFO) << "Entering function";
+        LOG(INFO) << "Entering function: " << function_name_;
     }
 
     inline auto FunctionProfilerAspect::onExit() -> void
     {
-        timer_.recordEnd(true);
-        LOG(INFO) << "Exiting function";
+        profiler_.recordEnd(true);
+        LOG(INFO) << "Exiting function: " << function_name_;
     }
-} // namespace fox
+
+    inline auto FunctionProfilerAspect::onException() -> void
+    {
+        profiler_.recordEnd(true);
+        LOG(INFO) << "Function exited with exception: " << function_name_;
+    }
+}

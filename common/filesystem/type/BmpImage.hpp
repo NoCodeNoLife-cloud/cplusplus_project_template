@@ -258,4 +258,4 @@ namespace fox
             }
         }
     }
-} // namespace fox
+}

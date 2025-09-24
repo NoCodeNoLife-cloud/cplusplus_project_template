@@ -149,4 +149,4 @@ namespace fox
             reinterpret_cast<const char*>(plaintext.data()), static_cast<std::string::size_type>(plaintext_len)
         };
     }
-} // namespace fox
+}

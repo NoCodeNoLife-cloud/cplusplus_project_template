@@ -169,4 +169,4 @@ namespace fox
         }
         buffer_.write(cBuf.data() + off, static_cast<std::streamsize>(len));
     }
-} // namespace fox
+}

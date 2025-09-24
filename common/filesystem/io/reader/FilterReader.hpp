@@ -147,4 +147,4 @@ namespace fox
         }
         return in_->skip(n);
     }
-} // namespace fox
+}

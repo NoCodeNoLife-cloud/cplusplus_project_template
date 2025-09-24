@@ -122,4 +122,4 @@ namespace fox
     {
         position_ = 0;
     }
-} // namespace fox
+}

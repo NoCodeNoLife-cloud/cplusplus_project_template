@@ -122,4 +122,4 @@ namespace fox
         }
         return timestamp;
     }
-} // namespace fox
+}

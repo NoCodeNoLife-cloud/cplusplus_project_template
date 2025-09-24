@@ -108,4 +108,4 @@ namespace fox
     }
 };
 
-} // namespace fox
+}

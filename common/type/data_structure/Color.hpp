@@ -22,4 +22,4 @@ namespace fox
         /// @brief Magenta color (value 7)
         Magenta = 7,
     };
-} // namespace fox
+}

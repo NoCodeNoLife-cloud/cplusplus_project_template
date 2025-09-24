@@ -63,4 +63,4 @@ namespace fox
             return dist(engine_);
         }
     }
-} // namespace fox
+}

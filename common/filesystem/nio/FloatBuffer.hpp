@@ -103,4 +103,4 @@ namespace fox
         position_ += length;
         return result;
     }
-} // namespace fox
+}

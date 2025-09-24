@@ -14,4 +14,4 @@ namespace fox
         /// @brief Executes the timer task.
         virtual void execute() = 0;
     };
-} // namespace fox
+}

@@ -42,4 +42,4 @@ namespace fox
                            static_cast<unsigned>(ymd.month()), static_cast<unsigned>(ymd.day()),
                            time_part.hours().count(), time_part.minutes().count(), time_part.seconds().count());
     }
-} // namespace fox
+}

@@ -12,7 +12,6 @@
 #include <grpcpp/impl/server_callback_handlers.h>
 #include <grpcpp/impl/service_type.h>
 #include <grpcpp/server_context.h>
-#include <grpcpp/support/async_stream.h>
 #include <grpcpp/support/async_unary_call.h>
 #include <grpcpp/support/client_callback.h>
 #include <grpcpp/support/message_allocator.h>
@@ -23,7 +22,6 @@
 #include <grpcpp/support/sync_stream.h>
 
 #include <functional>
-#include <grpcpp/ports_def.inc>
 
 #include "RpcService.pb.h"
 

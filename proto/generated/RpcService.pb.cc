@@ -28,12 +28,6 @@ namespace _fl = ::google::protobuf::internal::field_layout;
 
 namespace rpc
 {
-    constexpr MessageResponse::Impl_::Impl_(::_pbi::ConstantInitialized) noexcept
-        : status_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()),
-          _cached_size_{0}
-    {
-    }
-
     template <typename>
     PROTOBUF_CONSTEXPR MessageResponse::MessageResponse(::_pbi::ConstantInitialized)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
@@ -42,6 +36,12 @@ namespace rpc
         : ::google::protobuf::Message(),
 #endif // PROTOBUF_CUSTOM_VTABLE
           _impl_(::_pbi::ConstantInitialized())
+    {
+    }
+
+    constexpr MessageResponse::Impl_::Impl_(::_pbi::ConstantInitialized) noexcept
+        : status_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()),
+          _cached_size_{0}
     {
     }
 
@@ -65,12 +65,6 @@ namespace rpc
     MessageResponseDefaultTypeInternal
     _MessageResponse_default_instance_;
 
-    constexpr MessageRequest::Impl_::Impl_(::_pbi::ConstantInitialized) noexcept
-        : content_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()),
-          _cached_size_{0}
-    {
-    }
-
     template <typename>
     PROTOBUF_CONSTEXPR MessageRequest::MessageRequest(::_pbi::ConstantInitialized)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
@@ -79,6 +73,12 @@ namespace rpc
         : ::google::protobuf::Message(),
 #endif // PROTOBUF_CUSTOM_VTABLE
           _impl_(::_pbi::ConstantInitialized())
+    {
+    }
+
+    constexpr MessageRequest::Impl_::Impl_(::_pbi::ConstantInitialized) noexcept
+        : content_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()),
+          _cached_size_{0}
     {
     }
 
@@ -166,6 +166,38 @@ namespace rpc
     public:
     };
 
+    MessageRequest::~MessageRequest()
+    {
+        // @@protoc_insertion_point(destructor:rpc.MessageRequest)
+        SharedDtor(*this);
+    }
+
+    PROTOBUF_NOINLINE void MessageRequest::Clear()
+    {
+        // @@protoc_insertion_point(message_clear_start:rpc.MessageRequest)
+        ::google::protobuf::internal::TSanWrite(&_impl_);
+        ::uint32_t cached_has_bits = 0;
+        // Prevent compiler warnings about cached_has_bits being unused
+        (void)cached_has_bits;
+
+        _impl_.content_.ClearToEmpty();
+        _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+    }
+
+    inline void MessageRequest::SharedCtor(::_pb::Arena* arena)
+    {
+        new(&_impl_) Impl_(internal_visibility(), arena);
+    }
+
+    inline void MessageRequest::SharedDtor(MessageLite& self)
+    {
+        MessageRequest& this_ = static_cast<MessageRequest&>(self);
+        this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+        ABSL_DCHECK(this_.GetArena() == nullptr);
+        this_._impl_.content_.Destroy();
+        this_._impl_.~Impl_();
+    }
+
     MessageRequest::MessageRequest(::google::protobuf::Arena* arena)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(arena, _class_data_.base())
@@ -178,14 +210,6 @@ namespace rpc
 #endif // PROTOBUF_CUSTOM_VTABLE
         SharedCtor(arena);
         // @@protoc_insertion_point(arena_constructor:rpc.MessageRequest)
-    }
-
-    inline PROTOBUF_NDEBUG_INLINE MessageRequest::Impl_::Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility,
-        ::google::protobuf::Arena* arena, const Impl_& from,
-        const ::rpc::MessageRequest& from_msg)
-        : content_(arena, from.content_), _cached_size_{0}
-    {
     }
 
     MessageRequest::MessageRequest(::google::protobuf::Arena* arena, const MessageRequest& from)
@@ -206,31 +230,11 @@ namespace rpc
         // @@protoc_insertion_point(copy_constructor:rpc.MessageRequest)
     }
 
-    inline PROTOBUF_NDEBUG_INLINE MessageRequest::Impl_::Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility,
-        ::google::protobuf::Arena* arena)
-        : content_(arena), _cached_size_{0}
+    const ::google::protobuf::internal::ClassData* MessageRequest::GetClassData() const
     {
-    }
-
-    inline void MessageRequest::SharedCtor(::_pb::Arena* arena)
-    {
-        new(&_impl_) Impl_(internal_visibility(), arena);
-    }
-
-    MessageRequest::~MessageRequest()
-    {
-        // @@protoc_insertion_point(destructor:rpc.MessageRequest)
-        SharedDtor(*this);
-    }
-
-    inline void MessageRequest::SharedDtor(MessageLite& self)
-    {
-        MessageRequest& this_ = static_cast<MessageRequest&>(self);
-        this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
-        ABSL_DCHECK(this_.GetArena() == nullptr);
-        this_._impl_.content_.Destroy();
-        this_._impl_.~Impl_();
+        ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+        ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+        return _class_data_.base();
     }
 
     inline void* MessageRequest::PlacementNew_(const void*, void* mem, ::google::protobuf::Arena* arena)
@@ -265,13 +269,6 @@ namespace rpc
         &MessageRequest::kDescriptorMethods, &descriptor_table_RpcService_2eproto,
         nullptr, // tracker
     };
-
-    const ::google::protobuf::internal::ClassData* MessageRequest::GetClassData() const
-    {
-        ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
-        ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
-        return _class_data_.base();
-    }
 
     PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::_pbi::TcParseTable<0, 1, 0, 34, 2>
     MessageRequest::_table_ = {
@@ -318,16 +315,19 @@ namespace rpc
         },
     };
 
-    PROTOBUF_NOINLINE void MessageRequest::Clear()
+    inline PROTOBUF_NDEBUG_INLINE MessageRequest::Impl_::Impl_(
+        ::google::protobuf::internal::InternalVisibility visibility,
+        ::google::protobuf::Arena* arena)
+        : content_(arena), _cached_size_{0}
     {
-        // @@protoc_insertion_point(message_clear_start:rpc.MessageRequest)
-        ::google::protobuf::internal::TSanWrite(&_impl_);
-        ::uint32_t cached_has_bits = 0;
-        // Prevent compiler warnings about cached_has_bits being unused
-        (void)cached_has_bits;
+    }
 
-        _impl_.content_.ClearToEmpty();
-        _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+    inline PROTOBUF_NDEBUG_INLINE MessageRequest::Impl_::Impl_(
+        ::google::protobuf::internal::InternalVisibility visibility,
+        ::google::protobuf::Arena* arena, const Impl_& from,
+        const ::rpc::MessageRequest& from_msg)
+        : content_(arena, from.content_), _cached_size_{0}
+    {
     }
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
@@ -371,25 +371,13 @@ namespace rpc
     {
         const MessageRequest& this_ = static_cast<const MessageRequest&>(base);
 #else  // PROTOBUF_CUSTOM_VTABLE
-    ::size_t MessageRequest::ByteSizeLong() const
+    void MessageRequest::CopyFrom(const MessageRequest& from)
     {
-        const MessageRequest& this_ = *this;
-#endif // PROTOBUF_CUSTOM_VTABLE
-        // @@protoc_insertion_point(message_byte_size_start:rpc.MessageRequest)
-        ::size_t total_size = 0;
-
-        ::uint32_t cached_has_bits = 0;
-        // Prevent compiler warnings about cached_has_bits being unused
-        (void)cached_has_bits;
-
-        {
-            // string content = 1;
-            if (!this_._internal_content().empty())
-            {
-                total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(this_._internal_content());
-            }
-        }
-        return this_.MaybeComputeUnknownFieldsSize(total_size, &this_._impl_._cached_size_);
+        // @@protoc_insertion_point(class_specific_copy_from_start:rpc.MessageRequest)
+        if (&from == this)
+            return;
+        Clear();
+        MergeFrom(from);
     }
 
     void MessageRequest::MergeImpl(::google::protobuf::MessageLite& to_msg,
@@ -409,13 +397,25 @@ namespace rpc
         _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
     }
 
-    void MessageRequest::CopyFrom(const MessageRequest& from)
+    ::size_t MessageRequest::ByteSizeLong() const
     {
-        // @@protoc_insertion_point(class_specific_copy_from_start:rpc.MessageRequest)
-        if (&from == this)
-            return;
-        Clear();
-        MergeFrom(from);
+        const MessageRequest& this_ = *this;
+#endif // PROTOBUF_CUSTOM_VTABLE
+        // @@protoc_insertion_point(message_byte_size_start:rpc.MessageRequest)
+        ::size_t total_size = 0;
+
+        ::uint32_t cached_has_bits = 0;
+        // Prevent compiler warnings about cached_has_bits being unused
+        (void)cached_has_bits;
+
+        {
+            // string content = 1;
+            if (!this_._internal_content().empty())
+            {
+                total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(this_._internal_content());
+            }
+        }
+        return this_.MaybeComputeUnknownFieldsSize(total_size, &this_._impl_._cached_size_);
     }
 
     void MessageRequest::InternalSwap(MessageRequest*PROTOBUF_RESTRICT other)
@@ -439,6 +439,38 @@ namespace rpc
     public:
     };
 
+    MessageResponse::~MessageResponse()
+    {
+        // @@protoc_insertion_point(destructor:rpc.MessageResponse)
+        SharedDtor(*this);
+    }
+
+    PROTOBUF_NOINLINE void MessageResponse::Clear()
+    {
+        // @@protoc_insertion_point(message_clear_start:rpc.MessageResponse)
+        ::google::protobuf::internal::TSanWrite(&_impl_);
+        ::uint32_t cached_has_bits = 0;
+        // Prevent compiler warnings about cached_has_bits being unused
+        (void)cached_has_bits;
+
+        _impl_.status_.ClearToEmpty();
+        _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+    }
+
+    inline void MessageResponse::SharedCtor(::_pb::Arena* arena)
+    {
+        new(&_impl_) Impl_(internal_visibility(), arena);
+    }
+
+    inline void MessageResponse::SharedDtor(MessageLite& self)
+    {
+        MessageResponse& this_ = static_cast<MessageResponse&>(self);
+        this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+        ABSL_DCHECK(this_.GetArena() == nullptr);
+        this_._impl_.status_.Destroy();
+        this_._impl_.~Impl_();
+    }
+
     MessageResponse::MessageResponse(::google::protobuf::Arena* arena)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(arena, _class_data_.base())
@@ -451,14 +483,6 @@ namespace rpc
 #endif // PROTOBUF_CUSTOM_VTABLE
         SharedCtor(arena);
         // @@protoc_insertion_point(arena_constructor:rpc.MessageResponse)
-    }
-
-    inline PROTOBUF_NDEBUG_INLINE MessageResponse::Impl_::Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility,
-        ::google::protobuf::Arena* arena, const Impl_& from,
-        const ::rpc::MessageResponse& from_msg)
-        : status_(arena, from.status_), _cached_size_{0}
-    {
     }
 
     MessageResponse::MessageResponse(::google::protobuf::Arena* arena, const MessageResponse& from)
@@ -479,31 +503,11 @@ namespace rpc
         // @@protoc_insertion_point(copy_constructor:rpc.MessageResponse)
     }
 
-    inline PROTOBUF_NDEBUG_INLINE MessageResponse::Impl_::Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility,
-        ::google::protobuf::Arena* arena)
-        : status_(arena), _cached_size_{0}
+    const ::google::protobuf::internal::ClassData* MessageResponse::GetClassData() const
     {
-    }
-
-    inline void MessageResponse::SharedCtor(::_pb::Arena* arena)
-    {
-        new(&_impl_) Impl_(internal_visibility(), arena);
-    }
-
-    MessageResponse::~MessageResponse()
-    {
-        // @@protoc_insertion_point(destructor:rpc.MessageResponse)
-        SharedDtor(*this);
-    }
-
-    inline void MessageResponse::SharedDtor(MessageLite& self)
-    {
-        MessageResponse& this_ = static_cast<MessageResponse&>(self);
-        this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
-        ABSL_DCHECK(this_.GetArena() == nullptr);
-        this_._impl_.status_.Destroy();
-        this_._impl_.~Impl_();
+        ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+        ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+        return _class_data_.base();
     }
 
     inline void* MessageResponse::PlacementNew_(const void*, void* mem, ::google::protobuf::Arena* arena)
@@ -539,13 +543,6 @@ namespace rpc
         &MessageResponse::kDescriptorMethods, &descriptor_table_RpcService_2eproto,
         nullptr, // tracker
     };
-
-    const ::google::protobuf::internal::ClassData* MessageResponse::GetClassData() const
-    {
-        ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
-        ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
-        return _class_data_.base();
-    }
 
     PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::_pbi::TcParseTable<0, 1, 0, 34, 2>
     MessageResponse::_table_ = {
@@ -592,16 +589,19 @@ namespace rpc
         },
     };
 
-    PROTOBUF_NOINLINE void MessageResponse::Clear()
+    inline PROTOBUF_NDEBUG_INLINE MessageResponse::Impl_::Impl_(
+        ::google::protobuf::internal::InternalVisibility visibility,
+        ::google::protobuf::Arena* arena)
+        : status_(arena), _cached_size_{0}
     {
-        // @@protoc_insertion_point(message_clear_start:rpc.MessageResponse)
-        ::google::protobuf::internal::TSanWrite(&_impl_);
-        ::uint32_t cached_has_bits = 0;
-        // Prevent compiler warnings about cached_has_bits being unused
-        (void)cached_has_bits;
+    }
 
-        _impl_.status_.ClearToEmpty();
-        _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+    inline PROTOBUF_NDEBUG_INLINE MessageResponse::Impl_::Impl_(
+        ::google::protobuf::internal::InternalVisibility visibility,
+        ::google::protobuf::Arena* arena, const Impl_& from,
+        const ::rpc::MessageResponse& from_msg)
+        : status_(arena, from.status_), _cached_size_{0}
+    {
     }
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
@@ -645,25 +645,13 @@ namespace rpc
     {
         const MessageResponse& this_ = static_cast<const MessageResponse&>(base);
 #else  // PROTOBUF_CUSTOM_VTABLE
-    ::size_t MessageResponse::ByteSizeLong() const
+    void MessageResponse::CopyFrom(const MessageResponse& from)
     {
-        const MessageResponse& this_ = *this;
-#endif // PROTOBUF_CUSTOM_VTABLE
-        // @@protoc_insertion_point(message_byte_size_start:rpc.MessageResponse)
-        ::size_t total_size = 0;
-
-        ::uint32_t cached_has_bits = 0;
-        // Prevent compiler warnings about cached_has_bits being unused
-        (void)cached_has_bits;
-
-        {
-            // string status = 1;
-            if (!this_._internal_status().empty())
-            {
-                total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(this_._internal_status());
-            }
-        }
-        return this_.MaybeComputeUnknownFieldsSize(total_size, &this_._impl_._cached_size_);
+        // @@protoc_insertion_point(class_specific_copy_from_start:rpc.MessageResponse)
+        if (&from == this)
+            return;
+        Clear();
+        MergeFrom(from);
     }
 
     void MessageResponse::MergeImpl(::google::protobuf::MessageLite& to_msg,
@@ -683,13 +671,25 @@ namespace rpc
         _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
     }
 
-    void MessageResponse::CopyFrom(const MessageResponse& from)
+    ::size_t MessageResponse::ByteSizeLong() const
     {
-        // @@protoc_insertion_point(class_specific_copy_from_start:rpc.MessageResponse)
-        if (&from == this)
-            return;
-        Clear();
-        MergeFrom(from);
+        const MessageResponse& this_ = *this;
+#endif // PROTOBUF_CUSTOM_VTABLE
+        // @@protoc_insertion_point(message_byte_size_start:rpc.MessageResponse)
+        ::size_t total_size = 0;
+
+        ::uint32_t cached_has_bits = 0;
+        // Prevent compiler warnings about cached_has_bits being unused
+        (void)cached_has_bits;
+
+        {
+            // string status = 1;
+            if (!this_._internal_status().empty())
+            {
+                total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(this_._internal_status());
+            }
+        }
+        return this_.MaybeComputeUnknownFieldsSize(total_size, &this_._impl_._cached_size_);
     }
 
     void MessageResponse::InternalSwap(MessageResponse*PROTOBUF_RESTRICT other)
@@ -717,4 +717,3 @@ namespace google
 // @@protoc_insertion_point(global_scope)
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::std::false_type _static_init2_ PROTOBUF_UNUSED =
     (::_pbi::AddDescriptors(&descriptor_table_RpcService_2eproto), ::std::false_type{});
-#include "google/protobuf/port_undef.inc"

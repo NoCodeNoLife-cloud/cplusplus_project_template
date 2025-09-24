@@ -146,4 +146,4 @@ namespace fox
         writer.Key(key);
         writer.Bool(value);
     }
-} // namespace fox
+}

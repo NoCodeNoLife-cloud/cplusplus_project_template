@@ -54,4 +54,4 @@ namespace fox
         }
         return result;
     }
-} // namespace fox
+}

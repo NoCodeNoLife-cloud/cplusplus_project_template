@@ -24,7 +24,7 @@ namespace fox
         /// @return True if decoding is successful, false otherwise
         virtual auto decode(const YAML::Node& node) -> bool = 0;
     };
-} // namespace fox
+}
 
 /// @brief YAML convert template specialization for IYamlSerializable objects.
 /// @tparam T Type of the object that implements IYamlSerializable

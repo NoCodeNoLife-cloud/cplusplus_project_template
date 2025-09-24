@@ -105,4 +105,4 @@ namespace fox
             throw std::runtime_error(e.what());
         }
     }
-} // namespace fox
+}

@@ -79,4 +79,4 @@ namespace fox
         }
         buffer_[index] = value;
     }
-} // namespace fox
+}

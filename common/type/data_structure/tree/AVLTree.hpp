@@ -230,4 +230,4 @@ namespace fox
             return node;
         return value < node->data ? find(node->left, value) : find(node->right, value);
     }
-} // namespace fox
+}

@@ -2,6 +2,7 @@
 #include <functional>
 #include <type_traits>
 #include <utility>
+#include <exception>
 
 namespace fox
 {
@@ -10,7 +11,6 @@ namespace fox
     /// such as before/after method execution advice, exception handling, and result processing.
     /// @tparam Derived The derived class that implements the specific AOP behavior.
     /// The derived class can override the virtual methods to customize the AOP behavior.
-    // ReSharper disable once CppTemplateParameterNeverUsed
     template <typename Derived>
     class IAop
     {
@@ -24,23 +24,28 @@ namespace fox
 
         virtual ~IAop() = default;
 
-    private:
+    protected:
         /// @brief Function to be executed before the function call
-        virtual auto onEntry() -> void
-        {
-        }
+        /// @details This method is called before the target function is invoked.
+        /// Derived classes can override this to implement pre-execution logic.
+        virtual void onEntry() = 0;
 
         /// @brief Function to be executed after the function call
-        virtual auto onExit() -> void
-        {
-        }
+        /// @details This method is called after the target function is successfully invoked.
+        /// Derived classes can override this to implement post-execution logic.
+        virtual void onExit() = 0;
 
         /// @brief Function to be executed when an exception is thrown
-        virtual auto onException() -> void
-        {
-        }
+        /// @details This method is called when an exception is caught during function execution.
+        /// Derived classes can override this to implement exception handling logic.
+        virtual void onException(std::exception_ptr e) = 0;
 
         /// @brief Function to handle the result
+        /// @tparam T The type of the result
+        /// @param result The result to be handled
+        /// @return The processed result
+        /// @details This method is called to process the result of the function execution.
+        /// Derived classes can override this to implement result processing logic.
         template <typename T>
         auto handleResult(T&& result) -> decltype(auto);
     };
@@ -49,24 +54,24 @@ namespace fox
     template <typename Func, typename... Args>
     auto IAop<Derived>::exec(Func&& func, Args&&... args) -> decltype(auto)
     {
-        this->onEntry();
+        static_cast<Derived*>(this)->onEntry();
         try
         {
             if constexpr (std::is_void_v<std::invoke_result_t<Func, Args...>>)
             {
                 std::invoke(std::forward<Func>(func), std::forward<Args>(args)...);
-                this->onExit();
+                static_cast<Derived*>(this)->onExit();
             }
             else
             {
                 auto result = std::invoke(std::forward<Func>(func), std::forward<Args>(args)...);
-                this->onExit();
+                static_cast<Derived*>(this)->onExit();
                 return static_cast<Derived*>(this)->handleResult(std::move(result));
             }
         }
         catch (...)
         {
-            this->onException();
+            static_cast<Derived*>(this)->onException(std::current_exception());
             throw;
         }
     }
@@ -77,4 +82,4 @@ namespace fox
     {
         return std::forward<T>(result);
     }
-} // namespace fox
+}

@@ -133,4 +133,4 @@ namespace fox
         os << "(" << point.getX() << ", " << point.getY() << ")";
         return os;
     }
-} // namespace fox
+}

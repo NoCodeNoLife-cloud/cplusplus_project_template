@@ -99,4 +99,4 @@ namespace fox
     {
         return value_ == other.value_;
     }
-} // namespace fox
+}

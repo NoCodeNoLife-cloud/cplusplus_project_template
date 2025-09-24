@@ -56,4 +56,4 @@ namespace fox
         }
         return obj;
     }
-} // namespace fox
+}

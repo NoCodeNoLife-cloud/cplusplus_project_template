@@ -22,4 +22,4 @@ namespace fox
     TreeNode<T>::TreeNode(T value) noexcept : data(value)
     {
     }
-} // namespace fox
+}

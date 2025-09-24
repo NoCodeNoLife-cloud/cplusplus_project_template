@@ -99,4 +99,4 @@ namespace fox
     {
         return distances_;
     }
-} // namespace fox
+}

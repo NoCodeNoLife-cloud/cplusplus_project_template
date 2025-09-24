@@ -126,4 +126,4 @@ namespace fox
     {
         color_ = c;
     }
-} // namespace fox
+}

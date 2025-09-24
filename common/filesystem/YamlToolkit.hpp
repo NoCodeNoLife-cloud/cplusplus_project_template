@@ -160,4 +160,4 @@ namespace fox
             return false;
         }
     }
-} // namespace fox
+}

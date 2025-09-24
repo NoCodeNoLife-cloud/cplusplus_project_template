@@ -224,4 +224,4 @@ namespace fox
             throw std::ios_base::failure("Failed to write to stream");
         }
     }
-} // namespace fox
+}

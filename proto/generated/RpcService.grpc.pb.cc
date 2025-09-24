@@ -7,15 +7,11 @@
 #include <grpcpp/impl/channel_interface.h>
 #include <grpcpp/impl/client_unary_call.h>
 #include <grpcpp/impl/rpc_service_method.h>
-#include <grpcpp/impl/server_callback_handlers.h>
 #include <grpcpp/impl/service_type.h>
 #include <grpcpp/server_context.h>
-#include <grpcpp/support/async_stream.h>
 #include <grpcpp/support/async_unary_call.h>
 #include <grpcpp/support/client_callback.h>
-#include <grpcpp/support/message_allocator.h>
 #include <grpcpp/support/method_handler.h>
-#include <grpcpp/support/server_callback.h>
 #include <grpcpp/support/sync_stream.h>
 
 #include <functional>
@@ -27,14 +23,6 @@ namespace rpc
     static const char* RpcService_method_names[] = {
         "/rpc.RpcService/Send",
     };
-
-    std::unique_ptr<RpcService::Stub> RpcService::NewStub(const std::shared_ptr<::grpc::ChannelInterface>& channel,
-                                                          const ::grpc::StubOptions& options)
-    {
-        (void)options;
-        std::unique_ptr<RpcService::Stub> stub(new RpcService::Stub(channel, options));
-        return stub;
-    }
 
     RpcService::Stub::Stub(const std::shared_ptr<::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
         : channel_(channel), rpcmethod_Send_(RpcService_method_names[0], options.suffix_for_stats(),
@@ -68,6 +56,14 @@ namespace rpc
             stub_->channel_.get(), stub_->rpcmethod_Send_, context, request, response, reactor);
     }
 
+    ::grpc::ClientAsyncResponseReader<::rpc::MessageResponse>* RpcService::Stub::AsyncSendRaw(
+        ::grpc::ClientContext* context, const ::rpc::MessageRequest& request, ::grpc::CompletionQueue* cq)
+    {
+        auto* result = this->PrepareAsyncSendRaw(context, request, cq);
+        result->StartCall();
+        return result;
+    }
+
     ::grpc::ClientAsyncResponseReader<::rpc::MessageResponse>* RpcService::Stub::PrepareAsyncSendRaw(
         ::grpc::ClientContext* context, const ::rpc::MessageRequest& request, ::grpc::CompletionQueue* cq)
     {
@@ -77,12 +73,12 @@ namespace rpc
             channel_.get(), cq, rpcmethod_Send_, context, request);
     }
 
-    ::grpc::ClientAsyncResponseReader<::rpc::MessageResponse>* RpcService::Stub::AsyncSendRaw(
-        ::grpc::ClientContext* context, const ::rpc::MessageRequest& request, ::grpc::CompletionQueue* cq)
+    std::unique_ptr<RpcService::Stub> RpcService::NewStub(const std::shared_ptr<::grpc::ChannelInterface>& channel,
+                                                          const ::grpc::StubOptions& options)
     {
-        auto* result = this->PrepareAsyncSendRaw(context, request, cq);
-        result->StartCall();
-        return result;
+        (void)options;
+        std::unique_ptr<RpcService::Stub> stub(new RpcService::Stub(channel, options));
+        return stub;
     }
 
     RpcService::Service::Service()

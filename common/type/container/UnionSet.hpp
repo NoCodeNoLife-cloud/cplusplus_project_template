@@ -99,4 +99,4 @@ namespace fox
             rank[x] = 1;
         }
     }
-} // namespace fox
+}

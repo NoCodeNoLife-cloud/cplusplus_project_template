@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <cmath>
 
 #include "BloomParameters.hpp"
 
@@ -609,4 +608,4 @@ namespace fox
         result ^= b;
         return result;
     }
-} // namespace fox
+}

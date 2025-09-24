@@ -140,4 +140,4 @@ namespace fox
             throw std::runtime_error("Output stream is not available");
         }
     }
-} // namespace fox
+}

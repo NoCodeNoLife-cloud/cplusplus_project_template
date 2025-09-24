@@ -2,7 +2,6 @@
 #include <span>
 #include <stdexcept>
 #include <vector>
-#include <cstring>
 
 #include "interface/IBuffer.hpp"
 
@@ -95,4 +94,4 @@ namespace fox
         position_ += length;
         return result;
     }
-} // namespace fox
+}

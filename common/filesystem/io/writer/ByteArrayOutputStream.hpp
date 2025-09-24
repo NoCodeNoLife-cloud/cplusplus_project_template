@@ -148,4 +148,4 @@ namespace fox
             buf_.resize(newCapacity);
         }
     }
-} // namespace fox
+}

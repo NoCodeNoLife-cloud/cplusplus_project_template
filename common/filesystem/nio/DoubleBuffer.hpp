@@ -76,4 +76,4 @@ namespace fox
         }
         return buffer_[position_++];
     }
-} // namespace fox
+}

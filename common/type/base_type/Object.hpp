@@ -35,4 +35,4 @@ namespace fox
     {
         return 0;
     }
-} // namespace fox
+}

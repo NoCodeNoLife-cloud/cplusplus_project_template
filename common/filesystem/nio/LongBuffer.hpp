@@ -49,4 +49,4 @@ namespace fox
         }
         buffer_[position_++] = value;
     }
-} // namespace fox
+}

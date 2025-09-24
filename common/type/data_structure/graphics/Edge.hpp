@@ -59,4 +59,4 @@ namespace fox
     {
         weight_ = weight;
     }
-} // namespace fox
+}

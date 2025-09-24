@@ -40,4 +40,4 @@ namespace fox
     {
         flag_.clear(std::memory_order_release);
     }
-} // namespace fox
+}

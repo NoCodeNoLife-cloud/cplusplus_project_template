@@ -210,4 +210,4 @@ namespace fox
     {
         return std::string(buffer_.begin(), buffer_.end());
     }
-} // namespace fox
+}

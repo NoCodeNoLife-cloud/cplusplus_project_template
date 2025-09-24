@@ -98,4 +98,4 @@ namespace fox
         const std::chrono::duration<double, std::milli> duration_ms = end_ - start_;
         return duration_ms.count();
     }
-} // namespace fox
+}

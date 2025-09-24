@@ -191,4 +191,4 @@ namespace fox
     inline auto FileOutputStream::checkStreamState() const -> void
     {
     }
-} // namespace fox
+}
