@@ -1,8 +1,6 @@
 #pragma once
 #include <boost/algorithm/string.hpp>
-#include <boost/tokenizer.hpp>
 #include <istream>
-#include <sstream>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -66,8 +64,7 @@ namespace fox
 
     inline auto Scanner::nextInt() const -> int32_t
     {
-        std::string token;
-        if (getNextToken(token))
+        if (std::string token; getNextToken(token))
         {
             try
             {
@@ -83,8 +80,7 @@ namespace fox
 
     inline auto Scanner::nextDouble() const -> double
     {
-        std::string token;
-        if (getNextToken(token))
+        if (std::string token; getNextToken(token))
         {
             try
             {
@@ -118,14 +114,13 @@ namespace fox
             return false;
         }
 
-        std::string line;
-        if (std::getline(input_, line))
+        // Read until next whitespace
+        token.clear();
+        while (input_.peek() != EOF && !std::isspace(input_.peek()))
         {
-            std::stringstream ss(line);
-            ss >> token;
-            return true;
+            token += static_cast<char>(input_.get());
         }
-        return false;
+        return true;
     }
 
     inline auto Scanner::nextTokens(const char delimiter) const -> std::vector<std::string>
@@ -134,6 +129,10 @@ namespace fox
         std::getline(input_, line);
         std::vector<std::string> tokens;
         boost::split(tokens, line, boost::is_any_of(std::string(1, delimiter)));
+
+        // Remove empty tokens
+        std::erase_if(tokens,
+                      [](const std::string& s) { return s.empty(); });
         return tokens;
     }
 }

@@ -9,13 +9,14 @@ namespace fox
     class BufferedReader final : public AbstractReader
     {
     public:
-        explicit BufferedReader(std::unique_ptr<AbstractReader> reader, int32_t size = DEFAULT_BUFFER_SIZE);
+        explicit BufferedReader(std::unique_ptr<AbstractReader> reader, size_t size = DEFAULT_BUFFER_SIZE);
         ~BufferedReader() override;
 
         /// @brief Close the stream.
         auto close() -> void override;
 
         /// @brief Mark the present position in the stream.
+        /// @param readAheadLimit The maximum limit of characters that can be read before the mark position becomes invalid.
         auto mark(size_t readAheadLimit) -> void override;
 
         /// @brief Tell whether this stream supports the mark() operation.
@@ -27,17 +28,18 @@ namespace fox
 
         /// @brief Read a single character.
         /// @return The character read, as an integer in the range 0 to 65535 (0x00-0xffff),
-        auto read() -> size_t override;
+        ///         or -1 if the end of the stream has been reached.
+        auto read() -> int override;
 
         /// @brief Read characters into an array.
         /// @param cBuf The buffer into which characters are read.
         /// @param off The offset at which to start storing characters.
         /// @param len The maximum number of characters to read.
         /// @return The number of characters read, or -1 if the end of the stream has been reached.
-        auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
+        auto read(std::vector<char>& cBuf, size_t off, size_t len) -> int override;
 
         /// @brief Read a line of text.
-        /// @return A String containing the next line of text, or null if the end of the stream has been reached.
+        /// @return A String containing the next line of text, or empty string if the end of the stream has been reached.
         auto readLine() -> std::string;
 
         /// @brief Tell whether this stream is ready to be read.
@@ -47,7 +49,11 @@ namespace fox
         /// @brief Skip characters.
         /// @param n The number of characters to skip.
         /// @return The number of characters actually skipped.
-        auto skip(int64_t n) -> int64_t;
+        auto skip(size_t n) -> size_t override;
+
+        /// @brief Checks if this reader has been closed.
+        /// @return true if this reader has been closed, false otherwise.
+        auto isClosed() const -> bool override;
 
     private:
         static constexpr size_t DEFAULT_BUFFER_SIZE = 8192;
@@ -60,10 +66,10 @@ namespace fox
         bool fillBuffer();
     };
 
-    inline BufferedReader::BufferedReader(std::unique_ptr<AbstractReader> reader, const int32_t size)
+    inline BufferedReader::BufferedReader(std::unique_ptr<AbstractReader> reader, const size_t size)
         : reader_(std::move(reader)), buffer_size_(size)
     {
-        if (size <= 0)
+        if (size == 0)
         {
             throw std::invalid_argument("Buffer size must be greater than 0");
         }
@@ -79,12 +85,12 @@ namespace fox
 
     inline auto BufferedReader::mark(const size_t readAheadLimit) -> void
     {
-        if (readAheadLimit <= 0)
+        if (readAheadLimit == 0)
         {
             throw std::invalid_argument("Mark limit must be greater than 0");
         }
         reader_->mark(readAheadLimit);
-        mark_limit_ = readAheadLimit;
+        mark_limit_ = pos_;
     }
 
     inline bool BufferedReader::markSupported() const
@@ -98,7 +104,7 @@ namespace fox
         pos_ = mark_limit_;
     }
 
-    inline size_t BufferedReader::read()
+    inline int BufferedReader::read()
     {
         if (pos_ >= count_)
         {
@@ -107,21 +113,26 @@ namespace fox
                 return -1;
             }
         }
-        return buffer_[pos_++];
+        return static_cast<unsigned char>(buffer_[pos_++]);
     }
 
-    inline auto BufferedReader::read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t
+    inline auto BufferedReader::read(std::vector<char>& cBuf, const size_t off, const size_t len) -> int
     {
-        if (off + len > cBuf.size())
+        if (off > cBuf.size() || len > cBuf.size() - off)
         {
-            return -1;
+            throw std::out_of_range("Buffer offset/length out of range");
         }
-        size_t totalBytesRead = 0;
+
         if (len == 0)
         {
             return 0;
         }
-        while (len > 0)
+
+        size_t totalBytesRead = 0;
+        size_t currentOffset = off;
+        size_t remainingLen = len;
+
+        while (remainingLen > 0)
         {
             if (pos_ >= count_)
             {
@@ -130,16 +141,18 @@ namespace fox
                     break;
                 }
             }
-            size_t bytesAvailable = count_ - pos_;
-            const size_t bytesToRead = std::min(bytesAvailable, len);
+
+            const size_t bytesAvailable = count_ - pos_;
+            const size_t bytesToRead = std::min(bytesAvailable, remainingLen);
             std::copy_n(buffer_.begin() + static_cast<std::ptrdiff_t>(pos_), bytesToRead,
-                        cBuf.begin() + static_cast<std::ptrdiff_t>(off));
+                        cBuf.begin() + static_cast<std::ptrdiff_t>(currentOffset));
             totalBytesRead += bytesToRead;
-            off += bytesToRead;
-            len -= bytesToRead;
+            currentOffset += bytesToRead;
+            remainingLen -= bytesToRead;
             pos_ += bytesToRead;
         }
-        return totalBytesRead;
+
+        return totalBytesRead > 0 ? static_cast<int>(totalBytesRead) : -1;
     }
 
     inline auto BufferedReader::readLine() -> std::string
@@ -172,14 +185,17 @@ namespace fox
         return reader_->ready();
     }
 
-    inline auto BufferedReader::skip(const int64_t n) -> int64_t
+    inline auto BufferedReader::skip(const size_t n) -> size_t
     {
-        if (n <= 0)
+        if (n == 0)
         {
-            throw std::invalid_argument("Skip value must be positive");
+            return 0;
         }
-        int64_t skipped = 0;
-        while (skipped < n)
+
+        size_t skipped = 0;
+        size_t remaining = n;
+
+        while (remaining > 0)
         {
             if (pos_ >= count_)
             {
@@ -188,17 +204,26 @@ namespace fox
                     break;
                 }
             }
-            const int64_t bytesToSkip = std::min(static_cast<int64_t>(count_ - pos_), n - skipped);
+
+            const size_t bytesToSkip = std::min(count_ - pos_, remaining);
             pos_ += bytesToSkip;
+            remaining -= bytesToSkip;
             skipped += bytesToSkip;
         }
+
         return skipped;
     }
 
     inline bool BufferedReader::fillBuffer()
     {
         pos_ = 0;
-        count_ = reader_->read(buffer_, 0, buffer_size_);
+        const int bytesRead = reader_->read(buffer_, 0, buffer_size_);
+        count_ = bytesRead > 0 ? static_cast<size_t>(bytesRead) : 0;
         return count_ > 0;
+    }
+
+    inline bool BufferedReader::isClosed() const
+    {
+        return !reader_ || reader_->isClosed();
     }
 }

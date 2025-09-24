@@ -43,7 +43,7 @@ namespace fox
         /// reached. If the pushback buffer is not empty, a character from the pushback buffer is returned. Otherwise, a
         /// character from the underlying input stream is returned.
         /// @return The character read, or -1 if the end of the stream has been reached
-        auto read() -> size_t override;
+        auto read() -> int override;
 
         /// @brief Reads up to len characters of data from this stream into an array of characters.
         /// @details This method will block until some input is available, an I/O error occurs, or the end of the stream is
@@ -54,7 +54,7 @@ namespace fox
         /// @param len the maximum number of characters read
         /// @return the total number of characters read into the buffer, or -1 if there is no more data because the end of
         /// the stream has been reached
-        auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
+        auto read(std::vector<char>& cBuf, size_t off, size_t len) -> int override;
 
         /// @brief Tells whether this stream is ready to be read.
         /// @details A stream is ready to be read if there are characters available in the pushback buffer,
@@ -99,10 +99,15 @@ namespace fox
         /// @param c the character to push back
         auto unread(int32_t c) -> void;
 
+        /// @brief Checks if this reader has been closed.
+        /// @return true if this reader has been closed, false otherwise.
+        auto isClosed() const -> bool override;
+
     private:
         static constexpr size_t DEFAULT_BUFFER_SIZE = 1024;
         std::vector<char> buffer_;
         size_t buffer_pos_{DEFAULT_BUFFER_SIZE};
+        bool closed_{false};
     };
 
     inline PushbackReader::PushbackReader(std::shared_ptr<AbstractReader> reader)
@@ -121,12 +126,14 @@ namespace fox
 
     inline void PushbackReader::close()
     {
+        closed_ = true;
         FilterReader::close();
         buffer_.clear();
     }
 
-    inline void PushbackReader::mark(size_t readAheadLimit)
+    inline void PushbackReader::mark(const size_t readAheadLimit)
     {
+        static_cast<void>(readAheadLimit); // Unused parameter
         throw std::runtime_error("mark() not supported.");
     }
 
@@ -135,9 +142,9 @@ namespace fox
         return false;
     }
 
-    inline size_t PushbackReader::read()
+    inline int PushbackReader::read()
     {
-        if (!in_)
+        if (closed_ || !in_)
         {
             throw std::runtime_error("Underlying reader is not available");
         }
@@ -149,9 +156,9 @@ namespace fox
         return FilterReader::read();
     }
 
-    inline size_t PushbackReader::read(std::vector<char>& cBuf, size_t off, const size_t len)
+    inline int PushbackReader::read(std::vector<char>& cBuf, const size_t off, const size_t len)
     {
-        if (!in_)
+        if (closed_ || !in_)
         {
             throw std::runtime_error("Underlying reader is not available");
         }
@@ -164,19 +171,24 @@ namespace fox
         size_t bytesRead = 0;
         while (buffer_pos_ < buffer_.size() && bytesRead < len)
         {
-            cBuf[off++] = buffer_[buffer_pos_++];
+            cBuf[off + bytesRead] = buffer_[buffer_pos_++];
             bytesRead++;
         }
         if (bytesRead < len)
         {
-            bytesRead += FilterReader::read(cBuf, off, len - bytesRead);
+            const int underlyingBytesRead = FilterReader::read(cBuf, off + bytesRead, len - bytesRead);
+            if (underlyingBytesRead == -1)
+            {
+                return bytesRead > 0 ? static_cast<int>(bytesRead) : -1;
+            }
+            bytesRead += static_cast<size_t>(underlyingBytesRead);
         }
-        return bytesRead;
+        return static_cast<int>(bytesRead);
     }
 
     inline bool PushbackReader::ready() const
     {
-        if (!in_)
+        if (closed_ || !in_)
         {
             return false;
         }
@@ -188,9 +200,9 @@ namespace fox
         throw std::runtime_error("reset() not supported.");
     }
 
-    inline size_t PushbackReader::skip(size_t n)
+    inline size_t PushbackReader::skip(const size_t n)
     {
-        if (!in_)
+        if (closed_ || !in_)
         {
             throw std::runtime_error("Underlying reader is not available");
         }
@@ -201,11 +213,10 @@ namespace fox
             const size_t bufferRemaining = buffer_.size() - buffer_pos_;
             skipped = std::min(n, bufferRemaining);
             buffer_pos_ += skipped;
-            n -= skipped;
         }
-        if (n > 0)
+        if (n > skipped)
         {
-            skipped += FilterReader::skip(n);
+            skipped += FilterReader::skip(n - skipped);
         }
         return skipped;
     }
@@ -217,6 +228,11 @@ namespace fox
 
     inline auto PushbackReader::unread(const std::vector<char>& cBuf, const size_t off, const size_t len) -> void
     {
+        if (closed_)
+        {
+            throw std::runtime_error("Stream is closed");
+        }
+
         if (off > cBuf.size() || len > cBuf.size() - off)
         {
             throw std::out_of_range("Buffer offset/length out of range");
@@ -235,10 +251,20 @@ namespace fox
 
     inline auto PushbackReader::unread(const int32_t c) -> void
     {
+        if (closed_)
+        {
+            throw std::runtime_error("Stream is closed");
+        }
+
         if (buffer_pos_ == 0)
         {
             throw std::overflow_error("Pushback buffer overflow.");
         }
         buffer_[--buffer_pos_] = static_cast<char>(c);
+    }
+
+    inline bool PushbackReader::isClosed() const
+    {
+        return closed_ || !in_ || in_->isClosed();
     }
 }

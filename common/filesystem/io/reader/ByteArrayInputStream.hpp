@@ -21,8 +21,7 @@ namespace fox
         /// @param cBuf the buffer into which the data is read.
         /// @param off the start offset in the destination array cBuf.
         /// @param len the maximum number of bytes to read.
-        /// @return the total number of bytes read into the buffer, or 0 if there is no more data because the end of the
-        /// stream has been reached.
+        /// @return the total number of bytes read into the buffer, or 0 if there is no more data because the end of the stream has been reached.
         auto read(std::vector<std::byte>& cBuf, size_t off, size_t len) -> size_t override;
 
         /// @brief Skips over and discards n bytes of data from this input stream.
@@ -49,10 +48,15 @@ namespace fox
         /// @brief Closes this input stream and releases any system resources associated with the stream.
         auto close() -> void override;
 
+        /// @brief Checks if this input stream has been closed.
+        /// @return true if this input stream has been closed, false otherwise.
+        auto isClosed() const -> bool override;
+
     protected:
         const std::vector<std::byte> buffer_;
         size_t pos_{0};
         size_t mark_position_{0};
+        bool closed_{false};
     };
 
     inline ByteArrayInputStream::ByteArrayInputStream(const std::vector<std::byte>& buf) : buffer_(buf)
@@ -61,38 +65,41 @@ namespace fox
 
     inline auto ByteArrayInputStream::read() -> std::byte
     {
-        if (pos_ >= buffer_.size())
+        if (closed_ || pos_ >= buffer_.size())
         {
             return static_cast<std::byte>(-1);
         }
         return buffer_[pos_++];
     }
 
-    inline size_t ByteArrayInputStream::read(std::vector<std::byte>& cBuf, const size_t off, size_t len)
+    inline size_t ByteArrayInputStream::read(std::vector<std::byte>& cBuf, const size_t off, const size_t len)
     {
         if (off > cBuf.size() || len > cBuf.size() - off)
         {
             throw std::out_of_range("Offset and length exceed the size of the buffer");
         }
 
-        if (pos_ >= buffer_.size())
+        if (closed_ || pos_ >= buffer_.size())
         {
             return 0;
         }
 
-        if (const size_t remaining = buffer_.size() - pos_; len > remaining)
-        {
-            len = remaining;
-        }
+        const size_t remaining = buffer_.size() - pos_;
+        const size_t bytesToRead = std::min(len, remaining);
 
-        std::copy_n(buffer_.begin() + static_cast<std::ptrdiff_t>(pos_), len,
+        std::copy_n(buffer_.begin() + static_cast<std::ptrdiff_t>(pos_), bytesToRead,
                     cBuf.begin() + static_cast<std::ptrdiff_t>(off));
-        pos_ += len;
-        return len;
+        pos_ += bytesToRead;
+        return bytesToRead;
     }
 
     inline size_t ByteArrayInputStream::skip(const size_t n)
     {
+        if (closed_)
+        {
+            return 0;
+        }
+
         const size_t available = buffer_.size() - pos_;
         const size_t bytesToSkip = std::min(n, available);
         pos_ += bytesToSkip;
@@ -101,17 +108,29 @@ namespace fox
 
     inline auto ByteArrayInputStream::available() -> size_t
     {
+        if (closed_)
+        {
+            return 0;
+        }
         return buffer_.size() - pos_;
     }
 
     inline void ByteArrayInputStream::reset()
     {
+        if (closed_)
+        {
+            throw std::runtime_error("Stream is closed");
+        }
         pos_ = mark_position_;
     }
 
     inline void ByteArrayInputStream::mark(const int32_t readLimit)
     {
-        mark_position_ = std::min(static_cast<size_t>(readLimit), buffer_.size());
+        if (closed_)
+        {
+            throw std::runtime_error("Stream is closed");
+        }
+        mark_position_ = pos_;
     }
 
     inline bool ByteArrayInputStream::markSupported() const
@@ -121,6 +140,11 @@ namespace fox
 
     inline auto ByteArrayInputStream::close() -> void
     {
-        // do nothing
+        closed_ = true;
+    }
+
+    inline bool ByteArrayInputStream::isClosed() const
+    {
+        return closed_;
     }
 }

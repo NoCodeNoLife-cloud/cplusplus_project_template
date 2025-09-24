@@ -1,7 +1,6 @@
 #pragma once
 
 #include <algorithm>
-#include <cstdint>
 #include <vector>
 
 #include "filesystem/io/interface/ICloseable.hpp"
@@ -23,7 +22,7 @@ namespace fox
         /// This method reads the next character from the input stream.
         /// @return The character read, as an integer in the range 0 to 65535 (0x00-0xffff),
         ///         or -1 if the end of the stream has been reached
-        auto read() -> size_t override;
+        auto read() -> int override;
 
         /// @brief Read characters into an array.
         /// This method reads up to 'len' characters from the input stream into the buffer 'cBuf'
@@ -32,13 +31,13 @@ namespace fox
         /// @param off Offset at which to start storing characters
         /// @param len Maximum number of characters to read
         /// @return The number of characters read, or -1 if the end of the stream has been reached
-        virtual auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t = 0;
+        virtual auto read(std::vector<char>& cBuf, size_t off, size_t len) -> int = 0;
 
         /// @brief Read characters into an array.
         /// This method reads characters from the input stream into the entire buffer 'cBuf'.
         /// @param cBuf Destination buffer to store the characters read
         /// @return The number of characters read, or -1 if the end of the stream has been reached
-        virtual auto read(std::vector<char>& cBuf) -> size_t;
+        virtual auto read(std::vector<char>& cBuf) -> int;
 
         /// @brief Tests if this stream supports the mark and reset methods.
         /// @return True if this stream supports the mark and reset methods, false otherwise
@@ -68,19 +67,19 @@ namespace fox
 
     inline AbstractReader::~AbstractReader() = default;
 
-    inline auto AbstractReader::read() -> size_t
+    inline auto AbstractReader::read() -> int
     {
         std::vector<char> buffer(1);
-        if (const size_t bytesRead = read(buffer, 0, 1); bytesRead == -1)
+        if (const int bytesRead = read(buffer, 0, 1); bytesRead <= 0)
         {
             return -1;
         }
-        return buffer[0];
+        return static_cast<unsigned char>(buffer[0]);
     }
 
-    inline auto AbstractReader::read(std::vector<char>& cBuf) -> size_t
+    inline auto AbstractReader::read(std::vector<char>& cBuf) -> int
     {
-        return read(cBuf, 0, static_cast<int32_t>(cBuf.size()));
+        return read(cBuf, 0, cBuf.size());
     }
 
     inline auto AbstractReader::markSupported() const -> bool
@@ -90,7 +89,7 @@ namespace fox
 
     inline auto AbstractReader::ready() const -> bool
     {
-        return true;
+        return false;
     }
 
     inline auto AbstractReader::skip(const size_t n) -> size_t
@@ -98,12 +97,13 @@ namespace fox
         size_t skipped = 0;
         while (skipped < n)
         {
-            std::vector<char> buffer(1024);
-            const size_t toRead = std::min(n - skipped, buffer.size());
-            const size_t readCount = read(buffer, 0, static_cast<int32_t>(toRead));
-            if (readCount == -1)
+            constexpr size_t BUFFER_SIZE = 1024;
+            std::vector<char> buffer(BUFFER_SIZE);
+            const size_t toRead = std::min(n - skipped, BUFFER_SIZE);
+            const int readCount = read(buffer, 0, toRead);
+            if (readCount <= 0)
                 break;
-            skipped += readCount;
+            skipped += static_cast<size_t>(readCount);
         }
         return skipped;
     }

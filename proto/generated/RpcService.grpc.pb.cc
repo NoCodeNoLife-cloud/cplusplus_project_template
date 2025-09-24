@@ -2,109 +2,85 @@
 // If you make any local change, they will be lost.
 // source: RpcService.proto
 
+#include "RpcService.pb.h"
 #include "RpcService.grpc.pb.h"
 
+#include <functional>
+#include <grpcpp/support/async_stream.h>
+#include <grpcpp/support/async_unary_call.h>
 #include <grpcpp/impl/channel_interface.h>
 #include <grpcpp/impl/client_unary_call.h>
-#include <grpcpp/impl/rpc_service_method.h>
-#include <grpcpp/impl/service_type.h>
-#include <grpcpp/server_context.h>
-#include <grpcpp/support/async_unary_call.h>
 #include <grpcpp/support/client_callback.h>
+#include <grpcpp/support/message_allocator.h>
 #include <grpcpp/support/method_handler.h>
+#include <grpcpp/impl/rpc_service_method.h>
+#include <grpcpp/support/server_callback.h>
+#include <grpcpp/impl/server_callback_handlers.h>
+#include <grpcpp/server_context.h>
+#include <grpcpp/impl/service_type.h>
 #include <grpcpp/support/sync_stream.h>
+namespace rpc {
 
-#include <functional>
+static const char* RpcService_method_names[] = {
+  "/rpc.RpcService/Send",
+};
 
-#include "RpcService.pb.h"
+std::unique_ptr< RpcService::Stub> RpcService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
+  (void)options;
+  std::unique_ptr< RpcService::Stub> stub(new RpcService::Stub(channel, options));
+  return stub;
+}
 
-namespace rpc
-{
-    static const char* RpcService_method_names[] = {
-        "/rpc.RpcService/Send",
-    };
+RpcService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
+  : channel_(channel), rpcmethod_Send_(RpcService_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  {}
 
-    RpcService::Stub::Stub(const std::shared_ptr<::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
-        : channel_(channel), rpcmethod_Send_(RpcService_method_names[0], options.suffix_for_stats(),
-                                             ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-    {
-    }
+::grpc::Status RpcService::Stub::Send(::grpc::ClientContext* context, const ::rpc::MessageRequest& request, ::rpc::MessageResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::rpc::MessageRequest, ::rpc::MessageResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_Send_, context, request, response);
+}
 
-    ::grpc::Status RpcService::Stub::Send(::grpc::ClientContext* context, const ::rpc::MessageRequest& request,
-                                          ::rpc::MessageResponse* response)
-    {
-        return ::grpc::internal::BlockingUnaryCall<::rpc::MessageRequest, ::rpc::MessageResponse,
-                                                   ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
-            channel_.get(), rpcmethod_Send_, context, request, response);
-    }
+void RpcService::Stub::async::Send(::grpc::ClientContext* context, const ::rpc::MessageRequest* request, ::rpc::MessageResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::rpc::MessageRequest, ::rpc::MessageResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Send_, context, request, response, std::move(f));
+}
 
-    void RpcService::Stub::async::Send(::grpc::ClientContext* context, const ::rpc::MessageRequest* request,
-                                       ::rpc::MessageResponse* response, std::function<void(::grpc::Status)> f)
-    {
-        ::grpc::internal::CallbackUnaryCall<::rpc::MessageRequest, ::rpc::MessageResponse, ::grpc::protobuf::MessageLite
-                                            ,
-                                            ::grpc::protobuf::MessageLite>(
-            stub_->channel_.get(), stub_->rpcmethod_Send_,
-            context, request, response, std::move(f));
-    }
+void RpcService::Stub::async::Send(::grpc::ClientContext* context, const ::rpc::MessageRequest* request, ::rpc::MessageResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Send_, context, request, response, reactor);
+}
 
-    void RpcService::Stub::async::Send(::grpc::ClientContext* context, const ::rpc::MessageRequest* request,
-                                       ::rpc::MessageResponse* response, ::grpc::ClientUnaryReactor* reactor)
-    {
-        ::grpc::internal::ClientCallbackUnaryFactory::Create<
-            ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
-            stub_->channel_.get(), stub_->rpcmethod_Send_, context, request, response, reactor);
-    }
+::grpc::ClientAsyncResponseReader< ::rpc::MessageResponse>* RpcService::Stub::PrepareAsyncSendRaw(::grpc::ClientContext* context, const ::rpc::MessageRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::rpc::MessageResponse, ::rpc::MessageRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_Send_, context, request);
+}
 
-    ::grpc::ClientAsyncResponseReader<::rpc::MessageResponse>* RpcService::Stub::AsyncSendRaw(
-        ::grpc::ClientContext* context, const ::rpc::MessageRequest& request, ::grpc::CompletionQueue* cq)
-    {
-        auto* result = this->PrepareAsyncSendRaw(context, request, cq);
-        result->StartCall();
-        return result;
-    }
+::grpc::ClientAsyncResponseReader< ::rpc::MessageResponse>* RpcService::Stub::AsyncSendRaw(::grpc::ClientContext* context, const ::rpc::MessageRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncSendRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
 
-    ::grpc::ClientAsyncResponseReader<::rpc::MessageResponse>* RpcService::Stub::PrepareAsyncSendRaw(
-        ::grpc::ClientContext* context, const ::rpc::MessageRequest& request, ::grpc::CompletionQueue* cq)
-    {
-        return ::grpc::internal::ClientAsyncResponseReaderHelper::Create<
-            ::rpc::MessageResponse, ::rpc::MessageRequest, ::grpc::protobuf::MessageLite,
-            ::grpc::protobuf::MessageLite>(
-            channel_.get(), cq, rpcmethod_Send_, context, request);
-    }
+RpcService::Service::Service() {
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      RpcService_method_names[0],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< RpcService::Service, ::rpc::MessageRequest, ::rpc::MessageResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](RpcService::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::rpc::MessageRequest* req,
+             ::rpc::MessageResponse* resp) {
+               return service->Send(ctx, req, resp);
+             }, this)));
+}
 
-    std::unique_ptr<RpcService::Stub> RpcService::NewStub(const std::shared_ptr<::grpc::ChannelInterface>& channel,
-                                                          const ::grpc::StubOptions& options)
-    {
-        (void)options;
-        std::unique_ptr<RpcService::Stub> stub(new RpcService::Stub(channel, options));
-        return stub;
-    }
+RpcService::Service::~Service() {
+}
 
-    RpcService::Service::Service()
-    {
-        AddMethod(new ::grpc::internal::RpcServiceMethod(
-            RpcService_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC,
-            new ::grpc::internal::RpcMethodHandler<RpcService::Service, ::rpc::MessageRequest, ::rpc::MessageResponse,
-                                                   ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
-                [](RpcService::Service* service, ::grpc::ServerContext* ctx, const ::rpc::MessageRequest* req,
-                   ::rpc::MessageResponse* resp)
-                {
-                    return service->Send(ctx, req, resp);
-                },
-                this)));
-    }
+::grpc::Status RpcService::Service::Send(::grpc::ServerContext* context, const ::rpc::MessageRequest* request, ::rpc::MessageResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
 
-    RpcService::Service::~Service()
-    {
-    }
 
-    ::grpc::Status RpcService::Service::Send(::grpc::ServerContext* context, const ::rpc::MessageRequest* request,
-                                             ::rpc::MessageResponse* response)
-    {
-        (void)context;
-        (void)request;
-        (void)response;
-        return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-} // namespace rpc
+}  // namespace rpc
+

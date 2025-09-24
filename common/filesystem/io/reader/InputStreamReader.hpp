@@ -24,14 +24,14 @@ namespace fox
         /// @brief Read a single character.
         /// @return The character read, as an integer in the range 0 to 65535 (0x00-0xffff),
         ///         or -1 if the end of the stream has been reached
-        auto read() -> size_t override;
+        auto read() -> int override;
 
         /// @brief Read characters into an array.
         /// @param cBuf Destination buffer
         /// @param off Offset at which to start storing characters
         /// @param len Maximum number of characters to read
         /// @return The number of characters read, or -1 if the end of the stream has been reached
-        auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
+        auto read(std::vector<char>& cBuf, size_t off, size_t len) -> int override;
 
         /// @brief Tests if this input stream is ready to be read.
         /// @return true if the next read() is guaranteed not to block for input, false otherwise.
@@ -51,9 +51,14 @@ namespace fox
         /// @brief Resets the stream to the most recent mark.
         auto reset() -> void override;
 
+        /// @brief Checks if this reader has been closed.
+        /// @return true if this reader has been closed, false otherwise.
+        auto isClosed() const -> bool override;
+
     private:
         std::shared_ptr<AbstractReader> reader_;
         std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> converter_;
+        bool closed_{false};
     };
 
     inline InputStreamReader::InputStreamReader(std::shared_ptr<AbstractReader> input) : reader_(std::move(input))
@@ -79,25 +84,80 @@ namespace fox
 
     inline InputStreamReader::~InputStreamReader() = default;
 
-    inline size_t InputStreamReader::read()
+    inline int InputStreamReader::read()
     {
-        if (!reader_)
+        if (closed_ || !reader_)
         {
             throw std::runtime_error("Input stream is not available");
         }
 
-        std::vector<char> byteBuffer(4, 0);
-        if (const size_t bytesRead = reader_->read(byteBuffer, 0, 1);
-            bytesRead == 0 || bytesRead == static_cast<size_t>(-1))
+        // UTF-8 character can be 1-4 bytes, read one byte at a time to determine character boundaries
+        std::vector<char> byteBuffer(1);
+        const int firstByte = reader_->read();
+        if (firstByte == -1)
         {
-            return static_cast<size_t>(-1);
+            return -1;
+        }
+
+        byteBuffer[0] = static_cast<char>(firstByte);
+
+        // Determine how many additional bytes we need based on the first byte
+        int additionalBytes = 0;
+        const unsigned char firstByteUnsigned = static_cast<unsigned char>(firstByte);
+        if ((firstByteUnsigned & 0x80) == 0)
+        {
+            // ASCII character (0xxxxxxx)
+            additionalBytes = 0;
+        }
+        else if ((firstByteUnsigned & 0xE0) == 0xC0)
+        {
+            // 2-byte character (110xxxxx 10xxxxxx)
+            additionalBytes = 1;
+        }
+        else if ((firstByteUnsigned & 0xF0) == 0xE0)
+        {
+            // 3-byte character (1110xxxx 10xxxxxx 10xxxxxx)
+            additionalBytes = 2;
+        }
+        else if ((firstByteUnsigned & 0xF8) == 0xF0)
+        {
+            // 4-byte character (11110xxx 10xxxxxx 10xxxxxx 10xxxxxx)
+            additionalBytes = 3;
+        }
+        else
+        {
+            // Invalid UTF-8 first byte
+            throw std::runtime_error("Invalid UTF-8 sequence");
+        }
+
+        // Read additional bytes if needed
+        std::vector<char> fullByteBuffer(1 + additionalBytes);
+        fullByteBuffer[0] = byteBuffer[0];
+
+        for (int i = 0; i < additionalBytes; ++i)
+        {
+            const int nextByte = reader_->read();
+            if (nextByte == -1)
+            {
+                throw std::runtime_error("Incomplete UTF-8 sequence");
+            }
+            const unsigned char nextByteUnsigned = static_cast<unsigned char>(nextByte);
+            if ((nextByteUnsigned & 0xC0) != 0x80)
+            {
+                throw std::runtime_error("Invalid UTF-8 sequence");
+            }
+            fullByteBuffer[1 + i] = static_cast<char>(nextByte);
         }
 
         try
         {
-            const std::string byteStr(1, byteBuffer[0]);
-            const char32_t charValue = converter_.from_bytes(byteStr)[0];
-            return static_cast<size_t>(charValue);
+            const std::string byteStr(fullByteBuffer.data(), fullByteBuffer.size());
+            const std::u32string chars = converter_.from_bytes(byteStr);
+            if (chars.empty())
+            {
+                return -1;
+            }
+            return static_cast<unsigned char>(chars[0]);
         }
         catch (const std::exception&)
         {
@@ -105,9 +165,9 @@ namespace fox
         }
     }
 
-    inline auto InputStreamReader::read(std::vector<char>& cBuf, const size_t off, const size_t len) -> size_t
+    inline auto InputStreamReader::read(std::vector<char>& cBuf, const size_t off, const size_t len) -> int
     {
-        if (!reader_)
+        if (closed_ || !reader_)
         {
             throw std::runtime_error("Input stream is not available");
         }
@@ -122,31 +182,26 @@ namespace fox
             return 0;
         }
 
-        std::vector<char> byteBuffer(len, 0);
-        const size_t bytesRead = reader_->read(byteBuffer, 0, len);
-        if (bytesRead == 0 || bytesRead == static_cast<size_t>(-1))
+        // For simplicity, read one character at a time
+        // A more optimized implementation would read multiple bytes and decode them together
+        size_t totalCharsRead = 0;
+        for (size_t i = 0; i < len; ++i)
         {
-            return static_cast<size_t>(-1);
+            const int ch = read();
+            if (ch == -1)
+            {
+                return totalCharsRead > 0 ? static_cast<int>(totalCharsRead) : -1;
+            }
+            cBuf[off + i] = static_cast<char>(ch);
+            ++totalCharsRead;
         }
 
-        try
-        {
-            const std::string byteStr(byteBuffer.data(), bytesRead);
-            auto chars = converter_.from_bytes(byteStr);
-            const size_t charsToCopy = std::min(chars.size(), len);
-            std::copy_n(chars.begin(), charsToCopy,
-                        cBuf.begin() + static_cast<std::vector<char>::difference_type>(off));
-            return charsToCopy;
-        }
-        catch (const std::exception&)
-        {
-            throw std::runtime_error("Failed to decode bytes to characters");
-        }
+        return static_cast<int>(totalCharsRead);
     }
 
     inline bool InputStreamReader::ready() const
     {
-        if (!reader_)
+        if (closed_ || !reader_)
         {
             throw std::runtime_error("Input stream is not available");
         }
@@ -155,11 +210,11 @@ namespace fox
 
     inline auto InputStreamReader::close() -> void
     {
-        if (!reader_)
+        closed_ = true;
+        if (reader_)
         {
-            throw std::runtime_error("Input stream is not available");
+            reader_->close();
         }
-        reader_->close();
     }
 
     inline bool InputStreamReader::markSupported() const
@@ -176,5 +231,10 @@ namespace fox
     inline auto InputStreamReader::reset() -> void
     {
         throw std::runtime_error("Reset not supported");
+    }
+
+    inline bool InputStreamReader::isClosed() const
+    {
+        return closed_ || !reader_ || reader_->isClosed();
     }
 }

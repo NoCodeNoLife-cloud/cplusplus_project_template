@@ -33,7 +33,7 @@ namespace fox
         /// @brief Reads a single character from the string.
         /// @return The character read, as an integer in the range 0 to 65535 (0x00-0xffff),
         ///         or -1 if the end of the string has been reached.
-        [[nodiscard]] auto read() -> size_t override;
+        [[nodiscard]] auto read() -> int override;
 
         /// @brief Reads up to len characters from the string into the buffer cBuf starting at offset off.
         /// @param cBuf The buffer into which the data is read.
@@ -41,7 +41,7 @@ namespace fox
         /// @param len The maximum number of characters to read.
         /// @return The total number of characters read into the buffer, or -1 if there is no more data because the end of
         /// the string has been reached.
-        [[nodiscard]] auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
+        [[nodiscard]] auto read(std::vector<char>& cBuf, size_t off, size_t len) -> int override;
 
         /// @brief Tests if this input stream is ready to be read.
         /// @return true if the next read() is guaranteed not to block for input, false otherwise.
@@ -55,15 +55,20 @@ namespace fox
         /// @return The actual number of characters skipped.
         auto skip(size_t ns) -> size_t override;
 
+        /// @brief Checks if this reader has been closed.
+        /// @return true if this reader has been closed, false otherwise.
+        auto isClosed() const -> bool override;
+
     private:
         std::string source_;
         size_t position_;
         size_t mark_position_;
         bool mark_set_;
+        bool closed_;
     };
 
     inline StringReader::StringReader(std::string s)
-        : source_(std::move(s)), position_(0), mark_position_(0), mark_set_(false)
+        : source_(std::move(s)), position_(0), mark_position_(0), mark_set_(false), closed_(false)
     {
     }
 
@@ -71,6 +76,7 @@ namespace fox
 
     inline auto StringReader::close() -> void
     {
+        closed_ = true;
         source_.clear();
         position_ = 0;
         mark_position_ = 0;
@@ -79,8 +85,13 @@ namespace fox
 
     inline auto StringReader::mark(const size_t readAheadLimit) -> void
     {
-        mark_position_ = std::min(readAheadLimit, source_.size());
+        if (closed_)
+        {
+            throw std::runtime_error("Stream is closed");
+        }
+        mark_position_ = position_;
         mark_set_ = true;
+        static_cast<void>(readAheadLimit); // Unused parameter
     }
 
     inline bool StringReader::markSupported() const
@@ -88,17 +99,22 @@ namespace fox
         return true;
     }
 
-    inline size_t StringReader::read()
+    inline int StringReader::read()
     {
-        if (position_ >= source_.size())
+        if (closed_ || position_ >= source_.size())
         {
-            return static_cast<size_t>(-1); // EOF
+            return -1; // EOF
         }
-        return static_cast<size_t>(static_cast<unsigned char>(source_[position_++]));
+        return static_cast<unsigned char>(source_[position_++]);
     }
 
-    inline auto StringReader::read(std::vector<char>& cBuf, const size_t off, const size_t len) -> size_t
+    inline auto StringReader::read(std::vector<char>& cBuf, const size_t off, const size_t len) -> int
     {
+        if (closed_)
+        {
+            throw std::runtime_error("Stream is closed");
+        }
+
         if (off > cBuf.size() || len > cBuf.size() - off)
         {
             throw std::invalid_argument("Offset is out of bounds of the buffer");
@@ -106,7 +122,7 @@ namespace fox
 
         if (position_ >= source_.size())
         {
-            return static_cast<size_t>(-1); // EOF
+            return -1; // EOF
         }
 
         const size_t maxRead = std::min(len, source_.size() - position_);
@@ -123,30 +139,43 @@ namespace fox
                 break;
             }
         }
-        return actualRead;
+        return static_cast<int>(actualRead > 0 ? actualRead : -1);
     }
 
     inline bool StringReader::ready() const
     {
-        return position_ < source_.size();
+        return !closed_ && position_ < source_.size();
     }
 
     inline auto StringReader::reset() -> void
     {
+        if (closed_)
+        {
+            throw std::runtime_error("Stream is closed");
+        }
         if (!mark_set_)
         {
             position_ = 0;
         }
         else
         {
-            position_ = std::min(mark_position_, source_.size());
+            position_ = mark_position_;
         }
     }
 
     inline size_t StringReader::skip(const size_t ns)
     {
+        if (closed_)
+        {
+            return 0;
+        }
         const size_t charsToSkip = std::min(ns, source_.size() - position_);
         position_ += charsToSkip;
         return charsToSkip;
+    }
+
+    inline bool StringReader::isClosed() const
+    {
+        return closed_;
     }
 }

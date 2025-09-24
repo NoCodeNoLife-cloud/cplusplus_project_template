@@ -51,6 +51,10 @@ namespace fox
         /// @param b the byte to push back.
         void unread(std::byte b);
 
+        /// @brief Checks if this input stream has been closed.
+        /// @return true if this input stream has been closed, false otherwise.
+        auto isClosed() const -> bool override;
+
     private:
         std::vector<std::byte> pushback_buffer_;
         size_t buffer_pos_{0};
@@ -150,5 +154,10 @@ namespace fox
             throw std::overflow_error("Pushback buffer overflow");
         }
         pushback_buffer_[--buffer_pos_] = b;
+    }
+
+    inline bool PushbackInputStream::isClosed() const
+    {
+        return !input_stream_ || input_stream_->isClosed();
     }
 }

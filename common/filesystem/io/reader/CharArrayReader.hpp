@@ -19,14 +19,14 @@ namespace fox
         /// @brief Reads a single character.
         /// @return The character read, as an integer in the range 0 to 65535 (0x00-0xffff), or -1 if the end of the stream
         /// has been reached
-        auto read() -> size_t override;
+        auto read() -> int override;
 
         /// @brief Reads characters into an array.
         /// @param b The buffer into which the read characters are stored
         /// @param off The offset at which to store the characters
         /// @param len The maximum number of characters to read
         /// @return The number of characters read, or -1 if the end of the stream has been reached
-        auto read(std::vector<char>& b, size_t off, size_t len) -> size_t override;
+        auto read(std::vector<char>& b, size_t off, size_t len) -> int override;
 
         /// @brief Skips characters.
         /// @param n The number of characters to skip
@@ -51,11 +51,16 @@ namespace fox
         /// @brief Closes the stream and releases any system resources associated with it.
         auto close() -> void override;
 
+        /// @brief Checks if this reader has been closed.
+        /// @return true if this reader has been closed, false otherwise.
+        auto isClosed() const -> bool override;
+
     private:
         std::vector<char> buf_;
         size_t pos_{0};
         size_t marked_pos_{0};
         size_t count_{0};
+        bool closed_{false};
     };
 
     inline CharArrayReader::CharArrayReader(const std::vector<char>& buffer) : buf_(buffer), count_(buffer.size())
@@ -75,30 +80,35 @@ namespace fox
 
     inline CharArrayReader::~CharArrayReader() = default;
 
-    inline size_t CharArrayReader::read()
+    inline int CharArrayReader::read()
     {
-        if (pos_ >= count_)
+        if (closed_ || pos_ >= count_)
             return -1;
-        return buf_[pos_++];
+        return static_cast<unsigned char>(buf_[pos_++]);
     }
 
-    inline auto CharArrayReader::read(std::vector<char>& b, const size_t off, const size_t len) -> size_t
+    inline auto CharArrayReader::read(std::vector<char>& b, const size_t off, const size_t len) -> int
     {
-        if (pos_ >= count_)
-            return -1;
-        if (off >= b.size() || off + len > b.size())
+        if (off > b.size() || len > b.size() - off)
         {
             throw std::out_of_range("Invalid offset or length for target buffer");
         }
+
+        if (closed_ || pos_ >= count_)
+            return -1;
+
         const size_t toRead = std::min(len, count_ - pos_);
         std::copy_n(buf_.begin() + static_cast<std::ptrdiff_t>(pos_), toRead,
                     b.begin() + static_cast<std::ptrdiff_t>(off));
         pos_ += toRead;
-        return toRead;
+        return static_cast<int>(toRead);
     }
 
     inline size_t CharArrayReader::skip(const size_t n)
     {
+        if (closed_)
+            return 0;
+
         const size_t skipped = std::min(n, count_ - pos_);
         pos_ += skipped;
         return skipped;
@@ -106,7 +116,7 @@ namespace fox
 
     inline bool CharArrayReader::ready() const
     {
-        return pos_ < count_;
+        return !closed_ && pos_ < count_;
     }
 
     inline bool CharArrayReader::markSupported() const
@@ -116,19 +126,33 @@ namespace fox
 
     inline auto CharArrayReader::mark(const size_t readAheadLimit) -> void
     {
-        marked_pos_ = readAheadLimit;
+        if (closed_)
+        {
+            throw std::runtime_error("Stream is closed");
+        }
+        marked_pos_ = pos_;
     }
 
     inline auto CharArrayReader::reset() -> void
     {
+        if (closed_)
+        {
+            throw std::runtime_error("Stream is closed");
+        }
         pos_ = marked_pos_;
     }
 
     inline auto CharArrayReader::close() -> void
     {
+        closed_ = true;
         buf_.clear();
         pos_ = 0;
         marked_pos_ = 0;
         count_ = 0;
+    }
+
+    inline bool CharArrayReader::isClosed() const
+    {
+        return closed_;
     }
 }

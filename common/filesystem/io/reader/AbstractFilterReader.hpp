@@ -14,19 +14,26 @@ namespace fox
     class AbstractFilterReader : public AbstractReader
     {
     public:
+        /// @brief Construct a filter reader with the specified input reader.
+        /// @param inputReader The underlying reader to be filtered
+        /// @throws std::invalid_argument if inputReader is null
         explicit AbstractFilterReader(std::unique_ptr<AbstractReader> inputReader);
+
+        /// @brief Virtual destructor for proper cleanup of derived classes
         ~AbstractFilterReader() override;
 
         /// @brief Read a single character.
         /// @return The character read, as an integer in the range 0 to 65535 (0x00-0xffff),
-        auto read() -> size_t override;
+        /// or -1 if the end of the stream has been reached
+        auto read() -> int override;
 
         /// @brief Read characters into an array.
         /// @param cBuf Destination buffer.
         /// @param off Offset at which to start storing characters.
         /// @param len Maximum number of characters to read.
         /// @return The number of characters read, or -1 if the end of the stream has been reached.
-        auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
+        /// @pre off + len <= cBuf.size()
+        auto read(std::vector<char>& cBuf, size_t off, size_t len) -> int override;
 
         /// @brief Skip characters.
         /// @param n The number of characters to skip.
@@ -43,13 +50,17 @@ namespace fox
 
         /// @brief Mark the present position in the stream.
         /// @param readAheadLimit Limit on the number of characters that may be read while still preserving the mark.
+        /// @throws std::ios_base::failure if mark is not supported
         auto mark(size_t readAheadLimit) -> void override;
 
         /// @brief Reset the stream to the most recent mark.
+        /// @throws std::ios_base::failure if mark has not been called or is not supported
         auto reset() -> void override;
 
         /// @brief Close the stream.
+        /// @throws std::ios_base::failure if an I/O error occurs
         auto close() -> void override;
+        auto isClosed() const -> bool override;
 
     protected:
         std::unique_ptr<AbstractReader> reader_;
@@ -66,7 +77,7 @@ namespace fox
 
     inline AbstractFilterReader::~AbstractFilterReader() = default;
 
-    inline size_t AbstractFilterReader::read()
+    inline auto AbstractFilterReader::read() -> int
     {
         if (!reader_)
         {
@@ -75,7 +86,7 @@ namespace fox
         return reader_->read();
     }
 
-    inline auto AbstractFilterReader::read(std::vector<char>& cBuf, const size_t off, const size_t len) -> size_t
+    inline auto AbstractFilterReader::read(std::vector<char>& cBuf, const size_t off, const size_t len) -> int
     {
         if (!reader_)
         {
@@ -85,10 +96,10 @@ namespace fox
         {
             return -1;
         }
-        return static_cast<int32_t>(reader_->read(cBuf, off, len));
+        return reader_->read(cBuf, off, len);
     }
 
-    inline size_t AbstractFilterReader::skip(const size_t n)
+    inline auto AbstractFilterReader::skip(const size_t n) -> size_t
     {
         if (!reader_)
         {
@@ -97,7 +108,7 @@ namespace fox
         return reader_->skip(n);
     }
 
-    inline bool AbstractFilterReader::ready() const
+    inline auto AbstractFilterReader::ready() const -> bool
     {
         if (!reader_)
         {
@@ -106,7 +117,7 @@ namespace fox
         return reader_->ready();
     }
 
-    inline bool AbstractFilterReader::markSupported() const
+    inline auto AbstractFilterReader::markSupported() const -> bool
     {
         if (!reader_)
         {

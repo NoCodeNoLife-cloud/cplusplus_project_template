@@ -28,19 +28,19 @@ namespace fox
 
         /// @brief Reads the next character from this input stream.
         /// @return The next character from this input stream, or -1 if the end of the stream has been reached.
-        auto read() -> size_t override;
+        auto read() -> int override;
 
         /// @brief Reads characters into an array of characters.
         /// @param cBuf The buffer into which characters are to be read.
         /// @param off The offset at which to begin storing characters.
         /// @param len The maximum number of characters to read.
         /// @return The number of characters read, or -1 if the end of the stream has been reached.
-        auto read(std::vector<char>& cBuf, size_t off, size_t len) -> size_t override;
+        auto read(std::vector<char>& cBuf, size_t off, size_t len) -> int override;
 
         /// @brief Reads characters into an array of characters.
         /// @param cBuf The buffer into which characters are to be read.
         /// @return The number of characters read, or -1 if the end of the stream has been reached.
-        auto read(std::vector<char>& cBuf) -> size_t override;
+        auto read(std::vector<char>& cBuf) -> int override;
 
         /// @brief Tests if this input stream is ready to be read.
         /// @return true if the next read() is guaranteed not to block for input; false otherwise.
@@ -50,7 +50,13 @@ namespace fox
         auto reset() -> void override;
 
         /// @brief Skips over and discards n bytes of data from this input stream.
+        /// @param n The number of characters to skip.
+        /// @return The number of characters actually skipped.
         auto skip(size_t n) -> size_t override;
+
+        /// @brief Checks if this reader has been closed.
+        /// @return true if this reader has been closed, false otherwise.
+        auto isClosed() const -> bool override;
 
     protected:
         std::shared_ptr<AbstractReader> in_;
@@ -89,7 +95,7 @@ namespace fox
         return in_->markSupported();
     }
 
-    inline size_t FilterReader::read()
+    inline int FilterReader::read()
     {
         if (!in_)
         {
@@ -98,7 +104,7 @@ namespace fox
         return in_->read();
     }
 
-    inline auto FilterReader::read(std::vector<char>& cBuf, const size_t off, const size_t len) -> size_t
+    inline auto FilterReader::read(std::vector<char>& cBuf, const size_t off, const size_t len) -> int
     {
         if (!in_)
         {
@@ -112,7 +118,7 @@ namespace fox
         return in_->read(cBuf, off, len);
     }
 
-    inline size_t FilterReader::read(std::vector<char>& cBuf)
+    inline int FilterReader::read(std::vector<char>& cBuf)
     {
         if (!in_)
         {
@@ -146,5 +152,14 @@ namespace fox
             throw std::runtime_error("Input stream is not available");
         }
         return in_->skip(n);
+    }
+
+    inline bool FilterReader::isClosed() const
+    {
+        if (!in_)
+        {
+            return true;
+        }
+        return in_->isClosed();
     }
 }

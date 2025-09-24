@@ -51,6 +51,11 @@ namespace fox
         /// @return The byte read or EOF (-1) if the end of the stream is reached.
         auto read() -> std::byte override
         {
+            if (closed_ || !file_stream_.good())
+            {
+                return static_cast<std::byte>(-1);
+            }
+
             std::byte byte{};
             if (file_stream_.read(reinterpret_cast<char*>(&byte), 1))
             {
@@ -79,7 +84,7 @@ namespace fox
                 throw std::invalid_argument("Invalid buffer, offset, or length.");
             }
 
-            if (!file_stream_.good())
+            if (closed_ || !file_stream_.good())
             {
                 return 0;
             }
@@ -94,7 +99,7 @@ namespace fox
         /// @return The number of bytes skipped.
         auto skip(const size_t n) -> size_t override
         {
-            if (!file_stream_.good())
+            if (closed_ || !file_stream_.good())
             {
                 return 0;
             }
@@ -127,7 +132,7 @@ namespace fox
         /// @return The number of bytes available to read.
         auto available() -> size_t override
         {
-            if (!file_stream_.good())
+            if (closed_ || !file_stream_.good())
             {
                 return 0;
             }
@@ -158,6 +163,14 @@ namespace fox
             {
                 file_stream_.close();
             }
+            closed_ = true;
+        }
+
+        /// @brief Checks if this input stream has been closed.
+        /// @return true if this input stream has been closed, false otherwise.
+        auto isClosed() const -> bool override
+        {
+            return closed_;
         }
 
         /// @brief Check if the stream supports marking.
@@ -170,5 +183,6 @@ namespace fox
     private:
         std::ifstream file_stream_;
         std::string file_name_{};
+        bool closed_{false};
     };
 }

@@ -55,6 +55,10 @@ namespace fox
         /// @brief Closes this input stream and releases any system resources associated with the stream.
         auto close() -> void override;
 
+        /// @brief Checks if this input stream has been closed.
+        /// @return true if this input stream has been closed, false otherwise.
+        auto isClosed() const -> bool override;
+
     protected:
         std::unique_ptr<AbstractInputStream> input_stream_;
     };
@@ -144,5 +148,14 @@ namespace fox
         {
             input_stream_->close();
         }
+    }
+
+    inline bool FilterInputStream::isClosed() const
+    {
+        if (!input_stream_)
+        {
+            return true;
+        }
+        return input_stream_->isClosed();
     }
 }

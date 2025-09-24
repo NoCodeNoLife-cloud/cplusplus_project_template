@@ -1,11 +1,8 @@
 #pragma once
 #include <cstdint>
-#include <ostream>
-
-namespace boost::serialization
-{
-    class access;
-}
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/serialization/access.hpp>
 
 namespace fox
 {
@@ -14,19 +11,20 @@ namespace fox
     /// Classes implementing this interface need to provide a serializeImpl method for the actual serialization logic.
     /// @tparam T The type to be serialized (the derived class)
     template <typename T>
-    // ReSharper disable once CppClassCanBeFinal
     class IBoostSerializable
     {
     public:
         /// @brief Virtual destructor for proper cleanup of derived classes
-        virtual ~IBoostSerializable();
+        virtual ~IBoostSerializable() = default;
 
         /// @brief Serialize object to output stream
+        /// This method serializes the object to the provided output stream using Boost text archive.
         /// @param stream Output stream to serialize to
         /// @return true if serialization was successful, false otherwise
         auto serializeTo(std::ostream& stream) -> bool;
 
         /// @brief Deserialize object from input stream
+        /// This method deserializes the object from the provided input stream using Boost text archive.
         /// @param stream Input stream to deserialize from
         /// @return true if deserialization was successful, false otherwise
         auto deserializeFrom(std::istream& stream) -> bool;
@@ -42,20 +40,16 @@ namespace fox
         /// @param archive Archive object used for serialization
         /// @param version Version number for serialization
         template <class Archive>
-        auto serialize(Archive& archive, uint32_t version) -> void;
+        auto serialize(Archive& archive, const uint32_t version) -> void;
     };
 
     template <typename T>
-    IBoostSerializable<T>::~IBoostSerializable() = default;
-
-    template <typename T>
-    // ReSharper disable once CppMemberFunctionMayBeStatic
     auto IBoostSerializable<T>::serializeTo(std::ostream& stream) -> bool
     {
         try
         {
-            // Implementation would require including boost headers
-            // This is a placeholder for actual implementation
+            boost::archive::text_oarchive oa(stream);
+            oa << static_cast<const T&>(*this);
             return true;
         }
         catch (...)
@@ -65,13 +59,12 @@ namespace fox
     }
 
     template <typename T>
-    // ReSharper disable once CppMemberFunctionMayBeStatic
     auto IBoostSerializable<T>::deserializeFrom(std::istream& stream) -> bool
     {
         try
         {
-            // Implementation would require including boost headers
-            // This is a placeholder for actual implementation
+            boost::archive::text_iarchive ia(stream);
+            ia >> static_cast<T&>(*this);
             return true;
         }
         catch (...)
