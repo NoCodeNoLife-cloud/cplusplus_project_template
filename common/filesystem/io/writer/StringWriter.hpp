@@ -1,172 +1,194 @@
 #pragma once
-#include <sstream>
+#include <filesystem>
+#include <fstream>
 #include <vector>
 
-#include "AbstractWriter.hpp"
+#include "AbstractOutputStream.hpp"
 
 namespace fox
 {
-    /// @brief A writer that writes data to an in-memory string buffer.
-    /// This class provides functionality to write characters and strings to an internal
-    /// string buffer, which can then be retrieved as a string.
-    class StringWriter final : public AbstractWriter, public IAppendable<StringWriter>
+    /// @brief A class for writing data to a file.
+    /// @details This class provides methods for writing bytes to a file, either
+    /// appending to or overwriting the file's contents. It inherits from
+    /// AbstractOutputStream to provide a consistent interface for output streams.
+    class FileOutputStream final : public AbstractOutputStream
     {
     public:
-        explicit StringWriter(size_t initialSize);
-        ~StringWriter() override;
+        /// @brief Constructs a FileOutputStream for the specified file path.
+        /// @param name The file path as a string.
+        /// @param append If true, opens file in append mode; otherwise truncates.
+        /// @throws std::ios_base::failure If the path is a directory or file cannot be opened.
+        inline FileOutputStream(const std::string& name, bool append);
 
-        /// @brief Appends the specified character to this writer.
-        /// @param c The character to append.
-        /// @return A reference to this StringWriter.
-        auto append(char c) -> StringWriter& override;
+        /// @brief Constructs a FileOutputStream for the specified file path.
+        /// @param name The file path as a C-string.
+        /// @param append If true, opens file in append mode; otherwise truncates.
+        /// @throws std::ios_base::failure If the path is a directory or file cannot be opened.
+        inline FileOutputStream(const char* name, bool append);
 
-        /// @brief Appends the specified string to this writer.
-        /// @param csq The string to append.
-        /// @return A reference to this StringWriter.
-        auto append(const std::string& csq) -> StringWriter& override;
+        /// @brief Constructs a FileOutputStream for the specified file path.
+        /// @param file The file path as a filesystem path object.
+        /// @param append If true, opens file in append mode; otherwise truncates.
+        /// @throws std::ios_base::failure If the path is a directory or file cannot be opened.
+        inline FileOutputStream(const std::filesystem::path& file, bool append);
 
-        /// @brief Appends a subsequence of the specified string to this writer.
-        /// @param csq The string from which a subsequence is appended.
-        /// @param start The starting index of the subsequence.
-        /// @param end The ending index of the subsequence.
-        /// @return A reference to this StringWriter.
-        auto append(const std::string& csq, size_t start, size_t end) -> StringWriter& override;
+        /// @brief Destructor that closes the file stream if open.
+        inline ~FileOutputStream() override;
 
-        /// @brief Closes the writer and releases any associated resources.
-        auto close() -> void override;
+        /// @brief Writes a single byte to the file stream.
+        /// @param b The byte to write.
+        /// @throws std::ios_base::failure If the stream is not writable or in a bad state.
+        inline auto write(std::byte b) -> void override;
 
-        /// @brief Flushes the writer, ensuring all buffered data is written.
-        auto flush() -> void override;
+        /// @brief Writes an array of bytes to the file stream.
+        /// @param buffer Pointer to the array of bytes to write.
+        /// @param length Number of bytes to write.
+        /// @throws std::ios_base::failure If the stream is not writable or in a bad state.
+        inline auto write(const std::byte* buffer, size_t length) -> void override;
 
-        /// @brief Gets the current buffer content as a string.
-        /// @return The buffer content.
-        [[nodiscard]] auto getBuffer() const -> std::string;
+        /// @brief Writes a vector of bytes to the file stream.
+        /// @param buffer The vector of bytes to write.
+        /// @throws std::ios_base::failure If the stream is not writable or in a bad state.
+        inline auto write(const std::vector<std::byte>& buffer) -> void override;
 
-        /// @brief Converts the buffer content to a string representation.
-        /// @return The string representation of the buffer.
-        [[nodiscard]] auto toString() const -> std::string override;
+        /// @brief Writes a portion of a vector of bytes to the file stream.
+        /// @param buffer The vector of bytes to write from.
+        /// @param offset The starting position in the buffer.
+        /// @param len The number of bytes to write.
+        /// @throws std::ios_base::failure If the stream is not writable or in a bad state.
+        inline auto write(const std::vector<std::byte>& buffer, size_t offset, size_t len) -> void override;
 
-        /// @brief Writes a single character to the writer.
-        /// @param c The character to write.
-        auto write(char c) -> void override;
+        /// @brief Closes the file stream.
+        /// @throws std::ios_base::failure If the stream is not writable.
+        inline auto close() -> void override;
 
-        /// @brief Writes the specified string to the writer.
-        /// @param str The string to write.
-        auto write(const std::string& str) -> void override;
+        /// @brief Flushes the file stream.
+        /// @throws std::ios_base::failure If the stream is not writable or in a bad state.
+        inline auto flush() -> void override;
 
-        /// @brief Writes a portion of the specified string to the writer.
-        /// @param str The string to write.
-        /// @param off The offset from which to start writing.
-        /// @param len The number of characters to write.
-        auto write(const std::string& str, size_t off, size_t len) -> void override;
-
-        /// @brief Writes a portion of the specified character array to the writer.
-        /// @param cBuf The character array to write.
-        /// @param off The offset from which to start writing.
-        /// @param len The number of characters to write.
-        auto write(const std::vector<char>& cBuf, size_t off, size_t len) -> void override;
+        /// @brief Checks if the stream is closed.
+        /// @return true if the stream is closed, false otherwise.
+        inline auto isClosed() const -> bool override;
 
     private:
-        std::ostringstream buffer_;
+        std::ofstream file_stream_;
+        std::string file_name_;
+
+        /// @brief Checks if the stream is writable, throwing an exception if not.
+        /// @param message The message for the exception if the stream is not writable.
+        /// @throws std::ios_base::failure If the stream is not open or not writable.
+        inline auto checkStreamWritable(const std::string& message) const -> void;
+
+        /// @brief Checks the stream state and throws an exception if badbit or failbit is set.
+        /// @throws std::ios_base::failure If the stream is in a bad state.
+        inline auto checkStreamState() const -> void;
     };
 
-    inline StringWriter::StringWriter(const size_t initialSize)
+    inline FileOutputStream::FileOutputStream(const std::string& name, const bool append)
     {
-        buffer_.str(std::string(initialSize, '\0'));
-        buffer_.seekp(0);
-    }
-
-    inline StringWriter::~StringWriter() = default;
-
-    inline StringWriter& StringWriter::append(const char c)
-    {
-        buffer_.put(c);
-        return *this;
-    }
-
-    inline StringWriter& StringWriter::append(const std::string& csq)
-    {
-        if (!csq.empty())
+        if (std::filesystem::exists(name) && std::filesystem::is_directory(name))
         {
-            buffer_ << csq;
+            throw std::ios_base::failure("Path is a directory.");
         }
-        return *this;
-    }
-
-    inline StringWriter& StringWriter::append(const std::string& csq, const size_t start, const size_t end)
-    {
-        if (start <= end && end <= csq.size())
+        file_stream_.open(name, std::ios::binary | (append ? std::ios::app : std::ios::trunc));
+        if (!file_stream_.is_open())
         {
-            const size_t actual_end = std::min(end, csq.size());
-            if (actual_end > start)
-            {
-                buffer_.write(csq.data() + start, static_cast<std::streamsize>(actual_end - start));
-            }
+            throw std::ios_base::failure("Unable to open or create file.");
         }
-        else
+        file_name_ = name;
+    }
+
+    inline FileOutputStream::FileOutputStream(const char* name, const bool append)
+        : FileOutputStream(std::string(name), append)
+    {
+    }
+
+    inline FileOutputStream::FileOutputStream(const std::filesystem::path& file, const bool append)
+        : FileOutputStream(file.string(), append)
+    {
+    }
+
+    inline FileOutputStream::~FileOutputStream()
+    {
+        if (file_stream_.is_open())
         {
-            throw std::out_of_range("Invalid start or end position");
-        }
-        return *this;
-    }
-
-    inline auto StringWriter::close() -> void
-    {
-    }
-
-    inline auto StringWriter::flush() -> void
-    {
-        buffer_.flush();
-    }
-
-    inline auto StringWriter::getBuffer() const -> std::string
-    {
-        return buffer_.str();
-    }
-
-    inline auto StringWriter::toString() const -> std::string
-    {
-        return buffer_.str();
-    }
-
-    inline void StringWriter::write(const char c)
-    {
-        buffer_.put(c);
-    }
-
-    inline void StringWriter::write(const std::string& str)
-    {
-        if (!str.empty())
-        {
-            buffer_ << str;
+            file_stream_.close();
         }
     }
 
-    inline void StringWriter::write(const std::string& str, const size_t off, const size_t len)
+    inline auto FileOutputStream::write(std::byte b) -> void
     {
-        if (len == 0)
-        {
-            return;
-        }
-
-        if (off > str.size() || off + len > str.size())
-        {
-            throw std::out_of_range("Invalid offset or length");
-        }
-        buffer_.write(str.data() + off, static_cast<std::streamsize>(len));
+        checkStreamWritable("Cannot write to closed or unwritable stream.");
+        checkStreamState();
+        file_stream_.put(static_cast<char>(b));
+        checkStreamState();
     }
 
-    inline auto StringWriter::write(const std::vector<char>& cBuf, const size_t off, const size_t len) -> void
+    inline auto FileOutputStream::write(const std::byte* buffer, const size_t length) -> void
     {
-        if (len == 0)
+        checkStreamWritable("Cannot write to closed or unwritable stream.");
+        checkStreamState();
+        file_stream_.write(reinterpret_cast<const char*>(buffer), static_cast<std::streamsize>(length));
+        checkStreamState();
+    }
+
+    inline auto FileOutputStream::write(const std::vector<std::byte>& buffer) -> void
+    {
+        if (!buffer.empty())
         {
-            return;
+            write(buffer.data(), buffer.size());
+        }
+    }
+
+    inline auto FileOutputStream::write(const std::vector<std::byte>& buffer, const size_t offset, const size_t len) -> void
+    {
+        if (offset + len > buffer.size())
+        {
+            throw std::out_of_range("Buffer access out of bounds.");
         }
 
-        if (off > cBuf.size() || len > cBuf.size() - off)
+        if (len > 0)
         {
-            throw std::out_of_range("Invalid offset or length");
+            write(buffer.data() + offset, len);
         }
-        buffer_.write(cBuf.data() + off, static_cast<std::streamsize>(len));
+    }
+
+    inline auto FileOutputStream::close() -> void
+    {
+        checkStreamWritable("Cannot close closed or unwritable stream.");
+        file_stream_.close();
+    }
+
+    inline auto FileOutputStream::flush() -> void
+    {
+        checkStreamWritable("Cannot flush closed or unwritable stream.");
+        checkStreamState();
+        file_stream_.flush();
+        checkStreamState();
+    }
+
+    inline auto FileOutputStream::isClosed() const -> bool
+    {
+        return !file_stream_.is_open();
+    }
+
+    inline auto FileOutputStream::checkStreamWritable(const std::string& message) const -> void
+    {
+        if (!file_stream_.is_open())
+        {
+            throw std::ios_base::failure(message);
+        }
+    }
+
+    inline auto FileOutputStream::checkStreamState() const -> void
+    {
+        if (file_stream_.bad())
+        {
+            throw std::ios_base::failure("Stream is in bad state.");
+        }
+        if (file_stream_.fail())
+        {
+            throw std::ios_base::failure("Stream operation failed.");
+        }
     }
 }

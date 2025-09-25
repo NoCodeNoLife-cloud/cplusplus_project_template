@@ -16,7 +16,7 @@ namespace fox
     class AbstractOutputStream : public ICloseable, public IFlushable
     {
     public:
-        ~AbstractOutputStream() override;
+        ~AbstractOutputStream() override = default;
 
         /// @brief Writes a single byte to the output stream.
         /// @param b The byte to be written.
@@ -24,19 +24,22 @@ namespace fox
 
         /// @brief Writes all bytes from the specified buffer to the output stream.
         /// @param buffer The buffer containing bytes to be written.
-        virtual void write(const std::vector<std::byte>& buffer);
+        virtual auto write(const std::vector<std::byte>& buffer) -> void;
 
         /// @brief Writes a specified number of bytes from the buffer starting at the given offset to the output stream.
         /// @param buffer The buffer containing bytes to be written.
         /// @param offset The start offset in the buffer.
         /// @param len The number of bytes to write.
         /// @throws std::out_of_range if offset + len exceeds buffer size.
-        virtual void write(const std::vector<std::byte>& buffer, size_t offset, size_t len);
+        virtual auto write(const std::vector<std::byte>& buffer, size_t offset, size_t len) -> void;
+
+        /// @brief Writes a specified number of bytes from the buffer to the output stream.
+        /// @param buffer The buffer containing bytes to be written.
+        /// @param length The number of bytes to write.
+        virtual auto write(const std::byte* buffer, size_t length) -> void = 0;
     };
 
-    inline AbstractOutputStream::~AbstractOutputStream() = default;
-
-    inline void AbstractOutputStream::write(const std::vector<std::byte>& buffer)
+    inline auto AbstractOutputStream::write(const std::vector<std::byte>& buffer) -> void
     {
         if (!buffer.empty())
         {
@@ -44,7 +47,7 @@ namespace fox
         }
     }
 
-    inline void AbstractOutputStream::write(const std::vector<std::byte>& buffer, const size_t offset, const size_t len)
+    inline auto AbstractOutputStream::write(const std::vector<std::byte>& buffer, const size_t offset, const size_t len) -> void
     {
         if (offset + len > buffer.size())
         {
