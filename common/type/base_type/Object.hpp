@@ -7,10 +7,11 @@ namespace fox
     /// @brief Base class for all objects in the system.
     /// @details This class provides basic functionality for type information, hashing, and string representation.
     /// It is designed to be inherited by other classes that need these features.
+    // ReSharper disable once CppClassCanBeFinal
     class Object
     {
     public:
-        virtual ~Object();
+        virtual ~Object() = default;
 
         /// @brief Get the type information of the object.
         /// @return const std::type_info& The type information.
@@ -23,8 +24,6 @@ namespace fox
     private:
         friend std::formatter<Object>;
     };
-
-    inline Object::~Object() = default;
 
     inline auto Object::getClass() const noexcept -> const std::type_info&
     {

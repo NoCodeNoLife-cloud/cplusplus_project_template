@@ -12,12 +12,21 @@
 
 namespace fox
 {
+    /// @brief A thread pool implementation that manages a pool of worker threads to execute tasks asynchronously
+    /// The ThreadPool class provides a way to manage a collection of threads and distribute work among them.
+    /// It supports dynamic thread creation up to a maximum limit, and allows for graceful or immediate shutdown.
     class ThreadPool
     {
     public:
+        /// @brief Construct a ThreadPool with specified parameters
+        /// @param core_threads The number of core threads to maintain
+        /// @param max_threads The maximum number of threads allowed
+        /// @param queue_size The maximum size of the task queue
+        /// @param idle_time The time after which excess threads will be terminated
         ThreadPool(size_t core_threads, size_t max_threads, size_t queue_size,
                    std::chrono::milliseconds idle_time) noexcept;
 
+        /// @brief Destructor that gracefully shuts down the thread pool
         ~ThreadPool();
 
         /// @brief Submit a task to the thread pool
@@ -26,6 +35,7 @@ namespace fox
         /// @param f The function to be executed
         /// @param args The arguments to pass to the function
         /// @return A future that will hold the result of the function execution
+        /// @throws std::runtime_error If the task queue is full
         template <class F, class... Args>
         [[nodiscard]] auto Submit(F&& f, Args&&... args) -> std::future<std::invoke_result_t<F, Args...>>;
 
@@ -36,16 +46,16 @@ namespace fox
         auto ShutdownNow() -> void;
 
     private:
-        std::vector<std::thread> workers_;
-        std::queue<std::function<void()>> task_queue_;
-        std::condition_variable condition_;
-        std::mutex queue_mutex_;
-        std::atomic<bool> stop_;
-        std::atomic<size_t> core_thread_count_;
-        std::atomic<size_t> active_thread_count_;
-        size_t max_thread_count_;
-        size_t max_queue_size_;
-        std::chrono::milliseconds thread_idle_time_;
+        std::vector<std::thread> workers_{};
+        std::queue<std::function<void()>> task_queue_{};
+        std::condition_variable condition_{};
+        std::mutex queue_mutex_{};
+        std::atomic<bool> stop_{false};
+        std::atomic<size_t> core_thread_count_{0};
+        std::atomic<size_t> active_thread_count_{0};
+        size_t max_thread_count_{0};
+        size_t max_queue_size_{0};
+        std::chrono::milliseconds thread_idle_time_{};
 
         /// @brief Worker thread function that processes tasks from the queue
         auto worker() -> void;
@@ -56,10 +66,9 @@ namespace fox
     };
 
     inline ThreadPool::ThreadPool(const size_t core_threads, const size_t max_threads, const size_t queue_size,
-                                  const std::chrono::milliseconds idle_time) noexcept : stop_(false),
-        core_thread_count_(core_threads), active_thread_count_(0),
-        max_thread_count_(max_threads), max_queue_size_(queue_size),
-        thread_idle_time_(idle_time)
+                                  const std::chrono::milliseconds idle_time) noexcept :
+        core_thread_count_(core_threads), max_thread_count_(max_threads),
+        max_queue_size_(queue_size), thread_idle_time_(idle_time)
     {
         for (size_t i = 0; i < core_thread_count_; ++i)
         {
@@ -73,7 +82,7 @@ namespace fox
     }
 
     template <class F, class... Args>
-    auto ThreadPool::Submit(F&& f, Args&&... args) -> std::future<std::invoke_result_t<F, Args...>>
+    [[nodiscard]] inline auto ThreadPool::Submit(F&& f, Args&&... args) -> std::future<std::invoke_result_t<F, Args...>>
     {
         using return_type = std::invoke_result_t<F, Args...>;
 

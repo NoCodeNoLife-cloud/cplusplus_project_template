@@ -17,7 +17,7 @@ namespace fox
         0x10, // 00010000
         0x20, // 00100000
         0x40, // 01000000
-        0x80 // 10000000
+        0x80  // 10000000
     };
 
     /// @brief A Bloom filter implementation for probabilistic set membership testing.
@@ -50,12 +50,12 @@ namespace fox
         /// @brief Compares two Bloom filters for equality.
         /// @param f The Bloom filter to compare with.
         /// @return True if the filters are equal, false otherwise.
-        auto operator==(const BloomFilter& f) const noexcept -> bool;
+        [[nodiscard]] auto operator==(const BloomFilter& f) const noexcept -> bool;
 
         /// @brief Compares two Bloom filters for inequality.
         /// @param f The Bloom filter to compare with.
         /// @return True if the filters are not equal, false otherwise.
-        auto operator!=(const BloomFilter& f) const noexcept -> bool;
+        [[nodiscard]] auto operator!=(const BloomFilter& f) const noexcept -> bool;
 
         /// @brief Assigns one Bloom filter to another.
         /// @param f The Bloom filter to assign from.
@@ -64,7 +64,22 @@ namespace fox
 
         /// @brief Checks if the Bloom filter is empty.
         /// @return True if the filter is empty, false otherwise.
-        auto operator!() const noexcept -> bool;
+        [[nodiscard]] auto operator!() const noexcept -> bool;
+
+        /// @brief Performs bitwise AND operation with another Bloom filter.
+        /// @param f The Bloom filter to perform AND with.
+        /// @return A reference to the current Bloom filter.
+        auto operator&=(const BloomFilter& f) -> BloomFilter&;
+
+        /// @brief Performs bitwise OR operation with another Bloom filter.
+        /// @param f The Bloom filter to perform OR with.
+        /// @return A reference to the current Bloom filter.
+        auto operator|=(const BloomFilter& f) -> BloomFilter&;
+
+        /// @brief Performs bitwise XOR operation with another Bloom filter.
+        /// @param f The Bloom filter to perform XOR with.
+        /// @return A reference to the current Bloom filter.
+        auto operator^=(const BloomFilter& f) -> BloomFilter&;
 
         /// @brief Clears all elements from the Bloom filter.
         auto clear() noexcept -> void;
@@ -100,14 +115,14 @@ namespace fox
         /// @param key_begin Pointer to the beginning of the key.
         /// @param length Length of the key.
         /// @return True if the key is present, false otherwise.
-        auto contains(const unsigned char* key_begin, std::size_t length) const -> bool;
+        [[nodiscard]] auto contains(const unsigned char* key_begin, std::size_t length) const -> bool;
 
         /// @brief Checks if a key is present in the Bloom filter.
         /// @tparam T Type of the key.
         /// @param t The key to check.
         /// @return True if the key is present, false otherwise.
         template <typename T>
-        auto contains(const T& t) const -> bool;
+        [[nodiscard]] auto contains(const T& t) const -> bool;
 
         /// @brief Checks if a string key is present in the Bloom filter.
         /// @param key The string key to check.
@@ -118,7 +133,7 @@ namespace fox
         /// @param data Pointer to the beginning of the key.
         /// @param length Length of the key.
         /// @return True if the key is present, false otherwise.
-        auto contains(const char* data, const std::size_t& length) const -> bool;
+        [[nodiscard]] auto contains(const char* data, const std::size_t& length) const -> bool;
 
         /// @brief Checks if all keys in a range are present in the Bloom filter.
         /// @tparam InputIterator Type of the input iterator.
@@ -126,7 +141,7 @@ namespace fox
         /// @param end Iterator to the end of the range.
         /// @return Iterator to the first key not found, or end if all are found.
         template <typename InputIterator>
-        auto contains_all(InputIterator begin, InputIterator end) const -> InputIterator;
+        [[nodiscard]] auto contains_all(InputIterator begin, InputIterator end) const -> InputIterator;
 
         /// @brief Checks if none of the keys in a range are present in the Bloom filter.
         /// @tparam InputIterator Type of the input iterator.
@@ -134,7 +149,7 @@ namespace fox
         /// @param end Iterator to the end of the range.
         /// @return Iterator to the first key found, or end if none are found.
         template <typename InputIterator>
-        auto contains_none(InputIterator begin, InputIterator end) const -> InputIterator;
+        [[nodiscard]] auto contains_none(InputIterator begin, InputIterator end) const -> InputIterator;
 
         /// @brief Gets the size of the Bloom filter table in bits.
         /// @return The size of the table in bits.
@@ -147,21 +162,6 @@ namespace fox
         /// @brief Gets the effective false positive probability.
         /// @return The effective false positive probability.
         [[nodiscard]] auto effective_fpp() const noexcept -> double;
-
-        /// @brief Performs bitwise AND operation with another Bloom filter.
-        /// @param f The Bloom filter to perform AND with.
-        /// @return A reference to the current Bloom filter.
-        auto operator&=(const BloomFilter& f) -> BloomFilter&;
-
-        /// @brief Performs bitwise OR operation with another Bloom filter.
-        /// @param f The Bloom filter to perform OR with.
-        /// @return A reference to the current Bloom filter.
-        auto operator|=(const BloomFilter& f) -> BloomFilter&;
-
-        /// @brief Performs bitwise XOR operation with another Bloom filter.
-        /// @param f The Bloom filter to perform XOR with.
-        /// @return A reference to the current Bloom filter.
-        auto operator^=(const BloomFilter& f) -> BloomFilter&;
 
         /// @brief Gets a pointer to the Bloom filter table.
         /// @return A pointer to the table.
@@ -189,8 +189,8 @@ namespace fox
         static auto hash_ap(const unsigned char* begin, std::size_t remaining_length,
                             bloom_type_ hash) noexcept -> bloom_type_;
 
-        std::vector<bloom_type_> salt_;
-        std::vector<unsigned char> bit_table_;
+        std::vector<bloom_type_> salt_{};
+        std::vector<unsigned char> bit_table_{};
         uint32_t salt_count_{};
         uint64_t table_size_{};
         uint64_t projected_element_count_{};
@@ -262,6 +262,48 @@ namespace fox
     inline auto BloomFilter::operator!() const noexcept -> bool
     {
         return 0 == table_size_;
+    }
+
+    inline auto BloomFilter::operator&=(const BloomFilter& f) -> BloomFilter&
+    {
+        /* intersection */
+        if (salt_count_ == f.salt_count_ && table_size_ == f.table_size_ && random_seed_ == f.random_seed_)
+        {
+            for (std::size_t i = 0; i < bit_table_.size(); ++i)
+            {
+                bit_table_[i] &= f.bit_table_[i];
+            }
+        }
+
+        return *this;
+    }
+
+    inline auto BloomFilter::operator|=(const BloomFilter& f) -> BloomFilter&
+    {
+        /* union */
+        if (salt_count_ == f.salt_count_ && table_size_ == f.table_size_ && random_seed_ == f.random_seed_)
+        {
+            for (std::size_t i = 0; i < bit_table_.size(); ++i)
+            {
+                bit_table_[i] |= f.bit_table_[i];
+            }
+        }
+
+        return *this;
+    }
+
+    inline auto BloomFilter::operator^=(const BloomFilter& f) -> BloomFilter&
+    {
+        /* difference */
+        if (salt_count_ == f.salt_count_ && table_size_ == f.table_size_ && random_seed_ == f.random_seed_)
+        {
+            for (std::size_t i = 0; i < bit_table_.size(); ++i)
+            {
+                bit_table_[i] ^= f.bit_table_[i];
+            }
+        }
+
+        return *this;
     }
 
     inline auto BloomFilter::clear() noexcept -> void
@@ -397,48 +439,6 @@ namespace fox
         return std::pow(1.0 - std::exp(-1.0 * static_cast<double>(salt_.size()) *
                             static_cast<double>(inserted_element_count_) / static_cast<double>(size())),
                         1.0 * static_cast<double>(salt_.size()));
-    }
-
-    inline auto BloomFilter::operator&=(const BloomFilter& f) -> BloomFilter&
-    {
-        /* intersection */
-        if (salt_count_ == f.salt_count_ && table_size_ == f.table_size_ && random_seed_ == f.random_seed_)
-        {
-            for (std::size_t i = 0; i < bit_table_.size(); ++i)
-            {
-                bit_table_[i] &= f.bit_table_[i];
-            }
-        }
-
-        return *this;
-    }
-
-    inline auto BloomFilter::operator|=(const BloomFilter& f) -> BloomFilter&
-    {
-        /* union */
-        if (salt_count_ == f.salt_count_ && table_size_ == f.table_size_ && random_seed_ == f.random_seed_)
-        {
-            for (std::size_t i = 0; i < bit_table_.size(); ++i)
-            {
-                bit_table_[i] |= f.bit_table_[i];
-            }
-        }
-
-        return *this;
-    }
-
-    inline auto BloomFilter::operator^=(const BloomFilter& f) -> BloomFilter&
-    {
-        /* difference */
-        if (salt_count_ == f.salt_count_ && table_size_ == f.table_size_ && random_seed_ == f.random_seed_)
-        {
-            for (std::size_t i = 0; i < bit_table_.size(); ++i)
-            {
-                bit_table_[i] ^= f.bit_table_[i];
-            }
-        }
-
-        return *this;
     }
 
     inline auto BloomFilter::table() const noexcept -> const cell_type_*

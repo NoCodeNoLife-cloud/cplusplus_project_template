@@ -35,6 +35,10 @@ namespace fox
     class SnowflakeGenerator
     {
     public:
+        /// @brief Construct a SnowflakeGenerator with specified machine and datacenter IDs
+        /// @param machine_id The machine ID (0-31)
+        /// @param datacenter_id The datacenter ID (0-31)
+        /// @throws std::invalid_argument If machine_id or datacenter_id is out of valid range
         SnowflakeGenerator(int16_t machine_id, int16_t datacenter_id);
 
         /// @brief Generate the next unique ID.
@@ -44,8 +48,9 @@ namespace fox
     private:
         int64_t last_timestamp_{-1};
         int64_t sequence_{0};
-        int16_t machine_id_;
-        mutable std::mutex mutex_;
+        int16_t machine_id_{0};
+        int16_t datacenter_id_{0};
+        mutable std::mutex mutex_{};
 
         /// @brief Get current timestamp in milliseconds.
         /// @return Current timestamp.
@@ -67,7 +72,8 @@ namespace fox
         {
             throw std::invalid_argument("Datacenter ID out of range (0-31)");
         }
-        machine_id_ = static_cast<int16_t>(datacenter_id << 5 | machine_id);
+        machine_id_ = machine_id;
+        datacenter_id_ = datacenter_id;
     }
 
     inline auto SnowflakeGenerator::NextId() -> int64_t
@@ -101,7 +107,7 @@ namespace fox
 
         return (timestamp << (static_cast<int64_t>(SnowflakeOption::machine_bits_) +
                 static_cast<int64_t>(SnowflakeOption::sequence_bits_))) |
-            (static_cast<int64_t>(machine_id_) << static_cast<int64_t>(SnowflakeOption::sequence_bits_)) | sequence_;
+            (static_cast<int64_t>(datacenter_id_ << 5 | machine_id_) << static_cast<int64_t>(SnowflakeOption::sequence_bits_)) | sequence_;
     }
 
     inline auto SnowflakeGenerator::GetCurrentTimestamp() noexcept -> int64_t

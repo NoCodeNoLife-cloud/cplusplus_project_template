@@ -21,7 +21,7 @@ namespace fox
         /// @brief Finds a value in the binary search tree.
         /// @param value The value to be searched.
         /// @return True if the value is found, false otherwise.
-        auto find(T value) const -> bool;
+        [[nodiscard]] auto find(T value) const -> bool;
 
         /// @brief Removes a value from the binary search tree.
         /// @param value The value to be removed.
@@ -31,7 +31,7 @@ namespace fox
         auto inorderTraversal() const -> void;
 
     private:
-        std::shared_ptr<TreeNode<T>> root_;
+        std::shared_ptr<TreeNode<T>> root_{nullptr};
 
         /// @brief Recursively inserts a value into the binary search tree.
         /// @param node The current node in the recursion.
@@ -43,7 +43,7 @@ namespace fox
         /// @param node The current node in the recursion.
         /// @param value The value to be searched.
         /// @return True if the value is found, false otherwise.
-        auto findRecursive(const std::shared_ptr<TreeNode<T>>& node, T value) const -> bool;
+        [[nodiscard]] auto findRecursive(const std::shared_ptr<TreeNode<T>>& node, T value) const -> bool;
 
         /// @brief Recursively removes a value from the binary search tree.
         /// @param node The current node in the recursion.
@@ -54,7 +54,7 @@ namespace fox
         /// @brief Finds the node with the minimum value in a subtree.
         /// @param node The root of the subtree.
         /// @return The node with the minimum value.
-        auto minValueNode(std::shared_ptr<TreeNode<T>> node) -> std::shared_ptr<TreeNode<T>>;
+        [[nodiscard]] auto minValueNode(std::shared_ptr<TreeNode<T>> node) -> std::shared_ptr<TreeNode<T>>;
 
         /// @brief Recursively performs an inorder traversal of the binary search tree.
         /// @param node The current node in the recursion.
@@ -62,9 +62,7 @@ namespace fox
     };
 
     template <typename T>
-    BinarySearchTree<T>::BinarySearchTree() noexcept : root_(nullptr)
-    {
-    }
+    BinarySearchTree<T>::BinarySearchTree() noexcept = default;
 
     template <typename T>
     auto BinarySearchTree<T>::insert(T value) -> void

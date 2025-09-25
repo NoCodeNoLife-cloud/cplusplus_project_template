@@ -12,6 +12,6 @@ namespace fox
         virtual ~ITimerTask() = default;
 
         /// @brief Executes the timer task.
-        virtual void execute() = 0;
+        virtual auto execute() -> void = 0;
     };
 }

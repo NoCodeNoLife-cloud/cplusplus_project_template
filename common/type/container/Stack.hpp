@@ -37,14 +37,14 @@ namespace fox
         auto pop() -> void;
 
         /// @brief Accesses the top element of the stack.
-        /// @return A const reference to the top element.
-        /// @throws std::out_of_range If the stack is empty.
-        auto top() const -> const T&;
-
-        /// @brief Accesses the top element of the stack.
         /// @return A reference to the top element.
         /// @throws std::out_of_range If the stack is empty.
         auto top() -> T&;
+
+        /// @brief Accesses the top element of the stack.
+        /// @return A const reference to the top element.
+        /// @throws std::out_of_range If the stack is empty.
+        auto top() const -> const T&;
 
         /// @brief Checks whether the stack is empty.
         /// @return True if the stack is empty, false otherwise.
@@ -55,7 +55,7 @@ namespace fox
         [[nodiscard]] auto size() const noexcept -> size_t;
 
     private:
-        Container data;
+        Container data_{};
     };
 
     template <typename T, typename Container>
@@ -63,68 +63,68 @@ namespace fox
 
     template <typename T, typename Container>
     template <typename Iterator>
-    Stack<T, Container>::Stack(Iterator begin, Iterator end) : data(begin, end)
+    Stack<T, Container>::Stack(Iterator begin, Iterator end) : data_(begin, end)
     {
     }
 
     template <typename T, typename Container>
     auto Stack<T, Container>::push(const T& value) -> void
     {
-        data.push_back(value);
+        data_.push_back(value);
     }
 
     template <typename T, typename Container>
     auto Stack<T, Container>::push(T&& value) -> void
     {
-        data.push_back(std::move(value));
+        data_.push_back(std::move(value));
     }
 
     template <typename T, typename Container>
     template <typename... Args>
     auto Stack<T, Container>::emplace(Args&&... args) -> void
     {
-        data.emplace_back(std::forward<Args>(args)...);
+        data_.emplace_back(std::forward<Args>(args)...);
     }
 
     template <typename T, typename Container>
     auto Stack<T, Container>::pop() -> void
     {
-        if (data.empty())
+        if (data_.empty())
         {
             throw std::out_of_range("Stack is empty");
         }
-        data.pop_back();
-    }
-
-    template <typename T, typename Container>
-    auto Stack<T, Container>::top() const -> const T&
-    {
-        if (data.empty())
-        {
-            throw std::out_of_range("Stack is empty");
-        }
-        return data.back();
+        data_.pop_back();
     }
 
     template <typename T, typename Container>
     auto Stack<T, Container>::top() -> T&
     {
-        if (data.empty())
+        if (data_.empty())
         {
             throw std::out_of_range("Stack is empty");
         }
-        return data.back();
+        return data_.back();
+    }
+
+    template <typename T, typename Container>
+    auto Stack<T, Container>::top() const -> const T&
+    {
+        if (data_.empty())
+        {
+            throw std::out_of_range("Stack is empty");
+        }
+        return data_.back();
     }
 
     template <typename T, typename Container>
     auto Stack<T, Container>::empty() const noexcept -> bool
     {
-        return data.empty();
+        return data_.empty();
     }
 
     template <typename T, typename Container>
     auto Stack<T, Container>::size() const noexcept -> size_t
     {
-        return data.size();
+        return data_.size();
     }
 }

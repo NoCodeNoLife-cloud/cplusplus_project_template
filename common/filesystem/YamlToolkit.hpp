@@ -23,7 +23,7 @@ namespace fox
         /// @brief Read YAML data from a file.
         /// @param filepath The path to the YAML file to read.
         /// @return A YAML node containing the file's data, or an empty node if the file doesn't exist or an error occurred.
-        static auto read(const std::string& filepath) -> YAML::Node;
+        [[nodiscard]] static auto read(const std::string& filepath) -> YAML::Node;
 
         /// @brief Update a YAML file with new data.
         /// @param filepath The path to the YAML file to update.
@@ -40,7 +40,7 @@ namespace fox
         /// @param filepath The path to the YAML file.
         /// @param key The key of the value to retrieve.
         /// @return A YAML node containing the value associated with the key, or an empty node if the key doesn't exist or an error occurred.
-        static auto getValue(const std::string& filepath, const std::string& key) -> YAML::Node;
+        [[nodiscard]] static auto getValue(const std::string& filepath, const std::string& key) -> YAML::Node;
 
         /// @brief Set a value in a YAML file by key.
         /// @param filepath The path to the YAML file.
@@ -55,8 +55,7 @@ namespace fox
         try
         {
             // Create directory if it doesn't exist
-            std::filesystem::path path(filepath);
-            if (!path.parent_path().empty())
+            if (const std::filesystem::path path(filepath); !path.parent_path().empty())
             {
                 std::filesystem::create_directories(path.parent_path());
             }
@@ -65,8 +64,7 @@ namespace fox
             YAML::Emitter emitter;
             emitter << data;
 
-            std::ofstream file(filepath);
-            if (file.is_open())
+            if (std::ofstream file(filepath); file.is_open())
             {
                 file << emitter.c_str();
                 file.close();
@@ -74,7 +72,7 @@ namespace fox
             }
             return false;
         }
-        catch (...)
+        catch (const std::exception&)
         {
             return false;
         }
@@ -90,7 +88,7 @@ namespace fox
             }
             return YAML::Node();
         }
-        catch (...)
+        catch (const std::exception&)
         {
             return YAML::Node();
         }
@@ -103,7 +101,7 @@ namespace fox
             // Update is essentially the same as create - overwrite the file with new data
             return create(filepath, data);
         }
-        catch (...)
+        catch (const std::exception&)
         {
             return false;
         }
@@ -119,7 +117,7 @@ namespace fox
             }
             return false;
         }
-        catch (...)
+        catch (const std::exception&)
         {
             return false;
         }
@@ -129,14 +127,13 @@ namespace fox
     {
         try
         {
-            YAML::Node root = read(filepath);
-            if (root.IsMap())
+            if (const YAML::Node root = read(filepath); root.IsMap())
             {
                 return root[key];
             }
             return YAML::Node();
         }
-        catch (...)
+        catch (const std::exception&)
         {
             return YAML::Node();
         }
@@ -155,7 +152,7 @@ namespace fox
             root[key] = value;
             return create(filepath, root);
         }
-        catch (...)
+        catch (const std::exception&)
         {
             return false;
         }

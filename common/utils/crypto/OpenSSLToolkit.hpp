@@ -31,15 +31,16 @@ namespace fox
         /// @param password The password used to derive the encryption key.
         /// @param salt The salt used for key derivation (16 bytes).
         /// @return The encrypted ciphertext as a vector of bytes.
+        /// @throws std::runtime_error If encryption fails.
         [[nodiscard]] static auto encryptAES256CBC(const std::string& plaintext, const std::string& password,
-                                                   unsigned char salt[16])
-            -> std::vector<unsigned char>;
+                                                   unsigned char salt[16]) -> std::vector<unsigned char>;
 
         /// @brief Decrypts the given ciphertext using AES-256-CBC with a key derived from the password.
         /// @param ciphertext The ciphertext to decrypt.
         /// @param password The password used to derive the decryption key.
         /// @param salt The salt used for key derivation (16 bytes).
         /// @return The decrypted plaintext as a string.
+        /// @throws std::runtime_error If decryption fails or ciphertext is invalid.
         [[nodiscard]] static auto decryptAES256CBC(const std::vector<unsigned char>& ciphertext,
                                                    const std::string& password,
                                                    unsigned char salt[16]) -> std::string;

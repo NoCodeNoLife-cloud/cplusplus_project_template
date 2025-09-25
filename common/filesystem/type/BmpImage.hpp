@@ -76,7 +76,7 @@ namespace fox
         /// @param r The red component of the color (0-255)
         /// @param g The green component of the color (0-255)
         /// @param b The blue component of the color (0-255)
-        auto setPixel(int32_t x, int32_t y, uint8_t r, uint8_t g, uint8_t b) const noexcept -> void;
+        auto setPixel(int32_t x, int32_t y, uint8_t r, uint8_t g, uint8_t b) noexcept -> void;
 
         /// @brief Gets the color of a pixel at the specified coordinates
         /// @param x The x-coordinate of the pixel
@@ -85,7 +85,7 @@ namespace fox
         /// @param g Reference to store the green component of the color (0-255)
         /// @param b Reference to store the blue component of the color (0-255)
         /// @return true if the coordinates are valid, false otherwise
-        auto getPixel(int32_t x, int32_t y, uint8_t& r, uint8_t& g, uint8_t& b) const noexcept -> bool;
+        [[nodiscard]] auto getPixel(int32_t x, int32_t y, uint8_t& r, uint8_t& g, uint8_t& b) const noexcept -> bool;
 
         /// @brief Saves the BMP image to a file
         /// @param filename The name of the file to save the image to
@@ -101,9 +101,9 @@ namespace fox
         [[nodiscard]] auto getHeight() const noexcept -> int32_t;
 
     private:
-        int32_t width_;
-        int32_t height_;
-        mutable std::vector<uint8_t> pixels_;
+        int32_t width_{};
+        int32_t height_{};
+        std::vector<uint8_t> pixels_{};
 
         /// @brief Loads a BMP image from a file
         /// @param filename The name of the file to load the image from
@@ -127,7 +127,7 @@ namespace fox
     }
 
     inline auto BmpImage::setPixel(const int32_t x, const int32_t y, const uint8_t r, const uint8_t g,
-                                   const uint8_t b) const noexcept -> void
+                                   const uint8_t b) noexcept -> void
     {
         if (x < 0 || x >= width_ || y < 0 || y >= height_)
         {
@@ -210,13 +210,13 @@ namespace fox
         BitmapInfoHeader infoHeader;
 
         file.read(reinterpret_cast<char*>(&fileHeader), sizeof(fileHeader));
-        if (fileHeader.bf_type_ != 0x4D42)  // Check 'BM' signature
+        if (file.gcount() != sizeof(fileHeader) || fileHeader.bf_type_ != 0x4D42)  // Check 'BM' signature
         {
             throw std::runtime_error("Invalid BMP file: " + filename);
         }
 
         file.read(reinterpret_cast<char*>(&infoHeader), sizeof(infoHeader));
-        if (infoHeader.bi_bit_count_ != 24)  // Only support 24-bit BMP
+        if (file.gcount() != sizeof(infoHeader) || infoHeader.bi_bit_count_ != 24)  // Only support 24-bit BMP
         {
             throw std::runtime_error("Unsupported BMP format (only 24-bit BMP is supported): " + filename);
         }
@@ -239,6 +239,11 @@ namespace fox
         for (int32_t y = height_ - 1; y >= 0; --y)
         {
             file.read(rowBuffer.data(), rowBuffer.size());
+            if (file.gcount() != static_cast<std::streamsize>(rowBuffer.size()))
+            {
+                throw std::runtime_error("Error reading pixel data from file: " + filename);
+            }
+
             const size_t rowIndex = static_cast<size_t>(y * width_ * 3);
 
             // Copy pixels (BGR to RGB)

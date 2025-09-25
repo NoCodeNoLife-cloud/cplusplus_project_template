@@ -9,10 +9,14 @@ namespace fox
 {
     /// @brief A utility class that executes a given task periodically using Boost.Asio.
     /// @details This class uses a steady_timer from Boost.Asio to schedule and execute tasks at regular intervals.
-    ///          The task to be executed must implement the ITimerTask interface.
+    ///          The task to be executed must implement the interface.
     class PeriodicActuator
     {
     public:
+        /// @brief Construct a PeriodicActuator with a task and interval
+        /// @param task The task to execute periodically
+        /// @param interval The interval between executions
+        // ReSharper disable once CppDFATimeOver
         explicit PeriodicActuator(std::shared_ptr<ITimerTask> task, std::chrono::milliseconds interval) noexcept;
 
         /// @brief Start the periodic actuator to begin executing the task at specified intervals.
@@ -21,11 +25,12 @@ namespace fox
         auto start() -> void;
 
     private:
-        boost::asio::io_context ioContext_;
-        std::shared_ptr<ITimerTask> task_;
+        boost::asio::io_context ioContext_{};
+        std::shared_ptr<ITimerTask> task_{};
         boost::asio::steady_timer timer_;
-        std::chrono::milliseconds interval_;
+        std::chrono::milliseconds interval_{};
 
+        /// @brief Schedule the next execution of the task
         auto scheduleNext() -> void;
     };
 

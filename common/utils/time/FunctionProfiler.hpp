@@ -36,13 +36,13 @@ namespace fox
 
         /// @brief Gets the runtime duration in milliseconds.
         /// @details Calculates the duration between start and end times.
-        /// @return The duration in milliseconds as a double.
+        /// @return The duration in milliseconds as a double, or -1.0 if timing data is incomplete.
         [[nodiscard]] auto getRunTimeMs() const -> double;
 
     private:
-        std::chrono::time_point<std::chrono::high_resolution_clock> start_;
-        std::chrono::time_point<std::chrono::high_resolution_clock> end_;
-        std::string function_name_;
+        std::chrono::time_point<std::chrono::high_resolution_clock> start_{};
+        std::chrono::time_point<std::chrono::high_resolution_clock> end_{};
+        std::string function_name_{};
         bool started_{false};
         bool ended_{false};
     };

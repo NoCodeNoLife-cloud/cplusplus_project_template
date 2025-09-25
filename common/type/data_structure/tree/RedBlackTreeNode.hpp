@@ -5,9 +5,8 @@
 
 namespace fox
 {
-    /// \brief A node in a Red-Black Tree
-    ///
-    /// \tparam T The type of data stored in the node
+    /// @brief A node in a Red-Black Tree
+    /// @tparam T The type of data stored in the node
     template <typename T>
     class RedBlackTreeNode
     {
@@ -55,15 +54,15 @@ namespace fox
         auto setColor(Color c) noexcept -> void;
 
     private:
-        T data_;
-        std::shared_ptr<RedBlackTreeNode> left_;
-        std::shared_ptr<RedBlackTreeNode> right_;
-        std::shared_ptr<RedBlackTreeNode> parent_;
-        Color color_;
+        T data_{};
+        std::shared_ptr<RedBlackTreeNode> left_{nullptr};
+        std::shared_ptr<RedBlackTreeNode> right_{nullptr};
+        std::shared_ptr<RedBlackTreeNode> parent_{nullptr};
+        Color color_{Color::Red};
     };
 
     template <typename T>
-    RedBlackTreeNode<T>::RedBlackTreeNode(const T& value) noexcept : data_(value), color_(Color::Red)
+    RedBlackTreeNode<T>::RedBlackTreeNode(const T& value) noexcept : data_(value)
     {
     }
 

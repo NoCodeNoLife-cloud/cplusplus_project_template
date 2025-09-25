@@ -33,14 +33,17 @@ namespace fox
         auto emplace(Args&&... args) -> void;
 
         /// @brief Removes the top element from the heap.
+        /// @throws std::out_of_range If the heap is empty.
         auto pop() -> void;
 
         /// @brief Accesses the top element of the heap.
         /// @return Const reference to the top element.
+        /// @throws std::out_of_range If the heap is empty.
         auto top() const -> const T&;
 
         /// @brief Accesses the top element of the heap.
         /// @return Reference to the top element.
+        /// @throws std::out_of_range If the heap is empty.
         auto top() -> T&;
 
         /// @brief Returns the number of elements in the heap.
@@ -52,21 +55,18 @@ namespace fox
         [[nodiscard]] auto empty() const noexcept -> bool;
 
     private:
-        std::vector<T> data_;
-        Compare compare;
+        std::vector<T> data_{};
+        Compare compare_{};
 
         /// @brief Heapifies the entire heap to maintain the heap property.
-        /// @return void
         auto heapify() -> void;
 
         /// @brief Heapifies up from the given index to maintain the heap property.
         /// @param index The index to start heapifying up from.
-        /// @return void
         auto heapify_up(size_t index) -> void;
 
         /// @brief Heapifies down from the given index to maintain the heap property.
         /// @param index The index to start heapifying down from.
-        /// @return void
         auto heapify_down(size_t index) -> void;
     };
 
@@ -111,7 +111,10 @@ namespace fox
         }
         std::swap(data_[0], data_.back());
         data_.pop_back();
-        heapify_down(0);
+        if (!data_.empty())
+        {
+            heapify_down(0);
+        }
     }
 
     template <typename T, typename Compare>
@@ -161,7 +164,7 @@ namespace fox
         while (index > 0)
         {
             const size_t parent = (index - 1) / 2;
-            if (!compare(data_[parent], data_[index]))
+            if (!compare_(data_[parent], data_[index]))
             {
                 break;
             }
@@ -180,14 +183,14 @@ namespace fox
             const size_t right = 2 * index + 2;
             size_t swap_index = index;
 
-            if (left < size && compare(data_[index], data_[left]))
+            if (left < size && compare_(data_[swap_index], data_[left]))
             {
                 swap_index = left;
             }
 
-            if (right < size && compare(data_[index], data_[right]))
+            if (right < size && compare_(data_[swap_index], data_[right]))
             {
-                if (compare(data_[right], data_[swap_index]))
+                if (compare_(data_[right], data_[swap_index]))
                 {
                     swap_index = right;
                 }

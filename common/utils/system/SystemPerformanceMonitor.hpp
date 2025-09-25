@@ -12,17 +12,17 @@ namespace fox
     /// and the percentage of memory currently in use.
     struct MemoryUsage
     {
-        ULONGLONG total_memory; ///< Total physical memory in bytes
-        ULONGLONG available_memory; ///< Available memory in bytes
-        ULONGLONG used_memory; ///< Used memory in bytes
-        double memory_usage_percent; ///< Memory usage percentage (0.0 to 100.0)
+        ULONGLONG total_memory{}; ///< Total physical memory in bytes
+        ULONGLONG available_memory{}; ///< Available memory in bytes
+        ULONGLONG used_memory{}; ///< Used memory in bytes
+        double memory_usage_percent{}; ///< Memory usage percentage (0.0 to 100.0)
     };
 
     /// @brief Structure to hold CPU usage information
     /// This struct contains the percentage of CPU currently in use.
     struct CpuUsage
     {
-        double cpu_usage_percent; ///< CPU usage percentage (0.0 to 100.0)
+        double cpu_usage_percent{}; ///< CPU usage percentage (0.0 to 100.0)
     };
 
     /// @brief Class for monitoring system performance
@@ -82,9 +82,9 @@ namespace fox
         user2.LowPart = userTime2.dwLowDateTime;
         user2.HighPart = userTime2.dwHighDateTime;
 
-        ULONGLONG idleDiff = idle2.QuadPart - idle1.QuadPart;
-        ULONGLONG kernelDiff = kernel2.QuadPart - kernel1.QuadPart;
-        ULONGLONG userDiff = user2.QuadPart - user1.QuadPart;
+        const ULONGLONG idleDiff = idle2.QuadPart - idle1.QuadPart;
+        const ULONGLONG kernelDiff = kernel2.QuadPart - kernel1.QuadPart;
+        const ULONGLONG userDiff = user2.QuadPart - user1.QuadPart;
 
         if (const ULONGLONG totalDiff = kernelDiff + userDiff; totalDiff != 0)
         {

@@ -16,25 +16,32 @@ namespace fox
     public:
         BloomParameters() noexcept;
 
-        ~BloomParameters();
+        ~BloomParameters() = default;
 
-        auto operator!() const noexcept -> bool;
+        /// @brief Checks if the Bloom parameters are valid.
+        /// @return True if the parameters are invalid, false otherwise.
+        [[nodiscard]] auto operator!() const noexcept -> bool;
+
+        /// @brief Computes the optimal parameters for the bloom filter based on the
+        ///        projected element count and false positive probability.
+        /// @return true if the parameters were successfully computed, false otherwise.
+        auto compute_optimal_parameters() -> bool;
 
         /// Allowable min/max size of the bloom filter in bits
-        uint64_t minimum_size;
-        uint64_t maximum_size;
+        uint64_t minimum_size{};
+        uint64_t maximum_size{};
         /// Allowable min/max number of hash functions
-        uint32_t minimum_number_of_hashes;
-        uint32_t maximum_number_of_hashes;
+        uint32_t minimum_number_of_hashes{};
+        uint32_t maximum_number_of_hashes{};
         /// The approximate number of elements to be inserted
         /// into the bloom filter, should be within one order
         /// of magnitude. The default is 10000.
-        uint64_t projected_element_count;
+        uint64_t projected_element_count{};
         /// The approximate false positive probability expected
         /// from the bloom filter. The default is assumed to be
         /// the reciprocal of the projected_element_count.
-        double false_positive_probability;
-        uint64_t random_seed;
+        double false_positive_probability{};
+        uint64_t random_seed{};
 
         /// @brief Optimal parameters computed for the bloom filter
         /// This structure holds the computed optimal number of hash functions
@@ -43,15 +50,17 @@ namespace fox
         {
             optimal_parameters_t() noexcept;
 
-            uint32_t number_of_hashes;
-            uint64_t table_size;
+            uint32_t number_of_hashes{};
+            uint64_t table_size{};
         };
 
-        optimal_parameters_t optimal_parameters;
-        /// @brief Computes the optimal parameters for the bloom filter based on the
-        ///        projected element count and false positive probability.
-        /// @return true if the parameters were successfully computed, false otherwise.
-        auto compute_optimal_parameters() -> bool;
+        optimal_parameters_t optimal_parameters{};
+
+    private:
+        /// @brief Computes natural logarithm with error handling
+        /// @param value The value to compute logarithm for
+        /// @return The natural logarithm of value, or 0 if value is non-positive
+        [[nodiscard]] static auto safe_log(double value) noexcept -> double;
     };
 
     inline BloomParameters::BloomParameters() noexcept : minimum_size(1),
@@ -64,8 +73,6 @@ namespace fox
                                                          random_seed(0xA5A5A5A55A5A5A5AULL)
     {
     }
-
-    inline BloomParameters::~BloomParameters() = default;
 
     inline auto BloomParameters::operator!() const noexcept -> bool
     {
@@ -92,7 +99,7 @@ namespace fox
         while (k < 1000.0)
         {
             const double numerator = -k * static_cast<double>(projected_element_count);
-            const double denominator = std::log(1.0 - std::pow(false_positive_probability, 1.0 / k));
+            const double denominator = safe_log(1.0 - std::pow(false_positive_probability, 1.0 / k));
 
             if (const double curr_m = numerator / denominator; curr_m < min_m)
             {
@@ -123,5 +130,14 @@ namespace fox
             parameters.table_size = maximum_size;
 
         return true;
+    }
+
+    inline auto BloomParameters::safe_log(const double value) noexcept -> double
+    {
+        if (value <= 0.0)
+        {
+            return 0.0;
+        }
+        return std::log(value);
     }
 }

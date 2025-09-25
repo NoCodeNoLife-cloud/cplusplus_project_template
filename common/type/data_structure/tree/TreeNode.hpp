@@ -10,12 +10,14 @@ namespace fox
     class TreeNode
     {
     public:
+        /// @brief Construct a TreeNode with the given value
+        /// @param value The value to store in the node
         explicit TreeNode(T value) noexcept;
 
-        T data;
-        std::shared_ptr<TreeNode> left{};
-        std::shared_ptr<TreeNode> right{};
-        int32_t height{1};
+        T data{};
+        std::shared_ptr<TreeNode> left_{};
+        std::shared_ptr<TreeNode> right_{};
+        int32_t height_{1};
     };
 
     template <typename T>

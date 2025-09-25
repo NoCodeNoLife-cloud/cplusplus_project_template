@@ -8,16 +8,13 @@
 
 namespace fox
 {
-    /// @brief A utility class for retrieving system hardware and OS information.
-    /// The SystemInfo class provides static methods to fetch various system details
-    /// such as CPU model, memory information, OS version, motherboard details,
-    /// graphics card info, disk drives, and BIOS information.
+    /// @brief Structure to hold motherboard information
     struct MotherboardInfo
     {
-        std::string manufacturer;
-        std::string model;
-        std::string biosVersion;
-        std::string systemSerial;
+        std::string manufacturer{};
+        std::string model{};
+        std::string biosVersion{};
+        std::string systemSerial{};
     };
 
     /// @brief A utility class for retrieving system hardware and OS information.
@@ -62,18 +59,18 @@ namespace fox
     {
         HKEY hKey;
 
-        if (LONG regResult = RegOpenKeyExW(
+        if (const LONG regResult = RegOpenKeyExW(
                 HKEY_LOCAL_MACHINE, L"HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", 0,
                 KEY_READ, &hKey);
             regResult == ERROR_SUCCESS)
         {
             wchar_t cpuName[256];
             DWORD size = sizeof(cpuName);
-            regResult = RegQueryValueExW(hKey, L"ProcessorNameString", nullptr, nullptr,
+            const LONG queryResult = RegQueryValueExW(hKey, L"ProcessorNameString", nullptr, nullptr,
                                          reinterpret_cast<LPBYTE>(cpuName), &size);
             RegCloseKey(hKey);
 
-            if (regResult == ERROR_SUCCESS)
+            if (queryResult == ERROR_SUCCESS)
             {
                 if (const int32_t len = WideCharToMultiByte(CP_UTF8, 0, cpuName, -1, nullptr, 0, nullptr, nullptr);
                     len > 0)

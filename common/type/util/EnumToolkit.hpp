@@ -21,7 +21,7 @@ namespace fox
     };
 
     template <typename T>
-    auto EnumToolkit::getEnumClassName(const T value) noexcept -> std::string
+    [[nodiscard]] inline auto EnumToolkit::getEnumClassName(const T value) noexcept -> std::string
     {
         return static_cast<std::string>(magic_enum::enum_name(value));
     }

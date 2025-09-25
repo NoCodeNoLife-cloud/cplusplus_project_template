@@ -10,12 +10,6 @@ namespace fox
     template <typename T>
     struct ReflectTraits;
 
-    // template <>
-    // struct fox::ReflectTraits<Employee> {
-    //   static constexpr auto fields = std::make_tuple(std::make_pair("name_", &Employee::getName), std::make_pair("id",
-    //   &Employee::getId)); static constexpr std::size_t field_count = 3;
-    // };
-
     /// @brief Utility class for type identification at runtime.
     /// This class provides a set of static methods to retrieve the type information
     /// of objects or classes using boost::typeindex. It is designed as a
@@ -25,29 +19,31 @@ namespace fox
     public:
         ClassToolkit() = delete;
 
+        // ReSharper disable once CppDoxygenUnresolvedReference
         /// @brief Get the type id of the given object.
         /// @tparam T Type of the object.
         /// @param t The object to get type id from.
-        /// @return std::string The pretty name_ of the type.
+        /// @return std::string The pretty name of the type.
         template <typename T>
         [[nodiscard]] static auto getTypeId(const T& /*t*/) noexcept -> std::string;
 
+        // ReSharper disable once CppDoxygenUnresolvedReference
         /// @brief Get the type id with CVR (const, volatile, reference) of the given object.
         /// @tparam T Type of the object.
         /// @param t The object to get type id with CVR from.
-        /// @return std::string The pretty name_ of the type with CVR.
+        /// @return std::string The pretty name of the type with CVR.
         template <typename T>
         [[nodiscard]] static auto getTypeIdWithCvr(const T& /*t*/) noexcept -> std::string;
 
         /// @brief Get the type id by class type.
         /// @tparam T Type of the class.
-        /// @return std::string The pretty name_ of the type.
+        /// @return std::string The pretty name of the type.
         template <typename T>
         [[nodiscard]] static auto getTypeIdByClass() noexcept -> std::string;
 
         /// @brief Get the type id with CVR by class type.
         /// @tparam T Type of the class.
-        /// @return std::string The pretty name_ of the type with CVR.
+        /// @return std::string The pretty name of the type with CVR.
         template <typename T>
         [[nodiscard]] static auto getTypeIdWithCvrByClass() noexcept -> std::string;
 
@@ -79,31 +75,31 @@ namespace fox
     };
 
     template <typename T>
-    auto ClassToolkit::getTypeId(const T&) noexcept -> std::string
+    [[nodiscard]] inline auto ClassToolkit::getTypeId(const T&) noexcept -> std::string
     {
         return boost::typeindex::type_id<T>().pretty_name();
     }
 
     template <typename T>
-    auto ClassToolkit::getTypeIdWithCvr(const T&) noexcept -> std::string
+    [[nodiscard]] inline auto ClassToolkit::getTypeIdWithCvr(const T&) noexcept -> std::string
     {
         return boost::typeindex::type_id_with_cvr<T>().pretty_name();
     }
 
     template <typename T>
-    auto ClassToolkit::getTypeIdByClass() noexcept -> std::string
+    [[nodiscard]] inline auto ClassToolkit::getTypeIdByClass() noexcept -> std::string
     {
         return boost::typeindex::type_id<T>().pretty_name();
     }
 
     template <typename T>
-    auto ClassToolkit::getTypeIdWithCvrByClass() noexcept -> std::string
+    [[nodiscard]] inline auto ClassToolkit::getTypeIdWithCvrByClass() noexcept -> std::string
     {
         return boost::typeindex::type_id_with_cvr<T>().pretty_name();
     }
 
     template <typename T>
-    auto ClassToolkit::getFields(const T& obj) -> std::unordered_map<std::string, std::string>
+    [[nodiscard]] inline auto ClassToolkit::getFields(const T& obj) -> std::unordered_map<std::string, std::string>
     {
         std::unordered_map<std::string, std::string> field_map;
         constexpr auto fields = ReflectTraits<T>::fields;
@@ -120,13 +116,13 @@ namespace fox
     }
 
     template <typename T, typename M>
-    auto ClassToolkit::invokeHelper(const T& obj, M member) -> decltype(obj.*member)
+    [[nodiscard]] inline auto ClassToolkit::invokeHelper(const T& obj, M member) -> decltype(obj.*member)
     {
         return obj.*member;
     }
 
     template <typename T, typename M>
-    auto ClassToolkit::invokeHelper(const T& obj, M member) -> decltype((obj.*member)())
+    [[nodiscard]] inline auto ClassToolkit::invokeHelper(const T& obj, M member) -> decltype((obj.*member)())
     {
         return (obj.*member)();
     }

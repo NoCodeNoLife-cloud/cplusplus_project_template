@@ -14,6 +14,8 @@ namespace fox
     class Directory
     {
     public:
+        /// @brief Constructs a Directory object with the specified path
+        /// @param filePath The path to the directory
         explicit Directory(std::filesystem::path filePath) noexcept;
 
         /// @brief Create a directory
@@ -33,6 +35,41 @@ namespace fox
         /// @return true if the path is a directory, false otherwise
         [[nodiscard]] auto isDirectory() const noexcept -> bool;
 
+        /// @brief Check if the directory is empty
+        /// @return true if the directory is empty, false otherwise
+        [[nodiscard]] auto isEmpty() const noexcept -> bool;
+
+        /// @brief Remove the directory
+        /// @return true if the directory was removed successfully, false otherwise
+        [[nodiscard]] auto remove() const noexcept -> bool;
+
+        /// @brief Remove the directory and all its contents
+        /// @return The number of files removed
+        [[nodiscard]] auto removeAll() const noexcept -> std::uintmax_t;
+
+        /// @brief Move the directory to a destination
+        /// @param destination The destination path
+        /// @return true if the directory was moved successfully, false otherwise
+        [[nodiscard]] auto move(const std::filesystem::path& destination) const noexcept -> bool;
+
+        /// @brief Rename the directory
+        /// @param newName The new name for the directory
+        /// @return true if the directory was renamed successfully, false otherwise
+        [[nodiscard]] auto rename(const std::string& newName) const noexcept -> bool;
+
+        /// @brief Copy the directory to a destination
+        /// @param destination The destination path
+        /// @return true if the directory was copied successfully, false otherwise
+        [[nodiscard]] auto copy(const std::filesystem::path& destination) const -> bool;
+
+        /// @brief Get the size of the directory
+        /// @return The size of the directory in bytes
+        [[nodiscard]] auto size() const noexcept -> std::uintmax_t;
+
+        /// @brief Get the last modified time of the directory
+        /// @return The last modified time, or std::nullopt if an error occurred
+        [[nodiscard]] auto lastModifiedTime() const -> std::optional<std::chrono::system_clock::time_point>;
+
         /// @brief List directory contents
         /// @param recursive Whether to list subdirectories recursively
         /// @return A vector of directory entries
@@ -45,46 +82,10 @@ namespace fox
         [[nodiscard]] static auto listDir(const std::filesystem::path& dir_path, bool recursive)
             -> std::vector<std::filesystem::directory_entry>;
 
-        /// @brief Remove the directory
-        /// @return true if the directory was removed successfully, false otherwise
-        [[nodiscard]] auto remove() const noexcept -> bool;
-
-        /// @brief Remove the directory and all its contents
-        /// @return The number of files removed
-        [[nodiscard]] auto removeAll() const noexcept -> std::uintmax_t;
-
-        /// @brief Copy the directory to a destination
-        /// @param destination The destination path
-        /// @return true if the directory was copied successfully, false otherwise
-        [[nodiscard]] auto copy(const std::filesystem::path& destination) const -> bool;
-
-        /// @brief Move the directory to a destination
-        /// @param destination The destination path
-        /// @return true if the directory was moved successfully, false otherwise
-        [[nodiscard]] auto move(const std::filesystem::path& destination) const noexcept -> bool;
-
-        /// @brief Rename the directory
-        /// @param newName The new name for the directory
-        /// @return true if the directory was renamed successfully, false otherwise
-        [[nodiscard]] auto rename(const std::string& newName) const noexcept -> bool;
-
-        /// @brief Get the size of the directory
-        /// @return The size of the directory in bytes
-        [[nodiscard]] auto size() const noexcept -> std::uintmax_t;
-
-        /// @brief Get the last modified time of the directory
-        /// @return The last modified time, or std::nullopt if an error occurred
-        [[nodiscard]] auto lastModifiedTime() const -> std::optional<std::chrono::system_clock::time_point>;
-
-        /// @brief Check if the directory is empty
-        /// @return true if the directory is empty, false otherwise
-        [[nodiscard]] auto isEmpty() const noexcept -> bool;
-
         /// @brief List directory entries
         /// @param recursive Whether to list subdirectories recursively
         /// @return A vector of directory entries
-        [[nodiscard]] auto listEntries(
-            bool recursive = false) const -> std::vector<std::filesystem::directory_entry>;
+        [[nodiscard]] auto listEntries(bool recursive = false) const -> std::vector<std::filesystem::directory_entry>;
 
         /// @brief Clear all contents of the directory
         /// @return true if the directory was cleared successfully, false otherwise
@@ -92,10 +93,10 @@ namespace fox
 
         /// @brief Get the current working directory
         /// @return The current working directory path
-        static auto getCurrentWorkingDirectory() -> std::filesystem::path;
+        [[nodiscard]] static auto getCurrentWorkingDirectory() -> std::filesystem::path;
 
     private:
-        std::filesystem::path dir_path_;
+        std::filesystem::path dir_path_{};
     };
 
     inline Directory::Directory(std::filesystem::path filePath) noexcept : dir_path_(std::move(filePath))
@@ -155,36 +156,16 @@ namespace fox
         return std::filesystem::is_directory(dir_path_);
     }
 
-    inline auto Directory::listDir(const bool recursive) const -> std::vector<std::filesystem::directory_entry>
+    inline auto Directory::isEmpty() const noexcept -> bool
     {
-        return listDir(dir_path_, recursive);
-    }
-
-    inline auto Directory::listDir(const std::filesystem::path& dir_path,
-                                   const bool recursive) -> std::vector<std::filesystem::directory_entry>
-    {
-        std::vector<std::filesystem::directory_entry> entries;
         try
         {
-            if (recursive)
-            {
-                for (const auto& entry : std::filesystem::recursive_directory_iterator(dir_path))
-                {
-                    entries.push_back(entry);
-                }
-            }
-            else
-            {
-                for (const auto& entry : std::filesystem::directory_iterator(dir_path))
-                {
-                    entries.push_back(entry);
-                }
-            }
+            return std::filesystem::is_empty(dir_path_);
         }
         catch (...)
         {
+            return false;
         }
-        return entries;
     }
 
     inline auto Directory::remove() const noexcept -> bool
@@ -208,6 +189,34 @@ namespace fox
         catch (...)
         {
             return 0;
+        }
+    }
+
+    inline auto Directory::move(const std::filesystem::path& destination) const noexcept -> bool
+    {
+        try
+        {
+            std::filesystem::rename(dir_path_, destination);
+            return true;
+        }
+        catch (...)
+        {
+            return false;
+        }
+    }
+
+    inline auto Directory::rename(const std::string& newName) const noexcept -> bool
+    {
+        try
+        {
+            auto newPath = dir_path_;
+            newPath.replace_filename(newName);
+            std::filesystem::rename(dir_path_, newPath);
+            return true;
+        }
+        catch (...)
+        {
+            return false;
         }
     }
 
@@ -260,34 +269,6 @@ namespace fox
         }
     }
 
-    inline auto Directory::move(const std::filesystem::path& destination) const noexcept -> bool
-    {
-        try
-        {
-            std::filesystem::rename(dir_path_, destination);
-            return true;
-        }
-        catch (...)
-        {
-            return false;
-        }
-    }
-
-    inline auto Directory::rename(const std::string& newName) const noexcept -> bool
-    {
-        try
-        {
-            auto newPath = dir_path_;
-            newPath.replace_filename(newName);
-            std::filesystem::rename(dir_path_, newPath);
-            return true;
-        }
-        catch (...)
-        {
-            return false;
-        }
-    }
-
     inline auto Directory::size() const noexcept -> std::uintmax_t
     {
         std::uintmax_t total = 0;
@@ -320,16 +301,36 @@ namespace fox
         }
     }
 
-    inline auto Directory::isEmpty() const noexcept -> bool
+    inline auto Directory::listDir(const bool recursive) const -> std::vector<std::filesystem::directory_entry>
     {
+        return listDir(dir_path_, recursive);
+    }
+
+    inline auto Directory::listDir(const std::filesystem::path& dir_path,
+                                   const bool recursive) -> std::vector<std::filesystem::directory_entry>
+    {
+        std::vector<std::filesystem::directory_entry> entries;
         try
         {
-            return std::filesystem::is_empty(dir_path_);
+            if (recursive)
+            {
+                for (const auto& entry : std::filesystem::recursive_directory_iterator(dir_path))
+                {
+                    entries.push_back(entry);
+                }
+            }
+            else
+            {
+                for (const auto& entry : std::filesystem::directory_iterator(dir_path))
+                {
+                    entries.push_back(entry);
+                }
+            }
         }
         catch (...)
         {
-            return false;
         }
+        return entries;
     }
 
     inline auto Directory::listEntries(const bool recursive) const -> std::vector<std::filesystem::directory_entry>

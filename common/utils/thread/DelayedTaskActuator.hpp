@@ -28,9 +28,9 @@ namespace fox
         [[nodiscard]] auto getTaskResult(int32_t taskId) -> std::future<ResultType>;
 
     private:
-        mutable std::mutex mutex_;
-        std::condition_variable cv_;
-        std::unordered_map<int32_t, std::future<ResultType>> results_;
+        mutable std::mutex mutex_{};
+        std::condition_variable cv_{};
+        std::unordered_map<int32_t, std::future<ResultType>> results_{};
         int32_t nextTaskId_{0};
     };
 
@@ -40,7 +40,7 @@ namespace fox
     {
         std::lock_guard lock(mutex_);
         const int32_t taskId = nextTaskId_++;
-        std::packaged_task<ResultType()> packagedTask(task);
+        std::packaged_task<ResultType()> packagedTask(std::move(task));
         std::future<ResultType> result = packagedTask.get_future();
 
         std::thread([this, delayMs, packagedTask = std::move(packagedTask)]() mutable

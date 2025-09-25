@@ -4,6 +4,8 @@
 
 namespace fox
 {
+    /// @brief A utility class for integer operations
+    /// @details Provides various integer conversion and manipulation functions
     class Integer
     {
         static const inline std::pair<int32_t, std::string> valueSymbols[] = {

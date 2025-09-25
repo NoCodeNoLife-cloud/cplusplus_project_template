@@ -6,6 +6,7 @@
 #include <filesystem>
 #include <fstream>
 #include <sstream>
+#include <exception>
 
 #include "filesystem/io/interface/IBoostSerializable.hpp"
 
@@ -26,7 +27,7 @@ namespace fox
         /// @param obj The object to serialize.
         /// @return A string containing the binary serialized data.
         template <DerivedFromBoostSerializable T>
-        static auto serializeObjectToBinaryString(const T& obj) -> std::string;
+        [[nodiscard]] static auto serializeObjectToBinaryString(const T& obj) -> std::string;
 
         /// @brief Deserializes an object from a binary string representation.
         /// @tparam T The type of the object to deserialize, must derive from IBoostSerializable and be default
@@ -35,7 +36,7 @@ namespace fox
         /// @return The deserialized object.
         template <DerivedFromBoostSerializable T>
             requires std::default_initializable<T>
-        static auto deserializeObjectFromBinaryString(const std::string& data) -> T;
+        [[nodiscard]] static auto deserializeObjectFromBinaryString(const std::string& data) -> T;
 
         /// @brief Serializes an object to an XML file.
         /// @tparam T The type of the object to serialize, must derive from IBoostSerializable.
@@ -50,11 +51,11 @@ namespace fox
         /// @param filePath The path to the XML file to deserialize from.
         /// @return The deserialized object.
         template <DerivedFromBoostSerializable T>
-        static auto serializeObjectFromXMLFile(const std::filesystem::path& filePath) -> T;
+        [[nodiscard]] static auto serializeObjectFromXMLFile(const std::filesystem::path& filePath) -> T;
     };
 
     template <DerivedFromBoostSerializable T>
-    auto BoostObjectSerializer::serializeObjectToBinaryString(const T& obj) -> std::string
+    [[nodiscard]] inline auto BoostObjectSerializer::serializeObjectToBinaryString(const T& obj) -> std::string
     {
         std::ostringstream o_string_stream;
         boost::archive::binary_oarchive binary_o_archive(o_string_stream);
@@ -64,7 +65,7 @@ namespace fox
 
     template <DerivedFromBoostSerializable T>
         requires std::default_initializable<T>
-    auto BoostObjectSerializer::deserializeObjectFromBinaryString(const std::string& data) -> T
+    [[nodiscard]] inline auto BoostObjectSerializer::deserializeObjectFromBinaryString(const std::string& data) -> T
     {
         T t = T();
         std::istringstream i_string_stream(data);
@@ -74,7 +75,7 @@ namespace fox
     }
 
     template <DerivedFromBoostSerializable T>
-    auto BoostObjectSerializer::serializeObjectToXMLFile(const T& obj, const std::filesystem::path& filePath) -> bool
+    inline auto BoostObjectSerializer::serializeObjectToXMLFile(const T& obj, const std::filesystem::path& filePath) -> bool
     {
         try
         {
@@ -83,24 +84,24 @@ namespace fox
             oa << BOOST_SERIALIZATION_NVP(obj);
             return true;
         }
-        catch (std::exception& e)
+        catch (const std::exception& e)
         {
             throw std::runtime_error(e.what());
         }
     }
 
     template <DerivedFromBoostSerializable T>
-    auto BoostObjectSerializer::serializeObjectFromXMLFile(const std::filesystem::path& filePath) -> T
+    [[nodiscard]] inline auto BoostObjectSerializer::serializeObjectFromXMLFile(const std::filesystem::path& filePath) -> T
     {
         try
         {
-            T t;
+            T t{};
             std::ifstream ifs(filePath);
             boost::archive::xml_iarchive ia(ifs);
             ia >> BOOST_SERIALIZATION_NVP(t);
             return t;
         }
-        catch (std::exception& e)
+        catch (const std::exception& e)
         {
             throw std::runtime_error(e.what());
         }

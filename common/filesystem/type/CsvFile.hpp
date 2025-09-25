@@ -15,6 +15,8 @@ namespace fox
     class CsvFile
     {
     public:
+        /// @brief Constructs a CsvFile object from a file path
+        /// @param file_path The path to the CSV file to load
         explicit CsvFile(const std::string& file_path) noexcept;
 
         /// @brief Get the number of rows in the CSV file
@@ -39,7 +41,7 @@ namespace fox
         /// @brief Save the CSV file to disk
         /// @param path The path where to save the file (uses original path if empty)
         /// @return True if successful, false otherwise
-        auto save(const std::string& path = "") noexcept -> bool;
+        auto save(const std::string& path = {}) noexcept -> bool;
 
     private:
         std::string file_path_{};

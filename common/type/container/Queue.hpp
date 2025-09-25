@@ -27,31 +27,32 @@ namespace fox
         /// @return Reference to this queue
         auto operator=(Queue&& other) noexcept -> Queue&;
 
-        /// @brief Swap the contents of this queue with another
-        /// @param other The queue to swap with
-        auto swap(Queue& other) noexcept -> void;
-
         /// @brief Add an element to the back of the queue
         /// @param value The value to add
         auto push(const T& value) -> void;
 
         /// @brief Remove the element from the front of the queue
+        /// @throws std::out_of_range If the queue is empty
         auto pop() -> void;
 
         /// @brief Get a reference to the front element
         /// @return Reference to the front element
+        /// @throws std::out_of_range If the queue is empty
         auto front() -> T&;
 
         /// @brief Get a const reference to the front element
         /// @return Const reference to the front element
+        /// @throws std::out_of_range If the queue is empty
         auto front() const -> const T&;
 
         /// @brief Get a reference to the back element
         /// @return Reference to the back element
+        /// @throws std::out_of_range If the queue is empty
         auto back() -> T&;
 
         /// @brief Get a const reference to the back element
         /// @return Const reference to the back element
+        /// @throws std::out_of_range If the queue is empty
         auto back() const -> const T&;
 
         /// @brief Check if the queue is empty
@@ -62,16 +63,20 @@ namespace fox
         /// @return The number of elements in the queue
         [[nodiscard]] auto size() const noexcept -> size_t;
 
+        /// @brief Swap the contents of this queue with another
+        /// @param other The queue to swap with
+        auto swap(Queue& other) noexcept -> void;
+
     private:
         struct Node
         {
-            T data_;
-            std::unique_ptr<Node> next_;
+            T data_{};
+            std::unique_ptr<Node> next_{};
 
             explicit Node(T value);
         };
 
-        std::unique_ptr<Node> head_;
+        std::unique_ptr<Node> head_{};
         Node* tail_{nullptr};
         size_t queue_size_{0};
     };
@@ -80,7 +85,7 @@ namespace fox
     Queue<T>::Queue() = default;
 
     template <typename T>
-    Queue<T>::Queue(const Queue& other) : head_(nullptr), tail_(nullptr)
+    Queue<T>::Queue(const Queue& other) : head_(nullptr), tail_(nullptr), queue_size_(0)
     {
         if (!other.empty())
         {
@@ -129,15 +134,6 @@ namespace fox
             other.queue_size_ = 0;
         }
         return *this;
-    }
-
-    template <typename T>
-    auto Queue<T>::swap(Queue& other) noexcept -> void
-    {
-        using std::swap;
-        head_.swap(other.head_);
-        swap(tail_, other.tail_);
-        swap(queue_size_, other.queue_size_);
     }
 
     template <typename T>
@@ -222,6 +218,15 @@ namespace fox
     auto Queue<T>::size() const noexcept -> size_t
     {
         return queue_size_;
+    }
+
+    template <typename T>
+    auto Queue<T>::swap(Queue& other) noexcept -> void
+    {
+        using std::swap;
+        head_.swap(other.head_);
+        swap(tail_, other.tail_);
+        swap(queue_size_, other.queue_size_);
     }
 
     template <typename T>

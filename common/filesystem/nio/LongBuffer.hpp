@@ -10,25 +10,69 @@ namespace fox
     class LongBuffer final : public IBuffer
     {
     public:
+        /// @brief Construct a LongBuffer with the specified capacity
+        /// @param capacity The initial capacity of the buffer
         explicit LongBuffer(std::size_t capacity);
 
-        /// @brief Get the current value from the buffer
+        /// @brief Get the current value from the buffer and advance the position
         /// @return The current value
-        auto get() -> int64_t;
+        /// @throws std::out_of_range If no remaining elements to get
+        [[nodiscard]] auto get() -> int64_t;
 
-        /// @brief Put a value into the buffer
+        /// @brief Put a value into the buffer and advance the position
         /// @param value The value to put
+        /// @throws std::out_of_range If no remaining space to put
         auto put(int64_t value) -> void;
+
+        /// @brief Check if there are remaining elements in the buffer
+        /// @return True if there are remaining elements, false otherwise
+        [[nodiscard]] auto hasRemaining() const -> bool override;
+
+        /// @brief Get the number of remaining elements in the buffer
+        /// @return Number of remaining elements
+        [[nodiscard]] auto remaining() const -> std::size_t override;
+
+        /// @brief Get the current position in the buffer
+        /// @return The current position
+        [[nodiscard]] auto position() const -> std::size_t override;
+
+        /// @brief Set the position in the buffer
+        /// @param newPosition The new position to set
+        /// @throws std::out_of_range If the new position is out of range
+        auto position(std::size_t newPosition) -> void override;
+
+        /// @brief Get the limit of the buffer
+        /// @return The current limit
+        [[nodiscard]] auto limit() const -> std::size_t override;
+
+        /// @brief Set the limit of the buffer
+        /// @param newLimit The new limit to set
+        /// @throws std::out_of_range If the new limit is out of range
+        auto limit(std::size_t newLimit) -> void override;
+
+        /// @brief Get the capacity of the buffer
+        /// @return The capacity
+        [[nodiscard]] auto capacity() const -> std::size_t override;
+
+        /// @brief Reset the buffer position to zero and set limit to capacity
+        auto clear() -> void override;
+
+        /// @brief Flip the buffer (limit = position, position = 0)
+        auto flip() -> void override;
+
+        /// @brief Reset the buffer position to zero
+        auto rewind() -> void override;
 
     private:
         std::vector<int64_t> buffer_{};
+        std::size_t capacity_{};
+        std::size_t limit_{};
+        std::size_t position_{};
     };
 
     inline LongBuffer::LongBuffer(const std::size_t capacity)
+        : capacity_(capacity), limit_(capacity), position_(0)
     {
-        capacity_ = capacity;
-        limit_ = capacity;
-        position_ = 0;
         buffer_.resize(capacity);
     }
 
@@ -48,5 +92,69 @@ namespace fox
             throw std::out_of_range("No remaining space to put");
         }
         buffer_[position_++] = value;
+    }
+
+    inline auto LongBuffer::hasRemaining() const -> bool
+    {
+        return position_ < limit_;
+    }
+
+    inline auto LongBuffer::remaining() const -> std::size_t
+    {
+        return limit_ - position_;
+    }
+
+    inline auto LongBuffer::position() const -> std::size_t
+    {
+        return position_;
+    }
+
+    inline auto LongBuffer::position(const std::size_t newPosition) -> void
+    {
+        if (newPosition > limit_)
+        {
+            throw std::out_of_range("Position out of range");
+        }
+        position_ = newPosition;
+    }
+
+    inline auto LongBuffer::limit() const -> std::size_t
+    {
+        return limit_;
+    }
+
+    inline auto LongBuffer::limit(const std::size_t newLimit) -> void
+    {
+        if (newLimit > capacity_)
+        {
+            throw std::out_of_range("Limit exceeds capacity");
+        }
+        limit_ = newLimit;
+        if (position_ > limit_)
+        {
+            position_ = limit_;
+        }
+    }
+
+    inline auto LongBuffer::capacity() const -> std::size_t
+    {
+        return capacity_;
+    }
+
+    inline auto LongBuffer::clear() -> void
+    {
+        position_ = 0;
+        limit_ = capacity_;
+    }
+
+    inline auto LongBuffer::flip() -> void
+    {
+        limit_ = position_;
+        position_ = 0;
+    }
+
+    inline auto LongBuffer::rewind() -> void
+    {
+        position_ = 0;
     }
 }

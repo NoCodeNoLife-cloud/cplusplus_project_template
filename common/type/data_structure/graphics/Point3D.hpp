@@ -4,7 +4,7 @@
 namespace fox
 {
     /// @brief A class representing a point in 3D space.
-    /// The Point3D class provides basic functionality for working with points in three-dimensional space,
+    /// The class provides basic functionality for working with points in three-dimensional space,
     /// including setting and getting coordinates, and calculating distances between points.
     class Point3D
     {
@@ -43,14 +43,12 @@ namespace fox
         [[nodiscard]] auto distanceTo(const Point3D& other) const noexcept -> double;
 
     private:
-        double x_;
-        double y_;
-        double z_;
+        double x_{0.0};
+        double y_{0.0};
+        double z_{0.0};
     };
 
-    inline Point3D::Point3D() noexcept : x_(0), y_(0), z_(0)
-    {
-    }
+    inline Point3D::Point3D() noexcept = default;
 
     inline Point3D::Point3D(const double xVal, const double yVal, const double zVal) noexcept : x_(xVal), y_(yVal),
         z_(zVal)

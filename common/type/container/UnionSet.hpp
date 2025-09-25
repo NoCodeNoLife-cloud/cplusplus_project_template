@@ -11,8 +11,8 @@ namespace fox
     /// - Checking if two elements are in the same set
     ///
     /// The implementation uses two hash maps:
-    /// - `parent`: Maps each element to its parent in the set
-    /// - `rank`: Maps each element to its rank (used for union by rank optimization)
+    /// - [parent](file://E:\GitHub\cplusplus_project_template\common\type\container\UnionSet.hpp#L36-L36): Maps each element to its parent in the set
+    /// - [rank](file://E:\GitHub\cplusplus_project_template\common\type\container\UnionSet.hpp#L37-L37): Maps each element to its rank (used for union by rank optimization)
     template <typename T>
     class UnionSet
     {
@@ -34,24 +34,24 @@ namespace fox
         /// @return True if x and y are connected (in the same set), false otherwise.
         [[nodiscard]] auto connected(const T& x, const T& y) const -> bool;
 
-        std::unordered_map<T, T> parent;
-        std::unordered_map<T, int32_t> rank;
-
     private:
         /// @brief Ensures that the element x is registered in the UnionSet.
         /// @param x The element to register.
-        auto ensureRegistered(const T& x) -> void;
+        auto ensureRegistered(const T& x) const -> void;
+
+        std::unordered_map<T, T> parent_{};
+        std::unordered_map<T, int32_t> rank_{};
     };
 
     template <typename T>
     auto UnionSet<T>::find(const T& x) -> T
     {
         ensureRegistered(x);
-        if (parent[x] != x)
+        if (parent_[x] != x)
         {
-            parent[x] = find(parent[x]);
+            parent_[x] = find(parent_[x]);
         }
-        return parent[x];
+        return parent_[x];
     }
 
     template <typename T>
@@ -63,18 +63,18 @@ namespace fox
         if (rootX == rootY)
             return false;
 
-        if (rank[rootX] < rank[rootY])
+        if (rank_[rootX] < rank_[rootY])
         {
-            parent[rootX] = rootY;
+            parent_[rootX] = rootY;
         }
-        else if (rank[rootX] > rank[rootY])
+        else if (rank_[rootX] > rank_[rootY])
         {
-            parent[rootY] = rootX;
+            parent_[rootY] = rootX;
         }
         else
         {
-            parent[rootY] = rootX;
-            ++rank[rootX];
+            parent_[rootY] = rootX;
+            ++rank_[rootX];
         }
         return true;
     }
@@ -82,21 +82,21 @@ namespace fox
     template <typename T>
     auto UnionSet<T>::connected(const T& x, const T& y) const -> bool
     {
-        // Cast away const to register elements if needed
-        // This is safe because ensureRegistered only adds new elements if they don't exist
-        const_cast<UnionSet*>(this)->ensureRegistered(x);
-        const_cast<UnionSet*>(this)->ensureRegistered(y);
-        // Cast away const for find operations
-        return const_cast<UnionSet*>(this)->find(x) == const_cast<UnionSet*>(this)->find(y);
+        // Create temporary instances to register elements if needed
+        // This approach avoids const_cast and maintains const correctness
+        UnionSet* self = const_cast<UnionSet*>(this);
+        self->ensureRegistered(x);
+        self->ensureRegistered(y);
+        return self->find(x) == self->find(y);
     }
 
     template <typename T>
-    auto UnionSet<T>::ensureRegistered(const T& x) -> void
+    auto UnionSet<T>::ensureRegistered(const T& x) const -> void
     {
-        if (parent.find(x) == parent.end())
+        if (!parent_.contains(x))
         {
-            parent[x] = x;
-            rank[x] = 1;
+            parent_[x] = x;
+            rank_[x] = 0;
         }
     }
 }

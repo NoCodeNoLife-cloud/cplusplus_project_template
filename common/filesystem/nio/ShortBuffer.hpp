@@ -14,6 +14,8 @@ namespace fox
     class ShortBuffer final : public IBuffer
     {
     public:
+        /// @brief Construct a ShortBuffer with the specified capacity
+        /// @param capacity The initial capacity of the buffer
         explicit ShortBuffer(size_t capacity);
 
         /// @brief Wraps an existing array of int16_t data into a ShortBuffer.
@@ -24,28 +26,68 @@ namespace fox
 
         /// @brief Reads the next int16_t value from the buffer.
         /// @return The next int16_t value.
-        auto get() -> int16_t;
+        /// @throws std::out_of_range If no remaining elements to get
+        [[nodiscard]] auto get() -> int16_t;
 
         /// @brief Reads an int16_t value at the specified index.
         /// @param index Index of the value to read.
         /// @return The int16_t value at the specified index.
+        /// @throws std::out_of_range If index is out of bounds
         [[nodiscard]] auto get(size_t index) const -> int16_t;
 
         /// @brief Writes an int16_t value to the buffer at the current position.
         /// @param value The value to write.
+        /// @throws std::out_of_range If no remaining space to put
         auto put(int16_t value) -> void;
 
         /// @brief Writes an int16_t value to the buffer at the specified index.
         /// @param index Index where the value should be written.
         /// @param value The value to write.
+        /// @throws std::out_of_range If index is out of bounds
         auto put(size_t index, int16_t value) -> void;
+
+        /// @brief Check if there are remaining elements in the buffer
+        /// @return True if there are remaining elements, false otherwise
+        [[nodiscard]] auto hasRemaining() const -> bool override;
+
+        /// @brief Get the number of remaining elements in the buffer
+        /// @return Number of remaining elements
+        [[nodiscard]] auto remaining() const -> size_t override;
+
+        /// @brief Get the current position in the buffer
+        /// @return The current position
+        [[nodiscard]] auto position() const -> size_t override;
+
+        /// @brief Set the position in the buffer
+        /// @param newPosition The new position to set
+        /// @throws std::out_of_range If the new position is out of range
+        auto position(size_t newPosition) -> void override;
+
+        /// @brief Get the limit of the buffer
+        /// @return The current limit
+        [[nodiscard]] auto limit() const -> size_t override;
+
+        /// @brief Set the limit of the buffer
+        /// @param newLimit The new limit to set
+        /// @throws std::out_of_range If the new limit is out of range
+        auto limit(size_t newLimit) -> void override;
+
+        /// @brief Get the capacity of the buffer
+        /// @return The capacity
+        [[nodiscard]] auto capacity() const -> size_t override;
+
+        /// @brief Reset the buffer position to zero and set limit to capacity
+        auto clear() -> void override;
+
+        /// @brief Flip the buffer (limit = position, position = 0)
+        auto flip() -> void override;
 
         /// @brief Resets the position of the buffer to zero.
         auto rewind() -> void override;
 
         /// @brief Returns a pointer to the underlying data array.
         /// @return Pointer to the data array.
-        auto data() -> int16_t*;
+        [[nodiscard]] auto data() -> int16_t*;
 
         /// @brief Returns a const pointer to the underlying data array.
         /// @return Const pointer to the data array.
@@ -53,13 +95,14 @@ namespace fox
 
     private:
         std::vector<int16_t> buffer_{};
+        size_t capacity_{};
+        size_t limit_{};
+        size_t position_{};
     };
 
-    inline ShortBuffer::ShortBuffer(const size_t capacity) : buffer_(capacity)
+    inline ShortBuffer::ShortBuffer(const size_t capacity)
+        : buffer_(capacity), capacity_(capacity), limit_(capacity), position_(0)
     {
-        capacity_ = capacity;
-        limit_ = capacity;
-        position_ = 0;
     }
 
     inline auto ShortBuffer::wrap(const int16_t* data, const size_t size) -> ShortBuffer
@@ -76,7 +119,7 @@ namespace fox
     {
         if (!hasRemaining())
         {
-            throw std::out_of_range("Position exceeds limit.");
+            throw std::out_of_range("No remaining elements to get");
         }
         return buffer_[position_++];
     }
@@ -85,7 +128,7 @@ namespace fox
     {
         if (index >= limit_)
         {
-            throw std::out_of_range("Index exceeds limit.");
+            throw std::out_of_range("Index out of bounds");
         }
         return buffer_[index];
     }
@@ -94,7 +137,7 @@ namespace fox
     {
         if (!hasRemaining())
         {
-            throw std::out_of_range("Position exceeds limit.");
+            throw std::out_of_range("No remaining space to put");
         }
         buffer_[position_++] = value;
     }
@@ -103,12 +146,71 @@ namespace fox
     {
         if (index >= limit_)
         {
-            throw std::out_of_range("Index exceeds limit.");
+            throw std::out_of_range("Index out of bounds");
         }
         buffer_[index] = value;
     }
 
-    inline void ShortBuffer::rewind()
+    inline auto ShortBuffer::hasRemaining() const -> bool
+    {
+        return position_ < limit_;
+    }
+
+    inline auto ShortBuffer::remaining() const -> size_t
+    {
+        return limit_ - position_;
+    }
+
+    inline auto ShortBuffer::position() const -> size_t
+    {
+        return position_;
+    }
+
+    inline auto ShortBuffer::position(const size_t newPosition) -> void
+    {
+        if (newPosition > limit_)
+        {
+            throw std::out_of_range("Position out of range");
+        }
+        position_ = newPosition;
+    }
+
+    inline auto ShortBuffer::limit() const -> size_t
+    {
+        return limit_;
+    }
+
+    inline auto ShortBuffer::limit(const size_t newLimit) -> void
+    {
+        if (newLimit > capacity_)
+        {
+            throw std::out_of_range("Limit exceeds capacity");
+        }
+        limit_ = newLimit;
+        if (position_ > limit_)
+        {
+            position_ = limit_;
+        }
+    }
+
+    inline auto ShortBuffer::capacity() const -> size_t
+    {
+        return capacity_;
+    }
+
+    inline auto ShortBuffer::clear() -> void
+    {
+        position_ = 0;
+        limit_ = capacity_;
+    }
+
+    inline auto ShortBuffer::flip() -> void
+    {
+        limit_ = position_;
+        position_ = 0;
+    }
+
+    inline auto ShortBuffer::rewind() -> void
     {
         position_ = 0;
     }

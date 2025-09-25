@@ -38,6 +38,7 @@ namespace fox
         /// @param toIndex Ending index of the subarray (exclusive).
         /// @param key The value to search for.
         /// @return Index of the key if found, otherwise -1.
+        /// @throws std::out_of_range If fromIndex >= toIndex
         template <typename T>
         [[nodiscard]] static auto binarySearch(const T* array, size_t fromIndex, size_t toIndex,
                                                const T& key) -> int32_t;
@@ -58,6 +59,7 @@ namespace fox
         /// @param from Starting index (inclusive).
         /// @param to Ending index (exclusive).
         /// @return A new vector containing the specified range.
+        /// @throws std::out_of_range If from > to
         template <typename T>
         [[nodiscard]] static auto copyOfRange(const T* original, size_t from, size_t to) -> std::vector<T>;
 
@@ -91,6 +93,7 @@ namespace fox
         /// @param array Pointer to the array.
         /// @param fromIndex Starting index of the subarray (inclusive).
         /// @param toIndex Ending index of the subarray (exclusive).
+        /// @throws std::out_of_range If fromIndex >= toIndex
         template <typename T>
         static auto sort(T* array, size_t fromIndex, size_t toIndex) -> void;
 
@@ -104,13 +107,13 @@ namespace fox
     };
 
     template <typename T>
-    auto ArraysToolkit::asList(const T* array, size_t size) -> std::vector<T>
+    [[nodiscard]] inline auto ArraysToolkit::asList(const T* array, const size_t size) -> std::vector<T>
     {
         return std::vector<T>(array, array + size);
     }
 
     template <typename T>
-    auto ArraysToolkit::binarySearch(const T* array, size_t size, const T& key) -> int32_t
+    [[nodiscard]] inline auto ArraysToolkit::binarySearch(const T* array, const size_t size, const T& key) -> int32_t
     {
         auto it = std::lower_bound(array, array + size, key);
         if (it != array + size && *it == key)
@@ -121,7 +124,8 @@ namespace fox
     }
 
     template <typename T>
-    auto ArraysToolkit::binarySearch(const T* array, size_t fromIndex, size_t toIndex, const T& key) -> int32_t
+    [[nodiscard]] inline auto ArraysToolkit::binarySearch(const T* array, const size_t fromIndex,
+                                                         const size_t toIndex, const T& key) -> int32_t
     {
         if (fromIndex >= toIndex)
             throw std::out_of_range("Invalid range");
@@ -136,16 +140,18 @@ namespace fox
     }
 
     template <typename T>
-    auto ArraysToolkit::copyOf(const T* original, const size_t originalSize, size_t newLength) -> std::vector<T>
+    [[nodiscard]] inline auto ArraysToolkit::copyOf(const T* original, const size_t originalSize,
+                                                   const size_t newLength) -> std::vector<T>
     {
         std::vector<T> result(newLength);
-        size_t copyLength = std::min(originalSize, newLength);
+        const size_t copyLength = std::min(originalSize, newLength);
         std::copy(original, original + copyLength, result.begin());
         return result;
     }
 
     template <typename T>
-    auto ArraysToolkit::copyOfRange(const T* original, size_t from, size_t to) -> std::vector<T>
+    [[nodiscard]] inline auto ArraysToolkit::copyOfRange(const T* original, const size_t from,
+                                                        const size_t to) -> std::vector<T>
     {
         if (from > to)
             throw std::out_of_range("Invalid range");
@@ -153,7 +159,8 @@ namespace fox
     }
 
     template <typename T>
-    auto ArraysToolkit::equals(const T* a, size_t sizeA, const T* b, const size_t sizeB) -> bool
+    [[nodiscard]] inline auto ArraysToolkit::equals(const T* a, const size_t sizeA,
+                                                   const T* b, const size_t sizeB) -> bool
     {
         if (sizeA != sizeB)
             return false;
@@ -161,19 +168,19 @@ namespace fox
     }
 
     template <typename T>
-    auto ArraysToolkit::fill(T* array, size_t size, const T& value) -> void
+    inline auto ArraysToolkit::fill(T* array, const size_t size, const T& value) -> void
     {
         std::fill(array, array + size, value);
     }
 
     template <typename T>
-    auto ArraysToolkit::sort(T* array, size_t size) -> void
+    inline auto ArraysToolkit::sort(T* array, const size_t size) -> void
     {
         std::sort(array, array + size);
     }
 
     template <typename T>
-    auto ArraysToolkit::sort(T* array, size_t fromIndex, size_t toIndex) -> void
+    inline auto ArraysToolkit::sort(T* array, const size_t fromIndex, const size_t toIndex) -> void
     {
         if (fromIndex >= toIndex)
             throw std::out_of_range("Invalid range");
@@ -181,7 +188,7 @@ namespace fox
     }
 
     template <typename T>
-    auto ArraysToolkit::toString(const T* array, const size_t size) -> std::string
+    [[nodiscard]] inline auto ArraysToolkit::toString(const T* array, const size_t size) -> std::string
     {
         std::ostringstream oss;
         oss << "[";

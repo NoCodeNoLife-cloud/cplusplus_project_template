@@ -19,13 +19,13 @@ namespace fox
         /// @return Target vertex
         [[nodiscard]] auto to() const noexcept -> int32_t;
 
-        /// @brief Get edge weight
-        /// @return Edge weight
-        [[nodiscard]] auto weight() const noexcept -> int32_t;
-
         /// @brief Set target vertex
         /// @param to Target vertex
         auto setTo(int32_t to) noexcept -> void;
+
+        /// @brief Get edge weight
+        /// @return Edge weight
+        [[nodiscard]] auto weight() const noexcept -> int32_t;
 
         /// @brief Set edge weight
         /// @param weight Edge weight
@@ -45,14 +45,14 @@ namespace fox
         return to_;
     }
 
-    inline auto Edge::weight() const noexcept -> int32_t
-    {
-        return weight_;
-    }
-
     inline auto Edge::setTo(const int32_t to) noexcept -> void
     {
         to_ = to;
+    }
+
+    inline auto Edge::weight() const noexcept -> int32_t
+    {
+        return weight_;
     }
 
     inline auto Edge::setWeight(const int32_t weight) noexcept -> void

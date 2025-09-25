@@ -77,15 +77,6 @@ namespace fox
         template <typename T>
         [[nodiscard]] static auto generateSet(T minValue, T maxValue, int32_t size) -> std::set<T>;
 
-        /// @brief Generate an unordered set with random values within the specified range.
-        /// @tparam T The type of the elements.
-        /// @param minValue The minimum value (inclusive).
-        /// @param maxValue The maximum value (inclusive).
-        /// @param size The number of elements to generate.
-        /// @return An unordered set containing the generated values.
-        template <typename T>
-        [[nodiscard]] static auto generateUnorderedSet(T minValue, T maxValue, int32_t size) -> std::unordered_set<T>;
-
         /// @brief Generate a multiset with random values within the specified range.
         /// @tparam T The type of the elements.
         /// @param minValue The minimum value (inclusive).
@@ -94,6 +85,15 @@ namespace fox
         /// @return A multiset containing the generated values.
         template <typename T>
         [[nodiscard]] static auto generateMultiSet(T minValue, T maxValue, int32_t size) -> std::multiset<T>;
+
+        /// @brief Generate an unordered set with random values within the specified range.
+        /// @tparam T The type of the elements.
+        /// @param minValue The minimum value (inclusive).
+        /// @param maxValue The maximum value (inclusive).
+        /// @param size The number of elements to generate.
+        /// @return An unordered set containing the generated values.
+        template <typename T>
+        [[nodiscard]] static auto generateUnorderedSet(T minValue, T maxValue, int32_t size) -> std::unordered_set<T>;
 
         /// @brief Generate an unordered multiset with random values within the specified range.
         /// @tparam T The type of the elements.
@@ -158,7 +158,7 @@ namespace fox
                                                             int32_t size) -> std::unordered_multimap<T, U>;
 
     private:
-        static inline auto mt1993764_ = std::mt19937_64(std::random_device{}());
+        static std::mt19937_64 mt1993764_;
 
         /// @brief Generate a random value within the specified range.
         /// @tparam T The type of the value.
@@ -178,7 +178,7 @@ namespace fox
     };
 
     template <typename T>
-    auto ContainerGenerator::generateVector(T minValue, T maxValue, int32_t size) -> std::vector<T>
+    [[nodiscard]] inline auto ContainerGenerator::generateVector(T minValue, T maxValue, int32_t size) -> std::vector<T>
     {
         Check(minValue, maxValue, size);
         std::vector<T> result;
@@ -191,7 +191,7 @@ namespace fox
     }
 
     template <typename T>
-    auto ContainerGenerator::generateDeque(T minValue, T maxValue, int32_t size) -> std::deque<T>
+    [[nodiscard]] inline auto ContainerGenerator::generateDeque(T minValue, T maxValue, int32_t size) -> std::deque<T>
     {
         Check(minValue, maxValue, size);
         std::deque<T> result;
@@ -203,7 +203,7 @@ namespace fox
     }
 
     template <typename T>
-    auto ContainerGenerator::generateList(T minValue, T maxValue, int32_t size) -> std::list<T>
+    [[nodiscard]] inline auto ContainerGenerator::generateList(T minValue, T maxValue, int32_t size) -> std::list<T>
     {
         Check(minValue, maxValue, size);
         std::list<T> result;
@@ -215,7 +215,7 @@ namespace fox
     }
 
     template <typename T>
-    auto ContainerGenerator::generateForwardList(T minValue, T maxValue, int32_t size) -> std::forward_list<T>
+    [[nodiscard]] inline auto ContainerGenerator::generateForwardList(T minValue, T maxValue, int32_t size) -> std::forward_list<T>
     {
         Check(minValue, maxValue, size);
         std::forward_list<T> result;
@@ -227,7 +227,7 @@ namespace fox
     }
 
     template <typename T, size_t N>
-    auto ContainerGenerator::generateArray(T minValue, T maxValue) -> std::array<T, N>
+    [[nodiscard]] inline auto ContainerGenerator::generateArray(T minValue, T maxValue) -> std::array<T, N>
     {
         Check(minValue, maxValue, static_cast<int32_t>(N));
         std::array<T, N> result;
@@ -239,7 +239,7 @@ namespace fox
     }
 
     template <typename T>
-    auto ContainerGenerator::generateSet(T minValue, T maxValue, int32_t size) -> std::set<T>
+    [[nodiscard]] inline auto ContainerGenerator::generateSet(T minValue, T maxValue, int32_t size) -> std::set<T>
     {
         Check(minValue, maxValue, size);
         std::set<T> result;
@@ -251,19 +251,7 @@ namespace fox
     }
 
     template <typename T>
-    auto ContainerGenerator::generateUnorderedSet(T minValue, T maxValue, int32_t size) -> std::unordered_set<T>
-    {
-        Check(minValue, maxValue, size);
-        std::unordered_set<T> result;
-        for (int32_t i = 0; i < size; i++)
-        {
-            result.emplace(NextValue<T>(minValue, maxValue));
-        }
-        return result;
-    }
-
-    template <typename T>
-    auto ContainerGenerator::generateMultiSet(T minValue, T maxValue, int32_t size) -> std::multiset<T>
+    [[nodiscard]] inline auto ContainerGenerator::generateMultiSet(T minValue, T maxValue, int32_t size) -> std::multiset<T>
     {
         Check(minValue, maxValue, size);
         std::multiset<T> result;
@@ -275,7 +263,19 @@ namespace fox
     }
 
     template <typename T>
-    auto ContainerGenerator::generateUnorderedMultiSet(T minValue, T maxValue,
+    [[nodiscard]] inline auto ContainerGenerator::generateUnorderedSet(T minValue, T maxValue, int32_t size) -> std::unordered_set<T>
+    {
+        Check(minValue, maxValue, size);
+        std::unordered_set<T> result;
+        for (int32_t i = 0; i < size; i++)
+        {
+            result.emplace(NextValue<T>(minValue, maxValue));
+        }
+        return result;
+    }
+
+    template <typename T>
+    [[nodiscard]] inline auto ContainerGenerator::generateUnorderedMultiSet(T minValue, T maxValue,
                                                        int32_t size) -> std::unordered_multiset<T>
     {
         Check(minValue, maxValue, size);
@@ -288,7 +288,7 @@ namespace fox
     }
 
     template <typename T, typename U>
-    auto ContainerGenerator::generateMap(T minKey, T maxKey, U minValue, U maxValue, int32_t size) -> std::map<T, U>
+    [[nodiscard]] inline auto ContainerGenerator::generateMap(T minKey, T maxKey, U minValue, U maxValue, int32_t size) -> std::map<T, U>
     {
         Check(minKey, maxKey, size);
         Check(minValue, maxValue, size);
@@ -301,7 +301,7 @@ namespace fox
     }
 
     template <typename T, typename U>
-    auto ContainerGenerator::generateMultiMap(T minKey, T maxKey, U minValue, U maxValue,
+    [[nodiscard]] inline auto ContainerGenerator::generateMultiMap(T minKey, T maxKey, U minValue, U maxValue,
                                               int32_t size) -> std::multimap<T, U>
     {
         Check(minKey, maxKey, size);
@@ -315,7 +315,7 @@ namespace fox
     }
 
     template <typename T, typename U>
-    auto ContainerGenerator::generateUnorderedMap(T minKey, T maxKey, U minValue, U maxValue,
+    [[nodiscard]] inline auto ContainerGenerator::generateUnorderedMap(T minKey, T maxKey, U minValue, U maxValue,
                                                   int32_t size) -> std::unordered_map<T, U>
     {
         Check(minKey, maxKey, size);
@@ -329,7 +329,7 @@ namespace fox
     }
 
     template <typename T, typename U>
-    auto ContainerGenerator::generateUnorderedMultiMap(T minKey, T maxKey, U minValue, U maxValue,
+    [[nodiscard]] inline auto ContainerGenerator::generateUnorderedMultiMap(T minKey, T maxKey, U minValue, U maxValue,
                                                        int32_t size) -> std::unordered_multimap<T, U>
     {
         Check(minKey, maxKey, size);
@@ -343,7 +343,7 @@ namespace fox
     }
 
     template <typename T>
-    auto ContainerGenerator::NextValue(T minValue, T maxValue) -> T
+    [[nodiscard]] inline auto ContainerGenerator::NextValue(T minValue, T maxValue) -> T
     {
         if constexpr (std::is_integral_v<T>)
         {
@@ -362,11 +362,13 @@ namespace fox
     }
 
     template <typename T>
-    auto ContainerGenerator::Check(T minValue, T maxValue, int32_t size) -> void
+    inline auto ContainerGenerator::Check(T minValue, T maxValue, int32_t size) -> void
     {
         if (minValue > maxValue || size < 0)
         {
             throw std::invalid_argument("ContainerGenerator: invalid parameters");
         }
     }
+
+    inline std::mt19937_64 ContainerGenerator::mt1993764_ = std::mt19937_64(std::random_device{}());
 }

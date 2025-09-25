@@ -41,7 +41,7 @@ namespace fox
 
         /// @brief Negate this point
         /// @return Negated point
-        auto operator-() const noexcept -> Point2D;
+        [[nodiscard]] auto operator-() const noexcept -> Point2D;
 
         // Friend operators
         friend auto operator+(Point2D lhs, const Point2D& rhs) noexcept -> Point2D;
@@ -55,15 +55,13 @@ namespace fox
         friend auto operator<<(std::ostream& os, const Point2D& point) -> std::ostream&;
 
     private:
-        double x_;
-        double y_;
+        double x_{0.0};
+        double y_{0.0};
     };
 
-    inline Point2D::Point2D() noexcept : x_(0.0), y_(0.0)
-    {
-    }
+    inline Point2D::Point2D() noexcept = default;
 
-    inline Point2D::Point2D(double x, double y) noexcept : x_(x), y_(y)
+    inline Point2D::Point2D(const double x, const double y) noexcept : x_(x), y_(y)
     {
     }
 
@@ -106,13 +104,13 @@ namespace fox
         return {-x_, -y_};
     }
 
-    inline Point2D operator+(Point2D lhs, const Point2D& rhs) noexcept
+    inline auto operator+(Point2D lhs, const Point2D& rhs) noexcept -> Point2D
     {
         lhs += rhs;
         return lhs;
     }
 
-    inline Point2D operator-(Point2D lhs, const Point2D& rhs) noexcept
+    inline auto operator-(Point2D lhs, const Point2D& rhs) noexcept -> Point2D
     {
         lhs -= rhs;
         return lhs;
@@ -123,7 +121,7 @@ namespace fox
         return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY();
     }
 
-    inline bool operator!=(const Point2D& lhs, const Point2D& rhs) noexcept
+    inline auto operator!=(const Point2D& lhs, const Point2D& rhs) noexcept -> bool
     {
         return !(lhs == rhs);
     }

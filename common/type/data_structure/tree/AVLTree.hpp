@@ -22,31 +22,29 @@ namespace fox
 
         /// @brief Insert a value into the AVL tree
         /// @param value The value to insert
-        /// @return void
         auto insert(T value) -> void;
 
         /// @brief Remove a value from the AVL tree
         /// @param value The value to remove
-        /// @return void
         auto remove(T value) -> void;
 
         /// @brief Find a value in the AVL tree
         /// @param value The value to find
         /// @return bool True if the value is found, false otherwise
-        auto find(T value) const -> bool;
+        [[nodiscard]] auto find(T value) const -> bool;
 
     private:
-        std::shared_ptr<TreeNode<T>> root_;
+        std::shared_ptr<TreeNode<T>> root_{nullptr};
 
         /// @brief Get the height of a node
         /// @param node The node to get the height of
         /// @return int32_t The height of the node
-        auto getHeight(const std::shared_ptr<TreeNode<T>>& node) const noexcept -> int32_t;
+        [[nodiscard]] auto getHeight(const std::shared_ptr<TreeNode<T>>& node) const noexcept -> int32_t;
 
         /// @brief Get the balance factor of a node
         /// @param node The node to get the balance factor of
         /// @return int32_t The balance factor of the node
-        auto getBalance(const std::shared_ptr<TreeNode<T>>& node) const noexcept -> int32_t;
+        [[nodiscard]] auto getBalance(const std::shared_ptr<TreeNode<T>>& node) const noexcept -> int32_t;
 
         /// @brief Rotate a subtree to the right
         /// @param y The root of the subtree to rotate
@@ -73,13 +71,13 @@ namespace fox
         /// @brief Find the node with the minimum value in a subtree
         /// @param node The root of the subtree to search
         /// @return std::shared_ptr<TreeNode<T>> The node with the minimum value
-        auto findMin(const std::shared_ptr<TreeNode<T>>& node) const -> std::shared_ptr<TreeNode<T>>;
+        [[nodiscard]] auto findMin(const std::shared_ptr<TreeNode<T>>& node) const -> std::shared_ptr<TreeNode<T>>;
 
         /// @brief Find a value in a subtree
         /// @param node The root of the subtree to search
         /// @param value The value to find
         /// @return std::shared_ptr<TreeNode<T>> The node containing the value, or nullptr if not found
-        auto find(const std::shared_ptr<TreeNode<T>>& node, T value) const -> std::shared_ptr<TreeNode<T>>;
+        [[nodiscard]] auto find(const std::shared_ptr<TreeNode<T>>& node, T value) const -> std::shared_ptr<TreeNode<T>>;
     };
 
     template <typename T>

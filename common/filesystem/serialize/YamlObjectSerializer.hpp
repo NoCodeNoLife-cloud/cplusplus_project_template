@@ -4,6 +4,7 @@
 #include <filesystem>
 #include <fstream>
 #include <string>
+#include <stdexcept>
 
 namespace fox
 {
@@ -13,47 +14,69 @@ namespace fox
     class YamlObjectSerializer
     {
     public:
+        /// @brief Serializes an object to a YAML file.
+        /// @param obj The object to serialize.
+        /// @param filename The path to the file where the YAML data will be saved.
+        /// @throws std::invalid_argument If filename is empty.
+        /// @throws std::runtime_error If file cannot be opened or written to.
         static auto serialize(const T& obj, const std::string& filename) -> void;
-        static auto deserialize(const std::string& filename) -> T;
+
+        /// @brief Deserializes an object from a YAML file.
+        /// @param filename The path to the YAML file to deserialize from.
+        /// @return The deserialized object.
+        /// @throws std::runtime_error If file cannot be opened or decoded.
+        [[nodiscard]] static auto deserialize(const std::string& filename) -> T;
     };
 
     template <typename T>
-    auto YamlObjectSerializer<T>::serialize(const T& obj, const std::string& filename) -> void
+    inline auto YamlObjectSerializer<T>::serialize(const T& obj, const std::string& filename) -> void
     {
         if (filename.empty())
         {
             throw std::invalid_argument("filename is empty");
         }
+
         const YAML::Node node = YAML::convert<T>::encode(obj);
         YAML::Emitter emitter;
         emitter << node;
         const std::string yaml_str = emitter.c_str();
+
         std::ofstream file_out(filename);
         if (!file_out.is_open())
         {
             throw std::runtime_error("Could not open file " + filename);
         }
+
         file_out << yaml_str;
         file_out.close();
-        if (!file_out)
+
+        if (file_out.fail())
         {
             throw std::runtime_error("Could not write to file " + filename);
         }
     }
 
     template <typename T>
-    auto YamlObjectSerializer<T>::deserialize(const std::string& filename) -> T
+    [[nodiscard]] inline auto YamlObjectSerializer<T>::deserialize(const std::string& filename) -> T
     {
-        if (filename.empty() || !std::filesystem::exists(filename))
+        if (filename.empty())
         {
-            throw std::runtime_error("Could not open file " + filename);
+            throw std::runtime_error("filename is empty");
         }
+
+        if (!std::filesystem::exists(filename))
+        {
+            throw std::runtime_error("File does not exist: " + filename);
+        }
+
         const YAML::Node node = YAML::LoadFile(filename);
-        T obj;
+        T obj{};
+
         if (!YAML::convert<T>::decode(node, obj))
         {
             throw std::runtime_error("Failed to decode YAML file " + filename);
         }
+
         return obj;
     }
 }
