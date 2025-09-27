@@ -90,13 +90,18 @@ namespace fox
         // Find the segment that contains x
         const size_t index = findLowerBound(dataPoints, x);
 
-        // For cubic interpolation, we need two points on each side
-        // So we can interpolate between points at index and index+1
-        // as long as we have points at index-1 and index+2
+        // In the cubic method implementation, replace this:
         if (index == 0 || index >= dataPoints.size() - 2)
         {
             throw std::out_of_range("Insufficient points for cubic interpolation at the given x value.");
         }
+
+        // With this more accurate check:
+        if (index >= dataPoints.size() - 2)
+        {
+            throw std::out_of_range("Insufficient points for cubic interpolation at the given x value.");
+        }
+
 
         // Use four points for cubic interpolation
         const double x0 = dataPoints[index - 1].first;
