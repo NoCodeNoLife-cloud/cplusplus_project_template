@@ -5,8 +5,8 @@
 #include "GLogConfigurator.hpp"
 #include "GrpcOptions.hpp"
 #include "rpc/RpcClient.hpp"
-#include "utils/system/SystemInfo.hpp"
-#include "utils/time/FunctionProfiler.hpp"
+#include "system/SystemInfo.hpp"
+#include "time/FunctionProfiler.hpp"
 
 namespace app_client
 {

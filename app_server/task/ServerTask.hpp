@@ -9,7 +9,7 @@
 #include "GrpcOptions.hpp"
 #include "filesystem/serialize/YamlObjectSerializer.hpp"
 #include "rpc/RpcServiceImpl.hpp"
-#include "utils/time/FunctionProfiler.hpp"
+#include "time/FunctionProfiler.hpp"
 
 namespace app_server
 {
