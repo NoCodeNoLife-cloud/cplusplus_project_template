@@ -1,31 +1,74 @@
 #pragma once
+#include <type_traits>
+#include <mutex>
+#include <stdexcept>
 
 namespace fox
 {
-    /// @brief A wrapper class for creating thread-safe singleton instances
-    /// This template class provides a thread-safe way to create and access
-    /// singleton instances of any type T. The instance is created on first
-    /// access and automatically destroyed at program termination.
+    /// @brief A wrapper class for static object initialization and management.
+    /// Ensures thread-safe initialization of static objects with lazy initialization support.
+    /// @tparam T The type of object to wrap
     template <typename T>
     class StaticObjectWrapper
     {
     public:
-        /// @brief Get the unique instance of type T
-        /// Returns a reference to the singleton instance of type T.
-        /// The instance is created on first call in a thread-safe manner.
-        /// @return Reference to the singleton instance
-        static auto get_instance() -> T&
+        StaticObjectWrapper() = delete;
+        StaticObjectWrapper(const StaticObjectWrapper&) = delete;
+        StaticObjectWrapper& operator=(const StaticObjectWrapper&) = delete;
+
+        /// @brief Initialize the static object with provided arguments
+        /// @tparam Args Types of arguments to forward to T's constructor
+        /// @param args Arguments to forward to T's constructor
+        template <typename... Args>
+        static void init(Args&&... args) noexcept
         {
-            static T instance{};
-            return instance;
+            std::call_once(init_flag_, construct<Args...>, std::forward<Args>(args)...);
+        }
+
+        /// @brief Get a mutable reference to the static object
+        /// @return Reference to the static object
+        /// @throws std::runtime_error if object was not initialized and is not default constructible
+        static auto get() -> T&
+        {
+            if constexpr (std::is_default_constructible_v<T>)
+            {
+                std::call_once(init_flag_, []
+                {
+                    instance_ = new T();
+                });
+            }
+
+            if (!instance_)
+            {
+                throw std::runtime_error(
+                    "StaticObjectWrapper: Object not initialized. "
+                    "Call init() with required parameters before first use."
+                );
+            }
+            return *instance_;
+        }
+
+        /// @brief Destroy the static object if it exists
+        static void destroy() noexcept
+        {
+            if (instance_)
+            {
+                delete instance_;
+                instance_ = nullptr;
+            }
         }
 
     private:
-        StaticObjectWrapper() = default;
-        ~StaticObjectWrapper() = default;
-        StaticObjectWrapper(const StaticObjectWrapper&) = delete;
-        StaticObjectWrapper(StaticObjectWrapper&&) = delete;
-        auto operator=(const StaticObjectWrapper&) -> StaticObjectWrapper& = delete;
-        auto operator=(StaticObjectWrapper&&) -> StaticObjectWrapper& = delete;
+        static inline T* instance_ = nullptr;
+        static inline std::once_flag init_flag_;
+
+        /// @brief Construct the object with provided arguments
+        /// @tparam Args Types of arguments to forward to T's constructor
+        /// @param args Arguments to forward to T's constructor
+        template <typename... Args>
+        static void construct(Args&&... args)
+        {
+            instance_ = new T(std::forward<Args>(args)...);
+        }
     };
 }
