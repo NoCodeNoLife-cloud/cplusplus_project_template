@@ -1,61 +1,15 @@
-#pragma once
-#include <glog/logging.h>
-#include <grpcpp/server_builder.h>
+#include "include/task/ServerTask.hpp"
 
-#include <string>
-#include <utility>
-
+#include "include/rpc/RpcServiceImpl.hpp"
 #include "src/GLogConfigurator.hpp"
-#include "GrpcOptions.hpp"
-#include "src/serializer/YamlObjectSerializer.hpp"
-#include "rpc/RpcServiceImpl.hpp"
-#include "src/time/FunctionProfiler.hpp"
 
 namespace app_server
 {
-    /// @brief ServerTask is responsible for managing the main service loop
-    /// @details This class coordinates various subsystems within the application server,
-    /// initializes the gRPC server, loads configurations, and manages the server lifecycle.
-    class ServerTask
-    {
-    public:
-        /// @brief Construct a ServerTask with the specified name
-        /// @param name The name of the server task for profiling purposes
-        explicit ServerTask(std::string name);
-
-        /// @brief Initialize the service task and its associated resources
-        /// @details Sets up logging, loads configuration, and validates gRPC parameters
-        auto init() -> void;
-
-        /// @brief Run the main task
-        /// @details Initializes the server, establishes gRPC connection, and starts listening
-        auto run() -> void;
-
-        /// @brief Establish a gRPC connection to the specified service
-        /// @details Configures and starts the gRPC server with specified options
-        auto establishGrpcConnection() -> void;
-
-        /// @brief Exit the service task and clean up resources
-        /// @details Shuts down the gRPC server and performs cleanup operations
-        auto exit() const -> void;
-
-    private:
-        const std::string application_dev_config_path_ = "../../server/src/application-dev.yml";
-        GrpcOptions grpc_options_;
-        fox::FunctionProfiler timer_;
-        std::unique_ptr<grpc::Server> server_;
-
-        /// @brief Validate gRPC parameters for correctness
-        /// @details This function checks that the gRPC parameters are within reasonable ranges
-        /// and logs warnings for potentially problematic configurations
-        auto validateGrpcParameters() const -> void;
-    };
-
-    inline ServerTask::ServerTask(std::string name) : timer_(std::move(name))
+    ServerTask::ServerTask(std::string name) : timer_(std::move(name))
     {
     }
 
-    inline auto ServerTask::init() -> void
+    auto ServerTask::init() -> void
     {
         service::GLogConfigurator log_configurator{application_dev_config_path_};
         log_configurator.execute();
@@ -79,7 +33,7 @@ namespace app_server
         timer_.recordStart();
     }
 
-    inline auto ServerTask::run() -> void
+    auto ServerTask::run() -> void
     {
         try
         {
@@ -98,7 +52,7 @@ namespace app_server
         LOG(INFO) << "ServerTask completed.";
     }
 
-    inline auto ServerTask::establishGrpcConnection() -> void
+    auto ServerTask::establishGrpcConnection() -> void
     {
         LOG(INFO) << "Establishing gRPC connection...";
         try
@@ -153,7 +107,7 @@ namespace app_server
         LOG(INFO) << "gRPC connection established.";
     }
 
-    inline auto ServerTask::exit() const -> void
+    auto ServerTask::exit() const -> void
     {
         LOG(INFO) << "Shutting down service task...";
         if (server_)
@@ -164,7 +118,7 @@ namespace app_server
         LOG(INFO) << "Service task shutdown complete.";
     }
 
-    inline auto ServerTask::validateGrpcParameters() const -> void
+    auto ServerTask::validateGrpcParameters() const -> void
     {
         // Validate max connection idle time
         if (grpc_options_.maxConnectionIdleMs() <= 0)
@@ -244,4 +198,4 @@ namespace app_server
                 << "ms). This may lead to unexpected connection behavior.";
         }
     }
-} // namespace server
+} // namespace app_server

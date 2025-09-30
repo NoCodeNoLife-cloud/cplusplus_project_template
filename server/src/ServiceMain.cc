@@ -1,6 +1,6 @@
 #include <glog/logging.h>
 
-#include "task/ServerTask.hpp"
+#include "../include/task/ServerTask.hpp"
 
 auto main(const int32_t, char*[]) -> int32_t
 {

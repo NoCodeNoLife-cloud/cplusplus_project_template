@@ -26,6 +26,8 @@
 #include "google/protobuf/generated_message_reflection.h"
 #include "google/protobuf/message.h"
 #include "google/protobuf/message_lite.h"
+#include "google/protobuf/repeated_field.h"  // IWYU pragma: export
+#include "google/protobuf/extension_set.h"  // IWYU pragma: export
 #include "google/protobuf/unknown_field_set.h"
 // @@protoc_insertion_point(includes)
 
@@ -585,5 +587,7 @@ inline void MessageResponse::set_allocated_status(std::string* value) {
 
 
 // @@protoc_insertion_point(global_scope)
+
+#include "google/protobuf/port_undef.inc"
 
 #endif  // RpcService_2eproto_2epb_2eh
