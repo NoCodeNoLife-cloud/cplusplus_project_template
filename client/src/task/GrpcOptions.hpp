@@ -82,6 +82,7 @@ namespace app_client
         return keepalive_permit_without_calls_;
     }
 
+    // ReSharper disable once CppDFAConstantFunctionResult
     inline auto GrpcOptions::serverAddress() const -> const std::string&
     {
         return server_address_;

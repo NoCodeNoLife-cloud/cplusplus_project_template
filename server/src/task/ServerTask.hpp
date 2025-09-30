@@ -58,9 +58,9 @@ namespace app_server
 
     inline auto ServerTask::init() -> void
     {
-        LOG(INFO) << "Initializing ServerTask with config path: " << config_path_;
         service::GLogConfigurator log_configurator{config_path_};
         log_configurator.execute();
+        LOG(INFO) << "Initializing ServerTask with config path: " << config_path_;
         LOG(INFO) << "GLog configuration initialized successfully";
 
         LOG(INFO) << "Loading gRPC configuration from: " << grpc_config_path_;

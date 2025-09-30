@@ -63,9 +63,9 @@ namespace app_client
 
     inline auto ClientTask::init() -> void
     {
-        LOG(INFO) << "Initializing GLog configuration from: " << config_path_;
         service::GLogConfigurator log_configurator{config_path_};
         log_configurator.execute();
+        LOG(INFO) << "Initializing GLog configuration from: " << config_path_;
         LOG(INFO) << "GLog configuration initialized successfully";
 
         LOG(INFO) << "Loading RPC configuration from: " << rpc_config_path_;
@@ -84,7 +84,6 @@ namespace app_client
     {
         try
         {
-            LOG(INFO) << "Starting client task execution";
             init();
 
             LOG(INFO) << "Creating gRPC channel";
