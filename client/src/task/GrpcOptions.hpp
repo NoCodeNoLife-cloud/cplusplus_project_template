@@ -1,5 +1,10 @@
 #pragma once
 #include <yaml-cpp/node/node.h>
+#include <filesystem>
+#include <string>
+#include <stdexcept>
+
+#include "src/serializer/interface/IYamlConfigurable.hpp"
 
 namespace app_client
 {
@@ -7,40 +12,45 @@ namespace app_client
     /// @details This class encapsulates all the gRPC configuration parameters
     /// that can be used to customize the behavior of gRPC channels and connections.
     /// The configuration parameters can be loaded from a YAML configuration file.
-    class GrpcOptions
+    class GrpcOptions final : public fox::IYamlConfigurable
     {
     public:
         /// @brief Get the keepalive time interval in milliseconds
         /// @return The keepalive time interval in milliseconds
-        [[nodiscard]] auto keepaliveTimeMs() const -> int32_t;
-
-        /// @brief Get the keepalive timeout in milliseconds
-        /// @return The keepalive timeout in milliseconds
-        [[nodiscard]] auto keepaliveTimeoutMs() const -> int32_t;
-
-        /// @brief Check if keepalive pings are permitted without active calls
-        /// @return 1 if permitted, 0 if not permitted
-        [[nodiscard]] auto keepalivePermitWithoutCalls() const -> int32_t;
-
-        /// @brief Get the server address
-        /// @return The server address as a string
-        [[nodiscard]] auto serverAddress() const -> const std::string&;
+        [[nodiscard]] inline auto keepaliveTimeMs() const -> int32_t;
 
         /// @brief Set the keepalive time interval in milliseconds
         /// @param value The keepalive time interval in milliseconds
-        auto keepaliveTimeMs(int32_t value) -> void;
+        inline auto keepaliveTimeMs(int32_t value) -> void;
+
+        /// @brief Get the keepalive timeout in milliseconds
+        /// @return The keepalive timeout in milliseconds
+        [[nodiscard]] inline auto keepaliveTimeoutMs() const -> int32_t;
 
         /// @brief Set the keepalive timeout in milliseconds
         /// @param value The keepalive timeout in milliseconds
-        auto keepaliveTimeoutMs(int32_t value) -> void;
+        inline auto keepaliveTimeoutMs(int32_t value) -> void;
+
+        /// @brief Check if keepalive pings are permitted without active calls
+        /// @return 1 if permitted, 0 if not permitted
+        [[nodiscard]] inline auto keepalivePermitWithoutCalls() const -> int32_t;
 
         /// @brief Set whether to permit keepalive pings without active calls
         /// @param value 1 to permit, 0 to not permit
-        auto keepalivePermitWithoutCalls(int32_t value) -> void;
+        inline auto keepalivePermitWithoutCalls(int32_t value) -> void;
+
+        /// @brief Get the server address
+        /// @return The server address as a string
+        [[nodiscard]] inline auto serverAddress() const -> const std::string&;
 
         /// @brief Set the server address
         /// @param value The server address as a string
-        auto serverAddress(const std::string& value) -> void;
+        inline auto serverAddress(const std::string& value) -> void;
+
+        /// @brief Deserialize gRPC options from a YAML file
+        /// @param path Path to the YAML file containing the configuration
+        /// @throws std::runtime_error If file cannot be opened or decoded
+        inline auto deserializedFromYamlFile(const std::filesystem::path& path) -> void override;
 
     private:
         /// @brief Time interval between keepalive pings (in milliseconds)
@@ -72,9 +82,19 @@ namespace app_client
         return keepalive_time_ms_;
     }
 
+    inline auto GrpcOptions::keepaliveTimeMs(int32_t value) -> void
+    {
+        keepalive_time_ms_ = value;
+    }
+
     inline auto GrpcOptions::keepaliveTimeoutMs() const -> int32_t
     {
         return keepalive_timeout_ms_;
+    }
+
+    inline auto GrpcOptions::keepaliveTimeoutMs(int32_t value) -> void
+    {
+        keepalive_timeout_ms_ = value;
     }
 
     inline auto GrpcOptions::keepalivePermitWithoutCalls() const -> int32_t
@@ -82,32 +102,81 @@ namespace app_client
         return keepalive_permit_without_calls_;
     }
 
-    // ReSharper disable once CppDFAConstantFunctionResult
+    inline auto GrpcOptions::keepalivePermitWithoutCalls(int32_t value) -> void
+    {
+        keepalive_permit_without_calls_ = value;
+    }
+
     inline auto GrpcOptions::serverAddress() const -> const std::string&
     {
         return server_address_;
-    }
-
-    inline auto GrpcOptions::keepaliveTimeMs(const int32_t value) -> void
-    {
-        keepalive_time_ms_ = value;
-    }
-
-    inline auto GrpcOptions::keepaliveTimeoutMs(const int32_t value) -> void
-    {
-        keepalive_timeout_ms_ = value;
-    }
-
-    inline auto GrpcOptions::keepalivePermitWithoutCalls(const int32_t value) -> void
-    {
-        keepalive_permit_without_calls_ = value;
     }
 
     inline auto GrpcOptions::serverAddress(const std::string& value) -> void
     {
         server_address_ = value;
     }
-} // namespace client
+
+    inline auto GrpcOptions::deserializedFromYamlFile(const std::filesystem::path& path) -> void
+    {
+        if (!std::filesystem::exists(path))
+        {
+            throw std::runtime_error("Configuration file does not exist: " + path.string());
+        }
+
+        try
+        {
+            if (const YAML::Node node = YAML::LoadFile(path.string()); node["grpc"])
+            {
+                const YAML::Node& grpc_node = node["grpc"];
+                if (grpc_node["keepaliveTimeMs"])
+                {
+                    keepalive_time_ms_ = grpc_node["keepaliveTimeMs"].as<int32_t>();
+                }
+                if (grpc_node["keepaliveTimeoutMs"])
+                {
+                    keepalive_timeout_ms_ = grpc_node["keepaliveTimeoutMs"].as<int32_t>();
+                }
+                if (grpc_node["keepalivePermitWithoutCalls"])
+                {
+                    keepalive_permit_without_calls_ = grpc_node["keepalivePermitWithoutCalls"].as<int32_t>();
+                }
+                if (grpc_node["serverAddress"])
+                {
+                    server_address_ = grpc_node["serverAddress"].as<std::string>();
+                }
+            }
+            else
+            {
+                // If there's no "grpc" section, try to parse the fields directly from root
+                if (node["keepaliveTimeMs"])
+                {
+                    keepalive_time_ms_ = node["keepaliveTimeMs"].as<int32_t>();
+                }
+                if (node["keepaliveTimeoutMs"])
+                {
+                    keepalive_timeout_ms_ = node["keepaliveTimeoutMs"].as<int32_t>();
+                }
+                if (node["keepalivePermitWithoutCalls"])
+                {
+                    keepalive_permit_without_calls_ = node["keepalivePermitWithoutCalls"].as<int32_t>();
+                }
+                if (node["serverAddress"])
+                {
+                    server_address_ = node["serverAddress"].as<std::string>();
+                }
+            }
+        }
+        catch (const YAML::Exception& e)
+        {
+            throw std::runtime_error("Failed to parse YAML file '" + path.string() + "': " + e.what());
+        }
+        catch (const std::exception& e)
+        {
+            throw std::runtime_error("Error processing configuration file '" + path.string() + "': " + e.what());
+        }
+    }
+}
 
 /// @brief YAML serialization specialization for GrpcOptions.
 /// Provides methods to encode and decode GrpcOptions to/from YAML nodes.

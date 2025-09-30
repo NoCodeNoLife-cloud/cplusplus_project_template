@@ -7,7 +7,7 @@
 #include <utility>
 
 #include "GLogParameters.hpp"
-#include "src/filesystem/serialize/YamlObjectSerializer.hpp"
+#include "src/serializer/YamlObjectSerializer.hpp"
 #include "src/service/interface/IConfigurable.hpp"
 #include "src/service/interface/IStartupTask.hpp"
 
@@ -52,8 +52,9 @@ namespace service
         static auto clean() noexcept -> void;
     };
 
-    inline GLogConfigurator::GLogConfigurator(std::string GLogYAMLPath) : GLogYAMLPath_(std::move(GLogYAMLPath)), config_(fox::YamlObjectSerializer<GLogParameters>::deserialize(GLogYAMLPath_))
+    inline GLogConfigurator::GLogConfigurator(std::string GLogYAMLPath) : GLogYAMLPath_(std::move(GLogYAMLPath))
     {
+        config_.deserializedFromYamlFile(GLogYAMLPath_);
     }
 
     inline auto GLogConfigurator::execute() -> bool

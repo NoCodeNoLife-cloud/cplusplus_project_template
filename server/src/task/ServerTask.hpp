@@ -7,7 +7,7 @@
 
 #include "src/GLogConfigurator.hpp"
 #include "GrpcOptions.hpp"
-#include "src/filesystem/serialize/YamlObjectSerializer.hpp"
+#include "src/serializer/YamlObjectSerializer.hpp"
 #include "rpc/RpcServiceImpl.hpp"
 #include "src/time/FunctionProfiler.hpp"
 
@@ -40,8 +40,7 @@ namespace app_server
         auto exit() const -> void;
 
     private:
-        const std::string config_path_ = "../../server/src/config/glog.yaml";
-        const std::string grpc_config_path_ = "../../server/src/config/grpc.yaml";
+        const std::string application_dev_config_path_ = "../../server/src/application-dev.yml";
         GrpcOptions grpc_options_;
         fox::FunctionProfiler timer_;
         std::unique_ptr<grpc::Server> server_;
@@ -58,13 +57,13 @@ namespace app_server
 
     inline auto ServerTask::init() -> void
     {
-        service::GLogConfigurator log_configurator{config_path_};
+        service::GLogConfigurator log_configurator{application_dev_config_path_};
         log_configurator.execute();
-        LOG(INFO) << "Initializing ServerTask with config path: " << config_path_;
+        LOG(INFO) << "Initializing ServerTask with config path: " << application_dev_config_path_;
         LOG(INFO) << "GLog configuration initialized successfully";
 
-        LOG(INFO) << "Loading gRPC configuration from: " << grpc_config_path_;
-        grpc_options_ = fox::YamlObjectSerializer<GrpcOptions>::deserialize(grpc_config_path_);
+        LOG(INFO) << "Loading gRPC configuration from: " << application_dev_config_path_;
+        grpc_options_.deserializedFromYamlFile(application_dev_config_path_);
 
         // Validate gRPC parameters after loading them
         validateGrpcParameters();
@@ -157,7 +156,8 @@ namespace app_server
     inline auto ServerTask::exit() const -> void
     {
         LOG(INFO) << "Shutting down service task...";
-        if (server_) {
+        if (server_)
+        {
             server_->Shutdown();
             LOG(INFO) << "gRPC server shutdown complete.";
         }

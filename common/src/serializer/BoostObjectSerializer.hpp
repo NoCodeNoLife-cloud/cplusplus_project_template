@@ -8,7 +8,7 @@
 #include <sstream>
 #include <exception>
 
-#include "filesystem/io/interface/IBoostSerializable.hpp"
+#include "src/filesystem/io/interface/IBoostSerializable.hpp"
 
 namespace fox
 {

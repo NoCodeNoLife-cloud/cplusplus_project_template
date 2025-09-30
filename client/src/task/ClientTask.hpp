@@ -5,6 +5,7 @@
 #include "src/GLogConfigurator.hpp"
 #include "GrpcOptions.hpp"
 #include "src/rpc/RpcClient.hpp"
+#include "src/serializer/YamlObjectSerializer.hpp"
 #include "src/system/SystemInfo.hpp"
 #include "src/time/FunctionProfiler.hpp"
 
@@ -45,8 +46,7 @@ namespace app_client
         [[nodiscard]] auto createChannel() const -> std::shared_ptr<grpc::Channel>;
 
     private:
-        const std::string config_path_ = "../../client/src/config/glog.yaml";
-        const std::string rpc_config_path_ = "../../client/src/config/grpc.yaml";
+        const std::string application_dev_config_path_ = "../../client/src/application-dev.yml";
         GrpcOptions rpc_options_;
         fox::FunctionProfiler timer_;
 
@@ -63,13 +63,13 @@ namespace app_client
 
     inline auto ClientTask::init() -> void
     {
-        service::GLogConfigurator log_configurator{config_path_};
+        service::GLogConfigurator log_configurator{application_dev_config_path_};
         log_configurator.execute();
-        LOG(INFO) << "Initializing GLog configuration from: " << config_path_;
+        LOG(INFO) << "Initializing GLog configuration from: " << application_dev_config_path_;
         LOG(INFO) << "GLog configuration initialized successfully";
 
-        LOG(INFO) << "Loading RPC configuration from: " << rpc_config_path_;
-        rpc_options_ = fox::YamlObjectSerializer<GrpcOptions>::deserialize(rpc_config_path_);
+        LOG(INFO) << "Loading RPC configuration from: " << application_dev_config_path_;
+        rpc_options_.deserializedFromYamlFile(application_dev_config_path_);
         LOG(INFO) << "RPC configuration loaded successfully";
         LOG(INFO) << "RPC Options - Keepalive Time: " << rpc_options_.keepaliveTimeMs()
             << "ms, Timeout: " << rpc_options_.keepaliveTimeoutMs()
