@@ -7,9 +7,9 @@
 #include <utility>
 
 #include "GLogParameters.hpp"
-#include "filesystem/serialize/YamlObjectSerializer.hpp"
-#include "service/interface/IConfigurable.hpp"
-#include "service/interface/IStartupTask.hpp"
+#include "src/filesystem/serialize/YamlObjectSerializer.hpp"
+#include "src/service/interface/IConfigurable.hpp"
+#include "src/service/interface/IStartupTask.hpp"
 
 namespace service
 {
