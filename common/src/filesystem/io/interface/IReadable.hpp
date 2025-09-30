@@ -1,7 +1,5 @@
 #pragma once
 
-#include <cstdint>
-
 namespace fox
 {
     /// @brief Interface for readable objects.

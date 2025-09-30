@@ -8,10 +8,8 @@
 
 #include <functional>
 #include <grpcpp/generic/async_generic_service.h>
-#include <grpcpp/support/async_stream.h>
 #include <grpcpp/support/async_unary_call.h>
 #include <grpcpp/support/client_callback.h>
-#include <grpcpp/client_context.h>
 #include <grpcpp/completion_queue.h>
 #include <grpcpp/support/message_allocator.h>
 #include <grpcpp/support/method_handler.h>
@@ -24,7 +22,6 @@
 #include <grpcpp/support/status.h>
 #include <grpcpp/support/stub_options.h>
 #include <grpcpp/support/sync_stream.h>
-#include <grpcpp/ports_def.inc>
 
 namespace rpc {
 

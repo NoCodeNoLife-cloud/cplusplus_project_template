@@ -5,7 +5,6 @@
 #include "src/GLogConfigurator.hpp"
 #include "GrpcOptions.hpp"
 #include "src/rpc/RpcClient.hpp"
-#include "src/serializer/YamlObjectSerializer.hpp"
 #include "src/system/SystemInfo.hpp"
 #include "src/time/FunctionProfiler.hpp"
 

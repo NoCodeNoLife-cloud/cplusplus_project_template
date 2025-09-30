@@ -4,7 +4,6 @@
 #include <string>
 #include <fstream>
 #include <filesystem>
-#include <iostream>
 
 namespace fox
 {
@@ -83,6 +82,12 @@ namespace fox
         /// @param str The string containing YAML data.
         /// @return YAML node parsed from the string.
         [[nodiscard]] static auto fromString(const std::string& str) -> YAML::Node;
+
+        /// @brief Get a node from a YAML node by path, with fallback to root if path doesn't exist
+        /// @param root The root YAML node
+        /// @param path The path to try (e.g., "grpc")
+        /// @return The node at path if it exists, otherwise the root node
+        [[nodiscard]] static auto getNodeOrRoot(const YAML::Node& root, const std::string& path) -> YAML::Node;
     };
 
     inline auto YamlToolkit::create(const std::string& filepath, const YAML::Node& data) -> bool
@@ -166,11 +171,11 @@ namespace fox
             {
                 return root[key];
             }
-            return YAML::Node();
+            return {};
         }
         catch (const std::exception&)
         {
-            return YAML::Node();
+            return {};
         }
     }
 
@@ -200,7 +205,7 @@ namespace fox
             const YAML::Node root = read(filepath);
             if (!root.IsMap())
             {
-                return YAML::Node();
+                return {};
             }
 
             YAML::Node current = root;
@@ -209,15 +214,14 @@ namespace fox
 
             while ((pos = path.find('.', prev)) != std::string::npos)
             {
-                const std::string key = path.substr(prev, pos - prev);
-                if (current[key])
+                if (const std::string key = path.substr(prev, pos - prev); current[key])
                 {
                     current = current[key];
                     prev = pos + 1;
                 }
                 else
                 {
-                    return YAML::Node();
+                    return {};
                 }
             }
 
@@ -227,7 +231,7 @@ namespace fox
         }
         catch (const std::exception&)
         {
-            return YAML::Node();
+            return {};
         }
     }
 
@@ -323,11 +327,11 @@ namespace fox
         {
             YAML::Emitter emitter;
             emitter << node;
-            return std::string(emitter.c_str());
+            return {emitter.c_str()};
         }
         catch (const std::exception&)
         {
-            return std::string();
+            return {};
         }
     }
 
@@ -339,7 +343,22 @@ namespace fox
         }
         catch (const std::exception&)
         {
-            return YAML::Node();
+            return {};
+        }
+    }
+
+    inline auto YamlToolkit::getNodeOrRoot(const YAML::Node& root, const std::string& path) -> YAML::Node
+    {
+        try
+        {
+            if (root[path] && root[path].IsDefined()) {
+                return root[path];
+            }
+            return root;
+        }
+        catch (const std::exception&)
+        {
+            return root;
         }
     }
 }

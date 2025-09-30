@@ -5,6 +5,7 @@
 #include <stdexcept>
 
 #include "src/serializer/interface/IYamlConfigurable.hpp"
+#include "src/filesystem/type/YamlToolkit.hpp"
 
 namespace app_client
 {
@@ -107,6 +108,7 @@ namespace app_client
         keepalive_permit_without_calls_ = value;
     }
 
+    // ReSharper disable once CppDFAConstantFunctionResult
     inline auto GrpcOptions::serverAddress() const -> const std::string&
     {
         return server_address_;
@@ -126,45 +128,24 @@ namespace app_client
 
         try
         {
-            if (const YAML::Node node = YAML::LoadFile(path.string()); node["grpc"])
+            const YAML::Node root = fox::YamlToolkit::read(path.string());
+            const YAML::Node grpcNode = fox::YamlToolkit::getNodeOrRoot(root, "grpc");
+
+            if (grpcNode["keepaliveTimeMs"])
             {
-                const YAML::Node& grpc_node = node["grpc"];
-                if (grpc_node["keepaliveTimeMs"])
-                {
-                    keepalive_time_ms_ = grpc_node["keepaliveTimeMs"].as<int32_t>();
-                }
-                if (grpc_node["keepaliveTimeoutMs"])
-                {
-                    keepalive_timeout_ms_ = grpc_node["keepaliveTimeoutMs"].as<int32_t>();
-                }
-                if (grpc_node["keepalivePermitWithoutCalls"])
-                {
-                    keepalive_permit_without_calls_ = grpc_node["keepalivePermitWithoutCalls"].as<int32_t>();
-                }
-                if (grpc_node["serverAddress"])
-                {
-                    server_address_ = grpc_node["serverAddress"].as<std::string>();
-                }
+                keepalive_time_ms_ = grpcNode["keepaliveTimeMs"].as<int32_t>();
             }
-            else
+            if (grpcNode["keepaliveTimeoutMs"])
             {
-                // If there's no "grpc" section, try to parse the fields directly from root
-                if (node["keepaliveTimeMs"])
-                {
-                    keepalive_time_ms_ = node["keepaliveTimeMs"].as<int32_t>();
-                }
-                if (node["keepaliveTimeoutMs"])
-                {
-                    keepalive_timeout_ms_ = node["keepaliveTimeoutMs"].as<int32_t>();
-                }
-                if (node["keepalivePermitWithoutCalls"])
-                {
-                    keepalive_permit_without_calls_ = node["keepalivePermitWithoutCalls"].as<int32_t>();
-                }
-                if (node["serverAddress"])
-                {
-                    server_address_ = node["serverAddress"].as<std::string>();
-                }
+                keepalive_timeout_ms_ = grpcNode["keepaliveTimeoutMs"].as<int32_t>();
+            }
+            if (grpcNode["keepalivePermitWithoutCalls"])
+            {
+                keepalive_permit_without_calls_ = grpcNode["keepalivePermitWithoutCalls"].as<int32_t>();
+            }
+            if (grpcNode["serverAddress"])
+            {
+                server_address_ = grpcNode["serverAddress"].as<std::string>();
             }
         }
         catch (const YAML::Exception& e)
