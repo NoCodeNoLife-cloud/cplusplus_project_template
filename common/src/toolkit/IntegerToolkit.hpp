@@ -6,7 +6,7 @@ namespace fox
 {
     /// @brief A utility class for integer operations
     /// @details Provides various integer conversion and manipulation functions
-    class Integer
+    class IntegerToolkit
     {
         static const inline std::pair<int32_t, std::string> valueSymbols[] = {
             {1000, "M"}, {900, "CM"}, {500, "D"}, {400, "CD"}, {100, "C"}, {90, "XC"}, {50, "L"},
