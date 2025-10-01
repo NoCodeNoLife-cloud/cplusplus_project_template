@@ -1,48 +1,46 @@
 #pragma once
 #include <string>
 
-#include "GLogParameters.hpp"
-#include "src/service/interface/IConfigurable.hpp"
-#include "src/service/interface/IStartupTask.hpp"
+#include "src/GLogParameters.hpp"
 
-namespace service
+namespace glog
 {
-    /// @brief Configurator class for Google Logging (log) library.
-    /// This class handles the configuration and initialization of the log logging system
-    /// by reading parameters from a YAML configuration file and setting up the appropriate
-    /// logging options.
-    class GLogConfigurator final : public IConfigurable, public IStartupTask
+    /// @brief Configures Google Logging (glog) library with specified parameters
+    /// @details This class handles the initialization and configuration of the glog library
+    /// based on the provided configuration parameters
+    class GLogConfigurator final
     {
     public:
-        /// @brief Constructor with YAML configuration file path.
-        /// @param GLogYAMLPath Path to the YAML configuration file.
-        explicit GLogConfigurator(std::string GLogYAMLPath);
+        /// @brief Constructor with YAML configuration file path
+        /// @param glog_yaml_path Path to the YAML configuration file
+        explicit GLogConfigurator(std::string glog_yaml_path);
 
-        /// @brief Execute the startup task.
-        /// @return True if the task was executed successfully, false otherwise.
-        auto execute() -> bool override;
+        /// @brief Execute the configuration process
+        /// @return True if configuration was successful
+        /// @throws std::runtime_error If configuration fails
+        [[nodiscard]] auto execute() const -> bool;
 
-        /// @brief Get the configuration parameters.
-        /// @return The configuration parameters.
+        /// @brief Get the current configuration parameters
+        /// @return A const reference to the GLogParameters object
         [[nodiscard]] auto getConfig() const noexcept -> const GLogParameters&;
 
-        /// @brief Update the configuration parameters.
-        /// @param config The new configuration parameters.
+        /// @brief Update the configuration parameters
+        /// @param config The new configuration parameters
         auto updateConfig(const GLogParameters& config) -> void;
 
     private:
-        std::string GLogYAMLPath_{};
-        GLogParameters config_{};
+        /// @brief Perform the actual glog configuration
+        /// @return True if configuration was successful
+        [[nodiscard]] auto doConfig() const -> bool;
 
-        /// @brief Perform the configuration.
-        /// @return True if the configuration was successful, false otherwise.
-        [[nodiscard]] auto doConfig() -> bool override;
-
-        /// @brief Configure logging to stdout based on the provided options.
-        /// @param glog_options The logging options to use for configuration.
+        /// @brief Configure logging to stdout based on options
+        /// @param glog_options The glog configuration parameters
         static auto configLogToStdout(const GLogParameters& glog_options) noexcept -> void;
 
-        /// @brief Clean up any resources used by the configurator.
+        /// @brief Clean up glog resources
         static auto clean() noexcept -> void;
+
+        std::string glog_yaml_path_;
+        GLogParameters config_;
     };
-} // namespace service
+}

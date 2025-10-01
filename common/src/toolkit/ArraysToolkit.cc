@@ -1,4 +1,4 @@
-#include "src/type/toolkit/ArraysToolkit.hpp"
+#include "src/toolkit/ArraysToolkit.hpp"
 
 #include <algorithm>
 #include <sstream>

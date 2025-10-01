@@ -16,8 +16,8 @@ namespace app_client
 
     auto ClientTask::init() -> void
     {
-        service::GLogConfigurator log_configurator{application_dev_config_path_};
-        log_configurator.execute();
+        glog::GLogConfigurator log_configurator{application_dev_config_path_};
+        (void)log_configurator.execute(); // Explicitly discard nodiscard result
         LOG(INFO) << "Initializing GLog configuration from: " << application_dev_config_path_;
         LOG(INFO) << "GLog configuration initialized successfully";
 
@@ -110,20 +110,16 @@ namespace app_client
         const auto channel =
             grpc::CreateCustomChannel(server_address, grpc::InsecureChannelCredentials(), channel_args);
 
-        // Check if channel is connected.
+        // Wait for channel to connect with a timeout
         const auto state = channel->GetState(true);
         LOG(INFO) << "Channel state after creation: " << state;
-        if (state == GRPC_CHANNEL_TRANSIENT_FAILURE)
-        {
-            LOG(ERROR) << "Failed to connect to gRPC server at " << server_address;
-        }
-        else if (state == GRPC_CHANNEL_READY)
-        {
+
+        // Give channel some time to connect
+        if (!channel->WaitForConnected(std::chrono::system_clock::now() + std::chrono::seconds(5))) {
+            LOG(ERROR) << "Failed to connect to gRPC server at " << server_address
+                       << " within timeout period";
+        } else {
             LOG(INFO) << "Successfully connected to gRPC server at " << server_address;
-        }
-        else
-        {
-            LOG(WARNING) << "Channel to gRPC server at " << server_address << " is in state: " << state;
         }
 
         return channel;

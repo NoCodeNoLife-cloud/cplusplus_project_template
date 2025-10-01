@@ -11,7 +11,7 @@ namespace app_server
 
     auto ServerTask::init() -> void
     {
-        service::GLogConfigurator log_configurator{application_dev_config_path_};
+        glog::GLogConfigurator log_configurator{application_dev_config_path_};
         log_configurator.execute();
         LOG(INFO) << "Initializing ServerTask with config path: " << application_dev_config_path_;
         LOG(INFO) << "GLog configuration initialized successfully";

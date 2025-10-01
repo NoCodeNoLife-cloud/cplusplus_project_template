@@ -1,4 +1,4 @@
-#include "src/type/toolkit/ClassToolkit.hpp"
+#include "src/toolkit/ClassToolkit.hpp"
 
 #include <boost/type_index.hpp>
 #include <string>

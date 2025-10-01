@@ -1,4 +1,4 @@
-#include "src/type/toolkit/EnumToolkit.hpp"
+#include "src/toolkit/EnumToolkit.hpp"
 
 #include <magic_enum/magic_enum.hpp>
 #include <string>

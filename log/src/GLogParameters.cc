@@ -1,7 +1,7 @@
 #include "src/GLogParameters.hpp"
 #include <yaml-cpp/yaml.h>
 
-namespace service
+namespace glog
 {
     GLogParameters::GLogParameters(const int32_t min_log_level, std::string log_name, const bool log_to_stderr)
         : min_log_level_(min_log_level), log_name_(std::move(log_name)), log_to_stderr_(log_to_stderr)
@@ -38,6 +38,16 @@ namespace service
         log_to_stderr_ = log_to_stderr;
     }
 
+    auto GLogParameters::customLogFormat() const noexcept -> bool
+    {
+        return custom_log_format_;
+    }
+
+    auto GLogParameters::customLogFormat(const bool custom_log_format) noexcept -> void
+    {
+        custom_log_format_ = custom_log_format;
+    }
+
     auto GLogParameters::deserializedFromYamlFile(const std::filesystem::path& path) -> void
     {
         if (!std::filesystem::exists(path))
@@ -62,6 +72,10 @@ namespace service
                 {
                     log_to_stderr_ = glog_node["logToStderr"].as<bool>();
                 }
+                if (glog_node["customLogFormat"])
+                {
+                    custom_log_format_ = glog_node["customLogFormat"].as<bool>();
+                }
             }
             else
             {
@@ -77,6 +91,10 @@ namespace service
                 if (node["logToStderr"])
                 {
                     log_to_stderr_ = node["logToStderr"].as<bool>();
+                }
+                if (node["customLogFormat"])
+                {
+                    custom_log_format_ = node["customLogFormat"].as<bool>();
                 }
             }
         }
@@ -94,7 +112,8 @@ namespace service
     {
         return min_log_level_ == other.min_log_level_ &&
             log_name_ == other.log_name_ &&
-            log_to_stderr_ == other.log_to_stderr_;
+            log_to_stderr_ == other.log_to_stderr_ &&
+            custom_log_format_ == other.custom_log_format_;
     }
 
     auto GLogParameters::operator!=(const GLogParameters& other) const noexcept -> bool
@@ -103,7 +122,7 @@ namespace service
     }
 }
 
-auto YAML::convert<service::GLogParameters>::decode(const Node& node, service::GLogParameters& rhs) -> bool
+auto YAML::convert<glog::GLogParameters>::decode(const Node& node, glog::GLogParameters& rhs) -> bool
 {
     if (!node.IsMap())
     {
@@ -125,11 +144,12 @@ auto YAML::convert<service::GLogParameters>::decode(const Node& node, service::G
     return true;
 }
 
-auto YAML::convert<service::GLogParameters>::encode(const service::GLogParameters& rhs) -> Node
+auto YAML::convert<glog::GLogParameters>::encode(const glog::GLogParameters& rhs) -> Node
 {
     Node node;
     node["minLogLevel"] = rhs.minLogLevel();
     node["logName"] = rhs.logName();
     node["logToStderr"] = rhs.logToStderr();
+    node["customLogFormat"] = rhs.customLogFormat();
     return node;
 }

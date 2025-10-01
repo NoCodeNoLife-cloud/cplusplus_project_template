@@ -1,4 +1,4 @@
-#include "src/type/toolkit/ObjectFactory.hpp"
+#include "src/toolkit/ObjectFactory.hpp"
 
 #include <memory>
 #include <stdexcept>

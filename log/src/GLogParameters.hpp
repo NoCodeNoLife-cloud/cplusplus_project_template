@@ -5,7 +5,7 @@
 
 #include "src/serializer/interface/IYamlConfigurable.hpp"
 
-namespace service
+namespace glog
 {
     /// @brief Configuration parameters for Google Logging (glog) library.
     /// @details This class encapsulates all the configuration options for the glog logging system.
@@ -46,6 +46,14 @@ namespace service
         /// @param log_to_stderr True to enable logging to stderr, false to disable.
         auto logToStderr(bool log_to_stderr) noexcept -> void;
 
+        /// @brief Check if custom log format is enabled.
+        /// @return True if custom log format is enabled, false otherwise.
+        [[nodiscard]] auto customLogFormat() const noexcept -> bool;
+
+        /// @brief Enable or disable custom log format.
+        /// @param custom_log_format True to enable custom log format, false to disable.
+        auto customLogFormat(bool custom_log_format) noexcept -> void;
+
         /// @brief Deserialize object configuration from a YAML file
         /// @param path The file path to the YAML configuration file
         /// @throws std::runtime_error If the file cannot be read or parsed
@@ -65,22 +73,23 @@ namespace service
         int32_t min_log_level_{};
         std::string log_name_{};
         bool log_to_stderr_{};
+        bool custom_log_format_{false};
     };
 }
 
 /// @brief YAML serialization specialization for GLogParameters.
 /// Provides methods to encode and decode GLogParameters to/from YAML nodes.
 template <>
-struct YAML::convert<service::GLogParameters>
+struct YAML::convert<glog::GLogParameters>
 {
     /// @brief Decode a YAML node into a GLogParameters object.
     /// @param node The YAML node containing the configuration data.
     /// @param rhs The GLogParameters object to populate.
     /// @return True if decoding was successful.
-    static auto decode(const Node& node, service::GLogParameters& rhs) -> bool;
+    static auto decode(const Node& node, glog::GLogParameters& rhs) -> bool;
 
     /// @brief Encode a GLogParameters object into a YAML node.
     /// @param rhs The GLogParameters object to encode.
     /// @return A YAML node containing the configuration data.
-    static auto encode(const service::GLogParameters& rhs) -> Node;
+    static auto encode(const glog::GLogParameters& rhs) -> Node;
 };
