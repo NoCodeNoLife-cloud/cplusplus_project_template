@@ -18,7 +18,7 @@ target_link_libraries(${CLIENT_PROJECT} PRIVATE
         OpenSSL::SSL OpenSSL::Crypto
         Microsoft::DirectXMath
         magic_enum::magic_enum
-        ${COMMON_FRAMEWORK}
+        common_pkg
         glog_service
         grpc_service
 )

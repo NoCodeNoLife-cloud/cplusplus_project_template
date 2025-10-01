@@ -1,10 +1,11 @@
-#include "include/task/ClientTask.hpp"
+#include "src/task/ClientTask.hpp"
 
+#include <glog/logging.h>
 #include <grpcpp/grpcpp.h>
 
-#include "include/rpc/RpcClient.hpp"
-#include "include/GLogConfigurator.hpp"
-#include "include/system/SystemInfo.hpp"
+#include "src/rpc/RpcClient.hpp"
+#include "src/GLogConfigurator.hpp"
+#include "src/system/SystemInfo.hpp"
 
 namespace app_client
 {
