@@ -1,7 +1,7 @@
 #include "include/task/ServerTask.hpp"
 
 #include "include/rpc/RpcServiceImpl.hpp"
-#include "src/GLogConfigurator.hpp"
+#include "include/GLogConfigurator.hpp"
 
 namespace app_server
 {

@@ -1,10 +1,9 @@
-#pragma once
 #include "include/task/ClientTask.hpp"
 
 #include <grpcpp/grpcpp.h>
 
 #include "include/rpc/RpcClient.hpp"
-#include "src/GLogConfigurator.hpp"
+#include "include/GLogConfigurator.hpp"
 #include "src/system/SystemInfo.hpp"
 
 namespace app_client

@@ -2,13 +2,13 @@
 set(CLIENT_PROJECT client)
 
 # Source files collection
-file(GLOB_RECURSE SRC_FILES
+file(GLOB_RECURSE CLIENT_SRC_FILES
         *.hpp
         *.cc
 )
 
 # Define the executable and its source files and framework files
-add_executable(${CLIENT_PROJECT} ${SRC_FILES} ${FRAMEWORK_FILES})
+add_executable(${CLIENT_PROJECT} ${CLIENT_SRC_FILES} ${FRAMEWORK_FILES})
 
 # Link required libraries
 target_link_libraries(${CLIENT_PROJECT} PRIVATE
@@ -19,6 +19,6 @@ target_link_libraries(${CLIENT_PROJECT} PRIVATE
         Microsoft::DirectXMath
         magic_enum::magic_enum
         ${COMMON_FRAMEWORK}
-        ${LOG_SERVICE}
+        glog_service
         grpc_service
 )
