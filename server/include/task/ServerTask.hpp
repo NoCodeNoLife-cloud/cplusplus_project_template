@@ -5,7 +5,7 @@
 #include <string>
 
 #include "include/rpc/GrpcOptions.hpp"
-#include "src/time/FunctionProfiler.hpp"
+#include "include/time/FunctionProfiler.hpp"
 
 namespace app_server
 {

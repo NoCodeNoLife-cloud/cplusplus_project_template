@@ -3,7 +3,7 @@
 #include <filesystem>
 #include <string>
 
-#include "src/serializer/interface/IYamlConfigurable.hpp"
+#include "include/serializer/interface/IYamlConfigurable.hpp"
 
 namespace service
 {

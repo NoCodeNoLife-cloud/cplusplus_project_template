@@ -2,7 +2,7 @@
 #include <grpcpp/grpcpp.h>
 
 #include "GrpcOptions.hpp"
-#include "src/time/FunctionProfiler.hpp"
+#include "include/time/FunctionProfiler.hpp"
 
 namespace app_client
 {

@@ -2,8 +2,8 @@
 #include <string>
 
 #include "GLogParameters.hpp"
-#include "src/service/interface/IConfigurable.hpp"
-#include "src/service/interface/IStartupTask.hpp"
+#include "include/service/interface/IConfigurable.hpp"
+#include "include/service/interface/IStartupTask.hpp"
 
 namespace service
 {

@@ -4,7 +4,7 @@
 
 #include "include/rpc/RpcClient.hpp"
 #include "include/GLogConfigurator.hpp"
-#include "src/system/SystemInfo.hpp"
+#include "include/system/SystemInfo.hpp"
 
 namespace app_client
 {

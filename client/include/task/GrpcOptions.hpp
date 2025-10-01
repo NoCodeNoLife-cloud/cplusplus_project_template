@@ -3,8 +3,8 @@
 #include <filesystem>
 #include <string>
 
-#include "src/serializer/interface/IYamlConfigurable.hpp"
-#include "src/filesystem/type/YamlToolkit.hpp"
+#include "include/serializer/interface/IYamlConfigurable.hpp"
+#include "include/filesystem/type/YamlToolkit.hpp"
 
 namespace app_client
 {
