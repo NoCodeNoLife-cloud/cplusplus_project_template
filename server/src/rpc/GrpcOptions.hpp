@@ -11,7 +11,7 @@ namespace app_server
     /// @details This class encapsulates all the gRPC configuration parameters
     /// that can be used to customize the behavior of gRPC channels and connections.
     /// The configuration parameters can be loaded from a YAML configuration file.
-    class GrpcOptions final : public fox::IYamlConfigurable
+    class GrpcOptions final : public common::IYamlConfigurable
     {
     public:
         /// @brief Get the maximum connection idle time in milliseconds

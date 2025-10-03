@@ -2,7 +2,7 @@
 #include <format>
 #include <typeinfo>
 
-namespace fox
+namespace common
 {
     /// @brief Base class for all objects in the system.
     /// @details This class provides basic functionality for type information, hashing, and string representation.

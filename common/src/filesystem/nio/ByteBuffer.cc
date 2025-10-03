@@ -1,6 +1,6 @@
 #include "src/filesystem/nio/ByteBuffer.hpp"
 
-namespace fox
+namespace common
 {
     ByteBuffer::ByteBuffer(const size_t capacity)
         : buffer_(capacity)

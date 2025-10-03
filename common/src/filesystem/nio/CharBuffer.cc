@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <stdexcept>
 
-namespace fox
+namespace common
 {
     CharBuffer::CharBuffer(const size_t cap)
         : buffer_(cap, '\0')

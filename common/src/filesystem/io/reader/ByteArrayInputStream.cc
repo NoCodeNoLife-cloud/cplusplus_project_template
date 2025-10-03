@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace fox
+namespace common
 {
     ByteArrayInputStream::ByteArrayInputStream(const std::vector<std::byte>& buf) : buffer_(buf)
     {

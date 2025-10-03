@@ -6,7 +6,7 @@
 
 #include "AbstractWriter.hpp"
 
-namespace fox
+namespace common
 {
     /// @brief A class for writing character data to a buffer in memory.
     /// CharArrayWriter is a utility class that allows you to write character data

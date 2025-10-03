@@ -1,6 +1,6 @@
 #include "src/filesystem/io/reader/FilterInputStream.hpp"
 
-namespace fox
+namespace common
 {
     FilterInputStream::FilterInputStream(std::unique_ptr<AbstractInputStream> inputStream)
         : input_stream_(std::move(inputStream))

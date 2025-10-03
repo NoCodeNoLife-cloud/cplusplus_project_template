@@ -8,7 +8,7 @@
 #include <thread>
 #include <cstdint>
 
-namespace fox
+namespace common
 {
     template <typename ResultType>
     auto DelayedTaskActuator<ResultType>::scheduleTask(const int32_t delayMs,

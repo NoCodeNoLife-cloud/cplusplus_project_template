@@ -6,7 +6,7 @@
 #include "src/filesystem/io/interface/ICloseable.hpp"
 #include "src/filesystem/io/interface/IFlushable.hpp"
 
-namespace fox
+namespace common
 {
     /// @brief Abstract base class for writers that provides basic functionality for writing characters and strings.
     class AbstractWriter : public ICloseable, public IFlushable, IAppendable<AbstractWriter>

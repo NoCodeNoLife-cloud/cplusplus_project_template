@@ -5,7 +5,7 @@
 #include <fstream>
 #include <filesystem>
 
-namespace fox
+namespace common
 {
     auto YamlToolkit::create(const std::string& filepath, const YAML::Node& data) -> bool
     {

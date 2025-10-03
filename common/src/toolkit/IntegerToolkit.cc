@@ -3,7 +3,7 @@
 #include <string>
 #include <utility>
 
-namespace fox
+namespace common
 {
     auto IntegerToolkit::intToRoman(const int32_t num) noexcept -> std::string
     {

@@ -5,7 +5,7 @@
 
 #include "BloomParameters.hpp"
 
-namespace fox
+namespace common
 {
     static const unsigned char bit_mask[BITS_PER_CHAR] = {
         0x01, // 00000001

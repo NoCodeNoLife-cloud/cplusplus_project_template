@@ -8,7 +8,7 @@
 
 #include "AbstractReader.hpp"
 
-namespace fox
+namespace common
 {
     /// @brief InputStreamReader is a class for reading characters from a byte stream.
     /// This class inherits from AbstractReader and provides functionality to read characters

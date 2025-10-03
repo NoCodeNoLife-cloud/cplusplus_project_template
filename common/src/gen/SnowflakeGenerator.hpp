@@ -2,7 +2,7 @@
 #include <mutex>
 #include <cstdint>
 
-namespace fox
+namespace common
 {
     /// @brief A class to generate unique IDs using the Snowflake algorithm.
     /// The Snowflake algorithm generates IDs that are roughly ordered by time,
@@ -27,7 +27,7 @@ namespace fox
     /// This implementation is thread-safe using a mutex to protect internal state during ID generation.
     /// Example usage:
     /// @code
-    ///   fox::SnowflakeGenerator generator(1, 1);
+    ///   common::SnowflakeGenerator generator(1, 1);
     ///   int64_t id = generator.NextId();
     /// @endcode
     class SnowflakeGenerator

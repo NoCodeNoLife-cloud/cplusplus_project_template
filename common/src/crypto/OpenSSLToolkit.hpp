@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-namespace fox
+namespace common
 {
     /// @brief Utility class for OpenSSL cryptographic operations.
     /// This class provides methods for key derivation, encryption, and decryption

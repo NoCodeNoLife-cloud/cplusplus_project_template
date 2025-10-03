@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-namespace fox
+namespace common
 {
     /// @brief Structure to hold motherboard information
     struct MotherboardInfo

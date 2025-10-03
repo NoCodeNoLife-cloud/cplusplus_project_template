@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace fox
+namespace common
 {
     BufferedWriter::BufferedWriter(std::unique_ptr<std::ofstream> os, const size_t size) :
         output_stream_(std::move(os)), buffer_size_(size)

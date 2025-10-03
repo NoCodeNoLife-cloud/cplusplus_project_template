@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <stdexcept>
 
-namespace fox
+namespace common
 {
     BufferedReader::BufferedReader(std::unique_ptr<AbstractReader> reader, const size_t size)
         : reader_(std::move(reader)), buffer_size_(size)

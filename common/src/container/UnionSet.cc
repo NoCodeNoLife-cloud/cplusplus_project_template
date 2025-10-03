@@ -1,6 +1,6 @@
-#include "src/type/container/UnionSet.hpp"
+#include "src/container/UnionSet.hpp"
 
-namespace fox
+namespace common
 {
     template <typename T>
     auto UnionSet<T>::find(const T& x) -> T

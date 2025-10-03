@@ -3,7 +3,7 @@
 #include <string>
 #include <cstdint>
 
-namespace fox
+namespace common
 {
     /// @brief A class representing a specific instant in time, with millisecond precision.
     /// The class represents a specific point in time, measured in milliseconds

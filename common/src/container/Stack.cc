@@ -1,10 +1,10 @@
-#include "src/type/container/Stack.hpp"
+#include "src/container/Stack.hpp"
 
 #include <stdexcept>
 #include <utility>
 #include <iterator>
 
-namespace fox
+namespace common
 {
     template <typename T, typename Container>
     Stack<T, Container>::Stack() = default;

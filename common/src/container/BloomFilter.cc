@@ -1,4 +1,4 @@
-#include "src/type/container/BloomFilter.hpp"
+#include "src/container/BloomFilter.hpp"
 
 #include <iterator>
 #include <random>
@@ -6,9 +6,9 @@
 #include <vector>
 #include <algorithm>
 
-#include "src/type/container/BloomParameters.hpp"
+#include "src/container/BloomParameters.hpp"
 
-namespace fox
+namespace common
 {
     BloomFilter::BloomFilter() = default;
 

@@ -3,7 +3,7 @@
 #include <magic_enum/magic_enum.hpp>
 #include <string>
 
-namespace fox
+namespace common
 {
     template <typename T>
     auto EnumToolkit::getEnumClassName(const T value) noexcept -> std::string

@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace fox
+namespace common
 {
     FileInputStream::FileInputStream(const std::string& name)
     {

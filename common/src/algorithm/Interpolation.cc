@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-namespace fox
+namespace common
 {
     auto Interpolation::linear(const std::vector<std::pair<double, double>>& dataPoints,
                                const double x) -> double

@@ -7,7 +7,7 @@
 #include <string>
 #include <utility>
 
-namespace fox
+namespace common
 {
     FunctionProfiler::FunctionProfiler(std::string function_name,
                                        const bool autoStart) noexcept : function_name_(std::move(function_name))

@@ -5,7 +5,7 @@
 #include <vector>
 #include <stdexcept>
 
-namespace fox
+namespace common
 {
     auto RegexToolkit::is_match(const std::string& text, const std::string& pattern, const std::regex_constants::syntax_option_type flags) -> bool
     {

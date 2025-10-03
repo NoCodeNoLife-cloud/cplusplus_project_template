@@ -6,7 +6,7 @@
 
 #include "src/graphics/Edge.hpp"
 
-namespace fox
+namespace common
 {
     Graph::Graph(const int32_t n) noexcept : num_nodes_(n)
     {

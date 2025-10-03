@@ -83,8 +83,8 @@ namespace app_client
 
     auto ClientTask::logClientInfo() -> void
     {
-        LOG(INFO) << "OS Version: " << fox::SystemInfo::GetOSVersion();
-        LOG(INFO) << "CPU Model: " << fox::SystemInfo::GetCpuModelFromRegistry();
+        LOG(INFO) << "OS Version: " << common::SystemInfo::GetOSVersion();
+        LOG(INFO) << "CPU Model: " << common::SystemInfo::GetCpuModelFromRegistry();
     }
 
     auto ClientTask::createChannel() const -> std::shared_ptr<grpc::Channel>

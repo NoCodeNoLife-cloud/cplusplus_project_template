@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <vector>
 
-namespace fox
+namespace common
 {
     BmpImage::BmpImage(const int32_t width, const int32_t height) : width_(width),
                                                                     height_(height)

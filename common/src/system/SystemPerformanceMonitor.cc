@@ -6,7 +6,7 @@
 #include <cstdint>
 #include <thread>
 
-namespace fox
+namespace common
 {
     auto SystemPerformanceMonitor::GetMemoryUsage() noexcept -> MemoryUsage
     {

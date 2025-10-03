@@ -1,7 +1,7 @@
 #pragma once
 #include "AbstractReader.hpp"
 
-namespace fox
+namespace common
 {
     /// @brief A reader class that reads from a character array.
     /// This class provides methods to read characters from an internal buffer,

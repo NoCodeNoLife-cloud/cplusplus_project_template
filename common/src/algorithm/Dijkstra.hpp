@@ -5,7 +5,7 @@
 #include <type_traits>
 #include <vector>
 
-namespace fox
+namespace common
 {
     /// @brief Dijkstra's algorithm for finding the shortest paths from a single source node to all other nodes in a graph
     /// with non-negative edge weights.

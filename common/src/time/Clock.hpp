@@ -2,7 +2,7 @@
 #include <chrono>
 #include <string>
 
-namespace fox
+namespace common
 {
     /// @brief Utility class for time-related operations
     class Clock

@@ -7,7 +7,7 @@
 #include <string>
 #include <stdexcept>
 
-namespace fox
+namespace common
 {
     template <typename T>
     auto YamlObjectSerializer<T>::serialize(const T& obj, const std::string& filename) -> void

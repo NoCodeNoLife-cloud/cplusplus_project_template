@@ -6,7 +6,7 @@
 #include <string>
 #include <stdexcept>
 
-namespace fox
+namespace common
 {
     SimpleDateFormatter::SimpleDateFormatter(const std::string& pattern)
     {

@@ -1,10 +1,10 @@
-#include "src/type/container/Queue.hpp"
+#include "src/container/Queue.hpp"
 
 #include <memory>
 #include <stdexcept>
 #include <utility>
 
-namespace fox
+namespace common
 {
     template <typename T>
     Queue<T>::Queue() = default;

@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-namespace fox
+namespace common
 {
     /// @brief Utility class for enum operations.
     /// This class provides static methods to work with enums,

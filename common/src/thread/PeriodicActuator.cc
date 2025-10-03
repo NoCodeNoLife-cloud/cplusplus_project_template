@@ -5,7 +5,7 @@
 
 #include "src/thread/interface/ITimerTask.hpp"
 
-namespace fox
+namespace common
 {
     PeriodicActuator::PeriodicActuator(std::shared_ptr<ITimerTask> task,
                                        const std::chrono::milliseconds interval) noexcept :

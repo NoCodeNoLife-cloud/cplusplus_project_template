@@ -4,7 +4,7 @@
 
 #include "AbstractInputStream.hpp"
 
-namespace fox
+namespace common
 {
     /// @brief A ByteArrayInputStream contains an internal buffer that contains bytes that may be read from the stream.
     /// ByteArrayInputStream uses a std::vector<std::byte> as the internal buffer.

@@ -1,11 +1,11 @@
-#include "src/type/base_type/BigInteger.hpp"
+#include "src/base_type/BigInteger.hpp"
 
 #include <boost/multiprecision/cpp_int.hpp>
 #include <string>
 #include <compare>
 #include <stdexcept>
 
-namespace fox
+namespace common
 {
     BigInteger::BigInteger() noexcept : value_(0)
     {

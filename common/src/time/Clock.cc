@@ -5,7 +5,7 @@
 #include <format>
 #include <cstdint>
 
-namespace fox
+namespace common
 {
     auto Clock::getCurrentDateTimeString() noexcept -> std::string
     {

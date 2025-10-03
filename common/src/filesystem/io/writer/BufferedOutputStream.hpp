@@ -5,7 +5,7 @@
 
 #include "FilterOutputStream.hpp"
 
-namespace fox
+namespace common
 {
     /// @brief A buffered output stream that writes data to an underlying output stream.
     /// This class buffers the data written to it and flushes it to the underlying stream

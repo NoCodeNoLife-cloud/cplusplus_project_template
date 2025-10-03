@@ -2,7 +2,7 @@
 #include <memory>
 
 #include "RedBlackTreeNode.hpp"
-#include "src/type/data_structure/Color.hpp"
+#include "src/data_structure/Color.hpp"
 
 namespace fox
 {

@@ -1,4 +1,4 @@
-#include "src/type/container/Heap.hpp"
+#include "src/container/Heap.hpp"
 
 #include <functional>
 #include <stdexcept>
@@ -6,7 +6,7 @@
 #include <cstdint>
 #include <utility>
 
-namespace fox
+namespace common
 {
     template <typename T, typename Compare>
     Heap<T, Compare>::Heap() = default;

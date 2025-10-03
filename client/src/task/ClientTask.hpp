@@ -43,7 +43,7 @@ namespace app_client
     private:
         const std::string application_dev_config_path_ = "../../client/src/application-dev.yml";
         GrpcOptions rpc_options_;
-        fox::FunctionProfiler timer_;
+        common::FunctionProfiler timer_;
 
         /// @brief Validate gRPC parameters for correctness
         /// @details This function checks that the gRPC parameters are within reasonable ranges

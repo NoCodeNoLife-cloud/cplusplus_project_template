@@ -6,7 +6,7 @@
 #include <tuple>
 #include <utility>
 
-namespace fox
+namespace common
 {
     template <typename T>
     template <typename V, typename... Args>

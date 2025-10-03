@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <stdexcept>
 
-namespace fox
+namespace common
 {
     CharArrayReader::CharArrayReader(const std::vector<char>& buffer) : buf_(buffer), count_(buffer.size())
     {

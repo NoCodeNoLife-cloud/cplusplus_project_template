@@ -4,7 +4,7 @@
 #include "src/time/FunctionProfiler.hpp"
 #include "interface/IAop.hpp"
 
-namespace fox
+namespace common
 {
     /// @brief This class is an aspect for profiling function execution time.
     /// @details It implements the IAop interface to provide entry and exit points

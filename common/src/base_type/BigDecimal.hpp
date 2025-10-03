@@ -3,7 +3,7 @@
 #include <string>
 #include <compare>
 
-namespace fox
+namespace common
 {
     /// @brief A class for high-precision decimal arithmetic
     /// @details This class uses boost::multiprecision::cpp_dec_float_100 for underlying storage

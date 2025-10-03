@@ -6,7 +6,7 @@
 
 #include "src/service/interface/IStartupTask.hpp"
 
-namespace fox
+namespace common
 {
     /// @brief A factory class for creating objects of type T.
     /// @tparam T The base type of objects that this factory can create.
