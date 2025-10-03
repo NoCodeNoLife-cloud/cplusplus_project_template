@@ -3,7 +3,7 @@
 
 #include "AbstractReader.hpp"
 
-namespace fox
+namespace common
 {
     /// @brief Buffered character-input stream.
     class BufferedReader final : public AbstractReader

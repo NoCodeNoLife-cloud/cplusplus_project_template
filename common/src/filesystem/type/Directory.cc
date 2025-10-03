@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <chrono>
 
-namespace fox
+namespace common
 {
     Directory::Directory(std::filesystem::path filePath) noexcept : dir_path_(std::move(filePath))
     {

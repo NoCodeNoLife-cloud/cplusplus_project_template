@@ -8,7 +8,7 @@
 #include "src/filesystem/io/reader/BufferedReader.hpp"
 #include "src/filesystem/io/reader/FilterInputStream.hpp"
 
-namespace fox
+namespace common
 {
     BufferedInputStream::BufferedInputStream(std::unique_ptr<AbstractInputStream> in)
         : BufferedInputStream(std::move(in), DEFAULT_BUFFER_SIZE)

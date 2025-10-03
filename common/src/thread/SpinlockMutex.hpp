@@ -1,7 +1,7 @@
 #pragma once
 #include <atomic>
 
-namespace fox
+namespace common
 {
     /// @brief A spinlock mutex implementation using atomic_flag for synchronization.
     /// This class provides a simple and efficient synchronization mechanism

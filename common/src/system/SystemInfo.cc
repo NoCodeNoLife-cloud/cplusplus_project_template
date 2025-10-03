@@ -6,7 +6,7 @@
 #include <vector>
 #include <windows.h>
 
-namespace fox
+namespace common
 {
     auto SystemInfo::GetCpuModelFromRegistry() noexcept -> std::string
     {

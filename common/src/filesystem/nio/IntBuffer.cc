@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-namespace fox
+namespace common
 {
     IntBuffer::IntBuffer(const size_t capacity)
     {

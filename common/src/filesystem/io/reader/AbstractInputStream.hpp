@@ -4,7 +4,7 @@
 
 #include "src/filesystem/io/interface/ICloseable.hpp"
 
-namespace fox
+namespace common
 {
     /// @brief Abstract base class for all input streams.
     /// Provides standard input stream functionality that can be extended by concrete implementations.

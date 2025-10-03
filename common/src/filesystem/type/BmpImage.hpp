@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 
-namespace fox
+namespace common
 {
 #pragma pack(push, 1)
     /// @brief BMP file header structure

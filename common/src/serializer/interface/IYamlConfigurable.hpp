@@ -1,7 +1,7 @@
 #pragma once
 #include <filesystem>
 
-namespace fox
+namespace common
 {
     /// @brief Interface for classes that can be configured from YAML files
     /// @details This interface defines a contract for objects that can deserialize

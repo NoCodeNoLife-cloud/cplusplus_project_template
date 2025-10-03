@@ -2,7 +2,7 @@
 
 #include <thread>
 
-namespace fox
+namespace common
 {
     /// @brief A wrapper class for std::thread that automatically joins the thread in its destructor.
     class AutoJoinThread

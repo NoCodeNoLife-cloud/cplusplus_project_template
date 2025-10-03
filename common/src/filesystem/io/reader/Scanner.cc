@@ -5,7 +5,7 @@
 
 #include "src/task/ClientTask.hpp"
 
-namespace fox
+namespace common
 {
     Scanner::Scanner(std::istream& input_stream) : input_(input_stream)
     {

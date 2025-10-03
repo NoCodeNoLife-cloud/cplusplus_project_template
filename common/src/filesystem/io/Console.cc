@@ -1,6 +1,6 @@
 #include "src/filesystem/io/Console.hpp"
 
-namespace fox
+namespace common
 {
     auto Console::flush() -> void
     {

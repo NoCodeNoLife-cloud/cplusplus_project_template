@@ -12,7 +12,7 @@
 #include <sstream>
 #include <string>
 
-namespace fox
+namespace common
 {
     File::File(const std::string& path) : file_path_(path)
     {

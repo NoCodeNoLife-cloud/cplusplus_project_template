@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-namespace fox
+namespace common
 {
     auto StringToolkit::split(const std::string& target, const char split_char) noexcept -> std::vector<std::string>
     {

@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include <format>
 
-namespace fox
+namespace common
 {
     template <typename T>
     struct ReflectTraits;

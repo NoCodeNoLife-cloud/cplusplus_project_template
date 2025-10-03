@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-namespace fox
+namespace common
 {
     FloatBuffer::FloatBuffer(const size_t capacity)
     {

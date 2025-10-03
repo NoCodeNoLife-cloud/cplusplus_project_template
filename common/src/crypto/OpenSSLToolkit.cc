@@ -9,7 +9,7 @@
 #include <memory>
 #include <algorithm>
 
-namespace fox
+namespace common
 {
     auto OpenSSLToolkit::deriveKey(const std::string& password, unsigned char key[32],
                                    unsigned char salt[16]) noexcept -> void

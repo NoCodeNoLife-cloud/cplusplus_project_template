@@ -1,7 +1,7 @@
 #pragma once
 #include <stdexcept>
 
-namespace fox
+namespace common
 {
     /// @brief Interface for a buffer that manages a sequence of elements
     /// This interface provides methods for managing a buffer's position, limit, and capacity.

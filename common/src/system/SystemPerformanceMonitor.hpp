@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-namespace fox
+namespace common
 {
     /// @brief Structure to hold system memory usage information
     /// This struct contains the total physical memory, available memory, used memory,

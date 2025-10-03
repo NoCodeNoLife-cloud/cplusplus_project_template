@@ -4,7 +4,7 @@
 #include <type_traits>
 #include <vector>
 
-namespace fox
+namespace common
 {
     template <typename GraphType, typename DistanceType>
     Dijkstra<GraphType, DistanceType>::Dijkstra(const GraphType& g) : graph_(g)

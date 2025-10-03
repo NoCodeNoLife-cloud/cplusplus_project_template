@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <functional>
 
-namespace fox
+namespace common
 {
     Date::Date() noexcept : time_point_(std::chrono::system_clock::now())
     {

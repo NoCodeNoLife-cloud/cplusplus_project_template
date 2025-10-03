@@ -3,7 +3,7 @@
 #include <atomic>
 #include <thread>
 
-namespace fox
+namespace common
 {
     SpinlockMutex::SpinlockMutex() noexcept = default;
 

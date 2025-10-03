@@ -3,7 +3,7 @@
 #include <string_view>
 #include <initializer_list>
 
-namespace fox
+namespace common
 {
     /// @brief Interface for appendable objects.
     /// This interface provides methods for appending characters and strings to objects.

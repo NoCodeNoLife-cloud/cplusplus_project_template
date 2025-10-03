@@ -1,6 +1,6 @@
 #pragma once
 
-namespace fox
+namespace common
 {
     /// @brief Interface for resources that can be closed.
     /// This interface defines a common contract for closing resources such as files,

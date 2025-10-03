@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <mutex>
 
-namespace fox
+namespace common
 {
     RandomGenerator::RandomGenerator() noexcept : engine_(std::random_device{}())
     {

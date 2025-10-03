@@ -4,7 +4,7 @@
 
 #include "FilterInputStream.hpp"
 
-namespace fox
+namespace common
 {
     /// @brief BufferedInputStream is a wrapper around another input stream that provides buffering functionality.
     /// It reads data from the underlying stream in chunks and stores it in an internal buffer to improve performance.

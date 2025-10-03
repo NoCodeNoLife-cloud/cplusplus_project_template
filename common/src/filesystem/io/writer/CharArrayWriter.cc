@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace fox
+namespace common
 {
     CharArrayWriter::CharArrayWriter(const int32_t initialSize)
     {

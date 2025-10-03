@@ -11,7 +11,7 @@
 #include <stdexcept>
 #include <type_traits>
 
-namespace fox
+namespace common
 {
     ThreadPool::ThreadPool(const size_t core_threads, const size_t max_threads, const size_t queue_size,
                            const std::chrono::milliseconds idle_time) noexcept :

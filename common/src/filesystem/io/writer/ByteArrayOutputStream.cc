@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace fox
+namespace common
 {
     ByteArrayOutputStream::ByteArrayOutputStream() : buf_(32)
     {

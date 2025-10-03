@@ -4,7 +4,7 @@
 #include <string>
 #include <mutex>
 
-namespace fox
+namespace common
 {
     class RandomGenerator
     {

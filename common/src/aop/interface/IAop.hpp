@@ -4,7 +4,7 @@
 #include <utility>
 #include <exception>
 
-namespace fox
+namespace common
 {
     /// @brief Interface class for Aspect-Oriented Programming (AOP) functionalities.
     /// This class provides a template-based interface for implementing AOP concepts

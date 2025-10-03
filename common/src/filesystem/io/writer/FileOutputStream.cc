@@ -1,6 +1,6 @@
 #include "src/filesystem/io/writer/FileOutputStream.hpp"
 
-namespace fox
+namespace common
 {
     FileOutputStream::FileOutputStream(const std::string& name, const bool append)
     {

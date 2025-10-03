@@ -1,6 +1,6 @@
 #pragma once
 
-namespace fox
+namespace common
 {
     /// @brief Interface for timer tasks that can be executed by a timer.
     /// This interface defines the contract for tasks that can be scheduled

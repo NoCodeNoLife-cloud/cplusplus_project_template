@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 
-namespace fox
+namespace common
 {
     /// @brief A 2D point class
     /// @details This class represents a point in 2D space with x and y coordinates.

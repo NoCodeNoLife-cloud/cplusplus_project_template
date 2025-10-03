@@ -2,7 +2,7 @@
 #include <glog/logging.h>
 #include <utility>
 
-namespace fox
+namespace common
 {
     FunctionProfilerAspect::FunctionProfilerAspect(std::string function_name) : profiler_(function_name, true), function_name_(std::move(function_name))
     {

@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <vector>
 
-namespace fox
+namespace common
 {
     /// @brief A heap data structure implementation.
     /// @tparam T The type of elements stored in the heap.

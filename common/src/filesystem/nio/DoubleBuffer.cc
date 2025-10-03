@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-namespace fox
+namespace common
 {
     DoubleBuffer::DoubleBuffer(const size_t capacity)
     {

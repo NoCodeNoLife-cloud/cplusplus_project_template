@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace fox
+namespace common
 {
     PushbackReader::PushbackReader(std::shared_ptr<AbstractReader> reader)
         : PushbackReader(std::move(reader), DEFAULT_BUFFER_SIZE)

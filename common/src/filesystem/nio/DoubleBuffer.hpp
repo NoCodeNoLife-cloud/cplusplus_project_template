@@ -4,7 +4,7 @@
 
 #include "interface/IBuffer.hpp"
 
-namespace fox
+namespace common
 {
     /// @brief A DoubleBuffer class that implements the IBuffer interface for handling double precision floating point
     /// numbers. This class provides functionality to put and get double values from a buffer with a specified capacity.

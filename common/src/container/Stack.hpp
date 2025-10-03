@@ -2,7 +2,7 @@
 #include <vector>
 #include <iterator>
 
-namespace fox
+namespace common
 {
     /// @brief A simple stack implementation using a container.
     /// @tparam T The type of elements stored in the stack.

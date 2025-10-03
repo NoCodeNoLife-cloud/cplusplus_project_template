@@ -6,7 +6,7 @@
 #include <format>
 #include <tuple>
 
-namespace fox
+namespace common
 {
     template <typename T>
     auto ClassToolkit::getTypeId(const T&) noexcept -> std::string

@@ -6,7 +6,7 @@
 #include <vector>
 #include <cstdint>
 
-namespace fox
+namespace common
 {
     template <typename T>
     auto ArraysToolkit::asList(const T* array, const size_t size) -> std::vector<T>

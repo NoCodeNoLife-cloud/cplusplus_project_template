@@ -84,8 +84,8 @@ namespace app_server
 
         try
         {
-            const YAML::Node root = fox::YamlToolkit::read(path.string());
-            const YAML::Node grpcNode = fox::YamlToolkit::getNodeOrRoot(root, "grpc");
+            const YAML::Node root = common::YamlToolkit::read(path.string());
+            const YAML::Node grpcNode = common::YamlToolkit::getNodeOrRoot(root, "grpc");
 
             if (grpcNode["maxConnectionIdleMs"])
             {

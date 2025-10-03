@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace fox
+namespace common
 {
     Point2D::Point2D() noexcept = default;
 

@@ -1,6 +1,6 @@
 #include "src/filesystem/io/reader/InputStreamReader.hpp"
 
-namespace fox
+namespace common
 {
     InputStreamReader::InputStreamReader(std::shared_ptr<AbstractReader> input) : reader_(std::move(input))
     {

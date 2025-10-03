@@ -1,6 +1,6 @@
 #include "src/filesystem/io/writer/OutputStreamWriter.hpp"
 
-namespace fox
+namespace common
 {
     OutputStreamWriter::OutputStreamWriter(std::unique_ptr<AbstractWriter> outputStream,
                                            const std::string& charsetName) :

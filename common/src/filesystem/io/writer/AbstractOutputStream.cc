@@ -1,6 +1,6 @@
 #include "src/filesystem/io/writer/AbstractOutputStream.hpp"
 
-namespace fox
+namespace common
 {
     auto AbstractOutputStream::write(const std::vector<std::byte>& buffer) -> void
     {

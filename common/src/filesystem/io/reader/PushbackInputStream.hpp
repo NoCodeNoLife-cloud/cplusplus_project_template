@@ -1,7 +1,7 @@
 #pragma once
 #include "FilterInputStream.hpp"
 
-namespace fox
+namespace common
 {
     /// @brief A pushback input stream allows bytes to be pushed back into the stream.
     /// This class wraps another input stream and provides the ability to "unread" bytes,

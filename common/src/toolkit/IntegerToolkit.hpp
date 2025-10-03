@@ -2,7 +2,7 @@
 #include <string>
 #include <utility>
 
-namespace fox
+namespace common
 {
     /// @brief A utility class for integer operations
     /// @details Provides various integer conversion and manipulation functions

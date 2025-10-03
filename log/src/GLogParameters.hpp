@@ -10,7 +10,7 @@ namespace glog
     /// @brief Configuration parameters for Google Logging (glog) library.
     /// @details This class encapsulates all the configuration options for the glog logging system.
     /// It provides getter and setter methods for each parameter and supports YAML serialization.
-    class GLogParameters final : public fox::IYamlConfigurable
+    class GLogParameters final : public common::IYamlConfigurable
     {
     public:
         /// @brief Default constructor.

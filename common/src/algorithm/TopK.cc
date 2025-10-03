@@ -1,6 +1,6 @@
 #include "src/algorithm/TopK.hpp"
 
-namespace fox
+namespace common
 {
     TopK::TopK(const int32_t k) : k(k)
     {

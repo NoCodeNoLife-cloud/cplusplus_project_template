@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-namespace fox
+namespace common
 {
     class RegexToolkit
     {

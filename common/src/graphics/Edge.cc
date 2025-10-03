@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-namespace fox
+namespace common
 {
     Edge::Edge(const int32_t to, const int32_t weight) noexcept : to_(to), weight_(weight)
     {

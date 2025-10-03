@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <vector>
 
-namespace fox
+namespace common
 {
     AbstractInputStream::~AbstractInputStream() = default;
 

@@ -1,9 +1,9 @@
-#include "src/type/base_type/Object.hpp"
+#include "src/base_type/Object.hpp"
 
 #include <format>
 #include <typeinfo>
 
-namespace fox
+namespace common
 {
     auto Object::getClass() const noexcept -> const std::type_info&
     {

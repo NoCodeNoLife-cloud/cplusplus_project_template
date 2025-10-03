@@ -4,7 +4,7 @@
 #include <vector>
 #include <cstdint>
 
-namespace fox
+namespace common
 {
     /// @brief Utility class for array operations.
     /// @details This class provides static methods to perform various operations on arrays,

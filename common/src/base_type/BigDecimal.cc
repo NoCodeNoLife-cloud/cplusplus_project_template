@@ -1,11 +1,11 @@
-#include "src/type/base_type/BigDecimal.hpp"
+#include "src/base_type/BigDecimal.hpp"
 
 #include <boost/multiprecision/cpp_dec_float.hpp>
 #include <stdexcept>
 #include <string>
 #include <compare>
 
-namespace fox
+namespace common
 {
     BigDecimal::BigDecimal(const std::string& str) : value_(str)
     {

@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-namespace fox
+namespace common
 {
     /// @brief A utility class for scanning and parsing input streams.
     /// The Scanner class provides methods for reading various data types from an input stream,

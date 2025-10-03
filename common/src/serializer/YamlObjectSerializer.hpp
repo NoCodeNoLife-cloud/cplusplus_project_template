@@ -3,7 +3,7 @@
 #include <filesystem>
 #include <string>
 
-namespace fox
+namespace common
 {
     /// @brief Abstract base class for serializing and deserializing objects to and from YAML format.
     /// @tparam T The type of object to be serialized/deserialized.

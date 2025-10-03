@@ -1,7 +1,7 @@
 #pragma once
 #include <cmath>
 
-namespace fox
+namespace common
 {
     static constexpr std::size_t BITS_PER_CHAR = 0x08;
 

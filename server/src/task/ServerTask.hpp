@@ -38,7 +38,7 @@ namespace app_server
     private:
         const std::string application_dev_config_path_ = "../../server/src/application-dev.yml";
         GrpcOptions grpc_options_;
-        fox::FunctionProfiler timer_;
+        common::FunctionProfiler timer_;
         std::unique_ptr<grpc::Server> server_;
 
         /// @brief Validate gRPC parameters for correctness

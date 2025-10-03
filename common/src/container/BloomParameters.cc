@@ -1,9 +1,9 @@
-#include "src/type/container/BloomParameters.hpp"
+#include "src/container/BloomParameters.hpp"
 
 #include <limits>
 #include <cmath>
 
-namespace fox
+namespace common
 {
     BloomParameters::BloomParameters() noexcept : minimum_size(1),
                                                   maximum_size(std::numeric_limits<uint64_t>::max()),

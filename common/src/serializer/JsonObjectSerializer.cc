@@ -6,7 +6,7 @@
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/writer.h"
 
-namespace fox
+namespace common
 {
     auto JsonObjectSerializer::getStringOrDefault(const rapidjson::Value& json, const char* key,
                                                   const std::string& defaultValue) noexcept -> std::string

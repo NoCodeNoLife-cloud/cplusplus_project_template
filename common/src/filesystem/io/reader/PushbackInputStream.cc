@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace fox
+namespace common
 {
     PushbackInputStream::PushbackInputStream(std::unique_ptr<AbstractInputStream> inputStream,
                                              const size_t bufferSize)
