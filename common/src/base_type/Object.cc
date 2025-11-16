@@ -10,8 +10,13 @@ namespace common
         return typeid(*this);
     }
 
+    auto Object::equals(const Object& other) const -> bool
+    {
+        return this == &other;
+    }
+
     auto Object::hashCode() const noexcept -> size_t
     {
-        return 0;
+        return std::hash<const void*>{}(this);
     }
 }
