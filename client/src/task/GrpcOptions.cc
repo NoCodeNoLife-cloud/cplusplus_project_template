@@ -2,6 +2,44 @@
 
 namespace app_client
 {
+    GrpcOptions::GrpcOptions(const int32_t keepalive_time_ms, const int32_t keepalive_timeout_ms, const int32_t keepalive_permit_without_calls, std::string server_address) : keepalive_time_ms_(keepalive_time_ms), keepalive_timeout_ms_(keepalive_timeout_ms), keepalive_permit_without_calls_(keepalive_permit_without_calls), server_address_(std::move(server_address))
+    {
+    }
+
+    auto GrpcOptions::Builder::keepaliveTimeMs(const int32_t value) -> Builder&
+    {
+        keepalive_time_ms_ = value;
+        return *this;
+    }
+
+    auto GrpcOptions::Builder::keepaliveTimeoutMs(const int32_t value) -> Builder&
+    {
+        keepalive_timeout_ms_ = value;
+        return *this;
+    }
+
+    auto GrpcOptions::Builder::keepalivePermitWithoutCalls(const int32_t value) -> Builder&
+    {
+        keepalive_permit_without_calls_ = value;
+        return *this;
+    }
+
+    auto GrpcOptions::Builder::serverAddress(const std::string& value) -> Builder&
+    {
+        server_address_ = value;
+        return *this;
+    }
+
+    auto GrpcOptions::Builder::build() const -> GrpcOptions
+    {
+        return {keepalive_time_ms_, keepalive_timeout_ms_, keepalive_permit_without_calls_, server_address_};
+    }
+
+    GrpcOptions::Builder GrpcOptions::builder()
+    {
+        return {};
+    }
+
     auto GrpcOptions::keepaliveTimeMs() const -> int32_t
     {
         return keepalive_time_ms_;

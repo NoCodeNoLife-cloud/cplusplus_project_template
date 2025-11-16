@@ -4,6 +4,16 @@
 
 namespace app_server
 {
+    GrpcOptions::GrpcOptions(const int32_t max_connection_idle_ms, const int32_t max_connection_age_ms, const int32_t max_connection_age_grace_ms, const int32_t keepalive_time_ms, const int32_t keepalive_timeout_ms, const int32_t keepalive_permit_without_calls, const std::string& server_address)
+        : max_connection_idle_ms_(max_connection_idle_ms),
+          max_connection_age_ms_(max_connection_age_ms),
+          max_connection_age_grace_ms_(max_connection_age_grace_ms),
+          keepalive_time_ms_(keepalive_time_ms),
+          keepalive_timeout_ms_(keepalive_timeout_ms),
+          keepalive_permit_without_calls_(keepalive_permit_without_calls)
+    {
+    }
+
     auto GrpcOptions::maxConnectionIdleMs() const -> int32_t
     {
         return max_connection_idle_ms_;
@@ -124,6 +134,58 @@ namespace app_server
         {
             throw std::runtime_error("Error processing configuration file '" + path.string() + "': " + e.what());
         }
+    }
+
+    auto GrpcOptions::Builder::maxConnectionIdleMs(int32_t value) -> Builder&
+    {
+        max_connection_idle_ms_ = value;
+        return *this;
+    }
+
+    auto GrpcOptions::Builder::maxConnectionAgeMs(int32_t value) -> Builder&
+    {
+        max_connection_age_ms_ = value;
+        return *this;
+    }
+
+    auto GrpcOptions::Builder::maxConnectionAgeGraceMs(int32_t value) -> Builder&
+    {
+        max_connection_age_grace_ms_ = value;
+        return *this;
+    }
+
+    auto GrpcOptions::Builder::keepaliveTimeMs(int32_t value) -> Builder&
+    {
+        keepalive_time_ms_ = value;
+        return *this;
+    }
+
+    auto GrpcOptions::Builder::keepaliveTimeoutMs(int32_t value) -> Builder&
+    {
+        keepalive_timeout_ms_ = value;
+        return *this;
+    }
+
+    auto GrpcOptions::Builder::keepalivePermitWithoutCalls(int32_t value) -> Builder&
+    {
+        keepalive_permit_without_calls_ = value;
+        return *this;
+    }
+
+    auto GrpcOptions::Builder::serverAddress(const std::string& value) -> Builder&
+    {
+        server_address_ = value;
+        return *this;
+    }
+
+    auto GrpcOptions::Builder::build() const -> GrpcOptions
+    {
+        return {max_connection_idle_ms_, max_connection_age_ms_, max_connection_age_grace_ms_, keepalive_time_ms_, keepalive_timeout_ms_, keepalive_permit_without_calls_, server_address_};
+    }
+
+    auto GrpcOptions::builder() -> GrpcOptions::Builder
+    {
+        return Builder{};
     }
 }
 
