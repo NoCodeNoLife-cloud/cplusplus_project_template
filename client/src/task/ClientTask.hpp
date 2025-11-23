@@ -2,6 +2,7 @@
 #include <grpcpp/grpcpp.h>
 
 #include "GrpcOptions.hpp"
+#include "src/rpc/RpcClient.hpp"
 #include "src/time/FunctionProfiler.hpp"
 
 namespace app_client
@@ -18,27 +19,36 @@ namespace app_client
         /// @brief Initialize the client task
         /// @details Sets up logging, loads configuration, and logs system information
         /// @return void
-        auto init() -> void;
+        auto init()
+            -> void;
+
+        /// @brief Main task
+        static auto task(const client_app::RpcClient& rpc_client)
+            -> void;
 
         /// @brief Run the main task
         /// @details Initializes the client, creates a gRPC channel, sends a message to the server,
         /// and exits cleanly
         /// @return void
-        auto run() -> void;
+        auto run()
+            -> void;
 
         /// @brief Exit the client task
         /// @details Records the end time and logs completion
         /// @return void
-        auto exit() -> void;
+        auto exit()
+            -> void;
 
         /// @brief Logs client system information
         /// @details Logs OS version and CPU model to the application log
-        static auto logClientInfo() -> void;
+        static auto logClientInfo()
+            -> void;
 
         /// @brief Create a gRPC channel with custom arguments
         /// @details This function sets up a gRPC channel with keepalive parameters and connects to the server
         /// @return A shared pointer to the created gRPC channel
-        [[nodiscard]] auto createChannel() const -> std::shared_ptr<grpc::Channel>;
+        [[nodiscard]] auto createChannel() const
+            -> std::shared_ptr<grpc::Channel>;
 
     private:
         const std::string application_dev_config_path_ = "../../client/src/application-dev.yml";
@@ -48,6 +58,7 @@ namespace app_client
         /// @brief Validate gRPC parameters for correctness
         /// @details This function checks that the gRPC parameters are within reasonable ranges
         /// and logs warnings for potentially problematic configurations
-        auto validateGrpcParameters() const -> void;
+        auto validateGrpcParameters() const
+            -> void;
     };
 } // namespace app_client

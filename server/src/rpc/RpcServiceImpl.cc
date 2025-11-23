@@ -4,23 +4,6 @@
 
 namespace server_app
 {
-    auto RpcServiceImpl::Send(grpc::ServerContext* context,
-                              const rpc::MessageRequest* request,
-                              rpc::MessageResponse* response)
-        -> grpc::Status
-    {
-        if (!context || !request || !response)
-        {
-            LOG(ERROR) << "Invalid input parameters: context=" << context << ", request=" << request
-                << ", response=" << response;
-            return {grpc::StatusCode::INVALID_ARGUMENT, "Invalid input parameters"};
-        }
-
-        LOG(INFO) << "Received message from client: " << request->content() << " (peer=" << context->peer() << ")";
-        response->set_status("Message received successfully");
-        return grpc::Status::OK;
-    }
-
     grpc::Status RpcServiceImpl::RegisterUser(grpc::ServerContext* context,
                                               const rpc::RegisterUserRequest* request,
                                               rpc::AuthResponse* response)
@@ -28,6 +11,7 @@ namespace server_app
         try
         {
             const bool success = authenticator_.register_user(request->username(), request->password());
+            LOG(INFO) << "User registered: " << request->username();
             response->set_success(success);
             response->set_message(success ? "User registered successfully" : "Registration failed");
             return grpc::Status::OK;
@@ -184,22 +168,27 @@ namespace server_app
         // Map exception types to error codes
         if (std::string(e.what()).find("already exists") != std::string::npos)
         {
+            LOG(ERROR) << "User already exists";
             response->set_error_code(409); // Conflict
         }
         else if (std::string(e.what()).find("not found") != std::string::npos)
         {
+            LOG(ERROR) << "User not found";
             response->set_error_code(404); // Not found
         }
         else if (std::string(e.what()).find("locked") != std::string::npos)
         {
+            LOG(ERROR) << "Account locked";
             response->set_error_code(423); // Locked
         }
         else if (std::string(e.what()).find("Invalid password") != std::string::npos)
         {
+            LOG(ERROR) << "Invalid password";
             response->set_error_code(401); // Unauthorized
         }
         else
         {
+            LOG(ERROR) << "System error: " << e.what();
             response->set_error_code(400); // Bad request
         }
 

@@ -3,21 +3,12 @@ syntax = "proto3";
 package rpc;
 
 service RpcService {
-  rpc Send(MessageRequest) returns (MessageResponse);
   rpc RegisterUser (RegisterUserRequest) returns (AuthResponse) {}
   rpc AuthenticateUser (AuthenticateUserRequest) returns (AuthResponse) {}
   rpc ChangePassword (ChangePasswordRequest) returns (AuthResponse) {}
   rpc ResetPassword (ResetPasswordRequest) returns (AuthResponse) {}
   rpc DeleteUser (DeleteUserRequest) returns (AuthResponse) {}
   rpc UserExists (DeleteUserRequest) returns (AuthResponse) {}
-}
-
-message MessageRequest {
-  string content = 1;
-}
-
-message MessageResponse {
-  string status = 1;
 }
 
 message RegisterUserRequest {

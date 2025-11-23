@@ -9,14 +9,16 @@
 
 namespace app_client
 {
-    ClientTask::ClientTask(const std::string& project_name_) : timer_(project_name_)
+    ClientTask::ClientTask(const std::string& project_name_)
+        : timer_(project_name_)
     {
         timer_.recordStart();
     }
 
-    auto ClientTask::init() -> void
+    auto ClientTask::init()
+        -> void
     {
-        glog::GLogConfigurator log_configurator{application_dev_config_path_};
+        const glog::GLogConfigurator log_configurator{application_dev_config_path_};
         (void)log_configurator.execute(); // Explicitly discard nodiscard result
         LOG(INFO) << "Initializing GLog configuration from: " << application_dev_config_path_;
         LOG(INFO) << "GLog configuration initialized successfully";
@@ -33,7 +35,21 @@ namespace app_client
         LOG(INFO) << "Initialization completed successfully";
     }
 
-    auto ClientTask::run() -> void
+    auto ClientTask::task(const client_app::RpcClient& rpc_client)
+        -> void
+    {
+        if (const auto response = rpc_client.RegisterUser("root", "Admin123!"); !response.success())
+        {
+            throw std::runtime_error("Failed to register user: " + response.message());
+        }
+        else
+        {
+            LOG(INFO) << "Registered user successfully, return value: " << response.message();
+        }
+    }
+
+    auto ClientTask::run()
+        -> void
     {
         try
         {
@@ -43,25 +59,12 @@ namespace app_client
             // Create channel
             const auto channel = createChannel();
             LOG(INFO) << "gRPC channel created with state: " << channel->GetState(true);
-
             LOG(INFO) << "Creating RPC client";
             // Create client.
             const client_app::RpcClient client(channel);
             LOG(INFO) << "RPC client created successfully";
 
-            LOG(INFO) << "Sending message to server";
-            // Send a message.
-            const std::string message = "hello world";
-            LOG(INFO) << "Sending message: " << message;
-            if (const auto result = client.Send(message); result != "Message received successfully")
-            {
-                LOG(ERROR) << "Failed to send message: " << message << ", Error: " << result;
-            }
-            else
-            {
-                LOG(INFO) << "Message sent successfully: " << message << ", Response: " << result;
-            }
-
+            task(client);
             LOG(INFO) << "Client task execution completed";
             exit();
         }
@@ -75,19 +78,22 @@ namespace app_client
         }
     }
 
-    auto ClientTask::exit() -> void
+    auto ClientTask::exit()
+        -> void
     {
         timer_.recordEnd(true);
         LOG(INFO) << "Application finished successfully.";
     }
 
-    auto ClientTask::logClientInfo() -> void
+    auto ClientTask::logClientInfo()
+        -> void
     {
         LOG(INFO) << "OS Version: " << common::SystemInfo::GetOSVersion();
         LOG(INFO) << "CPU Model: " << common::SystemInfo::GetCpuModelFromRegistry();
     }
 
-    auto ClientTask::createChannel() const -> std::shared_ptr<grpc::Channel>
+    auto ClientTask::createChannel() const
+        -> std::shared_ptr<grpc::Channel>
     {
         LOG(INFO) << "Setting up gRPC channel with custom arguments";
 
@@ -115,17 +121,21 @@ namespace app_client
         LOG(INFO) << "Channel state after creation: " << state;
 
         // Give channel some time to connect
-        if (!channel->WaitForConnected(std::chrono::system_clock::now() + std::chrono::seconds(5))) {
+        if (!channel->WaitForConnected(std::chrono::system_clock::now() + std::chrono::seconds(5)))
+        {
             LOG(ERROR) << "Failed to connect to gRPC server at " << server_address
-                       << " within timeout period";
-        } else {
+                << " within timeout period";
+        }
+        else
+        {
             LOG(INFO) << "Successfully connected to gRPC server at " << server_address;
         }
 
         return channel;
     }
 
-    auto ClientTask::validateGrpcParameters() const -> void
+    auto ClientTask::validateGrpcParameters() const
+        -> void
     {
         // Validate keepalive time (should be positive)
         if (rpc_options_.keepaliveTimeMs() <= 0)
