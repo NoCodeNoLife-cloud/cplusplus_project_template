@@ -21,14 +21,16 @@ namespace common
         /// @param password Plaintext password for new account
         /// @return true if registration successful
         /// @throws AuthenticationException if username invalid, exists, or password fails policy
-        bool register_user(const std::string& username, const std::string& password);
+        bool register_user(const std::string& username,
+                           const std::string& password);
 
         /// @brief Authenticate user with username and password
         /// @param username User identifier
         /// @param password Plaintext password to verify
         /// @return true if authentication successful
         /// @throws AuthenticationException if user not found, password incorrect, or account locked
-        bool authenticate(const std::string& username, const std::string& password);
+        bool authenticate(const std::string& username,
+                          const std::string& password);
 
         /// @brief Change user password after verifying current password
         /// @param username User identifier
@@ -45,7 +47,8 @@ namespace common
         /// @param new_password New plaintext password to set
         /// @return true if password reset successful
         /// @throws AuthenticationException if user not found or new password fails policy
-        bool reset_password(const std::string& username, const std::string& new_password);
+        bool reset_password(const std::string& username,
+                            const std::string& new_password);
 
         /// @brief Check if user exists in the system
         /// @param username User identifier to check
@@ -58,7 +61,8 @@ namespace common
 
         /// @brief Get reference to the users map for administrative operations
         /// @return Reference to the users map
-        auto get_users() -> std::unordered_map<std::string, std::unique_ptr<UserCredentials>>&;
+        auto get_users()
+            -> std::unordered_map<std::string, std::unique_ptr<UserCredentials>>&;
 
         /// @brief Get reference to the mutex protecting the users map
         /// @return Reference to the users mutex

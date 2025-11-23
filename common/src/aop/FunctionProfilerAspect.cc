@@ -4,22 +4,26 @@
 
 namespace common
 {
-    FunctionProfilerAspect::FunctionProfilerAspect(std::string function_name) : profiler_(function_name, true), function_name_(std::move(function_name))
+    FunctionProfilerAspect::FunctionProfilerAspect(std::string function_name)
+        : profiler_(function_name, true), function_name_(std::move(function_name))
     {
     }
 
-    auto FunctionProfilerAspect::onEntry() -> void
+    auto FunctionProfilerAspect::onEntry()
+        -> void
     {
         LOG(INFO) << "Entering function: " << function_name_;
     }
 
-    auto FunctionProfilerAspect::onExit() -> void
+    auto FunctionProfilerAspect::onExit()
+        -> void
     {
         profiler_.recordEnd(true);
         LOG(INFO) << "Exiting function: " << function_name_;
     }
 
-    auto FunctionProfilerAspect::onException() -> void
+    auto FunctionProfilerAspect::onException()
+        -> void
     {
         profiler_.recordEnd(true);
         LOG(INFO) << "Function exited with exception: " << function_name_;

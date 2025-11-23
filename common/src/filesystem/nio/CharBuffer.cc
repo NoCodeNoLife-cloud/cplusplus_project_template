@@ -13,24 +13,28 @@ namespace common
         capacity_ = cap;
     }
 
-    auto CharBuffer::clear() -> void
+    auto CharBuffer::clear()
+        -> void
     {
         position_ = 0;
         limit_ = capacity_;
     }
 
-    auto CharBuffer::flip() -> void
+    auto CharBuffer::flip()
+        -> void
     {
         limit_ = position_;
         position_ = 0;
     }
 
-    auto CharBuffer::rewind() -> void
+    auto CharBuffer::rewind()
+        -> void
     {
         position_ = 0;
     }
 
-    auto CharBuffer::compact() -> void
+    auto CharBuffer::compact()
+        -> void
     {
         if (position_ > 0)
         {
@@ -42,7 +46,8 @@ namespace common
         }
     }
 
-    auto CharBuffer::put(const char c) -> void
+    auto CharBuffer::put(const char c)
+        -> void
     {
         if (!hasRemaining())
         {
@@ -51,7 +56,8 @@ namespace common
         buffer_[position_++] = c;
     }
 
-    auto CharBuffer::put(const std::string& src) -> void
+    auto CharBuffer::put(const std::string& src)
+        -> void
     {
         if (src.empty())
         {
@@ -67,7 +73,8 @@ namespace common
         position_ += src.size();
     }
 
-    auto CharBuffer::get() -> char
+    auto CharBuffer::get()
+        -> char
     {
         if (!hasRemaining())
         {
@@ -76,7 +83,8 @@ namespace common
         return buffer_[position_++];
     }
 
-    auto CharBuffer::getRemaining() const -> std::string
+    auto CharBuffer::getRemaining() const
+        -> std::string
     {
         if (position_ >= limit_)
         {
@@ -88,12 +96,14 @@ namespace common
         };
     }
 
-    auto CharBuffer::position() const -> size_t
+    auto CharBuffer::position() const
+        -> size_t
     {
         return position_;
     }
 
-    auto CharBuffer::position(const size_t newPosition) -> void
+    auto CharBuffer::position(const size_t newPosition)
+        -> void
     {
         if (newPosition > limit_)
         {
@@ -102,12 +112,14 @@ namespace common
         position_ = newPosition;
     }
 
-    auto CharBuffer::limit() const -> size_t
+    auto CharBuffer::limit() const
+        -> size_t
     {
         return limit_;
     }
 
-    auto CharBuffer::limit(const size_t newLimit) -> void
+    auto CharBuffer::limit(const size_t newLimit)
+        -> void
     {
         if (newLimit > capacity_)
         {
@@ -120,17 +132,20 @@ namespace common
         limit_ = newLimit;
     }
 
-    auto CharBuffer::capacity() const -> size_t
+    auto CharBuffer::capacity() const
+        -> size_t
     {
         return capacity_;
     }
 
-    auto CharBuffer::hasRemaining() const -> bool
+    auto CharBuffer::hasRemaining() const
+        -> bool
     {
         return position_ < limit_;
     }
 
-    auto CharBuffer::remaining() const -> size_t
+    auto CharBuffer::remaining() const
+        -> size_t
     {
         return limit_ - position_;
     }

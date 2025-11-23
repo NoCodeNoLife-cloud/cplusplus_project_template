@@ -7,7 +7,8 @@ namespace common
 {
     AbstractReader::~AbstractReader() = default;
 
-    auto AbstractReader::read() -> int
+    auto AbstractReader::read()
+        -> int
     {
         std::vector<char> buffer(1);
         if (const int bytesRead = read(buffer, 0, 1); bytesRead <= 0)
@@ -17,22 +18,26 @@ namespace common
         return static_cast<unsigned char>(buffer[0]);
     }
 
-    auto AbstractReader::read(std::vector<char>& cBuf) -> int
+    auto AbstractReader::read(std::vector<char>& cBuf)
+        -> int
     {
         return read(cBuf, 0, cBuf.size());
     }
 
-    auto AbstractReader::markSupported() const -> bool
+    auto AbstractReader::markSupported() const
+        -> bool
     {
         return false;
     }
 
-    auto AbstractReader::ready() const -> bool
+    auto AbstractReader::ready() const
+        -> bool
     {
         return false;
     }
 
-    auto AbstractReader::skip(const size_t n) -> size_t
+    auto AbstractReader::skip(const size_t n)
+        -> size_t
     {
         size_t skipped = 0;
         while (skipped < n)

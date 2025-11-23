@@ -7,7 +7,9 @@
 
 namespace common
 {
-    auto YamlToolkit::create(const std::string& filepath, const YAML::Node& data) -> bool
+    auto YamlToolkit::create(const std::string& filepath,
+                             const YAML::Node& data)
+        -> bool
     {
         try
         {
@@ -35,7 +37,8 @@ namespace common
         }
     }
 
-    auto YamlToolkit::read(const std::string& filepath) -> YAML::Node
+    auto YamlToolkit::read(const std::string& filepath)
+        -> YAML::Node
     {
         try
         {
@@ -51,7 +54,9 @@ namespace common
         }
     }
 
-    auto YamlToolkit::update(const std::string& filepath, const YAML::Node& data) -> bool
+    auto YamlToolkit::update(const std::string& filepath,
+                             const YAML::Node& data)
+        -> bool
     {
         try
         {
@@ -64,7 +69,8 @@ namespace common
         }
     }
 
-    auto YamlToolkit::remove(const std::string& filepath) -> bool
+    auto YamlToolkit::remove(const std::string& filepath)
+        -> bool
     {
         try
         {
@@ -80,7 +86,9 @@ namespace common
         }
     }
 
-    auto YamlToolkit::getValue(const std::string& filepath, const std::string& key) -> YAML::Node
+    auto YamlToolkit::getValue(const std::string& filepath,
+                               const std::string& key)
+        -> YAML::Node
     {
         try
         {
@@ -96,7 +104,10 @@ namespace common
         }
     }
 
-    auto YamlToolkit::setValue(const std::string& filepath, const std::string& key, const YAML::Node& value) -> bool
+    auto YamlToolkit::setValue(const std::string& filepath,
+                               const std::string& key,
+                               const YAML::Node& value)
+        -> bool
     {
         try
         {
@@ -115,7 +126,9 @@ namespace common
         }
     }
 
-    auto YamlToolkit::getNestedValue(const std::string& filepath, const std::string& path) -> YAML::Node
+    auto YamlToolkit::getNestedValue(const std::string& filepath,
+                                     const std::string& path)
+        -> YAML::Node
     {
         try
         {
@@ -152,7 +165,10 @@ namespace common
         }
     }
 
-    auto YamlToolkit::setNestedValue(const std::string& filepath, const std::string& path, const YAML::Node& value) -> bool
+    auto YamlToolkit::setNestedValue(const std::string& filepath,
+                                     const std::string& path,
+                                     const YAML::Node& value)
+        -> bool
     {
         try
         {
@@ -189,7 +205,9 @@ namespace common
         }
     }
 
-    auto YamlToolkit::hasKey(const std::string& filepath, const std::string& key) -> bool
+    auto YamlToolkit::hasKey(const std::string& filepath,
+                             const std::string& key)
+        -> bool
     {
         try
         {
@@ -205,7 +223,9 @@ namespace common
         }
     }
 
-    auto YamlToolkit::merge(const std::string& filepath, const YAML::Node& data) -> bool
+    auto YamlToolkit::merge(const std::string& filepath,
+                            const YAML::Node& data)
+        -> bool
     {
         try
         {
@@ -238,7 +258,8 @@ namespace common
         }
     }
 
-    auto YamlToolkit::toString(const YAML::Node& node) -> std::string
+    auto YamlToolkit::toString(const YAML::Node& node)
+        -> std::string
     {
         try
         {
@@ -252,7 +273,8 @@ namespace common
         }
     }
 
-    auto YamlToolkit::fromString(const std::string& str) -> YAML::Node
+    auto YamlToolkit::fromString(const std::string& str)
+        -> YAML::Node
     {
         try
         {
@@ -264,7 +286,9 @@ namespace common
         }
     }
 
-    auto YamlToolkit::getNodeOrRoot(const YAML::Node& root, const std::string& path) -> YAML::Node
+    auto YamlToolkit::getNodeOrRoot(const YAML::Node& root,
+                                    const std::string& path)
+        -> YAML::Node
     {
         try
         {

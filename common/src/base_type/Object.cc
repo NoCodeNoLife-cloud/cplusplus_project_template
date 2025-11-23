@@ -5,17 +5,20 @@
 
 namespace common
 {
-    auto Object::getClass() const noexcept -> const std::type_info&
+    auto Object::getClass() const noexcept
+        -> const std::type_info&
     {
         return typeid(*this);
     }
 
-    auto Object::equals(const Object& other) const -> bool
+    auto Object::equals(const Object& other) const
+        -> bool
     {
         return this == &other;
     }
 
-    auto Object::hashCode() const noexcept -> size_t
+    auto Object::hashCode() const noexcept
+        -> size_t
     {
         return std::hash<const void*>{}(this);
     }

@@ -10,11 +10,13 @@
 
 namespace common
 {
-    Directory::Directory(std::filesystem::path filePath) noexcept : dir_path_(std::move(filePath))
+    Directory::Directory(std::filesystem::path filePath) noexcept
+        : dir_path_(std::move(filePath))
     {
     }
 
-    auto Directory::mkdir() const noexcept -> bool
+    auto Directory::mkdir() const noexcept
+        -> bool
     {
         try
         {
@@ -26,7 +28,8 @@ namespace common
         }
     }
 
-    auto Directory::mkdirs(const bool exist_ok) const -> bool
+    auto Directory::mkdirs(const bool exist_ok) const
+        -> bool
     {
         try
         {
@@ -57,17 +60,20 @@ namespace common
         }
     }
 
-    auto Directory::exists() const noexcept -> bool
+    auto Directory::exists() const noexcept
+        -> bool
     {
         return std::filesystem::exists(dir_path_);
     }
 
-    auto Directory::isDirectory() const noexcept -> bool
+    auto Directory::isDirectory() const noexcept
+        -> bool
     {
         return std::filesystem::is_directory(dir_path_);
     }
 
-    auto Directory::isEmpty() const noexcept -> bool
+    auto Directory::isEmpty() const noexcept
+        -> bool
     {
         try
         {
@@ -79,7 +85,8 @@ namespace common
         }
     }
 
-    auto Directory::remove() const noexcept -> bool
+    auto Directory::remove() const noexcept
+        -> bool
     {
         try
         {
@@ -91,7 +98,8 @@ namespace common
         }
     }
 
-    auto Directory::removeAll() const noexcept -> std::uintmax_t
+    auto Directory::removeAll() const noexcept
+        -> std::uintmax_t
     {
         try
         {
@@ -103,7 +111,8 @@ namespace common
         }
     }
 
-    auto Directory::move(const std::filesystem::path& destination) const noexcept -> bool
+    auto Directory::move(const std::filesystem::path& destination) const noexcept
+        -> bool
     {
         try
         {
@@ -116,7 +125,8 @@ namespace common
         }
     }
 
-    auto Directory::rename(const std::string& newName) const noexcept -> bool
+    auto Directory::rename(const std::string& newName) const noexcept
+        -> bool
     {
         try
         {
@@ -131,7 +141,8 @@ namespace common
         }
     }
 
-    auto Directory::copy(const std::filesystem::path& destination) const -> bool
+    auto Directory::copy(const std::filesystem::path& destination) const
+        -> bool
     {
         try
         {
@@ -180,7 +191,8 @@ namespace common
         }
     }
 
-    auto Directory::size() const noexcept -> std::uintmax_t
+    auto Directory::size() const noexcept
+        -> std::uintmax_t
     {
         std::uintmax_t total = 0;
         try
@@ -199,7 +211,8 @@ namespace common
         return total;
     }
 
-    auto Directory::lastModifiedTime() const -> std::optional<std::chrono::system_clock::time_point>
+    auto Directory::lastModifiedTime() const
+        -> std::optional<std::chrono::system_clock::time_point>
     {
         try
         {
@@ -212,13 +225,15 @@ namespace common
         }
     }
 
-    auto Directory::listDir(const bool recursive) const -> std::vector<std::filesystem::directory_entry>
+    auto Directory::listDir(const bool recursive) const
+        -> std::vector<std::filesystem::directory_entry>
     {
         return listDir(dir_path_, recursive);
     }
 
     auto Directory::listDir(const std::filesystem::path& dir_path,
-                            const bool recursive) -> std::vector<std::filesystem::directory_entry>
+                            const bool recursive)
+        -> std::vector<std::filesystem::directory_entry>
     {
         std::vector<std::filesystem::directory_entry> entries;
         try
@@ -244,12 +259,14 @@ namespace common
         return entries;
     }
 
-    auto Directory::listEntries(const bool recursive) const -> std::vector<std::filesystem::directory_entry>
+    auto Directory::listEntries(const bool recursive) const
+        -> std::vector<std::filesystem::directory_entry>
     {
         return listDir(dir_path_, recursive);
     }
 
-    auto Directory::clearAll() const -> bool
+    auto Directory::clearAll() const
+        -> bool
     {
         try
         {
@@ -269,7 +286,8 @@ namespace common
         }
     }
 
-    auto Directory::getCurrentWorkingDirectory() -> std::filesystem::path
+    auto Directory::getCurrentWorkingDirectory()
+        -> std::filesystem::path
     {
         return std::filesystem::current_path();
     }

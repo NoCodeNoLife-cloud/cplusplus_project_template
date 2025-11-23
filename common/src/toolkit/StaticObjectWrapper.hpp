@@ -25,7 +25,8 @@ namespace fox
         /// @brief Get a mutable reference to the static object
         /// @return Reference to the static object
         /// @throws std::runtime_error if object was not initialized and is not default constructible
-        static auto get() -> T&;
+        static auto get()
+            -> T&;
 
         /// @brief Destroy the static object if it exists
         static void destroy() noexcept;
@@ -49,7 +50,8 @@ namespace fox
     }
 
     template <typename T>
-    auto StaticObjectWrapper<T>::get() -> T&
+    auto StaticObjectWrapper<T>::get()
+        -> T&
     {
         if constexpr (std::is_default_constructible_v<T>)
         {

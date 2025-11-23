@@ -18,52 +18,63 @@ namespace common
         /// @brief Copy assignment operator
         /// @param other The queue to copy from
         /// @return Reference to this queue
-        auto operator=(const Queue& other) -> Queue&;
+        auto operator=(const Queue& other)
+            -> Queue&;
 
         /// @brief Move assignment operator
         /// @param other The queue to move from
         /// @return Reference to this queue
-        auto operator=(Queue&& other) noexcept -> Queue&;
+        auto operator=(Queue&& other) noexcept
+            -> Queue&;
 
         /// @brief Add an element to the back of the queue
         /// @param value The value to add
-        auto push(const T& value) -> void;
+        auto push(const T& value)
+            -> void;
 
         /// @brief Remove the element from the front of the queue
         /// @throws std::out_of_range If the queue is empty
-        auto pop() -> void;
+        auto pop()
+            -> void;
 
         /// @brief Get a reference to the front element
         /// @return Reference to the front element
         /// @throws std::out_of_range If the queue is empty
-        auto front() -> T&;
+        auto front()
+            -> T&;
 
         /// @brief Get a const reference to the front element
         /// @return Const reference to the front element
         /// @throws std::out_of_range If the queue is empty
-        auto front() const -> const T&;
+        auto front() const
+            -> const T&;
 
         /// @brief Get a reference to the back element
         /// @return Reference to the back element
         /// @throws std::out_of_range If the queue is empty
-        auto back() -> T&;
+        auto back()
+            -> T&;
 
         /// @brief Get a const reference to the back element
         /// @return Const reference to the back element
         /// @throws std::out_of_range If the queue is empty
-        auto back() const -> const T&;
+        auto back() const
+            -> const T&;
 
         /// @brief Check if the queue is empty
         /// @return True if the queue is empty, false otherwise
-        [[nodiscard]] auto empty() const noexcept -> bool;
+        [[nodiscard]] auto empty() const noexcept
+            -> bool;
 
         /// @brief Get the number of elements in the queue
         /// @return The number of elements in the queue
-        [[nodiscard]] auto size() const noexcept -> size_t;
+        [[nodiscard]] auto size() const noexcept
+            -> size_t;
 
         /// @brief Swap the contents of this queue with another
         /// @param other The queue to swap with
-        auto swap(Queue& other) noexcept -> void;
+        auto swap(Queue& other) noexcept
+            -> void;
 
     private:
         struct Node

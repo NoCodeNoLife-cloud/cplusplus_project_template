@@ -21,7 +21,8 @@ namespace fox
     };
 
     template <typename T>
-    TreeNode<T>::TreeNode(T value) noexcept : data(value)
+    TreeNode<T>::TreeNode(T value) noexcept
+        : data(value)
     {
     }
 }

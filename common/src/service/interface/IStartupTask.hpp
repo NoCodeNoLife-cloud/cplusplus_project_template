@@ -13,6 +13,7 @@ namespace service
 
         /// @brief Executes the startup task.
         /// @return True if the task was executed successfully, false otherwise.
-        [[nodiscard]] virtual auto execute() -> bool = 0;
+        [[nodiscard]] virtual auto execute()
+            -> bool = 0;
     };
 } // namespace service

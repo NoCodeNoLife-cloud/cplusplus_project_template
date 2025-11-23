@@ -8,7 +8,8 @@
 
 namespace common
 {
-    auto SystemPerformanceMonitor::GetMemoryUsage() noexcept -> MemoryUsage
+    auto SystemPerformanceMonitor::GetMemoryUsage() noexcept
+        -> MemoryUsage
     {
         MemoryUsage memUsage{};
         MEMORYSTATUSEX memInfo;
@@ -22,7 +23,8 @@ namespace common
         return memUsage;
     }
 
-    auto SystemPerformanceMonitor::GetCpuUsage(const int32_t interval) noexcept -> CpuUsage
+    auto SystemPerformanceMonitor::GetCpuUsage(const int32_t interval) noexcept
+        -> CpuUsage
     {
         CpuUsage cpuUsage{};
         FILETIME idleTime1, kernelTime1, userTime1;

@@ -7,7 +7,8 @@
 namespace common
 {
     auto Interpolation::linear(const std::vector<std::pair<double, double>>& dataPoints,
-                               const double x) -> double
+                               const double x)
+        -> double
     {
         validateDataPoints(dataPoints, 2);
 
@@ -22,7 +23,8 @@ namespace common
     }
 
     auto Interpolation::nearest(const std::vector<std::pair<double, double>>& dataPoints,
-                                const double x) -> double
+                                const double x)
+        -> double
     {
         validateDataPoints(dataPoints, 1);
 
@@ -35,7 +37,9 @@ namespace common
         return dataPoints[index].second;
     }
 
-    auto Interpolation::cubic(const std::vector<std::pair<double, double>>& dataPoints, const double x) -> double
+    auto Interpolation::cubic(const std::vector<std::pair<double, double>>& dataPoints,
+                              const double x)
+        -> double
     {
         validateDataPoints(dataPoints, 4);
 
@@ -103,7 +107,11 @@ namespace common
 
         // Binary search for the segment
         const auto it = std::lower_bound(dataPoints.begin(), dataPoints.end(), x,
-                                         [](const std::pair<double, double>& a, const double b) { return a.first < b; });
+                                         [](const std::pair<double, double>& a,
+                                            const double b)
+                                         {
+                                             return a.first < b;
+                                         });
 
         // Handle edge case where x exactly matches a data point
         if (it != dataPoints.end() && it->first == x)
@@ -134,7 +142,8 @@ namespace common
         }
 
         const auto it = std::lower_bound(dataPoints.begin(), dataPoints.end(), x,
-                                         [](const std::pair<double, double>& a, const double b)
+                                         [](const std::pair<double, double>& a,
+                                            const double b)
                                          {
                                              return a.first < b;
                                          });

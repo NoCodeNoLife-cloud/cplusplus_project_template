@@ -16,6 +16,7 @@ namespace common
         /// @brief Deserialize object configuration from a YAML file
         /// @param path The file path to the YAML configuration file
         /// @throws std::runtime_error If the file cannot be read or parsed
-        virtual auto deserializedFromYamlFile(const std::filesystem::path& path) -> void = 0;
+        virtual auto deserializedFromYamlFile(const std::filesystem::path& path)
+            -> void = 0;
     };
 }

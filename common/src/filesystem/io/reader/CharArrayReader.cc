@@ -5,11 +5,14 @@
 
 namespace common
 {
-    CharArrayReader::CharArrayReader(const std::vector<char>& buffer) : buf_(buffer), count_(buffer.size())
+    CharArrayReader::CharArrayReader(const std::vector<char>& buffer)
+        : buf_(buffer), count_(buffer.size())
     {
     }
 
-    CharArrayReader::CharArrayReader(const std::vector<char>& buffer, const size_t offset, const size_t length)
+    CharArrayReader::CharArrayReader(const std::vector<char>& buffer,
+                                     const size_t offset,
+                                     const size_t length)
     {
         if (offset > buffer.size() || offset + length > buffer.size())
         {
@@ -22,14 +25,18 @@ namespace common
 
     CharArrayReader::~CharArrayReader() = default;
 
-    auto CharArrayReader::read() -> int
+    auto CharArrayReader::read()
+        -> int
     {
         if (closed_ || pos_ >= count_)
             return -1;
         return static_cast<unsigned char>(buf_[pos_++]);
     }
 
-    auto CharArrayReader::read(std::vector<char>& b, const size_t off, const size_t len) -> int
+    auto CharArrayReader::read(std::vector<char>& b,
+                               const size_t off,
+                               const size_t len)
+        -> int
     {
         if (off > b.size() || len > b.size() - off)
         {
@@ -46,7 +53,8 @@ namespace common
         return static_cast<int>(toRead);
     }
 
-    auto CharArrayReader::skip(const size_t n) -> size_t
+    auto CharArrayReader::skip(const size_t n)
+        -> size_t
     {
         if (closed_)
             return 0;
@@ -56,17 +64,20 @@ namespace common
         return skipped;
     }
 
-    auto CharArrayReader::ready() const -> bool
+    auto CharArrayReader::ready() const
+        -> bool
     {
         return !closed_ && pos_ < count_;
     }
 
-    auto CharArrayReader::markSupported() const -> bool
+    auto CharArrayReader::markSupported() const
+        -> bool
     {
         return true;
     }
 
-    auto CharArrayReader::mark(const size_t readAheadLimit) -> void
+    auto CharArrayReader::mark(const size_t readAheadLimit)
+        -> void
     {
         if (closed_)
         {
@@ -75,7 +86,8 @@ namespace common
         marked_pos_ = pos_;
     }
 
-    auto CharArrayReader::reset() -> void
+    auto CharArrayReader::reset()
+        -> void
     {
         if (closed_)
         {
@@ -84,7 +96,8 @@ namespace common
         pos_ = marked_pos_;
     }
 
-    auto CharArrayReader::close() -> void
+    auto CharArrayReader::close()
+        -> void
     {
         closed_ = true;
         buf_.clear();
@@ -93,7 +106,8 @@ namespace common
         count_ = 0;
     }
 
-    auto CharArrayReader::isClosed() const -> bool
+    auto CharArrayReader::isClosed() const
+        -> bool
     {
         return closed_;
     }

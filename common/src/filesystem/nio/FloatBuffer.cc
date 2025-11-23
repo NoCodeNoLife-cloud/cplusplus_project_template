@@ -12,29 +12,34 @@ namespace common
         buffer_.resize(capacity);
     }
 
-    auto FloatBuffer::allocate(const size_t capacity) -> FloatBuffer
+    auto FloatBuffer::allocate(const size_t capacity)
+        -> FloatBuffer
     {
         return FloatBuffer(capacity);
     }
 
-    auto FloatBuffer::clear() -> void
+    auto FloatBuffer::clear()
+        -> void
     {
         position_ = 0;
         limit_ = capacity_;
     }
 
-    auto FloatBuffer::flip() -> void
+    auto FloatBuffer::flip()
+        -> void
     {
         limit_ = position_;
         position_ = 0;
     }
 
-    auto FloatBuffer::rewind() -> void
+    auto FloatBuffer::rewind()
+        -> void
     {
         position_ = 0;
     }
 
-    auto FloatBuffer::compact() -> void
+    auto FloatBuffer::compact()
+        -> void
     {
         if (position_ > 0)
         {
@@ -46,7 +51,8 @@ namespace common
         }
     }
 
-    auto FloatBuffer::put(const float value) -> void
+    auto FloatBuffer::put(const float value)
+        -> void
     {
         if (!hasRemaining())
         {
@@ -55,7 +61,8 @@ namespace common
         buffer_[position_++] = value;
     }
 
-    auto FloatBuffer::put(const std::vector<float>& values) -> void
+    auto FloatBuffer::put(const std::vector<float>& values)
+        -> void
     {
         if (values.empty())
         {
@@ -70,7 +77,8 @@ namespace common
         position_ += values.size();
     }
 
-    auto FloatBuffer::get() -> float
+    auto FloatBuffer::get()
+        -> float
     {
         if (!hasRemaining())
         {
@@ -79,7 +87,8 @@ namespace common
         return buffer_[position_++];
     }
 
-    auto FloatBuffer::get(const size_t length) -> std::vector<float>
+    auto FloatBuffer::get(const size_t length)
+        -> std::vector<float>
     {
         if (length == 0)
         {
@@ -96,7 +105,8 @@ namespace common
         return result;
     }
 
-    auto FloatBuffer::getRemaining() const -> std::vector<float>
+    auto FloatBuffer::getRemaining() const
+        -> std::vector<float>
     {
         if (position_ >= limit_)
         {
@@ -108,12 +118,14 @@ namespace common
         };
     }
 
-    auto FloatBuffer::position() const -> size_t
+    auto FloatBuffer::position() const
+        -> size_t
     {
         return position_;
     }
 
-    auto FloatBuffer::position(const size_t newPosition) -> void
+    auto FloatBuffer::position(const size_t newPosition)
+        -> void
     {
         if (newPosition > limit_)
         {
@@ -122,12 +134,14 @@ namespace common
         position_ = newPosition;
     }
 
-    auto FloatBuffer::limit() const -> size_t
+    auto FloatBuffer::limit() const
+        -> size_t
     {
         return limit_;
     }
 
-    auto FloatBuffer::limit(const size_t newLimit) -> void
+    auto FloatBuffer::limit(const size_t newLimit)
+        -> void
     {
         if (newLimit > capacity_)
         {
@@ -140,17 +154,20 @@ namespace common
         limit_ = newLimit;
     }
 
-    auto FloatBuffer::capacity() const -> size_t
+    auto FloatBuffer::capacity() const
+        -> size_t
     {
         return capacity_;
     }
 
-    auto FloatBuffer::hasRemaining() const -> bool
+    auto FloatBuffer::hasRemaining() const
+        -> bool
     {
         return position_ < limit_;
     }
 
-    auto FloatBuffer::remaining() const -> size_t
+    auto FloatBuffer::remaining() const
+        -> size_t
     {
         return limit_ - position_;
     }

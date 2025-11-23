@@ -26,31 +26,38 @@ namespace common
         /// @brief Validate password against current policy rules
         /// @param password Password string to validate
         /// @return true if password meets all requirements, false otherwise
-        [[nodiscard]] auto validate(const std::string& password) const -> bool;
+        [[nodiscard]] auto validate(const std::string& password) const
+            -> bool;
 
         /// @brief Set minimum password length requirement
         /// @param length New minimum length value
-        auto set_min_length(size_t length) -> void;
+        auto set_min_length(size_t length)
+            -> void;
 
         /// @brief Set maximum password length requirement
         /// @param length New maximum length value
-        auto set_max_length(size_t length) -> void;
+        auto set_max_length(size_t length)
+            -> void;
 
         /// @brief Enable/disable uppercase letter requirement
         /// @param require true to require uppercase letters
-        auto set_require_uppercase(bool require) -> void;
+        auto set_require_uppercase(bool require)
+            -> void;
 
         /// @brief Enable/disable lowercase letter requirement
         /// @param require true to require lowercase letters
-        auto set_require_lowercase(bool require) -> void;
+        auto set_require_lowercase(bool require)
+            -> void;
 
         /// @brief Enable/disable digit requirement
         /// @param require true to require numeric digits
-        auto set_require_digits(bool require) -> void;
+        auto set_require_digits(bool require)
+            -> void;
 
         /// @brief Enable/disable special character requirement
         /// @param require true to require special characters
-        auto set_require_special(bool require) -> void;
+        auto set_require_special(bool require)
+            -> void;
 
     private:
         size_t min_length_;

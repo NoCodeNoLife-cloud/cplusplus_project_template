@@ -22,7 +22,9 @@ namespace common
         /// @param max_threads The maximum number of threads allowed
         /// @param queue_size The maximum size of the task queue
         /// @param idle_time The time after which excess threads will be terminated
-        ThreadPool(size_t core_threads, size_t max_threads, size_t queue_size,
+        ThreadPool(size_t core_threads,
+                   size_t max_threads,
+                   size_t queue_size,
                    std::chrono::milliseconds idle_time) noexcept;
 
         /// @brief Destructor that gracefully shuts down the thread pool
@@ -36,13 +38,17 @@ namespace common
         /// @return A future that will hold the result of the function execution
         /// @throws std::runtime_error If the task queue is full
         template <class F, class... Args>
-        [[nodiscard]] auto Submit(F&& f, Args&&... args) -> std::future<std::invoke_result_t<F, Args...>>;
+        [[nodiscard]] auto Submit(F&& f,
+                                  Args&&... args)
+            -> std::future<std::invoke_result_t<F, Args...>>;
 
         /// @brief Gracefully shutdown the thread pool, waiting for all tasks to complete
-        auto Shutdown() -> void;
+        auto Shutdown()
+            -> void;
 
         /// @brief Immediately shutdown the thread pool, abandoning any remaining tasks
-        auto ShutdownNow() -> void;
+        auto ShutdownNow()
+            -> void;
 
     private:
         std::vector<std::thread> workers_{};
@@ -57,10 +63,12 @@ namespace common
         std::chrono::milliseconds thread_idle_time_{};
 
         /// @brief Worker thread function that processes tasks from the queue
-        auto worker() -> void;
+        auto worker()
+            -> void;
 
         /// @brief Add a new worker thread to the pool if possible
         /// @return true if a new worker was added, false otherwise
-        auto addWorker() -> bool;
+        auto addWorker()
+            -> bool;
     };
 }

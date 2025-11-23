@@ -10,7 +10,9 @@ namespace common
 {
     template <typename T>
     template <typename V, typename... Args>
-    auto ObjectFactory<T>::registerType(const std::string& type_name, Args&&... args) -> void
+    auto ObjectFactory<T>::registerType(const std::string& type_name,
+                                        Args&&... args)
+        -> void
     {
         registry_[type_name] = [args = std::make_tuple(std::forward<Args>(args)...)]() mutable
         {
@@ -24,7 +26,8 @@ namespace common
     }
 
     template <typename T>
-    auto ObjectFactory<T>::createObject(const std::string& type_name) -> std::unique_ptr<T>
+    auto ObjectFactory<T>::createObject(const std::string& type_name)
+        -> std::unique_ptr<T>
     {
         auto it = registry_.find(type_name);
         if (it != registry_.end())
@@ -35,7 +38,8 @@ namespace common
     }
 
     template <typename T>
-    auto ObjectFactory<T>::execute() noexcept -> bool
+    auto ObjectFactory<T>::execute() noexcept
+        -> bool
     {
         registerAll();
         return true;

@@ -25,12 +25,14 @@ namespace glog
                   const int line,
                   const google::LogMessageTime& log_message_time,
                   const char* message,
-                  const size_t message_len) noexcept -> void override;
+                  const size_t message_len) noexcept
+            -> void override;
 
     private:
         /// @brief Get the log level prefix string
         /// @param severity Log severity level
         /// @return String representation of the log level
-        [[nodiscard]] static auto getLogLevelPrefix(const google::LogSeverity severity) noexcept -> const char*;
+        [[nodiscard]] static auto getLogLevelPrefix(const google::LogSeverity severity) noexcept
+            -> const char*;
     };
 } // namespace glog

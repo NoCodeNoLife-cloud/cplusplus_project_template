@@ -19,15 +19,18 @@ namespace common
 
         /// @brief Entry point - records the start time of the function
         /// @details Called when entering the function to be profiled
-        auto onEntry() -> void override;
+        auto onEntry()
+            -> void override;
 
         /// @brief Exit point - records the end time of the function and prints the result
         /// @details Called when exiting the function to be profiled
-        auto onExit() -> void override;
+        auto onExit()
+            -> void override;
 
         /// @brief Exception point - records the end time when exception occurs
         /// @details Called when function exits with exception
-        auto onException() -> void;
+        auto onException()
+            -> void;
 
     private:
         FunctionProfiler profiler_;

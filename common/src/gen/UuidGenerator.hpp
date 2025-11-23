@@ -13,6 +13,7 @@ namespace common
 
         /// @brief Generates a random UUID string.
         /// @return A string representation of the generated UUID.
-        [[nodiscard]] static auto GenerateRandomUuid() noexcept -> std::string;
+        [[nodiscard]] static auto GenerateRandomUuid() noexcept
+            -> std::string;
     };
 }

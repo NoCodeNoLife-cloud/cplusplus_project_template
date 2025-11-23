@@ -24,7 +24,8 @@ namespace common
             std::function<DistanceType(const decltype(std::declval<GraphType>().getAdjList(0).front())&)>>
         auto compute(
             std::decay_t<decltype(std::declval<GraphType>().getNodeCount())> start,
-            DistanceFunc distanceFunc = [](const auto& edge) { return edge.weight(); }) -> void;
+            DistanceFunc distanceFunc = [](const auto& edge) { return edge.weight(); })
+            -> void;
 
         /// @brief Get the distance to the node.
         /// @param node The node.
@@ -34,7 +35,8 @@ namespace common
 
         /// @brief Get all distances.
         /// @return All distances.
-        [[nodiscard]] auto getDistances() const -> const std::vector<DistanceType>&;
+        [[nodiscard]] auto getDistances() const
+            -> const std::vector<DistanceType>&;
 
     private:
         const GraphType& graph_;

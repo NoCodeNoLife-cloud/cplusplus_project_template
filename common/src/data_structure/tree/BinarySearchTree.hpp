@@ -16,19 +16,23 @@ namespace fox
 
         /// @brief Inserts a value into the binary search tree.
         /// @param value The value to be inserted.
-        auto insert(T value) -> void;
+        auto insert(T value)
+            -> void;
 
         /// @brief Finds a value in the binary search tree.
         /// @param value The value to be searched.
         /// @return True if the value is found, false otherwise.
-        [[nodiscard]] auto find(T value) const -> bool;
+        [[nodiscard]] auto find(T value) const
+            -> bool;
 
         /// @brief Removes a value from the binary search tree.
         /// @param value The value to be removed.
-        auto remove(T value) -> void;
+        auto remove(T value)
+            -> void;
 
         /// @brief Performs an inorder traversal of the binary search tree.
-        auto inorderTraversal() const -> void;
+        auto inorderTraversal() const
+            -> void;
 
     private:
         std::shared_ptr<TreeNode<T>> root_{nullptr};
@@ -37,53 +41,65 @@ namespace fox
         /// @param node The current node in the recursion.
         /// @param value The value to be inserted.
         /// @return The updated node after insertion.
-        auto insertRecursive(std::shared_ptr<TreeNode<T>> node, T value) -> std::shared_ptr<TreeNode<T>>;
+        auto insertRecursive(std::shared_ptr<TreeNode<T>> node,
+                             T value)
+            -> std::shared_ptr<TreeNode<T>>;
 
         /// @brief Recursively finds a value in the binary search tree.
         /// @param node The current node in the recursion.
         /// @param value The value to be searched.
         /// @return True if the value is found, false otherwise.
-        [[nodiscard]] auto findRecursive(const std::shared_ptr<TreeNode<T>>& node, T value) const -> bool;
+        [[nodiscard]] auto findRecursive(const std::shared_ptr<TreeNode<T>>& node,
+                                         T value) const
+            -> bool;
 
         /// @brief Recursively removes a value from the binary search tree.
         /// @param node The current node in the recursion.
         /// @param value The value to be removed.
         /// @return The updated node after removal.
-        auto removeRecursive(std::shared_ptr<TreeNode<T>> node, T value) -> std::shared_ptr<TreeNode<T>>;
+        auto removeRecursive(std::shared_ptr<TreeNode<T>> node,
+                             T value)
+            -> std::shared_ptr<TreeNode<T>>;
 
         /// @brief Finds the node with the minimum value in a subtree.
         /// @param node The root of the subtree.
         /// @return The node with the minimum value.
-        [[nodiscard]] auto minValueNode(std::shared_ptr<TreeNode<T>> node) -> std::shared_ptr<TreeNode<T>>;
+        [[nodiscard]] auto minValueNode(std::shared_ptr<TreeNode<T>> node)
+            -> std::shared_ptr<TreeNode<T>>;
 
         /// @brief Recursively performs an inorder traversal of the binary search tree.
         /// @param node The current node in the recursion.
-        auto inorderTraversalRecursive(const std::shared_ptr<TreeNode<T>>& node) const -> void;
+        auto inorderTraversalRecursive(const std::shared_ptr<TreeNode<T>>& node) const
+            -> void;
     };
 
     template <typename T>
     BinarySearchTree<T>::BinarySearchTree() noexcept = default;
 
     template <typename T>
-    auto BinarySearchTree<T>::insert(T value) -> void
+    auto BinarySearchTree<T>::insert(T value)
+        -> void
     {
         root_ = insertRecursive(root_, value);
     }
 
     template <typename T>
-    auto BinarySearchTree<T>::find(T value) const -> bool
+    auto BinarySearchTree<T>::find(T value) const
+        -> bool
     {
         return findRecursive(root_, value);
     }
 
     template <typename T>
-    auto BinarySearchTree<T>::remove(T value) -> void
+    auto BinarySearchTree<T>::remove(T value)
+        -> void
     {
         root_ = removeRecursive(root_, value);
     }
 
     template <typename T>
-    auto BinarySearchTree<T>::inorderTraversal() const -> void
+    auto BinarySearchTree<T>::inorderTraversal() const
+        -> void
     {
         inorderTraversalRecursive(root_);
         std::cout << std::endl;
@@ -91,7 +107,8 @@ namespace fox
 
     template <typename T>
     auto BinarySearchTree<T>::insertRecursive(std::shared_ptr<TreeNode<T>> node,
-                                              T value) -> std::shared_ptr<TreeNode<T>>
+                                              T value)
+        -> std::shared_ptr<TreeNode<T>>
     {
         if (!node)
             return std::make_shared<TreeNode<T>>(value);
@@ -103,7 +120,9 @@ namespace fox
     }
 
     template <typename T>
-    auto BinarySearchTree<T>::findRecursive(const std::shared_ptr<TreeNode<T>>& node, T value) const -> bool
+    auto BinarySearchTree<T>::findRecursive(const std::shared_ptr<TreeNode<T>>& node,
+                                            T value) const
+        -> bool
     {
         if (!node)
             return false;
@@ -116,7 +135,8 @@ namespace fox
 
     template <typename T>
     auto BinarySearchTree<T>::removeRecursive(std::shared_ptr<TreeNode<T>> node,
-                                              T value) -> std::shared_ptr<TreeNode<T>>
+                                              T value)
+        -> std::shared_ptr<TreeNode<T>>
     {
         if (!node)
             return nullptr;
@@ -137,7 +157,8 @@ namespace fox
     }
 
     template <typename T>
-    auto BinarySearchTree<T>::minValueNode(std::shared_ptr<TreeNode<T>> node) -> std::shared_ptr<TreeNode<T>>
+    auto BinarySearchTree<T>::minValueNode(std::shared_ptr<TreeNode<T>> node)
+        -> std::shared_ptr<TreeNode<T>>
     {
         auto current = node;
         while (current && current->left)
@@ -146,7 +167,8 @@ namespace fox
     }
 
     template <typename T>
-    auto BinarySearchTree<T>::inorderTraversalRecursive(const std::shared_ptr<TreeNode<T>>& node) const -> void
+    auto BinarySearchTree<T>::inorderTraversalRecursive(const std::shared_ptr<TreeNode<T>>& node) const
+        -> void
     {
         if (!node)
             return;

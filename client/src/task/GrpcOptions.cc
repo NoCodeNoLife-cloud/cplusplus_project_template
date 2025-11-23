@@ -2,35 +2,44 @@
 
 namespace app_client
 {
-    GrpcOptions::GrpcOptions(const int32_t keepalive_time_ms, const int32_t keepalive_timeout_ms, const int32_t keepalive_permit_without_calls, std::string server_address) : keepalive_time_ms_(keepalive_time_ms), keepalive_timeout_ms_(keepalive_timeout_ms), keepalive_permit_without_calls_(keepalive_permit_without_calls), server_address_(std::move(server_address))
+    GrpcOptions::GrpcOptions(const int32_t keepalive_time_ms,
+                             const int32_t keepalive_timeout_ms,
+                             const int32_t keepalive_permit_without_calls,
+                             std::string server_address)
+        : keepalive_time_ms_(keepalive_time_ms), keepalive_timeout_ms_(keepalive_timeout_ms), keepalive_permit_without_calls_(keepalive_permit_without_calls), server_address_(std::move(server_address))
     {
     }
 
-    auto GrpcOptions::Builder::keepaliveTimeMs(const int32_t value) -> Builder&
+    auto GrpcOptions::Builder::keepaliveTimeMs(const int32_t value)
+        -> Builder&
     {
         keepalive_time_ms_ = value;
         return *this;
     }
 
-    auto GrpcOptions::Builder::keepaliveTimeoutMs(const int32_t value) -> Builder&
+    auto GrpcOptions::Builder::keepaliveTimeoutMs(const int32_t value)
+        -> Builder&
     {
         keepalive_timeout_ms_ = value;
         return *this;
     }
 
-    auto GrpcOptions::Builder::keepalivePermitWithoutCalls(const int32_t value) -> Builder&
+    auto GrpcOptions::Builder::keepalivePermitWithoutCalls(const int32_t value)
+        -> Builder&
     {
         keepalive_permit_without_calls_ = value;
         return *this;
     }
 
-    auto GrpcOptions::Builder::serverAddress(const std::string& value) -> Builder&
+    auto GrpcOptions::Builder::serverAddress(const std::string& value)
+        -> Builder&
     {
         server_address_ = value;
         return *this;
     }
 
-    auto GrpcOptions::Builder::build() const -> GrpcOptions
+    auto GrpcOptions::Builder::build() const
+        -> GrpcOptions
     {
         return {keepalive_time_ms_, keepalive_timeout_ms_, keepalive_permit_without_calls_, server_address_};
     }
@@ -40,48 +49,57 @@ namespace app_client
         return {};
     }
 
-    auto GrpcOptions::keepaliveTimeMs() const -> int32_t
+    auto GrpcOptions::keepaliveTimeMs() const
+        -> int32_t
     {
         return keepalive_time_ms_;
     }
 
-    auto GrpcOptions::keepaliveTimeMs(const int32_t value) -> void
+    auto GrpcOptions::keepaliveTimeMs(const int32_t value)
+        -> void
     {
         keepalive_time_ms_ = value;
     }
 
-    auto GrpcOptions::keepaliveTimeoutMs() const -> int32_t
+    auto GrpcOptions::keepaliveTimeoutMs() const
+        -> int32_t
     {
         return keepalive_timeout_ms_;
     }
 
-    auto GrpcOptions::keepaliveTimeoutMs(const int32_t value) -> void
+    auto GrpcOptions::keepaliveTimeoutMs(const int32_t value)
+        -> void
     {
         keepalive_timeout_ms_ = value;
     }
 
-    auto GrpcOptions::keepalivePermitWithoutCalls() const -> int32_t
+    auto GrpcOptions::keepalivePermitWithoutCalls() const
+        -> int32_t
     {
         return keepalive_permit_without_calls_;
     }
 
-    auto GrpcOptions::keepalivePermitWithoutCalls(const int32_t value) -> void
+    auto GrpcOptions::keepalivePermitWithoutCalls(const int32_t value)
+        -> void
     {
         keepalive_permit_without_calls_ = value;
     }
 
     // ReSharper disable once CppDFAConstantFunctionResult
-    auto GrpcOptions::serverAddress() const -> const std::string&
+    auto GrpcOptions::serverAddress() const
+        -> const std::string&
     {
         return server_address_;
     }
 
-    auto GrpcOptions::serverAddress(const std::string& value) -> void
+    auto GrpcOptions::serverAddress(const std::string& value)
+        -> void
     {
         server_address_ = value;
     }
 
-    auto GrpcOptions::deserializedFromYamlFile(const std::filesystem::path& path) -> void
+    auto GrpcOptions::deserializedFromYamlFile(const std::filesystem::path& path)
+        -> void
     {
         if (!std::filesystem::exists(path))
         {
@@ -121,7 +139,9 @@ namespace app_client
     }
 }
 
-auto YAML::convert<app_client::GrpcOptions>::decode(const Node& node, app_client::GrpcOptions& rhs) -> bool
+auto YAML::convert<app_client::GrpcOptions>::decode(const Node& node,
+                                                    app_client::GrpcOptions& rhs)
+    -> bool
 {
     rhs.keepaliveTimeMs(node["keepaliveTimeMs"].as<int32_t>());
     rhs.keepaliveTimeoutMs(node["keepaliveTimeoutMs"].as<int32_t>());
@@ -130,7 +150,8 @@ auto YAML::convert<app_client::GrpcOptions>::decode(const Node& node, app_client
     return true;
 }
 
-auto YAML::convert<app_client::GrpcOptions>::encode(const app_client::GrpcOptions& rhs) -> Node
+auto YAML::convert<app_client::GrpcOptions>::encode(const app_client::GrpcOptions& rhs)
+    -> Node
 {
     Node node;
     node["keepaliveTimeMs"] = rhs.keepaliveTimeMs();

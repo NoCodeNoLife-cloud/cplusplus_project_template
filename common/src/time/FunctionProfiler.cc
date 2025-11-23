@@ -10,7 +10,8 @@
 namespace common
 {
     FunctionProfiler::FunctionProfiler(std::string function_name,
-                                       const bool autoStart) noexcept : function_name_(std::move(function_name))
+                                       const bool autoStart) noexcept
+        : function_name_(std::move(function_name))
     {
         if (autoStart)
         {
@@ -18,13 +19,15 @@ namespace common
         }
     }
 
-    auto FunctionProfiler::recordStart() noexcept -> void
+    auto FunctionProfiler::recordStart() noexcept
+        -> void
     {
         start_ = std::chrono::high_resolution_clock::now();
         started_ = true;
     }
 
-    auto FunctionProfiler::recordEnd(const bool autoPrint) noexcept -> void
+    auto FunctionProfiler::recordEnd(const bool autoPrint) noexcept
+        -> void
     {
         end_ = std::chrono::high_resolution_clock::now();
         ended_ = true;
@@ -34,7 +37,8 @@ namespace common
         }
     }
 
-    auto FunctionProfiler::getRunTime() const -> void
+    auto FunctionProfiler::getRunTime() const
+        -> void
     {
         if (!started_ || !ended_)
         {
@@ -48,7 +52,8 @@ namespace common
             << duration_ms.count() / 1000.0 << " s";
     }
 
-    auto FunctionProfiler::getRunTimeMs() const -> double
+    auto FunctionProfiler::getRunTimeMs() const
+        -> double
     {
         if (!started_ || !ended_)
         {

@@ -33,7 +33,9 @@ namespace common
         /// @param off The starting offset in the vector.
         /// @param len The number of characters to write.
         /// @throws std::out_of_range if off + len exceeds the buffer size.
-        void write(const std::vector<char>& cBuf, size_t off, size_t len) override;
+        void write(const std::vector<char>& cBuf,
+                   size_t off,
+                   size_t len) override;
 
         /// @brief Writes a sequence of characters from a vector to the output writer.
         /// This method overrides the base class method to provide filtering functionality.
@@ -48,7 +50,9 @@ namespace common
         /// @param off The starting offset in the string.
         /// @param len The number of characters to write.
         /// @throws std::out_of_range if off + len exceeds the string size.
-        void write(const std::string& str, size_t off, size_t len) override;
+        void write(const std::string& str,
+                   size_t off,
+                   size_t len) override;
 
         /// @brief Writes a sequence of characters from a string to the output writer.
         /// This method overrides the base class method to provide filtering functionality.

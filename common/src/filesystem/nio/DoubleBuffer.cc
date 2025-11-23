@@ -12,24 +12,28 @@ namespace common
         buffer_.resize(capacity);
     }
 
-    auto DoubleBuffer::clear() -> void
+    auto DoubleBuffer::clear()
+        -> void
     {
         position_ = 0;
         limit_ = capacity_;
     }
 
-    auto DoubleBuffer::flip() -> void
+    auto DoubleBuffer::flip()
+        -> void
     {
         limit_ = position_;
         position_ = 0;
     }
 
-    auto DoubleBuffer::rewind() -> void
+    auto DoubleBuffer::rewind()
+        -> void
     {
         position_ = 0;
     }
 
-    auto DoubleBuffer::compact() -> void
+    auto DoubleBuffer::compact()
+        -> void
     {
         if (position_ > 0)
         {
@@ -41,7 +45,8 @@ namespace common
         }
     }
 
-    auto DoubleBuffer::put(const double value) -> DoubleBuffer&
+    auto DoubleBuffer::put(const double value)
+        -> DoubleBuffer&
     {
         if (!hasRemaining())
         {
@@ -51,7 +56,8 @@ namespace common
         return *this;
     }
 
-    auto DoubleBuffer::put(const std::vector<double>& values) -> DoubleBuffer&
+    auto DoubleBuffer::put(const std::vector<double>& values)
+        -> DoubleBuffer&
     {
         if (values.empty())
         {
@@ -70,7 +76,8 @@ namespace common
         return *this;
     }
 
-    auto DoubleBuffer::get() -> double
+    auto DoubleBuffer::get()
+        -> double
     {
         if (!hasRemaining())
         {
@@ -79,12 +86,14 @@ namespace common
         return buffer_[position_++];
     }
 
-    auto DoubleBuffer::position() const -> size_t
+    auto DoubleBuffer::position() const
+        -> size_t
     {
         return position_;
     }
 
-    auto DoubleBuffer::position(const size_t newPosition) -> void
+    auto DoubleBuffer::position(const size_t newPosition)
+        -> void
     {
         if (newPosition > limit_)
         {
@@ -93,12 +102,14 @@ namespace common
         position_ = newPosition;
     }
 
-    auto DoubleBuffer::limit() const -> size_t
+    auto DoubleBuffer::limit() const
+        -> size_t
     {
         return limit_;
     }
 
-    auto DoubleBuffer::limit(const size_t newLimit) -> void
+    auto DoubleBuffer::limit(const size_t newLimit)
+        -> void
     {
         if (newLimit > capacity_)
         {
@@ -111,22 +122,26 @@ namespace common
         limit_ = newLimit;
     }
 
-    auto DoubleBuffer::capacity() const -> size_t
+    auto DoubleBuffer::capacity() const
+        -> size_t
     {
         return capacity_;
     }
 
-    auto DoubleBuffer::hasRemaining() const -> bool
+    auto DoubleBuffer::hasRemaining() const
+        -> bool
     {
         return position_ < limit_;
     }
 
-    auto DoubleBuffer::remaining() const -> size_t
+    auto DoubleBuffer::remaining() const
+        -> size_t
     {
         return limit_ - position_;
     }
 
-    auto DoubleBuffer::getRemaining() const -> std::vector<double>
+    auto DoubleBuffer::getRemaining() const
+        -> std::vector<double>
     {
         if (position_ >= limit_)
         {

@@ -38,14 +38,27 @@ namespace app_client
     auto ClientTask::task(const client_app::RpcClient& rpc_client)
         -> void
     {
-        if (const auto response = rpc_client.RegisterUser("root", "Admin123!"); !response.success())
+        LOG(INFO) << "Starting authentication process";
+        if (const auto authenticateUserResponse = rpc_client.AuthenticateUser("root", "Admin123!"); !authenticateUserResponse.success())
         {
-            throw std::runtime_error("Failed to register user: " + response.message());
+            LOG(INFO) << "Authentication failed: " << authenticateUserResponse.message();
+            LOG(INFO) << "Registering user...";
+            if (const auto registerUserResponse = rpc_client.RegisterUser("root", "Admin123!"); !registerUserResponse.success())
+            {
+                LOG(ERROR) << "Failed to register user: " << registerUserResponse.message()
+                    << ", Error code: " << registerUserResponse.error_code();
+                throw std::runtime_error("Failed to register user: " + registerUserResponse.message());
+            }
+            else
+            {
+                LOG(INFO) << "Registered user successfully, return value: " << registerUserResponse.message();
+            }
         }
         else
         {
-            LOG(INFO) << "Registered user successfully, return value: " << response.message();
+            LOG(INFO) << "User authenticated successfully";
         }
+        LOG(INFO) << "Authentication process completed";
     }
 
     auto ClientTask::run()
@@ -71,10 +84,12 @@ namespace app_client
         catch (const std::exception& e)
         {
             LOG(ERROR) << "Exception caught: " << e.what();
+            LOG(ERROR) << "Stack trace: " << google::ProgramInvocationShortName() << " " << typeid(e).name();
         }
         catch (...)
         {
             LOG(ERROR) << "Unknown exception caught.";
+            LOG(ERROR) << "Stack trace not available for unknown exception type";
         }
     }
 
@@ -90,6 +105,8 @@ namespace app_client
     {
         LOG(INFO) << "OS Version: " << common::SystemInfo::GetOSVersion();
         LOG(INFO) << "CPU Model: " << common::SystemInfo::GetCpuModelFromRegistry();
+        LOG(INFO) << "Memory Details: " << common::SystemInfo::GetMemoryDetails();
+        LOG(INFO) << "Graphics Card Info: " << common::SystemInfo::GetGraphicsCardInfo();
     }
 
     auto ClientTask::createChannel() const
@@ -125,10 +142,12 @@ namespace app_client
         {
             LOG(ERROR) << "Failed to connect to gRPC server at " << server_address
                 << " within timeout period";
+            LOG(INFO) << "Connection attempt finished with state: " << channel->GetState(false);
         }
         else
         {
             LOG(INFO) << "Successfully connected to gRPC server at " << server_address;
+            LOG(INFO) << "Final connection state: " << channel->GetState(false);
         }
 
         return channel;
@@ -137,6 +156,8 @@ namespace app_client
     auto ClientTask::validateGrpcParameters() const
         -> void
     {
+        LOG(INFO) << "Validating gRPC parameters";
+
         // Validate keepalive time (should be positive)
         if (rpc_options_.keepaliveTimeMs() <= 0)
         {
@@ -177,5 +198,7 @@ namespace app_client
         {
             LOG(WARNING) << "Server address is empty. Using default value localhost:50051.";
         }
+
+        LOG(INFO) << "gRPC parameter validation completed";
     }
 } // namespace app_client

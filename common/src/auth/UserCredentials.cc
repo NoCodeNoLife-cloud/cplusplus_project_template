@@ -4,7 +4,9 @@
 
 namespace common
 {
-    UserCredentials::UserCredentials(std::string username, std::string hashed_password, std::string salt)
+    UserCredentials::UserCredentials(std::string username,
+                                     std::string hashed_password,
+                                     std::string salt)
         : username_(std::move(username)),
           hashed_password_(std::move(hashed_password)),
           salt_(std::move(salt)),

@@ -9,23 +9,28 @@ namespace common
 {
     AbstractInputStream::~AbstractInputStream() = default;
 
-    auto AbstractInputStream::mark(int32_t readLimit) -> void
+    auto AbstractInputStream::mark(int32_t readLimit)
+        -> void
     {
         throw std::runtime_error("mark not supported");
     }
 
-    auto AbstractInputStream::markSupported() const -> bool
+    auto AbstractInputStream::markSupported() const
+        -> bool
     {
         return false;
     }
 
-    auto AbstractInputStream::read(std::vector<std::byte>& buffer) -> size_t
+    auto AbstractInputStream::read(std::vector<std::byte>& buffer)
+        -> size_t
     {
         return read(buffer, 0, buffer.size());
     }
 
-    auto AbstractInputStream::read(std::vector<std::byte>& buffer, const size_t offset,
-                                   const size_t len) -> size_t
+    auto AbstractInputStream::read(std::vector<std::byte>& buffer,
+                                   const size_t offset,
+                                   const size_t len)
+        -> size_t
     {
         // Check for buffer overflow
         if (offset > buffer.size() || len > buffer.size() - offset)
@@ -48,12 +53,14 @@ namespace common
         return bytesRead;
     }
 
-    auto AbstractInputStream::reset() -> void
+    auto AbstractInputStream::reset()
+        -> void
     {
         throw std::runtime_error("reset not supported");
     }
 
-    auto AbstractInputStream::skip(const size_t n) -> size_t
+    auto AbstractInputStream::skip(const size_t n)
+        -> size_t
     {
         size_t skipped = 0;
         // Prevent potential overflow

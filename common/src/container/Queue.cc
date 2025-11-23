@@ -10,7 +10,8 @@ namespace common
     Queue<T>::Queue() = default;
 
     template <typename T>
-    Queue<T>::Queue(const Queue& other) : head_(nullptr), tail_(nullptr)
+    Queue<T>::Queue(const Queue& other)
+        : head_(nullptr), tail_(nullptr)
     {
         if (!other.empty())
         {
@@ -29,15 +30,17 @@ namespace common
     }
 
     template <typename T>
-    Queue<T>::Queue(Queue&& other) noexcept : head_(std::move(other.head_)), tail_(other.tail_),
-                                              queue_size_(other.queue_size_)
+    Queue<T>::Queue(Queue&& other) noexcept
+        : head_(std::move(other.head_)), tail_(other.tail_),
+          queue_size_(other.queue_size_)
     {
         other.tail_ = nullptr;
         other.queue_size_ = 0;
     }
 
     template <typename T>
-    auto Queue<T>::operator=(const Queue& other) -> Queue&
+    auto Queue<T>::operator=(const Queue& other)
+        -> Queue&
     {
         if (this != &other)
         {
@@ -48,7 +51,8 @@ namespace common
     }
 
     template <typename T>
-    auto Queue<T>::operator=(Queue&& other) noexcept -> Queue&
+    auto Queue<T>::operator=(Queue&& other) noexcept
+        -> Queue&
     {
         if (this != &other)
         {
@@ -62,7 +66,8 @@ namespace common
     }
 
     template <typename T>
-    auto Queue<T>::push(const T& value) -> void
+    auto Queue<T>::push(const T& value)
+        -> void
     {
         auto new_node = std::make_unique<Node>(value);
         if (tail_)
@@ -79,7 +84,8 @@ namespace common
     }
 
     template <typename T>
-    auto Queue<T>::pop() -> void
+    auto Queue<T>::pop()
+        -> void
     {
         if (empty())
         {
@@ -94,7 +100,8 @@ namespace common
     }
 
     template <typename T>
-    auto Queue<T>::front() -> T&
+    auto Queue<T>::front()
+        -> T&
     {
         if (empty())
         {
@@ -104,7 +111,8 @@ namespace common
     }
 
     template <typename T>
-    auto Queue<T>::front() const -> const T&
+    auto Queue<T>::front() const
+        -> const T&
     {
         if (empty())
         {
@@ -114,7 +122,8 @@ namespace common
     }
 
     template <typename T>
-    auto Queue<T>::back() -> T&
+    auto Queue<T>::back()
+        -> T&
     {
         if (empty())
         {
@@ -124,7 +133,8 @@ namespace common
     }
 
     template <typename T>
-    auto Queue<T>::back() const -> const T&
+    auto Queue<T>::back() const
+        -> const T&
     {
         if (empty())
         {
@@ -134,19 +144,22 @@ namespace common
     }
 
     template <typename T>
-    auto Queue<T>::empty() const noexcept -> bool
+    auto Queue<T>::empty() const noexcept
+        -> bool
     {
         return queue_size_ == 0;
     }
 
     template <typename T>
-    auto Queue<T>::size() const noexcept -> size_t
+    auto Queue<T>::size() const noexcept
+        -> size_t
     {
         return queue_size_;
     }
 
     template <typename T>
-    auto Queue<T>::swap(Queue& other) noexcept -> void
+    auto Queue<T>::swap(Queue& other) noexcept
+        -> void
     {
         using std::swap;
         head_.swap(other.head_);
@@ -155,7 +168,8 @@ namespace common
     }
 
     template <typename T>
-    Queue<T>::Node::Node(T value) : data_(std::move(value)), next_(nullptr)
+    Queue<T>::Node::Node(T value)
+        : data_(std::move(value)), next_(nullptr)
     {
     }
 }

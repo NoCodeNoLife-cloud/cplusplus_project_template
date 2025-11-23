@@ -2,7 +2,8 @@
 
 namespace common
 {
-    auto CryptoUtils::generate_salt() -> std::string
+    auto CryptoUtils::generate_salt()
+        -> std::string
     {
         unsigned char salt[SALT_SIZE];
         if (RAND_bytes(salt, SALT_SIZE) != 1)
@@ -12,7 +13,10 @@ namespace common
         return {reinterpret_cast<const char*>(salt), SALT_SIZE};
     }
 
-    auto CryptoUtils::hash_password(const std::string& password, const std::string& salt, const size_t iterations) -> std::string
+    auto CryptoUtils::hash_password(const std::string& password,
+                                    const std::string& salt,
+                                    const size_t iterations)
+        -> std::string
     {
         unsigned char hash[HASH_SIZE];
         if (PKCS5_PBKDF2_HMAC(password.c_str(), static_cast<int>(password.length()),
@@ -25,7 +29,9 @@ namespace common
         return {reinterpret_cast<const char*>(hash), HASH_SIZE};
     }
 
-    auto CryptoUtils::secure_compare(const std::string& a, const std::string& b) -> bool
+    auto CryptoUtils::secure_compare(const std::string& a,
+                                     const std::string& b)
+        -> bool
     {
         if (a.length() != b.length())
         {

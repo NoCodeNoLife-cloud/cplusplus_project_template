@@ -8,7 +8,8 @@
 
 namespace common
 {
-    auto SystemInfo::GetCpuModelFromRegistry() noexcept -> std::string
+    auto SystemInfo::GetCpuModelFromRegistry() noexcept
+        -> std::string
     {
         HKEY hKey;
 
@@ -38,7 +39,8 @@ namespace common
         return "Unknown CPU Model";
     }
 
-    auto SystemInfo::GetMemoryDetails() noexcept -> std::string
+    auto SystemInfo::GetMemoryDetails() noexcept
+        -> std::string
     {
         HKEY hKey;
         std::string result;
@@ -70,7 +72,8 @@ namespace common
         return result.empty() ? "Memory details not available" : result;
     }
 
-    auto SystemInfo::GetOSVersion() noexcept -> std::string
+    auto SystemInfo::GetOSVersion() noexcept
+        -> std::string
     {
         HKEY hKey;
         std::string result;
@@ -119,7 +122,8 @@ namespace common
         return result.empty() ? "Windows OS Information Not Available" : result;
     }
 
-    auto SystemInfo::GetMotherboardInfo() noexcept -> MotherboardInfo
+    auto SystemInfo::GetMotherboardInfo() noexcept
+        -> MotherboardInfo
     {
         MotherboardInfo info{};
         HKEY hKey;
@@ -198,7 +202,8 @@ namespace common
         return info;
     }
 
-    auto SystemInfo::GetGraphicsCardInfo() noexcept -> std::string
+    auto SystemInfo::GetGraphicsCardInfo() noexcept
+        -> std::string
     {
         HKEY hKey;
         std::string result;
@@ -245,7 +250,8 @@ namespace common
         return result.empty() ? "Graphics card information not available" : result;
     }
 
-    auto SystemInfo::GetDiskDriveInfo() noexcept -> std::vector<std::string>
+    auto SystemInfo::GetDiskDriveInfo() noexcept
+        -> std::vector<std::string>
     {
         std::vector<std::string> drives;
         HKEY hKey;
@@ -287,7 +293,8 @@ namespace common
         return drives;
     }
 
-    auto SystemInfo::GetBIOSInfo() noexcept -> std::vector<std::string>
+    auto SystemInfo::GetBIOSInfo() noexcept
+        -> std::vector<std::string>
     {
         std::vector<std::string> adapters;
         HKEY hKey;

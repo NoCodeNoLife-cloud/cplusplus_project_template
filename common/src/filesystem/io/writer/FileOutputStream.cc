@@ -2,7 +2,8 @@
 
 namespace common
 {
-    FileOutputStream::FileOutputStream(const std::string& name, const bool append)
+    FileOutputStream::FileOutputStream(const std::string& name,
+                                       const bool append)
     {
         if (std::filesystem::exists(name) && std::filesystem::is_directory(name))
         {
@@ -16,12 +17,14 @@ namespace common
         file_name_ = name;
     }
 
-    FileOutputStream::FileOutputStream(const char* name, const bool append)
+    FileOutputStream::FileOutputStream(const char* name,
+                                       const bool append)
         : FileOutputStream(std::string(name), append)
     {
     }
 
-    FileOutputStream::FileOutputStream(const std::filesystem::path& file, const bool append)
+    FileOutputStream::FileOutputStream(const std::filesystem::path& file,
+                                       const bool append)
         : FileOutputStream(file.string(), append)
     {
     }
@@ -34,7 +37,8 @@ namespace common
         }
     }
 
-    auto FileOutputStream::write(std::byte b) -> void
+    auto FileOutputStream::write(std::byte b)
+        -> void
     {
         checkStreamWritable("Cannot write to closed or unwritable stream.");
         checkStreamState();
@@ -42,17 +46,23 @@ namespace common
         checkStreamState();
     }
 
-    auto FileOutputStream::write(const std::vector<std::byte>& buffer) -> void
+    auto FileOutputStream::write(const std::vector<std::byte>& buffer)
+        -> void
     {
         AbstractOutputStream::write(buffer);
     }
 
-    auto FileOutputStream::write(const std::vector<std::byte>& buffer, const size_t offset, const size_t len) -> void
+    auto FileOutputStream::write(const std::vector<std::byte>& buffer,
+                                 const size_t offset,
+                                 const size_t len)
+        -> void
     {
         AbstractOutputStream::write(buffer, offset, len);
     }
 
-    auto FileOutputStream::write(const std::byte* buffer, const size_t length) -> void
+    auto FileOutputStream::write(const std::byte* buffer,
+                                 const size_t length)
+        -> void
     {
         if (length == 0)
         {
@@ -72,7 +82,8 @@ namespace common
         checkStreamState();
     }
 
-    auto FileOutputStream::flush() -> void
+    auto FileOutputStream::flush()
+        -> void
     {
         checkStreamWritable("Cannot flush closed or unwritable stream.");
         checkStreamState();
@@ -80,18 +91,21 @@ namespace common
         checkStreamState();
     }
 
-    auto FileOutputStream::close() -> void
+    auto FileOutputStream::close()
+        -> void
     {
         checkStreamWritable("Cannot close closed or unwritable stream.");
         file_stream_.close();
     }
 
-    [[nodiscard]] auto FileOutputStream::isClosed() const -> bool
+    [[nodiscard]] auto FileOutputStream::isClosed() const
+        -> bool
     {
         return !file_stream_.is_open();
     }
 
-    auto FileOutputStream::checkStreamWritable(const std::string& message) const -> void
+    auto FileOutputStream::checkStreamWritable(const std::string& message) const
+        -> void
     {
         if (!file_stream_.is_open())
         {
@@ -99,7 +113,8 @@ namespace common
         }
     }
 
-    auto FileOutputStream::checkStreamState() const -> void
+    auto FileOutputStream::checkStreamState() const
+        -> void
     {
         if (file_stream_.bad())
         {

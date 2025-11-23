@@ -2,7 +2,8 @@
 
 namespace common
 {
-    CsvFile::CsvFile(const std::string& file_path) noexcept : file_path_(file_path)
+    CsvFile::CsvFile(const std::string& file_path) noexcept
+        : file_path_(file_path)
     {
         try
         {
@@ -16,21 +17,25 @@ namespace common
         }
     }
 
-    auto CsvFile::getRowCount() const noexcept -> uint64_t
+    auto CsvFile::getRowCount() const noexcept
+        -> uint64_t
     {
         if (!is_valid_)
             return 0;
         return csv_doc_.GetRowCount();
     }
 
-    auto CsvFile::getColumnCount() const noexcept -> uint64_t
+    auto CsvFile::getColumnCount() const noexcept
+        -> uint64_t
     {
         if (!is_valid_)
             return 0;
         return csv_doc_.GetColumnCount();
     }
 
-    auto CsvFile::insertRow(const uint64_t insertIndex, const std::vector<std::string>& item) noexcept -> bool
+    auto CsvFile::insertRow(const uint64_t insertIndex,
+                            const std::vector<std::string>& item) noexcept
+        -> bool
     {
         if (!is_valid_)
             return false;
@@ -57,12 +62,14 @@ namespace common
         }
     }
 
-    auto CsvFile::pushBack(const std::vector<std::string>& item) noexcept -> bool
+    auto CsvFile::pushBack(const std::vector<std::string>& item) noexcept
+        -> bool
     {
         return insertRow(getRowCount(), item);
     }
 
-    auto CsvFile::save(const std::string& path) noexcept -> bool
+    auto CsvFile::save(const std::string& path) noexcept
+        -> bool
     {
         if (!is_valid_)
             return false;

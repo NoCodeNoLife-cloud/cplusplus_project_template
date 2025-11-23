@@ -7,7 +7,8 @@
 namespace common
 {
     template <typename GraphType, typename DistanceType>
-    Dijkstra<GraphType, DistanceType>::Dijkstra(const GraphType& g) : graph_(g)
+    Dijkstra<GraphType, DistanceType>::Dijkstra(const GraphType& g)
+        : graph_(g)
     {
         distances_.resize(graph_.getNodeCount(), INF);
     }
@@ -16,7 +17,8 @@ namespace common
     template <typename DistanceFunc>
     auto Dijkstra<GraphType, DistanceType>::compute(
         std::decay_t<decltype(std::declval<GraphType>().getNodeCount())> start,
-        DistanceFunc distanceFunc) -> void
+        DistanceFunc distanceFunc)
+        -> void
     {
         std::fill(distances_.begin(), distances_.end(), INF);
         distances_[start] = DistanceType{0};
@@ -53,13 +55,15 @@ namespace common
 
     template <typename GraphType, typename DistanceType>
     auto Dijkstra<GraphType, DistanceType>::getDistance(
-        const std::decay_t<decltype(std::declval<GraphType>().getNodeCount())> node) const -> DistanceType
+        const std::decay_t<decltype(std::declval<GraphType>().getNodeCount())> node) const
+        -> DistanceType
     {
         return distances_[node];
     }
 
     template <typename GraphType, typename DistanceType>
-    auto Dijkstra<GraphType, DistanceType>::getDistances() const -> const std::vector<DistanceType>&
+    auto Dijkstra<GraphType, DistanceType>::getDistances() const
+        -> const std::vector<DistanceType>&
     {
         return distances_;
     }

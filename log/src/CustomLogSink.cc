@@ -24,7 +24,8 @@ namespace glog
                              const int line,
                              const google::LogMessageTime& log_message_time,
                              const char* message,
-                             const size_t message_len) noexcept -> void
+                             const size_t message_len) noexcept
+        -> void
     {
         try
         {
@@ -47,7 +48,7 @@ namespace glog
             oss << base_filename << ":" << line << " ";
 
             // Log level prefix
-            oss << CustomLogSink::getLogLevelPrefix(severity) << " ";
+            oss << getLogLevelPrefix(severity) << " ";
 
             // Log message
             oss.write(message, static_cast<std::streamsize>(message_len));
@@ -64,7 +65,8 @@ namespace glog
     /// @brief Get the log level prefix string
     /// @param severity Log severity level
     /// @return String representation of the log level
-    [[nodiscard]] auto CustomLogSink::getLogLevelPrefix(const google::LogSeverity severity) noexcept -> const char*
+    [[nodiscard]] auto CustomLogSink::getLogLevelPrefix(const google::LogSeverity severity) noexcept
+        -> const char*
     {
         switch (severity)
         {

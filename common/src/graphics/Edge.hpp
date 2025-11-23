@@ -13,23 +13,28 @@ namespace common
         /// @brief Construct an Edge with target vertex and weight
         /// @param to Target vertex
         /// @param weight Edge weight
-        explicit Edge(int32_t to, int32_t weight) noexcept;
+        explicit Edge(int32_t to,
+                      int32_t weight) noexcept;
 
         /// @brief Get target vertex
         /// @return Target vertex
-        [[nodiscard]] auto to() const noexcept -> int32_t;
+        [[nodiscard]] auto to() const noexcept
+            -> int32_t;
 
         /// @brief Set target vertex
         /// @param to Target vertex
-        auto setTo(int32_t to) noexcept -> void;
+        auto setTo(int32_t to) noexcept
+            -> void;
 
         /// @brief Get edge weight
         /// @return Edge weight
-        [[nodiscard]] auto weight() const noexcept -> int32_t;
+        [[nodiscard]] auto weight() const noexcept
+            -> int32_t;
 
         /// @brief Set edge weight
         /// @param weight Edge weight
-        auto setWeight(int32_t weight) noexcept -> void;
+        auto setWeight(int32_t weight) noexcept
+            -> void;
 
     private:
         int32_t to_{0};

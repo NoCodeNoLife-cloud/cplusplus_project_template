@@ -21,7 +21,9 @@ namespace common
         output_writer_->write(c);
     }
 
-    void AbstractFilterWriter::write(const std::vector<char>& cBuf, const size_t off, const size_t len)
+    void AbstractFilterWriter::write(const std::vector<char>& cBuf,
+                                     const size_t off,
+                                     const size_t len)
     {
         checkOutputStream();
         if (off + len > cBuf.size())
@@ -37,7 +39,9 @@ namespace common
         output_writer_->write(cBuf);
     }
 
-    void AbstractFilterWriter::write(const std::string& str, const size_t off, const size_t len)
+    void AbstractFilterWriter::write(const std::string& str,
+                                     const size_t off,
+                                     const size_t len)
     {
         checkOutputStream();
         if (off + len > str.size())

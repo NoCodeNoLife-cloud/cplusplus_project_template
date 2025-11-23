@@ -4,13 +4,15 @@
 
 namespace common
 {
-    FilterReader::FilterReader(std::shared_ptr<AbstractReader> reader) : in_(std::move(reader))
+    FilterReader::FilterReader(std::shared_ptr<AbstractReader> reader)
+        : in_(std::move(reader))
     {
     }
 
     FilterReader::~FilterReader() = default;
 
-    auto FilterReader::close() -> void
+    auto FilterReader::close()
+        -> void
     {
         if (!in_)
         {
@@ -19,7 +21,8 @@ namespace common
         in_->close();
     }
 
-    auto FilterReader::mark(const size_t readAheadLimit) -> void
+    auto FilterReader::mark(const size_t readAheadLimit)
+        -> void
     {
         if (!in_)
         {
@@ -28,7 +31,8 @@ namespace common
         in_->mark(readAheadLimit);
     }
 
-    auto FilterReader::markSupported() const -> bool
+    auto FilterReader::markSupported() const
+        -> bool
     {
         if (!in_)
         {
@@ -37,7 +41,8 @@ namespace common
         return in_->markSupported();
     }
 
-    auto FilterReader::read() -> int
+    auto FilterReader::read()
+        -> int
     {
         if (!in_)
         {
@@ -46,7 +51,10 @@ namespace common
         return in_->read();
     }
 
-    auto FilterReader::read(std::vector<char>& cBuf, const size_t off, const size_t len) -> int
+    auto FilterReader::read(std::vector<char>& cBuf,
+                            const size_t off,
+                            const size_t len)
+        -> int
     {
         if (!in_)
         {
@@ -60,7 +68,8 @@ namespace common
         return in_->read(cBuf, off, len);
     }
 
-    auto FilterReader::read(std::vector<char>& cBuf) -> int
+    auto FilterReader::read(std::vector<char>& cBuf)
+        -> int
     {
         if (!in_)
         {
@@ -69,7 +78,8 @@ namespace common
         return in_->read(cBuf);
     }
 
-    auto FilterReader::ready() const -> bool
+    auto FilterReader::ready() const
+        -> bool
     {
         if (!in_)
         {
@@ -78,7 +88,8 @@ namespace common
         return in_->ready();
     }
 
-    auto FilterReader::reset() -> void
+    auto FilterReader::reset()
+        -> void
     {
         if (!in_)
         {
@@ -87,7 +98,8 @@ namespace common
         in_->reset();
     }
 
-    auto FilterReader::skip(const size_t n) -> size_t
+    auto FilterReader::skip(const size_t n)
+        -> size_t
     {
         if (!in_)
         {
@@ -96,7 +108,8 @@ namespace common
         return in_->skip(n);
     }
 
-    auto FilterReader::isClosed() const -> bool
+    auto FilterReader::isClosed() const
+        -> bool
     {
         if (!in_)
         {

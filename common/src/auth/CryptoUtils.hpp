@@ -15,7 +15,8 @@ namespace common
         /// @brief Generate cryptographically secure random salt
         /// @return Random salt string of SALT_SIZE bytes
         /// @throws AuthenticationException if secure random generation fails
-        static auto generate_salt() -> std::string;
+        static auto generate_salt()
+            -> std::string;
 
         /// @brief Hash password using PBKDF2-HMAC-SHA256 with configurable iterations
         /// @param password Plaintext password to hash
@@ -25,12 +26,15 @@ namespace common
         /// @throws AuthenticationException if hashing operation fails
         static auto hash_password(const std::string& password,
                                   const std::string& salt,
-                                  size_t iterations = 600000) -> std::string;
+                                  size_t iterations = 600000)
+            -> std::string;
 
         /// @brief Constant-time string comparison to prevent timing attacks
         /// @param a First string to compare
         /// @param b Second string to compare
         /// @return true if strings are equal, false otherwise
-        static auto secure_compare(const std::string& a, const std::string& b) -> bool;
+        static auto secure_compare(const std::string& a,
+                                   const std::string& b)
+            -> bool;
     };
 } // common

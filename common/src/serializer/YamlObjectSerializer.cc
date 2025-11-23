@@ -10,7 +10,9 @@
 namespace common
 {
     template <typename T>
-    auto YamlObjectSerializer<T>::serialize(const T& obj, const std::string& filename) -> void
+    auto YamlObjectSerializer<T>::serialize(const T& obj,
+                                            const std::string& filename)
+        -> void
     {
         if (filename.empty())
         {
@@ -38,7 +40,8 @@ namespace common
     }
 
     template <typename T>
-    [[nodiscard]] auto YamlObjectSerializer<T>::deserialize(const std::string& filename) -> T
+    [[nodiscard]] auto YamlObjectSerializer<T>::deserialize(const std::string& filename)
+        -> T
     {
         if (filename.empty())
         {

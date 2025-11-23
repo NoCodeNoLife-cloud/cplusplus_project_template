@@ -7,11 +7,13 @@
 
 namespace common
 {
-    Scanner::Scanner(std::istream& input_stream) : input_(input_stream)
+    Scanner::Scanner(std::istream& input_stream)
+        : input_(input_stream)
     {
     }
 
-    auto Scanner::nextInt() const -> int32_t
+    auto Scanner::nextInt() const
+        -> int32_t
     {
         if (std::string token; getNextToken(token))
         {
@@ -27,7 +29,8 @@ namespace common
         throw std::runtime_error("No more integers available.");
     }
 
-    auto Scanner::nextDouble() const -> double
+    auto Scanner::nextDouble() const
+        -> double
     {
         if (std::string token; getNextToken(token))
         {
@@ -43,14 +46,16 @@ namespace common
         throw std::runtime_error("No more doubles available.");
     }
 
-    auto Scanner::nextLine() const -> std::string
+    auto Scanner::nextLine() const
+        -> std::string
     {
         std::string line;
         std::getline(input_, line);
         return line;
     }
 
-    auto Scanner::getNextToken(std::string& token) const -> bool
+    auto Scanner::getNextToken(std::string& token) const
+        -> bool
     {
         // Skip leading whitespace
         while (input_.peek() != EOF && std::isspace(input_.peek()))
@@ -72,7 +77,8 @@ namespace common
         return true;
     }
 
-    auto Scanner::nextTokens(const char delimiter) const -> std::vector<std::string>
+    auto Scanner::nextTokens(const char delimiter) const
+        -> std::vector<std::string>
     {
         std::string line;
         std::getline(input_, line);

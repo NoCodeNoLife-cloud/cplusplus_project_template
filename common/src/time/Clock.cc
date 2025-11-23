@@ -7,7 +7,8 @@
 
 namespace common
 {
-    auto Clock::getCurrentDateTimeString() noexcept -> std::string
+    auto Clock::getCurrentDateTimeString() noexcept
+        -> std::string
     {
         const auto now = std::chrono::system_clock::now();
         const auto local_time = std::chrono::current_zone()->to_local(now);
@@ -19,7 +20,8 @@ namespace common
                            time_part.hours().count(), time_part.minutes().count(), time_part.seconds().count());
     }
 
-    auto Clock::getCompressedCurrentDateTimeString() noexcept -> std::string
+    auto Clock::getCompressedCurrentDateTimeString() noexcept
+        -> std::string
     {
         const auto now = std::chrono::system_clock::now();
         const auto local_time = std::chrono::current_zone()->to_local(now);

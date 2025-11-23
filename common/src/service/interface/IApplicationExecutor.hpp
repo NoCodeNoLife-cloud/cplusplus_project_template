@@ -16,6 +16,8 @@ namespace service
         /// @param argc The number of command-line arguments.
         /// @param argv An array of pointers to null-terminated strings representing the command-line arguments.
         /// @return true if the execution was successful, false otherwise.
-        [[nodiscard]] virtual auto execute(int32_t argc, char* argv[]) noexcept -> bool = 0;
+        [[nodiscard]] virtual auto execute(int32_t argc,
+                                           char* argv[]) noexcept
+            -> bool = 0;
     };
 } // namespace service

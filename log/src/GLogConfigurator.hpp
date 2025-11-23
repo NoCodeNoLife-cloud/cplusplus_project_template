@@ -18,27 +18,33 @@ namespace glog
         /// @brief Execute the configuration process
         /// @return True if configuration was successful
         /// @throws std::runtime_error If configuration fails
-        [[nodiscard]] auto execute() const -> bool;
+        [[nodiscard]] auto execute() const
+            -> bool;
 
         /// @brief Get the current configuration parameters
         /// @return A const reference to the GLogParameters object
-        [[nodiscard]] auto getConfig() const noexcept -> const GLogParameters&;
+        [[nodiscard]] auto getConfig() const noexcept
+            -> const GLogParameters&;
 
         /// @brief Update the configuration parameters
         /// @param config The new configuration parameters
-        auto updateConfig(const GLogParameters& config) -> void;
+        auto updateConfig(const GLogParameters& config)
+            -> void;
 
     private:
         /// @brief Perform the actual glog configuration
         /// @return True if configuration was successful
-        [[nodiscard]] auto doConfig() const -> bool;
+        [[nodiscard]] auto doConfig() const
+            -> bool;
 
         /// @brief Configure logging to stdout based on options
         /// @param glog_options The glog configuration parameters
-        static auto configLogToStdout(const GLogParameters& glog_options) noexcept -> void;
+        static auto configLogToStdout(const GLogParameters& glog_options) noexcept
+            -> void;
 
         /// @brief Clean up glog resources
-        static auto clean() noexcept -> void;
+        static auto clean() noexcept
+            -> void;
 
         std::string glog_yaml_path_;
         GLogParameters config_;

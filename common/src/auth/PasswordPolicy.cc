@@ -2,7 +2,13 @@
 
 namespace common
 {
-    PasswordPolicy::PasswordPolicy(const size_t min_length, const size_t max_length, const bool require_uppercase, const bool require_lowercase, const bool require_digits, const bool require_special, const size_t max_login_attempts)
+    PasswordPolicy::PasswordPolicy(const size_t min_length,
+                                   const size_t max_length,
+                                   const bool require_uppercase,
+                                   const bool require_lowercase,
+                                   const bool require_digits,
+                                   const bool require_special,
+                                   const size_t max_login_attempts)
         : min_length_(min_length),
           max_length_(max_length),
           require_uppercase_(require_uppercase),
@@ -13,7 +19,8 @@ namespace common
     {
     }
 
-    auto PasswordPolicy::validate(const std::string& password) const -> bool
+    auto PasswordPolicy::validate(const std::string& password) const
+        -> bool
     {
         if (password.length() < min_length_ || password.length() > max_length_)
         {
@@ -36,32 +43,38 @@ namespace common
         return has_upper && has_lower && has_digit && has_special;
     }
 
-    auto PasswordPolicy::set_min_length(const size_t length) -> void
+    auto PasswordPolicy::set_min_length(const size_t length)
+        -> void
     {
         min_length_ = length;
     }
 
-    auto PasswordPolicy::set_max_length(const size_t length) -> void
+    auto PasswordPolicy::set_max_length(const size_t length)
+        -> void
     {
         max_length_ = length;
     }
 
-    auto PasswordPolicy::set_require_uppercase(const bool require) -> void
+    auto PasswordPolicy::set_require_uppercase(const bool require)
+        -> void
     {
         require_uppercase_ = require;
     }
 
-    auto PasswordPolicy::set_require_lowercase(const bool require) -> void
+    auto PasswordPolicy::set_require_lowercase(const bool require)
+        -> void
     {
         require_lowercase_ = require;
     }
 
-    auto PasswordPolicy::set_require_digits(const bool require) -> void
+    auto PasswordPolicy::set_require_digits(const bool require)
+        -> void
     {
         require_digits_ = require;
     }
 
-    auto PasswordPolicy::set_require_special(const bool require) -> void
+    auto PasswordPolicy::set_require_special(const bool require)
+        -> void
     {
         require_special_ = require;
     }

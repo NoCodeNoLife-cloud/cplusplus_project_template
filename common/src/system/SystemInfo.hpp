@@ -24,30 +24,37 @@ namespace common
 
         /// @brief Get CPU model from registry
         /// @return CPU model as string
-        [[nodiscard]] static auto GetCpuModelFromRegistry() noexcept -> std::string;
+        [[nodiscard]] static auto GetCpuModelFromRegistry() noexcept
+            -> std::string;
 
         /// @brief Get memory details
         /// @return Memory details as string
-        [[nodiscard]] static auto GetMemoryDetails() noexcept -> std::string;
+        [[nodiscard]] static auto GetMemoryDetails() noexcept
+            -> std::string;
 
         /// @brief Get OS version
         /// @return OS version as string
-        [[nodiscard]] static auto GetOSVersion() noexcept -> std::string;
+        [[nodiscard]] static auto GetOSVersion() noexcept
+            -> std::string;
 
         /// @brief Get motherboard information
         /// @return MotherboardInfo struct
-        [[nodiscard]] static auto GetMotherboardInfo() noexcept -> MotherboardInfo;
+        [[nodiscard]] static auto GetMotherboardInfo() noexcept
+            -> MotherboardInfo;
 
         /// @brief Get graphics card information
         /// @return Graphics card info as string
-        [[nodiscard]] static auto GetGraphicsCardInfo() noexcept -> std::string;
+        [[nodiscard]] static auto GetGraphicsCardInfo() noexcept
+            -> std::string;
 
         /// @brief Get disk drive information
         /// @return Vector of disk drive info strings
-        [[nodiscard]] static auto GetDiskDriveInfo() noexcept -> std::vector<std::string>;
+        [[nodiscard]] static auto GetDiskDriveInfo() noexcept
+            -> std::vector<std::string>;
 
         /// @brief Get BIOS information
         /// @return Vector of BIOS info strings
-        [[nodiscard]] static auto GetBIOSInfo() noexcept -> std::vector<std::string>;
+        [[nodiscard]] static auto GetBIOSInfo() noexcept
+            -> std::vector<std::string>;
     };
 }

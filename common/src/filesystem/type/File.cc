@@ -14,39 +14,46 @@
 
 namespace common
 {
-    File::File(const std::string& path) : file_path_(path)
+    File::File(const std::string& path)
+        : file_path_(path)
     {
     }
 
-    File::File(std::filesystem::path path) : file_path_(std::move(path))
+    File::File(std::filesystem::path path)
+        : file_path_(std::move(path))
     {
     }
 
-    File::File(const char* path) : file_path_(path)
+    File::File(const char* path)
+        : file_path_(path)
     {
     }
 
     File::~File() = default;
 
-    auto File::canExecute() const noexcept -> bool
+    auto File::canExecute() const noexcept
+        -> bool
     {
         const DWORD attributes = GetFileAttributesW(file_path_.c_str());
         return attributes != INVALID_FILE_ATTRIBUTES && (attributes & FILE_ATTRIBUTE_DIRECTORY) == 0;
     }
 
-    auto File::canRead() const noexcept -> bool
+    auto File::canRead() const noexcept
+        -> bool
     {
         const std::ifstream file(file_path_);
         return file.good();
     }
 
-    auto File::canWrite() const noexcept -> bool
+    auto File::canWrite() const noexcept
+        -> bool
     {
         const std::ofstream file(file_path_, std::ios::app);
         return file.good();
     }
 
-    auto File::exists() const noexcept -> bool
+    auto File::exists() const noexcept
+        -> bool
     {
         try
         {
@@ -58,7 +65,8 @@ namespace common
         }
     }
 
-    auto File::isFile() const noexcept -> bool
+    auto File::isFile() const noexcept
+        -> bool
     {
         try
         {
@@ -70,18 +78,21 @@ namespace common
         }
     }
 
-    auto File::isHidden() const noexcept -> bool
+    auto File::isHidden() const noexcept
+        -> bool
     {
         const DWORD attributes = GetFileAttributesW(file_path_.c_str());
         return attributes != INVALID_FILE_ATTRIBUTES && attributes & FILE_ATTRIBUTE_HIDDEN;
     }
 
-    auto File::isAbsolute() const noexcept -> bool
+    auto File::isAbsolute() const noexcept
+        -> bool
     {
         return file_path_.is_absolute();
     }
 
-    auto File::createNewFile() const -> bool
+    auto File::createNewFile() const
+        -> bool
     {
         if (std::filesystem::exists(file_path_))
         {
@@ -91,7 +102,8 @@ namespace common
         return file.good();
     }
 
-    auto File::deleteFile() const noexcept -> bool
+    auto File::deleteFile() const noexcept
+        -> bool
     {
         try
         {
@@ -103,7 +115,8 @@ namespace common
         }
     }
 
-    auto File::renameTo(const File& dest) const noexcept -> bool
+    auto File::renameTo(const File& dest) const noexcept
+        -> bool
     {
         try
         {
@@ -116,7 +129,8 @@ namespace common
         }
     }
 
-    auto File::copyTo(const File& dest) const -> bool
+    auto File::copyTo(const File& dest) const
+        -> bool
     {
         try
         {
@@ -129,7 +143,8 @@ namespace common
         }
     }
 
-    auto File::length() const noexcept -> int64_t
+    auto File::length() const noexcept
+        -> int64_t
     {
         try
         {
@@ -145,7 +160,8 @@ namespace common
         }
     }
 
-    auto File::lastModified() const noexcept -> int64_t
+    auto File::lastModified() const noexcept
+        -> int64_t
     {
         try
         {
@@ -160,7 +176,8 @@ namespace common
         }
     }
 
-    auto File::setLastModified(const int64_t time) const noexcept -> bool
+    auto File::setLastModified(const int64_t time) const noexcept
+        -> bool
     {
         try
         {
@@ -176,7 +193,8 @@ namespace common
         }
     }
 
-    auto File::setReadOnly() const noexcept -> bool
+    auto File::setReadOnly() const noexcept
+        -> bool
     {
         try
         {
@@ -198,7 +216,8 @@ namespace common
         }
     }
 
-    auto File::getAbsolutePath() const -> std::string
+    auto File::getAbsolutePath() const
+        -> std::string
     {
         try
         {
@@ -210,7 +229,8 @@ namespace common
         }
     }
 
-    auto File::getAbsoluteFile() const -> File
+    auto File::getAbsoluteFile() const
+        -> File
     {
         try
         {
@@ -222,12 +242,14 @@ namespace common
         }
     }
 
-    auto File::getName() const noexcept -> std::string
+    auto File::getName() const noexcept
+        -> std::string
     {
         return file_path_.filename().string();
     }
 
-    auto File::getExtension() const noexcept -> std::string
+    auto File::getExtension() const noexcept
+        -> std::string
     {
         try
         {
@@ -240,22 +262,26 @@ namespace common
         }
     }
 
-    auto File::getParent() const noexcept -> std::string
+    auto File::getParent() const noexcept
+        -> std::string
     {
         return file_path_.parent_path().string();
     }
 
-    auto File::getParentFile() const -> File
+    auto File::getParentFile() const
+        -> File
     {
         return file_path_.has_parent_path() ? File(file_path_.parent_path()) : File(std::string(""));
     }
 
-    auto File::getPath() const noexcept -> std::string
+    auto File::getPath() const noexcept
+        -> std::string
     {
         return file_path_.string();
     }
 
-    auto File::getTotalSpace() const noexcept -> int64_t
+    auto File::getTotalSpace() const noexcept
+        -> int64_t
     {
         try
         {
@@ -268,7 +294,8 @@ namespace common
         }
     }
 
-    auto File::getUsableSpace() const noexcept -> int64_t
+    auto File::getUsableSpace() const noexcept
+        -> int64_t
     {
         try
         {
@@ -281,7 +308,8 @@ namespace common
         }
     }
 
-    auto File::getSizeString() const noexcept -> std::string
+    auto File::getSizeString() const noexcept
+        -> std::string
     {
         const auto size = length();
         if (size < 0)
@@ -316,17 +344,20 @@ namespace common
         return oss.str();
     }
 
-    auto File::hashCode() const noexcept -> size_t
+    auto File::hashCode() const noexcept
+        -> size_t
     {
         return std::hash<std::string>{}(file_path_.string());
     }
 
-    auto File::toURI() const noexcept -> std::string
+    auto File::toURI() const noexcept
+        -> std::string
     {
         return "file://" + file_path_.string();
     }
 
-    auto File::printFilesWithDepth(const std::filesystem::path& file_path) -> void
+    auto File::printFilesWithDepth(const std::filesystem::path& file_path)
+        -> void
     {
         if (!std::filesystem::exists(file_path) || !std::filesystem::is_directory(file_path))
         {
@@ -352,7 +383,8 @@ namespace common
         }
     }
 
-    auto File::getFileMD5(const std::filesystem::path& filePath) -> std::string
+    auto File::getFileMD5(const std::filesystem::path& filePath)
+        -> std::string
     {
         std::ifstream file(filePath, std::ios::binary);
         if (!file)

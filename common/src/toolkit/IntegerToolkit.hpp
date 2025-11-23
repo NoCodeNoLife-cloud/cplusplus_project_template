@@ -17,6 +17,7 @@ namespace common
         /// @brief Converts an integer to its Roman numeral representation
         /// @param num The integer to convert (must be between 1 and 3999)
         /// @return The Roman numeral representation as a string
-        [[nodiscard]] static auto intToRoman(int32_t num) noexcept -> std::string;
+        [[nodiscard]] static auto intToRoman(int32_t num) noexcept
+            -> std::string;
     };
 }

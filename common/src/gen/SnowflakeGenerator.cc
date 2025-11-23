@@ -7,7 +7,8 @@
 
 namespace common
 {
-    SnowflakeGenerator::SnowflakeGenerator(const int16_t machine_id, const int16_t datacenter_id)
+    SnowflakeGenerator::SnowflakeGenerator(const int16_t machine_id,
+                                           const int16_t datacenter_id)
     {
         if (machine_id < 0 || machine_id > static_cast<int64_t>(SnowflakeOption::max_machine_id_))
         {
@@ -21,7 +22,8 @@ namespace common
         datacenter_id_ = datacenter_id;
     }
 
-    auto SnowflakeGenerator::NextId() -> int64_t
+    auto SnowflakeGenerator::NextId()
+        -> int64_t
     {
         std::lock_guard lock(mutex_);
         int64_t timestamp = GetCurrentTimestamp();
@@ -55,7 +57,8 @@ namespace common
             static_cast<int64_t>(datacenter_id_ << 5 | machine_id_) << static_cast<int64_t>(SnowflakeOption::sequence_bits_) | sequence_;
     }
 
-    auto SnowflakeGenerator::GetCurrentTimestamp() noexcept -> int64_t
+    auto SnowflakeGenerator::GetCurrentTimestamp() noexcept
+        -> int64_t
     {
         const auto now = std::chrono::system_clock::now();
         const auto duration = now.time_since_epoch();
@@ -64,7 +67,8 @@ namespace common
         return timestamp - start_time;
     }
 
-    auto SnowflakeGenerator::TilNextMillis(const int64_t last_timestamp) noexcept -> int64_t
+    auto SnowflakeGenerator::TilNextMillis(const int64_t last_timestamp) noexcept
+        -> int64_t
     {
         int64_t timestamp = GetCurrentTimestamp();
         while (timestamp <= last_timestamp)

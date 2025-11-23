@@ -18,73 +18,90 @@ namespace common
 
         /// @brief Clears the buffer by setting position to 0 and limit to capacity.
         /// @return void
-        auto clear() -> void override;
+        auto clear()
+            -> void override;
 
         /// @brief Flips the buffer by setting limit to current position and position to 0.
         /// @return void
-        auto flip() -> void override;
+        auto flip()
+            -> void override;
 
         /// @brief Resets the position to 0 while keeping the limit unchanged.
         /// @return void
-        auto rewind() -> void override;
+        auto rewind()
+            -> void override;
 
         /// @brief Compacts the buffer by removing processed elements.
         /// @return void
-        auto compact() -> void;
+        auto compact()
+            -> void;
 
         /// @brief Get the current element and advance the position.
         /// @return The current element.
-        auto get() -> int32_t;
+        auto get()
+            -> int32_t;
 
         /// @brief Get the element at the specified index.
         /// @param index The index of the element to get.
         /// @return The element at the specified index.
-        [[nodiscard]] auto get(size_t index) const -> int32_t;
+        [[nodiscard]] auto get(size_t index) const
+            -> int32_t;
 
         /// @brief Put the specified value at the current position and advance the position.
         /// @param value The value to put.
         /// @return void
-        auto put(int32_t value) -> void;
+        auto put(int32_t value)
+            -> void;
 
         /// @brief Put the specified value at the specified index.
         /// @param index The index at which to put the value.
         /// @param value The value to put.
         /// @return void
-        auto put(size_t index, int32_t value) -> void;
+        auto put(size_t index,
+                 int32_t value)
+            -> void;
 
         /// @brief Gets the remaining unprocessed elements as a vector.
         /// @return The remaining elements in the buffer as a vector.
-        [[nodiscard]] auto getRemaining() const -> std::vector<int32_t>;
+        [[nodiscard]] auto getRemaining() const
+            -> std::vector<int32_t>;
 
         /// @brief Returns the current position in the buffer.
         /// @return The current position.
-        [[nodiscard]] auto position() const -> size_t override;
+        [[nodiscard]] auto position() const
+            -> size_t override;
 
         /// @brief Sets the position in the buffer.
         /// @param newPosition The new position to set.
         /// @return void
-        auto position(size_t newPosition) -> void override;
+        auto position(size_t newPosition)
+            -> void override;
 
         /// @brief Returns the limit of the buffer.
         /// @return The current limit.
-        [[nodiscard]] auto limit() const -> size_t override;
+        [[nodiscard]] auto limit() const
+            -> size_t override;
 
         /// @brief Sets the limit of the buffer.
         /// @param newLimit The new limit to set.
         /// @return void
-        auto limit(size_t newLimit) -> void override;
+        auto limit(size_t newLimit)
+            -> void override;
 
         /// @brief Returns the capacity of the buffer.
         /// @return The buffer capacity.
-        [[nodiscard]] auto capacity() const -> size_t override;
+        [[nodiscard]] auto capacity() const
+            -> size_t override;
 
         /// @brief Checks if there are remaining elements in the buffer.
         /// @return true if there are remaining elements, false otherwise.
-        [[nodiscard]] auto hasRemaining() const -> bool override;
+        [[nodiscard]] auto hasRemaining() const
+            -> bool override;
 
         /// @brief Returns the number of remaining elements in the buffer.
         /// @return The number of remaining elements.
-        [[nodiscard]] auto remaining() const -> size_t override;
+        [[nodiscard]] auto remaining() const
+            -> size_t override;
 
     private:
         std::vector<int32_t> buffer_{};

@@ -61,7 +61,8 @@ namespace common
         /// @param width The width of the image in pixels
         /// @param height The height of the image in pixels
         /// @throws std::invalid_argument if width or height is non-positive
-        explicit BmpImage(int32_t width, int32_t height);
+        explicit BmpImage(int32_t width,
+                          int32_t height);
 
         /// @brief Constructs a BmpImage by loading from a file
         /// @param filename The name of the file to load the image from
@@ -74,7 +75,12 @@ namespace common
         /// @param r The red component of the color (0-255)
         /// @param g The green component of the color (0-255)
         /// @param b The blue component of the color (0-255)
-        auto setPixel(int32_t x, int32_t y, uint8_t r, uint8_t g, uint8_t b) noexcept -> void;
+        auto setPixel(int32_t x,
+                      int32_t y,
+                      uint8_t r,
+                      uint8_t g,
+                      uint8_t b) noexcept
+            -> void;
 
         /// @brief Gets the color of a pixel at the specified coordinates
         /// @param x The x-coordinate of the pixel
@@ -83,20 +89,28 @@ namespace common
         /// @param g Reference to store the green component of the color (0-255)
         /// @param b Reference to store the blue component of the color (0-255)
         /// @return true if the coordinates are valid, false otherwise
-        [[nodiscard]] auto getPixel(int32_t x, int32_t y, uint8_t& r, uint8_t& g, uint8_t& b) const noexcept -> bool;
+        [[nodiscard]] auto getPixel(int32_t x,
+                                    int32_t y,
+                                    uint8_t& r,
+                                    uint8_t& g,
+                                    uint8_t& b) const noexcept
+            -> bool;
 
         /// @brief Saves the BMP image to a file
         /// @param filename The name of the file to save the image to
         /// @throws std::runtime_error if the file cannot be created
-        auto save(const std::string& filename) const -> void;
+        auto save(const std::string& filename) const
+            -> void;
 
         /// @brief Gets the width of the image
         /// @return The width of the image in pixels
-        [[nodiscard]] auto getWidth() const noexcept -> int32_t;
+        [[nodiscard]] auto getWidth() const noexcept
+            -> int32_t;
 
         /// @brief Gets the height of the image
         /// @return The height of the image in pixels
-        [[nodiscard]] auto getHeight() const noexcept -> int32_t;
+        [[nodiscard]] auto getHeight() const noexcept
+            -> int32_t;
 
     private:
         int32_t width_{};
@@ -106,6 +120,7 @@ namespace common
         /// @brief Loads a BMP image from a file
         /// @param filename The name of the file to load the image from
         /// @throws std::runtime_error if the file cannot be loaded or is not a valid BMP
-        auto load(const std::string& filename) -> void;
+        auto load(const std::string& filename)
+            -> void;
     };
 }

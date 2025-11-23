@@ -21,7 +21,9 @@ namespace common
         /// @param args Arguments to be passed to the function
         /// @return The result of the function
         template <typename Func, typename... Args>
-        auto exec(Func&& func, Args&&... args) -> decltype(auto);
+        auto exec(Func&& func,
+                  Args&&... args)
+            -> decltype(auto);
 
         virtual ~IAop() = default;
 
@@ -48,12 +50,15 @@ namespace common
         /// @details This method is called to process the result of the function execution.
         /// Derived classes can override this to implement result processing logic.
         template <typename T>
-        auto handleResult(T&& result) -> decltype(auto);
+        auto handleResult(T&& result)
+            -> decltype(auto);
     };
 
     template <typename Derived>
     template <typename Func, typename... Args>
-    auto IAop<Derived>::exec(Func&& func, Args&&... args) -> decltype(auto)
+    auto IAop<Derived>::exec(Func&& func,
+                             Args&&... args)
+        -> decltype(auto)
     {
         static_cast<Derived*>(this)->onEntry();
         try
@@ -79,7 +84,8 @@ namespace common
 
     template <typename Derived>
     template <typename T>
-    auto IAop<Derived>::handleResult(T&& result) -> decltype(auto)
+    auto IAop<Derived>::handleResult(T&& result)
+        -> decltype(auto)
     {
         return std::forward<T>(result);
     }

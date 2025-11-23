@@ -15,6 +15,7 @@ namespace app_server
     {
         if (const glog::GLogConfigurator log_configurator{application_dev_config_path_}; !log_configurator.execute())
         {
+            LOG(ERROR) << "Failed to configure GLog with config path: " << application_dev_config_path_;
             throw std::runtime_error("Failed to configure GLog");
         };
         LOG(INFO) << "Initializing ServerTask with config path: " << application_dev_config_path_;
@@ -34,7 +35,6 @@ namespace app_server
             << "ms, Permit Without Calls: " << grpc_options_.keepalivePermitWithoutCalls()
             << ", Server Address: " << grpc_options_.serverAddress();
         LOG(INFO) << "ServerTask starting...";
-        timer_.recordStart();
     }
 
     auto ServerTask::run()
@@ -48,11 +48,12 @@ namespace app_server
         }
         catch (const std::exception& e)
         {
-            LOG(ERROR) << "Exception occurred: " << e.what();
+            LOG(ERROR) << "Exception occurred in ServerTask::run(): " << e.what();
+            LOG(ERROR) << "Exception type: " << typeid(e).name();
         }
         catch (...)
         {
-            LOG(ERROR) << "Unknown exception occurred.";
+            LOG(ERROR) << "Unknown exception occurred in ServerTask::run().";
         }
         LOG(INFO) << "ServerTask completed.";
     }
@@ -60,7 +61,6 @@ namespace app_server
     auto ServerTask::establishGrpcConnection()
         -> void
     {
-        LOG(INFO) << "Establishing gRPC connection...";
         try
         {
             // Build the server.
@@ -87,14 +87,17 @@ namespace app_server
                 << "Keepalive Timeout: " << grpc_options_.keepaliveTimeoutMs() << "ms, "
                 << "Keepalive Permit Without Calls: " << grpc_options_.keepalivePermitWithoutCalls();
 
+            LOG(INFO) << "Registering RPC service implementation";
             server_app::RpcServiceImpl service;
             builder.RegisterService(&service);
             LOG(INFO) << "Service registered successfully";
 
+            LOG(INFO) << "Building and starting gRPC server";
             server_ = builder.BuildAndStart();
             if (!server_)
             {
-                LOG(ERROR) << "Failed to build and start gRPC server";
+                LOG(ERROR) << "Failed to build and start gRPC server. Server object is null.";
+                LOG(ERROR) << "Check server configuration and port availability.";
                 return;
             }
 
@@ -119,8 +122,13 @@ namespace app_server
         LOG(INFO) << "Shutting down service task...";
         if (server_)
         {
+            LOG(INFO) << "Initiating gRPC server shutdown";
             server_->Shutdown();
             LOG(INFO) << "gRPC server shutdown complete.";
+        }
+        else
+        {
+            LOG(WARNING) << "Server object is null during shutdown. Nothing to shutdown.";
         }
         LOG(INFO) << "Service task shutdown complete.";
     }
