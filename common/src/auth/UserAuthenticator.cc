@@ -10,7 +10,8 @@ namespace common
     {
     }
 
-    bool UserAuthenticator::register_user(const std::string& username, const std::string& password)
+    bool UserAuthenticator::register_user(const std::string& username,
+                                          const std::string& password)
     {
         std::lock_guard lock(users_mutex_);
 
@@ -41,7 +42,8 @@ namespace common
         return true;
     }
 
-    bool UserAuthenticator::authenticate(const std::string& username, const std::string& password)
+    bool UserAuthenticator::authenticate(const std::string& username,
+                                         const std::string& password)
     {
         std::lock_guard lock(users_mutex_);
 
@@ -72,7 +74,9 @@ namespace common
         }
     }
 
-    bool UserAuthenticator::change_password(const std::string& username, const std::string& current_password, const std::string& new_password)
+    bool UserAuthenticator::change_password(const std::string& username,
+                                            const std::string& current_password,
+                                            const std::string& new_password)
     {
         // First verify current password
         // ReSharper disable once CppDFAConstantConditions
@@ -105,7 +109,8 @@ namespace common
         return true;
     }
 
-    bool UserAuthenticator::reset_password(const std::string& username, const std::string& new_password)
+    bool UserAuthenticator::reset_password(const std::string& username,
+                                           const std::string& new_password)
     {
         std::lock_guard lock(users_mutex_);
 
@@ -146,5 +151,17 @@ namespace common
         // Allow letters, numbers, underscores, hyphens; 3-20 characters
         const std::regex username_pattern("^[a-zA-Z0-9_-]{3,20}$");
         return std::regex_match(username, username_pattern);
+    }
+
+    auto UserAuthenticator::get_users()
+        -> std::unordered_map<std::string, std::unique_ptr<UserCredentials>>&
+    {
+        return users_;
+    }
+
+    auto UserAuthenticator::get_users_mutex() const
+        -> std::mutex&
+    {
+        return users_mutex_;
     }
 } // common

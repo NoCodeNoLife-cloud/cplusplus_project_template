@@ -4,6 +4,12 @@ package rpc;
 
 service RpcService {
   rpc Send(MessageRequest) returns (MessageResponse);
+  rpc RegisterUser (RegisterUserRequest) returns (AuthResponse) {}
+  rpc AuthenticateUser (AuthenticateUserRequest) returns (AuthResponse) {}
+  rpc ChangePassword (ChangePasswordRequest) returns (AuthResponse) {}
+  rpc ResetPassword (ResetPasswordRequest) returns (AuthResponse) {}
+  rpc DeleteUser (DeleteUserRequest) returns (AuthResponse) {}
+  rpc UserExists (DeleteUserRequest) returns (AuthResponse) {}
 }
 
 message MessageRequest {
@@ -12,4 +18,35 @@ message MessageRequest {
 
 message MessageResponse {
   string status = 1;
+}
+
+message RegisterUserRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message AuthenticateUserRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message ChangePasswordRequest {
+  string username = 1;
+  string current_password = 2;
+  string new_password = 3;
+}
+
+message ResetPasswordRequest {
+  string username = 1;
+  string new_password = 2;
+}
+
+message DeleteUserRequest {
+  string username = 1;
+}
+
+message AuthResponse {
+  bool success = 1;
+  string message = 2;
+  int32 error_code = 3;
 }

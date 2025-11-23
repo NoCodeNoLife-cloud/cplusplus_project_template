@@ -5,14 +5,18 @@
 
 namespace app_server
 {
-    ServerTask::ServerTask(std::string name) : timer_(std::move(name))
+    ServerTask::ServerTask(std::string name)
+        : timer_(std::move(name))
     {
     }
 
-    auto ServerTask::init() -> void
+    auto ServerTask::init()
+        -> void
     {
-        glog::GLogConfigurator log_configurator{application_dev_config_path_};
-        log_configurator.execute();
+        if (const glog::GLogConfigurator log_configurator{application_dev_config_path_}; !log_configurator.execute())
+        {
+            throw std::runtime_error("Failed to configure GLog");
+        };
         LOG(INFO) << "Initializing ServerTask with config path: " << application_dev_config_path_;
         LOG(INFO) << "GLog configuration initialized successfully";
 
@@ -33,7 +37,8 @@ namespace app_server
         timer_.recordStart();
     }
 
-    auto ServerTask::run() -> void
+    auto ServerTask::run()
+        -> void
     {
         try
         {
@@ -52,7 +57,8 @@ namespace app_server
         LOG(INFO) << "ServerTask completed.";
     }
 
-    auto ServerTask::establishGrpcConnection() -> void
+    auto ServerTask::establishGrpcConnection()
+        -> void
     {
         LOG(INFO) << "Establishing gRPC connection...";
         try
@@ -107,7 +113,8 @@ namespace app_server
         LOG(INFO) << "gRPC connection established.";
     }
 
-    auto ServerTask::exit() const -> void
+    auto ServerTask::exit() const
+        -> void
     {
         LOG(INFO) << "Shutting down service task...";
         if (server_)
@@ -118,7 +125,8 @@ namespace app_server
         LOG(INFO) << "Service task shutdown complete.";
     }
 
-    auto ServerTask::validateGrpcParameters() const -> void
+    auto ServerTask::validateGrpcParameters() const
+        -> void
     {
         // Validate max connection idle time
         if (grpc_options_.maxConnectionIdleMs() <= 0)

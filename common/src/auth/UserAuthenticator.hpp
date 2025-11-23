@@ -56,6 +56,15 @@ namespace common
         /// @param policy New password policy configuration
         void set_password_policy(const PasswordPolicy& policy);
 
+        /// @brief Get reference to the users map for administrative operations
+        /// @return Reference to the users map
+        auto get_users() -> std::unordered_map<std::string, std::unique_ptr<UserCredentials>>&;
+
+        /// @brief Get reference to the mutex protecting the users map
+        /// @return Reference to the users mutex
+        auto get_users_mutex() const
+            -> std::mutex&;
+
     private:
         /// @brief Validate username format against security requirements
         /// @param username Username string to validate

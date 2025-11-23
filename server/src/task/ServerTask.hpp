@@ -21,19 +21,23 @@ namespace app_server
 
         /// @brief Initialize the service task and its associated resources
         /// @details Sets up logging, loads configuration, and validates gRPC parameters
-        auto init() -> void;
+        auto init()
+            -> void;
 
         /// @brief Run the main task
         /// @details Initializes the server, establishes gRPC connection, and starts listening
-        auto run() -> void;
+        auto run()
+            -> void;
 
         /// @brief Establish a gRPC connection to the specified service
         /// @details Configures and starts the gRPC server with specified options
-        auto establishGrpcConnection() -> void;
+        auto establishGrpcConnection()
+            -> void;
 
         /// @brief Exit the service task and clean up resources
         /// @details Shuts down the gRPC server and performs cleanup operations
-        auto exit() const -> void;
+        auto exit() const
+            -> void;
 
     private:
         const std::string application_dev_config_path_ = "../../server/src/application-dev.yml";
@@ -44,6 +48,7 @@ namespace app_server
         /// @brief Validate gRPC parameters for correctness
         /// @details This function checks that the gRPC parameters are within reasonable ranges
         /// and logs warnings for potentially problematic configurations
-        auto validateGrpcParameters() const -> void;
+        auto validateGrpcParameters() const
+            -> void;
     };
 } // namespace app_server
