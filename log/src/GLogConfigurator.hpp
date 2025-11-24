@@ -37,11 +37,6 @@ namespace glog
         [[nodiscard]] auto doConfig() const
             -> bool;
 
-        /// @brief Configure logging to stdout based on options
-        /// @param glog_options The glog configuration parameters
-        static auto configLogToStdout(const GLogParameters& glog_options) noexcept
-            -> void;
-
         /// @brief Clean up glog resources
         static auto clean() noexcept
             -> void;

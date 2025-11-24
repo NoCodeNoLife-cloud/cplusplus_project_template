@@ -82,4 +82,4 @@ namespace glog
             return "UNKNOWN";
         }
     }
-} // namespace glog
+}

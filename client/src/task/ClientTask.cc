@@ -5,6 +5,7 @@
 
 #include "src/rpc/RpcClient.hpp"
 #include "src/GLogConfigurator.hpp"
+#include "src/filesystem/io/Console.hpp"
 #include "src/system/SystemInfo.hpp"
 
 namespace app_client
@@ -39,19 +40,33 @@ namespace app_client
         -> void
     {
         LOG(INFO) << "Starting authentication process";
-        if (const auto authenticateUserResponse = rpc_client.AuthenticateUser("root", "Admin123!"); !authenticateUserResponse.success())
+
+        const common::Console console;
+        // Authenticate user
+        console.printf("{}", "Please enter your username: ");
+        const std::string username = common::Console::readLine();
+        console.printf("{}", "Please enter your password: ");
+        const std::string password = common::Console::readLine();
+        LOG(INFO) << "Login attempt for user: " << username << " with password: " << password;
+        if (const auto authenticateUserResponse = rpc_client.AuthenticateUser(username, password); !authenticateUserResponse.success())
         {
-            LOG(INFO) << "Authentication failed: " << authenticateUserResponse.message();
-            LOG(INFO) << "Registering user...";
-            if (const auto registerUserResponse = rpc_client.RegisterUser("root", "Admin123!"); !registerUserResponse.success())
+            LOG(ERROR) << "Authentication failed: " << authenticateUserResponse.message();
+
+            // Check if user exists, if not ask to create a new account
+            console.printf("{}", "User does not exist, do you want to create a new account? [y/n] ");
+            if (const auto createNewAccount = common::Console::readLine(); createNewAccount == "y" or createNewAccount == "Y")
             {
-                LOG(ERROR) << "Failed to register user: " << registerUserResponse.message()
-                    << ", Error code: " << registerUserResponse.error_code();
-                throw std::runtime_error("Failed to register user: " + registerUserResponse.message());
-            }
-            else
-            {
-                LOG(INFO) << "Registered user successfully, return value: " << registerUserResponse.message();
+                LOG(INFO) << "Registering user...";
+                if (const auto registerUserResponse = rpc_client.RegisterUser("root", "Admin123!"); !registerUserResponse.success())
+                {
+                    LOG(ERROR) << "Failed to register user: " << registerUserResponse.message()
+                        << ", Error code: " << registerUserResponse.error_code();
+                    throw std::runtime_error("Failed to register user: " + registerUserResponse.message());
+                }
+                else
+                {
+                    LOG(INFO) << "Registered user successfully, return value: " << registerUserResponse.message();
+                }
             }
         }
         else

@@ -19,20 +19,20 @@ namespace glog
         /// @param log_message_time Time of log entry
         /// @param message Log message content
         /// @param message_len Length of log message
-        auto send(const google::LogSeverity severity,
+        auto send(google::LogSeverity severity,
                   const char* full_filename,
                   const char* base_filename,
-                  const int line,
+                  int line,
                   const google::LogMessageTime& log_message_time,
                   const char* message,
-                  const size_t message_len) noexcept
+                  size_t message_len) noexcept
             -> void override;
 
     private:
         /// @brief Get the log level prefix string
         /// @param severity Log severity level
         /// @return String representation of the log level
-        [[nodiscard]] static auto getLogLevelPrefix(const google::LogSeverity severity) noexcept
+        [[nodiscard]] static auto getLogLevelPrefix(google::LogSeverity severity) noexcept
             -> const char*;
     };
 } // namespace glog
