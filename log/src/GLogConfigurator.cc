@@ -4,7 +4,7 @@
 #include <iostream>
 #include <thread>
 
-#include "CustomLogSink.hpp"
+#include "CustomGlogPrefixFormatter.hpp"
 
 namespace glog
 {
@@ -46,22 +46,13 @@ namespace glog
         google::InitGoogleLogging(config_.logName().c_str());
         FLAGS_minloglevel = config_.minLogLevel();
         FLAGS_logtostderr = config_.logToStderr();
+        FLAGS_alsologtostderr = false;
+        FLAGS_log_dir = "";
 
         // Apply custom log format if enabled
         if (config_.customLogFormat())
         {
-            static_custom_log_sink_ = std::make_unique<CustomLogSink>();
-            google::AddLogSink(static_custom_log_sink_.get());
-            // Disable default logging to avoid duplicate messages and file creation
-            FLAGS_logtostderr = false;
-            FLAGS_alsologtostderr = false;
-            FLAGS_log_dir = ""; // Ensure no log files are created
-        }
-        else
-        {
-            // When not using custom format, ensure proper stderr logging and prevent file creation
-            FLAGS_alsologtostderr = false;
-            FLAGS_log_dir = "";
+            google::InstallPrefixFormatter(&CustomGlogPrefixFormatter::MyPrefixFormatter);
         }
 
         if (std::atexit(clean) != 0)

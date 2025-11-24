@@ -47,10 +47,10 @@ namespace app_client
         const std::string username = common::Console::readLine();
         console.printf("{}", "Please enter your password: ");
         const std::string password = common::Console::readLine();
-        LOG(INFO) << "Login attempt for user: " << username << " with password: " << password;
+        console.printf("Login attempt for user:  {} with password: {}\n", username, password);
         if (const auto authenticateUserResponse = rpc_client.AuthenticateUser(username, password); !authenticateUserResponse.success())
         {
-            LOG(ERROR) << "Authentication failed: " << authenticateUserResponse.message();
+            console.printf("Authentication failed: {}", authenticateUserResponse.message());
 
             // Check if user exists, if not ask to create a new account
             console.printf("{}", "User does not exist, do you want to create a new account? [y/n] ");

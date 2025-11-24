@@ -2,7 +2,7 @@ glog:
   minLogLevel: 0
   logName: glog_main
   logToStderr: true
-  customLogFormat: false
+  customLogFormat: true
 grpc:
   serverAddress: "localhost:50051"
   keepalivePermitWithoutCalls: 1
