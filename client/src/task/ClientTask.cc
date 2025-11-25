@@ -3,9 +3,9 @@
 #include <glog/logging.h>
 #include <grpcpp/grpcpp.h>
 
-#include "src/rpc/RpcClient.hpp"
 #include "src/GLogConfigurator.hpp"
 #include "src/filesystem/io/Console.hpp"
+#include "src/rpc/RpcClient.hpp"
 #include "src/system/SystemInfo.hpp"
 
 namespace app_client
@@ -43,17 +43,17 @@ namespace app_client
 
         const common::Console console;
         // Authenticate user
-        console.printf("{}", "Please enter your username: ");
+        LOG(INFO) << "Please enter your username: ";
         const std::string username = common::Console::readLine();
-        console.printf("{}", "Please enter your password: ");
+        LOG(INFO) << "Please enter your password: ";
         const std::string password = common::Console::readLine();
-        console.printf("Login attempt for user:  {} with password: {}\n", username, password);
+        LOG(INFO) << "Login attempt for user:  " << username;
         if (const auto authenticateUserResponse = rpc_client.AuthenticateUser(username, password); !authenticateUserResponse.success())
         {
-            console.printf("Authentication failed: {}", authenticateUserResponse.message());
+            LOG(ERROR) << "Authentication failed: " << authenticateUserResponse.message();
 
             // Check if user exists, if not ask to create a new account
-            console.printf("{}", "User does not exist, do you want to create a new account? [y/n] ");
+            LOG(INFO) << "User does not exist, do you want to create a new account? [y/n] ";
             if (const auto createNewAccount = common::Console::readLine(); createNewAccount == "y" or createNewAccount == "Y")
             {
                 LOG(INFO) << "Registering user...";
@@ -74,6 +74,15 @@ namespace app_client
             LOG(INFO) << "User authenticated successfully";
         }
         LOG(INFO) << "Authentication process completed";
+
+        if (const auto deleteUserResponse = rpc_client.DeleteUser(username); !deleteUserResponse.success())
+        {
+            LOG(ERROR) << "Failed to delete user: " << deleteUserResponse.message() << ", Error code: " << deleteUserResponse.error_code();
+        }
+        else
+        {
+            LOG(INFO) << "Deleted user successfully, return value: " << deleteUserResponse.message();
+        }
     }
 
     auto ClientTask::run()
