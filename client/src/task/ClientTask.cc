@@ -36,8 +36,8 @@ namespace app_client
         LOG(INFO) << "Initialization completed successfully";
     }
 
-    auto ClientTask::task(const client_app::RpcClient& rpc_client)
-        -> void
+    auto ClientTask::logIn(const client_app::RpcClient& rpc_client)
+        -> std::string
     {
         LOG(INFO) << "Starting authentication process";
 
@@ -74,7 +74,13 @@ namespace app_client
             LOG(INFO) << "User authenticated successfully";
         }
         LOG(INFO) << "Authentication process completed";
+        return username;
+    }
 
+    auto ClientTask::logOut(const client_app::RpcClient& rpc_client,
+                            std::string username)
+        -> void
+    {
         if (const auto deleteUserResponse = rpc_client.DeleteUser(username); !deleteUserResponse.success())
         {
             LOG(ERROR) << "Failed to delete user: " << deleteUserResponse.message() << ", Error code: " << deleteUserResponse.error_code();
@@ -83,6 +89,12 @@ namespace app_client
         {
             LOG(INFO) << "Deleted user successfully, return value: " << deleteUserResponse.message();
         }
+    }
+
+    auto ClientTask::task(const client_app::RpcClient& rpc_client)
+        -> void
+    {
+        //  Task
     }
 
     auto ClientTask::run()
@@ -101,8 +113,15 @@ namespace app_client
             const client_app::RpcClient client(channel);
             LOG(INFO) << "RPC client created successfully";
 
+            // Login
+            const std::string username = logIn(client);
+
+            //  Task
             task(client);
             LOG(INFO) << "Client task execution completed";
+
+            // Logout
+            logOut(client, username);
             exit();
         }
         catch (const std::exception& e)

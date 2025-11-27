@@ -22,6 +22,15 @@ namespace app_client
         auto init()
             -> void;
 
+        /// @brief Logs a message indicating that the client is logging in
+        static auto logIn(const client_app::RpcClient& rpc_client)
+            -> std::string;
+
+        /// @brief Logs a message indicating that the client is logging out
+        static auto logOut(const client_app::RpcClient& rpc_client,
+                           std::string username)
+            -> void;
+
         /// @brief Main task
         static auto task(const client_app::RpcClient& rpc_client)
             -> void;
