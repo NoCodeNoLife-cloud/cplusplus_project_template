@@ -28,7 +28,7 @@ namespace app_client
 
         /// @brief Logs a message indicating that the client is logging out
         static auto logOut(const client_app::RpcClient& rpc_client,
-                           std::string username)
+                           const std::string& username)
             -> void;
 
         /// @brief Main task

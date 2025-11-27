@@ -78,7 +78,7 @@ namespace app_client
     }
 
     auto ClientTask::logOut(const client_app::RpcClient& rpc_client,
-                            std::string username)
+                            const std::string& username)
         -> void
     {
         if (const auto deleteUserResponse = rpc_client.DeleteUser(username); !deleteUserResponse.success())
