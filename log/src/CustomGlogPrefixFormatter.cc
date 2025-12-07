@@ -1,14 +1,21 @@
 #include "CustomGlogPrefixFormatter.hpp"
+#include <iomanip>
 
 namespace glog
 {
-    void CustomGlogPrefixFormatter::MyPrefixFormatter(std::ostream& s,
+    // ReSharper disable once CppDoxygenUnresolvedReference
+    /// @brief Formats log message prefix according to custom specification
+    /// @param s Output stream to write formatted prefix to
+    /// @param m Log message containing metadata for the prefix
+    /// @param data User data pointer (unused)
+    auto CustomGlogPrefixFormatter::MyPrefixFormatter(std::ostream& s,
                                                       const google::LogMessage& m,
-                                                      void*)
+                                                      void* /*data*/) noexcept
+        -> void
     {
         s << '[' << google::GetLogSeverityName(m.severity()) << "] ["
-            << std::setw(4) << 1900 + m.time().year()
-            << std::setw(2) << 1 + m.time().month()
+            << std::setw(4) << kYearOffset_ + m.time().year()
+            << std::setw(2) << kMonthOffset_ + m.time().month()
             << std::setw(2) << m.time().day()
             << ' '
             << std::setw(2) << m.time().hour() << ':'
@@ -21,4 +28,4 @@ namespace glog
             << "] ["
             << m.basename() << ':' << m.line() << "] ";
     }
-} // glog
+} // namespace glog

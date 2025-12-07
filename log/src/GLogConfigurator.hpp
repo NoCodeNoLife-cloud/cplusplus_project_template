@@ -11,9 +11,29 @@ namespace glog
     class GLogConfigurator final
     {
     public:
+        /// @brief Default constructor is deleted to enforce path initialization
+        GLogConfigurator() = delete;
+
         /// @brief Constructor with YAML configuration file path
         /// @param glog_yaml_path Path to the YAML configuration file
-        explicit GLogConfigurator(std::string glog_yaml_path);
+        explicit GLogConfigurator(std::string glog_yaml_path) noexcept;
+
+        /// @brief Destructor
+        ~GLogConfigurator() noexcept = default;
+
+        /// @brief Copy constructor is deleted to prevent copying
+        GLogConfigurator(const GLogConfigurator&) = delete;
+
+        /// @brief Copy assignment operator is deleted to prevent copying
+        auto operator=(const GLogConfigurator&)
+            -> GLogConfigurator& = delete;
+
+        /// @brief Move constructor
+        GLogConfigurator(GLogConfigurator&&) noexcept = default;
+
+        /// @brief Move assignment operator
+        auto operator=(GLogConfigurator&&) noexcept
+            -> GLogConfigurator& = default;
 
         /// @brief Execute the configuration process
         /// @return True if configuration was successful
@@ -28,14 +48,14 @@ namespace glog
 
         /// @brief Update the configuration parameters
         /// @param config The new configuration parameters
-        auto updateConfig(const GLogParameters& config)
+        auto updateConfig(const GLogParameters& config) noexcept
             -> void;
 
     private:
         /// @brief Perform the actual glog configuration
         /// @return True if configuration was successful
-        [[nodiscard]] auto doConfig() const
-            -> bool;
+        static auto doConfig(const GLogParameters& config) noexcept
+            -> void;
 
         /// @brief Clean up glog resources
         static auto clean() noexcept

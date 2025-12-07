@@ -11,7 +11,7 @@ namespace glog
     // Static variable to hold the custom log sink for cleanup
     static std::unique_ptr<google::LogSink> static_custom_log_sink_;
 
-    GLogConfigurator::GLogConfigurator(std::string glog_yaml_path)
+    GLogConfigurator::GLogConfigurator(std::string glog_yaml_path) noexcept
         : glog_yaml_path_(std::move(glog_yaml_path))
     {
         config_.deserializedFromYamlFile(glog_yaml_path_);
@@ -20,11 +20,13 @@ namespace glog
     auto GLogConfigurator::execute() const
         -> bool
     {
-        // ReSharper disable once CppDFAConstantConditions
-        if (!doConfig())
+        doConfig(config_);
+        if (std::atexit(clean) != 0)
         {
-            throw std::runtime_error("Configuration GLog failed");
+            throw std::runtime_error("Failed to register cleanup function!");
         }
+
+        LOG(INFO) << "configuring glog...";
         return true;
     }
 
@@ -34,33 +36,26 @@ namespace glog
         return config_;
     }
 
-    auto GLogConfigurator::updateConfig(const GLogParameters& config)
+    auto GLogConfigurator::updateConfig(const GLogParameters& config) noexcept
         -> void
     {
         config_ = config;
     }
 
-    auto GLogConfigurator::doConfig() const
-        -> bool
+    auto GLogConfigurator::doConfig(const GLogParameters& config) noexcept
+        -> void
     {
-        google::InitGoogleLogging(config_.logName().c_str());
-        FLAGS_minloglevel = config_.minLogLevel();
-        FLAGS_logtostderr = config_.logToStderr();
+        google::InitGoogleLogging(config.logName().c_str());
+        FLAGS_minloglevel = config.minLogLevel();
+        FLAGS_logtostderr = config.logToStderr();
         FLAGS_alsologtostderr = false;
         FLAGS_log_dir = "";
 
         // Apply custom log format if enabled
-        if (config_.customLogFormat())
+        if (config.customLogFormat())
         {
             google::InstallPrefixFormatter(&CustomGlogPrefixFormatter::MyPrefixFormatter);
         }
-
-        if (std::atexit(clean) != 0)
-        {
-            throw std::runtime_error("Failed to register cleanup function!");
-        }
-        LOG(INFO) << "configuring glog...";
-        return true;
     }
 
     auto GLogConfigurator::clean() noexcept
