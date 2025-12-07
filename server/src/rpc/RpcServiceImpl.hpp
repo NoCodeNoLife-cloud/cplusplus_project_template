@@ -12,46 +12,72 @@ namespace server_app
     class RpcServiceImpl final : public rpc::RpcService::Service
     {
     public:
+        /// @brief Default constructor
+        constexpr RpcServiceImpl() noexcept = default;
+
+        /// @brief Default destructor
+        ~RpcServiceImpl() noexcept override = default;
+
+        /// @brief Copy constructor (deleted)
+        RpcServiceImpl(const RpcServiceImpl&) = delete;
+
+        /// @brief Copy assignment operator (deleted)
+        auto operator=(const RpcServiceImpl&)
+            -> RpcServiceImpl& = delete;
+
+        /// @brief Move constructor (deleted)
+        RpcServiceImpl(RpcServiceImpl&&) = delete;
+
+        /// @brief Move assignment operator (deleted)
+        auto operator=(RpcServiceImpl&&)
+            -> RpcServiceImpl& = delete;
+
         /// @brief Register new user account
-        auto RegisterUser(grpc::ServerContext* context,
-                          const rpc::RegisterUserRequest* request,
-                          rpc::AuthResponse* response)
-            -> grpc::Status override;
+        auto RegisterUser(::grpc::ServerContext* context,
+                          const ::rpc::RegisterUserRequest* request,
+                          ::rpc::AuthResponse* response)
+            -> ::grpc::Status override;
 
         /// @brief Authenticate user credentials
-        auto AuthenticateUser(grpc::ServerContext* context,
-                              const rpc::AuthenticateUserRequest* request,
-                              rpc::AuthResponse* response)
-            -> grpc::Status override;
+        auto AuthenticateUser(::grpc::ServerContext* context,
+                              const ::rpc::AuthenticateUserRequest* request,
+                              ::rpc::AuthResponse* response)
+            -> ::grpc::Status override;
 
         /// @brief Change user password
-        auto ChangePassword(grpc::ServerContext* context,
-                            const rpc::ChangePasswordRequest* request,
-                            rpc::AuthResponse* response)
-            -> grpc::Status override;
+        auto ChangePassword(::grpc::ServerContext* context,
+                            const ::rpc::ChangePasswordRequest* request,
+                            ::rpc::AuthResponse* response)
+            -> ::grpc::Status override;
 
         /// @brief Reset user password (administrative)
-        auto ResetPassword(grpc::ServerContext* context,
-                           const rpc::ResetPasswordRequest* request,
-                           rpc::AuthResponse* response)
-            -> grpc::Status override;
+        auto ResetPassword(::grpc::ServerContext* context,
+                           const ::rpc::ResetPasswordRequest* request,
+                           ::rpc::AuthResponse* response)
+            -> ::grpc::Status override;
 
         /// @brief Delete user account
-        auto DeleteUser(grpc::ServerContext* context,
-                        const rpc::DeleteUserRequest* request,
-                        rpc::AuthResponse* response)
-            -> grpc::Status override;
+        auto DeleteUser(::grpc::ServerContext* context,
+                        const ::rpc::DeleteUserRequest* request,
+                        ::rpc::AuthResponse* response)
+            -> ::grpc::Status override;
 
         /// @brief Check if user exists
-        auto UserExists(grpc::ServerContext* context,
-                        const rpc::DeleteUserRequest* request,
-                        rpc::AuthResponse* response)
-            -> grpc::Status override;
+        auto UserExists(::grpc::ServerContext* context,
+                        const ::rpc::DeleteUserRequest* request,
+                        ::rpc::AuthResponse* response)
+            -> ::grpc::Status override;
 
     private:
-        common::UserAuthenticator authenticator_;
+        /// @brief Authenticator instance for managing user accounts
+        common::UserAuthenticator authenticator_{};
+
         /// @brief Convert AuthenticationException to grpc::Status
-        static grpc::Status HandleAuthException(const common::AuthenticationException& e,
-                                                rpc::AuthResponse* response);
+        /// @param e AuthenticationException to handle
+        /// @param response Response to populate with error details
+        /// @return Appropriate gRPC status
+        static auto HandleAuthException(const common::AuthenticationException& e,
+                                        ::rpc::AuthResponse* response) noexcept
+            -> ::grpc::Status;
     };
 } // namespace server_app

@@ -12,16 +12,33 @@ namespace app_server
     /// @brief ServerTask is responsible for managing the main service loop
     /// @details This class coordinates various subsystems within the application server,
     /// initializes the gRPC server, loads configurations, and manages the server lifecycle.
-    class ServerTask
+    class ServerTask final
     {
     public:
         /// @brief Construct a ServerTask with the specified name
         /// @param name The name of the server task for profiling purposes
-        explicit ServerTask(std::string name);
+        explicit ServerTask(std::string name) noexcept;
+
+        /// @brief Destructor shuts down the server if running
+        ~ServerTask() = default;
+
+        /// @brief Copy constructor deleted to prevent copying
+        ServerTask(const ServerTask&) = delete;
+
+        /// @brief Move constructor deleted to prevent moving
+        ServerTask(ServerTask&&) = delete;
+
+        /// @brief Copy assignment operator deleted to prevent copying
+        auto operator=(const ServerTask&)
+            -> ServerTask& = delete;
+
+        /// @brief Move assignment operator deleted to prevent moving
+        auto operator=(ServerTask&&)
+            -> ServerTask& = delete;
 
         /// @brief Initialize the service task and its associated resources
         /// @details Sets up logging, loads configuration, and validates gRPC parameters
-        auto init()
+        auto init() const
             -> void;
 
         /// @brief Run the main task
@@ -40,8 +57,8 @@ namespace app_server
             -> void;
 
     private:
-        const std::string application_dev_config_path_ = "../../server/src/application-dev.yml";
-        GrpcOptions grpc_options_;
+        const std::string application_dev_config_path_{"../../server/src/application-dev.yml"};
+        mutable GrpcOptions grpc_options_;
         common::FunctionProfiler timer_;
         std::unique_ptr<grpc::Server> server_;
 

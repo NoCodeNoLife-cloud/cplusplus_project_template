@@ -5,12 +5,12 @@
 
 namespace app_server
 {
-    ServerTask::ServerTask(std::string name)
+    ServerTask::ServerTask(std::string name) noexcept
         : timer_(std::move(name))
     {
     }
 
-    auto ServerTask::init()
+    auto ServerTask::init() const
         -> void
     {
         if (const glog::GLogConfigurator log_configurator{application_dev_config_path_}; !log_configurator.execute())
@@ -50,10 +50,12 @@ namespace app_server
         {
             LOG(ERROR) << "Exception occurred in ServerTask::run(): " << e.what();
             LOG(ERROR) << "Exception type: " << typeid(e).name();
+            throw; // Re-throw to maintain exception propagation chain
         }
         catch (...)
         {
             LOG(ERROR) << "Unknown exception occurred in ServerTask::run().";
+            throw; // Re-throw to maintain exception propagation chain
         }
         LOG(INFO) << "ServerTask completed.";
     }
@@ -98,7 +100,7 @@ namespace app_server
             {
                 LOG(ERROR) << "Failed to build and start gRPC server. Server object is null.";
                 LOG(ERROR) << "Check server configuration and port availability.";
-                return;
+                throw std::runtime_error("Failed to build and start gRPC server");
             }
 
             LOG(INFO) << "Server listening on " << server_address;
@@ -108,10 +110,12 @@ namespace app_server
         catch (const std::exception& e)
         {
             LOG(ERROR) << "gRPC server failed to start. Exception: " << e.what();
+            throw; // Re-throw to maintain exception propagation chain
         }
         catch (...)
         {
             LOG(ERROR) << "gRPC server failed to start with unknown error.";
+            throw; // Re-throw to maintain exception propagation chain
         }
         LOG(INFO) << "gRPC connection established.";
     }
