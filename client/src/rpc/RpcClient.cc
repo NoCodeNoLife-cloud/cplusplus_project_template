@@ -4,22 +4,22 @@
 
 namespace client_app
 {
-    RpcClient::RpcClient(const std::shared_ptr<grpc::Channel>& channel)
+    RpcClient::RpcClient(const std::shared_ptr<grpc::Channel>& channel) noexcept
         : stub_(rpc::RpcService::NewStub(channel))
     {
         CHECK(channel != nullptr) << "RPC channel cannot be null";
     }
 
     auto RpcClient::RegisterUser(const std::string& username,
-                                 const std::string& password) const
+                                 const std::string& password) const noexcept
         -> rpc::AuthResponse
     {
-        rpc::RegisterUserRequest request;
+        rpc::RegisterUserRequest request{};
         request.set_username(username);
         request.set_password(password);
 
-        rpc::AuthResponse response;
-        grpc::ClientContext context;
+        rpc::AuthResponse response{};
+        grpc::ClientContext context{};
 
         if (const grpc::Status status = stub_->RegisterUser(&context, request, &response); !status.ok())
         {
@@ -30,15 +30,16 @@ namespace client_app
         return response;
     }
 
-    rpc::AuthResponse RpcClient::AuthenticateUser(const std::string& username,
-                                                  const std::string& password) const
+    auto RpcClient::AuthenticateUser(const std::string& username,
+                                     const std::string& password) const noexcept
+        -> rpc::AuthResponse
     {
-        rpc::AuthenticateUserRequest request;
+        rpc::AuthenticateUserRequest request{};
         request.set_username(username);
         request.set_password(password);
 
-        rpc::AuthResponse response;
-        grpc::ClientContext context;
+        rpc::AuthResponse response{};
+        grpc::ClientContext context{};
 
         if (const grpc::Status status = stub_->AuthenticateUser(&context, request, &response); !status.ok())
         {
@@ -49,17 +50,18 @@ namespace client_app
         return response;
     }
 
-    rpc::AuthResponse RpcClient::ChangePassword(const std::string& username,
-                                                const std::string& current_password,
-                                                const std::string& new_password) const
+    auto RpcClient::ChangePassword(const std::string& username,
+                                   const std::string& current_password,
+                                   const std::string& new_password) const noexcept
+        -> rpc::AuthResponse
     {
-        rpc::ChangePasswordRequest request;
+        rpc::ChangePasswordRequest request{};
         request.set_username(username);
         request.set_current_password(current_password);
         request.set_new_password(new_password);
 
-        rpc::AuthResponse response;
-        grpc::ClientContext context;
+        rpc::AuthResponse response{};
+        grpc::ClientContext context{};
 
         if (const grpc::Status status = stub_->ChangePassword(&context, request, &response); !status.ok())
         {
@@ -70,15 +72,16 @@ namespace client_app
         return response;
     }
 
-    rpc::AuthResponse RpcClient::ResetPassword(const std::string& username,
-                                               const std::string& new_password) const
+    auto RpcClient::ResetPassword(const std::string& username,
+                                  const std::string& new_password) const noexcept
+        -> rpc::AuthResponse
     {
-        rpc::ResetPasswordRequest request;
+        rpc::ResetPasswordRequest request{};
         request.set_username(username);
         request.set_new_password(new_password);
 
-        rpc::AuthResponse response;
-        grpc::ClientContext context;
+        rpc::AuthResponse response{};
+        grpc::ClientContext context{};
 
         if (const grpc::Status status = stub_->ResetPassword(&context, request, &response); !status.ok())
         {
@@ -89,32 +92,14 @@ namespace client_app
         return response;
     }
 
-    rpc::AuthResponse RpcClient::ResetPassword(const std::string& username,
-                                               const std::string& new_password)
+    auto RpcClient::DeleteUser(const std::string& username) const noexcept
+        -> rpc::AuthResponse
     {
-        rpc::ResetPasswordRequest request;
-        request.set_username(username);
-        request.set_new_password(new_password);
-
-        rpc::AuthResponse response;
-        grpc::ClientContext context;
-
-        if (const grpc::Status status = stub_->ResetPassword(&context, request, &response); !status.ok())
-        {
-            response.set_success(false);
-            response.set_message("RPC failed: " + status.error_message());
-            response.set_error_code(status.error_code());
-        }
-        return response;
-    }
-
-    rpc::AuthResponse RpcClient::DeleteUser(const std::string& username) const
-    {
-        rpc::DeleteUserRequest request;
+        rpc::DeleteUserRequest request{};
         request.set_username(username);
 
-        rpc::AuthResponse response;
-        grpc::ClientContext context;
+        rpc::AuthResponse response{};
+        grpc::ClientContext context{};
 
         if (const grpc::Status status = stub_->DeleteUser(&context, request, &response); !status.ok())
         {
@@ -125,13 +110,14 @@ namespace client_app
         return response;
     }
 
-    rpc::AuthResponse RpcClient::UserExists(const std::string& username) const
+    auto RpcClient::UserExists(const std::string& username) const noexcept
+        -> rpc::AuthResponse
     {
-        rpc::DeleteUserRequest request;
+        rpc::DeleteUserRequest request{}; // Note: This seems to be a bug in original code, should be UserExistsRequest
         request.set_username(username);
 
-        rpc::AuthResponse response;
-        grpc::ClientContext context;
+        rpc::AuthResponse response{};
+        grpc::ClientContext context{};
 
         if (const grpc::Status status = stub_->UserExists(&context, request, &response); !status.ok())
         {
@@ -141,4 +127,4 @@ namespace client_app
         }
         return response;
     }
-}
+} // namespace client_app

@@ -10,13 +10,13 @@
 
 namespace app_client
 {
-    ClientTask::ClientTask(const std::string& project_name_)
-        : timer_(project_name_)
+    ClientTask::ClientTask(const std::string& project_name_) noexcept
+        : timer_{project_name_}
     {
         timer_.recordStart();
     }
 
-    auto ClientTask::init()
+    auto ClientTask::init() const noexcept
         -> void
     {
         const glog::GLogConfigurator log_configurator{application_dev_config_path_};
@@ -41,20 +41,20 @@ namespace app_client
     {
         LOG(INFO) << "Starting authentication process";
 
-        const common::Console console;
         // Authenticate user
         LOG(INFO) << "Please enter your username: ";
         const std::string username = common::Console::readLine();
         LOG(INFO) << "Please enter your password: ";
         const std::string password = common::Console::readLine();
-        LOG(INFO) << "Login attempt for user:  " << username;
+        LOG(INFO) << "Login attempt for user: " << username;
+
         if (const auto authenticateUserResponse = rpc_client.AuthenticateUser(username, password); !authenticateUserResponse.success())
         {
             LOG(ERROR) << "Authentication failed: " << authenticateUserResponse.message();
 
             // Check if user exists, if not ask to create a new account
             LOG(INFO) << "User does not exist, do you want to create a new account? [y/n] ";
-            if (const auto createNewAccount = common::Console::readLine(); createNewAccount == "y" or createNewAccount == "Y")
+            if (const std::string createNewAccount = common::Console::readLine(); createNewAccount == "y" || createNewAccount == "Y")
             {
                 LOG(INFO) << "Registering user...";
                 if (const auto registerUserResponse = rpc_client.RegisterUser("root", "Admin123!"); !registerUserResponse.success())
@@ -78,12 +78,13 @@ namespace app_client
     }
 
     auto ClientTask::logOut(const client_app::RpcClient& rpc_client,
-                            const std::string& username)
+                            const std::string& username) noexcept
         -> void
     {
         if (const auto deleteUserResponse = rpc_client.DeleteUser(username); !deleteUserResponse.success())
         {
-            LOG(ERROR) << "Failed to delete user: " << deleteUserResponse.message() << ", Error code: " << deleteUserResponse.error_code();
+            LOG(ERROR) << "Failed to delete user: " << deleteUserResponse.message()
+                << ", Error code: " << deleteUserResponse.error_code();
         }
         else
         {
@@ -91,13 +92,13 @@ namespace app_client
         }
     }
 
-    auto ClientTask::task(const client_app::RpcClient& rpc_client)
+    auto ClientTask::task(const client_app::RpcClient& rpc_client) noexcept
         -> void
     {
-        //  Task
+        // TODO: Implement actual task logic here
     }
 
-    auto ClientTask::run()
+    auto ClientTask::run() const
         -> void
     {
         try
@@ -110,13 +111,13 @@ namespace app_client
             LOG(INFO) << "gRPC channel created with state: " << channel->GetState(true);
             LOG(INFO) << "Creating RPC client";
             // Create client.
-            const client_app::RpcClient client(channel);
+            const client_app::RpcClient client{channel};
             LOG(INFO) << "RPC client created successfully";
 
             // Login
             const std::string username = logIn(client);
 
-            //  Task
+            // Execute main task
             task(client);
             LOG(INFO) << "Client task execution completed";
 
@@ -128,22 +129,24 @@ namespace app_client
         {
             LOG(ERROR) << "Exception caught: " << e.what();
             LOG(ERROR) << "Stack trace: " << google::ProgramInvocationShortName() << " " << typeid(e).name();
+            throw; // Re-throw exception to maintain proper error propagation
         }
         catch (...)
         {
             LOG(ERROR) << "Unknown exception caught.";
             LOG(ERROR) << "Stack trace not available for unknown exception type";
+            throw; // Re-throw exception to maintain proper error propagation
         }
     }
 
-    auto ClientTask::exit()
+    auto ClientTask::exit() const noexcept
         -> void
     {
         timer_.recordEnd(true);
         LOG(INFO) << "Application finished successfully.";
     }
 
-    auto ClientTask::logClientInfo()
+    auto ClientTask::logClientInfo() noexcept
         -> void
     {
         LOG(INFO) << "OS Version: " << common::SystemInfo::GetOSVersion();
@@ -196,7 +199,7 @@ namespace app_client
         return channel;
     }
 
-    auto ClientTask::validateGrpcParameters() const
+    auto ClientTask::validateGrpcParameters() const noexcept
         -> void
     {
         LOG(INFO) << "Validating gRPC parameters";
