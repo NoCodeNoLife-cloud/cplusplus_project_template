@@ -2,9 +2,11 @@
 #include <mutex>
 #include <regex>
 #include <unordered_map>
+#include <optional>
 
 #include "PasswordPolicy.hpp"
 #include "UserCredentials.hpp"
+#include "src/sql/PasswordSQL.hpp"
 
 namespace common
 {
@@ -12,9 +14,11 @@ namespace common
     class UserAuthenticator
     {
     public:
-        /// @brief Constructor with optional custom password policy
+        /// @brief Constructor with database path and optional custom password policy
+        /// @param db_path Path to SQLite database file
         /// @param policy Custom password policy (default: standard policy)
-        explicit UserAuthenticator(const PasswordPolicy& policy = PasswordPolicy());
+        explicit UserAuthenticator(const std::string& db_path,
+                                  const PasswordPolicy& policy = PasswordPolicy());
 
         /// @brief Register new user with username and password
         /// @param username User identifier to register
@@ -55,6 +59,11 @@ namespace common
         /// @return true if user exists, false otherwise
         bool user_exists(const std::string& username) const;
 
+        /// @brief Delete user from the system
+        /// @param username User identifier to delete
+        /// @return true if user deleted successfully
+        bool delete_user(const std::string& username);
+
         /// @brief Set custom password policy
         /// @param policy New password policy configuration
         void set_password_policy(const PasswordPolicy& policy);
@@ -75,8 +84,15 @@ namespace common
         /// @return true if username format is valid, false otherwise
         static bool validate_username(const std::string& username);
 
+        /// @brief Load user credentials from database
+        /// @param username User identifier to load
+        /// @return User credentials if found, nullopt otherwise
+        auto load_user_from_db(const std::string& username) const
+            -> std::optional<UserCredentials>;
+
         PasswordPolicy password_policy_;
         std::unordered_map<std::string, std::unique_ptr<UserCredentials>> users_;
         mutable std::mutex users_mutex_;
+        server_app::PasswordSQL password_sql_;
     };
 } // common

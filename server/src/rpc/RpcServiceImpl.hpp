@@ -3,6 +3,7 @@
 #include <src/exception/AuthenticationException.hpp>
 
 #include "generated/RpcService.grpc.pb.h"
+#include <string>
 
 namespace server_app
 {
@@ -12,8 +13,9 @@ namespace server_app
     class RpcServiceImpl final : public rpc::RpcService::Service
     {
     public:
-        /// @brief Default constructor
-        constexpr RpcServiceImpl() noexcept = default;
+        /// @brief Constructor with database path
+        /// @param db_path Path to SQLite database file
+        explicit RpcServiceImpl(const std::string& db_path) noexcept;
 
         /// @brief Default destructor
         ~RpcServiceImpl() noexcept override = default;
@@ -70,7 +72,7 @@ namespace server_app
 
     private:
         /// @brief Authenticator instance for managing user accounts
-        common::UserAuthenticator authenticator_{};
+        common::UserAuthenticator authenticator_;
 
         /// @brief Convert AuthenticationException to grpc::Status
         /// @param e AuthenticationException to handle

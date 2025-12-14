@@ -3,20 +3,32 @@
 #include <vector>
 #include <string>
 #include <stdexcept>
+#include <memory>
 
 namespace common
 {
     /// @brief SQLite database executor with RAII management and parameterized queries
-    class SQLiteExecutor
+    class SQLiteManager
     {
     public:
+        /// @brief Default constructor
+        SQLiteManager();
+
         /// @brief Constructor that opens the database file (creates it if not exists)
         /// @param db_path Path to the SQLite database file
         /// @throws std::runtime_error if database cannot be opened
-        explicit SQLiteExecutor(const std::string& db_path);
+        explicit SQLiteManager(const std::string& db_path);
 
         /// @brief Destructor that automatically closes the database connection
-        ~SQLiteExecutor();
+        ~SQLiteManager();
+
+        /// @brief Creates/open database connection
+        /// @param db_path Path to the SQLite database file
+        /// @throws std::runtime_error if database cannot be opened
+        void createDatabase(const std::string& db_path);
+
+        /// @brief Closes database connection
+        void closeDatabase();
 
         /// @brief Executes non-query SQL statements (INSERT/UPDATE/DELETE)
         /// @param sql SQL statement to execute
@@ -36,7 +48,12 @@ namespace common
                                  const std::vector<std::string>& params = {}) const
             -> std::vector<std::vector<std::string>>;
 
+        /// @brief Check if database is open
+        /// @return true if database is open, false otherwise
+        [[nodiscard]] auto isOpen() const
+            -> bool;
+
     private:
-        sqlite3* db;
+        std::unique_ptr<sqlite3, decltype(&sqlite3_close)> db_;
     };
 } // common

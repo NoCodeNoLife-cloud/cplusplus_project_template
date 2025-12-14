@@ -22,4 +22,5 @@ target_link_libraries(${COMMON_FRAMEWORK} PUBLIC
         OpenSSL::SSL OpenSSL::Crypto
         magic_enum::magic_enum
         Microsoft::DirectXMath
+        unofficial::sqlite3::sqlite3
 )

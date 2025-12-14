@@ -39,6 +39,7 @@ find_package(directxmath CONFIG REQUIRED)
 find_package(Protobuf CONFIG REQUIRED)
 find_package(gRPC CONFIG REQUIRED)
 find_package(magic_enum CONFIG REQUIRED)
+find_package(unofficial-sqlite3 CONFIG REQUIRED)
 
 # Subdirectories
 add_subdirectory(common)

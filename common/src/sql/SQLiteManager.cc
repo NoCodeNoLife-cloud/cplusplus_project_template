@@ -1,35 +1,63 @@
-#include "SQLiteExecutor.hpp"
+#include "SQLiteManager.hpp"
 #include <glog/logging.h>
 
 namespace common
 {
-    SQLiteExecutor::SQLiteExecutor(const std::string& db_path)
-        : db(nullptr)
+    SQLiteManager::SQLiteManager()
+        : db_(nullptr, &sqlite3_close)
     {
-        if (sqlite3_open(db_path.c_str(), &db) != SQLITE_OK)
+    }
+
+    SQLiteManager::SQLiteManager(const std::string& db_path)
+        : db_(nullptr, &sqlite3_close)
+    {
+        createDatabase(db_path);
+    }
+
+    SQLiteManager::~SQLiteManager()
+    {
+        closeDatabase();
+    }
+
+    void SQLiteManager::createDatabase(const std::string& db_path)
+    {
+        if (db_)
         {
-            throw std::runtime_error("Database open failed: " + std::string(sqlite3_errmsg(db)));
+            closeDatabase();
         }
+
+        sqlite3* raw_db;
+        if (sqlite3_open(db_path.c_str(), &raw_db) != SQLITE_OK)
+        {
+            throw std::runtime_error("Database open failed: " + std::string(sqlite3_errmsg(raw_db)));
+        }
+
+        db_.reset(raw_db);
         LOG(INFO) << "Database connection established: " << db_path;
     }
 
-    SQLiteExecutor::~SQLiteExecutor()
+    void SQLiteManager::closeDatabase()
     {
-        if (db)
+        if (db_)
         {
-            sqlite3_close(db);
+            db_.reset(nullptr);
             LOG(INFO) << "Database connection closed";
         }
     }
 
-    auto SQLiteExecutor::exec(const std::string& sql,
-                              const std::vector<std::string>& params) const
+    auto SQLiteManager::exec(const std::string& sql,
+                             const std::vector<std::string>& params) const
         -> int
     {
-        sqlite3_stmt* stmt;
-        if (sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK)
+        if (!db_)
         {
-            throw std::runtime_error("SQL prepare failed: " + std::string(sqlite3_errmsg(db)));
+            throw std::runtime_error("Database not open");
+        }
+
+        sqlite3_stmt* stmt;
+        if (sqlite3_prepare_v2(db_.get(), sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK)
+        {
+            throw std::runtime_error("SQL prepare failed: " + std::string(sqlite3_errmsg(db_.get())));
         }
 
         // Bind parameters
@@ -44,29 +72,34 @@ namespace common
 
         // Execute statement
         const int rc = sqlite3_step(stmt);
-        const int affected = sqlite3_changes(db);
+        const int affected = sqlite3_changes(db_.get());
 
         // Cleanup
         sqlite3_finalize(stmt);
 
         if (rc != SQLITE_DONE)
         {
-            throw std::runtime_error("SQL execution failed: " + std::string(sqlite3_errmsg(db)));
+            throw std::runtime_error("SQL execution failed: " + std::string(sqlite3_errmsg(db_.get())));
         }
 
         return affected;
     }
 
-    auto SQLiteExecutor::query(const std::string& sql,
-                               const std::vector<std::string>& params) const
+    auto SQLiteManager::query(const std::string& sql,
+                              const std::vector<std::string>& params) const
         -> std::vector<std::vector<std::string>>
     {
+        if (!db_)
+        {
+            throw std::runtime_error("Database not open");
+        }
+
         std::vector<std::vector<std::string>> results;
         sqlite3_stmt* stmt;
 
-        if (sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK)
+        if (sqlite3_prepare_v2(db_.get(), sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK)
         {
-            throw std::runtime_error("Query preparation failed: " + std::string(sqlite3_errmsg(db)));
+            throw std::runtime_error("Query preparation failed: " + std::string(sqlite3_errmsg(db_.get())));
         }
 
         // Bind parameters
@@ -96,4 +129,7 @@ namespace common
         sqlite3_finalize(stmt);
         return results;
     }
+
+    auto SQLiteManager::isOpen() const
+        -> bool { return db_ != nullptr; }
 } // common

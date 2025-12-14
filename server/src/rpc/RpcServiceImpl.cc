@@ -4,6 +4,11 @@
 
 namespace server_app
 {
+    RpcServiceImpl::RpcServiceImpl(const std::string& db_path) noexcept
+        : authenticator_(db_path)
+    {
+    }
+
     auto RpcServiceImpl::RegisterUser(::grpc::ServerContext* /*context*/,
                                       const ::rpc::RegisterUserRequest* const request,
                                       ::rpc::AuthResponse* const response)
@@ -118,20 +123,16 @@ namespace server_app
     {
         try
         {
-            std::lock_guard<std::mutex> lock(authenticator_.get_users_mutex());
-            auto& users = authenticator_.get_users();
-
-            if (!users.contains(request->username()))
+            const bool success = authenticator_.delete_user(request->username());
+            response->set_success(success);
+            if (success)
             {
-                response->set_success(false);
-                response->set_message("User not found");
-                response->set_error_code(404);
-                return ::grpc::Status::OK;
+                response->set_message("User deleted successfully");
             }
-
-            users.erase(request->username());
-            response->set_success(true);
-            response->set_message("User deleted successfully");
+            else
+            {
+                response->set_message("User deletion failed");
+            }
             return ::grpc::Status::OK;
         }
         catch (const std::exception& e)

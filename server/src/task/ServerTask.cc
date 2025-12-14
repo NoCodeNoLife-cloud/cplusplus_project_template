@@ -2,6 +2,7 @@
 
 #include "src/rpc/RpcServiceImpl.hpp"
 #include "src/GLogConfigurator.hpp"
+#include "src/sql/SQLiteManager.hpp"
 
 namespace app_server
 {
@@ -90,7 +91,7 @@ namespace app_server
                 << "Keepalive Permit Without Calls: " << grpc_options_.keepalivePermitWithoutCalls();
 
             LOG(INFO) << "Registering RPC service implementation";
-            server_app::RpcServiceImpl service;
+            server_app::RpcServiceImpl service("./users.db");
             builder.RegisterService(&service);
             LOG(INFO) << "Service registered successfully";
 
