@@ -113,7 +113,7 @@ namespace client_app
     auto RpcClient::UserExists(const std::string& username) const noexcept
         -> rpc::AuthResponse
     {
-        rpc::DeleteUserRequest request{}; // Note: This seems to be a bug in original code, should be UserExistsRequest
+        rpc::UserExistsRequest request{};
         request.set_username(username);
 
         rpc::AuthResponse response{};

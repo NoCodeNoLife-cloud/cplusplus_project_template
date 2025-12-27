@@ -145,7 +145,7 @@ namespace server_app
     }
 
     auto RpcServiceImpl::UserExists(::grpc::ServerContext* /*context*/,
-                                    const ::rpc::DeleteUserRequest* const request,
+                                    const ::rpc::UserExistsRequest* const request,
                                     ::rpc::AuthResponse* const response)
         -> ::grpc::Status
     {

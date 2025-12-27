@@ -8,7 +8,7 @@ service RpcService {
   rpc ChangePassword (ChangePasswordRequest) returns (AuthResponse) {}
   rpc ResetPassword (ResetPasswordRequest) returns (AuthResponse) {}
   rpc DeleteUser (DeleteUserRequest) returns (AuthResponse) {}
-  rpc UserExists (DeleteUserRequest) returns (AuthResponse) {}
+  rpc UserExists (UserExistsRequest) returns (AuthResponse) {}
 }
 
 message RegisterUserRequest {
@@ -33,6 +33,10 @@ message ResetPasswordRequest {
 }
 
 message DeleteUserRequest {
+  string username = 1;
+}
+
+message UserExistsRequest {
   string username = 1;
 }
 

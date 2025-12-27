@@ -26,6 +26,33 @@ namespace _pbi = ::google::protobuf::internal;
 namespace _fl = ::google::protobuf::internal::field_layout;
 namespace rpc {
 
+inline constexpr UserExistsRequest::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : username_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR UserExistsRequest::UserExistsRequest(::_pbi::ConstantInitialized)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(_class_data_.base()),
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(),
+#endif  // PROTOBUF_CUSTOM_VTABLE
+      _impl_(::_pbi::ConstantInitialized()) {
+}
+struct UserExistsRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR UserExistsRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~UserExistsRequestDefaultTypeInternal() {}
+  union {
+    UserExistsRequest _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UserExistsRequestDefaultTypeInternal _UserExistsRequest_default_instance_;
+
 inline constexpr ResetPasswordRequest::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : username_(
@@ -263,6 +290,15 @@ const ::uint32_t
         ~0u,  // no sizeof(Split)
         PROTOBUF_FIELD_OFFSET(::rpc::DeleteUserRequest, _impl_.username_),
         ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::rpc::UserExistsRequest, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::rpc::UserExistsRequest, _impl_.username_),
+        ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::rpc::AuthResponse, _internal_metadata_),
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
@@ -282,7 +318,8 @@ static const ::_pbi::MigrationSchema
         {20, -1, -1, sizeof(::rpc::ChangePasswordRequest)},
         {31, -1, -1, sizeof(::rpc::ResetPasswordRequest)},
         {41, -1, -1, sizeof(::rpc::DeleteUserRequest)},
-        {50, -1, -1, sizeof(::rpc::AuthResponse)},
+        {50, -1, -1, sizeof(::rpc::UserExistsRequest)},
+        {59, -1, -1, sizeof(::rpc::AuthResponse)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::rpc::_RegisterUserRequest_default_instance_._instance,
@@ -290,6 +327,7 @@ static const ::_pb::Message* const file_default_instances[] = {
     &::rpc::_ChangePasswordRequest_default_instance_._instance,
     &::rpc::_ResetPasswordRequest_default_instance_._instance,
     &::rpc::_DeleteUserRequest_default_instance_._instance,
+    &::rpc::_UserExistsRequest_default_instance_._instance,
     &::rpc::_AuthResponse_default_instance_._instance,
 };
 const char descriptor_table_protodef_RpcService_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
@@ -302,31 +340,32 @@ const char descriptor_table_protodef_RpcService_2eproto[] ABSL_ATTRIBUTE_SECTION
     "password\030\002 \001(\t\022\024\n\014new_password\030\003 \001(\t\">\n\024"
     "ResetPasswordRequest\022\020\n\010username\030\001 \001(\t\022\024"
     "\n\014new_password\030\002 \001(\t\"%\n\021DeleteUserReques"
-    "t\022\020\n\010username\030\001 \001(\t\"D\n\014AuthResponse\022\017\n\007s"
-    "uccess\030\001 \001(\010\022\017\n\007message\030\002 \001(\t\022\022\n\nerror_c"
-    "ode\030\003 \001(\0052\214\003\n\nRpcService\022=\n\014RegisterUser"
-    "\022\030.rpc.RegisterUserRequest\032\021.rpc.AuthRes"
-    "ponse\"\000\022E\n\020AuthenticateUser\022\034.rpc.Authen"
-    "ticateUserRequest\032\021.rpc.AuthResponse\"\000\022A"
-    "\n\016ChangePassword\022\032.rpc.ChangePasswordReq"
-    "uest\032\021.rpc.AuthResponse\"\000\022\?\n\rResetPasswo"
-    "rd\022\031.rpc.ResetPasswordRequest\032\021.rpc.Auth"
-    "Response\"\000\0229\n\nDeleteUser\022\026.rpc.DeleteUse"
-    "rRequest\032\021.rpc.AuthResponse\"\000\0229\n\nUserExi"
-    "sts\022\026.rpc.DeleteUserRequest\032\021.rpc.AuthRe"
-    "sponse\"\000b\006proto3"
+    "t\022\020\n\010username\030\001 \001(\t\"%\n\021UserExistsRequest"
+    "\022\020\n\010username\030\001 \001(\t\"D\n\014AuthResponse\022\017\n\007su"
+    "ccess\030\001 \001(\010\022\017\n\007message\030\002 \001(\t\022\022\n\nerror_co"
+    "de\030\003 \001(\0052\214\003\n\nRpcService\022=\n\014RegisterUser\022"
+    "\030.rpc.RegisterUserRequest\032\021.rpc.AuthResp"
+    "onse\"\000\022E\n\020AuthenticateUser\022\034.rpc.Authent"
+    "icateUserRequest\032\021.rpc.AuthResponse\"\000\022A\n"
+    "\016ChangePassword\022\032.rpc.ChangePasswordRequ"
+    "est\032\021.rpc.AuthResponse\"\000\022\?\n\rResetPasswor"
+    "d\022\031.rpc.ResetPasswordRequest\032\021.rpc.AuthR"
+    "esponse\"\000\0229\n\nDeleteUser\022\026.rpc.DeleteUser"
+    "Request\032\021.rpc.AuthResponse\"\000\0229\n\nUserExis"
+    "ts\022\026.rpc.UserExistsRequest\032\021.rpc.AuthRes"
+    "ponse\"\000b\006proto3"
 };
 static ::absl::once_flag descriptor_table_RpcService_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_RpcService_2eproto = {
     false,
     false,
-    816,
+    855,
     descriptor_table_protodef_RpcService_2eproto,
     "RpcService.proto",
     &descriptor_table_RpcService_2eproto_once,
     nullptr,
     0,
-    6,
+    7,
     schemas,
     file_default_instances,
     TableStruct_RpcService_2eproto::offsets,
@@ -1632,6 +1671,237 @@ void DeleteUserRequest::InternalSwap(DeleteUserRequest* PROTOBUF_RESTRICT other)
 }
 
 ::google::protobuf::Metadata DeleteUserRequest::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class UserExistsRequest::_Internal {
+ public:
+};
+
+UserExistsRequest::UserExistsRequest(::google::protobuf::Arena* arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:rpc.UserExistsRequest)
+}
+inline PROTOBUF_NDEBUG_INLINE UserExistsRequest::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::rpc::UserExistsRequest& from_msg)
+      : username_(arena, from.username_),
+        _cached_size_{0} {}
+
+UserExistsRequest::UserExistsRequest(
+    ::google::protobuf::Arena* arena,
+    const UserExistsRequest& from)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  UserExistsRequest* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+
+  // @@protoc_insertion_point(copy_constructor:rpc.UserExistsRequest)
+}
+inline PROTOBUF_NDEBUG_INLINE UserExistsRequest::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : username_(arena),
+        _cached_size_{0} {}
+
+inline void UserExistsRequest::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+}
+UserExistsRequest::~UserExistsRequest() {
+  // @@protoc_insertion_point(destructor:rpc.UserExistsRequest)
+  SharedDtor(*this);
+}
+inline void UserExistsRequest::SharedDtor(MessageLite& self) {
+  UserExistsRequest& this_ = static_cast<UserExistsRequest&>(self);
+  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  ABSL_DCHECK(this_.GetArena() == nullptr);
+  this_._impl_.username_.Destroy();
+  this_._impl_.~Impl_();
+}
+
+inline void* UserExistsRequest::PlacementNew_(const void*, void* mem,
+                                        ::google::protobuf::Arena* arena) {
+  return ::new (mem) UserExistsRequest(arena);
+}
+constexpr auto UserExistsRequest::InternalNewImpl_() {
+  return ::google::protobuf::internal::MessageCreator::CopyInit(sizeof(UserExistsRequest),
+                                            alignof(UserExistsRequest));
+}
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::google::protobuf::internal::ClassDataFull UserExistsRequest::_class_data_ = {
+    ::google::protobuf::internal::ClassData{
+        &_UserExistsRequest_default_instance_._instance,
+        &_table_.header,
+        nullptr,  // OnDemandRegisterArenaDtor
+        nullptr,  // IsInitialized
+        &UserExistsRequest::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<UserExistsRequest>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        &UserExistsRequest::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<UserExistsRequest>(), &UserExistsRequest::ByteSizeLong,
+            &UserExistsRequest::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+        PROTOBUF_FIELD_OFFSET(UserExistsRequest, _impl_._cached_size_),
+        false,
+    },
+    &UserExistsRequest::kDescriptorMethods,
+    &descriptor_table_RpcService_2eproto,
+    nullptr,  // tracker
+};
+const ::google::protobuf::internal::ClassData* UserExistsRequest::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+  return _class_data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 0, 38, 2> UserExistsRequest::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    1, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967294,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    _class_data_.base(),
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::rpc::UserExistsRequest>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // string username = 1;
+    {::_pbi::TcParser::FastUS1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(UserExistsRequest, _impl_.username_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // string username = 1;
+    {PROTOBUF_FIELD_OFFSET(UserExistsRequest, _impl_.username_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+  }},
+  // no aux_entries
+  {{
+    "\25\10\0\0\0\0\0\0"
+    "rpc.UserExistsRequest"
+    "username"
+  }},
+};
+
+PROTOBUF_NOINLINE void UserExistsRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:rpc.UserExistsRequest)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.username_.ClearToEmpty();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::uint8_t* UserExistsRequest::_InternalSerialize(
+            const MessageLite& base, ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) {
+          const UserExistsRequest& this_ = static_cast<const UserExistsRequest&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::uint8_t* UserExistsRequest::_InternalSerialize(
+            ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+          const UserExistsRequest& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(serialize_to_array_start:rpc.UserExistsRequest)
+          ::uint32_t cached_has_bits = 0;
+          (void)cached_has_bits;
+
+          // string username = 1;
+          if (!this_._internal_username().empty()) {
+            const std::string& _s = this_._internal_username();
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "rpc.UserExistsRequest.username");
+            target = stream->WriteStringMaybeAliased(1, _s, target);
+          }
+
+          if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
+            target =
+                ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+                    this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+          }
+          // @@protoc_insertion_point(serialize_to_array_end:rpc.UserExistsRequest)
+          return target;
+        }
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::size_t UserExistsRequest::ByteSizeLong(const MessageLite& base) {
+          const UserExistsRequest& this_ = static_cast<const UserExistsRequest&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::size_t UserExistsRequest::ByteSizeLong() const {
+          const UserExistsRequest& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(message_byte_size_start:rpc.UserExistsRequest)
+          ::size_t total_size = 0;
+
+          ::uint32_t cached_has_bits = 0;
+          // Prevent compiler warnings about cached_has_bits being unused
+          (void)cached_has_bits;
+
+           {
+            // string username = 1;
+            if (!this_._internal_username().empty()) {
+              total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                              this_._internal_username());
+            }
+          }
+          return this_.MaybeComputeUnknownFieldsSize(total_size,
+                                                     &this_._impl_._cached_size_);
+        }
+
+void UserExistsRequest::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<UserExistsRequest*>(&to_msg);
+  auto& from = static_cast<const UserExistsRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:rpc.UserExistsRequest)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_username().empty()) {
+    _this->_internal_set_username(from._internal_username());
+  }
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void UserExistsRequest::CopyFrom(const UserExistsRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:rpc.UserExistsRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void UserExistsRequest::InternalSwap(UserExistsRequest* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.username_, &other->_impl_.username_, arena);
+}
+
+::google::protobuf::Metadata UserExistsRequest::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // ===================================================================

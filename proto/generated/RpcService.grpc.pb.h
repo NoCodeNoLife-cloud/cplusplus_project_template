@@ -71,11 +71,11 @@ class RpcService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>> PrepareAsyncDeleteUser(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>>(PrepareAsyncDeleteUserRaw(context, request, cq));
     }
-    virtual ::grpc::Status UserExists(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::rpc::AuthResponse* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>> AsyncUserExists(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::grpc::CompletionQueue* cq) {
+    virtual ::grpc::Status UserExists(::grpc::ClientContext* context, const ::rpc::UserExistsRequest& request, ::rpc::AuthResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>> AsyncUserExists(::grpc::ClientContext* context, const ::rpc::UserExistsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>>(AsyncUserExistsRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>> PrepareAsyncUserExists(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::grpc::CompletionQueue* cq) {
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>> PrepareAsyncUserExists(::grpc::ClientContext* context, const ::rpc::UserExistsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>>(PrepareAsyncUserExistsRaw(context, request, cq));
     }
     class async_interface {
@@ -91,8 +91,8 @@ class RpcService final {
       virtual void ResetPassword(::grpc::ClientContext* context, const ::rpc::ResetPasswordRequest* request, ::rpc::AuthResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void DeleteUser(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest* request, ::rpc::AuthResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void DeleteUser(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest* request, ::rpc::AuthResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      virtual void UserExists(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest* request, ::rpc::AuthResponse* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void UserExists(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest* request, ::rpc::AuthResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void UserExists(::grpc::ClientContext* context, const ::rpc::UserExistsRequest* request, ::rpc::AuthResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UserExists(::grpc::ClientContext* context, const ::rpc::UserExistsRequest* request, ::rpc::AuthResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -108,8 +108,8 @@ class RpcService final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>* PrepareAsyncResetPasswordRaw(::grpc::ClientContext* context, const ::rpc::ResetPasswordRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>* AsyncDeleteUserRaw(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>* PrepareAsyncDeleteUserRaw(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>* AsyncUserExistsRaw(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>* PrepareAsyncUserExistsRaw(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>* AsyncUserExistsRaw(::grpc::ClientContext* context, const ::rpc::UserExistsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>* PrepareAsyncUserExistsRaw(::grpc::ClientContext* context, const ::rpc::UserExistsRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -149,11 +149,11 @@ class RpcService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::AuthResponse>> PrepareAsyncDeleteUser(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::AuthResponse>>(PrepareAsyncDeleteUserRaw(context, request, cq));
     }
-    ::grpc::Status UserExists(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::rpc::AuthResponse* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::AuthResponse>> AsyncUserExists(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::grpc::CompletionQueue* cq) {
+    ::grpc::Status UserExists(::grpc::ClientContext* context, const ::rpc::UserExistsRequest& request, ::rpc::AuthResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::AuthResponse>> AsyncUserExists(::grpc::ClientContext* context, const ::rpc::UserExistsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::AuthResponse>>(AsyncUserExistsRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::AuthResponse>> PrepareAsyncUserExists(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::grpc::CompletionQueue* cq) {
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::AuthResponse>> PrepareAsyncUserExists(::grpc::ClientContext* context, const ::rpc::UserExistsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::AuthResponse>>(PrepareAsyncUserExistsRaw(context, request, cq));
     }
     class async final :
@@ -169,8 +169,8 @@ class RpcService final {
       void ResetPassword(::grpc::ClientContext* context, const ::rpc::ResetPasswordRequest* request, ::rpc::AuthResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void DeleteUser(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest* request, ::rpc::AuthResponse* response, std::function<void(::grpc::Status)>) override;
       void DeleteUser(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest* request, ::rpc::AuthResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void UserExists(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest* request, ::rpc::AuthResponse* response, std::function<void(::grpc::Status)>) override;
-      void UserExists(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest* request, ::rpc::AuthResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void UserExists(::grpc::ClientContext* context, const ::rpc::UserExistsRequest* request, ::rpc::AuthResponse* response, std::function<void(::grpc::Status)>) override;
+      void UserExists(::grpc::ClientContext* context, const ::rpc::UserExistsRequest* request, ::rpc::AuthResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -192,8 +192,8 @@ class RpcService final {
     ::grpc::ClientAsyncResponseReader< ::rpc::AuthResponse>* PrepareAsyncResetPasswordRaw(::grpc::ClientContext* context, const ::rpc::ResetPasswordRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::rpc::AuthResponse>* AsyncDeleteUserRaw(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::rpc::AuthResponse>* PrepareAsyncDeleteUserRaw(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::rpc::AuthResponse>* AsyncUserExistsRaw(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::rpc::AuthResponse>* PrepareAsyncUserExistsRaw(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::rpc::AuthResponse>* AsyncUserExistsRaw(::grpc::ClientContext* context, const ::rpc::UserExistsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::rpc::AuthResponse>* PrepareAsyncUserExistsRaw(::grpc::ClientContext* context, const ::rpc::UserExistsRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_RegisterUser_;
     const ::grpc::internal::RpcMethod rpcmethod_AuthenticateUser_;
     const ::grpc::internal::RpcMethod rpcmethod_ChangePassword_;
@@ -212,7 +212,7 @@ class RpcService final {
     virtual ::grpc::Status ChangePassword(::grpc::ServerContext* context, const ::rpc::ChangePasswordRequest* request, ::rpc::AuthResponse* response);
     virtual ::grpc::Status ResetPassword(::grpc::ServerContext* context, const ::rpc::ResetPasswordRequest* request, ::rpc::AuthResponse* response);
     virtual ::grpc::Status DeleteUser(::grpc::ServerContext* context, const ::rpc::DeleteUserRequest* request, ::rpc::AuthResponse* response);
-    virtual ::grpc::Status UserExists(::grpc::ServerContext* context, const ::rpc::DeleteUserRequest* request, ::rpc::AuthResponse* response);
+    virtual ::grpc::Status UserExists(::grpc::ServerContext* context, const ::rpc::UserExistsRequest* request, ::rpc::AuthResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_RegisterUser : public BaseClass {
@@ -326,11 +326,11 @@ class RpcService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UserExists(::grpc::ServerContext* /*context*/, const ::rpc::DeleteUserRequest* /*request*/, ::rpc::AuthResponse* /*response*/) override {
+    ::grpc::Status UserExists(::grpc::ServerContext* /*context*/, const ::rpc::UserExistsRequest* /*request*/, ::rpc::AuthResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestUserExists(::grpc::ServerContext* context, ::rpc::DeleteUserRequest* request, ::grpc::ServerAsyncResponseWriter< ::rpc::AuthResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestUserExists(::grpc::ServerContext* context, ::rpc::UserExistsRequest* request, ::grpc::ServerAsyncResponseWriter< ::rpc::AuthResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -477,25 +477,25 @@ class RpcService final {
    public:
     WithCallbackMethod_UserExists() {
       ::grpc::Service::MarkMethodCallback(5,
-          new ::grpc::internal::CallbackUnaryHandler< ::rpc::DeleteUserRequest, ::rpc::AuthResponse>(
+          new ::grpc::internal::CallbackUnaryHandler< ::rpc::UserExistsRequest, ::rpc::AuthResponse>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::rpc::DeleteUserRequest* request, ::rpc::AuthResponse* response) { return this->UserExists(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::rpc::UserExistsRequest* request, ::rpc::AuthResponse* response) { return this->UserExists(context, request, response); }));}
     void SetMessageAllocatorFor_UserExists(
-        ::grpc::MessageAllocator< ::rpc::DeleteUserRequest, ::rpc::AuthResponse>* allocator) {
+        ::grpc::MessageAllocator< ::rpc::UserExistsRequest, ::rpc::AuthResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::rpc::DeleteUserRequest, ::rpc::AuthResponse>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::rpc::UserExistsRequest, ::rpc::AuthResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~WithCallbackMethod_UserExists() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UserExists(::grpc::ServerContext* /*context*/, const ::rpc::DeleteUserRequest* /*request*/, ::rpc::AuthResponse* /*response*/) override {
+    ::grpc::Status UserExists(::grpc::ServerContext* /*context*/, const ::rpc::UserExistsRequest* /*request*/, ::rpc::AuthResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* UserExists(
-      ::grpc::CallbackServerContext* /*context*/, const ::rpc::DeleteUserRequest* /*request*/, ::rpc::AuthResponse* /*response*/)  { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::rpc::UserExistsRequest* /*request*/, ::rpc::AuthResponse* /*response*/)  { return nullptr; }
   };
   typedef WithCallbackMethod_RegisterUser<WithCallbackMethod_AuthenticateUser<WithCallbackMethod_ChangePassword<WithCallbackMethod_ResetPassword<WithCallbackMethod_DeleteUser<WithCallbackMethod_UserExists<Service > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
@@ -596,7 +596,7 @@ class RpcService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UserExists(::grpc::ServerContext* /*context*/, const ::rpc::DeleteUserRequest* /*request*/, ::rpc::AuthResponse* /*response*/) override {
+    ::grpc::Status UserExists(::grpc::ServerContext* /*context*/, const ::rpc::UserExistsRequest* /*request*/, ::rpc::AuthResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -713,7 +713,7 @@ class RpcService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UserExists(::grpc::ServerContext* /*context*/, const ::rpc::DeleteUserRequest* /*request*/, ::rpc::AuthResponse* /*response*/) override {
+    ::grpc::Status UserExists(::grpc::ServerContext* /*context*/, const ::rpc::UserExistsRequest* /*request*/, ::rpc::AuthResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -846,7 +846,7 @@ class RpcService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UserExists(::grpc::ServerContext* /*context*/, const ::rpc::DeleteUserRequest* /*request*/, ::rpc::AuthResponse* /*response*/) override {
+    ::grpc::Status UserExists(::grpc::ServerContext* /*context*/, const ::rpc::UserExistsRequest* /*request*/, ::rpc::AuthResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -996,10 +996,10 @@ class RpcService final {
     WithStreamedUnaryMethod_UserExists() {
       ::grpc::Service::MarkMethodStreamed(5,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::rpc::DeleteUserRequest, ::rpc::AuthResponse>(
+          ::rpc::UserExistsRequest, ::rpc::AuthResponse>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::rpc::DeleteUserRequest, ::rpc::AuthResponse>* streamer) {
+                     ::rpc::UserExistsRequest, ::rpc::AuthResponse>* streamer) {
                        return this->StreamedUserExists(context,
                          streamer);
                   }));
@@ -1008,12 +1008,12 @@ class RpcService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status UserExists(::grpc::ServerContext* /*context*/, const ::rpc::DeleteUserRequest* /*request*/, ::rpc::AuthResponse* /*response*/) override {
+    ::grpc::Status UserExists(::grpc::ServerContext* /*context*/, const ::rpc::UserExistsRequest* /*request*/, ::rpc::AuthResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedUserExists(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::rpc::DeleteUserRequest,::rpc::AuthResponse>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedUserExists(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::rpc::UserExistsRequest,::rpc::AuthResponse>* server_unary_streamer) = 0;
   };
   typedef WithStreamedUnaryMethod_RegisterUser<WithStreamedUnaryMethod_AuthenticateUser<WithStreamedUnaryMethod_ChangePassword<WithStreamedUnaryMethod_ResetPassword<WithStreamedUnaryMethod_DeleteUser<WithStreamedUnaryMethod_UserExists<Service > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;

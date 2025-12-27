@@ -66,7 +66,7 @@ namespace server_app
 
         /// @brief Check if user exists
         auto UserExists(::grpc::ServerContext* context,
-                        const ::rpc::DeleteUserRequest* request,
+                        const ::rpc::UserExistsRequest* request,
                         ::rpc::AuthResponse* response)
             -> ::grpc::Status override;
 

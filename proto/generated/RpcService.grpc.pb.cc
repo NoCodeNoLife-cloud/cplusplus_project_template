@@ -160,23 +160,23 @@ void RpcService::Stub::async::DeleteUser(::grpc::ClientContext* context, const :
   return result;
 }
 
-::grpc::Status RpcService::Stub::UserExists(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::rpc::AuthResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::rpc::DeleteUserRequest, ::rpc::AuthResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_UserExists_, context, request, response);
+::grpc::Status RpcService::Stub::UserExists(::grpc::ClientContext* context, const ::rpc::UserExistsRequest& request, ::rpc::AuthResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::rpc::UserExistsRequest, ::rpc::AuthResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_UserExists_, context, request, response);
 }
 
-void RpcService::Stub::async::UserExists(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest* request, ::rpc::AuthResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::rpc::DeleteUserRequest, ::rpc::AuthResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UserExists_, context, request, response, std::move(f));
+void RpcService::Stub::async::UserExists(::grpc::ClientContext* context, const ::rpc::UserExistsRequest* request, ::rpc::AuthResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::rpc::UserExistsRequest, ::rpc::AuthResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UserExists_, context, request, response, std::move(f));
 }
 
-void RpcService::Stub::async::UserExists(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest* request, ::rpc::AuthResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+void RpcService::Stub::async::UserExists(::grpc::ClientContext* context, const ::rpc::UserExistsRequest* request, ::rpc::AuthResponse* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UserExists_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::rpc::AuthResponse>* RpcService::Stub::PrepareAsyncUserExistsRaw(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::rpc::AuthResponse, ::rpc::DeleteUserRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_UserExists_, context, request);
+::grpc::ClientAsyncResponseReader< ::rpc::AuthResponse>* RpcService::Stub::PrepareAsyncUserExistsRaw(::grpc::ClientContext* context, const ::rpc::UserExistsRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::rpc::AuthResponse, ::rpc::UserExistsRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_UserExists_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::rpc::AuthResponse>* RpcService::Stub::AsyncUserExistsRaw(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::rpc::AuthResponse>* RpcService::Stub::AsyncUserExistsRaw(::grpc::ClientContext* context, const ::rpc::UserExistsRequest& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncUserExistsRaw(context, request, cq);
   result->StartCall();
@@ -237,10 +237,10 @@ RpcService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       RpcService_method_names[5],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< RpcService::Service, ::rpc::DeleteUserRequest, ::rpc::AuthResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< RpcService::Service, ::rpc::UserExistsRequest, ::rpc::AuthResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](RpcService::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::rpc::DeleteUserRequest* req,
+             const ::rpc::UserExistsRequest* req,
              ::rpc::AuthResponse* resp) {
                return service->UserExists(ctx, req, resp);
              }, this)));
@@ -284,7 +284,7 @@ RpcService::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status RpcService::Service::UserExists(::grpc::ServerContext* context, const ::rpc::DeleteUserRequest* request, ::rpc::AuthResponse* response) {
+::grpc::Status RpcService::Service::UserExists(::grpc::ServerContext* context, const ::rpc::UserExistsRequest* request, ::rpc::AuthResponse* response) {
   (void) context;
   (void) request;
   (void) response;
