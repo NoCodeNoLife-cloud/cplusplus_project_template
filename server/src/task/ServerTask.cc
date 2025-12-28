@@ -11,22 +11,28 @@ namespace app_server
     {
     }
 
-    auto ServerTask::init() const
-        -> void
+    ServerTask::~ServerTask() = default;
+
+    ServerTask::ServerTask(ServerTask&&) noexcept = default;
+
+    [[nodiscard]] auto ServerTask::init()
+        -> bool
     {
         if (const glog::GLogConfigurator log_configurator{application_dev_config_path_}; !log_configurator.execute())
         {
             LOG(ERROR) << "Failed to configure GLog with config path: " << application_dev_config_path_;
-            throw std::runtime_error("Failed to configure GLog");
-        };
+            return false;
+        }
+
         LOG(INFO) << "Initializing ServerTask with config path: " << application_dev_config_path_;
         LOG(INFO) << "GLog configuration initialized successfully";
 
         LOG(INFO) << "Loading gRPC configuration from: " << application_dev_config_path_;
-        grpc_options_.deserializedFromYamlFile(application_dev_config_path_);
-
-        // Validate gRPC parameters after loading them
-        validateGrpcParameters();
+        if (!grpc_options_.deserializedFromYamlFile(application_dev_config_path_))
+        {
+            LOG(ERROR) << "Failed to deserialize gRPC options from YAML file: " << application_dev_config_path_;
+            return false;
+        }
 
         LOG(INFO) << "gRPC configuration loaded successfully";
         LOG(INFO) << "gRPC Options - Max Connection Idle: " << grpc_options_.maxConnectionIdleMs()
@@ -36,33 +42,46 @@ namespace app_server
             << "ms, Permit Without Calls: " << grpc_options_.keepalivePermitWithoutCalls()
             << ", Server Address: " << grpc_options_.serverAddress();
         LOG(INFO) << "ServerTask starting...";
+
+        return true;
     }
 
-    auto ServerTask::run()
-        -> void
+    [[nodiscard]] auto ServerTask::run()
+        -> bool
     {
         try
         {
-            init();
-            establishGrpcConnection();
+            if (!init())
+            {
+                LOG(ERROR) << "Failed to initialize ServerTask";
+                return false;
+            }
+
+            if (!establishGrpcConnection())
+            {
+                LOG(ERROR) << "Failed to establish gRPC connection";
+                exit();
+                return false;
+            }
+
             exit();
+            return true;
         }
         catch (const std::exception& e)
         {
             LOG(ERROR) << "Exception occurred in ServerTask::run(): " << e.what();
             LOG(ERROR) << "Exception type: " << typeid(e).name();
-            throw; // Re-throw to maintain exception propagation chain
+            return false;
         }
         catch (...)
         {
             LOG(ERROR) << "Unknown exception occurred in ServerTask::run().";
-            throw; // Re-throw to maintain exception propagation chain
+            return false;
         }
-        LOG(INFO) << "ServerTask completed.";
     }
 
-    auto ServerTask::establishGrpcConnection()
-        -> void
+    [[nodiscard]] auto ServerTask::establishGrpcConnection()
+        -> bool
     {
         try
         {
@@ -101,7 +120,7 @@ namespace app_server
             {
                 LOG(ERROR) << "Failed to build and start gRPC server. Server object is null.";
                 LOG(ERROR) << "Check server configuration and port availability.";
-                throw std::runtime_error("Failed to build and start gRPC server");
+                return false;
             }
 
             LOG(INFO) << "Server listening on " << server_address;
@@ -111,17 +130,19 @@ namespace app_server
         catch (const std::exception& e)
         {
             LOG(ERROR) << "gRPC server failed to start. Exception: " << e.what();
-            throw; // Re-throw to maintain exception propagation chain
+            return false;
         }
         catch (...)
         {
             LOG(ERROR) << "gRPC server failed to start with unknown error.";
-            throw; // Re-throw to maintain exception propagation chain
+            return false;
         }
+
         LOG(INFO) << "gRPC connection established.";
+        return true;
     }
 
-    auto ServerTask::exit() const
+    auto ServerTask::exit()
         -> void
     {
         LOG(INFO) << "Shutting down service task...";
@@ -136,87 +157,5 @@ namespace app_server
             LOG(WARNING) << "Server object is null during shutdown. Nothing to shutdown.";
         }
         LOG(INFO) << "Service task shutdown complete.";
-    }
-
-    auto ServerTask::validateGrpcParameters() const
-        -> void
-    {
-        // Validate max connection idle time
-        if (grpc_options_.maxConnectionIdleMs() <= 0)
-        {
-            LOG(WARNING) << "Invalid max connection idle time: " << grpc_options_.maxConnectionIdleMs()
-                << "ms. Using default value of 3600000ms.";
-        }
-
-        // Validate max connection age
-        if (grpc_options_.maxConnectionAgeMs() <= 0)
-        {
-            LOG(WARNING) << "Invalid max connection age: " << grpc_options_.maxConnectionAgeMs()
-                << "ms. Using default value of 7200000ms.";
-        }
-
-        // Validate max connection age grace period
-        if (grpc_options_.maxConnectionAgeGraceMs() < 0)
-        {
-            LOG(WARNING) << "Invalid max connection age grace period: " << grpc_options_.maxConnectionAgeGraceMs()
-                << "ms. Using default value of 300000ms.";
-        }
-
-        // Validate keepalive time (should be positive)
-        if (grpc_options_.keepaliveTimeMs() <= 0)
-        {
-            LOG(WARNING) << "Invalid keepalive time: " << grpc_options_.keepaliveTimeMs()
-                << "ms. Using default value of 30000ms.";
-        }
-
-        // Validate keepalive timeout (should be positive)
-        if (grpc_options_.keepaliveTimeoutMs() <= 0)
-        {
-            LOG(WARNING) << "Invalid keepalive timeout: " << grpc_options_.keepaliveTimeoutMs()
-                << "ms. Using default value of 5000ms.";
-        }
-
-        // Validate keepalive permit without calls (should be 0 or 1)
-        if (grpc_options_.keepalivePermitWithoutCalls() != 0 && grpc_options_.keepalivePermitWithoutCalls() != 1)
-        {
-            LOG(WARNING) << "Invalid keepalive permit without calls: " << grpc_options_.keepalivePermitWithoutCalls()
-                << ". Valid values are 0 or 1. Using default value of 1.";
-        }
-
-        // Validate server address
-        if (grpc_options_.serverAddress().empty())
-        {
-            LOG(WARNING) << "Server address is empty. Using default value 0.0.0.0:50051.";
-        }
-
-        // Check for potentially problematic combinations
-        if (grpc_options_.maxConnectionIdleMs() > 0 && grpc_options_.maxConnectionIdleMs() < 1000)
-        {
-            LOG(WARNING) << "Max connection idle time is set to a very short interval ("
-                << grpc_options_.maxConnectionIdleMs() << "ms). This may cause excessive connection churn.";
-        }
-
-        if (grpc_options_.keepaliveTimeMs() > 0 && grpc_options_.keepaliveTimeMs() < 1000)
-        {
-            LOG(WARNING) << "Keepalive time is set to a very short interval (" << grpc_options_.keepaliveTimeMs()
-                << "ms). This may cause excessive network traffic.";
-        }
-
-        if (grpc_options_.keepaliveTimeoutMs() > 0 && grpc_options_.keepaliveTimeoutMs() > grpc_options_.
-            keepaliveTimeMs())
-        {
-            LOG(WARNING) << "Keepalive timeout (" << grpc_options_.keepaliveTimeoutMs()
-                << "ms) is greater than keepalive time (" << grpc_options_.keepaliveTimeMs()
-                << "ms). This may lead to unexpected connection issues.";
-        }
-
-        // Check age vs idle time relationship
-        if (grpc_options_.maxConnectionAgeMs() > 0 && grpc_options_.maxConnectionIdleMs() > 0 &&
-            grpc_options_.maxConnectionAgeMs() < grpc_options_.maxConnectionIdleMs())
-        {
-            LOG(WARNING) << "Max connection age (" << grpc_options_.maxConnectionAgeMs()
-                << "ms) is less than max connection idle time (" << grpc_options_.maxConnectionIdleMs()
-                << "ms). This may lead to unexpected connection behavior.";
-        }
     }
 } // namespace app_server

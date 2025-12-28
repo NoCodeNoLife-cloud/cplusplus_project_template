@@ -145,6 +145,7 @@ namespace app_server
 
         /// @brief Deserialize object configuration from a YAML file
         /// @param path The file path to the YAML configuration file
+        /// @return true if successful, false otherwise
         /// @throws std::runtime_error If the file cannot be read or parsed
         /// @details This method loads the gRPC configuration from a YAML file. The expected
         /// YAML structure should contain keys matching the configuration parameters:
@@ -158,8 +159,15 @@ namespace app_server
         ///   keepalive-permit-without-calls: 1
         ///   server-address: "0.0.0.0:50051"
         /// @endcode
-        auto deserializedFromYamlFile(const std::filesystem::path& path)
-            -> void override;
+        [[nodiscard]] auto deserializedFromYamlFile(const std::filesystem::path& path)
+            -> bool;
+
+        /// @brief Validate gRPC parameters for correctness
+        /// @return true if all parameters are valid, false otherwise
+        /// @details This function checks that the gRPC parameters are within reasonable ranges
+        /// and logs warnings for potentially problematic configurations
+        [[nodiscard]] auto validateParameters() const
+            -> bool;
 
         /// @brief Builder class for constructing GrpcOptions instances
         /// @details Implements the Builder pattern to allow for flexible construction

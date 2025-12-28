@@ -23,9 +23,12 @@ namespace client_app
 
         if (const grpc::Status status = stub_->RegisterUser(&context, request, &response); !status.ok())
         {
+            LOG(WARNING) << "RPC RegisterUser failed: " << status.error_message();
             response.set_success(false);
             response.set_message("RPC failed: " + status.error_message());
             response.set_error_code(status.error_code());
+        } else {
+            LOG(INFO) << "RPC RegisterUser succeeded for user: " << username;
         }
         return response;
     }
@@ -43,9 +46,33 @@ namespace client_app
 
         if (const grpc::Status status = stub_->AuthenticateUser(&context, request, &response); !status.ok())
         {
+            LOG(WARNING) << "RPC AuthenticateUser failed: " << status.error_message();
             response.set_success(false);
             response.set_message("RPC failed: " + status.error_message());
             response.set_error_code(status.error_code());
+        } else {
+            LOG(INFO) << "RPC AuthenticateUser succeeded for user: " << username;
+        }
+        return response;
+    }
+
+    auto RpcClient::UserExists(const std::string& username) const noexcept
+        -> rpc::AuthResponse
+    {
+        rpc::UserExistsRequest request{};
+        request.set_username(username);
+
+        rpc::AuthResponse response{};
+        grpc::ClientContext context{};
+
+        if (const grpc::Status status = stub_->UserExists(&context, request, &response); !status.ok())
+        {
+            LOG(WARNING) << "RPC UserExists failed: " << status.error_message();
+            response.set_success(false);
+            response.set_message("RPC failed: " + status.error_message());
+            response.set_error_code(status.error_code());
+        } else {
+            LOG(INFO) << "RPC UserExists executed for user: " << username;
         }
         return response;
     }
@@ -65,9 +92,12 @@ namespace client_app
 
         if (const grpc::Status status = stub_->ChangePassword(&context, request, &response); !status.ok())
         {
+            LOG(WARNING) << "RPC ChangePassword failed: " << status.error_message();
             response.set_success(false);
             response.set_message("RPC failed: " + status.error_message());
             response.set_error_code(status.error_code());
+        } else {
+            LOG(INFO) << "RPC ChangePassword succeeded for user: " << username;
         }
         return response;
     }
@@ -85,9 +115,12 @@ namespace client_app
 
         if (const grpc::Status status = stub_->ResetPassword(&context, request, &response); !status.ok())
         {
+            LOG(WARNING) << "RPC ResetPassword failed: " << status.error_message();
             response.set_success(false);
             response.set_message("RPC failed: " + status.error_message());
             response.set_error_code(status.error_code());
+        } else {
+            LOG(INFO) << "RPC ResetPassword succeeded for user: " << username;
         }
         return response;
     }
@@ -103,27 +136,12 @@ namespace client_app
 
         if (const grpc::Status status = stub_->DeleteUser(&context, request, &response); !status.ok())
         {
+            LOG(WARNING) << "RPC DeleteUser failed: " << status.error_message();
             response.set_success(false);
             response.set_message("RPC failed: " + status.error_message());
             response.set_error_code(status.error_code());
-        }
-        return response;
-    }
-
-    auto RpcClient::UserExists(const std::string& username) const noexcept
-        -> rpc::AuthResponse
-    {
-        rpc::UserExistsRequest request{};
-        request.set_username(username);
-
-        rpc::AuthResponse response{};
-        grpc::ClientContext context{};
-
-        if (const grpc::Status status = stub_->UserExists(&context, request, &response); !status.ok())
-        {
-            response.set_success(false);
-            response.set_message("RPC failed: " + status.error_message());
-            response.set_error_code(status.error_code());
+        } else {
+            LOG(INFO) << "RPC DeleteUser executed for user: " << username;
         }
         return response;
     }

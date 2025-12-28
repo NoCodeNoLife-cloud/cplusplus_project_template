@@ -92,13 +92,14 @@ namespace app_client
         }
     }
 
+    // ReSharper disable once CppMemberFunctionMayBeStatic
     auto ClientTask::task(const client_app::RpcClient& rpc_client) noexcept
         -> void
     {
         // TODO: Implement actual task logic here
     }
 
-    auto ClientTask::run() const
+    auto ClientTask::run()
         -> void
     {
         try
@@ -160,9 +161,6 @@ namespace app_client
     {
         LOG(INFO) << "Setting up gRPC channel with custom arguments";
 
-        // Validate gRPC parameters before using them
-        validateGrpcParameters();
-
         // Setup channel.
         grpc::ChannelArguments channel_args;
         channel_args.SetInt(GRPC_ARG_KEEPALIVE_TIME_MS, rpc_options_.keepaliveTimeMs());
@@ -199,52 +197,5 @@ namespace app_client
         return channel;
     }
 
-    auto ClientTask::validateGrpcParameters() const noexcept
-        -> void
-    {
-        LOG(INFO) << "Validating gRPC parameters";
-
-        // Validate keepalive time (should be positive)
-        if (rpc_options_.keepaliveTimeMs() <= 0)
-        {
-            LOG(WARNING) << "Invalid keepalive time: " << rpc_options_.keepaliveTimeMs()
-                << "ms. Using default value of 30000ms.";
-        }
-
-        // Validate keepalive timeout (should be positive)
-        if (rpc_options_.keepaliveTimeoutMs() <= 0)
-        {
-            LOG(WARNING) << "Invalid keepalive timeout: " << rpc_options_.keepaliveTimeoutMs()
-                << "ms. Using default value of 5000ms.";
-        }
-
-        // Validate keepalive permit without calls (should be 0 or 1)
-        if (rpc_options_.keepalivePermitWithoutCalls() != 0 && rpc_options_.keepalivePermitWithoutCalls() != 1)
-        {
-            LOG(WARNING) << "Invalid keepalive permit without calls: " << rpc_options_.keepalivePermitWithoutCalls()
-                << ". Valid values are 0 or 1. Using default value of 1.";
-        }
-
-        // Check for potentially problematic combinations
-        if (rpc_options_.keepaliveTimeMs() > 0 && rpc_options_.keepaliveTimeMs() < 1000)
-        {
-            LOG(WARNING) << "Keepalive time is set to a very short interval (" << rpc_options_.keepaliveTimeMs()
-                << "ms). This may cause excessive network traffic.";
-        }
-
-        if (rpc_options_.keepaliveTimeoutMs() > 0 && rpc_options_.keepaliveTimeoutMs() > rpc_options_.keepaliveTimeMs())
-        {
-            LOG(WARNING) << "Keepalive timeout (" << rpc_options_.keepaliveTimeoutMs()
-                << "ms) is greater than keepalive time (" << rpc_options_.keepaliveTimeMs()
-                << "ms). This may lead to unexpected connection issues.";
-        }
-
-        // Validate server address
-        if (rpc_options_.serverAddress().empty())
-        {
-            LOG(WARNING) << "Server address is empty. Using default value localhost:50051.";
-        }
-
-        LOG(INFO) << "gRPC parameter validation completed";
-    }
+    // Removed validateGrpcParameters function as validation is now handled by GrpcOptions
 } // namespace app_client

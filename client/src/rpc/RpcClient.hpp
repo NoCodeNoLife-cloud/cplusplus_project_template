@@ -15,6 +15,24 @@ namespace client_app
         /// @param channel The gRPC channel to use for communication
         explicit RpcClient(const std::shared_ptr<grpc::Channel>& channel) noexcept;
 
+        /// @brief Default constructor deleted to prevent uninitialized instances
+        RpcClient() = delete;
+
+        /// @brief Copy constructor deleted to prevent copying
+        RpcClient(const RpcClient&) = delete;
+
+        /// @brief Move constructor
+        RpcClient(RpcClient&&) noexcept = default;
+
+        /// @brief Copy assignment operator deleted to prevent copying
+        auto operator=(const RpcClient&) -> RpcClient& = delete;
+
+        /// @brief Move assignment operator
+        auto operator=(RpcClient&&) noexcept -> RpcClient& = default;
+
+        /// @brief Default destructor
+        ~RpcClient() = default;
+
         /// @brief Register a new user with username and password
         /// @param username The username to register
         /// @param password The password for the user
@@ -29,6 +47,12 @@ namespace client_app
         /// @return rpc::AuthResponse containing operation result
         [[nodiscard]] auto AuthenticateUser(const std::string& username,
                                             const std::string& password) const noexcept
+            -> rpc::AuthResponse;
+
+        /// @brief Check if a user exists
+        /// @param username The username to check
+        /// @return rpc::AuthResponse containing operation result
+        [[nodiscard]] auto UserExists(const std::string& username) const noexcept
             -> rpc::AuthResponse;
 
         /// @brief Change password for an authenticated user
@@ -49,12 +73,6 @@ namespace client_app
                                          const std::string& new_password) const noexcept
             -> rpc::AuthResponse;
 
-        /// @brief Check if a user exists
-        /// @param username The username to check
-        /// @return rpc::AuthResponse containing operation result
-        [[nodiscard]] auto UserExists(const std::string& username) const noexcept
-            -> rpc::AuthResponse;
-
         /// @brief Delete a user
         /// @param username The username to delete
         /// @return rpc::AuthResponse containing operation result
@@ -62,6 +80,7 @@ namespace client_app
             -> rpc::AuthResponse;
 
     private:
+        /// @brief gRPC stub for making RPC calls
         std::unique_ptr<rpc::RpcService::Stub> stub_{};
     };
 } // namespace client_app

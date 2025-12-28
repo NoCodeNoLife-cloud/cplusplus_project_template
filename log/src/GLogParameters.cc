@@ -59,7 +59,7 @@ namespace glog
     }
 
     auto GLogParameters::deserializedFromYamlFile(const std::filesystem::path& path)
-        -> void
+        -> bool
     {
         if (!std::filesystem::exists(path))
         {
@@ -117,6 +117,8 @@ namespace glog
         {
             throw std::runtime_error("Error processing configuration file '" + path.string() + "': " + e.what());
         }
+
+        return true;
     }
 
     auto GLogParameters::operator==(const GLogParameters& other) const noexcept

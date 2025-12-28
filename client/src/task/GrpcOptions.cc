@@ -1,5 +1,7 @@
 #include "src/task/GrpcOptions.hpp"
 
+#include <glog/logging.h>
+
 namespace app_client
 {
     GrpcOptions::GrpcOptions(const int32_t keepalive_time_ms,
@@ -41,7 +43,9 @@ namespace app_client
     auto GrpcOptions::Builder::build() const
         -> GrpcOptions
     {
-        return {keepalive_time_ms_, keepalive_timeout_ms_, keepalive_permit_without_calls_, server_address_};
+        GrpcOptions options = {keepalive_time_ms_, keepalive_timeout_ms_, keepalive_permit_without_calls_, server_address_};
+        options.validate(); // Validate parameters after construction
+        return options;
     }
 
     GrpcOptions::Builder GrpcOptions::builder()
@@ -59,6 +63,7 @@ namespace app_client
         -> void
     {
         keepalive_time_ms_ = value;
+        validate(); // Validate after setting new value
     }
 
     auto GrpcOptions::keepaliveTimeoutMs() const
@@ -71,6 +76,7 @@ namespace app_client
         -> void
     {
         keepalive_timeout_ms_ = value;
+        validate(); // Validate after setting new value
     }
 
     auto GrpcOptions::keepalivePermitWithoutCalls() const
@@ -83,6 +89,7 @@ namespace app_client
         -> void
     {
         keepalive_permit_without_calls_ = value;
+        validate(); // Validate after setting new value
     }
 
     // ReSharper disable once CppDFAConstantFunctionResult
@@ -96,10 +103,11 @@ namespace app_client
         -> void
     {
         server_address_ = value;
+        validate(); // Validate after setting new value
     }
 
     auto GrpcOptions::deserializedFromYamlFile(const std::filesystem::path& path)
-        -> void
+        -> bool
     {
         if (!std::filesystem::exists(path))
         {
@@ -136,6 +144,58 @@ namespace app_client
         {
             throw std::runtime_error("Error processing configuration file '" + path.string() + "': " + e.what());
         }
+
+        validate(); // Validate after loading from YAML
+        return true;
+    }
+
+    auto GrpcOptions::validate() const noexcept
+        -> void
+    {
+        LOG(INFO) << "Validating gRPC parameters";
+
+        // Validate keepalive time (should be positive)
+        if (keepalive_time_ms_ <= 0)
+        {
+            LOG(WARNING) << "Invalid keepalive time: " << keepalive_time_ms_
+                << "ms. Using default value of 30000ms.";
+        }
+
+        // Validate keepalive timeout (should be positive)
+        if (keepalive_timeout_ms_ <= 0)
+        {
+            LOG(WARNING) << "Invalid keepalive timeout: " << keepalive_timeout_ms_
+                << "ms. Using default value of 5000ms.";
+        }
+
+        // Validate keepalive permit without calls (should be 0 or 1)
+        if (keepalive_permit_without_calls_ != 0 && keepalive_permit_without_calls_ != 1)
+        {
+            LOG(WARNING) << "Invalid keepalive permit without calls: " << keepalive_permit_without_calls_
+                << ". Valid values are 0 or 1. Using default value of 1.";
+        }
+
+        // Check for potentially problematic combinations
+        if (keepalive_time_ms_ > 0 && keepalive_time_ms_ < 1000)
+        {
+            LOG(WARNING) << "Keepalive time is set to a very short interval (" << keepalive_time_ms_
+                << "ms). This may cause excessive network traffic.";
+        }
+
+        if (keepalive_timeout_ms_ > 0 && keepalive_timeout_ms_ > keepalive_time_ms_)
+        {
+            LOG(WARNING) << "Keepalive timeout (" << keepalive_timeout_ms_
+                << "ms) is greater than keepalive time (" << keepalive_time_ms_
+                << "ms). This may lead to unexpected connection issues.";
+        }
+
+        // Validate server address
+        if (server_address_.empty())
+        {
+            LOG(WARNING) << "Server address is empty. Using default value localhost:50051.";
+        }
+
+        LOG(INFO) << "gRPC parameter validation completed";
     }
 }
 

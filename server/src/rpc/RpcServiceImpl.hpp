@@ -35,37 +35,37 @@ namespace server_app
             -> RpcServiceImpl& = delete;
 
         /// @brief Register new user account
-        auto RegisterUser(::grpc::ServerContext* context,
+        [[nodiscard]] auto RegisterUser(::grpc::ServerContext* context,
                           const ::rpc::RegisterUserRequest* request,
                           ::rpc::AuthResponse* response)
             -> ::grpc::Status override;
 
         /// @brief Authenticate user credentials
-        auto AuthenticateUser(::grpc::ServerContext* context,
+        [[nodiscard]] auto AuthenticateUser(::grpc::ServerContext* context,
                               const ::rpc::AuthenticateUserRequest* request,
                               ::rpc::AuthResponse* response)
             -> ::grpc::Status override;
 
         /// @brief Change user password
-        auto ChangePassword(::grpc::ServerContext* context,
+        [[nodiscard]] auto ChangePassword(::grpc::ServerContext* context,
                             const ::rpc::ChangePasswordRequest* request,
                             ::rpc::AuthResponse* response)
             -> ::grpc::Status override;
 
         /// @brief Reset user password (administrative)
-        auto ResetPassword(::grpc::ServerContext* context,
+        [[nodiscard]] auto ResetPassword(::grpc::ServerContext* context,
                            const ::rpc::ResetPasswordRequest* request,
                            ::rpc::AuthResponse* response)
             -> ::grpc::Status override;
 
         /// @brief Delete user account
-        auto DeleteUser(::grpc::ServerContext* context,
+        [[nodiscard]] auto DeleteUser(::grpc::ServerContext* context,
                         const ::rpc::DeleteUserRequest* request,
                         ::rpc::AuthResponse* response)
             -> ::grpc::Status override;
 
         /// @brief Check if user exists
-        auto UserExists(::grpc::ServerContext* context,
+        [[nodiscard]] auto UserExists(::grpc::ServerContext* context,
                         const ::rpc::UserExistsRequest* request,
                         ::rpc::AuthResponse* response)
             -> ::grpc::Status override;
@@ -74,11 +74,14 @@ namespace server_app
         /// @brief Authenticator instance for managing user accounts
         common::UserAuthenticator authenticator_;
 
+        /// @brief Map exception types to error codes using table-driven approach
+        static const std::unordered_map<std::string_view, int> error_map_;
+
         /// @brief Convert AuthenticationException to grpc::Status
         /// @param e AuthenticationException to handle
         /// @param response Response to populate with error details
         /// @return Appropriate gRPC status
-        static auto HandleAuthException(const common::AuthenticationException& e,
+        [[nodiscard]] static auto HandleAuthException(const common::AuthenticationException& e,
                                         ::rpc::AuthResponse* response) noexcept
             -> ::grpc::Status;
     };

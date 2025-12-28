@@ -110,7 +110,7 @@ namespace app_client
         ///   server-address: "localhost:50051"
         /// @endcode
         auto deserializedFromYamlFile(const std::filesystem::path& path)
-            -> void override;
+            -> bool override;
 
         /// @brief Builder class for constructing GrpcOptions instances
         /// @details Implements the Builder pattern to allow for flexible construction
@@ -175,6 +175,11 @@ namespace app_client
         /// @brief Create a new Builder instance for constructing GrpcOptions
         /// @return A new Builder instance with default values
         static Builder builder();
+
+        /// @brief Validate gRPC parameters for correctness
+        /// @details This function checks that the gRPC parameters are within reasonable ranges
+        /// and logs warnings for potentially problematic configurations
+        auto validate() const noexcept -> void;
 
     private:
         /// @brief Time interval between keepalive pings (in milliseconds)

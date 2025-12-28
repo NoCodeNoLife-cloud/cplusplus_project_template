@@ -1,5 +1,6 @@
 #include "src/rpc/GrpcOptions.hpp"
 #include <yaml-cpp/yaml.h>
+#include <glog/logging.h>
 #include "src/filesystem/type/YamlToolkit.hpp"
 
 namespace app_server
@@ -18,7 +19,8 @@ namespace app_server
           max_connection_age_grace_ms_(max_connection_age_grace_ms),
           keepalive_time_ms_(keepalive_time_ms),
           keepalive_timeout_ms_(keepalive_timeout_ms),
-          keepalive_permit_without_calls_(keepalive_permit_without_calls)
+          keepalive_permit_without_calls_(keepalive_permit_without_calls),
+          server_address_(server_address)
     {
     }
 
@@ -107,12 +109,13 @@ namespace app_server
         server_address_ = value;
     }
 
-    auto GrpcOptions::deserializedFromYamlFile(const std::filesystem::path& path)
-        -> void
+    [[nodiscard]] auto GrpcOptions::deserializedFromYamlFile(const std::filesystem::path& path)
+        -> bool
     {
         if (!std::filesystem::exists(path))
         {
-            throw std::runtime_error("Configuration file does not exist: " + path.string());
+            LOG(ERROR) << "Configuration file does not exist: " << path.string();
+            return false;
         }
 
         try
@@ -151,12 +154,101 @@ namespace app_server
         }
         catch (const YAML::Exception& e)
         {
-            throw std::runtime_error("Failed to parse YAML file '" + path.string() + "': " + e.what());
+            LOG(ERROR) << "Failed to parse YAML file '" << path.string() << "': " << e.what();
+            return false;
         }
         catch (const std::exception& e)
         {
-            throw std::runtime_error("Error processing configuration file '" + path.string() + "': " + e.what());
+            LOG(ERROR) << "Error processing configuration file '" << path.string() << "': " << e.what();
+            return false;
         }
+
+        return validateParameters();
+    }
+
+    [[nodiscard]] auto GrpcOptions::validateParameters() const
+        -> bool
+    {
+        bool is_valid = true;
+
+        // Validate max connection idle time
+        if (max_connection_idle_ms_ <= 0)
+        {
+            LOG(WARNING) << "Invalid max connection idle time: " << max_connection_idle_ms_
+                << "ms. Using default value of 3600000ms.";
+        }
+
+        // Validate max connection age
+        if (max_connection_age_ms_ <= 0)
+        {
+            LOG(WARNING) << "Invalid max connection age: " << max_connection_age_ms_
+                << "ms. Using default value of 7200000ms.";
+        }
+
+        // Validate max connection age grace period
+        if (max_connection_age_grace_ms_ < 0)
+        {
+            LOG(WARNING) << "Invalid max connection age grace period: " << max_connection_age_grace_ms_
+                << "ms. Using default value of 300000ms.";
+        }
+
+        // Validate keepalive time (should be positive)
+        if (keepalive_time_ms_ <= 0)
+        {
+            LOG(WARNING) << "Invalid keepalive time: " << keepalive_time_ms_
+                << "ms. Using default value of 30000ms.";
+        }
+
+        // Validate keepalive timeout (should be positive)
+        if (keepalive_timeout_ms_ <= 0)
+        {
+            LOG(WARNING) << "Invalid keepalive timeout: " << keepalive_timeout_ms_
+                << "ms. Using default value of 5000ms.";
+        }
+
+        // Validate keepalive permit without calls (should be 0 or 1)
+        if (keepalive_permit_without_calls_ != 0 && keepalive_permit_without_calls_ != 1)
+        {
+            LOG(WARNING) << "Invalid keepalive permit without calls: " << keepalive_permit_without_calls_
+                << ". Valid values are 0 or 1. Using default value of 1.";
+        }
+
+        // Validate server address
+        if (server_address_.empty())
+        {
+            LOG(WARNING) << "Server address is empty. Using default value 0.0.0.0:50051.";
+        }
+
+        // Check for potentially problematic combinations
+        if (max_connection_idle_ms_ > 0 && max_connection_idle_ms_ < 1000)
+        {
+            LOG(WARNING) << "Max connection idle time is set to a very short interval ("
+                << max_connection_idle_ms_ << "ms). This may cause excessive connection churn.";
+        }
+
+        if (keepalive_time_ms_ > 0 && keepalive_time_ms_ < 1000)
+        {
+            LOG(WARNING) << "Keepalive time is set to a very short interval (" << keepalive_time_ms_
+                << "ms). This may cause excessive network traffic.";
+        }
+
+        if (keepalive_timeout_ms_ > 0 && keepalive_timeout_ms_ > keepalive_time_ms_)
+        {
+            LOG(WARNING) << "Keepalive timeout (" << keepalive_timeout_ms_
+                << "ms) is greater than keepalive time (" << keepalive_time_ms_
+                << "ms). This may lead to unexpected connection issues.";
+        }
+
+        // Check age vs idle time relationship
+        if (max_connection_age_ms_ > 0 && max_connection_idle_ms_ > 0 &&
+            max_connection_age_ms_ < max_connection_idle_ms_)
+        {
+            LOG(WARNING) << "Max connection age (" << max_connection_age_ms_
+                << "ms) is less than max connection idle time (" << max_connection_idle_ms_
+                << "ms). This may lead to unexpected connection behavior.";
+        }
+
+        return is_valid;
     }
 
     auto GrpcOptions::Builder::maxConnectionIdleMs(const int32_t value)

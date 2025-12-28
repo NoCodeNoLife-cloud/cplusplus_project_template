@@ -4,16 +4,33 @@
 
 namespace server_app
 {
+    /// @brief Map exception types to error codes using table-driven approach
+    const std::unordered_map<std::string_view, int> RpcServiceImpl::error_map_ = {
+        {"already exists", 409}, // Conflict
+        {"not found", 404}, // Not found
+        {"locked", 423}, // Locked
+        {"Invalid password", 401} // Unauthorized
+    };
+
     RpcServiceImpl::RpcServiceImpl(const std::string& db_path) noexcept
         : authenticator_(db_path)
     {
     }
 
-    auto RpcServiceImpl::RegisterUser(::grpc::ServerContext* /*context*/,
+    [[nodiscard]] auto RpcServiceImpl::RegisterUser(::grpc::ServerContext* /*context*/,
                                       const ::rpc::RegisterUserRequest* const request,
                                       ::rpc::AuthResponse* const response)
         -> ::grpc::Status
     {
+        // Validate request parameters
+        if (!request || request->username().empty() || request->password().empty())
+        {
+            response->set_success(false);
+            response->set_message("Invalid request: username and password are required");
+            response->set_error_code(400);
+            return {::grpc::StatusCode::INVALID_ARGUMENT, "Invalid request parameters"};
+        }
+
         try
         {
             const bool success = authenticator_.register_user(request->username(), request->password());
@@ -34,11 +51,20 @@ namespace server_app
         }
     }
 
-    auto RpcServiceImpl::AuthenticateUser(::grpc::ServerContext* /*context*/,
+    [[nodiscard]] auto RpcServiceImpl::AuthenticateUser(::grpc::ServerContext* /*context*/,
                                           const ::rpc::AuthenticateUserRequest* const request,
                                           ::rpc::AuthResponse* const response)
         -> ::grpc::Status
     {
+        // Validate request parameters
+        if (!request || request->username().empty() || request->password().empty())
+        {
+            response->set_success(false);
+            response->set_message("Invalid request: username and password are required");
+            response->set_error_code(400);
+            return {::grpc::StatusCode::INVALID_ARGUMENT, "Invalid request parameters"};
+        }
+
         try
         {
             const bool success = authenticator_.authenticate(request->username(), request->password());
@@ -59,11 +85,20 @@ namespace server_app
         }
     }
 
-    auto RpcServiceImpl::ChangePassword(::grpc::ServerContext* /*context*/,
+    [[nodiscard]] auto RpcServiceImpl::ChangePassword(::grpc::ServerContext* /*context*/,
                                         const ::rpc::ChangePasswordRequest* const request,
                                         ::rpc::AuthResponse* const response)
         -> ::grpc::Status
     {
+        // Validate request parameters
+        if (!request || request->username().empty() || request->current_password().empty() || request->new_password().empty())
+        {
+            response->set_success(false);
+            response->set_message("Invalid request: username, current password, and new password are required");
+            response->set_error_code(400);
+            return {::grpc::StatusCode::INVALID_ARGUMENT, "Invalid request parameters"};
+        }
+
         try
         {
             const bool success = authenticator_.change_password(
@@ -88,11 +123,20 @@ namespace server_app
         }
     }
 
-    auto RpcServiceImpl::ResetPassword(::grpc::ServerContext* /*context*/,
+    [[nodiscard]] auto RpcServiceImpl::ResetPassword(::grpc::ServerContext* /*context*/,
                                        const ::rpc::ResetPasswordRequest* const request,
                                        ::rpc::AuthResponse* const response)
         -> ::grpc::Status
     {
+        // Validate request parameters
+        if (!request || request->username().empty() || request->new_password().empty())
+        {
+            response->set_success(false);
+            response->set_message("Invalid request: username and new password are required");
+            response->set_error_code(400);
+            return {::grpc::StatusCode::INVALID_ARGUMENT, "Invalid request parameters"};
+        }
+
         try
         {
             const bool success = authenticator_.reset_password(
@@ -116,11 +160,20 @@ namespace server_app
         }
     }
 
-    auto RpcServiceImpl::DeleteUser(::grpc::ServerContext* /*context*/,
+    [[nodiscard]] auto RpcServiceImpl::DeleteUser(::grpc::ServerContext* /*context*/,
                                     const ::rpc::DeleteUserRequest* const request,
                                     ::rpc::AuthResponse* const response)
         -> ::grpc::Status
     {
+        // Validate request parameters
+        if (!request || request->username().empty())
+        {
+            response->set_success(false);
+            response->set_message("Invalid request: username is required");
+            response->set_error_code(400);
+            return {::grpc::StatusCode::INVALID_ARGUMENT, "Invalid request parameters"};
+        }
+
         try
         {
             const bool success = authenticator_.delete_user(request->username());
@@ -144,11 +197,20 @@ namespace server_app
         }
     }
 
-    auto RpcServiceImpl::UserExists(::grpc::ServerContext* /*context*/,
+    [[nodiscard]] auto RpcServiceImpl::UserExists(::grpc::ServerContext* /*context*/,
                                     const ::rpc::UserExistsRequest* const request,
                                     ::rpc::AuthResponse* const response)
         -> ::grpc::Status
     {
+        // Validate request parameters
+        if (!request || request->username().empty())
+        {
+            response->set_success(false);
+            response->set_message("Invalid request: username is required");
+            response->set_error_code(400);
+            return {::grpc::StatusCode::INVALID_ARGUMENT, "Invalid request parameters"};
+        }
+
         try
         {
             const bool exists = authenticator_.user_exists(request->username());
@@ -165,25 +227,18 @@ namespace server_app
         }
     }
 
-    auto RpcServiceImpl::HandleAuthException(const common::AuthenticationException& e,
+    [[nodiscard]] auto RpcServiceImpl::HandleAuthException(const common::AuthenticationException& e,
                                              ::rpc::AuthResponse* const response) noexcept
         -> ::grpc::Status
     {
         response->set_success(false);
         response->set_message(e.what());
 
-        // Map exception types to error codes using table-driven approach
-        static const std::unordered_map<std::string_view, int> error_map = {
-            {"already exists", 409}, // Conflict
-            {"not found", 404}, // Not found
-            {"locked", 423}, // Locked
-            {"Invalid password", 401} // Unauthorized
-        };
-
         const std::string error_msg = e.what();
         response->set_error_code(400); // Default error code (Bad request)
 
-        for (const auto& [pattern, code] : error_map)
+        // Use range-based for loop to check for error patterns
+        for (const auto& [pattern, code] : error_map_)
         {
             if (error_msg.find(pattern) != std::string::npos)
             {

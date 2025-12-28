@@ -1,5 +1,6 @@
 #include "PasswordSQL.hpp"
 #include <glog/logging.h>
+#include <stdexcept>
 
 namespace server_app
 {
@@ -17,6 +18,11 @@ namespace server_app
         )";
 
         [[maybe_unused]] const auto result = sqlite_manager_.exec(create_table_sql);
+        if (result < 0)
+        {
+            LOG(ERROR) << "Failed to initialize users table in database: " << db_path;
+            throw std::runtime_error("Failed to initialize users table");
+        }
         LOG(INFO) << "PasswordSQL initialized with database: " << db_path;
     }
 
@@ -24,15 +30,30 @@ namespace server_app
                                    const std::string& password) const noexcept
         -> bool
     {
+        /// @brief Validate input parameters
+        if (username.empty() || password.empty())
+        {
+            LOG(ERROR) << "Registration failed: username or password is empty";
+            return false;
+        }
+
         try
         {
             constexpr auto insert_sql = R"(
                 INSERT INTO users (username, password) VALUES (?, ?);
             )";
 
-            [[maybe_unused]] const auto result = sqlite_manager_.exec(insert_sql, {username, password});
-            LOG(INFO) << "User registered successfully: " << username;
-            return true;
+            const auto result = sqlite_manager_.exec(insert_sql, {username, password});
+            if (result > 0)
+            {
+                LOG(INFO) << "User registered successfully: " << username;
+                return true;
+            }
+            else
+            {
+                LOG(WARNING) << "User registration affected no rows for user: " << username;
+                return false;
+            }
         }
         catch (const std::exception& e)
         {
@@ -45,6 +66,13 @@ namespace server_app
                                        const std::string& password) const noexcept
         -> bool
     {
+        /// @brief Validate input parameters
+        if (username.empty() || password.empty())
+        {
+            LOG(ERROR) << "Authentication failed: username or password is empty";
+            return false;
+        }
+
         try
         {
             constexpr auto select_sql = R"(
@@ -52,7 +80,18 @@ namespace server_app
             )";
 
             const auto result = sqlite_manager_.query(select_sql, {username, password});
-            return !result.empty();
+            const bool authenticated = !result.empty();
+
+            if (authenticated)
+            {
+                LOG(INFO) << "User authenticated successfully: " << username;
+            }
+            else
+            {
+                LOG(WARNING) << "Authentication failed for user: " << username;
+            }
+
+            return authenticated;
         }
         catch (const std::exception& e)
         {
@@ -66,6 +105,13 @@ namespace server_app
                                      const std::string& new_password) const noexcept
         -> bool
     {
+        /// @brief Validate input parameters
+        if (username.empty() || old_password.empty() || new_password.empty())
+        {
+            LOG(ERROR) << "Password change failed: username or password is empty";
+            return false;
+        }
+
         try
         {
             /// @brief First check if the old credentials are correct
@@ -79,7 +125,8 @@ namespace server_app
                 UPDATE users SET password = ? WHERE username = ?;
             )";
 
-            if (const int affected_rows = sqlite_manager_.exec(update_sql, {new_password, username}); affected_rows > 0)
+            const auto affected_rows = sqlite_manager_.exec(update_sql, {new_password, username});
+            if (affected_rows > 0)
             {
                 LOG(INFO) << "Password changed successfully for user: " << username;
                 return true;
@@ -99,13 +146,21 @@ namespace server_app
                                     const std::string& new_password) const noexcept
         -> bool
     {
+        /// @brief Validate input parameters
+        if (username.empty() || new_password.empty())
+        {
+            LOG(ERROR) << "Password reset failed: username or new password is empty";
+            return false;
+        }
+
         try
         {
             constexpr auto update_sql = R"(
                 UPDATE users SET password = ? WHERE username = ?;
             )";
 
-            if (const int affected_rows = sqlite_manager_.exec(update_sql, {new_password, username}); affected_rows > 0)
+            const auto affected_rows = sqlite_manager_.exec(update_sql, {new_password, username});
+            if (affected_rows > 0)
             {
                 LOG(INFO) << "Password reset successfully for user: " << username;
                 return true;
@@ -124,13 +179,21 @@ namespace server_app
     auto PasswordSQL::DeleteUser(const std::string& username) const noexcept
         -> bool
     {
+        /// @brief Validate input parameters
+        if (username.empty())
+        {
+            LOG(ERROR) << "User deletion failed: username is empty";
+            return false;
+        }
+
         try
         {
             constexpr auto delete_sql = R"(
                 DELETE FROM users WHERE username = ?;
             )";
 
-            if (const int affected_rows = sqlite_manager_.exec(delete_sql, {username}); affected_rows > 0)
+            const auto affected_rows = sqlite_manager_.exec(delete_sql, {username});
+            if (affected_rows > 0)
             {
                 LOG(INFO) << "User deleted successfully: " << username;
                 return true;
@@ -149,6 +212,13 @@ namespace server_app
     auto PasswordSQL::UserExists(const std::string& username) const noexcept
         -> bool
     {
+        /// @brief Validate input parameters
+        if (username.empty())
+        {
+            LOG(ERROR) << "User exists check failed: username is empty";
+            return false;
+        }
+
         try
         {
             constexpr auto select_sql = R"(
@@ -156,7 +226,18 @@ namespace server_app
             )";
 
             const auto result = sqlite_manager_.query(select_sql, {username});
-            return !result.empty();
+            const bool exists = !result.empty();
+
+            if (exists)
+            {
+                LOG(INFO) << "User exists: " << username;
+            }
+            else
+            {
+                LOG(INFO) << "User does not exist: " << username;
+            }
+
+            return exists;
         }
         catch (const std::exception& e)
         {
@@ -168,17 +249,27 @@ namespace server_app
     auto PasswordSQL::GetUser(const std::string& username) const noexcept
         -> std::string
     {
+        /// @brief Validate input parameters
+        if (username.empty())
+        {
+            LOG(ERROR) << "Get user failed: username is empty";
+            return {};
+        }
+
         try
         {
             constexpr auto select_sql = R"(
                 SELECT username FROM users WHERE username = ?;
             )";
 
-            if (const auto result = sqlite_manager_.query(select_sql, {username}); !result.empty() && !result[0].empty())
+            const auto result = sqlite_manager_.query(select_sql, {username});
+            if (!result.empty() && !result[0].empty())
             {
+                LOG(INFO) << "User retrieved successfully: " << username;
                 return result[0][0];
             }
 
+            LOG(WARNING) << "User not found: " << username;
             return {};
         }
         catch (const std::exception& e)
@@ -208,6 +299,7 @@ namespace server_app
                 }
             }
 
+            LOG(INFO) << "Retrieved " << users.size() << " users from database";
             return users;
         }
         catch (const std::exception& e)

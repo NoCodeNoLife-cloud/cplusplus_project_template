@@ -3,6 +3,7 @@
 #include <grpcpp/server_builder.h>
 
 #include <string>
+#include <memory>
 
 #include "src/rpc/GrpcOptions.hpp"
 #include "src/time/FunctionProfiler.hpp"
@@ -20,52 +21,46 @@ namespace app_server
         explicit ServerTask(std::string name) noexcept;
 
         /// @brief Destructor shuts down the server if running
-        ~ServerTask() = default;
+        ~ServerTask();
 
         /// @brief Copy constructor deleted to prevent copying
         ServerTask(const ServerTask&) = delete;
 
-        /// @brief Move constructor deleted to prevent moving
-        ServerTask(ServerTask&&) = delete;
+        /// @brief Move constructor
+        ServerTask(ServerTask&&) noexcept;
 
         /// @brief Copy assignment operator deleted to prevent copying
         auto operator=(const ServerTask&)
             -> ServerTask& = delete;
 
-        /// @brief Move assignment operator deleted to prevent moving
+        /// @brief Move assignment operator
         auto operator=(ServerTask&&)
             -> ServerTask& = delete;
 
         /// @brief Initialize the service task and its associated resources
         /// @details Sets up logging, loads configuration, and validates gRPC parameters
-        auto init() const
-            -> void;
+        [[nodiscard]] auto init()
+            -> bool;
 
         /// @brief Run the main task
         /// @details Initializes the server, establishes gRPC connection, and starts listening
-        auto run()
-            -> void;
-
-        /// @brief Establish a gRPC connection to the specified service
-        /// @details Configures and starts the gRPC server with specified options
-        auto establishGrpcConnection()
-            -> void;
+        [[nodiscard]] auto run()
+            -> bool;
 
         /// @brief Exit the service task and clean up resources
         /// @details Shuts down the gRPC server and performs cleanup operations
-        auto exit() const
+        auto exit()
             -> void;
 
     private:
         const std::string application_dev_config_path_{"../../server/src/application-dev.yml"};
-        mutable GrpcOptions grpc_options_;
+        GrpcOptions grpc_options_;
         common::FunctionProfiler timer_;
         std::unique_ptr<grpc::Server> server_;
 
-        /// @brief Validate gRPC parameters for correctness
-        /// @details This function checks that the gRPC parameters are within reasonable ranges
-        /// and logs warnings for potentially problematic configurations
-        auto validateGrpcParameters() const
-            -> void;
+        /// @brief Establish a gRPC connection to the specified service
+        /// @details Configures and starts the gRPC server with specified options
+        [[nodiscard]] auto establishGrpcConnection()
+            -> bool;
     };
 } // namespace app_server

@@ -38,10 +38,22 @@ namespace app_client
         auto init() const noexcept
             -> void;
 
+        /// @brief Run the main task
+        /// @details Initializes the client, creates a gRPC channel, sends a message to the server,
+        /// and exits cleanly
+        auto run()
+            -> void;
+
+        /// @brief Exit the client task
+        /// @details Records the end time and logs completion
+        auto exit() const noexcept
+            -> void;
+
+    private:
         /// @brief Logs a message indicating that the client is logging in
         /// @param rpc_client Reference to the RPC client for authentication
         /// @return Username of the authenticated user
-        static auto logIn(const client_app::RpcClient& rpc_client)
+        [[nodiscard]] static auto logIn(const client_app::RpcClient& rpc_client)
             -> std::string;
 
         /// @brief Logs a message indicating that the client is logging out
@@ -53,24 +65,7 @@ namespace app_client
 
         /// @brief Main task
         /// @param rpc_client Reference to the RPC client for executing tasks
-        static auto task(const client_app::RpcClient& rpc_client) noexcept
-            -> void;
-
-        /// @brief Run the main task
-        /// @details Initializes the client, creates a gRPC channel, sends a message to the server,
-        /// and exits cleanly
-        auto run() const
-            -> void;
-
-        /// @brief Exit the client task
-        /// @details Records the end time and logs completion
-        auto exit() const noexcept
-            -> void;
-
-    private:
-        /// @brief Logs client system information
-        /// @details Logs OS version and CPU model to the application log
-        static auto logClientInfo() noexcept
+        auto task(const client_app::RpcClient& rpc_client) noexcept
             -> void;
 
         /// @brief Create a gRPC channel with custom arguments
@@ -79,10 +74,9 @@ namespace app_client
         [[nodiscard]] auto createChannel() const
             -> std::shared_ptr<grpc::Channel>;
 
-        /// @brief Validate gRPC parameters for correctness
-        /// @details This function checks that the gRPC parameters are within reasonable ranges
-        /// and logs warnings for potentially problematic configurations
-        auto validateGrpcParameters() const noexcept
+        /// @brief Logs client system information
+        /// @details Logs OS version and CPU model to the application log
+        static auto logClientInfo() noexcept
             -> void;
 
         const std::string application_dev_config_path_{"../../client/src/application-dev.yml"};
