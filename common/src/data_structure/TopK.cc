@@ -1,4 +1,4 @@
-#include "src/algorithm/TopK.hpp"
+#include "TopK.hpp"
 
 namespace common
 {

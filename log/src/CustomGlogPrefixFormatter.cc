@@ -3,14 +3,13 @@
 
 namespace glog
 {
-    // ReSharper disable once CppDoxygenUnresolvedReference
     /// @brief Formats log message prefix according to custom specification
     /// @param s Output stream to write formatted prefix to
     /// @param m Log message containing metadata for the prefix
     /// @param data User data pointer (unused)
     auto CustomGlogPrefixFormatter::MyPrefixFormatter(std::ostream& s,
                                                       const google::LogMessage& m,
-                                                      void* /*data*/) noexcept
+                                                      void* data) noexcept
         -> void
     {
         s << '[' << google::GetLogSeverityName(m.severity()) << "] ["

@@ -37,7 +37,6 @@ namespace glog
 
         /// @brief Execute the configuration process
         /// @return True if configuration was successful
-        /// @throws std::runtime_error If configuration fails
         [[nodiscard]] auto execute() const
             -> bool;
 
@@ -53,7 +52,6 @@ namespace glog
 
     private:
         /// @brief Perform the actual glog configuration
-        /// @return True if configuration was successful
         static auto doConfig(const GLogParameters& config) noexcept
             -> void;
 

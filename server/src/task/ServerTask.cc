@@ -142,7 +142,7 @@ namespace app_server
         return true;
     }
 
-    auto ServerTask::exit()
+    auto ServerTask::exit() const
         -> void
     {
         LOG(INFO) << "Shutting down service task...";

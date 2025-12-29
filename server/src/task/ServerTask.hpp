@@ -49,7 +49,7 @@ namespace app_server
 
         /// @brief Exit the service task and clean up resources
         /// @details Shuts down the gRPC server and performs cleanup operations
-        auto exit()
+        auto exit() const
             -> void;
 
     private:

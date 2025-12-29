@@ -21,9 +21,9 @@ namespace glog
         -> bool
     {
         doConfig(config_);
-        if (std::atexit(clean) != 0)
+        if (const auto result = std::atexit(clean); result != 0)
         {
-            throw std::runtime_error("Failed to register cleanup function!");
+            throw std::runtime_error("Failed to register cleanup function! Error code: " + std::to_string(result));
         }
 
         LOG(INFO) << "configuring glog...";

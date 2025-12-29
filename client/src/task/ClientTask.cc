@@ -48,33 +48,59 @@ namespace app_client
         const std::string password = common::Console::readLine();
         LOG(INFO) << "Login attempt for user: " << username;
 
-        if (const auto authenticateUserResponse = rpc_client.AuthenticateUser(username, password); !authenticateUserResponse.success())
-        {
-            LOG(ERROR) << "Authentication failed: " << authenticateUserResponse.message();
-
-            // Check if user exists, if not ask to create a new account
-            LOG(INFO) << "User does not exist, do you want to create a new account? [y/n] ";
-            if (const std::string createNewAccount = common::Console::readLine(); createNewAccount == "y" || createNewAccount == "Y")
-            {
-                LOG(INFO) << "Registering user...";
-                if (const auto registerUserResponse = rpc_client.RegisterUser("root", "Admin123!"); !registerUserResponse.success())
-                {
-                    LOG(ERROR) << "Failed to register user: " << registerUserResponse.message()
-                        << ", Error code: " << registerUserResponse.error_code();
-                    throw std::runtime_error("Failed to register user: " + registerUserResponse.message());
-                }
-                else
-                {
-                    LOG(INFO) << "Registered user successfully, return value: " << registerUserResponse.message();
-                }
-            }
-        }
-        else
+        // Try to authenticate user
+        const auto authenticateUserResponse = rpc_client.AuthenticateUser(username, password);
+        if (authenticateUserResponse.success())
         {
             LOG(INFO) << "User authenticated successfully";
+            LOG(INFO) << "Authentication process completed";
+            return username;
         }
+
+        LOG(ERROR) << "Authentication failed: " << authenticateUserResponse.message();
+
+        // Check if user exists
+        if (const auto userExistsResponse = rpc_client.UserExists(username); !userExistsResponse.success())
+        {
+            // User doesn't exist, ask if they want to create a new account
+            if (shouldCreateNewAccount())
+            {
+                registerNewUser(rpc_client, username, password);
+                LOG(INFO) << "Registered user successfully";
+            }
+            else
+            {
+                LOG(INFO) << "Authentication failed, please check your username and password.";
+            }
+        }
+
         LOG(INFO) << "Authentication process completed";
         return username;
+    }
+
+    auto ClientTask::shouldCreateNewAccount()
+        -> bool
+    {
+        LOG(INFO) << "User does not exist, do you want to create a new account? [y/n] ";
+        const std::string createNewAccount = common::Console::readLine();
+        return createNewAccount == "y" || createNewAccount == "Y";
+    }
+
+    auto ClientTask::registerNewUser(const client_app::RpcClient& rpc_client,
+                                     const std::string& username,
+                                     const std::string& password)
+        -> void
+    {
+        LOG(INFO) << "Registering user...";
+        const auto registerUserResponse = rpc_client.RegisterUser(username, password);
+        if (!registerUserResponse.success())
+        {
+            LOG(ERROR) << "Failed to register user: " << registerUserResponse.message()
+                << ", Error code: " << registerUserResponse.error_code();
+            throw std::runtime_error("Failed to register user: " + registerUserResponse.message());
+        }
+
+        LOG(INFO) << "Registered user successfully, return value: " << registerUserResponse.message();
     }
 
     auto ClientTask::logOut(const client_app::RpcClient& rpc_client,
@@ -105,24 +131,12 @@ namespace app_client
         try
         {
             init();
-
-            LOG(INFO) << "Creating gRPC channel";
-            // Create channel
-            const auto channel = createChannel();
-            LOG(INFO) << "gRPC channel created with state: " << channel->GetState(true);
-            LOG(INFO) << "Creating RPC client";
-            // Create client.
-            const client_app::RpcClient client{channel};
-            LOG(INFO) << "RPC client created successfully";
-
-            // Login
+            const auto client = createRpcClient();
             const std::string username = logIn(client);
 
-            // Execute main task
             task(client);
             LOG(INFO) << "Client task execution completed";
 
-            // Logout
             logOut(client, username);
             exit();
         }
@@ -138,6 +152,21 @@ namespace app_client
             LOG(ERROR) << "Stack trace not available for unknown exception type";
             throw; // Re-throw exception to maintain proper error propagation
         }
+    }
+
+    auto ClientTask::createRpcClient() const
+        -> client_app::RpcClient
+    {
+        LOG(INFO) << "Creating gRPC channel";
+        // Create channel
+        const auto channel = createChannel();
+        LOG(INFO) << "gRPC channel created with state: " << channel->GetState(true);
+        LOG(INFO) << "Creating RPC client";
+        // Create client.
+        const client_app::RpcClient client{channel};
+        LOG(INFO) << "RPC client created successfully";
+
+        return std::move(const_cast<client_app::RpcClient&>(client));
     }
 
     auto ClientTask::exit() const noexcept
