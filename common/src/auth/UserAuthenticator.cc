@@ -7,9 +7,9 @@
 namespace common
 {
     UserAuthenticator::UserAuthenticator(const std::string& db_path,
-                                       const PasswordPolicy& policy)
+                                         const PasswordPolicy& policy)
         : password_policy_(policy)
-        , password_sql_(db_path)
+          , password_sql_(db_path)
     {
     }
 

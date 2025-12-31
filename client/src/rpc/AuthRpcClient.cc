@@ -1,17 +1,17 @@
-#include "src/rpc/RpcClient.hpp"
+#include "src/rpc/AuthRpcClient.hpp"
 
 #include <glog/logging.h>
 
 namespace client_app
 {
-    RpcClient::RpcClient(const std::shared_ptr<grpc::Channel>& channel) noexcept
+    AuthRpcClient::AuthRpcClient(const std::shared_ptr<grpc::Channel>& channel) noexcept
         : stub_(rpc::RpcService::NewStub(channel))
     {
         CHECK(channel != nullptr) << "RPC channel cannot be null";
     }
 
-    auto RpcClient::RegisterUser(const std::string& username,
-                                 const std::string& password) const noexcept
+    auto AuthRpcClient::RegisterUser(const std::string& username,
+                                     const std::string& password) const noexcept
         -> rpc::AuthResponse
     {
         rpc::RegisterUserRequest request{};
@@ -27,14 +27,16 @@ namespace client_app
             response.set_success(false);
             response.set_message("RPC failed: " + status.error_message());
             response.set_error_code(status.error_code());
-        } else {
+        }
+        else
+        {
             LOG(INFO) << "RPC RegisterUser succeeded for user: " << username;
         }
         return response;
     }
 
-    auto RpcClient::AuthenticateUser(const std::string& username,
-                                     const std::string& password) const noexcept
+    auto AuthRpcClient::AuthenticateUser(const std::string& username,
+                                         const std::string& password) const noexcept
         -> rpc::AuthResponse
     {
         rpc::AuthenticateUserRequest request{};
@@ -50,13 +52,15 @@ namespace client_app
             response.set_success(false);
             response.set_message("RPC failed: " + status.error_message());
             response.set_error_code(status.error_code());
-        } else {
+        }
+        else
+        {
             LOG(INFO) << "RPC AuthenticateUser succeeded for user: " << username;
         }
         return response;
     }
 
-    auto RpcClient::UserExists(const std::string& username) const noexcept
+    auto AuthRpcClient::UserExists(const std::string& username) const noexcept
         -> rpc::AuthResponse
     {
         rpc::UserExistsRequest request{};
@@ -71,15 +75,17 @@ namespace client_app
             response.set_success(false);
             response.set_message("RPC failed: " + status.error_message());
             response.set_error_code(status.error_code());
-        } else {
+        }
+        else
+        {
             LOG(INFO) << "RPC UserExists executed for user: " << username;
         }
         return response;
     }
 
-    auto RpcClient::ChangePassword(const std::string& username,
-                                   const std::string& current_password,
-                                   const std::string& new_password) const noexcept
+    auto AuthRpcClient::ChangePassword(const std::string& username,
+                                       const std::string& current_password,
+                                       const std::string& new_password) const noexcept
         -> rpc::AuthResponse
     {
         rpc::ChangePasswordRequest request{};
@@ -96,14 +102,16 @@ namespace client_app
             response.set_success(false);
             response.set_message("RPC failed: " + status.error_message());
             response.set_error_code(status.error_code());
-        } else {
+        }
+        else
+        {
             LOG(INFO) << "RPC ChangePassword succeeded for user: " << username;
         }
         return response;
     }
 
-    auto RpcClient::ResetPassword(const std::string& username,
-                                  const std::string& new_password) const noexcept
+    auto AuthRpcClient::ResetPassword(const std::string& username,
+                                      const std::string& new_password) const noexcept
         -> rpc::AuthResponse
     {
         rpc::ResetPasswordRequest request{};
@@ -119,13 +127,15 @@ namespace client_app
             response.set_success(false);
             response.set_message("RPC failed: " + status.error_message());
             response.set_error_code(status.error_code());
-        } else {
+        }
+        else
+        {
             LOG(INFO) << "RPC ResetPassword succeeded for user: " << username;
         }
         return response;
     }
 
-    auto RpcClient::DeleteUser(const std::string& username) const noexcept
+    auto AuthRpcClient::DeleteUser(const std::string& username) const noexcept
         -> rpc::AuthResponse
     {
         rpc::DeleteUserRequest request{};
@@ -140,9 +150,11 @@ namespace client_app
             response.set_success(false);
             response.set_message("RPC failed: " + status.error_message());
             response.set_error_code(status.error_code());
-        } else {
+        }
+        else
+        {
             LOG(INFO) << "RPC DeleteUser executed for user: " << username;
         }
         return response;
     }
-} // namespace client_app
+}

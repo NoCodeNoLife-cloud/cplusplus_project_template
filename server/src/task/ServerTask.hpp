@@ -1,11 +1,10 @@
 #pragma once
-#include <glog/logging.h>
 #include <grpcpp/server_builder.h>
 
 #include <string>
 #include <memory>
 
-#include "src/rpc/GrpcOptions.hpp"
+#include "src/rpc/AuthRpcServiceOptions.hpp"
 #include "src/time/FunctionProfiler.hpp"
 
 namespace app_server
@@ -44,8 +43,8 @@ namespace app_server
 
         /// @brief Run the main task
         /// @details Initializes the server, establishes gRPC connection, and starts listening
-        [[nodiscard]] auto run()
-            -> bool;
+        auto run()
+            -> void;
 
         /// @brief Exit the service task and clean up resources
         /// @details Shuts down the gRPC server and performs cleanup operations
@@ -54,7 +53,7 @@ namespace app_server
 
     private:
         const std::string application_dev_config_path_{"../../server/src/application-dev.yml"};
-        GrpcOptions grpc_options_;
+        AuthRpcServiceOptions grpc_options_;
         common::FunctionProfiler timer_;
         std::unique_ptr<grpc::Server> server_;
 
@@ -63,4 +62,4 @@ namespace app_server
         [[nodiscard]] auto establishGrpcConnection()
             -> bool;
     };
-} // namespace app_server
+}

@@ -5,7 +5,7 @@
 
 #include "src/GLogConfigurator.hpp"
 #include "src/filesystem/io/Console.hpp"
-#include "src/rpc/RpcClient.hpp"
+#include "src/rpc/AuthRpcClient.hpp"
 #include "src/system/SystemInfo.hpp"
 
 namespace app_client
@@ -36,7 +36,7 @@ namespace app_client
         LOG(INFO) << "Initialization completed successfully";
     }
 
-    auto ClientTask::logIn(const client_app::RpcClient& rpc_client)
+    auto ClientTask::logIn(const client_app::AuthRpcClient& auth_rpc_client)
         -> std::string
     {
         LOG(INFO) << "Starting authentication process";
@@ -49,7 +49,7 @@ namespace app_client
         LOG(INFO) << "Login attempt for user: " << username;
 
         // Try to authenticate user
-        const auto authenticateUserResponse = rpc_client.AuthenticateUser(username, password);
+        const auto authenticateUserResponse = auth_rpc_client.AuthenticateUser(username, password);
         if (authenticateUserResponse.success())
         {
             LOG(INFO) << "User authenticated successfully";
@@ -59,13 +59,13 @@ namespace app_client
 
         LOG(ERROR) << "Authentication failed: " << authenticateUserResponse.message();
 
-        // Check if user exists
-        if (const auto userExistsResponse = rpc_client.UserExists(username); !userExistsResponse.success())
+        // Check if user exists.
+        if (const auto userExistsResponse = auth_rpc_client.UserExists(username); !userExistsResponse.success())
         {
-            // User doesn't exist, ask if they want to create a new account
+            // User doesn't exist, ask if they want to create a new account.
             if (shouldCreateNewAccount())
             {
-                registerNewUser(rpc_client, username, password);
+                registerNewUser(auth_rpc_client, username, password);
                 LOG(INFO) << "Registered user successfully";
             }
             else
@@ -86,13 +86,13 @@ namespace app_client
         return createNewAccount == "y" || createNewAccount == "Y";
     }
 
-    auto ClientTask::registerNewUser(const client_app::RpcClient& rpc_client,
+    auto ClientTask::registerNewUser(const client_app::AuthRpcClient& auth_rpc_client,
                                      const std::string& username,
                                      const std::string& password)
         -> void
     {
         LOG(INFO) << "Registering user...";
-        const auto registerUserResponse = rpc_client.RegisterUser(username, password);
+        const auto registerUserResponse = auth_rpc_client.RegisterUser(username, password);
         if (!registerUserResponse.success())
         {
             LOG(ERROR) << "Failed to register user: " << registerUserResponse.message()
@@ -103,11 +103,11 @@ namespace app_client
         LOG(INFO) << "Registered user successfully, return value: " << registerUserResponse.message();
     }
 
-    auto ClientTask::logOut(const client_app::RpcClient& rpc_client,
+    auto ClientTask::logOut(const client_app::AuthRpcClient& auth_rpc_client,
                             const std::string& username) noexcept
         -> void
     {
-        if (const auto deleteUserResponse = rpc_client.DeleteUser(username); !deleteUserResponse.success())
+        if (const auto deleteUserResponse = auth_rpc_client.DeleteUser(username); !deleteUserResponse.success())
         {
             LOG(ERROR) << "Failed to delete user: " << deleteUserResponse.message()
                 << ", Error code: " << deleteUserResponse.error_code();
@@ -119,7 +119,7 @@ namespace app_client
     }
 
     // ReSharper disable once CppMemberFunctionMayBeStatic
-    auto ClientTask::task(const client_app::RpcClient& rpc_client) noexcept
+    auto ClientTask::task(const client_app::AuthRpcClient& auth_rpc_client) noexcept
         -> void
     {
         // TODO: Implement actual task logic here
@@ -128,45 +128,30 @@ namespace app_client
     auto ClientTask::run()
         -> void
     {
-        try
-        {
-            init();
-            const auto client = createRpcClient();
-            const std::string username = logIn(client);
+        init();
+        const auto client = createRpcClient();
+        const std::string username = logIn(client);
 
-            task(client);
-            LOG(INFO) << "Client task execution completed";
+        task(client);
+        LOG(INFO) << "Client task execution completed";
 
-            logOut(client, username);
-            exit();
-        }
-        catch (const std::exception& e)
-        {
-            LOG(ERROR) << "Exception caught: " << e.what();
-            LOG(ERROR) << "Stack trace: " << google::ProgramInvocationShortName() << " " << typeid(e).name();
-            throw; // Re-throw exception to maintain proper error propagation
-        }
-        catch (...)
-        {
-            LOG(ERROR) << "Unknown exception caught.";
-            LOG(ERROR) << "Stack trace not available for unknown exception type";
-            throw; // Re-throw exception to maintain proper error propagation
-        }
+        logOut(client, username);
+        exit();
     }
 
     auto ClientTask::createRpcClient() const
-        -> client_app::RpcClient
+        -> client_app::AuthRpcClient
     {
         LOG(INFO) << "Creating gRPC channel";
-        // Create channel
+        // Create channel using the existing createChannel method with custom arguments
         const auto channel = createChannel();
         LOG(INFO) << "gRPC channel created with state: " << channel->GetState(true);
         LOG(INFO) << "Creating RPC client";
-        // Create client.
-        const client_app::RpcClient client{channel};
+        // Create client using the channel with custom arguments
+        const client_app::AuthRpcClient client{channel};
         LOG(INFO) << "RPC client created successfully";
 
-        return std::move(const_cast<client_app::RpcClient&>(client));
+        return std::move(const_cast<client_app::AuthRpcClient&>(client));
     }
 
     auto ClientTask::exit() const noexcept
@@ -190,7 +175,7 @@ namespace app_client
     {
         LOG(INFO) << "Setting up gRPC channel with custom arguments";
 
-        // Setup channel.
+        // Setup channel
         grpc::ChannelArguments channel_args;
         channel_args.SetInt(GRPC_ARG_KEEPALIVE_TIME_MS, rpc_options_.keepaliveTimeMs());
         channel_args.SetInt(GRPC_ARG_KEEPALIVE_TIMEOUT_MS, rpc_options_.keepaliveTimeoutMs());
@@ -200,7 +185,7 @@ namespace app_client
             << "ms, Timeout: " << rpc_options_.keepaliveTimeoutMs()
             << "ms, Permit without calls: " << rpc_options_.keepalivePermitWithoutCalls();
 
-        // Create client.
+        // Create client
         const std::string server_address = rpc_options_.serverAddress();
         LOG(INFO) << "Creating channel to server at: " << server_address;
         const auto channel =
@@ -225,6 +210,4 @@ namespace app_client
 
         return channel;
     }
-
-    // Removed validateGrpcParameters function as validation is now handled by GrpcOptions
-} // namespace app_client
+}

@@ -1,19 +1,19 @@
-#include "src/rpc/GrpcOptions.hpp"
+#include "AuthRpcServiceOptions.hpp"
 #include <yaml-cpp/yaml.h>
 #include <glog/logging.h>
 #include "src/filesystem/type/YamlToolkit.hpp"
 
 namespace app_server
 {
-    GrpcOptions::GrpcOptions() = default;
+    AuthRpcServiceOptions::AuthRpcServiceOptions() = default;
 
-    GrpcOptions::GrpcOptions(const int32_t max_connection_idle_ms,
-                             const int32_t max_connection_age_ms,
-                             const int32_t max_connection_age_grace_ms,
-                             const int32_t keepalive_time_ms,
-                             const int32_t keepalive_timeout_ms,
-                             const int32_t keepalive_permit_without_calls,
-                             const std::string& server_address)
+    AuthRpcServiceOptions::AuthRpcServiceOptions(const int32_t max_connection_idle_ms,
+                                                 const int32_t max_connection_age_ms,
+                                                 const int32_t max_connection_age_grace_ms,
+                                                 const int32_t keepalive_time_ms,
+                                                 const int32_t keepalive_timeout_ms,
+                                                 const int32_t keepalive_permit_without_calls,
+                                                 const std::string& server_address)
         : max_connection_idle_ms_(max_connection_idle_ms),
           max_connection_age_ms_(max_connection_age_ms),
           max_connection_age_grace_ms_(max_connection_age_grace_ms),
@@ -24,92 +24,92 @@ namespace app_server
     {
     }
 
-    auto GrpcOptions::maxConnectionIdleMs() const
+    auto AuthRpcServiceOptions::maxConnectionIdleMs() const
         -> int32_t
     {
         return max_connection_idle_ms_;
     }
 
-    auto GrpcOptions::maxConnectionIdleMs(const int32_t value)
+    auto AuthRpcServiceOptions::maxConnectionIdleMs(const int32_t value)
         -> void
     {
         max_connection_idle_ms_ = value;
     }
 
-    auto GrpcOptions::maxConnectionAgeMs() const
+    auto AuthRpcServiceOptions::maxConnectionAgeMs() const
         -> int32_t
     {
         return max_connection_age_ms_;
     }
 
-    auto GrpcOptions::maxConnectionAgeMs(const int32_t value)
+    auto AuthRpcServiceOptions::maxConnectionAgeMs(const int32_t value)
         -> void
     {
         max_connection_age_ms_ = value;
     }
 
-    auto GrpcOptions::maxConnectionAgeGraceMs() const
+    auto AuthRpcServiceOptions::maxConnectionAgeGraceMs() const
         -> int32_t
     {
         return max_connection_age_grace_ms_;
     }
 
-    auto GrpcOptions::maxConnectionAgeGraceMs(const int32_t value)
+    auto AuthRpcServiceOptions::maxConnectionAgeGraceMs(const int32_t value)
         -> void
     {
         max_connection_age_grace_ms_ = value;
     }
 
-    auto GrpcOptions::keepaliveTimeMs() const
+    auto AuthRpcServiceOptions::keepaliveTimeMs() const
         -> int32_t
     {
         return keepalive_time_ms_;
     }
 
-    auto GrpcOptions::keepaliveTimeMs(const int32_t value)
+    auto AuthRpcServiceOptions::keepaliveTimeMs(const int32_t value)
         -> void
     {
         keepalive_time_ms_ = value;
     }
 
-    auto GrpcOptions::keepaliveTimeoutMs() const
+    auto AuthRpcServiceOptions::keepaliveTimeoutMs() const
         -> int32_t
     {
         return keepalive_timeout_ms_;
     }
 
-    auto GrpcOptions::keepaliveTimeoutMs(const int32_t value)
+    auto AuthRpcServiceOptions::keepaliveTimeoutMs(const int32_t value)
         -> void
     {
         keepalive_timeout_ms_ = value;
     }
 
-    auto GrpcOptions::keepalivePermitWithoutCalls() const
+    auto AuthRpcServiceOptions::keepalivePermitWithoutCalls() const
         -> int32_t
     {
         return keepalive_permit_without_calls_;
     }
 
-    auto GrpcOptions::keepalivePermitWithoutCalls(const int32_t value)
+    auto AuthRpcServiceOptions::keepalivePermitWithoutCalls(const int32_t value)
         -> void
     {
         keepalive_permit_without_calls_ = value;
     }
 
     // ReSharper disable once CppDFAConstantFunctionResult
-    auto GrpcOptions::serverAddress() const
+    auto AuthRpcServiceOptions::serverAddress() const
         -> const std::string&
     {
         return server_address_;
     }
 
-    auto GrpcOptions::serverAddress(const std::string& value)
+    auto AuthRpcServiceOptions::serverAddress(const std::string& value)
         -> void
     {
         server_address_ = value;
     }
 
-    [[nodiscard]] auto GrpcOptions::deserializedFromYamlFile(const std::filesystem::path& path)
+    [[nodiscard]] auto AuthRpcServiceOptions::deserializedFromYamlFile(const std::filesystem::path& path)
         -> bool
     {
         if (!std::filesystem::exists(path))
@@ -166,7 +166,7 @@ namespace app_server
         return validateParameters();
     }
 
-    [[nodiscard]] auto GrpcOptions::validateParameters() const
+    [[nodiscard]] auto AuthRpcServiceOptions::validateParameters() const
         -> bool
     {
         bool is_valid = true;
@@ -251,70 +251,70 @@ namespace app_server
         return is_valid;
     }
 
-    auto GrpcOptions::Builder::maxConnectionIdleMs(const int32_t value)
+    auto AuthRpcServiceOptions::Builder::maxConnectionIdleMs(const int32_t value)
         -> Builder&
     {
         max_connection_idle_ms_ = value;
         return *this;
     }
 
-    auto GrpcOptions::Builder::maxConnectionAgeMs(const int32_t value)
+    auto AuthRpcServiceOptions::Builder::maxConnectionAgeMs(const int32_t value)
         -> Builder&
     {
         max_connection_age_ms_ = value;
         return *this;
     }
 
-    auto GrpcOptions::Builder::maxConnectionAgeGraceMs(const int32_t value)
+    auto AuthRpcServiceOptions::Builder::maxConnectionAgeGraceMs(const int32_t value)
         -> Builder&
     {
         max_connection_age_grace_ms_ = value;
         return *this;
     }
 
-    auto GrpcOptions::Builder::keepaliveTimeMs(const int32_t value)
+    auto AuthRpcServiceOptions::Builder::keepaliveTimeMs(const int32_t value)
         -> Builder&
     {
         keepalive_time_ms_ = value;
         return *this;
     }
 
-    auto GrpcOptions::Builder::keepaliveTimeoutMs(const int32_t value)
+    auto AuthRpcServiceOptions::Builder::keepaliveTimeoutMs(const int32_t value)
         -> Builder&
     {
         keepalive_timeout_ms_ = value;
         return *this;
     }
 
-    auto GrpcOptions::Builder::keepalivePermitWithoutCalls(const int32_t value)
+    auto AuthRpcServiceOptions::Builder::keepalivePermitWithoutCalls(const int32_t value)
         -> Builder&
     {
         keepalive_permit_without_calls_ = value;
         return *this;
     }
 
-    auto GrpcOptions::Builder::serverAddress(const std::string& value)
+    auto AuthRpcServiceOptions::Builder::serverAddress(const std::string& value)
         -> Builder&
     {
         server_address_ = value;
         return *this;
     }
 
-    auto GrpcOptions::Builder::build() const
-        -> GrpcOptions
+    auto AuthRpcServiceOptions::Builder::build() const
+        -> AuthRpcServiceOptions
     {
         return {max_connection_idle_ms_, max_connection_age_ms_, max_connection_age_grace_ms_, keepalive_time_ms_, keepalive_timeout_ms_, keepalive_permit_without_calls_, server_address_};
     }
 
-    auto GrpcOptions::builder()
-        -> GrpcOptions::Builder
+    auto AuthRpcServiceOptions::builder()
+        -> AuthRpcServiceOptions::Builder
     {
         return Builder{};
     }
 }
 
-auto YAML::convert<app_server::GrpcOptions>::decode(const Node& node,
-                                                    app_server::GrpcOptions& rhs)
+auto YAML::convert<app_server::AuthRpcServiceOptions>::decode(const Node& node,
+                                                              app_server::AuthRpcServiceOptions& rhs)
     -> bool
 {
     rhs.maxConnectionIdleMs(node["maxConnectionIdleMs"].as<int32_t>());
@@ -327,7 +327,7 @@ auto YAML::convert<app_server::GrpcOptions>::decode(const Node& node,
     return true;
 }
 
-auto YAML::convert<app_server::GrpcOptions>::encode(const app_server::GrpcOptions& rhs)
+auto YAML::convert<app_server::AuthRpcServiceOptions>::encode(const app_server::AuthRpcServiceOptions& rhs)
     -> Node
 {
     Node node;

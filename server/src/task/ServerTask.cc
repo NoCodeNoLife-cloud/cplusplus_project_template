@@ -1,8 +1,10 @@
 #include "src/task/ServerTask.hpp"
 
-#include "src/rpc/RpcServiceImpl.hpp"
+#include <glog/logging.h>
+
 #include "src/GLogConfigurator.hpp"
-#include "src/sql/SQLiteManager.hpp"
+#include "src/rpc/AuthRpcService.hpp"
+
 
 namespace app_server
 {
@@ -46,97 +48,69 @@ namespace app_server
         return true;
     }
 
-    [[nodiscard]] auto ServerTask::run()
-        -> bool
+    auto ServerTask::run()
+        -> void
     {
-        try
+        if (!init())
         {
-            if (!init())
-            {
-                LOG(ERROR) << "Failed to initialize ServerTask";
-                return false;
-            }
+            LOG(ERROR) << "Failed to initialize ServerTask";
+            throw std::runtime_error("Failed to initialize ServerTask");
+        }
 
-            if (!establishGrpcConnection())
-            {
-                LOG(ERROR) << "Failed to establish gRPC connection";
-                exit();
-                return false;
-            }
-
+        if (!establishGrpcConnection())
+        {
+            LOG(ERROR) << "Failed to establish gRPC connection";
             exit();
-            return true;
+            throw std::runtime_error("Failed to establish gRPC connection");
         }
-        catch (const std::exception& e)
-        {
-            LOG(ERROR) << "Exception occurred in ServerTask::run(): " << e.what();
-            LOG(ERROR) << "Exception type: " << typeid(e).name();
-            return false;
-        }
-        catch (...)
-        {
-            LOG(ERROR) << "Unknown exception occurred in ServerTask::run().";
-            return false;
-        }
+
+        exit();
     }
 
     [[nodiscard]] auto ServerTask::establishGrpcConnection()
         -> bool
     {
-        try
+        // Build the server.
+        const std::string server_address = grpc_options_.serverAddress();
+        LOG(INFO) << "Configuring server to listen on: " << server_address;
+        grpc::ServerBuilder builder;
+        builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
+
+        // Set the keepalive parameters.
+        LOG(INFO) << "Setting gRPC server channel arguments";
+        builder.AddChannelArgument(GRPC_ARG_MAX_CONNECTION_IDLE_MS, grpc_options_.maxConnectionIdleMs());
+        builder.AddChannelArgument(GRPC_ARG_MAX_CONNECTION_AGE_MS, grpc_options_.maxConnectionAgeMs());
+        builder.AddChannelArgument(GRPC_ARG_MAX_CONNECTION_AGE_GRACE_MS, grpc_options_.maxConnectionAgeGraceMs());
+        builder.AddChannelArgument(GRPC_ARG_KEEPALIVE_TIME_MS, grpc_options_.keepaliveTimeMs());
+        builder.AddChannelArgument(GRPC_ARG_KEEPALIVE_TIMEOUT_MS, grpc_options_.keepaliveTimeoutMs());
+        builder.AddChannelArgument(GRPC_ARG_KEEPALIVE_PERMIT_WITHOUT_CALLS,
+                                   grpc_options_.keepalivePermitWithoutCalls());
+
+        LOG(INFO) << "Channel arguments set - "
+            << "Max Connection Idle: " << grpc_options_.maxConnectionIdleMs() << "ms, "
+            << "Max Connection Age: " << grpc_options_.maxConnectionAgeMs() << "ms, "
+            << "Max Connection Age Grace: " << grpc_options_.maxConnectionAgeGraceMs() << "ms, "
+            << "Keepalive Time: " << grpc_options_.keepaliveTimeMs() << "ms, "
+            << "Keepalive Timeout: " << grpc_options_.keepaliveTimeoutMs() << "ms, "
+            << "Keepalive Permit Without Calls: " << grpc_options_.keepalivePermitWithoutCalls();
+
+        LOG(INFO) << "Registering RPC service implementation";
+        server_app::AuthRpcService service("./users.db");
+        builder.RegisterService(&service);
+        LOG(INFO) << "Service registered successfully";
+
+        LOG(INFO) << "Building and starting gRPC server";
+        server_ = builder.BuildAndStart();
+        if (!server_)
         {
-            // Build the server.
-            const std::string server_address = grpc_options_.serverAddress();
-            LOG(INFO) << "Configuring server to listen on: " << server_address;
-            grpc::ServerBuilder builder;
-            builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
-
-            // Set the keepalive parameters.
-            LOG(INFO) << "Setting gRPC server channel arguments";
-            builder.AddChannelArgument(GRPC_ARG_MAX_CONNECTION_IDLE_MS, grpc_options_.maxConnectionIdleMs());
-            builder.AddChannelArgument(GRPC_ARG_MAX_CONNECTION_AGE_MS, grpc_options_.maxConnectionAgeMs());
-            builder.AddChannelArgument(GRPC_ARG_MAX_CONNECTION_AGE_GRACE_MS, grpc_options_.maxConnectionAgeGraceMs());
-            builder.AddChannelArgument(GRPC_ARG_KEEPALIVE_TIME_MS, grpc_options_.keepaliveTimeMs());
-            builder.AddChannelArgument(GRPC_ARG_KEEPALIVE_TIMEOUT_MS, grpc_options_.keepaliveTimeoutMs());
-            builder.AddChannelArgument(GRPC_ARG_KEEPALIVE_PERMIT_WITHOUT_CALLS,
-                                       grpc_options_.keepalivePermitWithoutCalls());
-
-            LOG(INFO) << "Channel arguments set - "
-                << "Max Connection Idle: " << grpc_options_.maxConnectionIdleMs() << "ms, "
-                << "Max Connection Age: " << grpc_options_.maxConnectionAgeMs() << "ms, "
-                << "Max Connection Age Grace: " << grpc_options_.maxConnectionAgeGraceMs() << "ms, "
-                << "Keepalive Time: " << grpc_options_.keepaliveTimeMs() << "ms, "
-                << "Keepalive Timeout: " << grpc_options_.keepaliveTimeoutMs() << "ms, "
-                << "Keepalive Permit Without Calls: " << grpc_options_.keepalivePermitWithoutCalls();
-
-            LOG(INFO) << "Registering RPC service implementation";
-            server_app::RpcServiceImpl service("./users.db");
-            builder.RegisterService(&service);
-            LOG(INFO) << "Service registered successfully";
-
-            LOG(INFO) << "Building and starting gRPC server";
-            server_ = builder.BuildAndStart();
-            if (!server_)
-            {
-                LOG(ERROR) << "Failed to build and start gRPC server. Server object is null.";
-                LOG(ERROR) << "Check server configuration and port availability.";
-                return false;
-            }
-
-            LOG(INFO) << "Server listening on " << server_address;
-            LOG(INFO) << "gRPC server started and waiting for connections...";
-            server_->Wait();
-        }
-        catch (const std::exception& e)
-        {
-            LOG(ERROR) << "gRPC server failed to start. Exception: " << e.what();
+            LOG(ERROR) << "Failed to build and start gRPC server. Server object is null.";
+            LOG(ERROR) << "Check server configuration and port availability.";
             return false;
         }
-        catch (...)
-        {
-            LOG(ERROR) << "gRPC server failed to start with unknown error.";
-            return false;
-        }
+
+        LOG(INFO) << "Server listening on " << server_address;
+        LOG(INFO) << "gRPC server started and waiting for connections...";
+        server_->Wait();
 
         LOG(INFO) << "gRPC connection established.";
         return true;
@@ -158,4 +132,4 @@ namespace app_server
         }
         LOG(INFO) << "Service task shutdown complete.";
     }
-} // namespace app_server
+}

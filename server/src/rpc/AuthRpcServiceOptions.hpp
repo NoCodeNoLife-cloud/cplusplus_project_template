@@ -14,7 +14,7 @@ namespace app_server
     ///
     /// Example usage:
     /// @code
-    /// auto options = GrpcOptions::builder()
+    /// auto options = AuthRpcServiceOptions::builder()
     ///     .maxConnectionIdleMs(3600000)
     ///     .maxConnectionAgeMs(7200000)
     ///     .maxConnectionAgeGraceMs(300000)
@@ -24,19 +24,19 @@ namespace app_server
     ///     .serverAddress("0.0.0.0:50051")
     ///     .build();
     /// @endcode
-    class GrpcOptions final : public common::IYamlConfigurable
+    class AuthRpcServiceOptions final : public common::IYamlConfigurable
     {
     public:
-        GrpcOptions();
+        AuthRpcServiceOptions();
 
         /// @brief Default constructor
-        GrpcOptions(int32_t max_connection_idle_ms,
-                    int32_t max_connection_age_ms,
-                    int32_t max_connection_age_grace_ms,
-                    int32_t keepalive_time_ms,
-                    int32_t keepalive_timeout_ms,
-                    int32_t keepalive_permit_without_calls,
-                    const std::string& server_address);
+        AuthRpcServiceOptions(int32_t max_connection_idle_ms,
+                              int32_t max_connection_age_ms,
+                              int32_t max_connection_age_grace_ms,
+                              int32_t keepalive_time_ms,
+                              int32_t keepalive_timeout_ms,
+                              int32_t keepalive_permit_without_calls,
+                              const std::string& server_address);
 
         /// @brief Get the maximum connection idle time in milliseconds
         /// @return The maximum connection idle time in milliseconds
@@ -160,7 +160,7 @@ namespace app_server
         ///   server-address: "0.0.0.0:50051"
         /// @endcode
         [[nodiscard]] auto deserializedFromYamlFile(const std::filesystem::path& path)
-            -> bool;
+            -> bool override;
 
         /// @brief Validate gRPC parameters for correctness
         /// @return true if all parameters are valid, false otherwise
@@ -169,9 +169,9 @@ namespace app_server
         [[nodiscard]] auto validateParameters() const
             -> bool;
 
-        /// @brief Builder class for constructing GrpcOptions instances
+        /// @brief Builder class for constructing AuthRpcServiceOptions instances
         /// @details Implements the Builder pattern to allow for flexible construction
-        /// of GrpcOptions objects with default values and selective parameter setting.
+        /// of AuthRpcServiceOptions objects with default values and selective parameter setting.
         class Builder
         {
         public:
@@ -217,10 +217,10 @@ namespace app_server
             auto serverAddress(const std::string& value)
                 -> Builder&;
 
-            /// @brief Build the GrpcOptions instance with the configured parameters
-            /// @return A new GrpcOptions instance with the configured values
+            /// @brief Build the AuthRpcServiceOptions instance with the configured parameters
+            /// @return A new AuthRpcServiceOptions instance with the configured values
             [[nodiscard]] auto build() const
-                -> GrpcOptions;
+                -> AuthRpcServiceOptions;
 
         private:
             /// @brief Maximum time a connection can remain idle before being closed (in milliseconds)
@@ -259,7 +259,7 @@ namespace app_server
             std::string server_address_;
         };
 
-        /// @brief Create a new Builder instance for constructing GrpcOptions
+        /// @brief Create a new Builder instance for constructing AuthRpcServiceOptions
         /// @return A new Builder instance with default values
         static Builder builder();
 
@@ -301,28 +301,28 @@ namespace app_server
     };
 }
 
-/// @brief YAML serialization specialization for GrpcOptions.
-/// Provides methods to encode and decode GrpcOptions to/from YAML nodes.
+/// @brief YAML serialization specialization for AuthRpcServiceOptions.
+/// Provides methods to encode and decode AuthRpcServiceOptions to/from YAML nodes.
 /// @details This template specialization allows the YAML library to automatically
-/// serialize and deserialize GrpcOptions objects to and from YAML format.
+/// serialize and deserialize AuthRpcServiceOptions objects to and from YAML format.
 template <>
-struct YAML::convert<app_server::GrpcOptions>
+struct YAML::convert<app_server::AuthRpcServiceOptions>
 {
-    /// @brief Decode a YAML node into a GrpcOptions object.
+    /// @brief Decode a YAML node into a AuthRpcServiceOptions object.
     /// @param node The YAML node containing the configuration data.
-    /// @param rhs The GrpcOptions object to populate.
+    /// @param rhs The AuthRpcServiceOptions object to populate.
     /// @return True if decoding was successful.
     /// @details Extracts configuration values from the YAML node and sets them
-    /// in the GrpcOptions object. Missing values will retain their default values.
+    /// in the AuthRpcServiceOptions object. Missing values will retain their default values.
     static auto decode(const Node& node,
-                       app_server::GrpcOptions& rhs)
+                       app_server::AuthRpcServiceOptions& rhs)
         -> bool;
 
-    /// @brief Encode a GrpcOptions object into a YAML node.
-    /// @param rhs The GrpcOptions object to encode.
+    /// @brief Encode a AuthRpcServiceOptions object into a YAML node.
+    /// @param rhs The AuthRpcServiceOptions object to encode.
     /// @return A YAML node containing the configuration data.
-    /// @details Converts the GrpcOptions object's configuration values into
+    /// @details Converts the AuthRpcServiceOptions object's configuration values into
     /// a YAML node representation that can be serialized to a file or string.
-    static auto encode(const app_server::GrpcOptions& rhs)
+    static auto encode(const app_server::AuthRpcServiceOptions& rhs)
         -> Node;
 };

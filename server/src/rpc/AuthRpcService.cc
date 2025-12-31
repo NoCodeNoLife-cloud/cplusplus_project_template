@@ -1,25 +1,25 @@
-#include "src/rpc/RpcServiceImpl.hpp"
+#include "src/rpc/AuthRpcService.hpp"
 #include <unordered_map>
 #include <string_view>
 
 namespace server_app
 {
     /// @brief Map exception types to error codes using table-driven approach
-    const std::unordered_map<std::string_view, int> RpcServiceImpl::error_map_ = {
+    const std::unordered_map<std::string_view, int> AuthRpcService::error_map_ = {
         {"already exists", 409}, // Conflict
         {"not found", 404}, // Not found
         {"locked", 423}, // Locked
         {"Invalid password", 401} // Unauthorized
     };
 
-    RpcServiceImpl::RpcServiceImpl(const std::string& db_path) noexcept
+    AuthRpcService::AuthRpcService(const std::string& db_path) noexcept
         : authenticator_(db_path)
     {
     }
 
-    [[nodiscard]] auto RpcServiceImpl::RegisterUser(::grpc::ServerContext* /*context*/,
-                                      const ::rpc::RegisterUserRequest* const request,
-                                      ::rpc::AuthResponse* const response)
+    [[nodiscard]] auto AuthRpcService::RegisterUser(::grpc::ServerContext* /*context*/,
+                                                    const ::rpc::RegisterUserRequest* const request,
+                                                    ::rpc::AuthResponse* const response)
         -> ::grpc::Status
     {
         // Validate request parameters
@@ -51,9 +51,9 @@ namespace server_app
         }
     }
 
-    [[nodiscard]] auto RpcServiceImpl::AuthenticateUser(::grpc::ServerContext* /*context*/,
-                                          const ::rpc::AuthenticateUserRequest* const request,
-                                          ::rpc::AuthResponse* const response)
+    [[nodiscard]] auto AuthRpcService::AuthenticateUser(::grpc::ServerContext* /*context*/,
+                                                        const ::rpc::AuthenticateUserRequest* const request,
+                                                        ::rpc::AuthResponse* const response)
         -> ::grpc::Status
     {
         // Validate request parameters
@@ -85,9 +85,9 @@ namespace server_app
         }
     }
 
-    [[nodiscard]] auto RpcServiceImpl::ChangePassword(::grpc::ServerContext* /*context*/,
-                                        const ::rpc::ChangePasswordRequest* const request,
-                                        ::rpc::AuthResponse* const response)
+    [[nodiscard]] auto AuthRpcService::ChangePassword(::grpc::ServerContext* /*context*/,
+                                                      const ::rpc::ChangePasswordRequest* const request,
+                                                      ::rpc::AuthResponse* const response)
         -> ::grpc::Status
     {
         // Validate request parameters
@@ -123,9 +123,9 @@ namespace server_app
         }
     }
 
-    [[nodiscard]] auto RpcServiceImpl::ResetPassword(::grpc::ServerContext* /*context*/,
-                                       const ::rpc::ResetPasswordRequest* const request,
-                                       ::rpc::AuthResponse* const response)
+    [[nodiscard]] auto AuthRpcService::ResetPassword(::grpc::ServerContext* /*context*/,
+                                                     const ::rpc::ResetPasswordRequest* const request,
+                                                     ::rpc::AuthResponse* const response)
         -> ::grpc::Status
     {
         // Validate request parameters
@@ -160,9 +160,9 @@ namespace server_app
         }
     }
 
-    [[nodiscard]] auto RpcServiceImpl::DeleteUser(::grpc::ServerContext* /*context*/,
-                                    const ::rpc::DeleteUserRequest* const request,
-                                    ::rpc::AuthResponse* const response)
+    [[nodiscard]] auto AuthRpcService::DeleteUser(::grpc::ServerContext* /*context*/,
+                                                  const ::rpc::DeleteUserRequest* const request,
+                                                  ::rpc::AuthResponse* const response)
         -> ::grpc::Status
     {
         // Validate request parameters
@@ -197,9 +197,9 @@ namespace server_app
         }
     }
 
-    [[nodiscard]] auto RpcServiceImpl::UserExists(::grpc::ServerContext* /*context*/,
-                                    const ::rpc::UserExistsRequest* const request,
-                                    ::rpc::AuthResponse* const response)
+    [[nodiscard]] auto AuthRpcService::UserExists(::grpc::ServerContext* /*context*/,
+                                                  const ::rpc::UserExistsRequest* const request,
+                                                  ::rpc::AuthResponse* const response)
         -> ::grpc::Status
     {
         // Validate request parameters
@@ -227,8 +227,8 @@ namespace server_app
         }
     }
 
-    [[nodiscard]] auto RpcServiceImpl::HandleAuthException(const common::AuthenticationException& e,
-                                             ::rpc::AuthResponse* const response) noexcept
+    [[nodiscard]] auto AuthRpcService::HandleAuthException(const common::AuthenticationException& e,
+                                                           ::rpc::AuthResponse* const response) noexcept
         -> ::grpc::Status
     {
         response->set_success(false);

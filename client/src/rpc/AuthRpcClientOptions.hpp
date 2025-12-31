@@ -15,27 +15,27 @@ namespace app_client
     ///
     /// Example usage:
     /// @code
-    /// auto options = GrpcOptions::builder()
+    /// auto options = AuthRpcClientOptions::builder()
     ///     .keepaliveTimeMs(30000)
     ///     .keepaliveTimeoutMs(5000)
     ///     .keepalivePermitWithoutCalls(1)
     ///     .serverAddress("localhost:50051")
     ///     .build();
     /// @endcode
-    class GrpcOptions final : public common::IYamlConfigurable
+    class AuthRpcClientOptions final : public common::IYamlConfigurable
     {
     public:
-        GrpcOptions() = default;
+        AuthRpcClientOptions() = default;
 
         /// @brief Constructor with explicit parameter initialization
         /// @param keepalive_time_ms Time interval between keepalive pings in milliseconds
         /// @param keepalive_timeout_ms Timeout for keepalive ping acknowledgment in milliseconds
         /// @param keepalive_permit_without_calls Flag to permit keepalive pings without active calls (1=true, 0=false)
         /// @param server_address The gRPC server address in format "host:port"
-        GrpcOptions(int32_t keepalive_time_ms,
-                    int32_t keepalive_timeout_ms,
-                    int32_t keepalive_permit_without_calls,
-                    std::string server_address);
+        AuthRpcClientOptions(int32_t keepalive_time_ms,
+                             int32_t keepalive_timeout_ms,
+                             int32_t keepalive_permit_without_calls,
+                             std::string server_address);
 
         /// @brief Get the keepalive time interval in milliseconds
         /// @return The keepalive time interval in milliseconds
@@ -112,9 +112,9 @@ namespace app_client
         auto deserializedFromYamlFile(const std::filesystem::path& path)
             -> bool override;
 
-        /// @brief Builder class for constructing GrpcOptions instances
+        /// @brief Builder class for constructing AuthRpcClientOptions instances
         /// @details Implements the Builder pattern to allow for flexible construction
-        /// of GrpcOptions objects with default values and selective parameter setting.
+        /// of AuthRpcClientOptions objects with default values and selective parameter setting.
         class Builder
         {
         public:
@@ -142,10 +142,10 @@ namespace app_client
             auto serverAddress(const std::string& value)
                 -> Builder&;
 
-            /// @brief Build the GrpcOptions instance with the configured parameters
-            /// @return A new GrpcOptions instance with the configured values
+            /// @brief Build the AuthRpcClientOptions instance with the configured parameters
+            /// @return A new AuthRpcClientOptions instance with the configured values
             [[nodiscard]] auto build() const
-                -> GrpcOptions;
+                -> AuthRpcClientOptions;
 
         private:
             /// @brief Time interval between keepalive pings (in milliseconds)
@@ -172,14 +172,15 @@ namespace app_client
             std::string server_address_;
         };
 
-        /// @brief Create a new Builder instance for constructing GrpcOptions
+        /// @brief Create a new Builder instance for constructing AuthRpcClientOptions
         /// @return A new Builder instance with default values
         static Builder builder();
 
         /// @brief Validate gRPC parameters for correctness
         /// @details This function checks that the gRPC parameters are within reasonable ranges
         /// and logs warnings for potentially problematic configurations
-        auto validate() const noexcept -> void;
+        auto validate() const noexcept
+            -> void;
 
     private:
         /// @brief Time interval between keepalive pings (in milliseconds)
@@ -207,28 +208,28 @@ namespace app_client
     };
 }
 
-/// @brief YAML serialization specialization for GrpcOptions.
-/// Provides methods to encode and decode GrpcOptions to/from YAML nodes.
+/// @brief YAML serialization specialization for AuthRpcClientOptions.
+/// Provides methods to encode and decode AuthRpcClientOptions to/from YAML nodes.
 /// @details This template specialization allows the YAML library to automatically
-/// serialize and deserialize GrpcOptions objects to and from YAML format.
+/// serialize and deserialize AuthRpcClientOptions objects to and from YAML format.
 template <>
-struct YAML::convert<app_client::GrpcOptions>
+struct YAML::convert<app_client::AuthRpcClientOptions>
 {
-    /// @brief Decode a YAML node into a GrpcOptions object.
+    /// @brief Decode a YAML node into a AuthRpcClientOptions object.
     /// @param node The YAML node containing the configuration data.
-    /// @param rhs The GrpcOptions object to populate.
+    /// @param rhs The AuthRpcClientOptions object to populate.
     /// @return True if decoding was successful.
     /// @details Extracts configuration values from the YAML node and sets them
-    /// in the GrpcOptions object. Missing values will retain their default values.
+    /// in the AuthRpcClientOptions object. Missing values will retain their default values.
     static auto decode(const Node& node,
-                       app_client::GrpcOptions& rhs)
+                       app_client::AuthRpcClientOptions& rhs)
         -> bool;
 
-    /// @brief Encode a GrpcOptions object into a YAML node.
-    /// @param rhs The GrpcOptions object to encode.
+    /// @brief Encode a AuthRpcClientOptions object into a YAML node.
+    /// @param rhs The AuthRpcClientOptions object to encode.
     /// @return A YAML node containing the configuration data.
-    /// @details Converts the GrpcOptions object's configuration values into
+    /// @details Converts the AuthRpcClientOptions object's configuration values into
     /// a YAML node representation that can be serialized to a file or string.
-    static auto encode(const app_client::GrpcOptions& rhs)
+    static auto encode(const app_client::AuthRpcClientOptions& rhs)
         -> Node;
 };

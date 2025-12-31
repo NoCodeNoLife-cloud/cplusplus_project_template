@@ -53,32 +53,18 @@ namespace fox
     auto IBoostSerializable<T>::serializeTo(std::ostream& stream)
         -> bool
     {
-        try
-        {
-            boost::archive::text_oarchive oa(stream);
-            oa << static_cast<const T&>(*this);
-            return true;
-        }
-        catch (...)
-        {
-            return false;
-        }
+        boost::archive::text_oarchive oa(stream);
+        oa << static_cast<const T&>(*this);
+        return true;
     }
 
     template <typename T>
     auto IBoostSerializable<T>::deserializeFrom(std::istream& stream)
         -> bool
     {
-        try
-        {
-            boost::archive::text_iarchive ia(stream);
-            ia >> static_cast<T&>(*this);
-            return true;
-        }
-        catch (...)
-        {
-            return false;
-        }
+        boost::archive::text_iarchive ia(stream);
+        ia >> static_cast<T&>(*this);
+        return true;
     }
 
     template <typename T>

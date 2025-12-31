@@ -1,91 +1,91 @@
-#include "src/task/GrpcOptions.hpp"
+#include "AuthRpcClientOptions.hpp"
 
 #include <glog/logging.h>
 
 namespace app_client
 {
-    GrpcOptions::GrpcOptions(const int32_t keepalive_time_ms,
-                             const int32_t keepalive_timeout_ms,
-                             const int32_t keepalive_permit_without_calls,
-                             std::string server_address)
+    AuthRpcClientOptions::AuthRpcClientOptions(const int32_t keepalive_time_ms,
+                                               const int32_t keepalive_timeout_ms,
+                                               const int32_t keepalive_permit_without_calls,
+                                               std::string server_address)
         : keepalive_time_ms_(keepalive_time_ms), keepalive_timeout_ms_(keepalive_timeout_ms), keepalive_permit_without_calls_(keepalive_permit_without_calls), server_address_(std::move(server_address))
     {
     }
 
-    auto GrpcOptions::Builder::keepaliveTimeMs(const int32_t value)
+    auto AuthRpcClientOptions::Builder::keepaliveTimeMs(const int32_t value)
         -> Builder&
     {
         keepalive_time_ms_ = value;
         return *this;
     }
 
-    auto GrpcOptions::Builder::keepaliveTimeoutMs(const int32_t value)
+    auto AuthRpcClientOptions::Builder::keepaliveTimeoutMs(const int32_t value)
         -> Builder&
     {
         keepalive_timeout_ms_ = value;
         return *this;
     }
 
-    auto GrpcOptions::Builder::keepalivePermitWithoutCalls(const int32_t value)
+    auto AuthRpcClientOptions::Builder::keepalivePermitWithoutCalls(const int32_t value)
         -> Builder&
     {
         keepalive_permit_without_calls_ = value;
         return *this;
     }
 
-    auto GrpcOptions::Builder::serverAddress(const std::string& value)
+    auto AuthRpcClientOptions::Builder::serverAddress(const std::string& value)
         -> Builder&
     {
         server_address_ = value;
         return *this;
     }
 
-    auto GrpcOptions::Builder::build() const
-        -> GrpcOptions
+    auto AuthRpcClientOptions::Builder::build() const
+        -> AuthRpcClientOptions
     {
-        GrpcOptions options = {keepalive_time_ms_, keepalive_timeout_ms_, keepalive_permit_without_calls_, server_address_};
+        AuthRpcClientOptions options = {keepalive_time_ms_, keepalive_timeout_ms_, keepalive_permit_without_calls_, server_address_};
         options.validate(); // Validate parameters after construction
         return options;
     }
 
-    GrpcOptions::Builder GrpcOptions::builder()
+    AuthRpcClientOptions::Builder AuthRpcClientOptions::builder()
     {
         return {};
     }
 
-    auto GrpcOptions::keepaliveTimeMs() const
+    auto AuthRpcClientOptions::keepaliveTimeMs() const
         -> int32_t
     {
         return keepalive_time_ms_;
     }
 
-    auto GrpcOptions::keepaliveTimeMs(const int32_t value)
+    auto AuthRpcClientOptions::keepaliveTimeMs(const int32_t value)
         -> void
     {
         keepalive_time_ms_ = value;
         validate(); // Validate after setting new value
     }
 
-    auto GrpcOptions::keepaliveTimeoutMs() const
+    auto AuthRpcClientOptions::keepaliveTimeoutMs() const
         -> int32_t
     {
         return keepalive_timeout_ms_;
     }
 
-    auto GrpcOptions::keepaliveTimeoutMs(const int32_t value)
+    auto AuthRpcClientOptions::keepaliveTimeoutMs(const int32_t value)
         -> void
     {
         keepalive_timeout_ms_ = value;
         validate(); // Validate after setting new value
     }
 
-    auto GrpcOptions::keepalivePermitWithoutCalls() const
+    auto AuthRpcClientOptions::keepalivePermitWithoutCalls() const
         -> int32_t
     {
         return keepalive_permit_without_calls_;
     }
 
-    auto GrpcOptions::keepalivePermitWithoutCalls(const int32_t value)
+    auto AuthRpcClientOptions::keepalivePermitWithoutCalls(const int32_t value)
         -> void
     {
         keepalive_permit_without_calls_ = value;
@@ -93,20 +93,20 @@ namespace app_client
     }
 
     // ReSharper disable once CppDFAConstantFunctionResult
-    auto GrpcOptions::serverAddress() const
+    auto AuthRpcClientOptions::serverAddress() const
         -> const std::string&
     {
         return server_address_;
     }
 
-    auto GrpcOptions::serverAddress(const std::string& value)
+    auto AuthRpcClientOptions::serverAddress(const std::string& value)
         -> void
     {
         server_address_ = value;
         validate(); // Validate after setting new value
     }
 
-    auto GrpcOptions::deserializedFromYamlFile(const std::filesystem::path& path)
+    auto AuthRpcClientOptions::deserializedFromYamlFile(const std::filesystem::path& path)
         -> bool
     {
         if (!std::filesystem::exists(path))
@@ -149,7 +149,7 @@ namespace app_client
         return true;
     }
 
-    auto GrpcOptions::validate() const noexcept
+    auto AuthRpcClientOptions::validate() const noexcept
         -> void
     {
         LOG(INFO) << "Validating gRPC parameters";
@@ -199,8 +199,8 @@ namespace app_client
     }
 }
 
-auto YAML::convert<app_client::GrpcOptions>::decode(const Node& node,
-                                                    app_client::GrpcOptions& rhs)
+auto YAML::convert<app_client::AuthRpcClientOptions>::decode(const Node& node,
+                                                             app_client::AuthRpcClientOptions& rhs)
     -> bool
 {
     rhs.keepaliveTimeMs(node["keepaliveTimeMs"].as<int32_t>());
@@ -210,7 +210,7 @@ auto YAML::convert<app_client::GrpcOptions>::decode(const Node& node,
     return true;
 }
 
-auto YAML::convert<app_client::GrpcOptions>::encode(const app_client::GrpcOptions& rhs)
+auto YAML::convert<app_client::AuthRpcClientOptions>::encode(const app_client::AuthRpcClientOptions& rhs)
     -> Node
 {
     Node node;

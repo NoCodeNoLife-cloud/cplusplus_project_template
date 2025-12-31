@@ -8,30 +8,32 @@ namespace client_app
 {
     /// @brief RPC client for communicating with the server.
     /// @details This class provides methods to interact with the RPC service.
-    class RpcClient
+    class AuthRpcClient
     {
     public:
-        /// @brief Construct a new RpcClient object
+        /// @brief Construct a new AuthRpcClient object
         /// @param channel The gRPC channel to use for communication
-        explicit RpcClient(const std::shared_ptr<grpc::Channel>& channel) noexcept;
+        explicit AuthRpcClient(const std::shared_ptr<grpc::Channel>& channel) noexcept;
 
         /// @brief Default constructor deleted to prevent uninitialized instances
-        RpcClient() = delete;
+        AuthRpcClient() = delete;
 
         /// @brief Copy constructor deleted to prevent copying
-        RpcClient(const RpcClient&) = delete;
+        AuthRpcClient(const AuthRpcClient&) = delete;
 
         /// @brief Move constructor
-        RpcClient(RpcClient&&) noexcept = default;
+        AuthRpcClient(AuthRpcClient&&) noexcept = default;
 
         /// @brief Copy assignment operator deleted to prevent copying
-        auto operator=(const RpcClient&) -> RpcClient& = delete;
+        auto operator=(const AuthRpcClient&)
+            -> AuthRpcClient& = delete;
 
         /// @brief Move assignment operator
-        auto operator=(RpcClient&&) noexcept -> RpcClient& = default;
+        auto operator=(AuthRpcClient&&) noexcept
+            -> AuthRpcClient& = default;
 
         /// @brief Default destructor
-        ~RpcClient() = default;
+        ~AuthRpcClient() = default;
 
         /// @brief Register a new user with username and password
         /// @param username The username to register

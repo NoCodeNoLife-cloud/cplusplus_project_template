@@ -18,7 +18,7 @@ namespace common
         /// @param db_path Path to SQLite database file
         /// @param policy Custom password policy (default: standard policy)
         explicit UserAuthenticator(const std::string& db_path,
-                                  const PasswordPolicy& policy = PasswordPolicy());
+                                   const PasswordPolicy& policy = PasswordPolicy());
 
         /// @brief Register new user with username and password
         /// @param username User identifier to register
