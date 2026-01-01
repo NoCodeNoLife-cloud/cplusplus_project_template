@@ -36,7 +36,7 @@ namespace app_server
                               int32_t keepalive_time_ms,
                               int32_t keepalive_timeout_ms,
                               int32_t keepalive_permit_without_calls,
-                              const std::string& server_address);
+                              std::string server_address);
 
         /// @brief Get the maximum connection idle time in milliseconds
         /// @return The maximum connection idle time in milliseconds

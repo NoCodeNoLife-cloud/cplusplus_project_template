@@ -1,6 +1,7 @@
 #include "src/task/ServerTask.hpp"
 
 #include <glog/logging.h>
+#include <fmt/format.h>
 
 #include "src/GLogConfigurator.hpp"
 #include "src/rpc/AuthRpcService.hpp"
@@ -22,20 +23,14 @@ namespace app_server
     {
         const glog::GLogConfigurator log_configurator{application_dev_config_path_};
         log_configurator.execute();
-        LOG(INFO) << "Initializing ServerTask with config path: " << application_dev_config_path_;
-        LOG(INFO) << "GLog configuration initialized successfully";
+        LOG(INFO) << fmt::format("Initializing ServerTask with config path: {}, loading gRPC configuration from: {}", application_dev_config_path_, application_dev_config_path_);
 
-        LOG(INFO) << "Loading gRPC configuration from: " << application_dev_config_path_;
         grpc_options_.deserializedFromYamlFile(application_dev_config_path_);
 
-        LOG(INFO) << "gRPC configuration loaded successfully";
-        LOG(INFO) << "gRPC Options - Max Connection Idle: " << grpc_options_.maxConnectionIdleMs()
-            << "ms, Max Connection Age: " << grpc_options_.maxConnectionAgeMs()
-            << "ms, Keepalive Time: " << grpc_options_.keepaliveTimeMs()
-            << "ms, Keepalive Timeout: " << grpc_options_.keepaliveTimeoutMs()
-            << "ms, Permit Without Calls: " << grpc_options_.keepalivePermitWithoutCalls()
-            << ", Server Address: " << grpc_options_.serverAddress();
-        LOG(INFO) << "ServerTask starting...";
+        LOG(INFO) << fmt::format("gRPC configuration loaded successfully - Max Connection Idle: {}ms, Max Connection Age: {}ms, Keepalive Time: {}ms, Keepalive Timeout: {}ms, Permit Without Calls: {}, Server Address: {}",
+                                 grpc_options_.maxConnectionIdleMs(), grpc_options_.maxConnectionAgeMs(),
+                                 grpc_options_.keepaliveTimeMs(), grpc_options_.keepaliveTimeoutMs(),
+                                 grpc_options_.keepalivePermitWithoutCalls(), grpc_options_.serverAddress());
     }
 
     auto ServerTask::run()
@@ -45,9 +40,15 @@ namespace app_server
         {
             init();
         }
+        catch (const std::exception& e)
+        {
+            LOG(ERROR) << fmt::format("Failed to initialize ServerTask: {}", e.what());
+            exit();
+            return;
+        }
         catch (...)
         {
-            LOG(ERROR) << "Failed to initialize ServerTask";
+            LOG(ERROR) << "Failed to initialize ServerTask: Unknown error";
             exit();
             return;
         }
@@ -67,7 +68,7 @@ namespace app_server
     {
         // Build the server.
         const std::string server_address = grpc_options_.serverAddress();
-        LOG(INFO) << "Configuring server to listen on: " << server_address;
+        LOG(INFO) << fmt::format("Configuring server to listen on: {}", server_address);
         grpc::ServerBuilder builder;
         builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
 
@@ -81,13 +82,10 @@ namespace app_server
         builder.AddChannelArgument(GRPC_ARG_KEEPALIVE_PERMIT_WITHOUT_CALLS,
                                    grpc_options_.keepalivePermitWithoutCalls());
 
-        LOG(INFO) << "Channel arguments set - "
-            << "Max Connection Idle: " << grpc_options_.maxConnectionIdleMs() << "ms, "
-            << "Max Connection Age: " << grpc_options_.maxConnectionAgeMs() << "ms, "
-            << "Max Connection Age Grace: " << grpc_options_.maxConnectionAgeGraceMs() << "ms, "
-            << "Keepalive Time: " << grpc_options_.keepaliveTimeMs() << "ms, "
-            << "Keepalive Timeout: " << grpc_options_.keepaliveTimeoutMs() << "ms, "
-            << "Keepalive Permit Without Calls: " << grpc_options_.keepalivePermitWithoutCalls();
+        LOG(INFO) << fmt::format("Channel arguments set - Max Connection Idle: {}ms, Max Connection Age: {}ms, Max Connection Age Grace: {}ms, Keepalive Time: {}ms, Keepalive Timeout: {}ms, Keepalive Permit Without Calls: {}",
+                                 grpc_options_.maxConnectionIdleMs(), grpc_options_.maxConnectionAgeMs(),
+                                 grpc_options_.maxConnectionAgeGraceMs(), grpc_options_.keepaliveTimeMs(),
+                                 grpc_options_.keepaliveTimeoutMs(), grpc_options_.keepalivePermitWithoutCalls());
 
         LOG(INFO) << "Registering RPC service implementation";
         server_app::AuthRpcService service("./users.db");
@@ -103,7 +101,7 @@ namespace app_server
             return false;
         }
 
-        LOG(INFO) << "Server listening on " << server_address;
+        LOG(INFO) << fmt::format("Server listening on {}", server_address);
         LOG(INFO) << "gRPC server started and waiting for connections...";
         server_->Wait();
 

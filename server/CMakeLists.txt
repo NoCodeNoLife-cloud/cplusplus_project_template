@@ -21,4 +21,5 @@ target_link_libraries(${SERVER_PROJECT} PRIVATE
         common_pkg
         glog_service
         grpc_service
+        fmt::fmt
 )
