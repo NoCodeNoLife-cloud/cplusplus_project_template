@@ -4,6 +4,8 @@
 
 #include "generated/RpcService.grpc.pb.h"
 #include <string>
+#include <string_view>
+#include <unordered_map>
 
 namespace server_app
 {

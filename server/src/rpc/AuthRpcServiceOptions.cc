@@ -1,6 +1,7 @@
 #include "AuthRpcServiceOptions.hpp"
 #include <yaml-cpp/yaml.h>
 #include <glog/logging.h>
+#include <sstream>
 #include "src/filesystem/type/YamlToolkit.hpp"
 
 namespace app_server
@@ -22,82 +23,83 @@ namespace app_server
           keepalive_permit_without_calls_(keepalive_permit_without_calls),
           server_address_(server_address)
     {
+        validateParameters();
     }
 
-    auto AuthRpcServiceOptions::maxConnectionIdleMs() const
+    auto AuthRpcServiceOptions::maxConnectionIdleMs() const noexcept
         -> int32_t
     {
         return max_connection_idle_ms_;
     }
 
-    auto AuthRpcServiceOptions::maxConnectionIdleMs(const int32_t value)
+    auto AuthRpcServiceOptions::maxConnectionIdleMs(const int32_t value) noexcept
         -> void
     {
         max_connection_idle_ms_ = value;
     }
 
-    auto AuthRpcServiceOptions::maxConnectionAgeMs() const
+    auto AuthRpcServiceOptions::maxConnectionAgeMs() const noexcept
         -> int32_t
     {
         return max_connection_age_ms_;
     }
 
-    auto AuthRpcServiceOptions::maxConnectionAgeMs(const int32_t value)
+    auto AuthRpcServiceOptions::maxConnectionAgeMs(const int32_t value) noexcept
         -> void
     {
         max_connection_age_ms_ = value;
     }
 
-    auto AuthRpcServiceOptions::maxConnectionAgeGraceMs() const
+    auto AuthRpcServiceOptions::maxConnectionAgeGraceMs() const noexcept
         -> int32_t
     {
         return max_connection_age_grace_ms_;
     }
 
-    auto AuthRpcServiceOptions::maxConnectionAgeGraceMs(const int32_t value)
+    auto AuthRpcServiceOptions::maxConnectionAgeGraceMs(const int32_t value) noexcept
         -> void
     {
         max_connection_age_grace_ms_ = value;
     }
 
-    auto AuthRpcServiceOptions::keepaliveTimeMs() const
+    auto AuthRpcServiceOptions::keepaliveTimeMs() const noexcept
         -> int32_t
     {
         return keepalive_time_ms_;
     }
 
-    auto AuthRpcServiceOptions::keepaliveTimeMs(const int32_t value)
+    auto AuthRpcServiceOptions::keepaliveTimeMs(const int32_t value) noexcept
         -> void
     {
         keepalive_time_ms_ = value;
     }
 
-    auto AuthRpcServiceOptions::keepaliveTimeoutMs() const
+    auto AuthRpcServiceOptions::keepaliveTimeoutMs() const noexcept
         -> int32_t
     {
         return keepalive_timeout_ms_;
     }
 
-    auto AuthRpcServiceOptions::keepaliveTimeoutMs(const int32_t value)
+    auto AuthRpcServiceOptions::keepaliveTimeoutMs(const int32_t value) noexcept
         -> void
     {
         keepalive_timeout_ms_ = value;
     }
 
-    auto AuthRpcServiceOptions::keepalivePermitWithoutCalls() const
+    auto AuthRpcServiceOptions::keepalivePermitWithoutCalls() const noexcept
         -> int32_t
     {
         return keepalive_permit_without_calls_;
     }
 
-    auto AuthRpcServiceOptions::keepalivePermitWithoutCalls(const int32_t value)
+    auto AuthRpcServiceOptions::keepalivePermitWithoutCalls(const int32_t value) noexcept
         -> void
     {
         keepalive_permit_without_calls_ = value;
     }
 
     // ReSharper disable once CppDFAConstantFunctionResult
-    auto AuthRpcServiceOptions::serverAddress() const
+    auto AuthRpcServiceOptions::serverAddress() const noexcept
         -> const std::string&
     {
         return server_address_;
@@ -109,13 +111,13 @@ namespace app_server
         server_address_ = value;
     }
 
-    [[nodiscard]] auto AuthRpcServiceOptions::deserializedFromYamlFile(const std::filesystem::path& path)
-        -> bool
+    auto AuthRpcServiceOptions::deserializedFromYamlFile(const std::filesystem::path& path)
+        -> void
     {
         if (!std::filesystem::exists(path))
         {
             LOG(ERROR) << "Configuration file does not exist: " << path.string();
-            return false;
+            throw std::runtime_error("Configuration file does not exist: " + path.string());
         }
 
         try
@@ -155,138 +157,133 @@ namespace app_server
         catch (const YAML::Exception& e)
         {
             LOG(ERROR) << "Failed to parse YAML file '" << path.string() << "': " << e.what();
-            return false;
+            throw std::runtime_error("Failed to parse YAML file: " + std::string(e.what()));
         }
         catch (const std::exception& e)
         {
             LOG(ERROR) << "Error processing configuration file '" << path.string() << "': " << e.what();
-            return false;
+            throw std::runtime_error("Error processing configuration file: " + std::string(e.what()));
         }
 
-        return validateParameters();
+        validateParameters();
     }
 
-    [[nodiscard]] auto AuthRpcServiceOptions::validateParameters() const
-        -> bool
+    auto AuthRpcServiceOptions::validateParameters() const
+        -> void
     {
-        bool is_valid = true;
-
-        // Validate max connection idle time
+        // Validate max connection idle time (critical error)
         if (max_connection_idle_ms_ <= 0)
         {
-            LOG(WARNING) << "Invalid max connection idle time: " << max_connection_idle_ms_
-                << "ms. Using default value of 3600000ms.";
+            LOG(ERROR) << "Invalid max connection idle time: " << max_connection_idle_ms_
+                << "ms. Value must be greater than 0.";
+            throw std::invalid_argument("Invalid max connection idle time: " + std::to_string(max_connection_idle_ms_) + "ms (must be > 0)");
         }
 
-        // Validate max connection age
+        // Validate max connection age (critical error)
         if (max_connection_age_ms_ <= 0)
         {
-            LOG(WARNING) << "Invalid max connection age: " << max_connection_age_ms_
-                << "ms. Using default value of 7200000ms.";
+            LOG(ERROR) << "Invalid max connection age: " << max_connection_age_ms_
+                << "ms. Value must be greater than 0.";
+            throw std::invalid_argument("Invalid max connection age: " + std::to_string(max_connection_age_ms_) + "ms (must be > 0)");
         }
 
-        // Validate max connection age grace period
+        // Validate max connection age grace period (critical error)
         if (max_connection_age_grace_ms_ < 0)
         {
-            LOG(WARNING) << "Invalid max connection age grace period: " << max_connection_age_grace_ms_
-                << "ms. Using default value of 300000ms.";
+            LOG(ERROR) << "Invalid max connection age grace period: " << max_connection_age_grace_ms_
+                << "ms. Value must be greater than or equal to 0.";
+            throw std::invalid_argument("Invalid max connection age grace period: " + std::to_string(max_connection_age_grace_ms_) + "ms (must be >= 0)");
         }
 
-        // Validate keepalive time (should be positive)
+        // Validate keepalive time (should be positive) (critical error)
         if (keepalive_time_ms_ <= 0)
         {
-            LOG(WARNING) << "Invalid keepalive time: " << keepalive_time_ms_
-                << "ms. Using default value of 30000ms.";
+            LOG(ERROR) << "Invalid keepalive time: " << keepalive_time_ms_
+                << "ms. Value must be greater than 0.";
+            throw std::invalid_argument("Invalid keepalive time: " + std::to_string(keepalive_time_ms_) + "ms (must be > 0)");
         }
 
-        // Validate keepalive timeout (should be positive)
+        // Validate keepalive timeout (should be positive) (critical error)
         if (keepalive_timeout_ms_ <= 0)
         {
-            LOG(WARNING) << "Invalid keepalive timeout: " << keepalive_timeout_ms_
-                << "ms. Using default value of 5000ms.";
+            LOG(ERROR) << "Invalid keepalive timeout: " << keepalive_timeout_ms_
+                << "ms. Value must be greater than 0.";
+            throw std::invalid_argument("Invalid keepalive timeout: " + std::to_string(keepalive_timeout_ms_) + "ms (must be > 0)");
         }
 
-        // Validate keepalive permit without calls (should be 0 or 1)
+        // Validate keepalive permit without calls (should be 0 or 1) (critical error)
         if (keepalive_permit_without_calls_ != 0 && keepalive_permit_without_calls_ != 1)
         {
-            LOG(WARNING) << "Invalid keepalive permit without calls: " << keepalive_permit_without_calls_
-                << ". Valid values are 0 or 1. Using default value of 1.";
+            LOG(ERROR) << "Invalid keepalive permit without calls: " << keepalive_permit_without_calls_
+                << ". Valid values are 0 or 1.";
+            throw std::invalid_argument("Invalid keepalive permit without calls: " + std::to_string(keepalive_permit_without_calls_) + " (must be 0 or 1)");
         }
 
-        // Validate server address
+        // Validate server address (critical error)
         if (server_address_.empty())
         {
-            LOG(WARNING) << "Server address is empty. Using default value 0.0.0.0:50051.";
+            LOG(ERROR) << "Server address is empty.";
+            throw std::invalid_argument("Server address is empty (must not be empty)");
         }
 
-        // Check for potentially problematic combinations
-        if (max_connection_idle_ms_ > 0 && max_connection_idle_ms_ < 1000)
-        {
-            LOG(WARNING) << "Max connection idle time is set to a very short interval ("
-                << max_connection_idle_ms_ << "ms). This may cause excessive connection churn.";
-        }
+        // Check for potentially problematic combinations (warnings only)
+        LOG_IF(WARNING, max_connection_idle_ms_ > 0 && max_connection_idle_ms_ < 1000)
+            << "Max connection idle time is set to a very short interval ("
+            << max_connection_idle_ms_ << "ms). This may cause excessive connection churn.";
 
-        if (keepalive_time_ms_ > 0 && keepalive_time_ms_ < 1000)
-        {
-            LOG(WARNING) << "Keepalive time is set to a very short interval (" << keepalive_time_ms_
-                << "ms). This may cause excessive network traffic.";
-        }
+        LOG_IF(WARNING, keepalive_time_ms_ > 0 && keepalive_time_ms_ < 1000)
+            << "Keepalive time is set to a very short interval (" << keepalive_time_ms_
+            << "ms). This may cause excessive network traffic.";
 
-        if (keepalive_timeout_ms_ > 0 && keepalive_timeout_ms_ > keepalive_time_ms_)
-        {
-            LOG(WARNING) << "Keepalive timeout (" << keepalive_timeout_ms_
-                << "ms) is greater than keepalive time (" << keepalive_time_ms_
-                << "ms). This may lead to unexpected connection issues.";
-        }
+        LOG_IF(WARNING, keepalive_timeout_ms_ > 0 && keepalive_timeout_ms_ > keepalive_time_ms_)
+            << "Keepalive timeout (" << keepalive_timeout_ms_
+            << "ms) is greater than keepalive time (" << keepalive_time_ms_
+            << "ms). This may lead to unexpected connection issues.";
 
         // Check age vs idle time relationship
-        if (max_connection_age_ms_ > 0 && max_connection_idle_ms_ > 0 &&
-            max_connection_age_ms_ < max_connection_idle_ms_)
-        {
-            LOG(WARNING) << "Max connection age (" << max_connection_age_ms_
-                << "ms) is less than max connection idle time (" << max_connection_idle_ms_
-                << "ms). This may lead to unexpected connection behavior.";
-        }
-
-        return is_valid;
+        LOG_IF(WARNING, max_connection_age_ms_ > 0 && max_connection_idle_ms_ > 0 &&
+               max_connection_age_ms_ < max_connection_idle_ms_)
+            << "Max connection age (" << max_connection_age_ms_
+            << "ms) is less than max connection idle time (" << max_connection_idle_ms_
+            << "ms). This may lead to unexpected connection behavior.";
     }
 
-    auto AuthRpcServiceOptions::Builder::maxConnectionIdleMs(const int32_t value)
+    auto AuthRpcServiceOptions::Builder::maxConnectionIdleMs(const int32_t value) noexcept
         -> Builder&
     {
         max_connection_idle_ms_ = value;
         return *this;
     }
 
-    auto AuthRpcServiceOptions::Builder::maxConnectionAgeMs(const int32_t value)
+    auto AuthRpcServiceOptions::Builder::maxConnectionAgeMs(const int32_t value) noexcept
         -> Builder&
     {
         max_connection_age_ms_ = value;
         return *this;
     }
 
-    auto AuthRpcServiceOptions::Builder::maxConnectionAgeGraceMs(const int32_t value)
+    auto AuthRpcServiceOptions::Builder::maxConnectionAgeGraceMs(const int32_t value) noexcept
         -> Builder&
     {
         max_connection_age_grace_ms_ = value;
         return *this;
     }
 
-    auto AuthRpcServiceOptions::Builder::keepaliveTimeMs(const int32_t value)
+    auto AuthRpcServiceOptions::Builder::keepaliveTimeMs(const int32_t value) noexcept
         -> Builder&
     {
         keepalive_time_ms_ = value;
         return *this;
     }
 
-    auto AuthRpcServiceOptions::Builder::keepaliveTimeoutMs(const int32_t value)
+    auto AuthRpcServiceOptions::Builder::keepaliveTimeoutMs(const int32_t value) noexcept
         -> Builder&
     {
         keepalive_timeout_ms_ = value;
         return *this;
     }
 
-    auto AuthRpcServiceOptions::Builder::keepalivePermitWithoutCalls(const int32_t value)
+    auto AuthRpcServiceOptions::Builder::keepalivePermitWithoutCalls(const int32_t value) noexcept
         -> Builder&
     {
         keepalive_permit_without_calls_ = value;
@@ -303,7 +300,12 @@ namespace app_server
     auto AuthRpcServiceOptions::Builder::build() const
         -> AuthRpcServiceOptions
     {
-        return {max_connection_idle_ms_, max_connection_age_ms_, max_connection_age_grace_ms_, keepalive_time_ms_, keepalive_timeout_ms_, keepalive_permit_without_calls_, server_address_};
+        AuthRpcServiceOptions options{
+            max_connection_idle_ms_, max_connection_age_ms_, max_connection_age_grace_ms_,
+            keepalive_time_ms_, keepalive_timeout_ms_, keepalive_permit_without_calls_, server_address_
+        };
+        options.validateParameters();
+        return options;
     }
 
     auto AuthRpcServiceOptions::builder()
@@ -317,13 +319,34 @@ auto YAML::convert<app_server::AuthRpcServiceOptions>::decode(const Node& node,
                                                               app_server::AuthRpcServiceOptions& rhs)
     -> bool
 {
-    rhs.maxConnectionIdleMs(node["maxConnectionIdleMs"].as<int32_t>());
-    rhs.maxConnectionAgeMs(node["maxConnectionAgeMs"].as<int32_t>());
-    rhs.maxConnectionAgeGraceMs(node["maxConnectionAgeGraceMs"].as<int32_t>());
-    rhs.keepaliveTimeMs(node["keepaliveTimeMs"].as<int32_t>());
-    rhs.keepaliveTimeoutMs(node["keepaliveTimeoutMs"].as<int32_t>());
-    rhs.keepalivePermitWithoutCalls(node["keepalivePermitWithoutCalls"].as<int32_t>());
-    rhs.serverAddress(node["serverAddress"].as<std::string>());
+    if (node["maxConnectionIdleMs"])
+    {
+        rhs.maxConnectionIdleMs(node["maxConnectionIdleMs"].as<int32_t>());
+    }
+    if (node["maxConnectionAgeMs"])
+    {
+        rhs.maxConnectionAgeMs(node["maxConnectionAgeMs"].as<int32_t>());
+    }
+    if (node["maxConnectionAgeGraceMs"])
+    {
+        rhs.maxConnectionAgeGraceMs(node["maxConnectionAgeGraceMs"].as<int32_t>());
+    }
+    if (node["keepaliveTimeMs"])
+    {
+        rhs.keepaliveTimeMs(node["keepaliveTimeMs"].as<int32_t>());
+    }
+    if (node["keepaliveTimeoutMs"])
+    {
+        rhs.keepaliveTimeoutMs(node["keepaliveTimeoutMs"].as<int32_t>());
+    }
+    if (node["keepalivePermitWithoutCalls"])
+    {
+        rhs.keepalivePermitWithoutCalls(node["keepalivePermitWithoutCalls"].as<int32_t>());
+    }
+    if (node["serverAddress"])
+    {
+        rhs.serverAddress(node["serverAddress"].as<std::string>());
+    }
     return true;
 }
 

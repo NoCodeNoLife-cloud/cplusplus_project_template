@@ -479,6 +479,7 @@ namespace rpc
     : ::google::protobuf::Message(arena, _class_data_.base())
     {
 
+
 #else   // PROTOBUF_CUSTOM_VTABLE
         : ::google::protobuf::Message(arena)
     {
@@ -504,6 +505,7 @@ namespace rpc
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(arena, _class_data_.base())
     {
+
 
 #else   // PROTOBUF_CUSTOM_VTABLE
         : ::google::protobuf::Message(arena)
@@ -805,6 +807,7 @@ namespace rpc
     : ::google::protobuf::Message(arena, _class_data_.base())
     {
 
+
 #else   // PROTOBUF_CUSTOM_VTABLE
         : ::google::protobuf::Message(arena)
     {
@@ -830,6 +833,7 @@ namespace rpc
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(arena, _class_data_.base())
     {
+
 
 #else   // PROTOBUF_CUSTOM_VTABLE
         : ::google::protobuf::Message(arena)
@@ -1131,6 +1135,7 @@ namespace rpc
     : ::google::protobuf::Message(arena, _class_data_.base())
     {
 
+
 #else   // PROTOBUF_CUSTOM_VTABLE
         : ::google::protobuf::Message(arena)
     {
@@ -1157,6 +1162,7 @@ namespace rpc
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(arena, _class_data_.base())
     {
+
 
 #else   // PROTOBUF_CUSTOM_VTABLE
         : ::google::protobuf::Message(arena)
@@ -1493,6 +1499,7 @@ namespace rpc
     : ::google::protobuf::Message(arena, _class_data_.base())
     {
 
+
 #else   // PROTOBUF_CUSTOM_VTABLE
         : ::google::protobuf::Message(arena)
     {
@@ -1518,6 +1525,7 @@ namespace rpc
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(arena, _class_data_.base())
     {
+
 
 #else   // PROTOBUF_CUSTOM_VTABLE
         : ::google::protobuf::Message(arena)
@@ -1819,6 +1827,7 @@ namespace rpc
     : ::google::protobuf::Message(arena, _class_data_.base())
     {
 
+
 #else   // PROTOBUF_CUSTOM_VTABLE
         : ::google::protobuf::Message(arena)
     {
@@ -1843,6 +1852,7 @@ namespace rpc
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(arena, _class_data_.base())
     {
+
 
 #else   // PROTOBUF_CUSTOM_VTABLE
         : ::google::protobuf::Message(arena)
@@ -2109,6 +2119,7 @@ namespace rpc
     : ::google::protobuf::Message(arena, _class_data_.base())
     {
 
+
 #else   // PROTOBUF_CUSTOM_VTABLE
         : ::google::protobuf::Message(arena)
     {
@@ -2133,6 +2144,7 @@ namespace rpc
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(arena, _class_data_.base())
     {
+
 
 #else   // PROTOBUF_CUSTOM_VTABLE
         : ::google::protobuf::Message(arena)
@@ -2399,6 +2411,7 @@ namespace rpc
     : ::google::protobuf::Message(arena, _class_data_.base())
     {
 
+
 #else   // PROTOBUF_CUSTOM_VTABLE
         : ::google::protobuf::Message(arena)
     {
@@ -2423,6 +2436,7 @@ namespace rpc
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(arena, _class_data_.base())
     {
+
 
 #else   // PROTOBUF_CUSTOM_VTABLE
         : ::google::protobuf::Message(arena)

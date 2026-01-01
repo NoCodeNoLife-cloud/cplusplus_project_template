@@ -25,7 +25,7 @@ namespace server_app
             -> PasswordSQL& = delete;
 
         /// @brief Move constructor
-        PasswordSQL(PasswordSQL&&) noexcept = delete;
+        PasswordSQL(PasswordSQL&&) = delete;
 
         /// @brief Move assignment operator
         auto operator=(PasswordSQL&&)

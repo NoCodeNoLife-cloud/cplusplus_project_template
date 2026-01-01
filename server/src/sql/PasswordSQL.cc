@@ -1,14 +1,15 @@
 #include "PasswordSQL.hpp"
-#include <glog/logging.h>
 #include <stdexcept>
+#include <string_view>
+#include <glog/logging.h>
 
 namespace server_app
 {
     PasswordSQL::PasswordSQL(const std::string& db_path) noexcept(false)
-        : sqlite_manager_(db_path)
+        : sqlite_manager_{db_path}
     {
         /// @brief Create users table if not exists during initialization
-        constexpr auto create_table_sql = R"(
+        constexpr std::string_view create_table_sql = R"(
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT UNIQUE NOT NULL,
@@ -17,8 +18,7 @@ namespace server_app
             );
         )";
 
-        [[maybe_unused]] const auto result = sqlite_manager_.exec(create_table_sql);
-        if (result < 0)
+        if (const auto result = sqlite_manager_.exec(create_table_sql.data()); result < 0)
         {
             LOG(ERROR) << "Failed to initialize users table in database: " << db_path;
             throw std::runtime_error("Failed to initialize users table");
@@ -39,12 +39,11 @@ namespace server_app
 
         try
         {
-            constexpr auto insert_sql = R"(
+            constexpr std::string_view insert_sql = R"(
                 INSERT INTO users (username, password) VALUES (?, ?);
             )";
 
-            const auto result = sqlite_manager_.exec(insert_sql, {username, password});
-            if (result > 0)
+            if (const auto result = sqlite_manager_.exec(insert_sql.data(), {username, password}); result > 0)
             {
                 LOG(INFO) << "User registered successfully: " << username;
                 return true;
@@ -75,11 +74,11 @@ namespace server_app
 
         try
         {
-            constexpr auto select_sql = R"(
+            constexpr std::string_view select_sql = R"(
                 SELECT 1 FROM users WHERE username = ? AND password = ?;
             )";
 
-            const auto result = sqlite_manager_.query(select_sql, {username, password});
+            const auto result = sqlite_manager_.query(select_sql.data(), {username, password});
             const bool authenticated = !result.empty();
 
             if (authenticated)
@@ -121,12 +120,11 @@ namespace server_app
                 return false;
             }
 
-            constexpr auto update_sql = R"(
+            constexpr std::string_view update_sql = R"(
                 UPDATE users SET password = ? WHERE username = ?;
             )";
 
-            const auto affected_rows = sqlite_manager_.exec(update_sql, {new_password, username});
-            if (affected_rows > 0)
+            if (const auto affected_rows = sqlite_manager_.exec(update_sql.data(), {new_password, username}); affected_rows > 0)
             {
                 LOG(INFO) << "Password changed successfully for user: " << username;
                 return true;
@@ -155,12 +153,11 @@ namespace server_app
 
         try
         {
-            constexpr auto update_sql = R"(
+            constexpr std::string_view update_sql = R"(
                 UPDATE users SET password = ? WHERE username = ?;
             )";
 
-            const auto affected_rows = sqlite_manager_.exec(update_sql, {new_password, username});
-            if (affected_rows > 0)
+            if (const auto affected_rows = sqlite_manager_.exec(update_sql.data(), {new_password, username}); affected_rows > 0)
             {
                 LOG(INFO) << "Password reset successfully for user: " << username;
                 return true;
@@ -188,12 +185,11 @@ namespace server_app
 
         try
         {
-            constexpr auto delete_sql = R"(
+            constexpr std::string_view delete_sql = R"(
                 DELETE FROM users WHERE username = ?;
             )";
 
-            const auto affected_rows = sqlite_manager_.exec(delete_sql, {username});
-            if (affected_rows > 0)
+            if (const auto affected_rows = sqlite_manager_.exec(delete_sql.data(), {username}); affected_rows > 0)
             {
                 LOG(INFO) << "User deleted successfully: " << username;
                 return true;
@@ -221,11 +217,11 @@ namespace server_app
 
         try
         {
-            constexpr auto select_sql = R"(
+            constexpr std::string_view select_sql = R"(
                 SELECT 1 FROM users WHERE username = ?;
             )";
 
-            const auto result = sqlite_manager_.query(select_sql, {username});
+            const auto result = sqlite_manager_.query(select_sql.data(), {username});
             const bool exists = !result.empty();
 
             if (exists)
@@ -258,12 +254,11 @@ namespace server_app
 
         try
         {
-            constexpr auto select_sql = R"(
+            constexpr std::string_view select_sql = R"(
                 SELECT username FROM users WHERE username = ?;
             )";
 
-            const auto result = sqlite_manager_.query(select_sql, {username});
-            if (!result.empty() && !result[0].empty())
+            if (const auto result = sqlite_manager_.query(select_sql.data(), {username}); !result.empty() && !result[0].empty())
             {
                 LOG(INFO) << "User retrieved successfully: " << username;
                 return result[0][0];
@@ -284,12 +279,13 @@ namespace server_app
     {
         try
         {
-            constexpr auto select_sql = R"(
+            constexpr std::string_view select_sql = R"(
                 SELECT username FROM users ORDER BY username;
             )";
 
-            const auto result = sqlite_manager_.query(select_sql);
+            const auto result = sqlite_manager_.query(select_sql.data());
             std::vector<std::string> users;
+            users.reserve(result.size()); // Reserve space for efficiency
 
             for (const auto& row : result)
             {

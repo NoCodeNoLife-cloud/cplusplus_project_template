@@ -11,7 +11,8 @@
 namespace app_client
 {
     ClientTask::ClientTask(const std::string& project_name_) noexcept
-        : timer_{project_name_}
+        : rpc_options_{AuthRpcClientOptions::builder().build()}
+          , timer_{project_name_}
     {
         timer_.recordStart();
     }
@@ -20,7 +21,7 @@ namespace app_client
         -> void
     {
         const glog::GLogConfigurator log_configurator{application_dev_config_path_};
-        (void)log_configurator.execute(); // Explicitly discard nodiscard result
+        log_configurator.execute();
         LOG(INFO) << "Initializing GLog configuration from: " << application_dev_config_path_;
         LOG(INFO) << "GLog configuration initialized successfully";
 
@@ -148,10 +149,10 @@ namespace app_client
         LOG(INFO) << "gRPC channel created with state: " << channel->GetState(true);
         LOG(INFO) << "Creating RPC client";
         // Create client using the channel with custom arguments
-        const client_app::AuthRpcClient client{channel};
+        client_app::AuthRpcClient client{channel};
         LOG(INFO) << "RPC client created successfully";
 
-        return std::move(const_cast<client_app::AuthRpcClient&>(client));
+        return std::move(client);
     }
 
     auto ClientTask::exit() const noexcept
@@ -201,12 +202,10 @@ namespace app_client
             LOG(ERROR) << "Failed to connect to gRPC server at " << server_address
                 << " within timeout period";
             LOG(INFO) << "Connection attempt finished with state: " << channel->GetState(false);
+            throw std::runtime_error("Failed to connect to gRPC server at " + server_address + " within timeout period");
         }
-        else
-        {
-            LOG(INFO) << "Successfully connected to gRPC server at " << server_address;
-            LOG(INFO) << "Final connection state: " << channel->GetState(false);
-        }
+        LOG(INFO) << "Successfully connected to gRPC server at " << server_address;
+        LOG(INFO) << "Final connection state: " << channel->GetState(false);
 
         return channel;
     }

@@ -33,7 +33,9 @@ namespace server_app
 
         try
         {
-            const bool success = authenticator_.register_user(request->username(), request->password());
+            const auto& username = request->username();
+            const auto& password = request->password();
+            const bool success = authenticator_.register_user(username, password);
             response->set_success(success);
             response->set_message(success ? "User registered successfully" : "Registration failed");
             return ::grpc::Status::OK;
@@ -45,7 +47,7 @@ namespace server_app
         catch (const std::exception& e)
         {
             response->set_success(false);
-            response->set_message("System error: " + std::string(e.what()));
+            response->set_message("System error: " + std::string{e.what()});
             response->set_error_code(500);
             return {::grpc::StatusCode::INTERNAL, e.what()};
         }
@@ -67,7 +69,9 @@ namespace server_app
 
         try
         {
-            const bool success = authenticator_.authenticate(request->username(), request->password());
+            const auto& username = request->username();
+            const auto& password = request->password();
+            const bool success = authenticator_.authenticate(username, password);
             response->set_success(success);
             response->set_message(success ? "Authentication successful" : "Invalid credentials");
             return ::grpc::Status::OK;
@@ -79,7 +83,7 @@ namespace server_app
         catch (const std::exception& e)
         {
             response->set_success(false);
-            response->set_message("System error: " + std::string(e.what()));
+            response->set_message("System error: " + std::string{e.what()});
             response->set_error_code(500);
             return {::grpc::StatusCode::INTERNAL, e.what()};
         }
@@ -101,10 +105,14 @@ namespace server_app
 
         try
         {
+            const auto& username = request->username();
+            const auto& current_password = request->current_password();
+            const auto& new_password = request->new_password();
+
             const bool success = authenticator_.change_password(
-                request->username(),
-                request->current_password(),
-                request->new_password()
+                username,
+                current_password,
+                new_password
             );
             response->set_success(success);
             response->set_message(success ? "Password changed successfully" : "Password change failed");
@@ -117,7 +125,7 @@ namespace server_app
         catch (const std::exception& e)
         {
             response->set_success(false);
-            response->set_message("System error: " + std::string(e.what()));
+            response->set_message("System error: " + std::string{e.what()});
             response->set_error_code(500);
             return {::grpc::StatusCode::INTERNAL, e.what()};
         }
@@ -139,9 +147,12 @@ namespace server_app
 
         try
         {
+            const auto& username = request->username();
+            const auto& new_password = request->new_password();
+
             const bool success = authenticator_.reset_password(
-                request->username(),
-                request->new_password()
+                username,
+                new_password
             );
             response->set_success(success);
             response->set_message(success ? "Password reset successfully" : "Password reset failed");
@@ -154,7 +165,7 @@ namespace server_app
         catch (const std::exception& e)
         {
             response->set_success(false);
-            response->set_message("System error: " + std::string(e.what()));
+            response->set_message("System error: " + std::string{e.what()});
             response->set_error_code(500);
             return {::grpc::StatusCode::INTERNAL, e.what()};
         }
@@ -176,7 +187,8 @@ namespace server_app
 
         try
         {
-            const bool success = authenticator_.delete_user(request->username());
+            const auto& username = request->username();
+            const bool success = authenticator_.delete_user(username);
             response->set_success(success);
             if (success)
             {
@@ -191,7 +203,7 @@ namespace server_app
         catch (const std::exception& e)
         {
             response->set_success(false);
-            response->set_message("System error: " + std::string(e.what()));
+            response->set_message("System error: " + std::string{e.what()});
             response->set_error_code(500);
             return {::grpc::StatusCode::INTERNAL, e.what()};
         }
@@ -213,7 +225,8 @@ namespace server_app
 
         try
         {
-            const bool exists = authenticator_.user_exists(request->username());
+            const auto& username = request->username();
+            const bool exists = authenticator_.user_exists(username);
             response->set_success(exists);
             response->set_message(exists ? "User exists" : "User not found");
             return ::grpc::Status::OK;
@@ -221,7 +234,7 @@ namespace server_app
         catch (const std::exception& e)
         {
             response->set_success(false);
-            response->set_message("System error: " + std::string(e.what()));
+            response->set_message("System error: " + std::string{e.what()});
             response->set_error_code(500);
             return {::grpc::StatusCode::INTERNAL, e.what()};
         }

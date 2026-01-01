@@ -29,7 +29,7 @@ namespace app_server
     public:
         AuthRpcServiceOptions();
 
-        /// @brief Default constructor
+        /// @brief Constructor with all parameters
         AuthRpcServiceOptions(int32_t max_connection_idle_ms,
                               int32_t max_connection_age_ms,
                               int32_t max_connection_age_grace_ms,
@@ -43,7 +43,7 @@ namespace app_server
         /// @details This parameter controls how long a connection can remain idle
         /// before the server closes it. Helps manage server resources by cleaning
         /// up unused connections.
-        [[nodiscard]] auto maxConnectionIdleMs() const
+        [[nodiscard]] auto maxConnectionIdleMs() const noexcept
             -> int32_t;
 
         /// @brief Set the maximum connection idle time in milliseconds
@@ -51,14 +51,14 @@ namespace app_server
         /// @details This parameter controls how long a connection can remain idle
         /// before the server closes it. Setting this too low might disconnect
         /// clients that have legitimate periods of inactivity.
-        auto maxConnectionIdleMs(int32_t value)
+        auto maxConnectionIdleMs(int32_t value) noexcept
             -> void;
 
         /// @brief Get the maximum connection age in milliseconds
         /// @return The maximum connection age in milliseconds
         /// @details This parameter controls the maximum age of a connection before
         /// it is gracefully closed. Helps with connection rotation and resource management.
-        [[nodiscard]] auto maxConnectionAgeMs() const
+        [[nodiscard]] auto maxConnectionAgeMs() const noexcept
             -> int32_t;
 
         /// @brief Set the maximum connection age in milliseconds
@@ -66,28 +66,28 @@ namespace app_server
         /// @details This parameter controls the maximum age of a connection before
         /// it is gracefully closed. Helps with connection rotation and resource management.
         /// Setting this too low might cause frequent reconnects.
-        auto maxConnectionAgeMs(int32_t value)
+        auto maxConnectionAgeMs(int32_t value) noexcept
             -> void;
 
         /// @brief Get the maximum connection age grace period in milliseconds
         /// @return The maximum connection age grace period in milliseconds
         /// @details This parameter controls the grace period after max connection age
         /// during which pending RPCs can complete before the connection is forcibly closed.
-        [[nodiscard]] auto maxConnectionAgeGraceMs() const
+        [[nodiscard]] auto maxConnectionAgeGraceMs() const noexcept
             -> int32_t;
 
         /// @brief Set the maximum connection age grace period in milliseconds
         /// @param value The maximum connection age grace period in milliseconds
         /// @details This parameter controls the grace period after max connection age
         /// during which pending RPCs can complete before the connection is forcibly closed.
-        auto maxConnectionAgeGraceMs(int32_t value)
+        auto maxConnectionAgeGraceMs(int32_t value) noexcept
             -> void;
 
         /// @brief Get the keepalive time interval in milliseconds
         /// @return The keepalive time interval in milliseconds
         /// @details This parameter controls how often the server sends keepalive pings
         /// to the client to ensure the connection is still alive.
-        [[nodiscard]] auto keepaliveTimeMs() const
+        [[nodiscard]] auto keepaliveTimeMs() const noexcept
             -> int32_t;
 
         /// @brief Set the keepalive time interval in milliseconds
@@ -95,14 +95,14 @@ namespace app_server
         /// @details This parameter controls how often the server sends keepalive pings
         /// to the client to ensure the connection is still alive. Setting this to a lower
         /// value will detect connection failures faster but consume more network resources.
-        auto keepaliveTimeMs(int32_t value)
+        auto keepaliveTimeMs(int32_t value) noexcept
             -> void;
 
         /// @brief Get the keepalive timeout in milliseconds
         /// @return The keepalive timeout in milliseconds
         /// @details This parameter controls how long the server waits for an acknowledgment
         /// of a keepalive ping from the client before considering the connection dead.
-        [[nodiscard]] auto keepaliveTimeoutMs() const
+        [[nodiscard]] auto keepaliveTimeoutMs() const noexcept
             -> int32_t;
 
         /// @brief Set the keepalive timeout in milliseconds
@@ -110,7 +110,7 @@ namespace app_server
         /// @details This parameter controls how long the server waits for an acknowledgment
         /// of a keepalive ping from the client before considering the connection dead.
         /// Setting this too low might cause false positives during temporary network delays.
-        auto keepaliveTimeoutMs(int32_t value)
+        auto keepaliveTimeoutMs(int32_t value) noexcept
             -> void;
 
         /// @brief Check if keepalive pings are permitted without active calls
@@ -118,7 +118,7 @@ namespace app_server
         /// @details When set to true, keepalive pings are allowed even when there are
         /// no active RPC calls. When set to false, keepalive pings are only sent when
         /// there are active calls.
-        [[nodiscard]] auto keepalivePermitWithoutCalls() const
+        [[nodiscard]] auto keepalivePermitWithoutCalls() const noexcept
             -> int32_t;
 
         /// @brief Set whether to permit keepalive pings without active calls
@@ -126,14 +126,14 @@ namespace app_server
         /// @details When set to true, keepalive pings are allowed even when there are
         /// no active RPC calls. When set to false, keepalive pings are only sent when
         /// there are active calls. Setting this to false can reduce unnecessary network traffic.
-        auto keepalivePermitWithoutCalls(int32_t value)
+        auto keepalivePermitWithoutCalls(int32_t value) noexcept
             -> void;
 
         /// @brief Get the server address
         /// @return The server address as a string
         /// @details This parameter specifies the address and port of the gRPC server
         /// in the format "host:port". Using "0.0.0.0" binds to all available interfaces.
-        [[nodiscard]] auto serverAddress() const
+        [[nodiscard]] auto serverAddress() const noexcept
             -> const std::string&;
 
         /// @brief Set the server address
@@ -159,15 +159,15 @@ namespace app_server
         ///   keepalive-permit-without-calls: 1
         ///   server-address: "0.0.0.0:50051"
         /// @endcode
-        [[nodiscard]] auto deserializedFromYamlFile(const std::filesystem::path& path)
-            -> bool override;
+        auto deserializedFromYamlFile(const std::filesystem::path& path)
+            -> void override;
 
         /// @brief Validate gRPC parameters for correctness
         /// @return true if all parameters are valid, false otherwise
         /// @details This function checks that the gRPC parameters are within reasonable ranges
         /// and logs warnings for potentially problematic configurations
-        [[nodiscard]] auto validateParameters() const
-            -> bool;
+        auto validateParameters() const
+            -> void;
 
         /// @brief Builder class for constructing AuthRpcServiceOptions instances
         /// @details Implements the Builder pattern to allow for flexible construction
@@ -178,43 +178,43 @@ namespace app_server
             /// @brief Set the maximum connection idle time in milliseconds
             /// @param value The maximum connection idle time in milliseconds
             /// @return Reference to this builder for method chaining
-            auto maxConnectionIdleMs(int32_t value)
+            [[nodiscard]] auto maxConnectionIdleMs(int32_t value) noexcept
                 -> Builder&;
 
             /// @brief Set the maximum connection age in milliseconds
             /// @param value The maximum connection age in milliseconds
             /// @return Reference to this builder for method chaining
-            auto maxConnectionAgeMs(int32_t value)
+            [[nodiscard]] auto maxConnectionAgeMs(int32_t value) noexcept
                 -> Builder&;
 
             /// @brief Set the maximum connection age grace period in milliseconds
             /// @param value The maximum connection age grace period in milliseconds
             /// @return Reference to this builder for method chaining
-            auto maxConnectionAgeGraceMs(int32_t value)
+            [[nodiscard]] auto maxConnectionAgeGraceMs(int32_t value) noexcept
                 -> Builder&;
 
             /// @brief Set the keepalive time interval in milliseconds
             /// @param value The keepalive time interval in milliseconds
             /// @return Reference to this builder for method chaining
-            auto keepaliveTimeMs(int32_t value)
+            [[nodiscard]] auto keepaliveTimeMs(int32_t value) noexcept
                 -> Builder&;
 
             /// @brief Set the keepalive timeout in milliseconds
             /// @param value The keepalive timeout in milliseconds
             /// @return Reference to this builder for method chaining
-            auto keepaliveTimeoutMs(int32_t value)
+            [[nodiscard]] auto keepaliveTimeoutMs(int32_t value) noexcept
                 -> Builder&;
 
             /// @brief Set whether to permit keepalive pings without active calls
             /// @param value 1 to permit, 0 to not permit
             /// @return Reference to this builder for method chaining
-            auto keepalivePermitWithoutCalls(int32_t value)
+            [[nodiscard]] auto keepalivePermitWithoutCalls(int32_t value) noexcept
                 -> Builder&;
 
             /// @brief Set the server address
             /// @param value The server address as a string
             /// @return Reference to this builder for method chaining
-            auto serverAddress(const std::string& value)
+            [[nodiscard]] auto serverAddress(const std::string& value)
                 -> Builder&;
 
             /// @brief Build the AuthRpcServiceOptions instance with the configured parameters
@@ -261,7 +261,8 @@ namespace app_server
 
         /// @brief Create a new Builder instance for constructing AuthRpcServiceOptions
         /// @return A new Builder instance with default values
-        static Builder builder();
+        static auto builder()
+            -> Builder;
 
     private:
         /// @brief Maximum time a connection can remain idle before being closed (in milliseconds)

@@ -30,11 +30,7 @@ namespace app_server
         LOG(INFO) << "GLog configuration initialized successfully";
 
         LOG(INFO) << "Loading gRPC configuration from: " << application_dev_config_path_;
-        if (!grpc_options_.deserializedFromYamlFile(application_dev_config_path_))
-        {
-            LOG(ERROR) << "Failed to deserialize gRPC options from YAML file: " << application_dev_config_path_;
-            return false;
-        }
+        grpc_options_.deserializedFromYamlFile(application_dev_config_path_);
 
         LOG(INFO) << "gRPC configuration loaded successfully";
         LOG(INFO) << "gRPC Options - Max Connection Idle: " << grpc_options_.maxConnectionIdleMs()
@@ -54,14 +50,15 @@ namespace app_server
         if (!init())
         {
             LOG(ERROR) << "Failed to initialize ServerTask";
-            throw std::runtime_error("Failed to initialize ServerTask");
+            exit();
+            return; // Return instead of throwing to avoid unreachable code
         }
 
         if (!establishGrpcConnection())
         {
             LOG(ERROR) << "Failed to establish gRPC connection";
             exit();
-            throw std::runtime_error("Failed to establish gRPC connection");
+            return; // Return instead of throwing to avoid unreachable code
         }
 
         exit();

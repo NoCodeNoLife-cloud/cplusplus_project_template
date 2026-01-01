@@ -68,7 +68,7 @@ namespace glog
         /// @param path The file path to the YAML configuration file
         /// @throws std::runtime_error If the file cannot be read or parsed
         auto deserializedFromYamlFile(const std::filesystem::path& path)
-            -> bool override;
+            -> void override;
 
         /// @brief Equality operator.
         /// @param other The other GLogParameters to compare with.
