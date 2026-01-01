@@ -44,19 +44,9 @@ namespace app_client
         /// @brief Copy constructor deleted to prevent unintended resource duplication
         AuthRpcClientOptions(const AuthRpcClientOptions&) = delete;
 
-        /// @brief Move constructor with noexcept guarantee for efficient resource transfer
-        AuthRpcClientOptions(AuthRpcClientOptions&&) noexcept = default;
-
         /// @brief Copy assignment operator deleted to prevent unintended resource duplication
         auto operator=(const AuthRpcClientOptions&)
             -> AuthRpcClientOptions& = delete;
-
-        /// @brief Move assignment operator with noexcept guarantee
-        auto operator=(AuthRpcClientOptions&&) noexcept
-            -> AuthRpcClientOptions& = default;
-
-        /// @brief Virtual destructor with default implementation for proper polymorphic cleanup
-        ~AuthRpcClientOptions() noexcept override = default;
 
         /// @brief Get the keepalive time interval in milliseconds
         /// @return The keepalive time interval in milliseconds

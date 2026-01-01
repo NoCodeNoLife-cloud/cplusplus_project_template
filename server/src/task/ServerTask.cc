@@ -17,15 +17,11 @@ namespace app_server
 
     ServerTask::ServerTask(ServerTask&&) noexcept = default;
 
-    [[nodiscard]] auto ServerTask::init()
-        -> bool
+    auto ServerTask::init()
+        -> void
     {
-        if (const glog::GLogConfigurator log_configurator{application_dev_config_path_}; !log_configurator.execute())
-        {
-            LOG(ERROR) << "Failed to configure GLog with config path: " << application_dev_config_path_;
-            return false;
-        }
-
+        const glog::GLogConfigurator log_configurator{application_dev_config_path_};
+        log_configurator.execute();
         LOG(INFO) << "Initializing ServerTask with config path: " << application_dev_config_path_;
         LOG(INFO) << "GLog configuration initialized successfully";
 
@@ -40,25 +36,27 @@ namespace app_server
             << "ms, Permit Without Calls: " << grpc_options_.keepalivePermitWithoutCalls()
             << ", Server Address: " << grpc_options_.serverAddress();
         LOG(INFO) << "ServerTask starting...";
-
-        return true;
     }
 
     auto ServerTask::run()
         -> void
     {
-        if (!init())
+        try
+        {
+            init();
+        }
+        catch (...)
         {
             LOG(ERROR) << "Failed to initialize ServerTask";
             exit();
-            return; // Return instead of throwing to avoid unreachable code
+            return;
         }
 
         if (!establishGrpcConnection())
         {
             LOG(ERROR) << "Failed to establish gRPC connection";
             exit();
-            return; // Return instead of throwing to avoid unreachable code
+            return;
         }
 
         exit();

@@ -22,19 +22,9 @@ namespace app_client
         /// @brief Copy constructor deleted to prevent unintended resource duplication
         ClientTask(const ClientTask&) = delete;
 
-        /// @brief Move constructor with noexcept guarantee for efficient resource transfer
-        ClientTask(ClientTask&&) noexcept = default;
-
         /// @brief Copy assignment operator deleted to prevent unintended resource duplication
         auto operator=(const ClientTask&)
             -> ClientTask& = delete;
-
-        /// @brief Move assignment operator deleted to prevent unintended resource duplication
-        auto operator=(ClientTask&&)
-            -> ClientTask& = delete;
-
-        /// @brief Virtual destructor with default implementation for proper polymorphic cleanup
-        ~ClientTask() noexcept = default;
 
         /// @brief Initialize the client task
         /// @details Sets up logging, loads configuration, and logs system information

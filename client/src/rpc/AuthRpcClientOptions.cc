@@ -157,8 +157,6 @@ namespace app_client
     auto AuthRpcClientOptions::validate() const noexcept
         -> void
     {
-        LOG(INFO) << "Validating gRPC parameters";
-
         // Validate keepalive time (should be positive)
         LOG_IF(WARNING, keepalive_time_ms_ <= 0) << "Invalid keepalive time: " << keepalive_time_ms_
             << "ms. Using default value of 30000ms.";
@@ -185,8 +183,6 @@ namespace app_client
         // Validate server address
         LOG_IF(WARNING, server_address_.empty())
             << "Server address is empty. Using default value localhost:50051.";
-
-        LOG(INFO) << "gRPC parameter validation completed";
     }
 }
 

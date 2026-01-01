@@ -37,8 +37,8 @@ namespace glog
 
         /// @brief Execute the configuration process
         /// @return True if configuration was successful
-        [[nodiscard]] auto execute() const
-            -> bool;
+        auto execute() const
+            -> void;
 
         /// @brief Get the current configuration parameters
         /// @return A const reference to the GLogParameters object

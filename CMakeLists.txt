@@ -40,6 +40,7 @@ find_package(Protobuf CONFIG REQUIRED)
 find_package(gRPC CONFIG REQUIRED)
 find_package(magic_enum CONFIG REQUIRED)
 find_package(unofficial-sqlite3 CONFIG REQUIRED)
+find_package(fmt CONFIG REQUIRED)
 
 # Subdirectories
 add_subdirectory(common)

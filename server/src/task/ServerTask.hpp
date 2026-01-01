@@ -38,8 +38,8 @@ namespace app_server
 
         /// @brief Initialize the service task and its associated resources
         /// @details Sets up logging, loads configuration, and validates gRPC parameters
-        [[nodiscard]] auto init()
-            -> bool;
+        auto init()
+            -> void;
 
         /// @brief Run the main task
         /// @details Initializes the server, establishes gRPC connection, and starts listening
