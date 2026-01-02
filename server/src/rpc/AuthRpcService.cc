@@ -1,6 +1,8 @@
 #include "src/rpc/AuthRpcService.hpp"
 #include <unordered_map>
 #include <string_view>
+#include <functional>
+#include <fmt/format.h>
 
 namespace server_app
 {
@@ -12,6 +14,24 @@ namespace server_app
         {"Invalid password", 401} // Unauthorized
     };
 
+    /// @brief Helper function to validate request parameters
+    template <typename RequestType, typename ValidatorFunc>
+    [[nodiscard]] static auto ValidateRequest(const RequestType* request,
+                                              ValidatorFunc&& validator,
+                                              const std::string& error_msg,
+                                              ::rpc::AuthResponse* response) noexcept
+        -> std::optional<::grpc::Status>
+    {
+        if (!request || !validator(request))
+        {
+            response->set_success(false);
+            response->set_message(error_msg);
+            response->set_error_code(400);
+            return ::grpc::Status{::grpc::StatusCode::INVALID_ARGUMENT, "Invalid request parameters"};
+        }
+        return std::nullopt; // No error, continue with normal processing
+    }
+
     AuthRpcService::AuthRpcService(const std::string& db_path) noexcept
         : authenticator_(db_path)
     {
@@ -22,13 +42,20 @@ namespace server_app
                                                     ::rpc::AuthResponse* const response)
         -> ::grpc::Status
     {
-        // Validate request parameters
-        if (!request || request->username().empty() || request->password().empty())
+        // Validate request parameters using table-driven validation
+        const auto validation_status = ValidateRequest(
+            request,
+            [](const ::rpc::RegisterUserRequest* req)
+            {
+                return !req->username().empty() && !req->password().empty();
+            },
+            "Invalid request: username and password are required",
+            response
+        );
+
+        if (validation_status)
         {
-            response->set_success(false);
-            response->set_message("Invalid request: username and password are required");
-            response->set_error_code(400);
-            return {::grpc::StatusCode::INVALID_ARGUMENT, "Invalid request parameters"};
+            return *validation_status;
         }
 
         try
@@ -47,7 +74,7 @@ namespace server_app
         catch (const std::exception& e)
         {
             response->set_success(false);
-            response->set_message("System error: " + std::string{e.what()});
+            response->set_message(fmt::format("System error: {}", e.what()));
             response->set_error_code(500);
             return {::grpc::StatusCode::INTERNAL, e.what()};
         }
@@ -58,13 +85,20 @@ namespace server_app
                                                         ::rpc::AuthResponse* const response)
         -> ::grpc::Status
     {
-        // Validate request parameters
-        if (!request || request->username().empty() || request->password().empty())
+        // Validate request parameters using table-driven validation
+        const auto validation_status = ValidateRequest(
+            request,
+            [](const ::rpc::AuthenticateUserRequest* req)
+            {
+                return !req->username().empty() && !req->password().empty();
+            },
+            "Invalid request: username and password are required",
+            response
+        );
+
+        if (validation_status)
         {
-            response->set_success(false);
-            response->set_message("Invalid request: username and password are required");
-            response->set_error_code(400);
-            return {::grpc::StatusCode::INVALID_ARGUMENT, "Invalid request parameters"};
+            return *validation_status;
         }
 
         try
@@ -83,7 +117,7 @@ namespace server_app
         catch (const std::exception& e)
         {
             response->set_success(false);
-            response->set_message("System error: " + std::string{e.what()});
+            response->set_message(fmt::format("System error: {}", e.what()));
             response->set_error_code(500);
             return {::grpc::StatusCode::INTERNAL, e.what()};
         }
@@ -94,13 +128,20 @@ namespace server_app
                                                       ::rpc::AuthResponse* const response)
         -> ::grpc::Status
     {
-        // Validate request parameters
-        if (!request || request->username().empty() || request->current_password().empty() || request->new_password().empty())
+        // Validate request parameters using table-driven validation
+        const auto validation_status = ValidateRequest(
+            request,
+            [](const ::rpc::ChangePasswordRequest* req)
+            {
+                return !req->username().empty() && !req->current_password().empty() && !req->new_password().empty();
+            },
+            "Invalid request: username, current password, and new password are required",
+            response
+        );
+
+        if (validation_status)
         {
-            response->set_success(false);
-            response->set_message("Invalid request: username, current password, and new password are required");
-            response->set_error_code(400);
-            return {::grpc::StatusCode::INVALID_ARGUMENT, "Invalid request parameters"};
+            return *validation_status;
         }
 
         try
@@ -125,7 +166,7 @@ namespace server_app
         catch (const std::exception& e)
         {
             response->set_success(false);
-            response->set_message("System error: " + std::string{e.what()});
+            response->set_message(fmt::format("System error: {}", e.what()));
             response->set_error_code(500);
             return {::grpc::StatusCode::INTERNAL, e.what()};
         }
@@ -136,13 +177,20 @@ namespace server_app
                                                      ::rpc::AuthResponse* const response)
         -> ::grpc::Status
     {
-        // Validate request parameters
-        if (!request || request->username().empty() || request->new_password().empty())
+        // Validate request parameters using table-driven validation
+        const auto validation_status = ValidateRequest(
+            request,
+            [](const ::rpc::ResetPasswordRequest* req)
+            {
+                return !req->username().empty() && !req->new_password().empty();
+            },
+            "Invalid request: username and new password are required",
+            response
+        );
+
+        if (validation_status)
         {
-            response->set_success(false);
-            response->set_message("Invalid request: username and new password are required");
-            response->set_error_code(400);
-            return {::grpc::StatusCode::INVALID_ARGUMENT, "Invalid request parameters"};
+            return *validation_status;
         }
 
         try
@@ -165,7 +213,7 @@ namespace server_app
         catch (const std::exception& e)
         {
             response->set_success(false);
-            response->set_message("System error: " + std::string{e.what()});
+            response->set_message(fmt::format("System error: {}", e.what()));
             response->set_error_code(500);
             return {::grpc::StatusCode::INTERNAL, e.what()};
         }
@@ -176,13 +224,20 @@ namespace server_app
                                                   ::rpc::AuthResponse* const response)
         -> ::grpc::Status
     {
-        // Validate request parameters
-        if (!request || request->username().empty())
+        // Validate request parameters using table-driven validation
+        const auto validation_status = ValidateRequest(
+            request,
+            [](const ::rpc::DeleteUserRequest* req)
+            {
+                return !req->username().empty();
+            },
+            "Invalid request: username is required",
+            response
+        );
+
+        if (validation_status)
         {
-            response->set_success(false);
-            response->set_message("Invalid request: username is required");
-            response->set_error_code(400);
-            return {::grpc::StatusCode::INVALID_ARGUMENT, "Invalid request parameters"};
+            return *validation_status;
         }
 
         try
@@ -190,20 +245,13 @@ namespace server_app
             const auto& username = request->username();
             const bool success = authenticator_.delete_user(username);
             response->set_success(success);
-            if (success)
-            {
-                response->set_message("User deleted successfully");
-            }
-            else
-            {
-                response->set_message("User deletion failed");
-            }
+            response->set_message(success ? "User deleted successfully" : "User deletion failed");
             return ::grpc::Status::OK;
         }
         catch (const std::exception& e)
         {
             response->set_success(false);
-            response->set_message("System error: " + std::string{e.what()});
+            response->set_message(fmt::format("System error: {}", e.what()));
             response->set_error_code(500);
             return {::grpc::StatusCode::INTERNAL, e.what()};
         }
@@ -214,13 +262,20 @@ namespace server_app
                                                   ::rpc::AuthResponse* const response)
         -> ::grpc::Status
     {
-        // Validate request parameters
-        if (!request || request->username().empty())
+        // Validate request parameters using table-driven validation
+        const auto validation_status = ValidateRequest(
+            request,
+            [](const ::rpc::UserExistsRequest* req)
+            {
+                return !req->username().empty();
+            },
+            "Invalid request: username is required",
+            response
+        );
+
+        if (validation_status)
         {
-            response->set_success(false);
-            response->set_message("Invalid request: username is required");
-            response->set_error_code(400);
-            return {::grpc::StatusCode::INVALID_ARGUMENT, "Invalid request parameters"};
+            return *validation_status;
         }
 
         try
@@ -234,7 +289,7 @@ namespace server_app
         catch (const std::exception& e)
         {
             response->set_success(false);
-            response->set_message("System error: " + std::string{e.what()});
+            response->set_message(fmt::format("System error: {}", e.what()));
             response->set_error_code(500);
             return {::grpc::StatusCode::INTERNAL, e.what()};
         }
