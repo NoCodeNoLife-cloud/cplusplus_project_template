@@ -12,9 +12,10 @@ namespace glog
                                                       void* data) noexcept
         -> void
     {
+        // Use the original stream-based approach to avoid fmt compatibility issues
         s << '[' << google::GetLogSeverityName(m.severity()) << "] ["
-            << std::setw(4) << kYearOffset_ + m.time().year()
-            << std::setw(2) << kMonthOffset_ + m.time().month()
+            << std::setw(4) << (kYearOffset_ + m.time().year())
+            << std::setw(2) << (kMonthOffset_ + m.time().month())
             << std::setw(2) << m.time().day()
             << ' '
             << std::setw(2) << m.time().hour() << ':'

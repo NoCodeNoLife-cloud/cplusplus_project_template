@@ -3,6 +3,7 @@
 #include <glog/logging.h>
 #include <iostream>
 #include <thread>
+#include <fmt/format.h>
 
 #include "CustomGlogPrefixFormatter.hpp"
 
@@ -23,7 +24,7 @@ namespace glog
         doConfig(config_);
         if (const auto result = std::atexit(clean); result != 0)
         {
-            throw std::runtime_error("Failed to register cleanup function! Error code: " + std::to_string(result));
+            throw std::runtime_error(fmt::format("Failed to register cleanup function! Error code: {}", result));
         }
         LOG(INFO) << "glog configured...";
     }

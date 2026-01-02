@@ -1,5 +1,6 @@
-#include "src/GLogParameters.hpp"
+#include "GLogParameters.hpp"
 #include <yaml-cpp/yaml.h>
+#include <fmt/format.h>
 
 namespace glog
 {
@@ -63,7 +64,7 @@ namespace glog
     {
         if (!std::filesystem::exists(path))
         {
-            throw std::runtime_error("Configuration file does not exist: " + path.string());
+            throw std::runtime_error(fmt::format("Configuration file does not exist: {}", path.string()));
         }
 
         try
@@ -111,11 +112,11 @@ namespace glog
         }
         catch (const YAML::Exception& e)
         {
-            throw std::runtime_error("Failed to parse YAML file '" + path.string() + "': " + e.what());
+            throw std::runtime_error(fmt::format("Failed to parse YAML file '{}': {}", path.string(), e.what()));
         }
         catch (const std::exception& e)
         {
-            throw std::runtime_error("Error processing configuration file '" + path.string() + "': " + e.what());
+            throw std::runtime_error(fmt::format("Error processing configuration file '{}': {}", path.string(), e.what()));
         }
     }
 
@@ -135,7 +136,7 @@ namespace glog
     }
 }
 
-auto YAML::convert<glog::GLogParameters>::decode(const Node& node,
+auto YAML::convert<glog::GLogParameters>::decode(const YAML::Node& node,
                                                  glog::GLogParameters& rhs)
     -> bool
 {
@@ -156,13 +157,17 @@ auto YAML::convert<glog::GLogParameters>::decode(const Node& node,
     {
         rhs.logToStderr(node["logToStderr"].as<bool>());
     }
+    if (node["customLogFormat"])
+    {
+        rhs.customLogFormat(node["customLogFormat"].as<bool>());
+    }
     return true;
 }
 
 auto YAML::convert<glog::GLogParameters>::encode(const glog::GLogParameters& rhs)
-    -> Node
+    -> YAML::Node
 {
-    Node node;
+    YAML::Node node;
     node["minLogLevel"] = rhs.minLogLevel();
     node["logName"] = rhs.logName();
     node["logToStderr"] = rhs.logToStderr();

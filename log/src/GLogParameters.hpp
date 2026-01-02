@@ -73,13 +73,13 @@ namespace glog
         /// @brief Equality operator.
         /// @param other The other GLogParameters to compare with.
         /// @return True if both objects are equal, false otherwise.
-        auto operator==(const GLogParameters& other) const noexcept
+        [[nodiscard]] auto operator==(const GLogParameters& other) const noexcept
             -> bool;
 
         /// @brief Inequality operator.
         /// @param other The other GLogParameters to compare with.
         /// @return True if both objects are not equal, false otherwise.
-        auto operator!=(const GLogParameters& other) const noexcept
+        [[nodiscard]] auto operator!=(const GLogParameters& other) const noexcept
             -> bool;
 
     private:
@@ -99,7 +99,7 @@ struct YAML::convert<glog::GLogParameters>
     /// @param node The YAML node containing the configuration data.
     /// @param rhs The GLogParameters object to populate.
     /// @return True if decoding was successful.
-    static auto decode(const Node& node,
+    static auto decode(const YAML::Node& node,
                        glog::GLogParameters& rhs)
         -> bool;
 
@@ -107,5 +107,5 @@ struct YAML::convert<glog::GLogParameters>
     /// @param rhs The GLogParameters object to encode.
     /// @return A YAML node containing the configuration data.
     static auto encode(const glog::GLogParameters& rhs)
-        -> Node;
+        -> YAML::Node;
 };

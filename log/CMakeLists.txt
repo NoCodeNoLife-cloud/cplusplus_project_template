@@ -17,4 +17,5 @@ target_include_directories(${LOG_SERVICE} PUBLIC
 target_link_libraries(${LOG_SERVICE} PUBLIC
         glog::glog
         yaml-cpp::yaml-cpp
+        fmt::fmt
 )
