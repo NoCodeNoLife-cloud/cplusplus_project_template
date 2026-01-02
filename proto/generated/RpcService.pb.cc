@@ -343,23 +343,23 @@ const char descriptor_table_protodef_RpcService_2eproto[] ABSL_ATTRIBUTE_SECTION
     "t\022\020\n\010username\030\001 \001(\t\"%\n\021UserExistsRequest"
     "\022\020\n\010username\030\001 \001(\t\"D\n\014AuthResponse\022\017\n\007su"
     "ccess\030\001 \001(\010\022\017\n\007message\030\002 \001(\t\022\022\n\nerror_co"
-    "de\030\003 \001(\0052\214\003\n\nRpcService\022=\n\014RegisterUser\022"
-    "\030.rpc.RegisterUserRequest\032\021.rpc.AuthResp"
-    "onse\"\000\022E\n\020AuthenticateUser\022\034.rpc.Authent"
-    "icateUserRequest\032\021.rpc.AuthResponse\"\000\022A\n"
-    "\016ChangePassword\022\032.rpc.ChangePasswordRequ"
-    "est\032\021.rpc.AuthResponse\"\000\022\?\n\rResetPasswor"
-    "d\022\031.rpc.ResetPasswordRequest\032\021.rpc.AuthR"
-    "esponse\"\000\0229\n\nDeleteUser\022\026.rpc.DeleteUser"
-    "Request\032\021.rpc.AuthResponse\"\000\0229\n\nUserExis"
-    "ts\022\026.rpc.UserExistsRequest\032\021.rpc.AuthRes"
-    "ponse\"\000b\006proto3"
+    "de\030\003 \001(\0052\215\003\n\013AuthService\022=\n\014RegisterUser"
+    "\022\030.rpc.RegisterUserRequest\032\021.rpc.AuthRes"
+    "ponse\"\000\022E\n\020AuthenticateUser\022\034.rpc.Authen"
+    "ticateUserRequest\032\021.rpc.AuthResponse\"\000\022A"
+    "\n\016ChangePassword\022\032.rpc.ChangePasswordReq"
+    "uest\032\021.rpc.AuthResponse\"\000\022\?\n\rResetPasswo"
+    "rd\022\031.rpc.ResetPasswordRequest\032\021.rpc.Auth"
+    "Response\"\000\0229\n\nDeleteUser\022\026.rpc.DeleteUse"
+    "rRequest\032\021.rpc.AuthResponse\"\000\0229\n\nUserExi"
+    "sts\022\026.rpc.UserExistsRequest\032\021.rpc.AuthRe"
+    "sponse\"\000b\006proto3"
 };
 static ::absl::once_flag descriptor_table_RpcService_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_RpcService_2eproto = {
     false,
     false,
-    855,
+    856,
     descriptor_table_protodef_RpcService_2eproto,
     "RpcService.proto",
     &descriptor_table_RpcService_2eproto_once,

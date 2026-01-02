@@ -8,7 +8,7 @@ namespace client_app
     /// @brief Construct a new AuthRpcClient object
     /// @param channel The gRPC channel to use for communication
     AuthRpcClient::AuthRpcClient(const std::shared_ptr<grpc::Channel>& channel) noexcept
-        : stub_(rpc::RpcService::NewStub(channel))
+        : stub_(rpc::AuthService::NewStub(channel))
     {
         LOG_IF(FATAL, !channel) << "RPC channel cannot be null";
     }

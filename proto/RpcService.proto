@@ -2,46 +2,79 @@ syntax = "proto3";
 
 package rpc;
 
-service RpcService {
+// Authentication service for user management operations
+service AuthService {
+  // Register a new user account
   rpc RegisterUser (RegisterUserRequest) returns (AuthResponse) {}
+  
+  // Authenticate user credentials
   rpc AuthenticateUser (AuthenticateUserRequest) returns (AuthResponse) {}
+  
+  // Change user password after verifying current password
   rpc ChangePassword (ChangePasswordRequest) returns (AuthResponse) {}
+  
+  // Reset user password (administrative function, bypasses current password check)
   rpc ResetPassword (ResetPasswordRequest) returns (AuthResponse) {}
+  
+  // Delete user account
   rpc DeleteUser (DeleteUserRequest) returns (AuthResponse) {}
+  
+  // Check if user exists
   rpc UserExists (UserExistsRequest) returns (AuthResponse) {}
 }
 
+// Request message for registering a new user
 message RegisterUserRequest {
+  // Username for the new account (required)
   string username = 1;
+  // Password for the new account (required)
   string password = 2;
 }
 
+// Request message for authenticating a user
 message AuthenticateUserRequest {
+  // Username to authenticate (required)
   string username = 1;
+  // Password for authentication (required)
   string password = 2;
 }
 
+// Request message for changing a user's password
 message ChangePasswordRequest {
+  // Username whose password to change (required)
   string username = 1;
+  // Current password for verification (required)
   string current_password = 2;
+  // New password to set (required)
   string new_password = 3;
 }
 
+// Request message for resetting a user's password (admin function)
 message ResetPasswordRequest {
+  // Username whose password to reset (required)
   string username = 1;
+  // New password to set (required)
   string new_password = 2;
 }
 
+// Request message for deleting a user
 message DeleteUserRequest {
+  // Username to delete (required)
   string username = 1;
 }
 
+// Request message for checking if a user exists
 message UserExistsRequest {
+  // Username to check (required)
   string username = 1;
 }
 
+// Response message for authentication operations
 message AuthResponse {
+  // Whether the operation was successful
   bool success = 1;
+  // Human-readable message describing the result
   string message = 2;
+  // Error code (0 for success, non-zero for errors)
   int32 error_code = 3;
 }

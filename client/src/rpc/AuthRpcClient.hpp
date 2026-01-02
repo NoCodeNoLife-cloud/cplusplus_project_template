@@ -99,6 +99,6 @@ namespace client_app
             -> ResponseType;
 
         /// @brief gRPC stub for making RPC calls
-        std::unique_ptr<rpc::RpcService::Stub> stub_;
+        std::unique_ptr<rpc::AuthService::Stub> stub_;
     };
 } // namespace client_app

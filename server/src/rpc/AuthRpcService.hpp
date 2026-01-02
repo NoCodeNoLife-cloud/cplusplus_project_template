@@ -12,7 +12,7 @@ namespace server_app
     /// @brief RPC service implementation for handling remote procedure calls
     /// @details This class implements the gRPC service interface defined in RpcService.grpc.pb.h
     /// and provides the actual business logic for handling RPC requests.
-    class AuthRpcService final : public rpc::RpcService::Service
+    class AuthRpcService final : public rpc::AuthService::Service
     {
     public:
         /// @brief Constructor with database path

@@ -28,14 +28,16 @@
 
 namespace rpc {
 
-class RpcService final {
+// Authentication service for user management operations
+class AuthService final {
  public:
   static constexpr char const* service_full_name() {
-    return "rpc.RpcService";
+    return "rpc.AuthService";
   }
   class StubInterface {
    public:
     virtual ~StubInterface() {}
+    // Register a new user account
     virtual ::grpc::Status RegisterUser(::grpc::ClientContext* context, const ::rpc::RegisterUserRequest& request, ::rpc::AuthResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>> AsyncRegisterUser(::grpc::ClientContext* context, const ::rpc::RegisterUserRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>>(AsyncRegisterUserRaw(context, request, cq));
@@ -43,6 +45,7 @@ class RpcService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>> PrepareAsyncRegisterUser(::grpc::ClientContext* context, const ::rpc::RegisterUserRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>>(PrepareAsyncRegisterUserRaw(context, request, cq));
     }
+    // Authenticate user credentials
     virtual ::grpc::Status AuthenticateUser(::grpc::ClientContext* context, const ::rpc::AuthenticateUserRequest& request, ::rpc::AuthResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>> AsyncAuthenticateUser(::grpc::ClientContext* context, const ::rpc::AuthenticateUserRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>>(AsyncAuthenticateUserRaw(context, request, cq));
@@ -50,6 +53,7 @@ class RpcService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>> PrepareAsyncAuthenticateUser(::grpc::ClientContext* context, const ::rpc::AuthenticateUserRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>>(PrepareAsyncAuthenticateUserRaw(context, request, cq));
     }
+    // Change user password after verifying current password
     virtual ::grpc::Status ChangePassword(::grpc::ClientContext* context, const ::rpc::ChangePasswordRequest& request, ::rpc::AuthResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>> AsyncChangePassword(::grpc::ClientContext* context, const ::rpc::ChangePasswordRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>>(AsyncChangePasswordRaw(context, request, cq));
@@ -57,6 +61,7 @@ class RpcService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>> PrepareAsyncChangePassword(::grpc::ClientContext* context, const ::rpc::ChangePasswordRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>>(PrepareAsyncChangePasswordRaw(context, request, cq));
     }
+    // Reset user password (administrative function, bypasses current password check)
     virtual ::grpc::Status ResetPassword(::grpc::ClientContext* context, const ::rpc::ResetPasswordRequest& request, ::rpc::AuthResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>> AsyncResetPassword(::grpc::ClientContext* context, const ::rpc::ResetPasswordRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>>(AsyncResetPasswordRaw(context, request, cq));
@@ -64,6 +69,7 @@ class RpcService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>> PrepareAsyncResetPassword(::grpc::ClientContext* context, const ::rpc::ResetPasswordRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>>(PrepareAsyncResetPasswordRaw(context, request, cq));
     }
+    // Delete user account
     virtual ::grpc::Status DeleteUser(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::rpc::AuthResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>> AsyncDeleteUser(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>>(AsyncDeleteUserRaw(context, request, cq));
@@ -71,6 +77,7 @@ class RpcService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>> PrepareAsyncDeleteUser(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>>(PrepareAsyncDeleteUserRaw(context, request, cq));
     }
+    // Check if user exists
     virtual ::grpc::Status UserExists(::grpc::ClientContext* context, const ::rpc::UserExistsRequest& request, ::rpc::AuthResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>> AsyncUserExists(::grpc::ClientContext* context, const ::rpc::UserExistsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::AuthResponse>>(AsyncUserExistsRaw(context, request, cq));
@@ -81,16 +88,22 @@ class RpcService final {
     class async_interface {
      public:
       virtual ~async_interface() {}
+      // Register a new user account
       virtual void RegisterUser(::grpc::ClientContext* context, const ::rpc::RegisterUserRequest* request, ::rpc::AuthResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void RegisterUser(::grpc::ClientContext* context, const ::rpc::RegisterUserRequest* request, ::rpc::AuthResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Authenticate user credentials
       virtual void AuthenticateUser(::grpc::ClientContext* context, const ::rpc::AuthenticateUserRequest* request, ::rpc::AuthResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void AuthenticateUser(::grpc::ClientContext* context, const ::rpc::AuthenticateUserRequest* request, ::rpc::AuthResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Change user password after verifying current password
       virtual void ChangePassword(::grpc::ClientContext* context, const ::rpc::ChangePasswordRequest* request, ::rpc::AuthResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ChangePassword(::grpc::ClientContext* context, const ::rpc::ChangePasswordRequest* request, ::rpc::AuthResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Reset user password (administrative function, bypasses current password check)
       virtual void ResetPassword(::grpc::ClientContext* context, const ::rpc::ResetPasswordRequest* request, ::rpc::AuthResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ResetPassword(::grpc::ClientContext* context, const ::rpc::ResetPasswordRequest* request, ::rpc::AuthResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Delete user account
       virtual void DeleteUser(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest* request, ::rpc::AuthResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void DeleteUser(::grpc::ClientContext* context, const ::rpc::DeleteUserRequest* request, ::rpc::AuthResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Check if user exists
       virtual void UserExists(::grpc::ClientContext* context, const ::rpc::UserExistsRequest* request, ::rpc::AuthResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void UserExists(::grpc::ClientContext* context, const ::rpc::UserExistsRequest* request, ::rpc::AuthResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
@@ -207,11 +220,17 @@ class RpcService final {
    public:
     Service();
     virtual ~Service();
+    // Register a new user account
     virtual ::grpc::Status RegisterUser(::grpc::ServerContext* context, const ::rpc::RegisterUserRequest* request, ::rpc::AuthResponse* response);
+    // Authenticate user credentials
     virtual ::grpc::Status AuthenticateUser(::grpc::ServerContext* context, const ::rpc::AuthenticateUserRequest* request, ::rpc::AuthResponse* response);
+    // Change user password after verifying current password
     virtual ::grpc::Status ChangePassword(::grpc::ServerContext* context, const ::rpc::ChangePasswordRequest* request, ::rpc::AuthResponse* response);
+    // Reset user password (administrative function, bypasses current password check)
     virtual ::grpc::Status ResetPassword(::grpc::ServerContext* context, const ::rpc::ResetPasswordRequest* request, ::rpc::AuthResponse* response);
+    // Delete user account
     virtual ::grpc::Status DeleteUser(::grpc::ServerContext* context, const ::rpc::DeleteUserRequest* request, ::rpc::AuthResponse* response);
+    // Check if user exists
     virtual ::grpc::Status UserExists(::grpc::ServerContext* context, const ::rpc::UserExistsRequest* request, ::rpc::AuthResponse* response);
   };
   template <class BaseClass>
