@@ -11,7 +11,6 @@ namespace common
     /// such as before/after method execution advice, exception handling, and result processing.
     /// @tparam Derived The derived class that implements the specific AOP behavior.
     /// The derived class can override the virtual methods to customize the AOP behavior.
-    // ReSharper disable once CppTemplateParameterNeverUsed
     template <typename Derived>
     class IAop
     {
@@ -21,8 +20,8 @@ namespace common
         /// @param args Arguments to be passed to the function
         /// @return The result of the function
         template <typename Func, typename... Args>
-        auto exec(Func&& func,
-                  Args&&... args)
+        [[nodiscard]] auto exec(Func&& func,
+                                Args&&... args)
             -> decltype(auto);
 
         virtual ~IAop() = default;
@@ -41,6 +40,7 @@ namespace common
         /// @brief Function to be executed when an exception is thrown
         /// @details This method is called when an exception is caught during function execution.
         /// Derived classes can override this to implement exception handling logic.
+        /// @param e Exception pointer containing the caught exception
         virtual void onException(std::exception_ptr e) = 0;
 
         /// @brief Function to handle the result
@@ -49,9 +49,14 @@ namespace common
         /// @return The processed result
         /// @details This method is called to process the result of the function execution.
         /// Derived classes can override this to implement result processing logic.
+        /// @note Default implementation simply forwards the result
         template <typename T>
         auto handleResult(T&& result)
-            -> decltype(auto);
+            -> decltype(auto)
+        {
+            // Default implementation: simply forward the result without modification
+            return std::forward<T>(result);
+        }
     };
 
     template <typename Derived>
@@ -60,33 +65,36 @@ namespace common
                              Args&&... args)
         -> decltype(auto)
     {
+        // Execute the pre-execution logic
         static_cast<Derived*>(this)->onEntry();
         try
         {
             if constexpr (std::is_void_v<std::invoke_result_t<Func, Args...>>)
             {
+                // For void return types, invoke function and execute post-execution logic
                 std::invoke(std::forward<Func>(func), std::forward<Args>(args)...);
                 static_cast<Derived*>(this)->onExit();
             }
             else
             {
+                // For non-void return types, capture result, execute post-execution logic,
+                // and process the result through handleResult
                 auto result = std::invoke(std::forward<Func>(func), std::forward<Args>(args)...);
                 static_cast<Derived*>(this)->onExit();
                 return static_cast<Derived*>(this)->handleResult(std::move(result));
             }
         }
-        catch (...)
+        catch (const std::exception& e)
         {
+            // Handle standard exceptions with context
             static_cast<Derived*>(this)->onException(std::current_exception());
             throw;
         }
-    }
-
-    template <typename Derived>
-    template <typename T>
-    auto IAop<Derived>::handleResult(T&& result)
-        -> decltype(auto)
-    {
-        return std::forward<T>(result);
+        catch (...)
+        {
+            // Handle any other exceptions
+            static_cast<Derived*>(this)->onException(std::current_exception());
+            throw;
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace common
         LOG(INFO) << "Exiting function: " << function_name_;
     }
 
-    auto FunctionProfilerAspect::onException()
+    auto FunctionProfilerAspect::onException(std::exception_ptr e)
         -> void
     {
         profiler_.recordEnd(true);

@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <exception>
 
 #include "src/time/FunctionProfiler.hpp"
 #include "interface/IAop.hpp"
@@ -29,8 +30,8 @@ namespace common
 
         /// @brief Exception point - records the end time when exception occurs
         /// @details Called when function exits with exception
-        auto onException()
-            -> void;
+        auto onException(std::exception_ptr e)
+            -> void override;
 
     private:
         FunctionProfiler profiler_;
