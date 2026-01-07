@@ -8,9 +8,10 @@ file(GLOB_RECURSE FOX_SRC_FILES
 # Creating a Common Library Target
 add_library(${COMMON_FRAMEWORK} ${FOX_SRC_FILES})
 
-# Set the header file path
+# Set the header file paths
 target_include_directories(${COMMON_FRAMEWORK} PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
 # Link required libraries
