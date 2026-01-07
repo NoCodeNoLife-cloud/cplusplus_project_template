@@ -17,26 +17,22 @@ namespace common
     {
     }
 
-    auto BigDecimal::operator+(const BigDecimal& other) const noexcept
-        -> BigDecimal
+    auto BigDecimal::operator+(const BigDecimal& other) const noexcept -> BigDecimal
     {
         return BigDecimal((value_ + other.value_).convert_to<std::string>());
     }
 
-    auto BigDecimal::operator-(const BigDecimal& other) const noexcept
-        -> BigDecimal
+    auto BigDecimal::operator-(const BigDecimal& other) const noexcept -> BigDecimal
     {
         return BigDecimal((value_ - other.value_).convert_to<std::string>());
     }
 
-    auto BigDecimal::operator*(const BigDecimal& other) const noexcept
-        -> BigDecimal
+    auto BigDecimal::operator*(const BigDecimal& other) const noexcept -> BigDecimal
     {
         return BigDecimal((value_ * other.value_).convert_to<std::string>());
     }
 
-    auto BigDecimal::operator/(const BigDecimal& other) const
-        -> BigDecimal
+    auto BigDecimal::operator/(const BigDecimal& other) const -> BigDecimal
     {
         if (other.value_ == 0)
         {
@@ -45,8 +41,7 @@ namespace common
         return BigDecimal((value_ / other.value_).convert_to<std::string>());
     }
 
-    auto BigDecimal::operator<=>(const BigDecimal& other) const noexcept
-        -> std::strong_ordering
+    auto BigDecimal::operator<=>(const BigDecimal& other) const noexcept -> std::strong_ordering
     {
         if (value_ < other.value_)
         {
@@ -59,8 +54,7 @@ namespace common
         return std::strong_ordering::equal;
     }
 
-    auto BigDecimal::operator==(const BigDecimal& other) const noexcept
-        -> bool
+    auto BigDecimal::operator==(const BigDecimal& other) const noexcept -> bool
     {
         return value_ == other.value_;
     }

@@ -16,11 +16,9 @@ namespace server_app
 
     /// @brief Helper function to validate request parameters
     template <typename RequestType, typename ValidatorFunc>
-    [[nodiscard]] static auto ValidateRequest(const RequestType* request,
-                                              ValidatorFunc&& validator,
+    [[nodiscard]] static auto ValidateRequest(const RequestType* request, ValidatorFunc&& validator,
                                               const std::string& error_msg,
-                                              ::rpc::AuthResponse* response) noexcept
-        -> std::optional<::grpc::Status>
+                                              ::rpc::AuthResponse* response) noexcept -> std::optional<::grpc::Status>
     {
         if (!request || !validator(request))
         {
@@ -39,19 +37,13 @@ namespace server_app
 
     [[nodiscard]] auto AuthRpcService::RegisterUser(::grpc::ServerContext* /*context*/,
                                                     const ::rpc::RegisterUserRequest* const request,
-                                                    ::rpc::AuthResponse* const response)
-        -> ::grpc::Status
+                                                    ::rpc::AuthResponse* const response) -> ::grpc::Status
     {
         // Validate request parameters using table-driven validation
-        const auto validation_status = ValidateRequest(
-            request,
-            [](const ::rpc::RegisterUserRequest* req)
-            {
-                return !req->username().empty() && !req->password().empty();
-            },
-            "Invalid request: username and password are required",
-            response
-        );
+        const auto validation_status = ValidateRequest(request, [](const ::rpc::RegisterUserRequest* req)
+        {
+            return !req->username().empty() && !req->password().empty();
+        }, "Invalid request: username and password are required", response);
 
         if (validation_status)
         {
@@ -82,19 +74,13 @@ namespace server_app
 
     [[nodiscard]] auto AuthRpcService::AuthenticateUser(::grpc::ServerContext* /*context*/,
                                                         const ::rpc::AuthenticateUserRequest* const request,
-                                                        ::rpc::AuthResponse* const response)
-        -> ::grpc::Status
+                                                        ::rpc::AuthResponse* const response) -> ::grpc::Status
     {
         // Validate request parameters using table-driven validation
-        const auto validation_status = ValidateRequest(
-            request,
-            [](const ::rpc::AuthenticateUserRequest* req)
-            {
-                return !req->username().empty() && !req->password().empty();
-            },
-            "Invalid request: username and password are required",
-            response
-        );
+        const auto validation_status = ValidateRequest(request, [](const ::rpc::AuthenticateUserRequest* req)
+        {
+            return !req->username().empty() && !req->password().empty();
+        }, "Invalid request: username and password are required", response);
 
         if (validation_status)
         {
@@ -125,19 +111,13 @@ namespace server_app
 
     [[nodiscard]] auto AuthRpcService::ChangePassword(::grpc::ServerContext* /*context*/,
                                                       const ::rpc::ChangePasswordRequest* const request,
-                                                      ::rpc::AuthResponse* const response)
-        -> ::grpc::Status
+                                                      ::rpc::AuthResponse* const response) -> ::grpc::Status
     {
         // Validate request parameters using table-driven validation
-        const auto validation_status = ValidateRequest(
-            request,
-            [](const ::rpc::ChangePasswordRequest* req)
-            {
-                return !req->username().empty() && !req->current_password().empty() && !req->new_password().empty();
-            },
-            "Invalid request: username, current password, and new password are required",
-            response
-        );
+        const auto validation_status = ValidateRequest(request, [](const ::rpc::ChangePasswordRequest* req)
+        {
+            return !req->username().empty() && !req->current_password().empty() && !req->new_password().empty();
+        }, "Invalid request: username, current password, and new password are required", response);
 
         if (validation_status)
         {
@@ -150,11 +130,7 @@ namespace server_app
             const auto& current_password = request->current_password();
             const auto& new_password = request->new_password();
 
-            const bool success = authenticator_.change_password(
-                username,
-                current_password,
-                new_password
-            );
+            const bool success = authenticator_.change_password(username, current_password, new_password);
             response->set_success(success);
             response->set_message(success ? "Password changed successfully" : "Password change failed");
             return ::grpc::Status::OK;
@@ -174,19 +150,13 @@ namespace server_app
 
     [[nodiscard]] auto AuthRpcService::ResetPassword(::grpc::ServerContext* /*context*/,
                                                      const ::rpc::ResetPasswordRequest* const request,
-                                                     ::rpc::AuthResponse* const response)
-        -> ::grpc::Status
+                                                     ::rpc::AuthResponse* const response) -> ::grpc::Status
     {
         // Validate request parameters using table-driven validation
-        const auto validation_status = ValidateRequest(
-            request,
-            [](const ::rpc::ResetPasswordRequest* req)
-            {
-                return !req->username().empty() && !req->new_password().empty();
-            },
-            "Invalid request: username and new password are required",
-            response
-        );
+        const auto validation_status = ValidateRequest(request, [](const ::rpc::ResetPasswordRequest* req)
+        {
+            return !req->username().empty() && !req->new_password().empty();
+        }, "Invalid request: username and new password are required", response);
 
         if (validation_status)
         {
@@ -198,10 +168,7 @@ namespace server_app
             const auto& username = request->username();
             const auto& new_password = request->new_password();
 
-            const bool success = authenticator_.reset_password(
-                username,
-                new_password
-            );
+            const bool success = authenticator_.reset_password(username, new_password);
             response->set_success(success);
             response->set_message(success ? "Password reset successfully" : "Password reset failed");
             return ::grpc::Status::OK;
@@ -221,19 +188,13 @@ namespace server_app
 
     [[nodiscard]] auto AuthRpcService::DeleteUser(::grpc::ServerContext* /*context*/,
                                                   const ::rpc::DeleteUserRequest* const request,
-                                                  ::rpc::AuthResponse* const response)
-        -> ::grpc::Status
+                                                  ::rpc::AuthResponse* const response) -> ::grpc::Status
     {
         // Validate request parameters using table-driven validation
-        const auto validation_status = ValidateRequest(
-            request,
-            [](const ::rpc::DeleteUserRequest* req)
-            {
-                return !req->username().empty();
-            },
-            "Invalid request: username is required",
-            response
-        );
+        const auto validation_status = ValidateRequest(request, [](const ::rpc::DeleteUserRequest* req)
+        {
+            return !req->username().empty();
+        }, "Invalid request: username is required", response);
 
         if (validation_status)
         {
@@ -259,19 +220,13 @@ namespace server_app
 
     [[nodiscard]] auto AuthRpcService::UserExists(::grpc::ServerContext* /*context*/,
                                                   const ::rpc::UserExistsRequest* const request,
-                                                  ::rpc::AuthResponse* const response)
-        -> ::grpc::Status
+                                                  ::rpc::AuthResponse* const response) -> ::grpc::Status
     {
         // Validate request parameters using table-driven validation
-        const auto validation_status = ValidateRequest(
-            request,
-            [](const ::rpc::UserExistsRequest* req)
-            {
-                return !req->username().empty();
-            },
-            "Invalid request: username is required",
-            response
-        );
+        const auto validation_status = ValidateRequest(request, [](const ::rpc::UserExistsRequest* req)
+        {
+            return !req->username().empty();
+        }, "Invalid request: username is required", response);
 
         if (validation_status)
         {
@@ -296,8 +251,8 @@ namespace server_app
     }
 
     [[nodiscard]] auto AuthRpcService::HandleAuthException(const common::AuthenticationException& e,
-                                                           ::rpc::AuthResponse* const response) noexcept
-        -> ::grpc::Status
+                                                           ::rpc::AuthResponse* const response) noexcept ->
+        ::grpc::Status
     {
         response->set_success(false);
         response->set_message(e.what());

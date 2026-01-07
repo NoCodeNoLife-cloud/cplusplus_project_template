@@ -7,9 +7,7 @@ namespace common
     {
     }
 
-    auto ShortBuffer::wrap(const int16_t* data,
-                           const size_t size)
-        -> ShortBuffer
+    auto ShortBuffer::wrap(const int16_t* data, const size_t size) -> ShortBuffer
     {
         ShortBuffer sb(size);
         if (data != nullptr && size > 0)
@@ -19,8 +17,7 @@ namespace common
         return sb;
     }
 
-    auto ShortBuffer::get()
-        -> int16_t
+    auto ShortBuffer::get() -> int16_t
     {
         if (!hasRemaining())
         {
@@ -29,8 +26,7 @@ namespace common
         return buffer_[position_++];
     }
 
-    auto ShortBuffer::get(const size_t index) const
-        -> int16_t
+    auto ShortBuffer::get(const size_t index) const -> int16_t
     {
         if (index >= limit_)
         {
@@ -39,8 +35,7 @@ namespace common
         return buffer_[index];
     }
 
-    auto ShortBuffer::put(const int16_t value)
-        -> void
+    auto ShortBuffer::put(const int16_t value) -> void
     {
         if (!hasRemaining())
         {
@@ -49,9 +44,7 @@ namespace common
         buffer_[position_++] = value;
     }
 
-    auto ShortBuffer::put(const size_t index,
-                          const int16_t value)
-        -> void
+    auto ShortBuffer::put(const size_t index, const int16_t value) -> void
     {
         if (index >= limit_)
         {
@@ -60,26 +53,22 @@ namespace common
         buffer_[index] = value;
     }
 
-    auto ShortBuffer::hasRemaining() const
-        -> bool
+    auto ShortBuffer::hasRemaining() const -> bool
     {
         return position_ < limit_;
     }
 
-    auto ShortBuffer::remaining() const
-        -> size_t
+    auto ShortBuffer::remaining() const -> size_t
     {
         return limit_ - position_;
     }
 
-    auto ShortBuffer::position() const
-        -> size_t
+    auto ShortBuffer::position() const -> size_t
     {
         return position_;
     }
 
-    auto ShortBuffer::position(const size_t newPosition)
-        -> void
+    auto ShortBuffer::position(const size_t newPosition) -> void
     {
         if (newPosition > limit_)
         {
@@ -88,14 +77,12 @@ namespace common
         position_ = newPosition;
     }
 
-    auto ShortBuffer::limit() const
-        -> size_t
+    auto ShortBuffer::limit() const -> size_t
     {
         return limit_;
     }
 
-    auto ShortBuffer::limit(const size_t newLimit)
-        -> void
+    auto ShortBuffer::limit(const size_t newLimit) -> void
     {
         if (newLimit > capacity_)
         {
@@ -108,40 +95,34 @@ namespace common
         }
     }
 
-    auto ShortBuffer::capacity() const
-        -> size_t
+    auto ShortBuffer::capacity() const -> size_t
     {
         return capacity_;
     }
 
-    auto ShortBuffer::clear()
-        -> void
+    auto ShortBuffer::clear() -> void
     {
         position_ = 0;
         limit_ = capacity_;
     }
 
-    auto ShortBuffer::flip()
-        -> void
+    auto ShortBuffer::flip() -> void
     {
         limit_ = position_;
         position_ = 0;
     }
 
-    auto ShortBuffer::rewind()
-        -> void
+    auto ShortBuffer::rewind() -> void
     {
         position_ = 0;
     }
 
-    auto ShortBuffer::data()
-        -> int16_t*
+    auto ShortBuffer::data() -> int16_t*
     {
         return buffer_.data();
     }
 
-    auto ShortBuffer::data() const
-        -> const int16_t*
+    auto ShortBuffer::data() const -> const int16_t*
     {
         return buffer_.data();
     }

@@ -35,9 +35,7 @@ namespace common
         /// @param params Parameter values for prepared statement
         /// @return Number of affected rows
         /// @throws std::runtime_error if execution fails
-        [[nodiscard]] auto exec(const std::string& sql,
-                                const std::vector<std::string>& params = {}) const
-            -> int;
+        [[nodiscard]] auto exec(const std::string& sql, const std::vector<std::string>& params = {}) const -> int;
 
         /// @brief Executes a query and returns results as a 2D string vector
         /// @param sql SQL query to execute
@@ -45,13 +43,12 @@ namespace common
         /// @return Query results in format [rows][columns]
         /// @throws std::runtime_error if query fails
         [[nodiscard]] auto query(const std::string& sql,
-                                 const std::vector<std::string>& params = {}) const
-            -> std::vector<std::vector<std::string>>;
+                                 const std::vector<std::string>& params = {}) const -> std::vector<std::vector<
+            std::string>>;
 
         /// @brief Check if database is open
         /// @return true if database is open, false otherwise
-        [[nodiscard]] auto isOpen() const
-            -> bool;
+        [[nodiscard]] auto isOpen() const -> bool;
 
     private:
         std::unique_ptr<sqlite3, decltype(&sqlite3_close)> db_;

@@ -17,14 +17,12 @@ namespace common
         /// @param task The task to execute periodically
         /// @param interval The interval between executions
         // ReSharper disable once CppDFATimeOver
-        explicit PeriodicActuator(std::shared_ptr<ITimerTask> task,
-                                  std::chrono::milliseconds interval) noexcept;
+        explicit PeriodicActuator(std::shared_ptr<ITimerTask> task, std::chrono::milliseconds interval) noexcept;
 
         /// @brief Start the periodic actuator to begin executing the task at specified intervals.
         /// @details This function initializes the timer and starts the first execution of the task.
         ///          The task will then be rescheduled automatically based on the configured interval.
-        auto start()
-            -> void;
+        auto start() -> void;
 
     private:
         boost::asio::io_context ioContext_{};
@@ -33,7 +31,6 @@ namespace common
         std::chrono::milliseconds interval_{};
 
         /// @brief Schedule the next execution of the task
-        auto scheduleNext()
-            -> void;
+        auto scheduleNext() -> void;
     };
 }

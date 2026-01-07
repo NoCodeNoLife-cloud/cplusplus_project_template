@@ -19,8 +19,7 @@ namespace fox
         /// The implementing class should populate the returned node with all relevant
         /// data that needs to be serialized.
         /// @return YAML node containing the serialized object data
-        [[nodiscard]] virtual auto encode() const
-            -> YAML::Node = 0;
+        [[nodiscard]] virtual auto encode() const -> YAML::Node = 0;
 
         /// @brief Decode the object from YAML node.
         /// This method deserializes data from a YAML node into the object.
@@ -28,8 +27,7 @@ namespace fox
         /// variables with the corresponding values.
         /// @param node YAML node containing the data to deserialize
         /// @return True if decoding is successful, false otherwise
-        virtual auto decode(const YAML::Node& node)
-            -> bool = 0;
+        virtual auto decode(const YAML::Node& node) -> bool = 0;
     };
 }
 
@@ -55,8 +53,7 @@ struct YAML::convert
     /// @param node YAML node containing the data to decode
     /// @param obj Reference to the object to populate with decoded data
     /// @return True if decoding is successful, false otherwise
-    static bool decode(const Node& node,
-                       T& obj)
+    static bool decode(const Node& node, T& obj)
     {
         return obj.decode(node);
     }

@@ -13,18 +13,14 @@ namespace common
         buf_.reserve(static_cast<size_t>(initialSize));
     }
 
-    auto CharArrayWriter::write(const char c)
-        -> void
+    auto CharArrayWriter::write(const char c) -> void
     {
         ensureCapacity(count_ + 1);
         buf_[count_] = c;
         ++count_;
     }
 
-    auto CharArrayWriter::write(const std::vector<char>& cBuf,
-                                const size_t off,
-                                const size_t len)
-        -> void
+    auto CharArrayWriter::write(const std::vector<char>& cBuf, const size_t off, const size_t len) -> void
     {
         if (len == 0)
         {
@@ -42,16 +38,12 @@ namespace common
         count_ += len;
     }
 
-    auto CharArrayWriter::write(const std::vector<char>& cBuf)
-        -> void
+    auto CharArrayWriter::write(const std::vector<char>& cBuf) -> void
     {
         write(cBuf, 0, cBuf.size());
     }
 
-    auto CharArrayWriter::write(const std::string& str,
-                                const size_t off,
-                                const size_t len)
-        -> void
+    auto CharArrayWriter::write(const std::string& str, const size_t off, const size_t len) -> void
     {
         if (len == 0)
         {
@@ -69,14 +61,12 @@ namespace common
         count_ += len;
     }
 
-    auto CharArrayWriter::write(const std::string& str)
-        -> void
+    auto CharArrayWriter::write(const std::string& str) -> void
     {
         write(str, 0, str.size());
     }
 
-    auto CharArrayWriter::writeTo(AbstractWriter& out) const
-        -> void
+    auto CharArrayWriter::writeTo(AbstractWriter& out) const -> void
     {
         if (count_ > 0)
         {
@@ -84,24 +74,19 @@ namespace common
         }
     }
 
-    auto CharArrayWriter::append(const char c)
-        -> CharArrayWriter&
+    auto CharArrayWriter::append(const char c) -> CharArrayWriter&
     {
         write(c);
         return *this;
     }
 
-    auto CharArrayWriter::append(const std::string& csq)
-        -> CharArrayWriter&
+    auto CharArrayWriter::append(const std::string& csq) -> CharArrayWriter&
     {
         write(csq);
         return *this;
     }
 
-    auto CharArrayWriter::append(const std::string& csq,
-                                 const size_t start,
-                                 const size_t end)
-        -> CharArrayWriter&
+    auto CharArrayWriter::append(const std::string& csq, const size_t start, const size_t end) -> CharArrayWriter&
     {
         if (start <= end && start <= csq.length())
         {
@@ -111,8 +96,7 @@ namespace common
         return *this;
     }
 
-    auto CharArrayWriter::append(const std::string_view str)
-        -> CharArrayWriter&
+    auto CharArrayWriter::append(const std::string_view str) -> CharArrayWriter&
     {
         if (!str.empty())
         {
@@ -121,8 +105,7 @@ namespace common
         return *this;
     }
 
-    auto CharArrayWriter::append(const char* str)
-        -> CharArrayWriter&
+    auto CharArrayWriter::append(const char* str) -> CharArrayWriter&
     {
         if (str)
         {
@@ -131,8 +114,7 @@ namespace common
         return *this;
     }
 
-    auto CharArrayWriter::append(const std::initializer_list<char> chars)
-        -> CharArrayWriter&
+    auto CharArrayWriter::append(const std::initializer_list<char> chars) -> CharArrayWriter&
     {
         if (chars.begin() != chars.end()) // Check if initializer_list is not empty
         {
@@ -142,9 +124,7 @@ namespace common
         return *this;
     }
 
-    auto CharArrayWriter::append(const char* chars,
-                                 const size_t count)
-        -> CharArrayWriter&
+    auto CharArrayWriter::append(const char* chars, const size_t count) -> CharArrayWriter&
     {
         if (chars && count > 0)
         {
@@ -154,9 +134,7 @@ namespace common
         return *this;
     }
 
-    auto CharArrayWriter::append(const char c,
-                                 const size_t count)
-        -> CharArrayWriter&
+    auto CharArrayWriter::append(const char c, const size_t count) -> CharArrayWriter&
     {
         if (count > 0)
         {
@@ -166,51 +144,43 @@ namespace common
         return *this;
     }
 
-    auto CharArrayWriter::reset()
-        -> void
+    auto CharArrayWriter::reset() -> void
     {
         count_ = 0;
     }
 
-    auto CharArrayWriter::toCharArray() const
-        -> std::vector<char>
+    auto CharArrayWriter::toCharArray() const -> std::vector<char>
     {
         return {buf_.begin(), buf_.begin() + static_cast<std::vector<char>::difference_type>(count_)};
     }
 
-    auto CharArrayWriter::size() const
-        -> size_t
+    auto CharArrayWriter::size() const -> size_t
     {
         return count_;
     }
 
-    auto CharArrayWriter::toString() const
-        -> std::string
+    auto CharArrayWriter::toString() const -> std::string
     {
         return {buf_.begin(), buf_.begin() + static_cast<std::vector<char>::difference_type>(count_)};
     }
 
-    auto CharArrayWriter::flush()
-        -> void
+    auto CharArrayWriter::flush() -> void
     {
         // No operation for CharArrayWriter.
     }
 
-    auto CharArrayWriter::close()
-        -> void
+    auto CharArrayWriter::close() -> void
     {
         // No operation for CharArrayWriter.
     }
 
-    auto CharArrayWriter::isClosed() const
-        -> bool
+    auto CharArrayWriter::isClosed() const -> bool
     {
         // CharArrayWriter is never considered closed.
         return false;
     }
 
-    auto CharArrayWriter::ensureCapacity(const size_t minCapacity)
-        -> void
+    auto CharArrayWriter::ensureCapacity(const size_t minCapacity) -> void
     {
         if (minCapacity > buf_.capacity())
         {

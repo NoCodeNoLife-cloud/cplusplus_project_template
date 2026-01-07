@@ -15,8 +15,7 @@ namespace common
     {
     }
 
-    BufferedInputStream::BufferedInputStream(std::unique_ptr<AbstractInputStream> in,
-                                             const size_t size)
+    BufferedInputStream::BufferedInputStream(std::unique_ptr<AbstractInputStream> in, const size_t size)
         : FilterInputStream(std::move(in)), buf_(size)
     {
         if (!input_stream_)
@@ -29,8 +28,7 @@ namespace common
         }
     }
 
-    auto BufferedInputStream::available() const
-        -> size_t
+    auto BufferedInputStream::available() const -> size_t
     {
         return count_ - pos_ + input_stream_->available();
     }
@@ -66,9 +64,7 @@ namespace common
         return buf_[pos_++];
     }
 
-    size_t BufferedInputStream::read(std::vector<std::byte>& buffer,
-                                     const size_t offset,
-                                     const size_t len)
+    size_t BufferedInputStream::read(std::vector<std::byte>& buffer, const size_t offset, const size_t len)
     {
         if (offset > buffer.size() || len > buffer.size() - offset)
         {

@@ -21,30 +21,24 @@ namespace common
         /// @param max The maximum value (inclusive)
         /// @return A random integer in the specified range
         /// @throws std::invalid_argument if min > max
-        auto nextInt(int min,
-                     int max)
-            -> int;
+        auto nextInt(int min, int max) -> int;
 
         /// @brief Generates a random boolean with 50% probability
         /// @return A random boolean value
-        auto nextBool()
-            -> bool;
+        auto nextBool() -> bool;
 
         /// @brief Generates a random boolean with specified probability
         /// @param trueProbability Probability of returning true (must be between 0.0 and 1.0)
         /// @return A random boolean value
         /// @throws std::invalid_argument if trueProbability is not in [0, 1]
-        auto nextBool(double trueProbability)
-            -> bool;
+        auto nextBool(double trueProbability) -> bool;
 
         /// @brief Generates a random floating-point number in the range [min, max)
         /// @param min The minimum value (inclusive)
         /// @param max The maximum value (exclusive)
         /// @return A random double in the specified range
         /// @throws std::invalid_argument if min >= max
-        auto nextDouble(double min,
-                        double max)
-            -> double;
+        auto nextDouble(double min, double max) -> double;
 
         /// @brief Generates a random string of specified length
         /// @param length The length of the string to generate
@@ -52,25 +46,19 @@ namespace common
         /// @return A random string of specified length
         /// @throws std::invalid_argument if charset is empty
         auto nextString(size_t length,
-                        const std::string& charset =
-                            "abcdefghijklmnopqrstuvwxyz"
-                            "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                            "0123456789")
-            -> std::string;
+                        const std::string& charset = "abcdefghijklmnopqrstuvwxyz" "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                            "0123456789") -> std::string;
 
         /// @brief Generates a Gaussian distributed random number
         /// @param mean The mean of the distribution
         /// @param stddev The standard deviation of the distribution (must be positive)
         /// @return A Gaussian distributed random number
         /// @throws std::invalid_argument if stddev is not positive
-        auto nextGaussian(double mean = 0.0,
-                          double stddev = 1.0)
-            -> double;
+        auto nextGaussian(double mean = 0.0, double stddev = 1.0) -> double;
 
         /// @brief Thread-safe: sets a new seed
         /// @param seed The new seed value
-        auto setSeed(unsigned int seed)
-            -> void;
+        auto setSeed(unsigned int seed) -> void;
 
     private:
         std::mt19937 engine_; ///< Mersenne Twister random number engine

@@ -8,8 +8,7 @@
 namespace common
 {
     // ReSharper disable once CppDFAConstantFunctionResult
-    auto UuidGenerator::GenerateRandomUuid() noexcept
-        -> std::string
+    auto UuidGenerator::GenerateRandomUuid() noexcept -> std::string
     {
         static auto generator = boost::uuids::random_generator();
         return boost::uuids::to_string(generator());

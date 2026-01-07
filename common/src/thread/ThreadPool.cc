@@ -13,12 +13,10 @@
 
 namespace common
 {
-    ThreadPool::ThreadPool(const size_t core_threads,
-                           const size_t max_threads,
-                           const size_t queue_size,
+    ThreadPool::ThreadPool(const size_t core_threads, const size_t max_threads, const size_t queue_size,
                            const std::chrono::milliseconds idle_time) noexcept
-        : core_thread_count_(core_threads), max_thread_count_(max_threads),
-          max_queue_size_(queue_size), thread_idle_time_(idle_time)
+        : core_thread_count_(core_threads), max_thread_count_(max_threads), max_queue_size_(queue_size),
+          thread_idle_time_(idle_time)
     {
         for (size_t i = 0; i < core_thread_count_; ++i)
         {
@@ -32,9 +30,7 @@ namespace common
     }
 
     template <class F, class... Args>
-    auto ThreadPool::Submit(F&& f,
-                            Args&&... args)
-        -> std::future<std::invoke_result_t<F, Args...>>
+    auto ThreadPool::Submit(F&& f, Args&&... args) -> std::future<std::invoke_result_t<F, Args...>>
     {
         using return_type = std::invoke_result_t<F, Args...>;
 
@@ -53,8 +49,7 @@ namespace common
         return res;
     }
 
-    auto ThreadPool::Shutdown()
-        -> void
+    auto ThreadPool::Shutdown() -> void
     {
         {
             std::unique_lock lock(queue_mutex_);
@@ -63,13 +58,11 @@ namespace common
         condition_.notify_all();
         for (std::thread& worker : workers_)
         {
-            if (worker.joinable())
-                worker.join();
+            if (worker.joinable()) worker.join();
         }
     }
 
-    auto ThreadPool::ShutdownNow()
-        -> void
+    auto ThreadPool::ShutdownNow() -> void
     {
         {
             std::unique_lock lock(queue_mutex_);
@@ -82,13 +75,11 @@ namespace common
         condition_.notify_all();
         for (std::thread& worker : workers_)
         {
-            if (worker.joinable())
-                worker.join();
+            if (worker.joinable()) worker.join();
         }
     }
 
-    auto ThreadPool::worker()
-        -> void
+    auto ThreadPool::worker() -> void
     {
         while (true)
         {
@@ -96,11 +87,7 @@ namespace common
             {
                 std::unique_lock lock(queue_mutex_);
                 condition_.wait_for(lock, thread_idle_time_, [this] { return stop_ || !task_queue_.empty(); });
-                if (stop_ && task_queue_
-                    .
-                    empty()
-                )
-                    return;
+                if (stop_ && task_queue_.empty()) return;
                 if (task_queue_.empty() && active_thread_count_ > core_thread_count_)
                 {
                     --active_thread_count_;
@@ -119,8 +106,7 @@ namespace common
         }
     }
 
-    auto ThreadPool::addWorker()
-        -> bool
+    auto ThreadPool::addWorker() -> bool
     {
         if (active_thread_count_ >= max_thread_count_)
         {

@@ -13,15 +13,13 @@ namespace common
     {
     }
 
-    auto PeriodicActuator::start()
-        -> void
+    auto PeriodicActuator::start() -> void
     {
         scheduleNext();
         ioContext_.run();
     }
 
-    auto PeriodicActuator::scheduleNext()
-        -> void
+    auto PeriodicActuator::scheduleNext() -> void
     {
         timer_.expires_after(interval_);
         timer_.async_wait([this](const boost::system::error_code& ec)

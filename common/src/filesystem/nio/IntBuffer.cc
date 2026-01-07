@@ -12,41 +12,35 @@ namespace common
         buffer_.resize(capacity);
     }
 
-    auto IntBuffer::clear()
-        -> void
+    auto IntBuffer::clear() -> void
     {
         position_ = 0;
         limit_ = capacity_;
     }
 
-    auto IntBuffer::flip()
-        -> void
+    auto IntBuffer::flip() -> void
     {
         limit_ = position_;
         position_ = 0;
     }
 
-    auto IntBuffer::rewind()
-        -> void
+    auto IntBuffer::rewind() -> void
     {
         position_ = 0;
     }
 
-    auto IntBuffer::compact()
-        -> void
+    auto IntBuffer::compact() -> void
     {
         if (position_ > 0)
         {
             std::move(buffer_.begin() + static_cast<std::ptrdiff_t>(position_),
-                      buffer_.begin() + static_cast<std::ptrdiff_t>(limit_),
-                      buffer_.begin());
+                      buffer_.begin() + static_cast<std::ptrdiff_t>(limit_), buffer_.begin());
             limit_ -= position_;
             position_ = 0;
         }
     }
 
-    auto IntBuffer::get()
-        -> int32_t
+    auto IntBuffer::get() -> int32_t
     {
         if (!hasRemaining())
         {
@@ -55,8 +49,7 @@ namespace common
         return buffer_[position_++];
     }
 
-    auto IntBuffer::get(const size_t index) const
-        -> int32_t
+    auto IntBuffer::get(const size_t index) const -> int32_t
     {
         if (index >= limit_)
         {
@@ -65,8 +58,7 @@ namespace common
         return buffer_[index];
     }
 
-    auto IntBuffer::put(const int32_t value)
-        -> void
+    auto IntBuffer::put(const int32_t value) -> void
     {
         if (!hasRemaining())
         {
@@ -75,9 +67,7 @@ namespace common
         buffer_[position_++] = value;
     }
 
-    auto IntBuffer::put(const size_t index,
-                        const int32_t value)
-        -> void
+    auto IntBuffer::put(const size_t index, const int32_t value) -> void
     {
         if (index >= limit_)
         {
@@ -86,8 +76,7 @@ namespace common
         buffer_[index] = value;
     }
 
-    auto IntBuffer::getRemaining() const
-        -> std::vector<int32_t>
+    auto IntBuffer::getRemaining() const -> std::vector<int32_t>
     {
         if (position_ >= limit_)
         {
@@ -99,14 +88,12 @@ namespace common
         };
     }
 
-    auto IntBuffer::position() const
-        -> size_t
+    auto IntBuffer::position() const -> size_t
     {
         return position_;
     }
 
-    auto IntBuffer::position(const size_t newPosition)
-        -> void
+    auto IntBuffer::position(const size_t newPosition) -> void
     {
         if (newPosition > limit_)
         {
@@ -115,14 +102,12 @@ namespace common
         position_ = newPosition;
     }
 
-    auto IntBuffer::limit() const
-        -> size_t
+    auto IntBuffer::limit() const -> size_t
     {
         return limit_;
     }
 
-    auto IntBuffer::limit(const size_t newLimit)
-        -> void
+    auto IntBuffer::limit(const size_t newLimit) -> void
     {
         if (newLimit > capacity_)
         {
@@ -135,20 +120,17 @@ namespace common
         limit_ = newLimit;
     }
 
-    auto IntBuffer::capacity() const
-        -> size_t
+    auto IntBuffer::capacity() const -> size_t
     {
         return capacity_;
     }
 
-    auto IntBuffer::hasRemaining() const
-        -> bool
+    auto IntBuffer::hasRemaining() const -> bool
     {
         return position_ < limit_;
     }
 
-    auto IntBuffer::remaining() const
-        -> size_t
+    auto IntBuffer::remaining() const -> size_t
     {
         return limit_ - position_;
     }

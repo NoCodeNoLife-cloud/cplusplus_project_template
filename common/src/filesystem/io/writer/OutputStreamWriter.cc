@@ -2,8 +2,7 @@
 
 namespace common
 {
-    OutputStreamWriter::OutputStreamWriter(std::unique_ptr<AbstractWriter> outputStream,
-                                           const std::string& charsetName)
+    OutputStreamWriter::OutputStreamWriter(std::unique_ptr<AbstractWriter> outputStream, const std::string& charsetName)
         : output_writer_(std::move(outputStream)), charset_(charsetName), closed_(false)
     {
         if (charsetName != "UTF-8")
@@ -13,28 +12,24 @@ namespace common
     }
 
     OutputStreamWriter::OutputStreamWriter(std::unique_ptr<AbstractWriter> outputStream)
-        : OutputStreamWriter(
-            std::move(outputStream), "UTF-8")
+        : OutputStreamWriter(std::move(outputStream), "UTF-8")
     {
     }
 
     OutputStreamWriter::~OutputStreamWriter() = default;
 
-    auto OutputStreamWriter::getEncoding() const
-        -> std::string
+    auto OutputStreamWriter::getEncoding() const -> std::string
     {
         return closed_ ? "" : charset_;
     }
 
-    auto OutputStreamWriter::write(const char c)
-        -> void
+    auto OutputStreamWriter::write(const char c) -> void
     {
         checkIfClosed();
         write(std::string(1, c));
     }
 
-    auto OutputStreamWriter::write(const std::vector<char>& cBuf)
-        -> void
+    auto OutputStreamWriter::write(const std::vector<char>& cBuf) -> void
     {
         if (!cBuf.empty())
         {
@@ -42,10 +37,7 @@ namespace common
         }
     }
 
-    auto OutputStreamWriter::write(const std::vector<char>& cBuf,
-                                   const size_t off,
-                                   const size_t len)
-        -> void
+    auto OutputStreamWriter::write(const std::vector<char>& cBuf, const size_t off, const size_t len) -> void
     {
         if (len == 0)
         {
@@ -61,8 +53,7 @@ namespace common
         checkOutputStream();
     }
 
-    auto OutputStreamWriter::write(const std::string& str)
-        -> void
+    auto OutputStreamWriter::write(const std::string& str) -> void
     {
         if (!str.empty())
         {
@@ -70,10 +61,7 @@ namespace common
         }
     }
 
-    auto OutputStreamWriter::write(const std::string& str,
-                                   const size_t off,
-                                   const size_t len)
-        -> void
+    auto OutputStreamWriter::write(const std::string& str, const size_t off, const size_t len) -> void
     {
         if (len == 0)
         {
@@ -88,16 +76,14 @@ namespace common
                           str.begin() + static_cast<std::string::difference_type>(off + len)));
     }
 
-    auto OutputStreamWriter::flush()
-        -> void
+    auto OutputStreamWriter::flush() -> void
     {
         checkIfClosed();
         output_writer_->flush();
         checkOutputStream();
     }
 
-    auto OutputStreamWriter::close()
-        -> void
+    auto OutputStreamWriter::close() -> void
     {
         if (closed_)
         {
@@ -107,30 +93,24 @@ namespace common
         closed_ = true;
     }
 
-    auto OutputStreamWriter::isClosed() const
-        -> bool
+    auto OutputStreamWriter::isClosed() const -> bool
     {
         return closed_;
     }
 
-    auto OutputStreamWriter::append(const char c)
-        -> AbstractWriter&
+    auto OutputStreamWriter::append(const char c) -> AbstractWriter&
     {
         write(c);
         return *this;
     }
 
-    auto OutputStreamWriter::append(const std::string& csq)
-        -> AbstractWriter&
+    auto OutputStreamWriter::append(const std::string& csq) -> AbstractWriter&
     {
         write(csq);
         return *this;
     }
 
-    auto OutputStreamWriter::append(const std::string& csq,
-                                    const size_t start,
-                                    const size_t end)
-        -> AbstractWriter&
+    auto OutputStreamWriter::append(const std::string& csq, const size_t start, const size_t end) -> AbstractWriter&
     {
         if (start <= end && start <= csq.length())
         {
@@ -140,15 +120,13 @@ namespace common
         return *this;
     }
 
-    auto OutputStreamWriter::toString() const
-        -> std::string
+    auto OutputStreamWriter::toString() const -> std::string
     {
         checkIfClosed();
         return output_writer_->toString();
     }
 
-    auto OutputStreamWriter::checkIfClosed() const
-        -> void
+    auto OutputStreamWriter::checkIfClosed() const -> void
     {
         if (closed_)
         {
@@ -156,8 +134,7 @@ namespace common
         }
     }
 
-    auto OutputStreamWriter::checkOutputStream() const
-        -> void
+    auto OutputStreamWriter::checkOutputStream() const -> void
     {
         if (!output_writer_)
         {

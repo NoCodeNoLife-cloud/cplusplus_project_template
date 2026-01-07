@@ -26,12 +26,10 @@ namespace client_app
         AuthRpcClient(AuthRpcClient&&) noexcept = default;
 
         /// @brief Copy assignment operator deleted to prevent unintended resource duplication
-        auto operator=(const AuthRpcClient&)
-            -> AuthRpcClient& = delete;
+        auto operator=(const AuthRpcClient&) -> AuthRpcClient& = delete;
 
         /// @brief Move assignment operator with noexcept guarantee
-        auto operator=(AuthRpcClient&&) noexcept
-            -> AuthRpcClient& = default;
+        auto operator=(AuthRpcClient&&) noexcept -> AuthRpcClient& = default;
 
         /// @brief Virtual destructor with default implementation for proper polymorphic cleanup
         virtual ~AuthRpcClient() noexcept = default;
@@ -41,46 +39,39 @@ namespace client_app
         /// @param[in] password The password for the user
         /// @return rpc::AuthResponse containing operation result
         [[nodiscard]] auto RegisterUser(const std::string& username,
-                                        const std::string& password) const noexcept
-            -> rpc::AuthResponse;
+                                        const std::string& password) const noexcept -> rpc::AuthResponse;
 
         /// @brief Authenticate a user with username and password
         /// @param[in] username The username to authenticate
         /// @param[in] password The password for the user
         /// @return rpc::AuthResponse containing operation result
         [[nodiscard]] auto AuthenticateUser(const std::string& username,
-                                            const std::string& password) const noexcept
-            -> rpc::AuthResponse;
+                                            const std::string& password) const noexcept -> rpc::AuthResponse;
 
         /// @brief Check if a user exists
         /// @param[in] username The username to check
         /// @return rpc::AuthResponse containing operation result
-        [[nodiscard]] auto UserExists(const std::string& username) const noexcept
-            -> rpc::AuthResponse;
+        [[nodiscard]] auto UserExists(const std::string& username) const noexcept -> rpc::AuthResponse;
 
         /// @brief Change password for an authenticated user
         /// @param[in] username The username whose password to change
         /// @param[in] current_password The current password
         /// @param[in] new_password The new password to set
         /// @return rpc::AuthResponse containing operation result
-        [[nodiscard]] auto ChangePassword(const std::string& username,
-                                          const std::string& current_password,
-                                          const std::string& new_password) const noexcept
-            -> rpc::AuthResponse;
+        [[nodiscard]] auto ChangePassword(const std::string& username, const std::string& current_password,
+                                          const std::string& new_password) const noexcept -> rpc::AuthResponse;
 
         /// @brief Reset password for a user (admin function)
         /// @param[in] username The username whose password to reset
         /// @param[in] new_password The new password to set
         /// @return rpc::AuthResponse containing operation result
         [[nodiscard]] auto ResetPassword(const std::string& username,
-                                         const std::string& new_password) const noexcept
-            -> rpc::AuthResponse;
+                                         const std::string& new_password) const noexcept -> rpc::AuthResponse;
 
         /// @brief Delete a user
         /// @param[in] username The username to delete
         /// @return rpc::AuthResponse containing operation result
-        [[nodiscard]] auto DeleteUser(const std::string& username) const noexcept
-            -> rpc::AuthResponse;
+        [[nodiscard]] auto DeleteUser(const std::string& username) const noexcept -> rpc::AuthResponse;
 
     private:
         /// @brief Execute RPC call with error handling and logging
@@ -91,12 +82,11 @@ namespace client_app
         /// @param[in] rpc_call Function that performs the actual RPC call
         /// @return rpc::AuthResponse containing operation result
         template <typename RequestType, typename ResponseType>
-        [[nodiscard]] auto ExecuteRpcCall(const std::string& operation_name,
-                                          const RequestType& request,
+        [[nodiscard]] auto ExecuteRpcCall(const std::string& operation_name, const RequestType& request,
                                           const std::function<grpc::Status(grpc::ClientContext*,
                                                                            const RequestType&,
-                                                                           ResponseType*)>& rpc_call) const noexcept
-            -> ResponseType;
+                                                                           ResponseType*)>& rpc_call) const noexcept ->
+            ResponseType;
 
         /// @brief gRPC stub for making RPC calls
         std::unique_ptr<rpc::AuthService::Stub> stub_;

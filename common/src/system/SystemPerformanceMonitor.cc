@@ -8,8 +8,7 @@
 
 namespace common
 {
-    auto SystemPerformanceMonitor::GetMemoryUsage() noexcept
-        -> MemoryUsage
+    auto SystemPerformanceMonitor::GetMemoryUsage() noexcept -> MemoryUsage
     {
         MemoryUsage memUsage{};
         MEMORYSTATUSEX memInfo;
@@ -18,13 +17,12 @@ namespace common
         memUsage.total_memory = memInfo.ullTotalPhys;
         memUsage.available_memory = memInfo.ullAvailPhys;
         memUsage.used_memory = memUsage.total_memory - memUsage.available_memory;
-        memUsage.memory_usage_percent =
-            static_cast<double>(memUsage.used_memory) / static_cast<double>(memUsage.total_memory) * 100.0;
+        memUsage.memory_usage_percent = static_cast<double>(memUsage.used_memory) / static_cast<double>(memUsage.
+            total_memory) * 100.0;
         return memUsage;
     }
 
-    auto SystemPerformanceMonitor::GetCpuUsage(const int32_t interval) noexcept
-        -> CpuUsage
+    auto SystemPerformanceMonitor::GetCpuUsage(const int32_t interval) noexcept -> CpuUsage
     {
         CpuUsage cpuUsage{};
         FILETIME idleTime1, kernelTime1, userTime1;

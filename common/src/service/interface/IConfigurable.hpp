@@ -12,8 +12,7 @@ namespace service
 
         /// @brief Public interface for configuring the service.
         /// @return true if configuration is successful, false otherwise.
-        [[nodiscard]] auto config()
-            -> bool
+        [[nodiscard]] auto config() -> bool
         {
             return doConfig();
         }
@@ -21,7 +20,6 @@ namespace service
     protected:
         /// @brief Configure the service.
         /// @return true if configuration is successful, false otherwise.
-        [[nodiscard]] virtual auto doConfig()
-            -> bool = 0;
+        [[nodiscard]] virtual auto doConfig() -> bool = 0;
     };
 } // namespace service

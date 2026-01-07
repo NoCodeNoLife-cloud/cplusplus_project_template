@@ -22,22 +22,17 @@ namespace common
         /// @param to Destination node
         /// @param weight Edge weight
         /// @throws std::out_of_range If node indices are out of valid range
-        auto addEdge(int32_t from,
-                     int32_t to,
-                     int32_t weight)
-            -> void;
+        auto addEdge(int32_t from, int32_t to, int32_t weight) -> void;
 
         /// @brief Get adjacency list of a node
         /// @param node Node index
         /// @return Reference to adjacency list
         /// @throws std::out_of_range If node index is out of valid range
-        [[nodiscard]] auto getAdjList(int32_t node) const
-            -> const std::vector<Edge>&;
+        [[nodiscard]] auto getAdjList(int32_t node) const -> const std::vector<Edge>&;
 
         /// @brief Get number of nodes
         /// @return Number of nodes
-        [[nodiscard]] auto getNodeCount() const noexcept
-            -> int32_t;
+        [[nodiscard]] auto getNodeCount() const noexcept -> int32_t;
 
     private:
         int32_t num_nodes_{0};

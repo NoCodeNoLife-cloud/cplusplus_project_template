@@ -17,28 +17,21 @@ namespace common
         }
     }
 
-    auto CsvFile::getRowCount() const noexcept
-        -> uint64_t
+    auto CsvFile::getRowCount() const noexcept -> uint64_t
     {
-        if (!is_valid_)
-            return 0;
+        if (!is_valid_) return 0;
         return csv_doc_.GetRowCount();
     }
 
-    auto CsvFile::getColumnCount() const noexcept
-        -> uint64_t
+    auto CsvFile::getColumnCount() const noexcept -> uint64_t
     {
-        if (!is_valid_)
-            return 0;
+        if (!is_valid_) return 0;
         return csv_doc_.GetColumnCount();
     }
 
-    auto CsvFile::insertRow(const uint64_t insertIndex,
-                            const std::vector<std::string>& item) noexcept
-        -> bool
+    auto CsvFile::insertRow(const uint64_t insertIndex, const std::vector<std::string>& item) noexcept -> bool
     {
-        if (!is_valid_)
-            return false;
+        if (!is_valid_) return false;
         if (insertIndex > getRowCount())
         {
             std::cerr << "Invalid insert index: " << insertIndex << std::endl;
@@ -46,8 +39,8 @@ namespace common
         }
         if (getColumnCount() != 0 && item.size() != getColumnCount())
         {
-            std::cerr << "Column count mismatch. Expected: " << getColumnCount() << ", Got: " << item.size()
-                << std::endl;
+            std::cerr << "Column count mismatch. Expected: " << getColumnCount() << ", Got: " << item.size() <<
+                std::endl;
             return false;
         }
         try
@@ -62,17 +55,14 @@ namespace common
         }
     }
 
-    auto CsvFile::pushBack(const std::vector<std::string>& item) noexcept
-        -> bool
+    auto CsvFile::pushBack(const std::vector<std::string>& item) noexcept -> bool
     {
         return insertRow(getRowCount(), item);
     }
 
-    auto CsvFile::save(const std::string& path) noexcept
-        -> bool
+    auto CsvFile::save(const std::string& path) noexcept -> bool
     {
-        if (!is_valid_)
-            return false;
+        if (!is_valid_) return false;
         try
         {
             if (path.empty())

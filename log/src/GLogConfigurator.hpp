@@ -25,39 +25,32 @@ namespace glog
         GLogConfigurator(const GLogConfigurator&) = delete;
 
         /// @brief Copy assignment operator is deleted to prevent copying
-        auto operator=(const GLogConfigurator&)
-            -> GLogConfigurator& = delete;
+        auto operator=(const GLogConfigurator&) -> GLogConfigurator& = delete;
 
         /// @brief Move constructor
         GLogConfigurator(GLogConfigurator&&) noexcept = default;
 
         /// @brief Move assignment operator
-        auto operator=(GLogConfigurator&&) noexcept
-            -> GLogConfigurator& = default;
+        auto operator=(GLogConfigurator&&) noexcept -> GLogConfigurator& = default;
 
         /// @brief Execute the configuration process
         /// @return True if configuration was successful
-        auto execute() const
-            -> void;
+        auto execute() const -> void;
 
         /// @brief Get the current configuration parameters
         /// @return A const reference to the GLogParameters object
-        [[nodiscard]] auto getConfig() const noexcept
-            -> const GLogParameters&;
+        [[nodiscard]] auto getConfig() const noexcept -> const GLogParameters&;
 
         /// @brief Update the configuration parameters
         /// @param config The new configuration parameters
-        auto updateConfig(const GLogParameters& config) noexcept
-            -> void;
+        auto updateConfig(const GLogParameters& config) noexcept -> void;
 
     private:
         /// @brief Perform the actual glog configuration
-        static auto doConfig(const GLogParameters& config) noexcept
-            -> void;
+        static auto doConfig(const GLogParameters& config) noexcept -> void;
 
         /// @brief Clean up glog resources
-        static auto clean() noexcept
-            -> void;
+        static auto clean() noexcept -> void;
 
         std::string glog_yaml_path_;
         GLogParameters config_;

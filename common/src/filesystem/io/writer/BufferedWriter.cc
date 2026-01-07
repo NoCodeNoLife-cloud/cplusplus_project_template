@@ -4,8 +4,7 @@
 
 namespace common
 {
-    BufferedWriter::BufferedWriter(std::unique_ptr<std::ofstream> os,
-                                   const size_t size)
+    BufferedWriter::BufferedWriter(std::unique_ptr<std::ofstream> os, const size_t size)
         : output_stream_(std::move(os)), buffer_size_(size)
     {
         if (!output_stream_)
@@ -31,8 +30,7 @@ namespace common
         }
     }
 
-    auto BufferedWriter::write(const std::string& str)
-        -> void
+    auto BufferedWriter::write(const std::string& str) -> void
     {
         if (str.size() > buffer_size_)
         {
@@ -49,10 +47,7 @@ namespace common
         }
     }
 
-    auto BufferedWriter::write(const std::vector<char>& cBuf,
-                               const size_t off,
-                               const size_t len)
-        -> void
+    auto BufferedWriter::write(const std::vector<char>& cBuf, const size_t off, const size_t len) -> void
     {
         if (len == 0)
         {
@@ -79,8 +74,7 @@ namespace common
         }
     }
 
-    auto BufferedWriter::flush()
-        -> void
+    auto BufferedWriter::flush() -> void
     {
         if (!buffer_.empty())
         {
@@ -90,8 +84,7 @@ namespace common
         output_stream_->flush();
     }
 
-    auto BufferedWriter::close()
-        -> void
+    auto BufferedWriter::close() -> void
     {
         if (output_stream_ && output_stream_->is_open())
         {
@@ -100,16 +93,14 @@ namespace common
         }
     }
 
-    auto BufferedWriter::append(const char c)
-        -> BufferedWriter&
+    auto BufferedWriter::append(const char c) -> BufferedWriter&
     {
         buffer_.push_back(c);
         checkAndFlush();
         return *this;
     }
 
-    auto BufferedWriter::append(const std::string& str)
-        -> BufferedWriter&
+    auto BufferedWriter::append(const std::string& str) -> BufferedWriter&
     {
         for (const char c : str)
         {
@@ -119,10 +110,7 @@ namespace common
         return *this;
     }
 
-    auto BufferedWriter::append(const std::string& str,
-                                const size_t start,
-                                const size_t end)
-        -> BufferedWriter&
+    auto BufferedWriter::append(const std::string& str, const size_t start, const size_t end) -> BufferedWriter&
     {
         if (start < str.length() && end <= str.length() && start < end)
         {
@@ -135,8 +123,7 @@ namespace common
         return *this;
     }
 
-    auto BufferedWriter::append(const std::string_view str)
-        -> BufferedWriter&
+    auto BufferedWriter::append(const std::string_view str) -> BufferedWriter&
     {
         for (const char c : str)
         {
@@ -146,8 +133,7 @@ namespace common
         return *this;
     }
 
-    auto BufferedWriter::append(const char* str)
-        -> BufferedWriter&
+    auto BufferedWriter::append(const char* str) -> BufferedWriter&
     {
         if (str)
         {
@@ -160,8 +146,7 @@ namespace common
         return *this;
     }
 
-    auto BufferedWriter::append(const std::initializer_list<char> chars)
-        -> BufferedWriter&
+    auto BufferedWriter::append(const std::initializer_list<char> chars) -> BufferedWriter&
     {
         for (const char c : chars)
         {
@@ -171,9 +156,7 @@ namespace common
         return *this;
     }
 
-    auto BufferedWriter::append(const char* chars,
-                                const size_t count)
-        -> BufferedWriter&
+    auto BufferedWriter::append(const char* chars, const size_t count) -> BufferedWriter&
     {
         if (chars)
         {
@@ -186,9 +169,7 @@ namespace common
         return *this;
     }
 
-    auto BufferedWriter::append(const char c,
-                                const size_t count)
-        -> BufferedWriter&
+    auto BufferedWriter::append(const char c, const size_t count) -> BufferedWriter&
     {
         for (size_t i = 0; i < count; ++i)
         {
@@ -198,26 +179,22 @@ namespace common
         return *this;
     }
 
-    auto BufferedWriter::newLine()
-        -> BufferedWriter&
+    auto BufferedWriter::newLine() -> BufferedWriter&
     {
         return append('\n');
     }
 
-    auto BufferedWriter::toString() const
-        -> std::string
+    auto BufferedWriter::toString() const -> std::string
     {
         return {buffer_.begin(), buffer_.end()};
     }
 
-    auto BufferedWriter::isClosed() const noexcept
-        -> bool
+    auto BufferedWriter::isClosed() const noexcept -> bool
     {
         return output_stream_ == nullptr || !output_stream_->is_open();
     }
 
-    auto BufferedWriter::checkAndFlush()
-        -> void
+    auto BufferedWriter::checkAndFlush() -> void
     {
         if (buffer_.size() >= buffer_size_)
         {

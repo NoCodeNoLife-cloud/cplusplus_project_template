@@ -13,24 +13,21 @@ namespace common
 
     template <typename T, typename Compare>
     template <typename Iterator>
-    Heap<T, Compare>::Heap(Iterator begin,
-                           Iterator end)
+    Heap<T, Compare>::Heap(Iterator begin, Iterator end)
         : data_(begin, end)
     {
         heapify();
     }
 
     template <typename T, typename Compare>
-    auto Heap<T, Compare>::push(const T& value)
-        -> void
+    auto Heap<T, Compare>::push(const T& value) -> void
     {
         data_.push_back(value);
         heapify_up(data_.size() - 1);
     }
 
     template <typename T, typename Compare>
-    auto Heap<T, Compare>::push(T&& value)
-        -> void
+    auto Heap<T, Compare>::push(T&& value) -> void
     {
         data_.push_back(std::move(value));
         heapify_up(data_.size() - 1);
@@ -38,16 +35,14 @@ namespace common
 
     template <typename T, typename Compare>
     template <typename... Args>
-    auto Heap<T, Compare>::emplace(Args&&... args)
-        -> void
+    auto Heap<T, Compare>::emplace(Args&&... args) -> void
     {
         data_.emplace_back(std::forward<Args>(args)...);
         heapify_up(data_.size() - 1);
     }
 
     template <typename T, typename Compare>
-    auto Heap<T, Compare>::pop()
-        -> void
+    auto Heap<T, Compare>::pop() -> void
     {
         if (data_.empty())
         {
@@ -62,8 +57,7 @@ namespace common
     }
 
     template <typename T, typename Compare>
-    auto Heap<T, Compare>::top() const
-        -> const T&
+    auto Heap<T, Compare>::top() const -> const T&
     {
         if (data_.empty())
         {
@@ -73,8 +67,7 @@ namespace common
     }
 
     template <typename T, typename Compare>
-    auto Heap<T, Compare>::top()
-        -> T&
+    auto Heap<T, Compare>::top() -> T&
     {
         if (data_.empty())
         {
@@ -84,22 +77,19 @@ namespace common
     }
 
     template <typename T, typename Compare>
-    auto Heap<T, Compare>::size() const noexcept
-        -> size_t
+    auto Heap<T, Compare>::size() const noexcept -> size_t
     {
         return data_.size();
     }
 
     template <typename T, typename Compare>
-    auto Heap<T, Compare>::empty() const noexcept
-        -> bool
+    auto Heap<T, Compare>::empty() const noexcept -> bool
     {
         return data_.empty();
     }
 
     template <typename T, typename Compare>
-    auto Heap<T, Compare>::heapify()
-        -> void
+    auto Heap<T, Compare>::heapify() -> void
     {
         for (std::int32_t i = static_cast<std::int32_t>(data_.size()) / 2 - 1; i >= 0; --i)
         {
@@ -108,8 +98,7 @@ namespace common
     }
 
     template <typename T, typename Compare>
-    auto Heap<T, Compare>::heapify_up(size_t index)
-        -> void
+    auto Heap<T, Compare>::heapify_up(size_t index) -> void
     {
         while (index > 0)
         {
@@ -124,8 +113,7 @@ namespace common
     }
 
     template <typename T, typename Compare>
-    auto Heap<T, Compare>::heapify_down(size_t index)
-        -> void
+    auto Heap<T, Compare>::heapify_down(size_t index) -> void
     {
         const size_t size = data_.size();
         while (true)

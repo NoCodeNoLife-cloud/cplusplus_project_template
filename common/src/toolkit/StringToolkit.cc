@@ -5,9 +5,7 @@
 
 namespace common
 {
-    auto StringToolkit::split(const std::string& target,
-                              const char split_char) noexcept
-        -> std::vector<std::string>
+    auto StringToolkit::split(const std::string& target, const char split_char) noexcept -> std::vector<std::string>
     {
         std::vector<std::string> result;
         size_t start = 0;
@@ -23,11 +21,9 @@ namespace common
     }
 
     auto StringToolkit::concatenate(const std::vector<std::string>& source,
-                                    const char split_char) noexcept
-        -> std::string
+                                    const char split_char) noexcept -> std::string
     {
-        if (source.empty())
-            return "";
+        if (source.empty()) return "";
         std::string result = source[0];
         for (size_t i = 1; i < source.size(); ++i)
         {

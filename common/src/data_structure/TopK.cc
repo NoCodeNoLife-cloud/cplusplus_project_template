@@ -7,8 +7,7 @@ namespace common
     {
     }
 
-    auto TopK::add(const int32_t num)
-        -> void
+    auto TopK::add(const int32_t num) -> void
     {
         if (minHeap.size() < k)
         {
@@ -21,8 +20,7 @@ namespace common
         }
     }
 
-    auto TopK::getTopK()
-        -> std::vector<int32_t>
+    auto TopK::getTopK() -> std::vector<int32_t>
     {
         std::vector<int32_t> result;
         while (!minHeap.empty())

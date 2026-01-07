@@ -8,19 +8,16 @@ namespace common
     {
     }
 
-    auto FunctionProfilerAspect::onEntry()
-        -> void
+    auto FunctionProfilerAspect::onEntry() -> void
     {
     }
 
-    auto FunctionProfilerAspect::onExit()
-        -> void
+    auto FunctionProfilerAspect::onExit() -> void
     {
         profiler_.recordEnd(true);
     }
 
-    auto FunctionProfilerAspect::onException(std::exception_ptr e)
-        -> void
+    auto FunctionProfilerAspect::onException(std::exception_ptr e) -> void
     {
         profiler_.recordEnd(true);
     }

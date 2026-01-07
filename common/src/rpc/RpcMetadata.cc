@@ -2,8 +2,7 @@
 
 namespace common
 {
-    auto RpcMetadata::grpcStateToString(const grpc_connectivity_state state)
-        -> std::string
+    auto RpcMetadata::grpcStateToString(const grpc_connectivity_state state) -> std::string
     {
         switch (state)
         {

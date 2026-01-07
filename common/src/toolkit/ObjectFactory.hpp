@@ -20,31 +20,22 @@ namespace common
         /// @param type_name The name to register the type under.
         /// @param args The arguments to forward to the constructor of V.
         template <typename V, typename... Args>
-        static auto registerType(const std::string& type_name,
-                                 Args&&... args)
-            -> void;
+        static auto registerType(const std::string& type_name, Args&&... args) -> void;
 
         /// @brief Creates an object of the specified type.
         /// @param type_name The name of the type to create.
         /// @return A unique pointer to the created object.
         /// @throws std::runtime_error If the type name is not registered.
-        [[nodiscard]] static auto createObject(const std::string& type_name)
-            -> std::unique_ptr<T>;
+        [[nodiscard]] static auto createObject(const std::string& type_name) -> std::unique_ptr<T>;
 
         /// @brief Executes the startup task.
         /// @return True if successful, false otherwise.
-        [[nodiscard]] auto execute() noexcept
-            -> bool override;
+        [[nodiscard]] auto execute() noexcept -> bool override;
 
     private:
         /// @brief Registers all types with the factory.
-        virtual auto registerAll()
-            -> void = 0;
+        virtual auto registerAll() -> void = 0;
 
-        static std::unordered_map<std::string, std::function<std::unique_ptr<T>()>
-        >
-        registry_
-        {
-        };
+        static std::unordered_map<std::string, std::function<std::unique_ptr<T>()>> registry_{};
     };
 }

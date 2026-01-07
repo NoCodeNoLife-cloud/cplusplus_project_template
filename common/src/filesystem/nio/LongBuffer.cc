@@ -8,8 +8,7 @@ namespace common
         buffer_.resize(capacity);
     }
 
-    auto LongBuffer::get()
-        -> int64_t
+    auto LongBuffer::get() -> int64_t
     {
         if (!hasRemaining())
         {
@@ -18,8 +17,7 @@ namespace common
         return buffer_[position_++];
     }
 
-    auto LongBuffer::put(const int64_t value)
-        -> void
+    auto LongBuffer::put(const int64_t value) -> void
     {
         if (!hasRemaining())
         {
@@ -28,26 +26,22 @@ namespace common
         buffer_[position_++] = value;
     }
 
-    auto LongBuffer::hasRemaining() const
-        -> bool
+    auto LongBuffer::hasRemaining() const -> bool
     {
         return position_ < limit_;
     }
 
-    auto LongBuffer::remaining() const
-        -> std::size_t
+    auto LongBuffer::remaining() const -> std::size_t
     {
         return limit_ - position_;
     }
 
-    auto LongBuffer::position() const
-        -> std::size_t
+    auto LongBuffer::position() const -> std::size_t
     {
         return position_;
     }
 
-    auto LongBuffer::position(const std::size_t newPosition)
-        -> void
+    auto LongBuffer::position(const std::size_t newPosition) -> void
     {
         if (newPosition > limit_)
         {
@@ -56,14 +50,12 @@ namespace common
         position_ = newPosition;
     }
 
-    auto LongBuffer::limit() const
-        -> std::size_t
+    auto LongBuffer::limit() const -> std::size_t
     {
         return limit_;
     }
 
-    auto LongBuffer::limit(const std::size_t newLimit)
-        -> void
+    auto LongBuffer::limit(const std::size_t newLimit) -> void
     {
         if (newLimit > capacity_)
         {
@@ -76,28 +68,24 @@ namespace common
         }
     }
 
-    auto LongBuffer::capacity() const
-        -> std::size_t
+    auto LongBuffer::capacity() const -> std::size_t
     {
         return capacity_;
     }
 
-    auto LongBuffer::clear()
-        -> void
+    auto LongBuffer::clear() -> void
     {
         position_ = 0;
         limit_ = capacity_;
     }
 
-    auto LongBuffer::flip()
-        -> void
+    auto LongBuffer::flip() -> void
     {
         limit_ = position_;
         position_ = 0;
     }
 
-    auto LongBuffer::rewind()
-        -> void
+    auto LongBuffer::rewind() -> void
     {
         position_ = 0;
     }

@@ -11,8 +11,7 @@ namespace common
         }
     }
 
-    InputStreamReader::InputStreamReader(std::shared_ptr<AbstractReader> input,
-                                         const std::string& charsetName)
+    InputStreamReader::InputStreamReader(std::shared_ptr<AbstractReader> input, const std::string& charsetName)
         : reader_(std::move(input))
     {
         if (!reader_)
@@ -106,10 +105,7 @@ namespace common
         }
     }
 
-    auto InputStreamReader::read(std::vector<char>& cBuf,
-                                 const size_t off,
-                                 const size_t len)
-        -> int
+    auto InputStreamReader::read(std::vector<char>& cBuf, const size_t off, const size_t len) -> int
     {
         if (closed_ || !reader_)
         {
@@ -143,8 +139,7 @@ namespace common
         return static_cast<int>(totalCharsRead);
     }
 
-    auto InputStreamReader::ready() const
-        -> bool
+    auto InputStreamReader::ready() const -> bool
     {
         if (closed_ || !reader_)
         {
@@ -153,8 +148,7 @@ namespace common
         return reader_->ready();
     }
 
-    auto InputStreamReader::close()
-        -> void
+    auto InputStreamReader::close() -> void
     {
         closed_ = true;
         if (reader_)
@@ -163,27 +157,23 @@ namespace common
         }
     }
 
-    auto InputStreamReader::markSupported() const
-        -> bool
+    auto InputStreamReader::markSupported() const -> bool
     {
         return false;
     }
 
-    auto InputStreamReader::mark(const size_t readAheadLimit)
-        -> void
+    auto InputStreamReader::mark(const size_t readAheadLimit) -> void
     {
         static_cast<void>(readAheadLimit); // Unused parameter
         throw std::runtime_error("Mark not supported");
     }
 
-    auto InputStreamReader::reset()
-        -> void
+    auto InputStreamReader::reset() -> void
     {
         throw std::runtime_error("Reset not supported");
     }
 
-    auto InputStreamReader::isClosed() const
-        -> bool
+    auto InputStreamReader::isClosed() const -> bool
     {
         return closed_ || !reader_ || reader_->isClosed();
     }

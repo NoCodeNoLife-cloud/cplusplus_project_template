@@ -16,7 +16,6 @@ namespace common
         /// @param value The enum value.
         /// @return std::string The name of the enum value as a string.
         template <typename T>
-        [[nodiscard]] static auto getEnumClassName(T value) noexcept
-            -> std::string;
+        [[nodiscard]] static auto getEnumClassName(T value) noexcept -> std::string;
     };
 }

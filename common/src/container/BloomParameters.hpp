@@ -19,14 +19,12 @@ namespace common
 
         /// @brief Checks if the Bloom parameters are valid.
         /// @return True if the parameters are invalid, false otherwise.
-        [[nodiscard]] auto operator!() const noexcept
-            -> bool;
+        [[nodiscard]] auto operator!() const noexcept -> bool;
 
         /// @brief Computes the optimal parameters for the bloom filter based on the
         ///        projected element count and false positive probability.
         /// @return true if the parameters were successfully computed, false otherwise.
-        auto compute_optimal_parameters()
-            -> bool;
+        auto compute_optimal_parameters() -> bool;
 
         /// Allowable min/max size of the bloom filter in bits
         uint64_t minimum_size{};
@@ -61,7 +59,6 @@ namespace common
         /// @brief Computes natural logarithm with error handling
         /// @param value The value to compute logarithm for
         /// @return The natural logarithm of value, or 0 if value is non-positive
-        [[nodiscard]] static auto safe_log(double value) noexcept
-            -> double;
+        [[nodiscard]] static auto safe_log(double value) noexcept -> double;
     };
 }

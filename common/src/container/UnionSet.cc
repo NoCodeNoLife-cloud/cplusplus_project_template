@@ -3,8 +3,7 @@
 namespace common
 {
     template <typename T>
-    auto UnionSet<T>::find(const T& x)
-        -> T
+    auto UnionSet<T>::find(const T& x) -> T
     {
         ensureRegistered(x);
         if (parent_[x] != x)
@@ -15,15 +14,12 @@ namespace common
     }
 
     template <typename T>
-    auto UnionSet<T>::unionSets(const T& x,
-                                const T& y)
-        -> bool
+    auto UnionSet<T>::unionSets(const T& x, const T& y) -> bool
     {
         T rootX = find(x);
         T rootY = find(y);
 
-        if (rootX == rootY)
-            return false;
+        if (rootX == rootY) return false;
 
         if (rank_[rootX] < rank_[rootY])
         {
@@ -42,9 +38,7 @@ namespace common
     }
 
     template <typename T>
-    auto UnionSet<T>::connected(const T& x,
-                                const T& y) const
-        -> bool
+    auto UnionSet<T>::connected(const T& x, const T& y) const -> bool
     {
         // Create temporary instances to register elements if needed
         // This approach avoids const_cast and maintains const correctness
@@ -55,8 +49,7 @@ namespace common
     }
 
     template <typename T>
-    auto UnionSet<T>::ensureRegistered(const T& x) const
-        -> void
+    auto UnionSet<T>::ensureRegistered(const T& x) const -> void
     {
         if (!parent_.contains(x))
         {

@@ -9,20 +9,17 @@ namespace common
         limit_ = capacity;
     }
 
-    auto ByteBuffer::capacity() const
-        -> size_t
+    auto ByteBuffer::capacity() const -> size_t
     {
         return capacity_;
     }
 
-    auto ByteBuffer::position() const
-        -> size_t
+    auto ByteBuffer::position() const -> size_t
     {
         return position_;
     }
 
-    auto ByteBuffer::position(const size_t newPosition)
-        -> void
+    auto ByteBuffer::position(const size_t newPosition) -> void
     {
         if (newPosition > limit_)
         {
@@ -31,14 +28,12 @@ namespace common
         position_ = newPosition;
     }
 
-    auto ByteBuffer::limit() const
-        -> size_t
+    auto ByteBuffer::limit() const -> size_t
     {
         return limit_;
     }
 
-    auto ByteBuffer::limit(const size_t newLimit)
-        -> void
+    auto ByteBuffer::limit(const size_t newLimit) -> void
     {
         if (newLimit > capacity_)
         {
@@ -51,40 +46,34 @@ namespace common
         }
     }
 
-    auto ByteBuffer::clear()
-        -> void
+    auto ByteBuffer::clear() -> void
     {
         position_ = 0;
         limit_ = capacity_;
     }
 
-    auto ByteBuffer::flip()
-        -> void
+    auto ByteBuffer::flip() -> void
     {
         limit_ = position_;
         position_ = 0;
     }
 
-    auto ByteBuffer::rewind()
-        -> void
+    auto ByteBuffer::rewind() -> void
     {
         position_ = 0;
     }
 
-    auto ByteBuffer::remaining() const
-        -> size_t
+    auto ByteBuffer::remaining() const -> size_t
     {
         return limit_ - position_;
     }
 
-    auto ByteBuffer::hasRemaining() const
-        -> bool
+    auto ByteBuffer::hasRemaining() const -> bool
     {
         return position_ < limit_;
     }
 
-    auto ByteBuffer::put(const std::byte value)
-        -> void
+    auto ByteBuffer::put(const std::byte value) -> void
     {
         if (!hasRemaining())
         {
@@ -93,8 +82,7 @@ namespace common
         buffer_[position_++] = value;
     }
 
-    auto ByteBuffer::put(const std::vector<std::byte>& src)
-        -> void
+    auto ByteBuffer::put(const std::vector<std::byte>& src) -> void
     {
         if (src.empty())
         {
@@ -110,8 +98,7 @@ namespace common
         position_ += src.size();
     }
 
-    auto ByteBuffer::get()
-        -> std::byte
+    auto ByteBuffer::get() -> std::byte
     {
         if (!hasRemaining())
         {
@@ -120,8 +107,7 @@ namespace common
         return buffer_[position_++];
     }
 
-    auto ByteBuffer::get(const size_t length)
-        -> std::vector<std::byte>
+    auto ByteBuffer::get(const size_t length) -> std::vector<std::byte>
     {
         if (length == 0)
         {

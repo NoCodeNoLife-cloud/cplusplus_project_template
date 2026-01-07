@@ -22,60 +22,47 @@ namespace common
         /// @param out The underlying output stream.
         /// @param size The buffer size in bytes.
         /// @throws std::invalid_argument if out is null or size is 0.
-        BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out,
-                             size_t size);
+        BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out, size_t size);
 
         ~BufferedOutputStream() override;
 
         /// @brief Writes a single byte to the buffer.
         /// @param b The byte to write.
-        auto write(std::byte b)
-            -> void override;
+        auto write(std::byte b) -> void override;
 
         /// @brief Writes a sequence of bytes to the buffer.
         /// @param data The data to write.
         /// @param offset The start offset in the data.
         /// @param len The number of bytes to write.
         /// @throws std::out_of_range if offset + len exceeds data size.
-        auto write(const std::vector<std::byte>& data,
-                   size_t offset,
-                   size_t len)
-            -> void override;
+        auto write(const std::vector<std::byte>& data, size_t offset, size_t len) -> void override;
 
         /// @brief Writes a sequence of bytes to the buffer.
         /// @param buffer The buffer containing bytes to write.
         /// @param length The number of bytes to write.
-        auto write(const std::byte* buffer,
-                   size_t length)
-            -> void override;
+        auto write(const std::byte* buffer, size_t length) -> void override;
 
         /// @brief Flushes the buffer by writing all buffered bytes to the underlying output stream.
-        auto flush()
-            -> void override;
+        auto flush() -> void override;
 
         /// @brief Closes the stream by flushing the buffer and closing the underlying output stream.
-        auto close()
-            -> void override;
+        auto close() -> void override;
 
         /// @brief Returns the current size of the buffer.
         /// @return The buffer size in bytes.
-        [[nodiscard]] auto getBufferSize() const noexcept
-            -> size_t;
+        [[nodiscard]] auto getBufferSize() const noexcept -> size_t;
 
         /// @brief Returns the number of bytes currently in the buffer.
         /// @return The number of bytes buffered.
-        [[nodiscard]] auto getBufferedDataSize() const noexcept
-            -> size_t;
+        [[nodiscard]] auto getBufferedDataSize() const noexcept -> size_t;
 
         /// @brief Checks if the stream is closed.
         /// @return True if the stream is closed, false otherwise.
-        [[nodiscard]] auto isClosed() const noexcept
-            -> bool override;
+        [[nodiscard]] auto isClosed() const noexcept -> bool override;
 
     protected:
         /// @brief Flushes the internal buffer to the underlying output stream.
-        auto flushBuffer()
-            -> void;
+        auto flushBuffer() -> void;
 
         static constexpr size_t DEFAULT_BUFFER_SIZE = 8192;
         size_t bufferSize_{};

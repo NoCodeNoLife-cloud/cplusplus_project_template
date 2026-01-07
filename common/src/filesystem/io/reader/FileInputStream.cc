@@ -37,8 +37,7 @@ namespace common
         close();
     }
 
-    auto FileInputStream::read()
-        -> std::byte
+    auto FileInputStream::read() -> std::byte
     {
         if (closed_ || !file_stream_.good())
         {
@@ -53,16 +52,12 @@ namespace common
         return static_cast<std::byte>(-1);
     }
 
-    auto FileInputStream::read(std::vector<std::byte>& buffer)
-        -> size_t
+    auto FileInputStream::read(std::vector<std::byte>& buffer) -> size_t
     {
         return read(buffer, 0, buffer.size());
     }
 
-    auto FileInputStream::read(std::vector<std::byte>& buffer,
-                               const size_t offset,
-                               const size_t len)
-        -> size_t
+    auto FileInputStream::read(std::vector<std::byte>& buffer, const size_t offset, const size_t len) -> size_t
     {
         if (offset > buffer.size() || len > buffer.size() - offset)
         {
@@ -79,8 +74,7 @@ namespace common
         return static_cast<size_t>(bytes_read);
     }
 
-    auto FileInputStream::skip(const size_t n)
-        -> size_t
+    auto FileInputStream::skip(const size_t n) -> size_t
     {
         if (closed_ || !file_stream_.good())
         {
@@ -111,8 +105,7 @@ namespace common
         return static_cast<size_t>(skipped);
     }
 
-    auto FileInputStream::available()
-        -> size_t
+    auto FileInputStream::available() -> size_t
     {
         if (closed_ || !file_stream_.good())
         {
@@ -138,8 +131,7 @@ namespace common
         return static_cast<size_t>(std::max(available_bytes, static_cast<std::streamoff>(0)));
     }
 
-    auto FileInputStream::close()
-        -> void
+    auto FileInputStream::close() -> void
     {
         if (file_stream_.is_open())
         {
@@ -148,14 +140,12 @@ namespace common
         closed_ = true;
     }
 
-    auto FileInputStream::isClosed() const
-        -> bool
+    auto FileInputStream::isClosed() const -> bool
     {
         return closed_;
     }
 
-    auto FileInputStream::markSupported() const
-        -> bool
+    auto FileInputStream::markSupported() const -> bool
     {
         return false;
     }

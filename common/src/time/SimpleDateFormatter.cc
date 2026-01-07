@@ -14,21 +14,18 @@ namespace common
         pattern_ = pattern;
     }
 
-    auto SimpleDateFormatter::applyPattern(const std::string& newPattern)
-        -> void
+    auto SimpleDateFormatter::applyPattern(const std::string& newPattern) -> void
     {
         validatePattern(newPattern);
         pattern_ = newPattern;
     }
 
-    auto SimpleDateFormatter::toPattern() const
-        -> std::string
+    auto SimpleDateFormatter::toPattern() const -> std::string
     {
         return pattern_;
     }
 
-    auto SimpleDateFormatter::format(const std::tm& date) const
-        -> std::string
+    auto SimpleDateFormatter::format(const std::tm& date) const -> std::string
     {
         std::ostringstream oss;
         try
@@ -42,8 +39,7 @@ namespace common
         return oss.str();
     }
 
-    auto SimpleDateFormatter::parse(const std::string& dateStr) const
-        -> std::tm
+    auto SimpleDateFormatter::parse(const std::string& dateStr) const -> std::tm
     {
         std::istringstream iss(dateStr);
         std::tm date = {};
@@ -62,20 +58,17 @@ namespace common
         return date;
     }
 
-    auto SimpleDateFormatter::equals(const SimpleDateFormatter& other) const noexcept
-        -> bool
+    auto SimpleDateFormatter::equals(const SimpleDateFormatter& other) const noexcept -> bool
     {
         return pattern_ == other.pattern_;
     }
 
-    auto SimpleDateFormatter::hashCode() const noexcept
-        -> size_t
+    auto SimpleDateFormatter::hashCode() const noexcept -> size_t
     {
         return std::hash<std::string>{}(pattern_);
     }
 
-    auto SimpleDateFormatter::validatePattern(const std::string& pat)
-        -> void
+    auto SimpleDateFormatter::validatePattern(const std::string& pat) -> void
     {
         if (pat.empty())
         {

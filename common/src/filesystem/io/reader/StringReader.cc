@@ -11,8 +11,7 @@ namespace common
 
     StringReader::~StringReader() = default;
 
-    auto StringReader::close()
-        -> void
+    auto StringReader::close() -> void
     {
         closed_ = true;
         source_.clear();
@@ -21,8 +20,7 @@ namespace common
         mark_set_ = false;
     }
 
-    auto StringReader::mark(const size_t readAheadLimit)
-        -> void
+    auto StringReader::mark(const size_t readAheadLimit) -> void
     {
         if (closed_)
         {
@@ -33,14 +31,12 @@ namespace common
         static_cast<void>(readAheadLimit); // Unused parameter
     }
 
-    auto StringReader::markSupported() const
-        -> bool
+    auto StringReader::markSupported() const -> bool
     {
         return true;
     }
 
-    auto StringReader::read()
-        -> int
+    auto StringReader::read() -> int
     {
         if (closed_ || position_ >= source_.size())
         {
@@ -49,10 +45,7 @@ namespace common
         return static_cast<unsigned char>(source_[position_++]);
     }
 
-    auto StringReader::read(std::vector<char>& cBuf,
-                            const size_t off,
-                            const size_t len)
-        -> int
+    auto StringReader::read(std::vector<char>& cBuf, const size_t off, const size_t len) -> int
     {
         if (closed_)
         {
@@ -86,14 +79,12 @@ namespace common
         return static_cast<int>(actualRead > 0 ? actualRead : -1);
     }
 
-    auto StringReader::ready() const
-        -> bool
+    auto StringReader::ready() const -> bool
     {
         return !closed_ && position_ < source_.size();
     }
 
-    auto StringReader::reset()
-        -> void
+    auto StringReader::reset() -> void
     {
         if (closed_)
         {
@@ -109,8 +100,7 @@ namespace common
         }
     }
 
-    auto StringReader::skip(const size_t ns)
-        -> size_t
+    auto StringReader::skip(const size_t ns) -> size_t
     {
         if (closed_)
         {
@@ -121,8 +111,7 @@ namespace common
         return charsToSkip;
     }
 
-    auto StringReader::isClosed() const
-        -> bool
+    auto StringReader::isClosed() const -> bool
     {
         return closed_;
     }

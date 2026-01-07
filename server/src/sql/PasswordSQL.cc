@@ -26,9 +26,7 @@ namespace server_app
         LOG(INFO) << "PasswordSQL initialized with database: " << db_path;
     }
 
-    auto PasswordSQL::RegisterUser(const std::string& username,
-                                   const std::string& password) const noexcept
-        -> bool
+    auto PasswordSQL::RegisterUser(const std::string& username, const std::string& password) const noexcept -> bool
     {
         /// @brief Validate input parameters
         if (username.empty() || password.empty())
@@ -61,9 +59,7 @@ namespace server_app
         }
     }
 
-    auto PasswordSQL::AuthenticateUser(const std::string& username,
-                                       const std::string& password) const noexcept
-        -> bool
+    auto PasswordSQL::AuthenticateUser(const std::string& username, const std::string& password) const noexcept -> bool
     {
         /// @brief Validate input parameters
         if (username.empty() || password.empty())
@@ -99,10 +95,8 @@ namespace server_app
         }
     }
 
-    auto PasswordSQL::ChangePassword(const std::string& username,
-                                     const std::string& old_password,
-                                     const std::string& new_password) const noexcept
-        -> bool
+    auto PasswordSQL::ChangePassword(const std::string& username, const std::string& old_password,
+                                     const std::string& new_password) const noexcept -> bool
     {
         /// @brief Validate input parameters
         if (username.empty() || old_password.empty() || new_password.empty())
@@ -124,7 +118,8 @@ namespace server_app
                 UPDATE users SET password = ? WHERE username = ?;
             )";
 
-            if (const auto affected_rows = sqlite_manager_.exec(update_sql.data(), {new_password, username}); affected_rows > 0)
+            if (const auto affected_rows = sqlite_manager_.exec(update_sql.data(), {new_password, username});
+                affected_rows > 0)
             {
                 LOG(INFO) << "Password changed successfully for user: " << username;
                 return true;
@@ -140,9 +135,7 @@ namespace server_app
         }
     }
 
-    auto PasswordSQL::ResetPassword(const std::string& username,
-                                    const std::string& new_password) const noexcept
-        -> bool
+    auto PasswordSQL::ResetPassword(const std::string& username, const std::string& new_password) const noexcept -> bool
     {
         /// @brief Validate input parameters
         if (username.empty() || new_password.empty())
@@ -157,7 +150,8 @@ namespace server_app
                 UPDATE users SET password = ? WHERE username = ?;
             )";
 
-            if (const auto affected_rows = sqlite_manager_.exec(update_sql.data(), {new_password, username}); affected_rows > 0)
+            if (const auto affected_rows = sqlite_manager_.exec(update_sql.data(), {new_password, username});
+                affected_rows > 0)
             {
                 LOG(INFO) << "Password reset successfully for user: " << username;
                 return true;
@@ -173,8 +167,7 @@ namespace server_app
         }
     }
 
-    auto PasswordSQL::DeleteUser(const std::string& username) const noexcept
-        -> bool
+    auto PasswordSQL::DeleteUser(const std::string& username) const noexcept -> bool
     {
         /// @brief Validate input parameters
         if (username.empty())
@@ -205,8 +198,7 @@ namespace server_app
         }
     }
 
-    auto PasswordSQL::UserExists(const std::string& username) const noexcept
-        -> bool
+    auto PasswordSQL::UserExists(const std::string& username) const noexcept -> bool
     {
         /// @brief Validate input parameters
         if (username.empty())
@@ -242,8 +234,7 @@ namespace server_app
         }
     }
 
-    auto PasswordSQL::GetUser(const std::string& username) const noexcept
-        -> std::string
+    auto PasswordSQL::GetUser(const std::string& username) const noexcept -> std::string
     {
         /// @brief Validate input parameters
         if (username.empty())
@@ -258,7 +249,8 @@ namespace server_app
                 SELECT username FROM users WHERE username = ?;
             )";
 
-            if (const auto result = sqlite_manager_.query(select_sql.data(), {username}); !result.empty() && !result[0].empty())
+            if (const auto result = sqlite_manager_.query(select_sql.data(), {username}); !result.empty() && !result[0].
+                empty())
             {
                 LOG(INFO) << "User retrieved successfully: " << username;
                 return result[0][0];
@@ -274,8 +266,7 @@ namespace server_app
         }
     }
 
-    auto PasswordSQL::GetAllUsers() const noexcept
-        -> std::vector<std::string>
+    auto PasswordSQL::GetAllUsers() const noexcept -> std::vector<std::string>
     {
         try
         {

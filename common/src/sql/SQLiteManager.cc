@@ -45,9 +45,7 @@ namespace common
         }
     }
 
-    auto SQLiteManager::exec(const std::string& sql,
-                             const std::vector<std::string>& params) const
-        -> int
+    auto SQLiteManager::exec(const std::string& sql, const std::vector<std::string>& params) const -> int
     {
         if (!db_)
         {
@@ -86,8 +84,7 @@ namespace common
     }
 
     auto SQLiteManager::query(const std::string& sql,
-                              const std::vector<std::string>& params) const
-        -> std::vector<std::vector<std::string>>
+                              const std::vector<std::string>& params) const -> std::vector<std::vector<std::string>>
     {
         if (!db_)
         {
@@ -130,6 +127,5 @@ namespace common
         return results;
     }
 
-    auto SQLiteManager::isOpen() const
-        -> bool { return db_ != nullptr; }
+    auto SQLiteManager::isOpen() const -> bool { return db_ != nullptr; }
 } // common

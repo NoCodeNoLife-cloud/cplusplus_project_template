@@ -18,15 +18,12 @@ namespace common
         /// @param delayMs The delay in milliseconds before the task is executed.
         /// @param task The task to be executed.
         /// @return The ID of the scheduled task.
-        [[nodiscard]] auto scheduleTask(int32_t delayMs,
-                                        std::function<ResultType()> task)
-            -> int32_t;
+        [[nodiscard]] auto scheduleTask(int32_t delayMs, std::function<ResultType()> task) -> int32_t;
 
         /// @brief Retrieves the result of a scheduled task.
         /// @param taskId The ID of the task whose result is to be retrieved.
         /// @return A future object that will hold the result of the task.
-        [[nodiscard]] auto getTaskResult(int32_t taskId)
-            -> std::future<ResultType>;
+        [[nodiscard]] auto getTaskResult(int32_t taskId) -> std::future<ResultType>;
 
     private:
         mutable std::mutex mutex_{};

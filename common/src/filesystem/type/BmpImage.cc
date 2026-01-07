@@ -6,10 +6,8 @@
 
 namespace common
 {
-    BmpImage::BmpImage(const int32_t width,
-                       const int32_t height)
-        : width_(width),
-          height_(height)
+    BmpImage::BmpImage(const int32_t width, const int32_t height)
+        : width_(width), height_(height)
     {
         if (width <= 0 || height <= 0)
         {
@@ -23,12 +21,8 @@ namespace common
         load(filename);
     }
 
-    auto BmpImage::setPixel(const int32_t x,
-                            const int32_t y,
-                            const uint8_t r,
-                            const uint8_t g,
-                            const uint8_t b) noexcept
-        -> void
+    auto BmpImage::setPixel(const int32_t x, const int32_t y, const uint8_t r, const uint8_t g,
+                            const uint8_t b) noexcept -> void
     {
         if (x < 0 || x >= width_ || y < 0 || y >= height_)
         {
@@ -41,12 +35,7 @@ namespace common
         pixels_[index + 2] = r;
     }
 
-    auto BmpImage::getPixel(const int32_t x,
-                            const int32_t y,
-                            uint8_t& r,
-                            uint8_t& g,
-                            uint8_t& b) const noexcept
-        -> bool
+    auto BmpImage::getPixel(const int32_t x, const int32_t y, uint8_t& r, uint8_t& g, uint8_t& b) const noexcept -> bool
     {
         if (x < 0 || x >= width_ || y < 0 || y >= height_)
         {
@@ -60,8 +49,7 @@ namespace common
         return true;
     }
 
-    auto BmpImage::save(const std::string& filename) const
-        -> void
+    auto BmpImage::save(const std::string& filename) const -> void
     {
         const int32_t rowSize = width_ * 3 + 3 & ~3;
         const int32_t pixelDataSize = rowSize * height_;
@@ -95,20 +83,17 @@ namespace common
         }
     }
 
-    auto BmpImage::getWidth() const noexcept
-        -> int32_t
+    auto BmpImage::getWidth() const noexcept -> int32_t
     {
         return width_;
     }
 
-    auto BmpImage::getHeight() const noexcept
-        -> int32_t
+    auto BmpImage::getHeight() const noexcept -> int32_t
     {
         return height_;
     }
 
-    auto BmpImage::load(const std::string& filename)
-        -> void
+    auto BmpImage::load(const std::string& filename) -> void
     {
         std::ifstream file(filename, std::ios::binary);
         if (!file)

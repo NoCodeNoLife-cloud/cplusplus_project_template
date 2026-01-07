@@ -9,8 +9,7 @@ namespace common
 
     FilterInputStream::~FilterInputStream() = default;
 
-    auto FilterInputStream::available()
-        -> size_t
+    auto FilterInputStream::available() -> size_t
     {
         if (!input_stream_)
         {
@@ -19,8 +18,7 @@ namespace common
         return input_stream_->available();
     }
 
-    auto FilterInputStream::mark(const int32_t readLimit)
-        -> void
+    auto FilterInputStream::mark(const int32_t readLimit) -> void
     {
         if (!input_stream_)
         {
@@ -29,8 +27,7 @@ namespace common
         input_stream_->mark(readLimit);
     }
 
-    auto FilterInputStream::markSupported() const
-        -> bool
+    auto FilterInputStream::markSupported() const -> bool
     {
         if (!input_stream_)
         {
@@ -39,8 +36,7 @@ namespace common
         return input_stream_->markSupported();
     }
 
-    auto FilterInputStream::read()
-        -> std::byte
+    auto FilterInputStream::read() -> std::byte
     {
         if (!input_stream_)
         {
@@ -49,8 +45,7 @@ namespace common
         return input_stream_->read();
     }
 
-    auto FilterInputStream::read(std::vector<std::byte>& buffer)
-        -> size_t
+    auto FilterInputStream::read(std::vector<std::byte>& buffer) -> size_t
     {
         if (!input_stream_)
         {
@@ -59,10 +54,7 @@ namespace common
         return input_stream_->read(buffer);
     }
 
-    auto FilterInputStream::read(std::vector<std::byte>& buffer,
-                                 const size_t offset,
-                                 const size_t len)
-        -> size_t
+    auto FilterInputStream::read(std::vector<std::byte>& buffer, const size_t offset, const size_t len) -> size_t
     {
         if (!input_stream_)
         {
@@ -71,8 +63,7 @@ namespace common
         return input_stream_->read(buffer, offset, len);
     }
 
-    auto FilterInputStream::reset()
-        -> void
+    auto FilterInputStream::reset() -> void
     {
         if (!input_stream_)
         {
@@ -81,8 +72,7 @@ namespace common
         input_stream_->reset();
     }
 
-    auto FilterInputStream::skip(const size_t n)
-        -> size_t
+    auto FilterInputStream::skip(const size_t n) -> size_t
     {
         if (!input_stream_)
         {
@@ -91,8 +81,7 @@ namespace common
         return input_stream_->skip(n);
     }
 
-    auto FilterInputStream::close()
-        -> void
+    auto FilterInputStream::close() -> void
     {
         if (input_stream_)
         {
@@ -100,8 +89,7 @@ namespace common
         }
     }
 
-    auto FilterInputStream::isClosed() const
-        -> bool
+    auto FilterInputStream::isClosed() const -> bool
     {
         if (!input_stream_)
         {

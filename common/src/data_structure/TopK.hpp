@@ -16,13 +16,11 @@ namespace common
 
         /// @brief Add a number to the TopK.
         /// @param num The number to add.
-        auto add(int32_t num)
-            -> void;
+        auto add(int32_t num) -> void;
 
         /// @brief Get the top k numbers.
         /// @return The top k numbers.
-        auto getTopK()
-            -> std::vector<int32_t>;
+        auto getTopK() -> std::vector<int32_t>;
 
     private:
         int32_t k;

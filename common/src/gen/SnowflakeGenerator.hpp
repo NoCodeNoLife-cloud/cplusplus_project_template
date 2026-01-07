@@ -37,13 +37,11 @@ namespace common
         /// @param machine_id The machine ID (0-31)
         /// @param datacenter_id The datacenter ID (0-31)
         /// @throws std::invalid_argument If machine_id or datacenter_id is out of valid range
-        SnowflakeGenerator(int16_t machine_id,
-                           int16_t datacenter_id);
+        SnowflakeGenerator(int16_t machine_id, int16_t datacenter_id);
 
         /// @brief Generate the next unique ID.
         /// @return The next unique ID.
-        [[nodiscard]] auto NextId()
-            -> int64_t;
+        [[nodiscard]] auto NextId() -> int64_t;
 
     private:
         int64_t last_timestamp_{-1};
@@ -54,13 +52,11 @@ namespace common
 
         /// @brief Get current timestamp in milliseconds.
         /// @return Current timestamp.
-        [[nodiscard]] static auto GetCurrentTimestamp() noexcept
-            -> int64_t;
+        [[nodiscard]] static auto GetCurrentTimestamp() noexcept -> int64_t;
 
         /// @brief Wait until next millisecond when sequence number overflows.
         /// @param last_timestamp The last timestamp.
         /// @return The next valid timestamp.
-        [[nodiscard]] static auto TilNextMillis(int64_t last_timestamp) noexcept
-            -> int64_t;
+        [[nodiscard]] static auto TilNextMillis(int64_t last_timestamp) noexcept -> int64_t;
     };
 }

@@ -20,9 +20,7 @@ namespace common
         /// @param args Arguments to be passed to the function
         /// @return The result of the function
         template <typename Func, typename... Args>
-        [[nodiscard]] auto exec(Func&& func,
-                                Args&&... args)
-            -> decltype(auto);
+        [[nodiscard]] auto exec(Func&& func, Args&&... args) -> decltype(auto);
 
         virtual ~IAop() = default;
 
@@ -51,8 +49,7 @@ namespace common
         /// Derived classes can override this to implement result processing logic.
         /// @note Default implementation simply forwards the result
         template <typename T>
-        auto handleResult(T&& result)
-            -> decltype(auto)
+        auto handleResult(T&& result) -> decltype(auto)
         {
             // Default implementation: simply forward the result without modification
             return std::forward<T>(result);
@@ -61,9 +58,7 @@ namespace common
 
     template <typename Derived>
     template <typename Func, typename... Args>
-    auto IAop<Derived>::exec(Func&& func,
-                             Args&&... args)
-        -> decltype(auto)
+    auto IAop<Derived>::exec(Func&& func, Args&&... args) -> decltype(auto)
     {
         // Execute the pre-execution logic
         static_cast<Derived*>(this)->onEntry();

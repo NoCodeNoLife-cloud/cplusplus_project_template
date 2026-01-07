@@ -5,8 +5,7 @@
 
 namespace common
 {
-    BufferedReader::BufferedReader(std::unique_ptr<AbstractReader> reader,
-                                   const size_t size)
+    BufferedReader::BufferedReader(std::unique_ptr<AbstractReader> reader, const size_t size)
         : reader_(std::move(reader)), buffer_size_(size)
     {
         if (size == 0)
@@ -18,14 +17,12 @@ namespace common
 
     BufferedReader::~BufferedReader() = default;
 
-    auto BufferedReader::close()
-        -> void
+    auto BufferedReader::close() -> void
     {
         reader_->close();
     }
 
-    auto BufferedReader::mark(const size_t readAheadLimit)
-        -> void
+    auto BufferedReader::mark(const size_t readAheadLimit) -> void
     {
         if (readAheadLimit == 0)
         {
@@ -35,21 +32,18 @@ namespace common
         mark_limit_ = pos_;
     }
 
-    auto BufferedReader::markSupported() const
-        -> bool
+    auto BufferedReader::markSupported() const -> bool
     {
         return true;
     }
 
-    auto BufferedReader::reset()
-        -> void
+    auto BufferedReader::reset() -> void
     {
         reader_->reset();
         pos_ = mark_limit_;
     }
 
-    auto BufferedReader::read()
-        -> int
+    auto BufferedReader::read() -> int
     {
         if (pos_ >= count_)
         {
@@ -61,10 +55,7 @@ namespace common
         return static_cast<unsigned char>(buffer_[pos_++]);
     }
 
-    auto BufferedReader::read(std::vector<char>& cBuf,
-                              const size_t off,
-                              const size_t len)
-        -> int
+    auto BufferedReader::read(std::vector<char>& cBuf, const size_t off, const size_t len) -> int
     {
         if (off > cBuf.size() || len > cBuf.size() - off)
         {
@@ -103,8 +94,7 @@ namespace common
         return totalBytesRead > 0 ? static_cast<int>(totalBytesRead) : -1;
     }
 
-    auto BufferedReader::readLine()
-        -> std::string
+    auto BufferedReader::readLine() -> std::string
     {
         std::string line;
         while (true)
@@ -129,14 +119,12 @@ namespace common
         return line;
     }
 
-    auto BufferedReader::ready() const
-        -> bool
+    auto BufferedReader::ready() const -> bool
     {
         return reader_->ready();
     }
 
-    auto BufferedReader::skip(const size_t n)
-        -> size_t
+    auto BufferedReader::skip(const size_t n) -> size_t
     {
         if (n == 0)
         {
@@ -173,8 +161,7 @@ namespace common
         return count_ > 0;
     }
 
-    auto BufferedReader::isClosed() const
-        -> bool
+    auto BufferedReader::isClosed() const -> bool
     {
         return !reader_ || reader_->isClosed();
     }

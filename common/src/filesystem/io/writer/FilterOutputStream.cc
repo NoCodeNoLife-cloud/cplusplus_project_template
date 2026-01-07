@@ -7,8 +7,7 @@ namespace common
     {
     }
 
-    auto FilterOutputStream::write(const std::byte b)
-        -> void
+    auto FilterOutputStream::write(const std::byte b) -> void
     {
         if (!output_stream_)
         {
@@ -17,8 +16,7 @@ namespace common
         output_stream_->write(b);
     }
 
-    auto FilterOutputStream::write(const std::vector<std::byte>& buffer)
-        -> void
+    auto FilterOutputStream::write(const std::vector<std::byte>& buffer) -> void
     {
         if (!output_stream_)
         {
@@ -27,10 +25,7 @@ namespace common
         output_stream_->write(buffer);
     }
 
-    auto FilterOutputStream::write(const std::vector<std::byte>& buffer,
-                                   const size_t offset,
-                                   const size_t len)
-        -> void
+    auto FilterOutputStream::write(const std::vector<std::byte>& buffer, const size_t offset, const size_t len) -> void
     {
         if (!output_stream_)
         {
@@ -43,9 +38,7 @@ namespace common
         output_stream_->write(buffer, offset, len);
     }
 
-    auto FilterOutputStream::write(const std::byte* buffer,
-                                   const size_t length)
-        -> void
+    auto FilterOutputStream::write(const std::byte* buffer, const size_t length) -> void
     {
         if (!output_stream_)
         {
@@ -58,8 +51,7 @@ namespace common
         output_stream_->write(buffer, length);
     }
 
-    auto FilterOutputStream::flush()
-        -> void
+    auto FilterOutputStream::flush() -> void
     {
         if (!output_stream_)
         {
@@ -68,8 +60,7 @@ namespace common
         output_stream_->flush();
     }
 
-    auto FilterOutputStream::close()
-        -> void
+    auto FilterOutputStream::close() -> void
     {
         if (!output_stream_)
         {
@@ -79,8 +70,7 @@ namespace common
         output_stream_->close();
     }
 
-    auto FilterOutputStream::isClosed() const
-        -> bool
+    auto FilterOutputStream::isClosed() const -> bool
     {
         // A filter stream is considered closed if the underlying stream is not available
         // or if the underlying stream reports being closed

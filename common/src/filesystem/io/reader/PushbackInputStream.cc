@@ -4,16 +4,14 @@
 
 namespace common
 {
-    PushbackInputStream::PushbackInputStream(std::unique_ptr<AbstractInputStream> inputStream,
-                                             const size_t bufferSize)
+    PushbackInputStream::PushbackInputStream(std::unique_ptr<AbstractInputStream> inputStream, const size_t bufferSize)
         : FilterInputStream(std::move(inputStream)), pushback_buffer_(bufferSize), buffer_pos_(bufferSize)
     {
     }
 
     PushbackInputStream::~PushbackInputStream() = default;
 
-    auto PushbackInputStream::available()
-        -> size_t
+    auto PushbackInputStream::available() -> size_t
     {
         if (!input_stream_)
         {
@@ -22,8 +20,7 @@ namespace common
         return pushback_buffer_.size() - buffer_pos_ + input_stream_->available();
     }
 
-    auto PushbackInputStream::read()
-        -> std::byte
+    auto PushbackInputStream::read() -> std::byte
     {
         if (!input_stream_)
         {
@@ -37,8 +34,7 @@ namespace common
         return input_stream_->read();
     }
 
-    auto PushbackInputStream::read(std::vector<std::byte>& buffer)
-        -> size_t
+    auto PushbackInputStream::read(std::vector<std::byte>& buffer) -> size_t
     {
         if (!input_stream_)
         {
@@ -47,10 +43,7 @@ namespace common
         return read(buffer, 0, buffer.size());
     }
 
-    auto PushbackInputStream::read(std::vector<std::byte>& buffer,
-                                   const size_t offset,
-                                   const size_t len)
-        -> size_t
+    auto PushbackInputStream::read(std::vector<std::byte>& buffer, const size_t offset, const size_t len) -> size_t
     {
         if (!input_stream_)
         {
@@ -79,9 +72,7 @@ namespace common
         unread(buffer, 0, buffer.size());
     }
 
-    void PushbackInputStream::unread(const std::vector<std::byte>& buffer,
-                                     const size_t offset,
-                                     const size_t len)
+    void PushbackInputStream::unread(const std::vector<std::byte>& buffer, const size_t offset, const size_t len)
     {
         if (offset > buffer.size() || len > buffer.size() - offset)
         {
@@ -108,8 +99,7 @@ namespace common
         pushback_buffer_[--buffer_pos_] = b;
     }
 
-    auto PushbackInputStream::isClosed() const
-        -> bool
+    auto PushbackInputStream::isClosed() const -> bool
     {
         return !input_stream_ || input_stream_->isClosed();
     }

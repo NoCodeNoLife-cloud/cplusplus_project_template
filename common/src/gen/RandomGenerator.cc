@@ -17,9 +17,7 @@ namespace common
     {
     }
 
-    auto RandomGenerator::nextInt(const int min,
-                                  const int max)
-        -> int
+    auto RandomGenerator::nextInt(const int min, const int max) -> int
     {
         if (min > max)
         {
@@ -30,14 +28,12 @@ namespace common
         return dist(engine_);
     }
 
-    auto RandomGenerator::nextBool()
-        -> bool
+    auto RandomGenerator::nextBool() -> bool
     {
         return nextBool(0.5);
     }
 
-    auto RandomGenerator::nextBool(const double trueProbability)
-        -> bool
+    auto RandomGenerator::nextBool(const double trueProbability) -> bool
     {
         if (trueProbability < 0.0 || trueProbability > 1.0)
         {
@@ -48,9 +44,7 @@ namespace common
         return dist(engine_);
     }
 
-    auto RandomGenerator::nextDouble(const double min,
-                                     const double max)
-        -> double
+    auto RandomGenerator::nextDouble(const double min, const double max) -> double
     {
         if (min >= max)
         {
@@ -61,9 +55,7 @@ namespace common
         return dist(engine_);
     }
 
-    auto RandomGenerator::nextString(const size_t length,
-                                     const std::string& charset)
-        -> std::string
+    auto RandomGenerator::nextString(const size_t length, const std::string& charset) -> std::string
     {
         if (charset.empty())
         {
@@ -89,9 +81,7 @@ namespace common
         return result;
     }
 
-    auto RandomGenerator::nextGaussian(const double mean,
-                                       const double stddev)
-        -> double
+    auto RandomGenerator::nextGaussian(const double mean, const double stddev) -> double
     {
         if (stddev <= 0.0)
         {
@@ -102,8 +92,7 @@ namespace common
         return dist(engine_);
     }
 
-    auto RandomGenerator::setSeed(const unsigned int seed)
-        -> void
+    auto RandomGenerator::setSeed(const unsigned int seed) -> void
     {
         std::lock_guard lock(mutex_);
         engine_.seed(seed);

@@ -5,115 +5,97 @@
 
 namespace app_client
 {
-    AuthRpcClientOptions::AuthRpcClientOptions(const int32_t keepalive_time_ms,
-                                               const int32_t keepalive_timeout_ms,
+    AuthRpcClientOptions::AuthRpcClientOptions(const int32_t keepalive_time_ms, const int32_t keepalive_timeout_ms,
                                                const int32_t keepalive_permit_without_calls,
                                                std::string server_address) noexcept
         : keepalive_time_ms_(keepalive_time_ms), keepalive_timeout_ms_(keepalive_timeout_ms),
-          keepalive_permit_without_calls_(keepalive_permit_without_calls),
-          server_address_(std::move(server_address))
+          keepalive_permit_without_calls_(keepalive_permit_without_calls), server_address_(std::move(server_address))
     {
         validate(); // Validate parameters after construction
     }
 
-    auto AuthRpcClientOptions::Builder::keepaliveTimeMs(const int32_t value) noexcept
-        -> Builder&
+    auto AuthRpcClientOptions::Builder::keepaliveTimeMs(const int32_t value) noexcept -> Builder&
     {
         keepalive_time_ms_ = value;
         return *this;
     }
 
-    auto AuthRpcClientOptions::Builder::keepaliveTimeoutMs(const int32_t value) noexcept
-        -> Builder&
+    auto AuthRpcClientOptions::Builder::keepaliveTimeoutMs(const int32_t value) noexcept -> Builder&
     {
         keepalive_timeout_ms_ = value;
         return *this;
     }
 
-    auto AuthRpcClientOptions::Builder::keepalivePermitWithoutCalls(const int32_t value) noexcept
-        -> Builder&
+    auto AuthRpcClientOptions::Builder::keepalivePermitWithoutCalls(const int32_t value) noexcept -> Builder&
     {
         keepalive_permit_without_calls_ = value;
         return *this;
     }
 
-    auto AuthRpcClientOptions::Builder::serverAddress(const std::string& value) noexcept
-        -> Builder&
+    auto AuthRpcClientOptions::Builder::serverAddress(const std::string& value) noexcept -> Builder&
     {
         server_address_ = value;
         return *this;
     }
 
-    auto AuthRpcClientOptions::Builder::build() const
-        -> AuthRpcClientOptions
+    auto AuthRpcClientOptions::Builder::build() const -> AuthRpcClientOptions
     {
         return AuthRpcClientOptions{
-            keepalive_time_ms_, keepalive_timeout_ms_,
-            keepalive_permit_without_calls_, server_address_
+            keepalive_time_ms_, keepalive_timeout_ms_, keepalive_permit_without_calls_, server_address_
         };
     }
 
-    auto AuthRpcClientOptions::builder()
-        -> Builder
+    auto AuthRpcClientOptions::builder() -> Builder
     {
         return {};
     }
 
-    auto AuthRpcClientOptions::keepaliveTimeMs() const noexcept
-        -> int32_t
+    auto AuthRpcClientOptions::keepaliveTimeMs() const noexcept -> int32_t
     {
         return keepalive_time_ms_;
     }
 
-    auto AuthRpcClientOptions::keepaliveTimeMs(const int32_t value) noexcept
-        -> void
+    auto AuthRpcClientOptions::keepaliveTimeMs(const int32_t value) noexcept -> void
     {
         keepalive_time_ms_ = value;
         validate(); // Validate after setting new value
     }
 
-    auto AuthRpcClientOptions::keepaliveTimeoutMs() const noexcept
-        -> int32_t
+    auto AuthRpcClientOptions::keepaliveTimeoutMs() const noexcept -> int32_t
     {
         return keepalive_timeout_ms_;
     }
 
-    auto AuthRpcClientOptions::keepaliveTimeoutMs(const int32_t value) noexcept
-        -> void
+    auto AuthRpcClientOptions::keepaliveTimeoutMs(const int32_t value) noexcept -> void
     {
         keepalive_timeout_ms_ = value;
         validate(); // Validate after setting new value
     }
 
-    auto AuthRpcClientOptions::keepalivePermitWithoutCalls() const noexcept
-        -> int32_t
+    auto AuthRpcClientOptions::keepalivePermitWithoutCalls() const noexcept -> int32_t
     {
         return keepalive_permit_without_calls_;
     }
 
-    auto AuthRpcClientOptions::keepalivePermitWithoutCalls(const int32_t value) noexcept
-        -> void
+    auto AuthRpcClientOptions::keepalivePermitWithoutCalls(const int32_t value) noexcept -> void
     {
         keepalive_permit_without_calls_ = value;
         validate(); // Validate after setting new value
     }
 
     // ReSharper disable once CppDFAConstantFunctionResult
-    auto AuthRpcClientOptions::serverAddress() const noexcept
-        -> const std::string&
+    auto AuthRpcClientOptions::serverAddress() const noexcept -> const std::string&
     {
         return server_address_;
     }
 
-    auto AuthRpcClientOptions::serverAddress(const std::string& value) noexcept
-        -> void
+    auto AuthRpcClientOptions::serverAddress(const std::string& value) noexcept -> void
     {
         server_address_ = value;
         validate(); // Validate after setting new value
     }
 
-    auto AuthRpcClientOptions::deserializedFromYamlFile(const std::filesystem::path& path)
-        -> void
+    auto AuthRpcClientOptions::deserializedFromYamlFile(const std::filesystem::path& path) -> void
     {
         if (!std::filesystem::exists(path))
         {
@@ -133,7 +115,8 @@ namespace app_client
             {
                 keepalive_timeout_ms_ = keepaliveTimeoutMsNode.as<int32_t>();
             }
-            if (const auto keepalivePermitWithoutCallsNode = grpcNode["keepalivePermitWithoutCalls"]; keepalivePermitWithoutCallsNode)
+            if (const auto keepalivePermitWithoutCallsNode = grpcNode["keepalivePermitWithoutCalls"];
+                keepalivePermitWithoutCallsNode)
             {
                 keepalive_permit_without_calls_ = keepalivePermitWithoutCallsNode.as<int32_t>();
             }
@@ -154,41 +137,39 @@ namespace app_client
         validate(); // Validate after loading from YAML
     }
 
-    auto AuthRpcClientOptions::validate() const noexcept
-        -> void
+    auto AuthRpcClientOptions::validate() const noexcept -> void
     {
         // Validate keepalive time (should be positive)
-        LOG_IF(WARNING, keepalive_time_ms_ <= 0) << "Invalid keepalive time: " << keepalive_time_ms_
-            << "ms. Using default value of 30000ms.";
+        LOG_IF(WARNING, keepalive_time_ms_ <= 0) << "Invalid keepalive time: " << keepalive_time_ms_ <<
+ "ms. Using default value of 30000ms.";
 
         // Validate keepalive timeout (should be positive)
-        LOG_IF(WARNING, keepalive_timeout_ms_ <= 0) << "Invalid keepalive timeout: " << keepalive_timeout_ms_
-            << "ms. Using default value of 5000ms.";
+        LOG_IF(WARNING, keepalive_timeout_ms_ <= 0) << "Invalid keepalive timeout: " << keepalive_timeout_ms_ <<
+ "ms. Using default value of 5000ms.";
 
         // Validate keepalive permit without calls (should be 0 or 1)
-        LOG_IF(WARNING, keepalive_permit_without_calls_ != 0 && keepalive_permit_without_calls_ != 1)
-            << "Invalid keepalive permit without calls: " << keepalive_permit_without_calls_
-            << ". Valid values are 0 or 1. Using default value of 1.";
+        LOG_IF(WARNING,
+               keepalive_permit_without_calls_ != 0 && keepalive_permit_without_calls_ !=
+               1) << "Invalid keepalive permit without calls: " << keepalive_permit_without_calls_ <<
+ ". Valid values are 0 or 1. Using default value of 1.";
 
         // Check for potentially problematic combinations
-        LOG_IF(WARNING, keepalive_time_ms_ > 0 && keepalive_time_ms_ < 1000)
-            << "Keepalive time is set to a very short interval (" << keepalive_time_ms_
-            << "ms). This may cause excessive network traffic.";
+        LOG_IF(WARNING, keepalive_time_ms_ > 0 && keepalive_time_ms_ < 1000) <<
+ "Keepalive time is set to a very short interval (" << keepalive_time_ms_ <<
+ "ms). This may cause excessive network traffic.";
 
-        LOG_IF(WARNING, keepalive_timeout_ms_ > 0 && keepalive_timeout_ms_ > keepalive_time_ms_)
-            << "Keepalive timeout (" << keepalive_timeout_ms_
-            << "ms) is greater than keepalive time (" << keepalive_time_ms_
-            << "ms). This may lead to unexpected connection issues.";
+        LOG_IF(WARNING,
+               keepalive_timeout_ms_ > 0 && keepalive_timeout_ms_ > keepalive_time_ms_) << "Keepalive timeout (" <<
+ keepalive_timeout_ms_ << "ms) is greater than keepalive time (" << keepalive_time_ms_ <<
+ "ms). This may lead to unexpected connection issues.";
 
         // Validate server address
-        LOG_IF(WARNING, server_address_.empty())
-            << "Server address is empty. Using default value localhost:50051.";
+        LOG_IF(WARNING, server_address_.empty()) << "Server address is empty. Using default value localhost:50051.";
     }
 }
 
 auto YAML::convert<app_client::AuthRpcClientOptions>::decode(const YAML::Node& node,
-                                                             app_client::AuthRpcClientOptions& rhs)
-    -> bool
+                                                             app_client::AuthRpcClientOptions& rhs) -> bool
 {
     if (const auto keepaliveTimeMsNode = node["keepaliveTimeMs"]; keepaliveTimeMsNode)
     {
@@ -198,7 +179,8 @@ auto YAML::convert<app_client::AuthRpcClientOptions>::decode(const YAML::Node& n
     {
         rhs.keepaliveTimeoutMs(keepaliveTimeoutMsNode.as<int32_t>());
     }
-    if (const auto keepalivePermitWithoutCallsNode = node["keepalivePermitWithoutCalls"]; keepalivePermitWithoutCallsNode)
+    if (const auto keepalivePermitWithoutCallsNode = node["keepalivePermitWithoutCalls"];
+        keepalivePermitWithoutCallsNode)
     {
         rhs.keepalivePermitWithoutCalls(keepalivePermitWithoutCallsNode.as<int32_t>());
     }
@@ -209,8 +191,7 @@ auto YAML::convert<app_client::AuthRpcClientOptions>::decode(const YAML::Node& n
     return true;
 }
 
-auto YAML::convert<app_client::AuthRpcClientOptions>::encode(const app_client::AuthRpcClientOptions& rhs)
-    -> YAML::Node
+auto YAML::convert<app_client::AuthRpcClientOptions>::encode(const app_client::AuthRpcClientOptions& rhs) -> YAML::Node
 {
     YAML::Node node;
     node["keepaliveTimeMs"] = rhs.keepaliveTimeMs();

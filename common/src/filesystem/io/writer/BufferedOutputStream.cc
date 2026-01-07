@@ -3,13 +3,11 @@
 namespace common
 {
     BufferedOutputStream::BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out)
-        : BufferedOutputStream(
-            std::move(out), DEFAULT_BUFFER_SIZE)
+        : BufferedOutputStream(std::move(out), DEFAULT_BUFFER_SIZE)
     {
     }
 
-    BufferedOutputStream::BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out,
-                                               const size_t size)
+    BufferedOutputStream::BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out, const size_t size)
         : FilterOutputStream(std::move(out)), bufferSize_(size), buffer_(size)
     {
         if (!output_stream_)
@@ -34,8 +32,7 @@ namespace common
         }
     }
 
-    auto BufferedOutputStream::write(const std::byte b)
-        -> void
+    auto BufferedOutputStream::write(const std::byte b) -> void
     {
         if (buffer_position_ >= bufferSize_)
         {
@@ -44,10 +41,7 @@ namespace common
         buffer_[buffer_position_++] = b;
     }
 
-    auto BufferedOutputStream::write(const std::vector<std::byte>& data,
-                                     const size_t offset,
-                                     const size_t len)
-        -> void
+    auto BufferedOutputStream::write(const std::vector<std::byte>& data, const size_t offset, const size_t len) -> void
     {
         if (len == 0)
         {
@@ -73,9 +67,7 @@ namespace common
         }
     }
 
-    auto BufferedOutputStream::write(const std::byte* buffer,
-                                     const size_t length)
-        -> void
+    auto BufferedOutputStream::write(const std::byte* buffer, const size_t length) -> void
     {
         if (length == 0)
         {
@@ -101,8 +93,7 @@ namespace common
         }
     }
 
-    auto BufferedOutputStream::flush()
-        -> void
+    auto BufferedOutputStream::flush() -> void
     {
         flushBuffer();
         if (output_stream_)
@@ -111,8 +102,7 @@ namespace common
         }
     }
 
-    auto BufferedOutputStream::close()
-        -> void
+    auto BufferedOutputStream::close() -> void
     {
         flush();
         if (output_stream_)
@@ -121,8 +111,7 @@ namespace common
         }
     }
 
-    auto BufferedOutputStream::flushBuffer()
-        -> void
+    auto BufferedOutputStream::flushBuffer() -> void
     {
         if (buffer_position_ > 0 && output_stream_)
         {
@@ -131,20 +120,17 @@ namespace common
         }
     }
 
-    [[nodiscard]] auto BufferedOutputStream::getBufferSize() const noexcept
-        -> size_t
+    [[nodiscard]] auto BufferedOutputStream::getBufferSize() const noexcept -> size_t
     {
         return bufferSize_;
     }
 
-    [[nodiscard]] auto BufferedOutputStream::getBufferedDataSize() const noexcept
-        -> size_t
+    [[nodiscard]] auto BufferedOutputStream::getBufferedDataSize() const noexcept -> size_t
     {
         return buffer_position_;
     }
 
-    [[nodiscard]] auto BufferedOutputStream::isClosed() const noexcept
-        -> bool
+    [[nodiscard]] auto BufferedOutputStream::isClosed() const noexcept -> bool
     {
         return output_stream_ == nullptr;
     }

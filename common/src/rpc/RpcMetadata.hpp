@@ -7,7 +7,6 @@ namespace common
     class RpcMetadata
     {
     public:
-        [[nodiscard]] static auto grpcStateToString(grpc_connectivity_state state)
-            -> std::string;
+        [[nodiscard]] static auto grpcStateToString(grpc_connectivity_state state) -> std::string;
     };
 }

@@ -11,37 +11,32 @@ namespace common
 
     template <typename T, typename Container>
     template <typename Iterator>
-    Stack<T, Container>::Stack(Iterator begin,
-                               Iterator end)
+    Stack<T, Container>::Stack(Iterator begin, Iterator end)
         : data_(begin, end)
     {
     }
 
     template <typename T, typename Container>
-    auto Stack<T, Container>::push(const T& value)
-        -> void
+    auto Stack<T, Container>::push(const T& value) -> void
     {
         data_.push_back(value);
     }
 
     template <typename T, typename Container>
-    auto Stack<T, Container>::push(T&& value)
-        -> void
+    auto Stack<T, Container>::push(T&& value) -> void
     {
         data_.push_back(std::move(value));
     }
 
     template <typename T, typename Container>
     template <typename... Args>
-    auto Stack<T, Container>::emplace(Args&&... args)
-        -> void
+    auto Stack<T, Container>::emplace(Args&&... args) -> void
     {
         data_.emplace_back(std::forward<Args>(args)...);
     }
 
     template <typename T, typename Container>
-    auto Stack<T, Container>::pop()
-        -> void
+    auto Stack<T, Container>::pop() -> void
     {
         if (data_.empty())
         {
@@ -51,8 +46,7 @@ namespace common
     }
 
     template <typename T, typename Container>
-    auto Stack<T, Container>::top()
-        -> T&
+    auto Stack<T, Container>::top() -> T&
     {
         if (data_.empty())
         {
@@ -62,8 +56,7 @@ namespace common
     }
 
     template <typename T, typename Container>
-    auto Stack<T, Container>::top() const
-        -> const T&
+    auto Stack<T, Container>::top() const -> const T&
     {
         if (data_.empty())
         {
@@ -73,15 +66,13 @@ namespace common
     }
 
     template <typename T, typename Container>
-    auto Stack<T, Container>::empty() const noexcept
-        -> bool
+    auto Stack<T, Container>::empty() const noexcept -> bool
     {
         return data_.empty();
     }
 
     template <typename T, typename Container>
-    auto Stack<T, Container>::size() const noexcept
-        -> size_t
+    auto Stack<T, Container>::size() const noexcept -> size_t
     {
         return data_.size();
     }

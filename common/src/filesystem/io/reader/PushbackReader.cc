@@ -9,8 +9,7 @@ namespace common
     {
     }
 
-    PushbackReader::PushbackReader(std::shared_ptr<AbstractReader> reader,
-                                   const size_t size)
+    PushbackReader::PushbackReader(std::shared_ptr<AbstractReader> reader, const size_t size)
         : FilterReader(std::move(reader)), buffer_(size)
     {
         if (size == 0)
@@ -19,29 +18,25 @@ namespace common
         }
     }
 
-    auto PushbackReader::close()
-        -> void
+    auto PushbackReader::close() -> void
     {
         closed_ = true;
         FilterReader::close();
         buffer_.clear();
     }
 
-    auto PushbackReader::mark(const size_t readAheadLimit)
-        -> void
+    auto PushbackReader::mark(const size_t readAheadLimit) -> void
     {
         static_cast<void>(readAheadLimit); // Unused parameter
         throw std::runtime_error("mark() not supported.");
     }
 
-    auto PushbackReader::markSupported() const
-        -> bool
+    auto PushbackReader::markSupported() const -> bool
     {
         return false;
     }
 
-    auto PushbackReader::read()
-        -> int
+    auto PushbackReader::read() -> int
     {
         if (closed_ || !in_)
         {
@@ -55,10 +50,7 @@ namespace common
         return FilterReader::read();
     }
 
-    auto PushbackReader::read(std::vector<char>& cBuf,
-                              const size_t off,
-                              const size_t len)
-        -> int
+    auto PushbackReader::read(std::vector<char>& cBuf, const size_t off, const size_t len) -> int
     {
         if (closed_ || !in_)
         {
@@ -88,8 +80,7 @@ namespace common
         return static_cast<int>(bytesRead);
     }
 
-    auto PushbackReader::ready() const
-        -> bool
+    auto PushbackReader::ready() const -> bool
     {
         if (closed_ || !in_)
         {
@@ -98,14 +89,12 @@ namespace common
         return buffer_pos_ < buffer_.size() || FilterReader::ready();
     }
 
-    auto PushbackReader::reset()
-        -> void
+    auto PushbackReader::reset() -> void
     {
         throw std::runtime_error("reset() not supported.");
     }
 
-    auto PushbackReader::skip(const size_t n)
-        -> size_t
+    auto PushbackReader::skip(const size_t n) -> size_t
     {
         if (closed_ || !in_)
         {
@@ -126,16 +115,12 @@ namespace common
         return skipped;
     }
 
-    auto PushbackReader::unread(const std::vector<char>& cbuf)
-        -> void
+    auto PushbackReader::unread(const std::vector<char>& cbuf) -> void
     {
         unread(cbuf, 0, cbuf.size());
     }
 
-    auto PushbackReader::unread(const std::vector<char>& cBuf,
-                                const size_t off,
-                                const size_t len)
-        -> void
+    auto PushbackReader::unread(const std::vector<char>& cBuf, const size_t off, const size_t len) -> void
     {
         if (closed_)
         {
@@ -158,8 +143,7 @@ namespace common
         }
     }
 
-    auto PushbackReader::unread(const int32_t c)
-        -> void
+    auto PushbackReader::unread(const int32_t c) -> void
     {
         if (closed_)
         {
@@ -173,8 +157,7 @@ namespace common
         buffer_[--buffer_pos_] = static_cast<char>(c);
     }
 
-    auto PushbackReader::isClosed() const
-        -> bool
+    auto PushbackReader::isClosed() const -> bool
     {
         return closed_ || !in_ || in_->isClosed();
     }

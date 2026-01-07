@@ -20,30 +20,24 @@ namespace common
         /// @brief Finds the root of the set containing element x with path compression.
         /// @param x The element to find the root for.
         /// @return The root of the set containing element x.
-        auto find(const T& x)
-            -> T;
+        auto find(const T& x) -> T;
 
         /// @brief Unites the sets that contain elements x and y.
         /// @param x First element
         /// @param y Second element
         /// @return True if the sets were successfully united, false if they were already in the same set.
-        [[nodiscard]] auto unionSets(const T& x,
-                                     const T& y)
-            -> bool;
+        [[nodiscard]] auto unionSets(const T& x, const T& y) -> bool;
 
         /// @brief Checks if elements x and y are in the same set.
         /// @param x First element
         /// @param y Second element
         /// @return True if x and y are connected (in the same set), false otherwise.
-        [[nodiscard]] auto connected(const T& x,
-                                     const T& y) const
-            -> bool;
+        [[nodiscard]] auto connected(const T& x, const T& y) const -> bool;
 
     private:
         /// @brief Ensures that the element x is registered in the UnionSet.
         /// @param x The element to register.
-        auto ensureRegistered(const T& x) const
-            -> void;
+        auto ensureRegistered(const T& x) const -> void;
 
         std::unordered_map<T, T> parent_{};
         std::unordered_map<T, int32_t> rank_{};
