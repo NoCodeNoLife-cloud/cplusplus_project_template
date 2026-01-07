@@ -30,7 +30,7 @@ namespace common
     }
 
     auto CryptoUtils::secure_compare(const std::string& a,
-                                     const std::string& b)
+                                     const std::string& b) noexcept
         -> bool
     {
         if (a.length() != b.length())
