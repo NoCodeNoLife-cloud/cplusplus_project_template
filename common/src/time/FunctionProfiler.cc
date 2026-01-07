@@ -1,11 +1,10 @@
 #include "src/time/FunctionProfiler.hpp"
 
-#include <glog/logging.h>
-
 #include <chrono>
 #include <iomanip>
 #include <string>
 #include <utility>
+#include <glog/logging.h>
 
 namespace common
 {

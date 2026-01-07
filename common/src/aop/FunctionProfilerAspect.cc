@@ -1,5 +1,4 @@
 #include "src/aop/FunctionProfilerAspect.hpp"
-#include <glog/logging.h>
 #include <utility>
 
 namespace common
@@ -12,20 +11,17 @@ namespace common
     auto FunctionProfilerAspect::onEntry()
         -> void
     {
-        LOG(INFO) << "Entering function: " << function_name_;
     }
 
     auto FunctionProfilerAspect::onExit()
         -> void
     {
         profiler_.recordEnd(true);
-        LOG(INFO) << "Exiting function: " << function_name_;
     }
 
     auto FunctionProfilerAspect::onException(std::exception_ptr e)
         -> void
     {
         profiler_.recordEnd(true);
-        LOG(INFO) << "Function exited with exception: " << function_name_;
     }
 }
