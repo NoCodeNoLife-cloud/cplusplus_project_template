@@ -25,16 +25,16 @@ namespace common
         /// @param password Plaintext password for new account
         /// @return true if registration successful
         /// @throws AuthenticationException if username invalid, exists, or password fails policy
-        bool register_user(const std::string& username,
-                           const std::string& password);
+        [[nodiscard]] bool register_user(const std::string& username,
+                                         const std::string& password);
 
         /// @brief Authenticate user with username and password
         /// @param username User identifier
         /// @param password Plaintext password to verify
         /// @return true if authentication successful
         /// @throws AuthenticationException if user not found, password incorrect, or account locked
-        bool authenticate(const std::string& username,
-                          const std::string& password);
+        [[nodiscard]] bool authenticate(const std::string& username,
+                                        const std::string& password);
 
         /// @brief Change user password after verifying current password
         /// @param username User identifier
@@ -42,27 +42,27 @@ namespace common
         /// @param new_password New plaintext password to set
         /// @return true if password changed successfully
         /// @throws AuthenticationException if current password incorrect or new password fails policy
-        bool change_password(const std::string& username,
-                             const std::string& current_password,
-                             const std::string& new_password);
+        [[nodiscard]] bool change_password(const std::string& username,
+                                           const std::string& current_password,
+                                           const std::string& new_password);
 
         /// @brief Reset user password (administrative function)
         /// @param username User identifier
         /// @param new_password New plaintext password to set
         /// @return true if password reset successful
         /// @throws AuthenticationException if user not found or new password fails policy
-        bool reset_password(const std::string& username,
-                            const std::string& new_password);
+        [[nodiscard]] bool reset_password(const std::string& username,
+                                          const std::string& new_password);
 
         /// @brief Check if user exists in the system
         /// @param username User identifier to check
         /// @return true if user exists, false otherwise
-        bool user_exists(const std::string& username) const;
+        [[nodiscard]] bool user_exists(const std::string& username) const;
 
         /// @brief Delete user from the system
         /// @param username User identifier to delete
         /// @return true if user deleted successfully
-        bool delete_user(const std::string& username);
+        [[nodiscard]] bool delete_user(const std::string& username);
 
         /// @brief Set custom password policy
         /// @param policy New password policy configuration
@@ -82,13 +82,28 @@ namespace common
         /// @brief Validate username format against security requirements
         /// @param username Username string to validate
         /// @return true if username format is valid, false otherwise
-        static bool validate_username(const std::string& username);
+        static auto validate_username(const std::string& username) noexcept
+            -> bool;
 
         /// @brief Load user credentials from database
         /// @param username User identifier to load
         /// @return User credentials if found, nullopt otherwise
         auto load_user_from_db(const std::string& username) const
             -> std::optional<UserCredentials>;
+
+        /// @brief Parse credentials data (salt:hashed_password format)
+        /// @param credentials_data Raw credentials data from database
+        /// @return Parsed salt and hashed password pair, nullopt if invalid format
+        static auto parse_credentials_data(const std::string& credentials_data)
+            -> std::optional<std::pair<std::string, std::string>>;
+
+        /// @brief Format credentials data (salt:hashed_password format)
+        /// @param salt Salt string
+        /// @param hashed_password Hashed password string
+        /// @return Formatted credentials string
+        static auto format_credentials_data(const std::string& salt,
+                                            const std::string& hashed_password)
+            -> std::string;
 
         PasswordPolicy password_policy_;
         std::unordered_map<std::string, std::unique_ptr<UserCredentials>> users_;

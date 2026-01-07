@@ -13,6 +13,19 @@ namespace common
     {
     }
 
+    /// @brief Format credentials data (salt:hashed_password format)
+    /// @param salt Salt string
+    /// @param hashed_password Hashed password string
+    /// @return Formatted credentials string
+    auto UserAuthenticator::format_credentials_data(const std::string& salt,
+                                                    const std::string& hashed_password)
+        -> std::string
+    {
+        std::ostringstream credential_stream;
+        credential_stream << salt << ":" << hashed_password;
+        return credential_stream.str();
+    }
+
     bool UserAuthenticator::register_user(const std::string& username,
                                           const std::string& password)
     {
@@ -41,9 +54,8 @@ namespace common
         auto hashed_password = CryptoUtils::hash_password(password, salt);
 
         // Store user credentials in database
-        std::ostringstream credential_stream;
-        credential_stream << salt << ":" << hashed_password;
-        if (!password_sql_.RegisterUser(username, credential_stream.str()))
+        const std::string credential_data = format_credentials_data(salt, hashed_password);
+        if (!password_sql_.RegisterUser(username, credential_data))
         {
             throw AuthenticationException("Failed to register user in database");
         }
@@ -103,7 +115,11 @@ namespace common
                                             const std::string& new_password)
     {
         // First verify current password
-        if (!authenticate(username, current_password))
+        try
+        {
+            authenticate(username, current_password);
+        }
+        catch (const AuthenticationException&)
         {
             throw AuthenticationException("Current password is incorrect");
         }
@@ -126,9 +142,8 @@ namespace common
         auto hashed_password = CryptoUtils::hash_password(new_password, salt);
 
         // Update credentials in database
-        std::ostringstream credential_stream;
-        credential_stream << salt << ":" << hashed_password;
-        if (!password_sql_.ResetPassword(username, credential_stream.str()))
+        const std::string credential_data = format_credentials_data(salt, hashed_password);
+        if (!password_sql_.ResetPassword(username, credential_data))
         {
             throw AuthenticationException("Failed to update password in database");
         }
@@ -155,9 +170,8 @@ namespace common
         auto hashed_password = CryptoUtils::hash_password(new_password, salt);
 
         // Update credentials in database
-        std::ostringstream credential_stream;
-        credential_stream << salt << ":" << hashed_password;
-        if (!password_sql_.ResetPassword(username, credential_stream.str()))
+        const std::string credential_data = format_credentials_data(salt, hashed_password);
+        if (!password_sql_.ResetPassword(username, credential_data))
         {
             throw AuthenticationException("Failed to reset password in database");
         }
@@ -200,11 +214,29 @@ namespace common
         password_policy_ = policy;
     }
 
-    bool UserAuthenticator::validate_username(const std::string& username)
+    auto UserAuthenticator::validate_username(const std::string& username) noexcept
+        -> bool
     {
         // Allow letters, numbers, underscores, hyphens; 3-20 characters
         const std::regex username_pattern("^[a-zA-Z0-9_-]{3,20}$");
         return std::regex_match(username, username_pattern);
+    }
+
+    /// @brief Parse credentials data (salt:hashed_password format)
+    /// @param credentials_data Raw credentials data from database
+    /// @return Parsed salt and hashed password pair, nullopt if invalid format
+    auto UserAuthenticator::parse_credentials_data(const std::string& credentials_data)
+        -> std::optional<std::pair<std::string, std::string>>
+    {
+        const size_t delimiter_pos = credentials_data.find(':');
+        if (delimiter_pos == std::string::npos)
+        {
+            return std::nullopt;
+        }
+
+        const std::string salt = credentials_data.substr(0, delimiter_pos);
+        const std::string hashed_password = credentials_data.substr(delimiter_pos + 1);
+        return std::make_pair(std::move(salt), std::move(hashed_password));
     }
 
     auto UserAuthenticator::load_user_from_db(const std::string& username) const
@@ -222,15 +254,13 @@ namespace common
         }
 
         // Parse credentials data (salt:hashed_password)
-        const size_t delimiter_pos = credentials_data.find(':');
-        if (delimiter_pos == std::string::npos)
+        const auto parsed_credentials = parse_credentials_data(credentials_data);
+        if (!parsed_credentials.has_value())
         {
             return std::nullopt;
         }
 
-        const std::string salt = credentials_data.substr(0, delimiter_pos);
-        const std::string hashed_password = credentials_data.substr(delimiter_pos + 1);
-
+        const auto& [salt, hashed_password] = parsed_credentials.value();
         return UserCredentials(username, hashed_password, salt);
     }
 
