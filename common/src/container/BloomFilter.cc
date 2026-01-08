@@ -10,26 +10,14 @@
 
 namespace common
 {
-    BloomFilter::BloomFilter() = default;
-
     BloomFilter::BloomFilter(const BloomParameters& p) noexcept
-        : projected_element_count_(p.projected_element_count), random_seed_(p.random_seed * 0xA5A5A5A5 + 1),
+        : salt_count_(p.optimal_parameters.number_of_hashes), table_size_(p.optimal_parameters.table_size),
+          projected_element_count_(p.projected_element_count), random_seed_(p.random_seed * 0xA5A5A5A5 + 1),
           desired_false_positive_probability_(p.false_positive_probability)
     {
-        salt_count_ = p.optimal_parameters.number_of_hashes;
-        table_size_ = p.optimal_parameters.table_size;
-
         generate_unique_salt();
-
-        bit_table_.resize(table_size_ / BITS_PER_CHAR, 0x00);
+        bit_table_.resize(table_size_ / 8, 0x00);
     }
-
-    BloomFilter::BloomFilter(const BloomFilter& filter)
-    {
-        this->operator=(filter);
-    }
-
-    BloomFilter::~BloomFilter() = default;
 
     auto BloomFilter::operator==(const BloomFilter& f) const noexcept -> bool
     {
@@ -46,26 +34,6 @@ namespace common
     auto BloomFilter::operator!=(const BloomFilter& f) const noexcept -> bool
     {
         return !operator==(f);
-    }
-
-    auto BloomFilter::operator=(const BloomFilter& f) -> BloomFilter&
-    {
-        if (this != &f)
-        {
-            salt_count_ = f.salt_count_;
-            table_size_ = f.table_size_;
-            bit_table_ = f.bit_table_;
-            salt_ = f.salt_;
-
-            projected_element_count_ = f.projected_element_count_;
-            inserted_element_count_ = f.inserted_element_count_;
-
-            random_seed_ = f.random_seed_;
-
-            desired_false_positive_probability_ = f.desired_false_positive_probability_;
-        }
-
-        return *this;
     }
 
     auto BloomFilter::operator!() const noexcept -> bool
@@ -121,7 +89,7 @@ namespace common
         inserted_element_count_ = 0;
     }
 
-    auto BloomFilter::insert(const unsigned char* key_begin, const std::size_t& length) -> void
+    auto BloomFilter::insert(const unsigned char* key_begin, const std::size_t length) -> void
     {
         std::size_t bit_index = 0;
         std::size_t bit = 0;
@@ -130,7 +98,7 @@ namespace common
         {
             compute_indices(hash_ap(key_begin, length, i), bit_index, bit);
 
-            bit_table_[bit_index / BITS_PER_CHAR] |= bit_mask[bit];
+            bit_table_[bit_index / 8] |= bit_mask[bit];
         }
 
         ++inserted_element_count_;
@@ -147,7 +115,7 @@ namespace common
         insert(reinterpret_cast<const unsigned char*>(key.data()), key.size());
     }
 
-    auto BloomFilter::insert(const char* data, const std::size_t& length) -> void
+    auto BloomFilter::insert(const char* data, const std::size_t length) -> void
     {
         insert(reinterpret_cast<const unsigned char*>(data), length);
     }
@@ -172,7 +140,7 @@ namespace common
         {
             compute_indices(hash_ap(key_begin, length, i), bit_index, bit);
 
-            if ((bit_table_[bit_index / BITS_PER_CHAR] & bit_mask[bit]) != bit_mask[bit])
+            if ((bit_table_[bit_index / 8] & bit_mask[bit]) != bit_mask[bit])
             {
                 return false;
             }
@@ -189,10 +157,10 @@ namespace common
 
     auto BloomFilter::contains(const std::string& key) const -> bool
     {
-        return contains(reinterpret_cast<const unsigned char*>(key.c_str()), key.size());
+        return contains(reinterpret_cast<const unsigned char*>(key.data()), key.size());
     }
 
-    auto BloomFilter::contains(const char* data, const std::size_t& length) const -> bool
+    auto BloomFilter::contains(const char* data, const std::size_t length) const -> bool
     {
         return contains(reinterpret_cast<const unsigned char*>(data), length);
     }
@@ -245,10 +213,11 @@ namespace common
 
     auto BloomFilter::effective_fpp() const noexcept -> double
     {
-        return std::pow(
-            1.0 - std::exp(
-                -1.0 * static_cast<double>(salt_.size()) * static_cast<double>(inserted_element_count_) / static_cast<
-                    double>(size())), 1.0 * static_cast<double>(salt_.size()));
+        const auto salt_size = static_cast<double>(salt_.size());
+        const auto inserted_count = static_cast<double>(inserted_element_count_);
+        const auto size_val = static_cast<double>(size());
+
+        return std::pow(1.0 - std::exp(-salt_size * inserted_count / size_val), salt_size);
     }
 
     auto BloomFilter::table() const noexcept -> const cell_type_*
@@ -265,7 +234,7 @@ namespace common
                                       std::size_t& bit) const noexcept -> void
     {
         bit_index = hash % table_size_;
-        bit = bit_index % BITS_PER_CHAR;
+        bit = bit_index % 8;
     }
 
     auto BloomFilter::generate_unique_salt() -> void
@@ -325,9 +294,9 @@ namespace common
 
         while (remaining_length >= 8)
         {
-            const uint32_t& i1 = *reinterpret_cast<const uint32_t*>(itr);
+            const auto i1 = *reinterpret_cast<const uint32_t*>(itr);
             itr += sizeof(uint32_t);
-            const uint32_t& i2 = *reinterpret_cast<const uint32_t*>(itr);
+            const auto i2 = *reinterpret_cast<const uint32_t*>(itr);
             itr += sizeof(uint32_t);
 
             hash ^= hash << 7 ^ i1 * (hash >> 3) ^ ~((hash << 11) + (i2 ^ hash >> 5));
@@ -340,7 +309,7 @@ namespace common
             uint32_t loop = 0;
             if (remaining_length >= 4)
             {
-                const uint32_t& i = *reinterpret_cast<const uint32_t*>(itr);
+                const auto i = *reinterpret_cast<const uint32_t*>(itr);
 
                 if (loop & 0x01)
                 {
@@ -358,7 +327,7 @@ namespace common
 
             if (remaining_length >= 2)
             {
-                const uint16_t& i = *reinterpret_cast<const uint16_t*>(itr);
+                const auto i = *reinterpret_cast<const uint16_t*>(itr);
 
                 if (loop & 0x01)
                 {

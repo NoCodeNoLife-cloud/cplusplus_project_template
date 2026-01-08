@@ -7,7 +7,7 @@
 
 namespace common
 {
-    static const unsigned char bit_mask[BITS_PER_CHAR] = {
+    static constexpr unsigned char bit_mask[8] = {
         0x01, // 00000001
         0x02, // 00000010
         0x04, // 00000100
@@ -26,24 +26,21 @@ namespace common
     /// The Bloom filter uses multiple hash functions to map elements to positions in a bit array.
     /// When adding an element, the corresponding bits are set to 1. When querying for an element,
     /// if any of the corresponding bits are 0, the element is definitely not in the set.
-    /// @tparam bloom_type_ The type used for hash values (uint32_t)
-    /// @tparam cell_type_ The type used for bit array cells (unsigned char)
-    /// @tparam table_type_ The type used for the bit array (std::vector<unsigned char>)
     class BloomFilter final
     {
-    protected:
+    private:
         using bloom_type_ = uint32_t;
         using cell_type_ = unsigned char;
         using table_type_ = std::vector<unsigned char>;
 
     public:
-        BloomFilter();
+        BloomFilter() = default;
 
         explicit BloomFilter(const BloomParameters& p) noexcept;
 
-        BloomFilter(const BloomFilter& filter);
+        BloomFilter(const BloomFilter& filter) = default;
 
-        ~BloomFilter();
+        ~BloomFilter() = default;
 
         /// @brief Compares two Bloom filters for equality.
         /// @param f The Bloom filter to compare with.
@@ -58,7 +55,7 @@ namespace common
         /// @brief Assigns one Bloom filter to another.
         /// @param f The Bloom filter to assign from.
         /// @return A reference to the assigned Bloom filter.
-        auto operator=(const BloomFilter& f) -> BloomFilter&;
+        auto operator=(const BloomFilter& f) -> BloomFilter& = default;
 
         /// @brief Checks if the Bloom filter is empty.
         /// @return True if the filter is empty, false otherwise.
@@ -85,7 +82,7 @@ namespace common
         /// @brief Inserts a key into the Bloom filter.
         /// @param key_begin Pointer to the beginning of the key.
         /// @param length Length of the key.
-        auto insert(const unsigned char* key_begin, const std::size_t& length) -> void;
+        auto insert(const unsigned char* key_begin, std::size_t length) -> void;
 
         /// @brief Inserts a key into the Bloom filter.
         /// @tparam T Type of the key.
@@ -100,7 +97,7 @@ namespace common
         /// @brief Inserts a key into the Bloom filter.
         /// @param data Pointer to the beginning of the key.
         /// @param length Length of the key.
-        auto insert(const char* data, const std::size_t& length) -> void;
+        auto insert(const char* data, std::size_t length) -> void;
 
         /// @brief Inserts a range of keys into the Bloom filter.
         /// @tparam InputIterator Type of the input iterator.
@@ -131,7 +128,7 @@ namespace common
         /// @param data Pointer to the beginning of the key.
         /// @param length Length of the key.
         /// @return True if the key is present, false otherwise.
-        [[nodiscard]] auto contains(const char* data, const std::size_t& length) const -> bool;
+        [[nodiscard]] auto contains(const char* data, std::size_t length) const -> bool;
 
         /// @brief Checks if all keys in a range are present in the Bloom filter.
         /// @tparam InputIterator Type of the input iterator.
@@ -169,7 +166,7 @@ namespace common
         /// @return The number of hash functions.
         [[nodiscard]] auto hash_count() const noexcept -> std::size_t;
 
-    protected:
+    private:
         /// @brief Computes the bit index and a bit of value from a hash value.
         /// @param hash The hash value to compute indices from.
         /// @param bit_index Reference to store the computed bit index.
@@ -197,7 +194,7 @@ namespace common
         double desired_false_positive_probability_{};
     };
 
-    auto operator&(const BloomFilter& a, const BloomFilter& b) noexcept -> BloomFilter;
-    auto operator|(const BloomFilter& a, const BloomFilter& b) noexcept -> BloomFilter;
-    auto operator^(const BloomFilter& a, const BloomFilter& b) noexcept -> BloomFilter;
+    [[nodiscard]] auto operator&(const BloomFilter& a, const BloomFilter& b) noexcept -> BloomFilter;
+    [[nodiscard]] auto operator|(const BloomFilter& a, const BloomFilter& b) noexcept -> BloomFilter;
+    [[nodiscard]] auto operator^(const BloomFilter& a, const BloomFilter& b) noexcept -> BloomFilter;
 }
