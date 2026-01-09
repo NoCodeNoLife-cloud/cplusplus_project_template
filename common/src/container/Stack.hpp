@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 #include <iterator>
+#include <stdexcept>
+#include <utility>
 
 namespace common
 {
@@ -11,46 +13,90 @@ namespace common
     class Stack
     {
     public:
-        Stack();
+        /// @brief Default constructor creates an empty stack
+        Stack() = default;
 
+        /// @brief Constructor that initializes the stack with elements from an iterator range
+        /// @tparam Iterator Type of the iterators
+        /// @param begin Start iterator
+        /// @param end End iterator
         template <typename Iterator>
-        Stack(Iterator begin, Iterator end);
+        Stack(Iterator begin, Iterator end)
+            : data_(begin, end)
+        {
+        }
 
         /// @brief Pushes a copy of the given value onto the stack.
         /// @param value The value to push.
-        auto push(const T& value) -> void;
+        auto push(const T& value) -> void
+        {
+            data_.push_back(value);
+        }
 
         /// @brief Pushes the given value onto the stack using move semantics.
         /// @param value The value to push.
-        auto push(T&& value) -> void;
+        auto push(T&& value) -> void
+        {
+            data_.push_back(std::move(value));
+        }
 
         /// @brief Constructs an element in-place on top of the stack.
         /// @tparam Args Types of arguments to forward to the constructor.
         /// @param args Arguments to forward to the constructor.
         template <typename... Args>
-        auto emplace(Args&&... args) -> void;
+        auto emplace(Args&&... args) -> void
+        {
+            data_.emplace_back(std::forward<Args>(args)...);
+        }
 
         /// @brief Removes the top element from the stack.
         /// @throws std::out_of_range If the stack is empty.
-        auto pop() -> void;
+        auto pop() -> void
+        {
+            if (data_.empty())
+            {
+                throw std::out_of_range("Stack is empty");
+            }
+            data_.pop_back();
+        }
 
         /// @brief Accesses the top element of the stack.
         /// @return A reference to the top element.
         /// @throws std::out_of_range If the stack is empty.
-        auto top() -> T&;
+        auto top() -> T&
+        {
+            if (data_.empty())
+            {
+                throw std::out_of_range("Stack is empty");
+            }
+            return data_.back();
+        }
 
         /// @brief Accesses the top element of the stack.
         /// @return A const reference to the top element.
         /// @throws std::out_of_range If the stack is empty.
-        auto top() const -> const T&;
+        auto top() const -> const T&
+        {
+            if (data_.empty())
+            {
+                throw std::out_of_range("Stack is empty");
+            }
+            return data_.back();
+        }
 
         /// @brief Checks whether the stack is empty.
         /// @return True if the stack is empty, false otherwise.
-        [[nodiscard]] auto empty() const noexcept -> bool;
+        [[nodiscard]] auto empty() const noexcept -> bool
+        {
+            return data_.empty();
+        }
 
         /// @brief Returns the number of elements in the stack.
         /// @return The number of elements in the stack.
-        [[nodiscard]] auto size() const noexcept -> size_t;
+        [[nodiscard]] auto size() const noexcept -> size_t
+        {
+            return data_.size();
+        }
 
     private:
         Container data_{};

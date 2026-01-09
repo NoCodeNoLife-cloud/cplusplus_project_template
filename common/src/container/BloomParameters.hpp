@@ -1,5 +1,6 @@
 #pragma once
 #include <cmath>
+#include <cstdint>
 
 namespace common
 {
@@ -24,7 +25,7 @@ namespace common
         /// @brief Computes the optimal parameters for the bloom filter based on the
         ///        projected element count and false positive probability.
         /// @return true if the parameters were successfully computed, false otherwise.
-        auto compute_optimal_parameters() -> bool;
+        [[nodiscard]] auto compute_optimal_parameters() noexcept -> bool;
 
         /// Allowable min/max size of the bloom filter in bits
         uint64_t minimum_size{};

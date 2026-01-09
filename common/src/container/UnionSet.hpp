@@ -17,29 +17,76 @@ namespace common
     class UnionSet
     {
     public:
+        /// @brief Default constructor creates an empty UnionSet
+        UnionSet() = default;
+
         /// @brief Finds the root of the set containing element x with path compression.
         /// @param x The element to find the root for.
         /// @return The root of the set containing element x.
-        auto find(const T& x) -> T;
+        auto find(const T& x) -> T
+        {
+            ensureRegistered(x);
+            if (parent_[x] != x)
+            {
+                parent_[x] = find(parent_[x]);  // Path compression
+            }
+            return parent_[x];
+        }
 
         /// @brief Unites the sets that contain elements x and y.
         /// @param x First element
         /// @param y Second element
         /// @return True if the sets were successfully united, false if they were already in the same set.
-        [[nodiscard]] auto unionSets(const T& x, const T& y) -> bool;
+        [[nodiscard]] auto unionSets(const T& x, const T& y) -> bool
+        {
+            T rootX = find(x);
+            T rootY = find(y);
+
+            if (rootX == rootY) return false;
+
+            if (rank_[rootX] < rank_[rootY])
+            {
+                parent_[rootX] = rootY;
+            }
+            else if (rank_[rootX] > rank_[rootY])
+            {
+                parent_[rootY] = rootX;
+            }
+            else
+            {
+                parent_[rootY] = rootX;
+                ++rank_[rootX];
+            }
+            return true;
+        }
 
         /// @brief Checks if elements x and y are in the same set.
         /// @param x First element
         /// @param y Second element
         /// @return True if x and y are connected (in the same set), false otherwise.
-        [[nodiscard]] auto connected(const T& x, const T& y) const -> bool;
+        [[nodiscard]] auto connected(const T& x, const T& y) const -> bool
+        {
+            // Since find() modifies the data structure for path compression,
+            // we need to temporarily cast away constness for this operation
+            auto* self = const_cast<UnionSet*>(this);
+            self->ensureRegistered(x);
+            self->ensureRegistered(y);
+            return self->find(x) == self->find(y);
+        }
 
     private:
         /// @brief Ensures that the element x is registered in the UnionSet.
         /// @param x The element to register.
-        auto ensureRegistered(const T& x) const -> void;
+        auto ensureRegistered(const T& x) -> void
+        {
+            if (!parent_.contains(x))
+            {
+                parent_[x] = x;
+                rank_[x] = 0;
+            }
+        }
 
-        std::unordered_map<T, T> parent_{};
-        std::unordered_map<T, int32_t> rank_{};
+        mutable std::unordered_map<T, T> parent_{};
+        mutable std::unordered_map<T, int32_t> rank_{};
     };
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <string>
 #include <vector>
 
@@ -17,25 +18,23 @@ namespace common
         /// @param password The password to derive the key from.
         /// @param key The output key buffer (32 bytes for AES-256).
         /// @param salt The salt to use in key derivation (16 bytes).
-        static auto deriveKey(const std::string& password, unsigned char key[32],
-                              unsigned char salt[16]) noexcept -> void;
+        static auto deriveKey(const std::string& password, std::array<unsigned char, 32>& key,
+                              std::array<unsigned char, 16>& salt) noexcept -> void;
 
         /// @brief Encrypts the given plaintext using AES-256-CBC with a key derived from the password.
         /// @param plaintext The plaintext to encrypt.
         /// @param password The password used to derive the encryption key.
-        /// @param salt The salt used for key derivation (16 bytes).
-        /// @return The encrypted ciphertext as a vector of bytes.
+        /// @return The encrypted ciphertext as a vector of bytes (includes IV and salt).
         /// @throws std::runtime_error If encryption fails.
-        [[nodiscard]] static auto encryptAES256CBC(const std::string& plaintext, const std::string& password,
-                                                   unsigned char salt[16]) -> std::vector<unsigned char>;
+        [[nodiscard]] static auto encryptAES256CBC(const std::string& plaintext, const std::string& password)
+            -> std::vector<unsigned char>;
 
         /// @brief Decrypts the given ciphertext using AES-256-CBC with a key derived from the password.
-        /// @param ciphertext The ciphertext to decrypt.
+        /// @param ciphertext The ciphertext to decrypt (includes IV and salt).
         /// @param password The password used to derive the decryption key.
-        /// @param salt The salt used for key derivation (16 bytes).
         /// @return The decrypted plaintext as a string.
         /// @throws std::runtime_error If decryption fails or ciphertext is invalid.
         [[nodiscard]] static auto decryptAES256CBC(const std::vector<unsigned char>& ciphertext,
-                                                   const std::string& password, unsigned char salt[16]) -> std::string;
+                                                   const std::string& password) -> std::string;
     };
 }

@@ -2,6 +2,7 @@
 
 #include <limits>
 #include <cmath>
+#include <cstdint>
 
 namespace common
 {
@@ -23,9 +24,15 @@ namespace common
 
     BloomParameters::optimal_parameters_t::optimal_parameters_t() noexcept = default;
 
-    auto BloomParameters::compute_optimal_parameters() -> bool
+    auto BloomParameters::compute_optimal_parameters() noexcept -> bool
     {
         if (!*this) return false;
+
+        // Additional validation for mathematical soundness
+        if (projected_element_count == 0 || false_positive_probability <= 0.0 || 
+            false_positive_probability >= 1.0) {
+            return false;
+        }
 
         double min_m = std::numeric_limits<double>::infinity();
         double min_k = 0.0;
@@ -33,10 +40,23 @@ namespace common
 
         while (k < 1000.0)
         {
+            // Check for mathematical validity before computation
+            const double prob_power = std::pow(false_positive_probability, 1.0 / k);
+            if (prob_power >= 1.0) {
+                // This would lead to invalid logarithm computation
+                k += 1.0;
+                continue;
+            }
+            
+            const double denominator = safe_log(1.0 - prob_power);
+            if (denominator == 0.0) {
+                // Avoid division by zero
+                k += 1.0;
+                continue;
+            }
+            
             const double numerator = -k * static_cast<double>(projected_element_count);
-            const double denominator = safe_log(1.0 - std::pow(false_positive_probability, 1.0 / k));
-
-            if (const double curr_m = numerator / denominator; curr_m < min_m)
+            if (const double curr_m = numerator / denominator; curr_m < min_m && curr_m > 0)
             {
                 min_m = curr_m;
                 min_k = k;
@@ -45,23 +65,42 @@ namespace common
             k += 1.0;
         }
 
+        // Check if valid parameters were found
+        if (min_m == std::numeric_limits<double>::infinity() || min_k <= 0)
+        {
+            return false;
+        }
+
         optimal_parameters_t& parameters = optimal_parameters;
 
         parameters.number_of_hashes = static_cast<uint32_t>(min_k);
 
         parameters.table_size = static_cast<uint64_t>(min_m);
 
-        parameters.table_size += parameters.table_size % BITS_PER_CHAR != 0
-                                     ? BITS_PER_CHAR - parameters.table_size % BITS_PER_CHAR
-                                     : 0;
+        // Round up to nearest multiple of BITS_PER_CHAR
+        if (parameters.table_size % BITS_PER_CHAR != 0)
+        {
+            parameters.table_size += BITS_PER_CHAR - parameters.table_size % BITS_PER_CHAR;
+        }
 
-        if (parameters.number_of_hashes < minimum_number_of_hashes) parameters.number_of_hashes =
-            minimum_number_of_hashes;
-        else if (parameters.number_of_hashes > maximum_number_of_hashes) parameters.number_of_hashes =
-            maximum_number_of_hashes;
+        // Clamp to specified bounds
+        if (parameters.number_of_hashes < minimum_number_of_hashes) 
+        {
+            parameters.number_of_hashes = minimum_number_of_hashes;
+        }
+        else if (parameters.number_of_hashes > maximum_number_of_hashes) 
+        {
+            parameters.number_of_hashes = maximum_number_of_hashes;
+        }
 
-        if (parameters.table_size < minimum_size) parameters.table_size = minimum_size;
-        else if (parameters.table_size > maximum_size) parameters.table_size = maximum_size;
+        if (parameters.table_size < minimum_size) 
+        {
+            parameters.table_size = minimum_size;
+        }
+        else if (parameters.table_size > maximum_size) 
+        {
+            parameters.table_size = maximum_size;
+        }
 
         return true;
     }
