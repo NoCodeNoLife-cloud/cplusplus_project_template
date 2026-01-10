@@ -49,9 +49,7 @@ namespace common
     {
         if (offset > buffer.size() || len > buffer.size() - offset)
         {
-            throw std::out_of_range("FileInputStream::validateBufferParams: Invalid buffer, offset, or length - offset: " + 
-                                   std::to_string(offset) + ", len: " + std::to_string(len) + 
-                                   ", buffer_size: " + std::to_string(buffer.size()));
+            throw std::out_of_range("FileInputStream::validateBufferParams: Invalid buffer, offset, or length - offset: " + std::to_string(offset) + ", len: " + std::to_string(len) + ", buffer_size: " + std::to_string(buffer.size()));
         }
     }
 

@@ -15,7 +15,7 @@ namespace common
         /// @param inputStream The underlying input stream to wrap
         /// @param bufferSize Size of the pushback buffer
         explicit PushbackInputStream(std::unique_ptr<AbstractInputStream> inputStream, size_t bufferSize);
-        
+
         ~PushbackInputStream() override = default;
 
         /// @brief Returns the number of bytes that can be read from this input stream without blocking.

@@ -106,11 +106,11 @@ namespace common
         /// @brief Validates that the stream is open for operations
         /// @throws std::runtime_error if the stream is closed
         auto validateOpen() const -> void;
-        
+
         /// @brief Validates that the pushback stream is not closed
         /// @throws std::runtime_error if the stream is closed
         auto validateNotClosed() const -> void;
-        
+
         static constexpr size_t DEFAULT_BUFFER_SIZE = 1024;
         std::vector<char> buffer_;
         size_t buffer_pos_{DEFAULT_BUFFER_SIZE};

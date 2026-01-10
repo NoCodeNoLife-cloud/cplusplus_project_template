@@ -20,7 +20,7 @@ namespace common
         /// @brief Get the Y coordinate
         /// @return Y coordinate value
         [[nodiscard]] auto getY() const noexcept -> double;
-        
+
         /// @brief Get the Z coordinate
         /// @return Z coordinate value
         [[nodiscard]] auto getZ() const noexcept -> double;
@@ -32,7 +32,7 @@ namespace common
         /// @brief Set the Y coordinate
         /// @param y Y coordinate value
         auto setY(double y) noexcept -> void;
-        
+
         /// @brief Set the Z coordinate
         /// @param z Z coordinate value
         auto setZ(double z) noexcept -> void;
