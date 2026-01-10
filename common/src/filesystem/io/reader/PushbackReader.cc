@@ -148,7 +148,7 @@ namespace common
         }
     }
 
-    auto PushbackReader::unread(const int32_t c) noexcept -> void
+    auto PushbackReader::unread(const int32_t c) -> void
     {
         validateNotClosed();
 

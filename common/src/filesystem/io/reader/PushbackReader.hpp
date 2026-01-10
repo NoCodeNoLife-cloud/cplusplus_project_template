@@ -96,7 +96,7 @@ namespace common
         /// @details This method pushes back a single character into the pushback buffer.
         /// The character is pushed back so that the next read operation will read this character.
         /// @param c the character to push back
-        auto unread(int32_t c) noexcept -> void;
+        auto unread(int32_t c) -> void;
 
         /// @brief Checks if this reader has been closed.
         /// @return true if this reader has been closed, false otherwise.
