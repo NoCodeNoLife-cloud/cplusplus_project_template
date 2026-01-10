@@ -93,7 +93,7 @@ namespace common
         }
     }
 
-    auto BufferedOutputStream::flush() -> void
+    auto BufferedOutputStream::flush() noexcept -> void
     {
         flushBuffer();
         if (output_stream_)

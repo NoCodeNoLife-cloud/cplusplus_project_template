@@ -11,8 +11,7 @@ namespace common
     /// @tparam Key Type of the key used to identify cache entries
     /// @tparam Value Type of the value stored in the cache
     /// @tparam Map Type of the map used internally to store key-iterator mappings
-    template <typename Key, typename Value, typename Map = std::unordered_map<
-                  Key, typename std::list<std::pair<Key, Value>>::iterator>>
+    template <typename Key, typename Value, typename Map = std::unordered_map<Key, typename std::list<std::pair<Key, Value>>::iterator>>
     class LRUCache
     {
     public:
@@ -215,8 +214,7 @@ namespace common
     }
 
     template <typename Key, typename Value, typename Map>
-    auto LRUCache<Key, Value, Map>::move_to_front(
-        typename std::list<std::pair<Key, Value>>::const_iterator it) const -> void
+    auto LRUCache<Key, Value, Map>::move_to_front(typename std::list<std::pair<Key, Value>>::const_iterator it) const -> void
     {
         if (it == cache_list_.begin())
         {

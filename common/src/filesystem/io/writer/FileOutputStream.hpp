@@ -60,7 +60,7 @@ namespace common
 
         /// @brief Flushes the file stream.
         /// @throws std::ios_base::failure If the stream is not writable or in a bad state.
-        auto flush() -> void override;
+        auto flush() noexcept -> void override;
 
         /// @brief Closes the file stream.
         /// @throws std::ios_base::failure If the stream is not writable.

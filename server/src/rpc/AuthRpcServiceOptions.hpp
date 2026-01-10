@@ -30,10 +30,7 @@ namespace app_server
         AuthRpcServiceOptions();
 
         /// @brief Constructor with all parameters
-        AuthRpcServiceOptions(int32_t max_connection_idle_ms, int32_t max_connection_age_ms,
-                              int32_t max_connection_age_grace_ms, int32_t keepalive_time_ms,
-                              int32_t keepalive_timeout_ms, int32_t keepalive_permit_without_calls,
-                              std::string server_address);
+        AuthRpcServiceOptions(int32_t max_connection_idle_ms, int32_t max_connection_age_ms, int32_t max_connection_age_grace_ms, int32_t keepalive_time_ms, int32_t keepalive_timeout_ms, int32_t keepalive_permit_without_calls, std::string server_address);
 
         /// @brief Get the maximum connection idle time in milliseconds
         /// @return The maximum connection idle time in milliseconds

@@ -2,9 +2,26 @@
 
 #include <algorithm>
 #include <stdexcept>
+#include <iterator>
 
 namespace common
 {
+    void CharArrayReader::validateConstructorParams(size_t buffer_size, size_t offset, size_t length)
+    {
+        if (offset > buffer_size || offset + length > buffer_size)
+        {
+            throw std::invalid_argument("CharArrayReader::CharArrayReader: Invalid offset or length");
+        }
+    }
+
+    void CharArrayReader::validateTargetBufferParams(size_t target_buffer_size, size_t offset, size_t length)
+    {
+        if (offset > target_buffer_size || length > target_buffer_size - offset)
+        {
+            throw std::out_of_range("CharArrayReader::read: Invalid offset or length for target buffer");
+        }
+    }
+
     CharArrayReader::CharArrayReader(const std::vector<char>& buffer)
         : buf_(buffer), count_(buffer.size())
     {
@@ -12,12 +29,8 @@ namespace common
 
     CharArrayReader::CharArrayReader(const std::vector<char>& buffer, const size_t offset, const size_t length)
     {
-        if (offset > buffer.size() || offset + length > buffer.size())
-        {
-            throw std::invalid_argument("Invalid offset or length");
-        }
-        buf_.assign(buffer.begin() + static_cast<std::ptrdiff_t>(offset),
-                    buffer.begin() + static_cast<std::ptrdiff_t>(offset + length));
+        validateConstructorParams(buffer.size(), offset, length);
+        buf_.assign(buffer.begin() + static_cast<std::ptrdiff_t>(offset), buffer.begin() + static_cast<std::ptrdiff_t>(offset + length));
         count_ = length;
     }
 
@@ -31,16 +44,12 @@ namespace common
 
     auto CharArrayReader::read(std::vector<char>& b, const size_t off, const size_t len) -> int
     {
-        if (off > b.size() || len > b.size() - off)
-        {
-            throw std::out_of_range("Invalid offset or length for target buffer");
-        }
+        validateTargetBufferParams(b.size(), off, len);
 
         if (closed_ || pos_ >= count_) return -1;
 
         const size_t toRead = std::min(len, count_ - pos_);
-        std::copy_n(buf_.begin() + static_cast<std::ptrdiff_t>(pos_), toRead,
-                    b.begin() + static_cast<std::ptrdiff_t>(off));
+        std::copy_n(buf_.begin() + static_cast<std::ptrdiff_t>(pos_), toRead, b.begin() + static_cast<std::ptrdiff_t>(off));
         pos_ += toRead;
         return static_cast<int>(toRead);
     }
@@ -54,12 +63,12 @@ namespace common
         return skipped;
     }
 
-    auto CharArrayReader::ready() const -> bool
+    auto CharArrayReader::ready() const noexcept -> bool
     {
         return !closed_ && pos_ < count_;
     }
 
-    auto CharArrayReader::markSupported() const -> bool
+    auto CharArrayReader::markSupported() const noexcept -> bool
     {
         return true;
     }
@@ -68,7 +77,7 @@ namespace common
     {
         if (closed_)
         {
-            throw std::runtime_error("Stream is closed");
+            throw std::runtime_error("CharArrayReader::mark: Stream is closed");
         }
         marked_pos_ = pos_;
     }
@@ -77,7 +86,7 @@ namespace common
     {
         if (closed_)
         {
-            throw std::runtime_error("Stream is closed");
+            throw std::runtime_error("CharArrayReader::reset: Stream is closed");
         }
         pos_ = marked_pos_;
     }
@@ -91,7 +100,7 @@ namespace common
         count_ = 0;
     }
 
-    auto CharArrayReader::isClosed() const -> bool
+    auto CharArrayReader::isClosed() const noexcept -> bool
     {
         return closed_;
     }

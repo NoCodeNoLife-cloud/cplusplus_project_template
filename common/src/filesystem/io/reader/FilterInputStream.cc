@@ -1,19 +1,20 @@
 #include "src/filesystem/io/reader/FilterInputStream.hpp"
 
+#include <cstddef>
+#include <stdexcept>
+
 namespace common
 {
-    FilterInputStream::FilterInputStream(std::unique_ptr<AbstractInputStream> inputStream)
+    FilterInputStream::FilterInputStream(std::unique_ptr<AbstractInputStream> inputStream) noexcept
         : input_stream_(std::move(inputStream))
     {
     }
-
-    FilterInputStream::~FilterInputStream() = default;
 
     auto FilterInputStream::available() -> size_t
     {
         if (!input_stream_)
         {
-            throw std::runtime_error("Input stream is not available");
+            throw std::runtime_error("FilterInputStream::available: Input stream is not available");
         }
         return input_stream_->available();
     }
@@ -22,7 +23,7 @@ namespace common
     {
         if (!input_stream_)
         {
-            throw std::runtime_error("Input stream is not available");
+            throw std::runtime_error("FilterInputStream::mark: Input stream is not available");
         }
         input_stream_->mark(readLimit);
     }
@@ -40,7 +41,7 @@ namespace common
     {
         if (!input_stream_)
         {
-            throw std::runtime_error("Input stream is not available");
+            throw std::runtime_error("FilterInputStream::read: Input stream is not available");
         }
         return input_stream_->read();
     }
@@ -49,7 +50,7 @@ namespace common
     {
         if (!input_stream_)
         {
-            throw std::runtime_error("Input stream is not available");
+            throw std::runtime_error("FilterInputStream::read: Input stream is not available");
         }
         return input_stream_->read(buffer);
     }
@@ -58,7 +59,7 @@ namespace common
     {
         if (!input_stream_)
         {
-            throw std::runtime_error("Input stream is not available");
+            throw std::runtime_error("FilterInputStream::read: Input stream is not available");
         }
         return input_stream_->read(buffer, offset, len);
     }
@@ -67,7 +68,7 @@ namespace common
     {
         if (!input_stream_)
         {
-            throw std::runtime_error("Input stream is not available");
+            throw std::runtime_error("FilterInputStream::reset: Input stream is not available");
         }
         input_stream_->reset();
     }
@@ -76,7 +77,7 @@ namespace common
     {
         if (!input_stream_)
         {
-            throw std::runtime_error("Input stream is not available");
+            throw std::runtime_error("FilterInputStream::skip: Input stream is not available");
         }
         return input_stream_->skip(n);
     }

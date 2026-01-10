@@ -11,8 +11,7 @@
 namespace common
 {
     template <typename ResultType>
-    auto DelayedTaskActuator<ResultType>::scheduleTask(const int32_t delayMs,
-                                                       std::function<ResultType()> task) -> int32_t
+    auto DelayedTaskActuator<ResultType>::scheduleTask(const int32_t delayMs, std::function<ResultType()> task) -> int32_t
     {
         std::lock_guard lock(mutex_);
         const int32_t taskId = nextTaskId_++;

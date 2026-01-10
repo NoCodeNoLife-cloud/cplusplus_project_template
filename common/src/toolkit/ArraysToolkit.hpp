@@ -39,8 +39,7 @@ namespace common
         /// @return Index of the key if found, otherwise -1.
         /// @throws std::out_of_range If fromIndex >= toIndex
         template <typename T>
-        [[nodiscard]] static auto binarySearch(const T* array, size_t fromIndex, size_t toIndex,
-                                               const T& key) -> int32_t;
+        [[nodiscard]] static auto binarySearch(const T* array, size_t fromIndex, size_t toIndex, const T& key) -> int32_t;
 
         /// @brief Copies an array to a new vector of specified length.
         /// @tparam T The type of elements in the array.

@@ -1,9 +1,26 @@
 #include "src/filesystem/io/reader/PushbackReader.hpp"
 
+#include <algorithm>
 #include <stdexcept>
 
 namespace common
 {
+    auto PushbackReader::validateOpen() const -> void
+    {
+        if (closed_ || !in_)
+        {
+            throw std::runtime_error("PushbackReader::operation: Stream is closed");
+        }
+    }
+
+    auto PushbackReader::validateNotClosed() const -> void
+    {
+        if (closed_)
+        {
+            throw std::runtime_error("PushbackReader::operation: Stream is closed");
+        }
+    }
+
     PushbackReader::PushbackReader(std::shared_ptr<AbstractReader> reader)
         : PushbackReader(std::move(reader), DEFAULT_BUFFER_SIZE)
     {
@@ -14,11 +31,11 @@ namespace common
     {
         if (size == 0)
         {
-            throw std::invalid_argument("Buffer size must be greater than zero.");
+            throw std::invalid_argument("PushbackReader::constructor: Buffer size must be greater than zero.");
         }
     }
 
-    auto PushbackReader::close() -> void
+    auto PushbackReader::close() noexcept -> void
     {
         closed_ = true;
         FilterReader::close();
@@ -28,7 +45,7 @@ namespace common
     auto PushbackReader::mark(const size_t readAheadLimit) -> void
     {
         static_cast<void>(readAheadLimit); // Unused parameter
-        throw std::runtime_error("mark() not supported.");
+        throw std::runtime_error("PushbackReader::mark: mark() not supported.");
     }
 
     auto PushbackReader::markSupported() const -> bool
@@ -38,10 +55,7 @@ namespace common
 
     auto PushbackReader::read() -> int
     {
-        if (closed_ || !in_)
-        {
-            throw std::runtime_error("Underlying reader is not available");
-        }
+        validateOpen();
 
         if (buffer_pos_ < buffer_.size())
         {
@@ -52,14 +66,11 @@ namespace common
 
     auto PushbackReader::read(std::vector<char>& cBuf, const size_t off, const size_t len) -> int
     {
-        if (closed_ || !in_)
-        {
-            throw std::runtime_error("Underlying reader is not available");
-        }
+        validateOpen();
 
         if (off > cBuf.size() || len > cBuf.size() - off)
         {
-            throw std::out_of_range("Buffer overflow.");
+            throw std::out_of_range("PushbackReader::read: Buffer overflow.");
         }
 
         size_t bytesRead = 0;
@@ -91,15 +102,12 @@ namespace common
 
     auto PushbackReader::reset() -> void
     {
-        throw std::runtime_error("reset() not supported.");
+        throw std::runtime_error("PushbackReader::reset: reset() not supported.");
     }
 
     auto PushbackReader::skip(const size_t n) -> size_t
     {
-        if (closed_ || !in_)
-        {
-            throw std::runtime_error("Underlying reader is not available");
-        }
+        validateOpen();
 
         size_t skipped = 0;
         if (buffer_pos_ < buffer_.size())
@@ -115,26 +123,23 @@ namespace common
         return skipped;
     }
 
-    auto PushbackReader::unread(const std::vector<char>& cbuf) -> void
+    auto PushbackReader::unread(const std::vector<char>& cbuf) noexcept -> void
     {
         unread(cbuf, 0, cbuf.size());
     }
 
     auto PushbackReader::unread(const std::vector<char>& cBuf, const size_t off, const size_t len) -> void
     {
-        if (closed_)
-        {
-            throw std::runtime_error("Stream is closed");
-        }
+        validateNotClosed();
 
         if (off > cBuf.size() || len > cBuf.size() - off)
         {
-            throw std::out_of_range("Buffer offset/length out of range");
+            throw std::out_of_range("PushbackReader::unread: Buffer offset/length out of range");
         }
 
         if (len > buffer_pos_)
         {
-            throw std::overflow_error("Pushback buffer overflow.");
+            throw std::overflow_error("PushbackReader::unread: Pushback buffer overflow.");
         }
 
         for (size_t i = 0; i < len; ++i)
@@ -143,16 +148,13 @@ namespace common
         }
     }
 
-    auto PushbackReader::unread(const int32_t c) -> void
+    auto PushbackReader::unread(const int32_t c) noexcept -> void
     {
-        if (closed_)
-        {
-            throw std::runtime_error("Stream is closed");
-        }
+        validateNotClosed();
 
         if (buffer_pos_ == 0)
         {
-            throw std::overflow_error("Pushback buffer overflow.");
+            throw std::overflow_error("PushbackReader::unread: Pushback buffer overflow.");
         }
         buffer_[--buffer_pos_] = static_cast<char>(c);
     }

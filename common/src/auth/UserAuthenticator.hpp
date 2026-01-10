@@ -39,8 +39,7 @@ namespace common
         /// @param new_password New plaintext password to set
         /// @return true if password changed successfully
         /// @throws AuthenticationException if current password incorrect or new password fails policy
-        [[nodiscard]] bool change_password(const std::string& username, const std::string& current_password,
-                                           const std::string& new_password);
+        [[nodiscard]] bool change_password(const std::string& username, const std::string& current_password, const std::string& new_password);
 
         /// @brief Reset user password (administrative function)
         /// @param username User identifier
@@ -85,8 +84,7 @@ namespace common
         /// @brief Parse credentials data (salt:hashed_password format)
         /// @param credentials_data Raw credentials data from database
         /// @return Parsed salt and hashed password pair, nullopt if invalid format
-        static auto parse_credentials_data(
-            const std::string& credentials_data) -> std::optional<std::pair<std::string, std::string>>;
+        static auto parse_credentials_data(const std::string& credentials_data) -> std::optional<std::pair<std::string, std::string>>;
 
         /// @brief Format credentials data (salt:hashed_password format)
         /// @param salt Salt string

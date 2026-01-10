@@ -36,5 +36,11 @@ namespace common
         /// @param buffer The buffer containing bytes to be written.
         /// @param length The number of bytes to write.
         virtual auto write(const std::byte* buffer, size_t length) -> void = 0;
+
+        /// @brief Flushes the output stream.
+        auto flush() noexcept -> void override = 0;
+
+        /// @brief Closes the output stream.
+        auto close() -> void override = 0;
     };
 }

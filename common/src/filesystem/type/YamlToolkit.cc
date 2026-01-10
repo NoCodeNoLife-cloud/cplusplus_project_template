@@ -152,8 +152,7 @@ namespace common
         }
     }
 
-    auto YamlToolkit::setNestedValue(const std::string& filepath, const std::string& path,
-                                     const YAML::Node& value) -> bool
+    auto YamlToolkit::setNestedValue(const std::string& filepath, const std::string& path, const YAML::Node& value) -> bool
     {
         try
         {

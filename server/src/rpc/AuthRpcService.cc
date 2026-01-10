@@ -1,7 +1,6 @@
 #include "src/rpc/AuthRpcService.hpp"
 #include <unordered_map>
 #include <string_view>
-#include <functional>
 #include <fmt/format.h>
 
 namespace server_app
@@ -16,9 +15,7 @@ namespace server_app
 
     /// @brief Helper function to validate request parameters
     template <typename RequestType, typename ValidatorFunc>
-    [[nodiscard]] static auto ValidateRequest(const RequestType* request, ValidatorFunc&& validator,
-                                              const std::string& error_msg,
-                                              ::rpc::AuthResponse* response) noexcept -> std::optional<::grpc::Status>
+    [[nodiscard]] static auto ValidateRequest(const RequestType* request, ValidatorFunc&& validator, const std::string& error_msg, ::rpc::AuthResponse* response) noexcept -> std::optional<::grpc::Status>
     {
         if (!request || !validator(request))
         {
@@ -35,9 +32,7 @@ namespace server_app
     {
     }
 
-    [[nodiscard]] auto AuthRpcService::RegisterUser(::grpc::ServerContext* /*context*/,
-                                                    const ::rpc::RegisterUserRequest* const request,
-                                                    ::rpc::AuthResponse* const response) -> ::grpc::Status
+    [[nodiscard]] auto AuthRpcService::RegisterUser(::grpc::ServerContext* /*context*/, const ::rpc::RegisterUserRequest* const request, ::rpc::AuthResponse* const response) -> ::grpc::Status
     {
         // Validate request parameters using table-driven validation
         const auto validation_status = ValidateRequest(request, [](const ::rpc::RegisterUserRequest* req)
@@ -72,9 +67,7 @@ namespace server_app
         }
     }
 
-    [[nodiscard]] auto AuthRpcService::AuthenticateUser(::grpc::ServerContext* /*context*/,
-                                                        const ::rpc::AuthenticateUserRequest* const request,
-                                                        ::rpc::AuthResponse* const response) -> ::grpc::Status
+    [[nodiscard]] auto AuthRpcService::AuthenticateUser(::grpc::ServerContext* /*context*/, const ::rpc::AuthenticateUserRequest* const request, ::rpc::AuthResponse* const response) -> ::grpc::Status
     {
         // Validate request parameters using table-driven validation
         const auto validation_status = ValidateRequest(request, [](const ::rpc::AuthenticateUserRequest* req)
@@ -109,9 +102,7 @@ namespace server_app
         }
     }
 
-    [[nodiscard]] auto AuthRpcService::ChangePassword(::grpc::ServerContext* /*context*/,
-                                                      const ::rpc::ChangePasswordRequest* const request,
-                                                      ::rpc::AuthResponse* const response) -> ::grpc::Status
+    [[nodiscard]] auto AuthRpcService::ChangePassword(::grpc::ServerContext* /*context*/, const ::rpc::ChangePasswordRequest* const request, ::rpc::AuthResponse* const response) -> ::grpc::Status
     {
         // Validate request parameters using table-driven validation
         const auto validation_status = ValidateRequest(request, [](const ::rpc::ChangePasswordRequest* req)
@@ -148,9 +139,7 @@ namespace server_app
         }
     }
 
-    [[nodiscard]] auto AuthRpcService::ResetPassword(::grpc::ServerContext* /*context*/,
-                                                     const ::rpc::ResetPasswordRequest* const request,
-                                                     ::rpc::AuthResponse* const response) -> ::grpc::Status
+    [[nodiscard]] auto AuthRpcService::ResetPassword(::grpc::ServerContext* /*context*/, const ::rpc::ResetPasswordRequest* const request, ::rpc::AuthResponse* const response) -> ::grpc::Status
     {
         // Validate request parameters using table-driven validation
         const auto validation_status = ValidateRequest(request, [](const ::rpc::ResetPasswordRequest* req)
@@ -186,9 +175,7 @@ namespace server_app
         }
     }
 
-    [[nodiscard]] auto AuthRpcService::DeleteUser(::grpc::ServerContext* /*context*/,
-                                                  const ::rpc::DeleteUserRequest* const request,
-                                                  ::rpc::AuthResponse* const response) -> ::grpc::Status
+    [[nodiscard]] auto AuthRpcService::DeleteUser(::grpc::ServerContext* /*context*/, const ::rpc::DeleteUserRequest* const request, ::rpc::AuthResponse* const response) -> ::grpc::Status
     {
         // Validate request parameters using table-driven validation
         const auto validation_status = ValidateRequest(request, [](const ::rpc::DeleteUserRequest* req)
@@ -218,9 +205,7 @@ namespace server_app
         }
     }
 
-    [[nodiscard]] auto AuthRpcService::UserExists(::grpc::ServerContext* /*context*/,
-                                                  const ::rpc::UserExistsRequest* const request,
-                                                  ::rpc::AuthResponse* const response) -> ::grpc::Status
+    [[nodiscard]] auto AuthRpcService::UserExists(::grpc::ServerContext* /*context*/, const ::rpc::UserExistsRequest* const request, ::rpc::AuthResponse* const response) -> ::grpc::Status
     {
         // Validate request parameters using table-driven validation
         const auto validation_status = ValidateRequest(request, [](const ::rpc::UserExistsRequest* req)
@@ -250,9 +235,7 @@ namespace server_app
         }
     }
 
-    [[nodiscard]] auto AuthRpcService::HandleAuthException(const common::AuthenticationException& e,
-                                                           ::rpc::AuthResponse* const response) noexcept ->
-        ::grpc::Status
+    [[nodiscard]] auto AuthRpcService::HandleAuthException(const common::AuthenticationException& e, ::rpc::AuthResponse* const response) noexcept -> ::grpc::Status
     {
         response->set_success(false);
         response->set_message(e.what());

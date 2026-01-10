@@ -28,7 +28,7 @@ namespace common
             ensureRegistered(x);
             if (parent_[x] != x)
             {
-                parent_[x] = find(parent_[x]);  // Path compression
+                parent_[x] = find(parent_[x]); // Path compression
             }
             return parent_[x];
         }

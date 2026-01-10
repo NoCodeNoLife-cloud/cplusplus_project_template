@@ -1,7 +1,6 @@
 #pragma once
 #include <chrono>
 #include <string>
-#include <utility> // for std::move
 
 namespace common
 {

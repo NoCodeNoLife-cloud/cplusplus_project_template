@@ -1,6 +1,9 @@
 #include "src/filesystem/io/reader/ByteArrayInputStream.hpp"
 
+#include <algorithm>
+#include <cstddef>
 #include <stdexcept>
+#include <string>
 
 namespace common
 {
@@ -22,7 +25,7 @@ namespace common
     {
         if (off > cBuf.size() || len > cBuf.size() - off)
         {
-            throw std::out_of_range("Offset and length exceed the size of the buffer");
+            throw std::out_of_range("ByteArrayInputStream::read: Offset and length exceed the size of the buffer. off=" + std::to_string(off) + ", len=" + std::to_string(len) + ", buffer.size()=" + std::to_string(cBuf.size()));
         }
 
         if (closed_ || pos_ >= buffer_.size())
@@ -33,8 +36,7 @@ namespace common
         const size_t remaining = buffer_.size() - pos_;
         const size_t bytesToRead = std::min(len, remaining);
 
-        std::copy_n(buffer_.begin() + static_cast<std::ptrdiff_t>(pos_), bytesToRead,
-                    cBuf.begin() + static_cast<std::ptrdiff_t>(off));
+        std::copy_n(buffer_.begin() + static_cast<std::ptrdiff_t>(pos_), bytesToRead, cBuf.begin() + static_cast<std::ptrdiff_t>(off));
         pos_ += bytesToRead;
         return bytesToRead;
     }
@@ -65,7 +67,7 @@ namespace common
     {
         if (closed_)
         {
-            throw std::runtime_error("Stream is closed");
+            throw std::runtime_error("ByteArrayInputStream::reset: Stream is closed");
         }
         pos_ = mark_position_;
     }
@@ -74,22 +76,22 @@ namespace common
     {
         if (closed_)
         {
-            throw std::runtime_error("Stream is closed");
+            throw std::runtime_error("ByteArrayInputStream::mark: Stream is closed");
         }
         mark_position_ = pos_;
     }
 
-    auto ByteArrayInputStream::markSupported() const -> bool
+    auto ByteArrayInputStream::markSupported() const noexcept -> bool
     {
         return true;
     }
 
-    auto ByteArrayInputStream::close() -> void
+    auto ByteArrayInputStream::close() noexcept -> void
     {
         closed_ = true;
     }
 
-    auto ByteArrayInputStream::isClosed() const -> bool
+    auto ByteArrayInputStream::isClosed() const noexcept -> bool
     {
         return closed_;
     }

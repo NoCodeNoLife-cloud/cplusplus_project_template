@@ -11,7 +11,7 @@ namespace common
     /// such as before/after method execution advice, exception handling, and result processing.
     /// @tparam Derived The derived class that implements the specific AOP behavior.
     /// The derived class can override the virtual methods to customize the AOP behavior.
-    template <typename Derived                       >
+    template <typename Derived>
     class IAop
     {
     public:

@@ -41,9 +41,7 @@ namespace common
         // Print each field using index-based access
         [&obj, &field_map, fields]<std::size_t... Is>(std::index_sequence<Is...>)
         {
-            ((field_map.insert(std::make_pair(std::get<Is>(fields).first,
-                                              std::format("{}", invokeHelper(obj, std::get<Is>(fields).second))))), ...
-            );
+            ((field_map.insert(std::make_pair(std::get<Is>(fields).first, std::format("{}", invokeHelper(obj, std::get<Is>(fields).second))))), ... );
         }(std::make_index_sequence<ReflectTraits<T>::field_count>{});
 
         return field_map;

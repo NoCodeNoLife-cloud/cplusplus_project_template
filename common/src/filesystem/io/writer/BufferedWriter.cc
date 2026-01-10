@@ -74,7 +74,7 @@ namespace common
         }
     }
 
-    auto BufferedWriter::flush() -> void
+    auto BufferedWriter::flush() noexcept -> void
     {
         if (!buffer_.empty())
         {

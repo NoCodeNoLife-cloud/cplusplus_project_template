@@ -50,9 +50,7 @@ namespace common
 
         last_timestamp_ = timestamp;
 
-        return timestamp << (static_cast<int64_t>(SnowflakeOption::machine_bits_) + static_cast<int64_t>(
-            SnowflakeOption::sequence_bits_)) | static_cast<int64_t>(datacenter_id_ << 5 | machine_id_) << static_cast<
-            int64_t>(SnowflakeOption::sequence_bits_) | sequence_;
+        return timestamp << (static_cast<int64_t>(SnowflakeOption::machine_bits_) + static_cast<int64_t>(SnowflakeOption::sequence_bits_)) | static_cast<int64_t>(datacenter_id_ << 5 | machine_id_) << static_cast<int64_t>(SnowflakeOption::sequence_bits_) | sequence_;
     }
 
     auto SnowflakeGenerator::GetCurrentTimestamp() noexcept -> int64_t

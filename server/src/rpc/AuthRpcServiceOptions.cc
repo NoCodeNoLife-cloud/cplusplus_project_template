@@ -11,16 +11,8 @@ namespace app_server
 {
     AuthRpcServiceOptions::AuthRpcServiceOptions() = default;
 
-    AuthRpcServiceOptions::AuthRpcServiceOptions(const int32_t max_connection_idle_ms,
-                                                 const int32_t max_connection_age_ms,
-                                                 const int32_t max_connection_age_grace_ms,
-                                                 const int32_t keepalive_time_ms, const int32_t keepalive_timeout_ms,
-                                                 const int32_t keepalive_permit_without_calls,
-                                                 std::string server_address)
-        : max_connection_idle_ms_(max_connection_idle_ms), max_connection_age_ms_(max_connection_age_ms),
-          max_connection_age_grace_ms_(max_connection_age_grace_ms), keepalive_time_ms_(keepalive_time_ms),
-          keepalive_timeout_ms_(keepalive_timeout_ms), keepalive_permit_without_calls_(keepalive_permit_without_calls),
-          server_address_(std::move(server_address))
+    AuthRpcServiceOptions::AuthRpcServiceOptions(const int32_t max_connection_idle_ms, const int32_t max_connection_age_ms, const int32_t max_connection_age_grace_ms, const int32_t keepalive_time_ms, const int32_t keepalive_timeout_ms, const int32_t keepalive_permit_without_calls, std::string server_address)
+        : max_connection_idle_ms_(max_connection_idle_ms), max_connection_age_ms_(max_connection_age_ms), max_connection_age_grace_ms_(max_connection_age_grace_ms), keepalive_time_ms_(keepalive_time_ms), keepalive_timeout_ms_(keepalive_timeout_ms), keepalive_permit_without_calls_(keepalive_permit_without_calls), server_address_(std::move(server_address))
     {
         validateParameters();
     }
@@ -112,25 +104,8 @@ namespace app_server
 
             // Table-driven configuration loading for gRPC parameters
             const std::vector<std::pair<std::string, std::function<void()>>> config_handlers = {
-                {
-                    "maxConnectionIdleMs",
-                    [&]() { max_connection_idle_ms_ = grpcNode["maxConnectionIdleMs"].as<int32_t>(); }
-                },
-                {
-                    "maxConnectionAgeMs",
-                    [&]() { max_connection_age_ms_ = grpcNode["maxConnectionAgeMs"].as<int32_t>(); }
-                },
-                {
-                    "maxConnectionAgeGraceMs",
-                    [&]() { max_connection_age_grace_ms_ = grpcNode["maxConnectionAgeGraceMs"].as<int32_t>(); }
-                },
-                {"keepaliveTimeMs", [&]() { keepalive_time_ms_ = grpcNode["keepaliveTimeMs"].as<int32_t>(); }},
-                {"keepaliveTimeoutMs", [&]() { keepalive_timeout_ms_ = grpcNode["keepaliveTimeoutMs"].as<int32_t>(); }},
-                {
-                    "keepalivePermitWithoutCalls",
-                    [&]() { keepalive_permit_without_calls_ = grpcNode["keepalivePermitWithoutCalls"].as<int32_t>(); }
-                },
-                {"serverAddress", [&]() { server_address_ = grpcNode["serverAddress"].as<std::string>(); }}
+                {"maxConnectionIdleMs", [&]() { max_connection_idle_ms_ = grpcNode["maxConnectionIdleMs"].as<int32_t>(); }}, {"maxConnectionAgeMs", [&]() { max_connection_age_ms_ = grpcNode["maxConnectionAgeMs"].as<int32_t>(); }}, {"maxConnectionAgeGraceMs", [&]() { max_connection_age_grace_ms_ = grpcNode["maxConnectionAgeGraceMs"].as<int32_t>(); }}, {"keepaliveTimeMs", [&]() { keepalive_time_ms_ = grpcNode["keepaliveTimeMs"].as<int32_t>(); }}, {"keepaliveTimeoutMs", [&]() { keepalive_timeout_ms_ = grpcNode["keepaliveTimeoutMs"].as<int32_t>(); }},
+                {"keepalivePermitWithoutCalls", [&]() { keepalive_permit_without_calls_ = grpcNode["keepalivePermitWithoutCalls"].as<int32_t>(); }}, {"serverAddress", [&]() { server_address_ = grpcNode["serverAddress"].as<std::string>(); }}
             };
 
             for (const auto& [key, handler] : config_handlers)
@@ -149,8 +124,7 @@ namespace app_server
         }
         catch (const std::exception& e)
         {
-            const std::string error_msg = fmt::format("Error processing configuration file '{}': {}", path.string(),
-                                                      e.what());
+            const std::string error_msg = fmt::format("Error processing configuration file '{}': {}", path.string(), e.what());
             LOG(ERROR) << error_msg;
             throw std::runtime_error(std::move(error_msg));
         }
@@ -162,25 +136,8 @@ namespace app_server
     {
         // Table-driven validation for numeric parameter checks
         const std::vector<std::tuple<bool, std::string, const char*>> numeric_validations = {
-            std::make_tuple(max_connection_idle_ms_ <= 0,
-                            fmt::format("Invalid max connection idle time: {}ms. Value must be greater than 0.",
-                                        max_connection_idle_ms_), "max_connection_idle_ms_"),
-            std::make_tuple(max_connection_age_ms_ <= 0,
-                            fmt::format("Invalid max connection age: {}ms. Value must be greater than 0.",
-                                        max_connection_age_ms_), "max_connection_age_ms_"),
-            std::make_tuple(max_connection_age_grace_ms_ < 0,
-                            fmt::format(
-                                "Invalid max connection age grace period: {}ms. Value must be greater than or equal to 0.",
-                                max_connection_age_grace_ms_), "max_connection_age_grace_ms_"),
-            std::make_tuple(keepalive_time_ms_ <= 0,
-                            fmt::format("Invalid keepalive time: {}ms. Value must be greater than 0.",
-                                        keepalive_time_ms_), "keepalive_time_ms_"),
-            std::make_tuple(keepalive_timeout_ms_ <= 0,
-                            fmt::format("Invalid keepalive timeout: {}ms. Value must be greater than 0.",
-                                        keepalive_timeout_ms_), "keepalive_timeout_ms_"),
-            std::make_tuple(keepalive_permit_without_calls_ != 0 && keepalive_permit_without_calls_ != 1,
-                            fmt::format("Invalid keepalive permit without calls: {}. Valid values are 0 or 1.",
-                                        keepalive_permit_without_calls_), "keepalive_permit_without_calls_"),
+            std::make_tuple(max_connection_idle_ms_ <= 0, fmt::format("Invalid max connection idle time: {}ms. Value must be greater than 0.", max_connection_idle_ms_), "max_connection_idle_ms_"), std::make_tuple(max_connection_age_ms_ <= 0, fmt::format("Invalid max connection age: {}ms. Value must be greater than 0.", max_connection_age_ms_), "max_connection_age_ms_"), std::make_tuple(max_connection_age_grace_ms_ < 0, fmt::format("Invalid max connection age grace period: {}ms. Value must be greater than or equal to 0.", max_connection_age_grace_ms_), "max_connection_age_grace_ms_"),
+            std::make_tuple(keepalive_time_ms_ <= 0, fmt::format("Invalid keepalive time: {}ms. Value must be greater than 0.", keepalive_time_ms_), "keepalive_time_ms_"), std::make_tuple(keepalive_timeout_ms_ <= 0, fmt::format("Invalid keepalive timeout: {}ms. Value must be greater than 0.", keepalive_timeout_ms_), "keepalive_timeout_ms_"), std::make_tuple(keepalive_permit_without_calls_ != 0 && keepalive_permit_without_calls_ != 1, fmt::format("Invalid keepalive permit without calls: {}. Valid values are 0 or 1.", keepalive_permit_without_calls_), "keepalive_permit_without_calls_"),
             std::make_tuple(server_address_.empty(), fmt::format("Server address is empty."), "server_address_")
         };
 
@@ -196,23 +153,8 @@ namespace app_server
 
         // Table-driven validation for warning conditions
         const std::vector<std::tuple<bool, std::string>> warning_checks = {
-            std::make_tuple(max_connection_idle_ms_ > 0 && max_connection_idle_ms_ < 1000,
-                            fmt::format(
-                                "Max connection idle time is set to a very short interval ({}ms). This may cause excessive connection churn.",
-                                max_connection_idle_ms_)),
-            std::make_tuple(keepalive_time_ms_ > 0 && keepalive_time_ms_ < 1000,
-                            fmt::format(
-                                "Keepalive time is set to a very short interval ({}ms). This may cause excessive network traffic.",
-                                keepalive_time_ms_)),
-            std::make_tuple(keepalive_timeout_ms_ > 0 && keepalive_timeout_ms_ > keepalive_time_ms_, fmt::format(
-                                "Keepalive timeout ({}ms) is greater than keepalive time ({}ms). This may lead to unexpected connection issues.",
-                                keepalive_timeout_ms_, keepalive_time_ms_)),
-            std::make_tuple(
-                max_connection_age_ms_ > 0 && max_connection_idle_ms_ > 0 && max_connection_age_ms_ <
-                max_connection_idle_ms_,
-                fmt::format(
-                    "Max connection age ({}ms) is less than max connection idle time ({}ms). This may lead to unexpected connection behavior.",
-                    max_connection_age_ms_, max_connection_idle_ms_))
+            std::make_tuple(max_connection_idle_ms_ > 0 && max_connection_idle_ms_ < 1000, fmt::format("Max connection idle time is set to a very short interval ({}ms). This may cause excessive connection churn.", max_connection_idle_ms_)), std::make_tuple(keepalive_time_ms_ > 0 && keepalive_time_ms_ < 1000, fmt::format("Keepalive time is set to a very short interval ({}ms). This may cause excessive network traffic.", keepalive_time_ms_)),
+            std::make_tuple(keepalive_timeout_ms_ > 0 && keepalive_timeout_ms_ > keepalive_time_ms_, fmt::format("Keepalive timeout ({}ms) is greater than keepalive time ({}ms). This may lead to unexpected connection issues.", keepalive_timeout_ms_, keepalive_time_ms_)), std::make_tuple(max_connection_age_ms_ > 0 && max_connection_idle_ms_ > 0 && max_connection_age_ms_ < max_connection_idle_ms_, fmt::format("Max connection age ({}ms) is less than max connection idle time ({}ms). This may lead to unexpected connection behavior.", max_connection_age_ms_, max_connection_idle_ms_))
         };
 
         // Execute warning checks
@@ -269,10 +211,7 @@ namespace app_server
 
     auto AuthRpcServiceOptions::Builder::build() const -> AuthRpcServiceOptions
     {
-        AuthRpcServiceOptions options{
-            max_connection_idle_ms_, max_connection_age_ms_, max_connection_age_grace_ms_, keepalive_time_ms_,
-            keepalive_timeout_ms_, keepalive_permit_without_calls_, server_address_
-        };
+        AuthRpcServiceOptions options{max_connection_idle_ms_, max_connection_age_ms_, max_connection_age_grace_ms_, keepalive_time_ms_, keepalive_timeout_ms_, keepalive_permit_without_calls_, server_address_};
         options.validateParameters();
         return options;
     }
@@ -283,23 +222,11 @@ namespace app_server
     }
 }
 
-auto YAML::convert<app_server::AuthRpcServiceOptions>::decode(const Node& node,
-                                                              app_server::AuthRpcServiceOptions& rhs) -> bool
+auto YAML::convert<app_server::AuthRpcServiceOptions>::decode(const Node& node, app_server::AuthRpcServiceOptions& rhs) -> bool
 {
     const std::vector<std::pair<std::string, std::function<void()>>> config_handlers = {
-        {"maxConnectionIdleMs", [&]() { rhs.maxConnectionIdleMs(node["maxConnectionIdleMs"].as<int32_t>()); }},
-        {"maxConnectionAgeMs", [&]() { rhs.maxConnectionAgeMs(node["maxConnectionAgeMs"].as<int32_t>()); }},
-        {
-            "maxConnectionAgeGraceMs",
-            [&]() { rhs.maxConnectionAgeGraceMs(node["maxConnectionAgeGraceMs"].as<int32_t>()); }
-        },
-        {"keepaliveTimeMs", [&]() { rhs.keepaliveTimeMs(node["keepaliveTimeMs"].as<int32_t>()); }},
-        {"keepaliveTimeoutMs", [&]() { rhs.keepaliveTimeoutMs(node["keepaliveTimeoutMs"].as<int32_t>()); }},
-        {
-            "keepalivePermitWithoutCalls",
-            [&]() { rhs.keepalivePermitWithoutCalls(node["keepalivePermitWithoutCalls"].as<int32_t>()); }
-        },
-        {"serverAddress", [&]() { rhs.serverAddress(node["serverAddress"].as<std::string>()); }}
+        {"maxConnectionIdleMs", [&]() { rhs.maxConnectionIdleMs(node["maxConnectionIdleMs"].as<int32_t>()); }}, {"maxConnectionAgeMs", [&]() { rhs.maxConnectionAgeMs(node["maxConnectionAgeMs"].as<int32_t>()); }}, {"maxConnectionAgeGraceMs", [&]() { rhs.maxConnectionAgeGraceMs(node["maxConnectionAgeGraceMs"].as<int32_t>()); }}, {"keepaliveTimeMs", [&]() { rhs.keepaliveTimeMs(node["keepaliveTimeMs"].as<int32_t>()); }}, {"keepaliveTimeoutMs", [&]() { rhs.keepaliveTimeoutMs(node["keepaliveTimeoutMs"].as<int32_t>()); }},
+        {"keepalivePermitWithoutCalls", [&]() { rhs.keepalivePermitWithoutCalls(node["keepalivePermitWithoutCalls"].as<int32_t>()); }}, {"serverAddress", [&]() { rhs.serverAddress(node["serverAddress"].as<std::string>()); }}
     };
 
     for (const auto& [key, handler] : config_handlers)

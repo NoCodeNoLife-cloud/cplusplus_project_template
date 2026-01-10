@@ -86,6 +86,9 @@ namespace common
         /// @brief Converts the content of the writer to a string representation.
         /// @return A string representation of the writer's content.
         [[nodiscard]] virtual auto toString() const -> std::string = 0;
+
+        /// @brief Flushes the writer.
+        auto flush() noexcept -> void override = 0;
     };
 
     inline AbstractWriter::AbstractWriter() = default;
@@ -191,8 +194,7 @@ namespace common
         if (off < str.size() && len > 0)
         {
             const size_t end = std::min(off + len, str.size());
-            const std::vector buf(str.begin() + static_cast<std::string::difference_type>(off),
-                                  str.begin() + static_cast<std::string::difference_type>(end));
+            const std::vector buf(str.begin() + static_cast<std::string::difference_type>(off), str.begin() + static_cast<std::string::difference_type>(end));
             write(buf, 0, buf.size());
         }
     }

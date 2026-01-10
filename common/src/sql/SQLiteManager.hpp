@@ -42,9 +42,7 @@ namespace common
         /// @param params Parameter values for prepared statement
         /// @return Query results in format [rows][columns]
         /// @throws std::runtime_error if query fails
-        [[nodiscard]] auto query(const std::string& sql,
-                                 const std::vector<std::string>& params = {}) const -> std::vector<std::vector<
-            std::string>>;
+        [[nodiscard]] auto query(const std::string& sql, const std::vector<std::string>& params = {}) const -> std::vector<std::vector<std::string>>;
 
         /// @brief Check if database is open
         /// @return true if database is open, false otherwise

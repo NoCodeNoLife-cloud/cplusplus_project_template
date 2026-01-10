@@ -105,15 +105,13 @@ namespace glog
         }
         catch (const std::exception& e)
         {
-            throw std::runtime_error(fmt::format("Error processing configuration file '{}': {}", path.string(),
-                                                 e.what()));
+            throw std::runtime_error(fmt::format("Error processing configuration file '{}': {}", path.string(), e.what()));
         }
     }
 
     auto GLogParameters::operator==(const GLogParameters& other) const noexcept -> bool
     {
-        return min_log_level_ == other.min_log_level_ && log_name_ == other.log_name_ && log_to_stderr_ == other.
-            log_to_stderr_ && custom_log_format_ == other.custom_log_format_;
+        return min_log_level_ == other.min_log_level_ && log_name_ == other.log_name_ && log_to_stderr_ == other.log_to_stderr_ && custom_log_format_ == other.custom_log_format_;
     }
 
     auto GLogParameters::operator!=(const GLogParameters& other) const noexcept -> bool

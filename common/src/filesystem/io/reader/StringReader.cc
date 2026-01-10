@@ -1,5 +1,6 @@
 #include "src/filesystem/io/reader/StringReader.hpp"
 
+#include <algorithm>
 #include <stdexcept>
 
 namespace common
@@ -9,9 +10,7 @@ namespace common
     {
     }
 
-    StringReader::~StringReader() = default;
-
-    auto StringReader::close() -> void
+    auto StringReader::close() noexcept -> void
     {
         closed_ = true;
         source_.clear();
@@ -24,14 +23,14 @@ namespace common
     {
         if (closed_)
         {
-            throw std::runtime_error("Stream is closed");
+            throw std::runtime_error("StringReader::mark: Stream is closed");
         }
         mark_position_ = position_;
         mark_set_ = true;
         static_cast<void>(readAheadLimit); // Unused parameter
     }
 
-    auto StringReader::markSupported() const -> bool
+    auto StringReader::markSupported() const noexcept -> bool
     {
         return true;
     }
@@ -49,12 +48,12 @@ namespace common
     {
         if (closed_)
         {
-            throw std::runtime_error("Stream is closed");
+            throw std::runtime_error("StringReader::read: Stream is closed");
         }
 
         if (off > cBuf.size() || len > cBuf.size() - off)
         {
-            throw std::invalid_argument("Offset is out of bounds of the buffer");
+            throw std::invalid_argument("StringReader::read: Offset is out of bounds of the buffer");
         }
 
         if (position_ >= source_.size())
@@ -79,7 +78,7 @@ namespace common
         return static_cast<int>(actualRead > 0 ? actualRead : -1);
     }
 
-    auto StringReader::ready() const -> bool
+    auto StringReader::ready() const noexcept -> bool
     {
         return !closed_ && position_ < source_.size();
     }
@@ -88,7 +87,7 @@ namespace common
     {
         if (closed_)
         {
-            throw std::runtime_error("Stream is closed");
+            throw std::runtime_error("StringReader::reset: Stream is closed");
         }
         if (!mark_set_)
         {
@@ -100,7 +99,7 @@ namespace common
         }
     }
 
-    auto StringReader::skip(const size_t ns) -> size_t
+    auto StringReader::skip(const size_t ns) noexcept -> size_t
     {
         if (closed_)
         {
@@ -111,7 +110,7 @@ namespace common
         return charsToSkip;
     }
 
-    auto StringReader::isClosed() const -> bool
+    auto StringReader::isClosed() const noexcept -> bool
     {
         return closed_;
     }

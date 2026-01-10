@@ -28,8 +28,7 @@ namespace _fl = ::google::protobuf::internal::field_layout;
 namespace rpc
 {
     inline constexpr UserExistsRequest::Impl_::Impl_(::_pbi::ConstantInitialized) noexcept
-        : username_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()),
-          _cached_size_{0}
+        : username_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()), _cached_size_{0}
     {
     }
 
@@ -60,13 +59,10 @@ namespace rpc
         };
     };
 
-    PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-    UserExistsRequestDefaultTypeInternal _UserExistsRequest_default_instance_;
+    PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UserExistsRequestDefaultTypeInternal _UserExistsRequest_default_instance_;
 
     inline constexpr ResetPasswordRequest::Impl_::Impl_(::_pbi::ConstantInitialized) noexcept
-        : username_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()),
-          new_password_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()),
-          _cached_size_{0}
+        : username_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()), new_password_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()), _cached_size_{0}
     {
     }
 
@@ -97,13 +93,10 @@ namespace rpc
         };
     };
 
-    PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-    ResetPasswordRequestDefaultTypeInternal _ResetPasswordRequest_default_instance_;
+    PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ResetPasswordRequestDefaultTypeInternal _ResetPasswordRequest_default_instance_;
 
     inline constexpr RegisterUserRequest::Impl_::Impl_(::_pbi::ConstantInitialized) noexcept
-        : username_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()),
-          password_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()),
-          _cached_size_{0}
+        : username_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()), password_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()), _cached_size_{0}
     {
     }
 
@@ -134,12 +127,10 @@ namespace rpc
         };
     };
 
-    PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-    RegisterUserRequestDefaultTypeInternal _RegisterUserRequest_default_instance_;
+    PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RegisterUserRequestDefaultTypeInternal _RegisterUserRequest_default_instance_;
 
     inline constexpr DeleteUserRequest::Impl_::Impl_(::_pbi::ConstantInitialized) noexcept
-        : username_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()),
-          _cached_size_{0}
+        : username_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()), _cached_size_{0}
     {
     }
 
@@ -170,14 +161,10 @@ namespace rpc
         };
     };
 
-    PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-    DeleteUserRequestDefaultTypeInternal _DeleteUserRequest_default_instance_;
+    PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeleteUserRequestDefaultTypeInternal _DeleteUserRequest_default_instance_;
 
     inline constexpr ChangePasswordRequest::Impl_::Impl_(::_pbi::ConstantInitialized) noexcept
-        : username_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()),
-          current_password_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()),
-          new_password_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()),
-          _cached_size_{0}
+        : username_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()), current_password_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()), new_password_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()), _cached_size_{0}
     {
     }
 
@@ -208,13 +195,10 @@ namespace rpc
         };
     };
 
-    PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-    ChangePasswordRequestDefaultTypeInternal _ChangePasswordRequest_default_instance_;
+    PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChangePasswordRequestDefaultTypeInternal _ChangePasswordRequest_default_instance_;
 
     inline constexpr AuthenticateUserRequest::Impl_::Impl_(::_pbi::ConstantInitialized) noexcept
-        : username_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()),
-          password_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()),
-          _cached_size_{0}
+        : username_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()), password_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()), _cached_size_{0}
     {
     }
 
@@ -245,12 +229,10 @@ namespace rpc
         };
     };
 
-    PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-    AuthenticateUserRequestDefaultTypeInternal _AuthenticateUserRequest_default_instance_;
+    PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthenticateUserRequestDefaultTypeInternal _AuthenticateUserRequest_default_instance_;
 
     inline constexpr AuthResponse::Impl_::Impl_(::_pbi::ConstantInitialized) noexcept
-        : message_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()),
-          success_{false}, error_code_{0}, _cached_size_{0}
+        : message_(&::google::protobuf::internal::fixed_address_empty_string, ::_pbi::ConstantInitialized()), success_{false}, error_code_{0}, _cached_size_{0}
     {
     }
 
@@ -281,8 +263,7 @@ namespace rpc
         };
     };
 
-    PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthResponseDefaultTypeInternal
-    _AuthResponse_default_instance_;
+    PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthResponseDefaultTypeInternal _AuthResponse_default_instance_;
 } // namespace rpc
 static constexpr const ::_pb::EnumDescriptor** file_level_enum_descriptors_RpcService_2eproto = nullptr;
 static constexpr const ::_pb::ServiceDescriptor** file_level_service_descriptors_RpcService_2eproto = nullptr;
@@ -294,33 +275,28 @@ const ::uint32_t TableStruct_RpcService_2eproto::offsets[] ABSL_ATTRIBUTE_SECTIO
     ~0u, // no _inlined_string_donated_
     ~0u, // no _split_
     ~0u, // no sizeof(Split)
-    PROTOBUF_FIELD_OFFSET(::rpc::RegisterUserRequest, _impl_.username_),
-    PROTOBUF_FIELD_OFFSET(::rpc::RegisterUserRequest, _impl_.password_), ~0u, // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::rpc::RegisterUserRequest, _impl_.username_), PROTOBUF_FIELD_OFFSET(::rpc::RegisterUserRequest, _impl_.password_), ~0u, // no _has_bits_
     PROTOBUF_FIELD_OFFSET(::rpc::AuthenticateUserRequest, _internal_metadata_), ~0u, // no _extensions_
     ~0u, // no _oneof_case_
     ~0u, // no _weak_field_map_
     ~0u, // no _inlined_string_donated_
     ~0u, // no _split_
     ~0u, // no sizeof(Split)
-    PROTOBUF_FIELD_OFFSET(::rpc::AuthenticateUserRequest, _impl_.username_),
-    PROTOBUF_FIELD_OFFSET(::rpc::AuthenticateUserRequest, _impl_.password_), ~0u, // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::rpc::AuthenticateUserRequest, _impl_.username_), PROTOBUF_FIELD_OFFSET(::rpc::AuthenticateUserRequest, _impl_.password_), ~0u, // no _has_bits_
     PROTOBUF_FIELD_OFFSET(::rpc::ChangePasswordRequest, _internal_metadata_), ~0u, // no _extensions_
     ~0u, // no _oneof_case_
     ~0u, // no _weak_field_map_
     ~0u, // no _inlined_string_donated_
     ~0u, // no _split_
     ~0u, // no sizeof(Split)
-    PROTOBUF_FIELD_OFFSET(::rpc::ChangePasswordRequest, _impl_.username_),
-    PROTOBUF_FIELD_OFFSET(::rpc::ChangePasswordRequest, _impl_.current_password_),
-    PROTOBUF_FIELD_OFFSET(::rpc::ChangePasswordRequest, _impl_.new_password_), ~0u, // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::rpc::ChangePasswordRequest, _impl_.username_), PROTOBUF_FIELD_OFFSET(::rpc::ChangePasswordRequest, _impl_.current_password_), PROTOBUF_FIELD_OFFSET(::rpc::ChangePasswordRequest, _impl_.new_password_), ~0u, // no _has_bits_
     PROTOBUF_FIELD_OFFSET(::rpc::ResetPasswordRequest, _internal_metadata_), ~0u, // no _extensions_
     ~0u, // no _oneof_case_
     ~0u, // no _weak_field_map_
     ~0u, // no _inlined_string_donated_
     ~0u, // no _split_
     ~0u, // no sizeof(Split)
-    PROTOBUF_FIELD_OFFSET(::rpc::ResetPasswordRequest, _impl_.username_),
-    PROTOBUF_FIELD_OFFSET(::rpc::ResetPasswordRequest, _impl_.new_password_), ~0u, // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::rpc::ResetPasswordRequest, _impl_.username_), PROTOBUF_FIELD_OFFSET(::rpc::ResetPasswordRequest, _impl_.new_password_), ~0u, // no _has_bits_
     PROTOBUF_FIELD_OFFSET(::rpc::DeleteUserRequest, _internal_metadata_), ~0u, // no _extensions_
     ~0u, // no _oneof_case_
     ~0u, // no _weak_field_map_
@@ -341,50 +317,18 @@ const ::uint32_t TableStruct_RpcService_2eproto::offsets[] ABSL_ATTRIBUTE_SECTIO
     ~0u, // no _inlined_string_donated_
     ~0u, // no _split_
     ~0u, // no sizeof(Split)
-    PROTOBUF_FIELD_OFFSET(::rpc::AuthResponse, _impl_.success_),
-    PROTOBUF_FIELD_OFFSET(::rpc::AuthResponse, _impl_.message_),
-    PROTOBUF_FIELD_OFFSET(::rpc::AuthResponse, _impl_.error_code_),
+    PROTOBUF_FIELD_OFFSET(::rpc::AuthResponse, _impl_.success_), PROTOBUF_FIELD_OFFSET(::rpc::AuthResponse, _impl_.message_), PROTOBUF_FIELD_OFFSET(::rpc::AuthResponse, _impl_.error_code_),
 };
 
-static const ::_pbi::MigrationSchema schemas[] ABSL_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-    {0, -1, -1, sizeof(::rpc::RegisterUserRequest)}, {10, -1, -1, sizeof(::rpc::AuthenticateUserRequest)},
-    {20, -1, -1, sizeof(::rpc::ChangePasswordRequest)}, {31, -1, -1, sizeof(::rpc::ResetPasswordRequest)},
-    {41, -1, -1, sizeof(::rpc::DeleteUserRequest)}, {50, -1, -1, sizeof(::rpc::UserExistsRequest)},
-    {59, -1, -1, sizeof(::rpc::AuthResponse)},
-};
-static const ::_pb::Message* const file_default_instances[] = {
-    &::rpc::_RegisterUserRequest_default_instance_._instance,
-    &::rpc::_AuthenticateUserRequest_default_instance_._instance,
-    &::rpc::_ChangePasswordRequest_default_instance_._instance,
-    &::rpc::_ResetPasswordRequest_default_instance_._instance, &::rpc::_DeleteUserRequest_default_instance_._instance,
-    &::rpc::_UserExistsRequest_default_instance_._instance, &::rpc::_AuthResponse_default_instance_._instance,
-};
+static const ::_pbi::MigrationSchema schemas[] ABSL_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {{0, -1, -1, sizeof(::rpc::RegisterUserRequest)}, {10, -1, -1, sizeof(::rpc::AuthenticateUserRequest)}, {20, -1, -1, sizeof(::rpc::ChangePasswordRequest)}, {31, -1, -1, sizeof(::rpc::ResetPasswordRequest)}, {41, -1, -1, sizeof(::rpc::DeleteUserRequest)}, {50, -1, -1, sizeof(::rpc::UserExistsRequest)}, {59, -1, -1, sizeof(::rpc::AuthResponse)},};
+static const ::_pb::Message* const file_default_instances[] = {&::rpc::_RegisterUserRequest_default_instance_._instance, &::rpc::_AuthenticateUserRequest_default_instance_._instance, &::rpc::_ChangePasswordRequest_default_instance_._instance, &::rpc::_ResetPasswordRequest_default_instance_._instance, &::rpc::_DeleteUserRequest_default_instance_._instance, &::rpc::_UserExistsRequest_default_instance_._instance, &::rpc::_AuthResponse_default_instance_._instance,};
 const char descriptor_table_protodef_RpcService_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-    "\n\020RpcService.proto\022\003rpc\"9\n\023RegisterUserR"
-    "equest\022\020\n\010username\030\001 \001(\t\022\020\n\010password\030\002 \001"
-    "(\t\"=\n\027AuthenticateUserRequest\022\020\n\010usernam"
-    "e\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"Y\n\025ChangePassw"
-    "ordRequest\022\020\n\010username\030\001 \001(\t\022\030\n\020current_"
-    "password\030\002 \001(\t\022\024\n\014new_password\030\003 \001(\t\">\n\024"
-    "ResetPasswordRequest\022\020\n\010username\030\001 \001(\t\022\024"
-    "\n\014new_password\030\002 \001(\t\"%\n\021DeleteUserReques"
-    "t\022\020\n\010username\030\001 \001(\t\"%\n\021UserExistsRequest"
-    "\022\020\n\010username\030\001 \001(\t\"D\n\014AuthResponse\022\017\n\007su"
-    "ccess\030\001 \001(\010\022\017\n\007message\030\002 \001(\t\022\022\n\nerror_co"
-    "de\030\003 \001(\0052\215\003\n\013AuthService\022=\n\014RegisterUser"
-    "\022\030.rpc.RegisterUserRequest\032\021.rpc.AuthRes" "ponse\"\000\022E\n\020AuthenticateUser\022\034.rpc.Authen"
-    "ticateUserRequest\032\021.rpc.AuthResponse\"\000\022A" "\n\016ChangePassword\022\032.rpc.ChangePasswordReq"
-    "uest\032\021.rpc.AuthResponse\"\000\022\?\n\rResetPasswo" "rd\022\031.rpc.ResetPasswordRequest\032\021.rpc.Auth"
-    "Response\"\000\0229\n\nDeleteUser\022\026.rpc.DeleteUse" "rRequest\032\021.rpc.AuthResponse\"\000\0229\n\nUserExi"
-    "sts\022\026.rpc.UserExistsRequest\032\021.rpc.AuthRe" "sponse\"\000b\006proto3"
+    "\n\020RpcService.proto\022\003rpc\"9\n\023RegisterUserR" "equest\022\020\n\010username\030\001 \001(\t\022\020\n\010password\030\002 \001" "(\t\"=\n\027AuthenticateUserRequest\022\020\n\010usernam" "e\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"Y\n\025ChangePassw" "ordRequest\022\020\n\010username\030\001 \001(\t\022\030\n\020current_" "password\030\002 \001(\t\022\024\n\014new_password\030\003 \001(\t\">\n\024" "ResetPasswordRequest\022\020\n\010username\030\001 \001(\t\022\024" "\n\014new_password\030\002 \001(\t\"%\n\021DeleteUserReques"
+    "t\022\020\n\010username\030\001 \001(\t\"%\n\021UserExistsRequest" "\022\020\n\010username\030\001 \001(\t\"D\n\014AuthResponse\022\017\n\007su" "ccess\030\001 \001(\010\022\017\n\007message\030\002 \001(\t\022\022\n\nerror_co" "de\030\003 \001(\0052\215\003\n\013AuthService\022=\n\014RegisterUser" "\022\030.rpc.RegisterUserRequest\032\021.rpc.AuthRes" "ponse\"\000\022E\n\020AuthenticateUser\022\034.rpc.Authen" "ticateUserRequest\032\021.rpc.AuthResponse\"\000\022A" "\n\016ChangePassword\022\032.rpc.ChangePasswordReq" "uest\032\021.rpc.AuthResponse\"\000\022\?\n\rResetPasswo"
+    "rd\022\031.rpc.ResetPasswordRequest\032\021.rpc.Auth" "Response\"\000\0229\n\nDeleteUser\022\026.rpc.DeleteUse" "rRequest\032\021.rpc.AuthResponse\"\000\0229\n\nUserExi" "sts\022\026.rpc.UserExistsRequest\032\021.rpc.AuthRe" "sponse\"\000b\006proto3"
 };
 static ::absl::once_flag descriptor_table_RpcService_2eproto_once;
-PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_RpcService_2eproto = {
-    false, false, 856, descriptor_table_protodef_RpcService_2eproto, "RpcService.proto",
-    &descriptor_table_RpcService_2eproto_once, nullptr, 0, 7, schemas, file_default_instances,
-    TableStruct_RpcService_2eproto::offsets, file_level_enum_descriptors_RpcService_2eproto,
-    file_level_service_descriptors_RpcService_2eproto,
-};
+PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_RpcService_2eproto = {false, false, 856, descriptor_table_protodef_RpcService_2eproto, "RpcService.proto", &descriptor_table_RpcService_2eproto_once, nullptr, 0, 7, schemas, file_default_instances, TableStruct_RpcService_2eproto::offsets, file_level_enum_descriptors_RpcService_2eproto, file_level_service_descriptors_RpcService_2eproto,};
 
 namespace rpc
 {
@@ -407,9 +351,7 @@ namespace rpc
         // @@protoc_insertion_point(arena_constructor:rpc.RegisterUserRequest)
     }
 
-    inline PROTOBUF_NDEBUG_INLINE RegisterUserRequest::Impl_::Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-        const Impl_& from, const ::rpc::RegisterUserRequest& from_msg)
+    inline PROTOBUF_NDEBUG_INLINE RegisterUserRequest::Impl_::Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena, const Impl_& from, const ::rpc::RegisterUserRequest& from_msg)
         : username_(arena, from.username_), password_(arena, from.password_), _cached_size_{0}
     {
     }
@@ -430,8 +372,7 @@ namespace rpc
         // @@protoc_insertion_point(copy_constructor:rpc.RegisterUserRequest)
     }
 
-    inline PROTOBUF_NDEBUG_INLINE RegisterUserRequest::Impl_::Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena)
+    inline PROTOBUF_NDEBUG_INLINE RegisterUserRequest::Impl_::Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena)
         : username_(arena), password_(arena), _cached_size_{0}
     {
     }
@@ -464,19 +405,16 @@ namespace rpc
 
     constexpr auto RegisterUserRequest::InternalNewImpl_()
     {
-        return ::google::protobuf::internal::MessageCreator::CopyInit(sizeof(RegisterUserRequest),
-                                                                      alignof(RegisterUserRequest));
+        return ::google::protobuf::internal::MessageCreator::CopyInit(sizeof(RegisterUserRequest), alignof(RegisterUserRequest));
     }
 
-    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::google::protobuf::internal::ClassDataFull
-    RegisterUserRequest::_class_data_ = {
+    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::google::protobuf::internal::ClassDataFull RegisterUserRequest::_class_data_ = {
         ::google::protobuf::internal::ClassData{
             &_RegisterUserRequest_default_instance_._instance, &_table_.header, nullptr, // OnDemandRegisterArenaDtor
             nullptr, // IsInitialized
             &RegisterUserRequest::MergeImpl, ::google::protobuf::Message::GetNewImpl<RegisterUserRequest>(),
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-            &RegisterUserRequest::SharedDtor, ::google::protobuf::Message::GetClearImpl<RegisterUserRequest>(), &
-            RegisterUserRequest::ByteSizeLong, &RegisterUserRequest::_InternalSerialize,
+            &RegisterUserRequest::SharedDtor, ::google::protobuf::Message::GetClearImpl<RegisterUserRequest>(), &RegisterUserRequest::ByteSizeLong, &RegisterUserRequest::_InternalSerialize,
 #endif  // PROTOBUF_CUSTOM_VTABLE
             PROTOBUF_FIELD_OFFSET(RegisterUserRequest, _impl_._cached_size_), false,
         },
@@ -490,8 +428,7 @@ namespace rpc
         return _class_data_.base();
     }
 
-    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::_pbi::TcParseTable<1, 2, 0, 48, 2>
-    RegisterUserRequest::_table_ = {
+    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::_pbi::TcParseTable<1, 2, 0, 48, 2> RegisterUserRequest::_table_ = {
         {
             0, // no _has_bits_
             0, // no _extensions_
@@ -517,15 +454,9 @@ namespace rpc
         {{65535, 65535}}, {
             {
                 // string username = 1;
-                {
-                    PROTOBUF_FIELD_OFFSET(RegisterUserRequest, _impl_.username_), 0, 0,
-                    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)
-                },
+                {PROTOBUF_FIELD_OFFSET(RegisterUserRequest, _impl_.username_), 0, 0, (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
                 // string password = 2;
-                {
-                    PROTOBUF_FIELD_OFFSET(RegisterUserRequest, _impl_.password_), 0, 0,
-                    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)
-                },
+                {PROTOBUF_FIELD_OFFSET(RegisterUserRequest, _impl_.password_), 0, 0, (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
             }
         },
         // no aux_entries
@@ -546,13 +477,11 @@ namespace rpc
     }
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-    ::uint8_t* RegisterUserRequest::_InternalSerialize(const MessageLite& base, ::uint8_t* target,
-                                                       ::google::protobuf::io::EpsCopyOutputStream* stream)
+    ::uint8_t* RegisterUserRequest::_InternalSerialize(const MessageLite& base, ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream)
     {
         const RegisterUserRequest& this_ = static_cast<const RegisterUserRequest&>(base);
 #else   // PROTOBUF_CUSTOM_VTABLE
-    ::uint8_t* RegisterUserRequest::_InternalSerialize(::uint8_t* target,
-                                                       ::google::protobuf::io::EpsCopyOutputStream* stream) const
+    ::uint8_t* RegisterUserRequest::_InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
     {
         const RegisterUserRequest& this_ = *this;
 #endif  // PROTOBUF_CUSTOM_VTABLE
@@ -564,9 +493,7 @@ namespace rpc
         if (!this_._internal_username().empty())
         {
             const std::string& _s = this_._internal_username();
-            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-                "rpc.RegisterUserRequest.username");
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "rpc.RegisterUserRequest.username");
             target = stream->WriteStringMaybeAliased(1, _s, target);
         }
 
@@ -574,17 +501,13 @@ namespace rpc
         if (!this_._internal_password().empty())
         {
             const std::string& _s = this_._internal_password();
-            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-                "rpc.RegisterUserRequest.password");
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "rpc.RegisterUserRequest.password");
             target = stream->WriteStringMaybeAliased(2, _s, target);
         }
 
         if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields()))
         {
-            target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-                this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(
-                    ::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+            target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
         }
         // @@protoc_insertion_point(serialize_to_array_end:rpc.RegisterUserRequest)
         return target;
@@ -622,8 +545,7 @@ namespace rpc
         return this_.MaybeComputeUnknownFieldsSize(total_size, &this_._impl_._cached_size_);
     }
 
-    void RegisterUserRequest::MergeImpl(::google::protobuf::MessageLite& to_msg,
-                                        const ::google::protobuf::MessageLite& from_msg)
+    void RegisterUserRequest::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg)
     {
         auto* const _this = static_cast<RegisterUserRequest*>(&to_msg);
         auto& from = static_cast<const RegisterUserRequest&>(from_msg);
@@ -686,15 +608,12 @@ namespace rpc
         // @@protoc_insertion_point(arena_constructor:rpc.AuthenticateUserRequest)
     }
 
-    inline PROTOBUF_NDEBUG_INLINE AuthenticateUserRequest::Impl_::Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-        const Impl_& from, const ::rpc::AuthenticateUserRequest& from_msg)
+    inline PROTOBUF_NDEBUG_INLINE AuthenticateUserRequest::Impl_::Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena, const Impl_& from, const ::rpc::AuthenticateUserRequest& from_msg)
         : username_(arena, from.username_), password_(arena, from.password_), _cached_size_{0}
     {
     }
 
-    AuthenticateUserRequest::AuthenticateUserRequest(::google::protobuf::Arena* arena,
-                                                     const AuthenticateUserRequest& from)
+    AuthenticateUserRequest::AuthenticateUserRequest(::google::protobuf::Arena* arena, const AuthenticateUserRequest& from)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
     : ::google::protobuf::Message(arena, _class_data_.base())
     {
@@ -710,8 +629,7 @@ namespace rpc
         // @@protoc_insertion_point(copy_constructor:rpc.AuthenticateUserRequest)
     }
 
-    inline PROTOBUF_NDEBUG_INLINE AuthenticateUserRequest::Impl_::Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena)
+    inline PROTOBUF_NDEBUG_INLINE AuthenticateUserRequest::Impl_::Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena)
         : username_(arena), password_(arena), _cached_size_{0}
     {
     }
@@ -744,20 +662,16 @@ namespace rpc
 
     constexpr auto AuthenticateUserRequest::InternalNewImpl_()
     {
-        return ::google::protobuf::internal::MessageCreator::CopyInit(sizeof(AuthenticateUserRequest),
-                                                                      alignof(AuthenticateUserRequest));
+        return ::google::protobuf::internal::MessageCreator::CopyInit(sizeof(AuthenticateUserRequest), alignof(AuthenticateUserRequest));
     }
 
-    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::google::protobuf::internal::ClassDataFull
-    AuthenticateUserRequest::_class_data_ = {
+    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::google::protobuf::internal::ClassDataFull AuthenticateUserRequest::_class_data_ = {
         ::google::protobuf::internal::ClassData{
-            &_AuthenticateUserRequest_default_instance_._instance, &_table_.header, nullptr,
-            // OnDemandRegisterArenaDtor
+            &_AuthenticateUserRequest_default_instance_._instance, &_table_.header, nullptr, // OnDemandRegisterArenaDtor
             nullptr, // IsInitialized
             &AuthenticateUserRequest::MergeImpl, ::google::protobuf::Message::GetNewImpl<AuthenticateUserRequest>(),
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-            &AuthenticateUserRequest::SharedDtor, ::google::protobuf::Message::GetClearImpl<AuthenticateUserRequest>(),
-            &AuthenticateUserRequest::ByteSizeLong, &AuthenticateUserRequest::_InternalSerialize,
+            &AuthenticateUserRequest::SharedDtor, ::google::protobuf::Message::GetClearImpl<AuthenticateUserRequest>(), &AuthenticateUserRequest::ByteSizeLong, &AuthenticateUserRequest::_InternalSerialize,
 #endif  // PROTOBUF_CUSTOM_VTABLE
             PROTOBUF_FIELD_OFFSET(AuthenticateUserRequest, _impl_._cached_size_), false,
         },
@@ -771,8 +685,7 @@ namespace rpc
         return _class_data_.base();
     }
 
-    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::_pbi::TcParseTable<1, 2, 0, 52, 2>
-    AuthenticateUserRequest::_table_ = {
+    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::_pbi::TcParseTable<1, 2, 0, 52, 2> AuthenticateUserRequest::_table_ = {
         {
             0, // no _has_bits_
             0, // no _extensions_
@@ -790,29 +703,17 @@ namespace rpc
         {
             {
                 // string password = 2;
-                {
-                    ::_pbi::TcParser::FastUS1,
-                    {18, 63, 0, PROTOBUF_FIELD_OFFSET(AuthenticateUserRequest, _impl_.password_)}
-                },
+                {::_pbi::TcParser::FastUS1, {18, 63, 0, PROTOBUF_FIELD_OFFSET(AuthenticateUserRequest, _impl_.password_)}},
                 // string username = 1;
-                {
-                    ::_pbi::TcParser::FastUS1,
-                    {10, 63, 0, PROTOBUF_FIELD_OFFSET(AuthenticateUserRequest, _impl_.username_)}
-                },
+                {::_pbi::TcParser::FastUS1, {10, 63, 0, PROTOBUF_FIELD_OFFSET(AuthenticateUserRequest, _impl_.username_)}},
             }
         },
         {{65535, 65535}}, {
             {
                 // string username = 1;
-                {
-                    PROTOBUF_FIELD_OFFSET(AuthenticateUserRequest, _impl_.username_), 0, 0,
-                    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)
-                },
+                {PROTOBUF_FIELD_OFFSET(AuthenticateUserRequest, _impl_.username_), 0, 0, (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
                 // string password = 2;
-                {
-                    PROTOBUF_FIELD_OFFSET(AuthenticateUserRequest, _impl_.password_), 0, 0,
-                    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)
-                },
+                {PROTOBUF_FIELD_OFFSET(AuthenticateUserRequest, _impl_.password_), 0, 0, (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
             }
         },
         // no aux_entries
@@ -833,13 +734,11 @@ namespace rpc
     }
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-    ::uint8_t* AuthenticateUserRequest::_InternalSerialize(const MessageLite& base, ::uint8_t* target,
-                                                           ::google::protobuf::io::EpsCopyOutputStream* stream)
+    ::uint8_t* AuthenticateUserRequest::_InternalSerialize(const MessageLite& base, ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream)
     {
         const AuthenticateUserRequest& this_ = static_cast<const AuthenticateUserRequest&>(base);
 #else   // PROTOBUF_CUSTOM_VTABLE
-    ::uint8_t* AuthenticateUserRequest::_InternalSerialize(::uint8_t* target,
-                                                           ::google::protobuf::io::EpsCopyOutputStream* stream) const
+    ::uint8_t* AuthenticateUserRequest::_InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
     {
         const AuthenticateUserRequest& this_ = *this;
 #endif  // PROTOBUF_CUSTOM_VTABLE
@@ -851,9 +750,7 @@ namespace rpc
         if (!this_._internal_username().empty())
         {
             const std::string& _s = this_._internal_username();
-            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-                "rpc.AuthenticateUserRequest.username");
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "rpc.AuthenticateUserRequest.username");
             target = stream->WriteStringMaybeAliased(1, _s, target);
         }
 
@@ -861,17 +758,13 @@ namespace rpc
         if (!this_._internal_password().empty())
         {
             const std::string& _s = this_._internal_password();
-            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-                "rpc.AuthenticateUserRequest.password");
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "rpc.AuthenticateUserRequest.password");
             target = stream->WriteStringMaybeAliased(2, _s, target);
         }
 
         if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields()))
         {
-            target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-                this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(
-                    ::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+            target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
         }
         // @@protoc_insertion_point(serialize_to_array_end:rpc.AuthenticateUserRequest)
         return target;
@@ -909,8 +802,7 @@ namespace rpc
         return this_.MaybeComputeUnknownFieldsSize(total_size, &this_._impl_._cached_size_);
     }
 
-    void AuthenticateUserRequest::MergeImpl(::google::protobuf::MessageLite& to_msg,
-                                            const ::google::protobuf::MessageLite& from_msg)
+    void AuthenticateUserRequest::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg)
     {
         auto* const _this = static_cast<AuthenticateUserRequest*>(&to_msg);
         auto& from = static_cast<const AuthenticateUserRequest&>(from_msg);
@@ -973,11 +865,8 @@ namespace rpc
         // @@protoc_insertion_point(arena_constructor:rpc.ChangePasswordRequest)
     }
 
-    inline PROTOBUF_NDEBUG_INLINE ChangePasswordRequest::Impl_::Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-        const Impl_& from, const ::rpc::ChangePasswordRequest& from_msg)
-        : username_(arena, from.username_), current_password_(arena, from.current_password_),
-          new_password_(arena, from.new_password_), _cached_size_{0}
+    inline PROTOBUF_NDEBUG_INLINE ChangePasswordRequest::Impl_::Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena, const Impl_& from, const ::rpc::ChangePasswordRequest& from_msg)
+        : username_(arena, from.username_), current_password_(arena, from.current_password_), new_password_(arena, from.new_password_), _cached_size_{0}
     {
     }
 
@@ -997,8 +886,7 @@ namespace rpc
         // @@protoc_insertion_point(copy_constructor:rpc.ChangePasswordRequest)
     }
 
-    inline PROTOBUF_NDEBUG_INLINE ChangePasswordRequest::Impl_::Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena)
+    inline PROTOBUF_NDEBUG_INLINE ChangePasswordRequest::Impl_::Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena)
         : username_(arena), current_password_(arena), new_password_(arena), _cached_size_{0}
     {
     }
@@ -1032,19 +920,16 @@ namespace rpc
 
     constexpr auto ChangePasswordRequest::InternalNewImpl_()
     {
-        return ::google::protobuf::internal::MessageCreator::CopyInit(sizeof(ChangePasswordRequest),
-                                                                      alignof(ChangePasswordRequest));
+        return ::google::protobuf::internal::MessageCreator::CopyInit(sizeof(ChangePasswordRequest), alignof(ChangePasswordRequest));
     }
 
-    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::google::protobuf::internal::ClassDataFull
-    ChangePasswordRequest::_class_data_ = {
+    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::google::protobuf::internal::ClassDataFull ChangePasswordRequest::_class_data_ = {
         ::google::protobuf::internal::ClassData{
             &_ChangePasswordRequest_default_instance_._instance, &_table_.header, nullptr, // OnDemandRegisterArenaDtor
             nullptr, // IsInitialized
             &ChangePasswordRequest::MergeImpl, ::google::protobuf::Message::GetNewImpl<ChangePasswordRequest>(),
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-            &ChangePasswordRequest::SharedDtor, ::google::protobuf::Message::GetClearImpl<ChangePasswordRequest>(), &
-            ChangePasswordRequest::ByteSizeLong, &ChangePasswordRequest::_InternalSerialize,
+            &ChangePasswordRequest::SharedDtor, ::google::protobuf::Message::GetClearImpl<ChangePasswordRequest>(), &ChangePasswordRequest::ByteSizeLong, &ChangePasswordRequest::_InternalSerialize,
 #endif  // PROTOBUF_CUSTOM_VTABLE
             PROTOBUF_FIELD_OFFSET(ChangePasswordRequest, _impl_._cached_size_), false,
         },
@@ -1058,8 +943,7 @@ namespace rpc
         return _class_data_.base();
     }
 
-    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::_pbi::TcParseTable<2, 3, 0, 70, 2>
-    ChangePasswordRequest::_table_ = {
+    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::_pbi::TcParseTable<2, 3, 0, 70, 2> ChangePasswordRequest::_table_ = {
         {
             0, // no _has_bits_
             0, // no _extensions_
@@ -1078,39 +962,21 @@ namespace rpc
             {
                 {::_pbi::TcParser::MiniParse, {}},
                 // string username = 1;
-                {
-                    ::_pbi::TcParser::FastUS1,
-                    {10, 63, 0, PROTOBUF_FIELD_OFFSET(ChangePasswordRequest, _impl_.username_)}
-                },
+                {::_pbi::TcParser::FastUS1, {10, 63, 0, PROTOBUF_FIELD_OFFSET(ChangePasswordRequest, _impl_.username_)}},
                 // string current_password = 2;
-                {
-                    ::_pbi::TcParser::FastUS1,
-                    {18, 63, 0, PROTOBUF_FIELD_OFFSET(ChangePasswordRequest, _impl_.current_password_)}
-                },
+                {::_pbi::TcParser::FastUS1, {18, 63, 0, PROTOBUF_FIELD_OFFSET(ChangePasswordRequest, _impl_.current_password_)}},
                 // string new_password = 3;
-                {
-                    ::_pbi::TcParser::FastUS1,
-                    {26, 63, 0, PROTOBUF_FIELD_OFFSET(ChangePasswordRequest, _impl_.new_password_)}
-                },
+                {::_pbi::TcParser::FastUS1, {26, 63, 0, PROTOBUF_FIELD_OFFSET(ChangePasswordRequest, _impl_.new_password_)}},
             }
         },
         {{65535, 65535}}, {
             {
                 // string username = 1;
-                {
-                    PROTOBUF_FIELD_OFFSET(ChangePasswordRequest, _impl_.username_), 0, 0,
-                    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)
-                },
+                {PROTOBUF_FIELD_OFFSET(ChangePasswordRequest, _impl_.username_), 0, 0, (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
                 // string current_password = 2;
-                {
-                    PROTOBUF_FIELD_OFFSET(ChangePasswordRequest, _impl_.current_password_), 0, 0,
-                    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)
-                },
+                {PROTOBUF_FIELD_OFFSET(ChangePasswordRequest, _impl_.current_password_), 0, 0, (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
                 // string new_password = 3;
-                {
-                    PROTOBUF_FIELD_OFFSET(ChangePasswordRequest, _impl_.new_password_), 0, 0,
-                    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)
-                },
+                {PROTOBUF_FIELD_OFFSET(ChangePasswordRequest, _impl_.new_password_), 0, 0, (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
             }
         },
         // no aux_entries
@@ -1132,13 +998,11 @@ namespace rpc
     }
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-    ::uint8_t* ChangePasswordRequest::_InternalSerialize(const MessageLite& base, ::uint8_t* target,
-                                                         ::google::protobuf::io::EpsCopyOutputStream* stream)
+    ::uint8_t* ChangePasswordRequest::_InternalSerialize(const MessageLite& base, ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream)
     {
         const ChangePasswordRequest& this_ = static_cast<const ChangePasswordRequest&>(base);
 #else   // PROTOBUF_CUSTOM_VTABLE
-    ::uint8_t* ChangePasswordRequest::_InternalSerialize(::uint8_t* target,
-                                                         ::google::protobuf::io::EpsCopyOutputStream* stream) const
+    ::uint8_t* ChangePasswordRequest::_InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
     {
         const ChangePasswordRequest& this_ = *this;
 #endif  // PROTOBUF_CUSTOM_VTABLE
@@ -1150,9 +1014,7 @@ namespace rpc
         if (!this_._internal_username().empty())
         {
             const std::string& _s = this_._internal_username();
-            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-                "rpc.ChangePasswordRequest.username");
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "rpc.ChangePasswordRequest.username");
             target = stream->WriteStringMaybeAliased(1, _s, target);
         }
 
@@ -1160,9 +1022,7 @@ namespace rpc
         if (!this_._internal_current_password().empty())
         {
             const std::string& _s = this_._internal_current_password();
-            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-                "rpc.ChangePasswordRequest.current_password");
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "rpc.ChangePasswordRequest.current_password");
             target = stream->WriteStringMaybeAliased(2, _s, target);
         }
 
@@ -1170,17 +1030,13 @@ namespace rpc
         if (!this_._internal_new_password().empty())
         {
             const std::string& _s = this_._internal_new_password();
-            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-                "rpc.ChangePasswordRequest.new_password");
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "rpc.ChangePasswordRequest.new_password");
             target = stream->WriteStringMaybeAliased(3, _s, target);
         }
 
         if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields()))
         {
-            target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-                this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(
-                    ::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+            target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
         }
         // @@protoc_insertion_point(serialize_to_array_end:rpc.ChangePasswordRequest)
         return target;
@@ -1212,21 +1068,18 @@ namespace rpc
             // string current_password = 2;
             if (!this_._internal_current_password().empty())
             {
-                total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                    this_._internal_current_password());
+                total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(this_._internal_current_password());
             }
             // string new_password = 3;
             if (!this_._internal_new_password().empty())
             {
-                total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                    this_._internal_new_password());
+                total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(this_._internal_new_password());
             }
         }
         return this_.MaybeComputeUnknownFieldsSize(total_size, &this_._impl_._cached_size_);
     }
 
-    void ChangePasswordRequest::MergeImpl(::google::protobuf::MessageLite& to_msg,
-                                          const ::google::protobuf::MessageLite& from_msg)
+    void ChangePasswordRequest::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg)
     {
         auto* const _this = static_cast<ChangePasswordRequest*>(&to_msg);
         auto& from = static_cast<const ChangePasswordRequest&>(from_msg);
@@ -1294,9 +1147,7 @@ namespace rpc
         // @@protoc_insertion_point(arena_constructor:rpc.ResetPasswordRequest)
     }
 
-    inline PROTOBUF_NDEBUG_INLINE ResetPasswordRequest::Impl_::Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-        const Impl_& from, const ::rpc::ResetPasswordRequest& from_msg)
+    inline PROTOBUF_NDEBUG_INLINE ResetPasswordRequest::Impl_::Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena, const Impl_& from, const ::rpc::ResetPasswordRequest& from_msg)
         : username_(arena, from.username_), new_password_(arena, from.new_password_), _cached_size_{0}
     {
     }
@@ -1317,8 +1168,7 @@ namespace rpc
         // @@protoc_insertion_point(copy_constructor:rpc.ResetPasswordRequest)
     }
 
-    inline PROTOBUF_NDEBUG_INLINE ResetPasswordRequest::Impl_::Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena)
+    inline PROTOBUF_NDEBUG_INLINE ResetPasswordRequest::Impl_::Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena)
         : username_(arena), new_password_(arena), _cached_size_{0}
     {
     }
@@ -1351,19 +1201,16 @@ namespace rpc
 
     constexpr auto ResetPasswordRequest::InternalNewImpl_()
     {
-        return ::google::protobuf::internal::MessageCreator::CopyInit(sizeof(ResetPasswordRequest),
-                                                                      alignof(ResetPasswordRequest));
+        return ::google::protobuf::internal::MessageCreator::CopyInit(sizeof(ResetPasswordRequest), alignof(ResetPasswordRequest));
     }
 
-    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::google::protobuf::internal::ClassDataFull
-    ResetPasswordRequest::_class_data_ = {
+    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::google::protobuf::internal::ClassDataFull ResetPasswordRequest::_class_data_ = {
         ::google::protobuf::internal::ClassData{
             &_ResetPasswordRequest_default_instance_._instance, &_table_.header, nullptr, // OnDemandRegisterArenaDtor
             nullptr, // IsInitialized
             &ResetPasswordRequest::MergeImpl, ::google::protobuf::Message::GetNewImpl<ResetPasswordRequest>(),
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-            &ResetPasswordRequest::SharedDtor, ::google::protobuf::Message::GetClearImpl<ResetPasswordRequest>(), &
-            ResetPasswordRequest::ByteSizeLong, &ResetPasswordRequest::_InternalSerialize,
+            &ResetPasswordRequest::SharedDtor, ::google::protobuf::Message::GetClearImpl<ResetPasswordRequest>(), &ResetPasswordRequest::ByteSizeLong, &ResetPasswordRequest::_InternalSerialize,
 #endif  // PROTOBUF_CUSTOM_VTABLE
             PROTOBUF_FIELD_OFFSET(ResetPasswordRequest, _impl_._cached_size_), false,
         },
@@ -1377,8 +1224,7 @@ namespace rpc
         return _class_data_.base();
     }
 
-    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::_pbi::TcParseTable<1, 2, 0, 53, 2>
-    ResetPasswordRequest::_table_ = {
+    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::_pbi::TcParseTable<1, 2, 0, 53, 2> ResetPasswordRequest::_table_ = {
         {
             0, // no _has_bits_
             0, // no _extensions_
@@ -1396,10 +1242,7 @@ namespace rpc
         {
             {
                 // string new_password = 2;
-                {
-                    ::_pbi::TcParser::FastUS1,
-                    {18, 63, 0, PROTOBUF_FIELD_OFFSET(ResetPasswordRequest, _impl_.new_password_)}
-                },
+                {::_pbi::TcParser::FastUS1, {18, 63, 0, PROTOBUF_FIELD_OFFSET(ResetPasswordRequest, _impl_.new_password_)}},
                 // string username = 1;
                 {::_pbi::TcParser::FastUS1, {10, 63, 0, PROTOBUF_FIELD_OFFSET(ResetPasswordRequest, _impl_.username_)}},
             }
@@ -1407,15 +1250,9 @@ namespace rpc
         {{65535, 65535}}, {
             {
                 // string username = 1;
-                {
-                    PROTOBUF_FIELD_OFFSET(ResetPasswordRequest, _impl_.username_), 0, 0,
-                    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)
-                },
+                {PROTOBUF_FIELD_OFFSET(ResetPasswordRequest, _impl_.username_), 0, 0, (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
                 // string new_password = 2;
-                {
-                    PROTOBUF_FIELD_OFFSET(ResetPasswordRequest, _impl_.new_password_), 0, 0,
-                    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)
-                },
+                {PROTOBUF_FIELD_OFFSET(ResetPasswordRequest, _impl_.new_password_), 0, 0, (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
             }
         },
         // no aux_entries
@@ -1436,13 +1273,11 @@ namespace rpc
     }
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-    ::uint8_t* ResetPasswordRequest::_InternalSerialize(const MessageLite& base, ::uint8_t* target,
-                                                        ::google::protobuf::io::EpsCopyOutputStream* stream)
+    ::uint8_t* ResetPasswordRequest::_InternalSerialize(const MessageLite& base, ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream)
     {
         const ResetPasswordRequest& this_ = static_cast<const ResetPasswordRequest&>(base);
 #else   // PROTOBUF_CUSTOM_VTABLE
-    ::uint8_t* ResetPasswordRequest::_InternalSerialize(::uint8_t* target,
-                                                        ::google::protobuf::io::EpsCopyOutputStream* stream) const
+    ::uint8_t* ResetPasswordRequest::_InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
     {
         const ResetPasswordRequest& this_ = *this;
 #endif  // PROTOBUF_CUSTOM_VTABLE
@@ -1454,9 +1289,7 @@ namespace rpc
         if (!this_._internal_username().empty())
         {
             const std::string& _s = this_._internal_username();
-            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-                "rpc.ResetPasswordRequest.username");
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "rpc.ResetPasswordRequest.username");
             target = stream->WriteStringMaybeAliased(1, _s, target);
         }
 
@@ -1464,17 +1297,13 @@ namespace rpc
         if (!this_._internal_new_password().empty())
         {
             const std::string& _s = this_._internal_new_password();
-            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-                "rpc.ResetPasswordRequest.new_password");
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "rpc.ResetPasswordRequest.new_password");
             target = stream->WriteStringMaybeAliased(2, _s, target);
         }
 
         if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields()))
         {
-            target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-                this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(
-                    ::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+            target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
         }
         // @@protoc_insertion_point(serialize_to_array_end:rpc.ResetPasswordRequest)
         return target;
@@ -1506,15 +1335,13 @@ namespace rpc
             // string new_password = 2;
             if (!this_._internal_new_password().empty())
             {
-                total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                    this_._internal_new_password());
+                total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(this_._internal_new_password());
             }
         }
         return this_.MaybeComputeUnknownFieldsSize(total_size, &this_._impl_._cached_size_);
     }
 
-    void ResetPasswordRequest::MergeImpl(::google::protobuf::MessageLite& to_msg,
-                                         const ::google::protobuf::MessageLite& from_msg)
+    void ResetPasswordRequest::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg)
     {
         auto* const _this = static_cast<ResetPasswordRequest*>(&to_msg);
         auto& from = static_cast<const ResetPasswordRequest&>(from_msg);
@@ -1577,9 +1404,7 @@ namespace rpc
         // @@protoc_insertion_point(arena_constructor:rpc.DeleteUserRequest)
     }
 
-    inline PROTOBUF_NDEBUG_INLINE DeleteUserRequest::Impl_::Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-        const Impl_& from, const ::rpc::DeleteUserRequest& from_msg)
+    inline PROTOBUF_NDEBUG_INLINE DeleteUserRequest::Impl_::Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena, const Impl_& from, const ::rpc::DeleteUserRequest& from_msg)
         : username_(arena, from.username_), _cached_size_{0}
     {
     }
@@ -1600,8 +1425,7 @@ namespace rpc
         // @@protoc_insertion_point(copy_constructor:rpc.DeleteUserRequest)
     }
 
-    inline PROTOBUF_NDEBUG_INLINE DeleteUserRequest::Impl_::Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena)
+    inline PROTOBUF_NDEBUG_INLINE DeleteUserRequest::Impl_::Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena)
         : username_(arena), _cached_size_{0}
     {
     }
@@ -1633,19 +1457,16 @@ namespace rpc
 
     constexpr auto DeleteUserRequest::InternalNewImpl_()
     {
-        return ::google::protobuf::internal::MessageCreator::CopyInit(sizeof(DeleteUserRequest),
-                                                                      alignof(DeleteUserRequest));
+        return ::google::protobuf::internal::MessageCreator::CopyInit(sizeof(DeleteUserRequest), alignof(DeleteUserRequest));
     }
 
-    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::google::protobuf::internal::ClassDataFull
-    DeleteUserRequest::_class_data_ = {
+    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::google::protobuf::internal::ClassDataFull DeleteUserRequest::_class_data_ = {
         ::google::protobuf::internal::ClassData{
             &_DeleteUserRequest_default_instance_._instance, &_table_.header, nullptr, // OnDemandRegisterArenaDtor
             nullptr, // IsInitialized
             &DeleteUserRequest::MergeImpl, ::google::protobuf::Message::GetNewImpl<DeleteUserRequest>(),
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-            &DeleteUserRequest::SharedDtor, ::google::protobuf::Message::GetClearImpl<DeleteUserRequest>(), &
-            DeleteUserRequest::ByteSizeLong, &DeleteUserRequest::_InternalSerialize,
+            &DeleteUserRequest::SharedDtor, ::google::protobuf::Message::GetClearImpl<DeleteUserRequest>(), &DeleteUserRequest::ByteSizeLong, &DeleteUserRequest::_InternalSerialize,
 #endif  // PROTOBUF_CUSTOM_VTABLE
             PROTOBUF_FIELD_OFFSET(DeleteUserRequest, _impl_._cached_size_), false,
         },
@@ -1659,8 +1480,7 @@ namespace rpc
         return _class_data_.base();
     }
 
-    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::_pbi::TcParseTable<0, 1, 0, 38, 2>
-    DeleteUserRequest::_table_ = {
+    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::_pbi::TcParseTable<0, 1, 0, 38, 2> DeleteUserRequest::_table_ = {
         {
             0, // no _has_bits_
             0, // no _extensions_
@@ -1684,10 +1504,7 @@ namespace rpc
         {{65535, 65535}}, {
             {
                 // string username = 1;
-                {
-                    PROTOBUF_FIELD_OFFSET(DeleteUserRequest, _impl_.username_), 0, 0,
-                    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)
-                },
+                {PROTOBUF_FIELD_OFFSET(DeleteUserRequest, _impl_.username_), 0, 0, (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
             }
         },
         // no aux_entries
@@ -1707,13 +1524,11 @@ namespace rpc
     }
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-    ::uint8_t* DeleteUserRequest::_InternalSerialize(const MessageLite& base, ::uint8_t* target,
-                                                     ::google::protobuf::io::EpsCopyOutputStream* stream)
+    ::uint8_t* DeleteUserRequest::_InternalSerialize(const MessageLite& base, ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream)
     {
         const DeleteUserRequest& this_ = static_cast<const DeleteUserRequest&>(base);
 #else   // PROTOBUF_CUSTOM_VTABLE
-    ::uint8_t* DeleteUserRequest::_InternalSerialize(::uint8_t* target,
-                                                     ::google::protobuf::io::EpsCopyOutputStream* stream) const
+    ::uint8_t* DeleteUserRequest::_InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
     {
         const DeleteUserRequest& this_ = *this;
 #endif  // PROTOBUF_CUSTOM_VTABLE
@@ -1725,17 +1540,13 @@ namespace rpc
         if (!this_._internal_username().empty())
         {
             const std::string& _s = this_._internal_username();
-            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-                "rpc.DeleteUserRequest.username");
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "rpc.DeleteUserRequest.username");
             target = stream->WriteStringMaybeAliased(1, _s, target);
         }
 
         if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields()))
         {
-            target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-                this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(
-                    ::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+            target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
         }
         // @@protoc_insertion_point(serialize_to_array_end:rpc.DeleteUserRequest)
         return target;
@@ -1767,8 +1578,7 @@ namespace rpc
         return this_.MaybeComputeUnknownFieldsSize(total_size, &this_._impl_._cached_size_);
     }
 
-    void DeleteUserRequest::MergeImpl(::google::protobuf::MessageLite& to_msg,
-                                      const ::google::protobuf::MessageLite& from_msg)
+    void DeleteUserRequest::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg)
     {
         auto* const _this = static_cast<DeleteUserRequest*>(&to_msg);
         auto& from = static_cast<const DeleteUserRequest&>(from_msg);
@@ -1826,9 +1636,7 @@ namespace rpc
         // @@protoc_insertion_point(arena_constructor:rpc.UserExistsRequest)
     }
 
-    inline PROTOBUF_NDEBUG_INLINE UserExistsRequest::Impl_::Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-        const Impl_& from, const ::rpc::UserExistsRequest& from_msg)
+    inline PROTOBUF_NDEBUG_INLINE UserExistsRequest::Impl_::Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena, const Impl_& from, const ::rpc::UserExistsRequest& from_msg)
         : username_(arena, from.username_), _cached_size_{0}
     {
     }
@@ -1849,8 +1657,7 @@ namespace rpc
         // @@protoc_insertion_point(copy_constructor:rpc.UserExistsRequest)
     }
 
-    inline PROTOBUF_NDEBUG_INLINE UserExistsRequest::Impl_::Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena)
+    inline PROTOBUF_NDEBUG_INLINE UserExistsRequest::Impl_::Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena)
         : username_(arena), _cached_size_{0}
     {
     }
@@ -1882,19 +1689,16 @@ namespace rpc
 
     constexpr auto UserExistsRequest::InternalNewImpl_()
     {
-        return ::google::protobuf::internal::MessageCreator::CopyInit(sizeof(UserExistsRequest),
-                                                                      alignof(UserExistsRequest));
+        return ::google::protobuf::internal::MessageCreator::CopyInit(sizeof(UserExistsRequest), alignof(UserExistsRequest));
     }
 
-    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::google::protobuf::internal::ClassDataFull
-    UserExistsRequest::_class_data_ = {
+    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::google::protobuf::internal::ClassDataFull UserExistsRequest::_class_data_ = {
         ::google::protobuf::internal::ClassData{
             &_UserExistsRequest_default_instance_._instance, &_table_.header, nullptr, // OnDemandRegisterArenaDtor
             nullptr, // IsInitialized
             &UserExistsRequest::MergeImpl, ::google::protobuf::Message::GetNewImpl<UserExistsRequest>(),
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-            &UserExistsRequest::SharedDtor, ::google::protobuf::Message::GetClearImpl<UserExistsRequest>(), &
-            UserExistsRequest::ByteSizeLong, &UserExistsRequest::_InternalSerialize,
+            &UserExistsRequest::SharedDtor, ::google::protobuf::Message::GetClearImpl<UserExistsRequest>(), &UserExistsRequest::ByteSizeLong, &UserExistsRequest::_InternalSerialize,
 #endif  // PROTOBUF_CUSTOM_VTABLE
             PROTOBUF_FIELD_OFFSET(UserExistsRequest, _impl_._cached_size_), false,
         },
@@ -1908,8 +1712,7 @@ namespace rpc
         return _class_data_.base();
     }
 
-    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::_pbi::TcParseTable<0, 1, 0, 38, 2>
-    UserExistsRequest::_table_ = {
+    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::_pbi::TcParseTable<0, 1, 0, 38, 2> UserExistsRequest::_table_ = {
         {
             0, // no _has_bits_
             0, // no _extensions_
@@ -1933,10 +1736,7 @@ namespace rpc
         {{65535, 65535}}, {
             {
                 // string username = 1;
-                {
-                    PROTOBUF_FIELD_OFFSET(UserExistsRequest, _impl_.username_), 0, 0,
-                    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)
-                },
+                {PROTOBUF_FIELD_OFFSET(UserExistsRequest, _impl_.username_), 0, 0, (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
             }
         },
         // no aux_entries
@@ -1956,13 +1756,11 @@ namespace rpc
     }
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-    ::uint8_t* UserExistsRequest::_InternalSerialize(const MessageLite& base, ::uint8_t* target,
-                                                     ::google::protobuf::io::EpsCopyOutputStream* stream)
+    ::uint8_t* UserExistsRequest::_InternalSerialize(const MessageLite& base, ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream)
     {
         const UserExistsRequest& this_ = static_cast<const UserExistsRequest&>(base);
 #else   // PROTOBUF_CUSTOM_VTABLE
-    ::uint8_t* UserExistsRequest::_InternalSerialize(::uint8_t* target,
-                                                     ::google::protobuf::io::EpsCopyOutputStream* stream) const
+    ::uint8_t* UserExistsRequest::_InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
     {
         const UserExistsRequest& this_ = *this;
 #endif  // PROTOBUF_CUSTOM_VTABLE
@@ -1974,17 +1772,13 @@ namespace rpc
         if (!this_._internal_username().empty())
         {
             const std::string& _s = this_._internal_username();
-            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-                "rpc.UserExistsRequest.username");
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "rpc.UserExistsRequest.username");
             target = stream->WriteStringMaybeAliased(1, _s, target);
         }
 
         if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields()))
         {
-            target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-                this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(
-                    ::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+            target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
         }
         // @@protoc_insertion_point(serialize_to_array_end:rpc.UserExistsRequest)
         return target;
@@ -2016,8 +1810,7 @@ namespace rpc
         return this_.MaybeComputeUnknownFieldsSize(total_size, &this_._impl_._cached_size_);
     }
 
-    void UserExistsRequest::MergeImpl(::google::protobuf::MessageLite& to_msg,
-                                      const ::google::protobuf::MessageLite& from_msg)
+    void UserExistsRequest::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg)
     {
         auto* const _this = static_cast<UserExistsRequest*>(&to_msg);
         auto& from = static_cast<const UserExistsRequest&>(from_msg);
@@ -2075,9 +1868,7 @@ namespace rpc
         // @@protoc_insertion_point(arena_constructor:rpc.AuthResponse)
     }
 
-    inline PROTOBUF_NDEBUG_INLINE AuthResponse::Impl_::Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-        const Impl_& from, const ::rpc::AuthResponse& from_msg)
+    inline PROTOBUF_NDEBUG_INLINE AuthResponse::Impl_::Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena, const Impl_& from, const ::rpc::AuthResponse& from_msg)
         : message_(arena, from.message_), _cached_size_{0}
     {
     }
@@ -2094,15 +1885,12 @@ namespace rpc
         (void)_this;
         _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
         new(&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
-        ::memcpy(reinterpret_cast<char*>(&_impl_) + offsetof(Impl_, success_),
-                 reinterpret_cast<const char*>(&from._impl_) + offsetof(Impl_, success_),
-                 offsetof(Impl_, error_code_) - offsetof(Impl_, success_) + sizeof(Impl_::error_code_));
+        ::memcpy(reinterpret_cast<char*>(&_impl_) + offsetof(Impl_, success_), reinterpret_cast<const char*>(&from._impl_) + offsetof(Impl_, success_), offsetof(Impl_, error_code_) - offsetof(Impl_, success_) + sizeof(Impl_::error_code_));
 
         // @@protoc_insertion_point(copy_constructor:rpc.AuthResponse)
     }
 
-    inline PROTOBUF_NDEBUG_INLINE AuthResponse::Impl_::Impl_(
-        ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena)
+    inline PROTOBUF_NDEBUG_INLINE AuthResponse::Impl_::Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena)
         : message_(arena), _cached_size_{0}
     {
     }
@@ -2110,8 +1898,7 @@ namespace rpc
     inline void AuthResponse::SharedCtor(::_pb::Arena* arena)
     {
         new(&_impl_) Impl_(internal_visibility(), arena);
-        ::memset(reinterpret_cast<char*>(&_impl_) + offsetof(Impl_, success_), 0,
-                 offsetof(Impl_, error_code_) - offsetof(Impl_, success_) + sizeof(Impl_::error_code_));
+        ::memset(reinterpret_cast<char*>(&_impl_) + offsetof(Impl_, success_), 0, offsetof(Impl_, error_code_) - offsetof(Impl_, success_) + sizeof(Impl_::error_code_));
     }
 
     AuthResponse::~AuthResponse()
@@ -2139,15 +1926,13 @@ namespace rpc
         return ::google::protobuf::internal::MessageCreator::CopyInit(sizeof(AuthResponse), alignof(AuthResponse));
     }
 
-    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::google::protobuf::internal::ClassDataFull
-    AuthResponse::_class_data_ = {
+    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::google::protobuf::internal::ClassDataFull AuthResponse::_class_data_ = {
         ::google::protobuf::internal::ClassData{
             &_AuthResponse_default_instance_._instance, &_table_.header, nullptr, // OnDemandRegisterArenaDtor
             nullptr, // IsInitialized
             &AuthResponse::MergeImpl, ::google::protobuf::Message::GetNewImpl<AuthResponse>(),
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-            &AuthResponse::SharedDtor, ::google::protobuf::Message::GetClearImpl<AuthResponse>(), &
-            AuthResponse::ByteSizeLong, &AuthResponse::_InternalSerialize,
+            &AuthResponse::SharedDtor, ::google::protobuf::Message::GetClearImpl<AuthResponse>(), &AuthResponse::ByteSizeLong, &AuthResponse::_InternalSerialize,
 #endif  // PROTOBUF_CUSTOM_VTABLE
             PROTOBUF_FIELD_OFFSET(AuthResponse, _impl_._cached_size_), false,
         },
@@ -2161,8 +1946,7 @@ namespace rpc
         return _class_data_.base();
     }
 
-    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::_pbi::TcParseTable<2, 3, 0, 32, 2>
-    AuthResponse::_table_ = {
+    PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 const ::_pbi::TcParseTable<2, 3, 0, 32, 2> AuthResponse::_table_ = {
         {
             0, // no _has_bits_
             0, // no _extensions_
@@ -2181,18 +1965,11 @@ namespace rpc
             {
                 {::_pbi::TcParser::MiniParse, {}},
                 // bool success = 1;
-                {
-                    ::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(AuthResponse, _impl_.success_), 63>(),
-                    {8, 63, 0, PROTOBUF_FIELD_OFFSET(AuthResponse, _impl_.success_)}
-                },
+                {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(AuthResponse, _impl_.success_), 63>(), {8, 63, 0, PROTOBUF_FIELD_OFFSET(AuthResponse, _impl_.success_)}},
                 // string message = 2;
                 {::_pbi::TcParser::FastUS1, {18, 63, 0, PROTOBUF_FIELD_OFFSET(AuthResponse, _impl_.message_)}},
                 // int32 error_code = 3;
-                {
-                    ::_pbi::TcParser::SingularVarintNoZag1<
-                        ::uint32_t, offsetof(AuthResponse, _impl_.error_code_), 63>(),
-                    {24, 63, 0, PROTOBUF_FIELD_OFFSET(AuthResponse, _impl_.error_code_)}
-                },
+                {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(AuthResponse, _impl_.error_code_), 63>(), {24, 63, 0, PROTOBUF_FIELD_OFFSET(AuthResponse, _impl_.error_code_)}},
             }
         },
         {{65535, 65535}}, {
@@ -2200,15 +1977,9 @@ namespace rpc
                 // bool success = 1;
                 {PROTOBUF_FIELD_OFFSET(AuthResponse, _impl_.success_), 0, 0, (0 | ::_fl::kFcSingular | ::_fl::kBool)},
                 // string message = 2;
-                {
-                    PROTOBUF_FIELD_OFFSET(AuthResponse, _impl_.message_), 0, 0,
-                    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)
-                },
+                {PROTOBUF_FIELD_OFFSET(AuthResponse, _impl_.message_), 0, 0, (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
                 // int32 error_code = 3;
-                {
-                    PROTOBUF_FIELD_OFFSET(AuthResponse, _impl_.error_code_), 0, 0,
-                    (0 | ::_fl::kFcSingular | ::_fl::kInt32)
-                },
+                {PROTOBUF_FIELD_OFFSET(AuthResponse, _impl_.error_code_), 0, 0, (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
             }
         },
         // no aux_entries
@@ -2224,20 +1995,16 @@ namespace rpc
         (void)cached_has_bits;
 
         _impl_.message_.ClearToEmpty();
-        ::memset(&_impl_.success_, 0,
-                 static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.error_code_) - reinterpret_cast<char*>(&_impl_.
-                     success_)) + sizeof(_impl_.error_code_));
+        ::memset(&_impl_.success_, 0, static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.error_code_) - reinterpret_cast<char*>(&_impl_.success_)) + sizeof(_impl_.error_code_));
         _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
     }
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-    ::uint8_t* AuthResponse::_InternalSerialize(const MessageLite& base, ::uint8_t* target,
-                                                ::google::protobuf::io::EpsCopyOutputStream* stream)
+    ::uint8_t* AuthResponse::_InternalSerialize(const MessageLite& base, ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream)
     {
         const AuthResponse& this_ = static_cast<const AuthResponse&>(base);
 #else   // PROTOBUF_CUSTOM_VTABLE
-    ::uint8_t* AuthResponse::_InternalSerialize(::uint8_t* target,
-                                                ::google::protobuf::io::EpsCopyOutputStream* stream) const
+    ::uint8_t* AuthResponse::_InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
     {
         const AuthResponse& this_ = *this;
 #endif  // PROTOBUF_CUSTOM_VTABLE
@@ -2256,24 +2023,19 @@ namespace rpc
         if (!this_._internal_message().empty())
         {
             const std::string& _s = this_._internal_message();
-            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-                "rpc.AuthResponse.message");
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(_s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "rpc.AuthResponse.message");
             target = stream->WriteStringMaybeAliased(2, _s, target);
         }
 
         // int32 error_code = 3;
         if (this_._internal_error_code() != 0)
         {
-            target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArrayWithField<3>(
-                stream, this_._internal_error_code(), target);
+            target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArrayWithField<3>(stream, this_._internal_error_code(), target);
         }
 
         if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields()))
         {
-            target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-                this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(
-                    ::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+            target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
         }
         // @@protoc_insertion_point(serialize_to_array_end:rpc.AuthResponse)
         return target;
@@ -2316,8 +2078,7 @@ namespace rpc
         return this_.MaybeComputeUnknownFieldsSize(total_size, &this_._impl_._cached_size_);
     }
 
-    void AuthResponse::MergeImpl(::google::protobuf::MessageLite& to_msg,
-                                 const ::google::protobuf::MessageLite& from_msg)
+    void AuthResponse::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg)
     {
         auto* const _this = static_cast<AuthResponse*>(&to_msg);
         auto& from = static_cast<const AuthResponse&>(from_msg);
@@ -2357,9 +2118,7 @@ namespace rpc
         ABSL_DCHECK_EQ(arena, other->GetArena());
         _internal_metadata_.InternalSwap(&other->_internal_metadata_);
         ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.message_, &other->_impl_.message_, arena);
-        ::google::protobuf::internal::memswap<PROTOBUF_FIELD_OFFSET(AuthResponse, _impl_.error_code_) + sizeof(
-            AuthResponse::_impl_.error_code_) - PROTOBUF_FIELD_OFFSET(AuthResponse, _impl_.success_)>(
-            reinterpret_cast<char*>(&_impl_.success_), reinterpret_cast<char*>(&other->_impl_.success_));
+        ::google::protobuf::internal::memswap<PROTOBUF_FIELD_OFFSET(AuthResponse, _impl_.error_code_) + sizeof(AuthResponse::_impl_.error_code_) - PROTOBUF_FIELD_OFFSET(AuthResponse, _impl_.success_)>(reinterpret_cast<char*>(&_impl_.success_), reinterpret_cast<char*>(&other->_impl_.success_));
     }
 
     ::google::protobuf::Metadata AuthResponse::GetMetadata() const
@@ -2376,6 +2135,5 @@ namespace google
     } // namespace protobuf
 } // namespace google
 // @@protoc_insertion_point(global_scope)
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::std::false_type _static_init2_ PROTOBUF_UNUSED = (::_pbi::AddDescriptors(
-    &descriptor_table_RpcService_2eproto), ::std::false_type{});
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::std::false_type _static_init2_ PROTOBUF_UNUSED = (::_pbi::AddDescriptors(&descriptor_table_RpcService_2eproto), ::std::false_type{});
 #include "google/protobuf/port_undef.inc"

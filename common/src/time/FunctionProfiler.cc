@@ -37,22 +37,19 @@ namespace common
     {
         if (!started_ || !ended_)
         {
-            LOG(WARNING) << function_name_ << " timing data is incomplete. " << "Started: " << started_ << ", Ended: "
-                << ended_;
+            LOG(WARNING) << function_name_ << " timing data is incomplete. " << "Started: " << started_ << ", Ended: " << ended_;
             return;
         }
 
         const std::chrono::duration<double, std::milli> duration_ms = end_ - start_;
-        LOG(INFO) << function_name_ << " finish in " << std::fixed << std::setprecision(3) << duration_ms.count() /
-            1000.0 << " s";
+        LOG(INFO) << function_name_ << " finish in " << std::fixed << std::setprecision(3) << duration_ms.count() / 1000.0 << " s";
     }
 
     auto FunctionProfiler::getRunTimeMs() const -> double
     {
         if (!started_ || !ended_)
         {
-            LOG(WARNING) << function_name_ << " timing data is incomplete. " << "Started: " << started_ << ", Ended: "
-                << ended_;
+            LOG(WARNING) << function_name_ << " timing data is incomplete. " << "Started: " << started_ << ", Ended: " << ended_;
             return -1.0;
         }
 

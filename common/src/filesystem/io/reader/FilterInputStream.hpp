@@ -1,6 +1,5 @@
 #pragma once
 #include <memory>
-#include <stdexcept>
 
 #include "AbstractInputStream.hpp"
 
@@ -11,12 +10,12 @@ namespace common
     class FilterInputStream : public AbstractInputStream
     {
     public:
-        explicit FilterInputStream(std::unique_ptr<AbstractInputStream> inputStream);
-        ~FilterInputStream() override;
+        explicit FilterInputStream(std::unique_ptr<AbstractInputStream> inputStream) noexcept;
+        ~FilterInputStream() override = default;
 
         /// @brief Returns the number of bytes that can be read (or skipped over) from this input stream without blocking.
         /// @return the number of bytes that can be read (or skipped over) from this input stream without blocking.
-        auto available() -> size_t override;
+        [[nodiscard]] auto available() -> size_t override;
 
         /// @brief Marks the current position in this input stream.
         /// @param readLimit the maximum number of bytes that can be read before the mark position becomes invalid.
@@ -28,13 +27,13 @@ namespace common
 
         /// @brief Reads the next byte of data from this input stream.
         /// @return the next byte of data, or -1 if the end of the stream is reached.
-        auto read() -> std::byte override;
+        [[nodiscard]] auto read() -> std::byte override;
 
         /// @brief Reads up to len bytes of data from this input stream into an array of bytes.
         /// @param buffer the buffer into which the data is read.
         /// @return the total number of bytes read into the buffer, or 0 if there is no more data because the end of the
         /// stream has been reached.
-        auto read(std::vector<std::byte>& buffer) -> size_t override;
+        [[nodiscard]] auto read(std::vector<std::byte>& buffer) -> size_t override;
 
         /// @brief Reads up to len bytes of data from this input stream into an array of bytes.
         /// @param buffer the buffer into which the data is read.
@@ -42,7 +41,7 @@ namespace common
         /// @param len the maximum number of bytes to read.
         /// @return the total number of bytes read into the buffer, or 0 if there is no more data because the end of the
         /// stream has been reached.
-        auto read(std::vector<std::byte>& buffer, size_t offset, size_t len) -> size_t override;
+        [[nodiscard]] auto read(std::vector<std::byte>& buffer, size_t offset, size_t len) -> size_t override;
 
         /// @brief Repositions this stream to the position at the time the mark method was last called on this input stream.
         auto reset() -> void override;
@@ -50,7 +49,7 @@ namespace common
         /// @brief Skips over and discards n bytes of data from this input stream.
         /// @param n the number of bytes to be skipped.
         /// @return the number of bytes skipped.
-        auto skip(size_t n) -> size_t override;
+        [[nodiscard]] auto skip(size_t n) -> size_t override;
 
         /// @brief Closes this input stream and releases any system resources associated with the stream.
         auto close() -> void override;

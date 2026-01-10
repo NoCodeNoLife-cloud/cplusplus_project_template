@@ -1,6 +1,8 @@
 #include "src/filesystem/io/reader/PushbackInputStream.hpp"
 
+#include <cstddef>
 #include <stdexcept>
+#include <algorithm>
 
 namespace common
 {
@@ -9,13 +11,11 @@ namespace common
     {
     }
 
-    PushbackInputStream::~PushbackInputStream() = default;
-
     auto PushbackInputStream::available() -> size_t
     {
         if (!input_stream_)
         {
-            throw std::runtime_error("Input stream is not available");
+            throw std::runtime_error("PushbackInputStream::available: Input stream is not available");
         }
         return pushback_buffer_.size() - buffer_pos_ + input_stream_->available();
     }
@@ -24,7 +24,7 @@ namespace common
     {
         if (!input_stream_)
         {
-            throw std::runtime_error("Input stream is not available");
+            throw std::runtime_error("PushbackInputStream::read: Input stream is not available");
         }
 
         if (buffer_pos_ < pushback_buffer_.size())
@@ -38,7 +38,7 @@ namespace common
     {
         if (!input_stream_)
         {
-            throw std::runtime_error("Input stream is not available");
+            throw std::runtime_error("PushbackInputStream::read: Input stream is not available");
         }
         return read(buffer, 0, buffer.size());
     }
@@ -47,12 +47,12 @@ namespace common
     {
         if (!input_stream_)
         {
-            throw std::runtime_error("Input stream is not available");
+            throw std::runtime_error("PushbackInputStream::read: Input stream is not available");
         }
 
-        if (offset > buffer.size() || len > buffer.size() - offset)
+        if (offset >= buffer.size() || len > buffer.size() - offset)
         {
-            throw std::out_of_range("Buffer overflow");
+            throw std::out_of_range("PushbackInputStream::read: Buffer overflow");
         }
 
         size_t bytesRead = 0;
@@ -74,14 +74,14 @@ namespace common
 
     void PushbackInputStream::unread(const std::vector<std::byte>& buffer, const size_t offset, const size_t len)
     {
-        if (offset > buffer.size() || len > buffer.size() - offset)
+        if (offset >= buffer.size() || len > buffer.size() - offset)
         {
-            throw std::out_of_range("Buffer offset/length out of range");
+            throw std::out_of_range("PushbackInputStream::unread: Buffer offset/length out of range");
         }
 
         if (len > buffer_pos_)
         {
-            throw std::overflow_error("Pushback buffer overflow");
+            throw std::overflow_error("PushbackInputStream::unread: Pushback buffer overflow");
         }
 
         for (size_t i = 0; i < len; ++i)
@@ -94,7 +94,7 @@ namespace common
     {
         if (buffer_pos_ == 0)
         {
-            throw std::overflow_error("Pushback buffer overflow");
+            throw std::overflow_error("PushbackInputStream::unread: Pushback buffer overflow");
         }
         pushback_buffer_[--buffer_pos_] = b;
     }

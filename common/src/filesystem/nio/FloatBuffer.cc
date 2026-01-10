@@ -38,8 +38,7 @@ namespace common
     {
         if (position_ > 0)
         {
-            std::move(buffer_.begin() + static_cast<std::ptrdiff_t>(position_),
-                      buffer_.begin() + static_cast<std::ptrdiff_t>(limit_), buffer_.begin());
+            std::move(buffer_.begin() + static_cast<std::ptrdiff_t>(position_), buffer_.begin() + static_cast<std::ptrdiff_t>(limit_), buffer_.begin());
             limit_ -= position_;
             position_ = 0;
         }
@@ -89,8 +88,7 @@ namespace common
         {
             throw std::underflow_error("Buffer underflow");
         }
-        std::vector result(buffer_.begin() + static_cast<std::ptrdiff_t>(position_),
-                           buffer_.begin() + static_cast<std::ptrdiff_t>(position_ + length));
+        std::vector result(buffer_.begin() + static_cast<std::ptrdiff_t>(position_), buffer_.begin() + static_cast<std::ptrdiff_t>(position_ + length));
         position_ += length;
         return result;
     }
@@ -101,10 +99,7 @@ namespace common
         {
             return {};
         }
-        return {
-            buffer_.begin() + static_cast<std::ptrdiff_t>(position_),
-            buffer_.begin() + static_cast<std::ptrdiff_t>(limit_)
-        };
+        return {buffer_.begin() + static_cast<std::ptrdiff_t>(position_), buffer_.begin() + static_cast<std::ptrdiff_t>(limit_)};
     }
 
     auto FloatBuffer::position() const -> size_t

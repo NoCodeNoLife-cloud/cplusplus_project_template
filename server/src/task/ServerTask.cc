@@ -22,16 +22,11 @@ namespace app_server
     {
         const glog::GLogConfigurator log_configurator{application_dev_config_path_};
         log_configurator.execute();
-        LOG(INFO) << fmt::format("Initializing ServerTask with config path: {}, loading gRPC configuration from: {}",
-                                 application_dev_config_path_, application_dev_config_path_);
+        LOG(INFO) << fmt::format("Initializing ServerTask with config path: {}, loading gRPC configuration from: {}", application_dev_config_path_, application_dev_config_path_);
 
         grpc_options_.deserializedFromYamlFile(application_dev_config_path_);
 
-        LOG(INFO) << fmt::format(
-            "gRPC configuration loaded successfully - Max Connection Idle: {}ms, Max Connection Age: {}ms, Keepalive Time: {}ms, Keepalive Timeout: {}ms, Permit Without Calls: {}, Server Address: {}",
-            grpc_options_.maxConnectionIdleMs(), grpc_options_.maxConnectionAgeMs(), grpc_options_.keepaliveTimeMs(),
-            grpc_options_.keepaliveTimeoutMs(), grpc_options_.keepalivePermitWithoutCalls(),
-            grpc_options_.serverAddress());
+        LOG(INFO) << fmt::format("gRPC configuration loaded successfully - Max Connection Idle: {}ms, Max Connection Age: {}ms, Keepalive Time: {}ms, Keepalive Timeout: {}ms, Permit Without Calls: {}, Server Address: {}", grpc_options_.maxConnectionIdleMs(), grpc_options_.maxConnectionAgeMs(), grpc_options_.keepaliveTimeMs(), grpc_options_.keepaliveTimeoutMs(), grpc_options_.keepalivePermitWithoutCalls(), grpc_options_.serverAddress());
     }
 
     auto ServerTask::run() -> void
@@ -78,14 +73,9 @@ namespace app_server
         builder.AddChannelArgument(GRPC_ARG_MAX_CONNECTION_AGE_GRACE_MS, grpc_options_.maxConnectionAgeGraceMs());
         builder.AddChannelArgument(GRPC_ARG_KEEPALIVE_TIME_MS, grpc_options_.keepaliveTimeMs());
         builder.AddChannelArgument(GRPC_ARG_KEEPALIVE_TIMEOUT_MS, grpc_options_.keepaliveTimeoutMs());
-        builder.AddChannelArgument(
-            GRPC_ARG_KEEPALIVE_PERMIT_WITHOUT_CALLS, grpc_options_.keepalivePermitWithoutCalls());
+        builder.AddChannelArgument(GRPC_ARG_KEEPALIVE_PERMIT_WITHOUT_CALLS, grpc_options_.keepalivePermitWithoutCalls());
 
-        LOG(INFO) << fmt::format(
-            "Channel arguments set - Max Connection Idle: {}ms, Max Connection Age: {}ms, Max Connection Age Grace: {}ms, Keepalive Time: {}ms, Keepalive Timeout: {}ms, Keepalive Permit Without Calls: {}",
-            grpc_options_.maxConnectionIdleMs(), grpc_options_.maxConnectionAgeMs(),
-            grpc_options_.maxConnectionAgeGraceMs(), grpc_options_.keepaliveTimeMs(),
-            grpc_options_.keepaliveTimeoutMs(), grpc_options_.keepalivePermitWithoutCalls());
+        LOG(INFO) << fmt::format("Channel arguments set - Max Connection Idle: {}ms, Max Connection Age: {}ms, Max Connection Age Grace: {}ms, Keepalive Time: {}ms, Keepalive Timeout: {}ms, Keepalive Permit Without Calls: {}", grpc_options_.maxConnectionIdleMs(), grpc_options_.maxConnectionAgeMs(), grpc_options_.maxConnectionAgeGraceMs(), grpc_options_.keepaliveTimeMs(), grpc_options_.keepaliveTimeoutMs(), grpc_options_.keepalivePermitWithoutCalls());
 
         LOG(INFO) << "Registering RPC service implementation";
         server_app::AuthRpcService service("./users.db");

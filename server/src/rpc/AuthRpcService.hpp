@@ -35,29 +35,22 @@ namespace server_app
         auto operator=(AuthRpcService&&) -> AuthRpcService& = delete;
 
         /// @brief Register new user account
-        [[nodiscard]] auto RegisterUser(::grpc::ServerContext* context, const ::rpc::RegisterUserRequest* request,
-                                        ::rpc::AuthResponse* response) -> ::grpc::Status override;
+        [[nodiscard]] auto RegisterUser(::grpc::ServerContext* context, const ::rpc::RegisterUserRequest* request, ::rpc::AuthResponse* response) -> ::grpc::Status override;
 
         /// @brief Authenticate user credentials
-        [[nodiscard]] auto AuthenticateUser(::grpc::ServerContext* context,
-                                            const ::rpc::AuthenticateUserRequest* request,
-                                            ::rpc::AuthResponse* response) -> ::grpc::Status override;
+        [[nodiscard]] auto AuthenticateUser(::grpc::ServerContext* context, const ::rpc::AuthenticateUserRequest* request, ::rpc::AuthResponse* response) -> ::grpc::Status override;
 
         /// @brief Change user password
-        [[nodiscard]] auto ChangePassword(::grpc::ServerContext* context, const ::rpc::ChangePasswordRequest* request,
-                                          ::rpc::AuthResponse* response) -> ::grpc::Status override;
+        [[nodiscard]] auto ChangePassword(::grpc::ServerContext* context, const ::rpc::ChangePasswordRequest* request, ::rpc::AuthResponse* response) -> ::grpc::Status override;
 
         /// @brief Reset user password (administrative)
-        [[nodiscard]] auto ResetPassword(::grpc::ServerContext* context, const ::rpc::ResetPasswordRequest* request,
-                                         ::rpc::AuthResponse* response) -> ::grpc::Status override;
+        [[nodiscard]] auto ResetPassword(::grpc::ServerContext* context, const ::rpc::ResetPasswordRequest* request, ::rpc::AuthResponse* response) -> ::grpc::Status override;
 
         /// @brief Delete user account
-        [[nodiscard]] auto DeleteUser(::grpc::ServerContext* context, const ::rpc::DeleteUserRequest* request,
-                                      ::rpc::AuthResponse* response) -> ::grpc::Status override;
+        [[nodiscard]] auto DeleteUser(::grpc::ServerContext* context, const ::rpc::DeleteUserRequest* request, ::rpc::AuthResponse* response) -> ::grpc::Status override;
 
         /// @brief Check if user exists
-        [[nodiscard]] auto UserExists(::grpc::ServerContext* context, const ::rpc::UserExistsRequest* request,
-                                      ::rpc::AuthResponse* response) -> ::grpc::Status override;
+        [[nodiscard]] auto UserExists(::grpc::ServerContext* context, const ::rpc::UserExistsRequest* request, ::rpc::AuthResponse* response) -> ::grpc::Status override;
 
     private:
         /// @brief Authenticator instance for managing user accounts
@@ -70,7 +63,6 @@ namespace server_app
         /// @param e AuthenticationException to handle
         /// @param response Response to populate with error details
         /// @return Appropriate gRPC status
-        [[nodiscard]] static auto HandleAuthException(const common::AuthenticationException& e,
-                                                      ::rpc::AuthResponse* response) noexcept -> ::grpc::Status;
+        [[nodiscard]] static auto HandleAuthException(const common::AuthenticationException& e, ::rpc::AuthResponse* response) noexcept -> ::grpc::Status;
     };
 } // namespace server_app

@@ -167,8 +167,7 @@ namespace common
                     }
                     else if (entry.is_regular_file())
                     {
-                        std::filesystem::copy_file(entryPath, targetPath,
-                                                   std::filesystem::copy_options::overwrite_existing);
+                        std::filesystem::copy_file(entryPath, targetPath, std::filesystem::copy_options::overwrite_existing);
                     }
                 }
             }
@@ -217,8 +216,7 @@ namespace common
         return listDir(dir_path_, recursive);
     }
 
-    auto Directory::listDir(const std::filesystem::path& dir_path,
-                            const bool recursive) -> std::vector<std::filesystem::directory_entry>
+    auto Directory::listDir(const std::filesystem::path& dir_path, const bool recursive) -> std::vector<std::filesystem::directory_entry>
     {
         std::vector<std::filesystem::directory_entry> entries;
         try

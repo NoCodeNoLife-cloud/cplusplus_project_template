@@ -10,8 +10,7 @@ namespace common
         }
     }
 
-    auto AbstractOutputStream::write(const std::vector<std::byte>& buffer, const size_t offset,
-                                     const size_t len) -> void
+    auto AbstractOutputStream::write(const std::vector<std::byte>& buffer, const size_t offset, const size_t len) -> void
     {
         if (offset + len > buffer.size())
         {

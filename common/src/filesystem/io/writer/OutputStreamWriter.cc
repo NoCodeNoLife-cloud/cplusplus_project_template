@@ -72,11 +72,10 @@ namespace common
         {
             throw std::out_of_range("Offset and length exceed string size");
         }
-        write(std::vector(str.begin() + static_cast<std::string::difference_type>(off),
-                          str.begin() + static_cast<std::string::difference_type>(off + len)));
+        write(std::vector(str.begin() + static_cast<std::string::difference_type>(off), str.begin() + static_cast<std::string::difference_type>(off + len)));
     }
 
-    auto OutputStreamWriter::flush() -> void
+    auto OutputStreamWriter::flush() noexcept -> void
     {
         checkIfClosed();
         output_writer_->flush();

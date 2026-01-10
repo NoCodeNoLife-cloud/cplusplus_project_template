@@ -37,11 +37,9 @@ namespace common
         time_point_ = std::chrono::system_clock::from_time_t(timeT);
     }
 
-    Date::Date(const int32_t year, const int32_t month, const int32_t day, const int32_t hours, const int32_t minutes,
-               const int32_t seconds)
+    Date::Date(const int32_t year, const int32_t month, const int32_t day, const int32_t hours, const int32_t minutes, const int32_t seconds)
     {
-        if (month < 1 || month > 12 || day < 1 || day > 31 || hours < 0 || hours > 23 || minutes < 0 || minutes > 59 ||
-            seconds < 0 || seconds > 59)
+        if (month < 1 || month > 12 || day < 1 || day > 31 || hours < 0 || hours > 23 || minutes < 0 || minutes > 59 || seconds < 0 || seconds > 59)
         {
             throw std::invalid_argument("Invalid date-time components.");
         }

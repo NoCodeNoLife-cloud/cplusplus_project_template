@@ -13,10 +13,8 @@
 
 namespace common
 {
-    ThreadPool::ThreadPool(const size_t core_threads, const size_t max_threads, const size_t queue_size,
-                           const std::chrono::milliseconds idle_time) noexcept
-        : core_thread_count_(core_threads), max_thread_count_(max_threads), max_queue_size_(queue_size),
-          thread_idle_time_(idle_time)
+    ThreadPool::ThreadPool(const size_t core_threads, const size_t max_threads, const size_t queue_size, const std::chrono::milliseconds idle_time) noexcept
+        : core_thread_count_(core_threads), max_thread_count_(max_threads), max_queue_size_(queue_size), thread_idle_time_(idle_time)
     {
         for (size_t i = 0; i < core_thread_count_; ++i)
         {
@@ -34,8 +32,7 @@ namespace common
     {
         using return_type = std::invoke_result_t<F, Args...>;
 
-        auto task = std::make_shared<std::packaged_task<return_type()>>(
-            std::bind(std::forward<F>(f), std::forward<Args>(args)...));
+        auto task = std::make_shared<std::packaged_task<return_type()>>(std::bind(std::forward<F>(f), std::forward<Args>(args)...));
         std::future<return_type> res = task->get_future();
         {
             std::unique_lock lock(queue_mutex_);

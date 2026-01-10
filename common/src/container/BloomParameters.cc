@@ -7,19 +7,13 @@
 namespace common
 {
     BloomParameters::BloomParameters() noexcept
-        : minimum_size(1), maximum_size(std::numeric_limits<uint64_t>::max()), minimum_number_of_hashes(1),
-          maximum_number_of_hashes(std::numeric_limits<uint32_t>::max()), projected_element_count(10000),
-          false_positive_probability(1.0 / static_cast<double>(projected_element_count)),
-          random_seed(0xA5A5A5A55A5A5A5AULL)
+        : minimum_size(1), maximum_size(std::numeric_limits<uint64_t>::max()), minimum_number_of_hashes(1), maximum_number_of_hashes(std::numeric_limits<uint32_t>::max()), projected_element_count(10000), false_positive_probability(1.0 / static_cast<double>(projected_element_count)), random_seed(0xA5A5A5A55A5A5A5AULL)
     {
     }
 
     auto BloomParameters::operator!() const noexcept -> bool
     {
-        return minimum_size > maximum_size || minimum_number_of_hashes > maximum_number_of_hashes ||
-            minimum_number_of_hashes < 1 || 0 == maximum_number_of_hashes || 0 == projected_element_count ||
-            false_positive_probability < 0.0 || std::numeric_limits<double>::infinity() ==
-            std::abs(false_positive_probability) || 0 == random_seed || 0xFFFFFFFFFFFFFFFFULL == random_seed;
+        return minimum_size > maximum_size || minimum_number_of_hashes > maximum_number_of_hashes || minimum_number_of_hashes < 1 || 0 == maximum_number_of_hashes || 0 == projected_element_count || false_positive_probability < 0.0 || std::numeric_limits<double>::infinity() == std::abs(false_positive_probability) || 0 == random_seed || 0xFFFFFFFFFFFFFFFFULL == random_seed;
     }
 
     BloomParameters::optimal_parameters_t::optimal_parameters_t() noexcept = default;
@@ -29,8 +23,8 @@ namespace common
         if (!*this) return false;
 
         // Additional validation for mathematical soundness
-        if (projected_element_count == 0 || false_positive_probability <= 0.0 || 
-            false_positive_probability >= 1.0) {
+        if (projected_element_count == 0 || false_positive_probability <= 0.0 || false_positive_probability >= 1.0)
+        {
             return false;
         }
 
@@ -42,19 +36,21 @@ namespace common
         {
             // Check for mathematical validity before computation
             const double prob_power = std::pow(false_positive_probability, 1.0 / k);
-            if (prob_power >= 1.0) {
+            if (prob_power >= 1.0)
+            {
                 // This would lead to invalid logarithm computation
                 k += 1.0;
                 continue;
             }
-            
+
             const double denominator = safe_log(1.0 - prob_power);
-            if (denominator == 0.0) {
+            if (denominator == 0.0)
+            {
                 // Avoid division by zero
                 k += 1.0;
                 continue;
             }
-            
+
             const double numerator = -k * static_cast<double>(projected_element_count);
             if (const double curr_m = numerator / denominator; curr_m < min_m && curr_m > 0)
             {
@@ -84,20 +80,20 @@ namespace common
         }
 
         // Clamp to specified bounds
-        if (parameters.number_of_hashes < minimum_number_of_hashes) 
+        if (parameters.number_of_hashes < minimum_number_of_hashes)
         {
             parameters.number_of_hashes = minimum_number_of_hashes;
         }
-        else if (parameters.number_of_hashes > maximum_number_of_hashes) 
+        else if (parameters.number_of_hashes > maximum_number_of_hashes)
         {
             parameters.number_of_hashes = maximum_number_of_hashes;
         }
 
-        if (parameters.table_size < minimum_size) 
+        if (parameters.table_size < minimum_size)
         {
             parameters.table_size = minimum_size;
         }
-        else if (parameters.table_size > maximum_size) 
+        else if (parameters.table_size > maximum_size)
         {
             parameters.table_size = maximum_size;
         }

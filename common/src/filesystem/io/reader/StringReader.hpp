@@ -15,10 +15,10 @@ namespace common
     {
     public:
         explicit StringReader(std::string s);
-        ~StringReader() override;
+        ~StringReader() override = default;
 
         /// @brief Closes the StringReader and releases any associated resources.
-        auto close() -> void override;
+        auto close() noexcept -> void override;
 
         /// @brief Marks the current position in the stream.
         /// @param readAheadLimit the maximum number of characters that can be read from the stream before the mark position
@@ -27,7 +27,7 @@ namespace common
 
         /// @brief Tests if this input stream supports the mark and reset methods.
         /// @return true if this stream type supports the mark and reset methods; false otherwise.
-        [[nodiscard]] auto markSupported() const -> bool override;
+        [[nodiscard]] auto markSupported() const noexcept -> bool override;
 
         /// @brief Reads a single character from the string.
         /// @return The character read, as an integer in the range 0 to 65535 (0x00-0xffff),
@@ -44,7 +44,7 @@ namespace common
 
         /// @brief Tests if this input stream is ready to be read.
         /// @return true if the next read() is guaranteed not to block for input, false otherwise.
-        [[nodiscard]] auto ready() const -> bool override;
+        [[nodiscard]] auto ready() const noexcept -> bool override;
 
         /// @brief Resets the stream to the most recent mark position.
         auto reset() -> void override;
@@ -52,11 +52,11 @@ namespace common
         /// @brief Skips over and discards n characters from the input stream.
         /// @param ns The number of characters to skip.
         /// @return The actual number of characters skipped.
-        auto skip(size_t ns) -> size_t override;
+        [[nodiscard]] auto skip(size_t ns) noexcept -> size_t override;
 
         /// @brief Checks if this reader has been closed.
         /// @return true if this reader has been closed, false otherwise.
-        [[nodiscard]] auto isClosed() const -> bool override;
+        [[nodiscard]] auto isClosed() const noexcept -> bool override;
 
     private:
         std::string source_;

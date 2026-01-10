@@ -2,11 +2,10 @@
 
 #include <algorithm>
 #include <vector>
+#include <stdexcept>
 
 namespace common
 {
-    AbstractReader::~AbstractReader() = default;
-
     auto AbstractReader::read() -> int
     {
         std::vector<char> buffer(1);
@@ -34,6 +33,11 @@ namespace common
 
     auto AbstractReader::skip(const size_t n) -> size_t
     {
+        if (n == 0)
+        {
+            return 0;
+        }
+
         size_t skipped = 0;
         while (skipped < n)
         {

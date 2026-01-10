@@ -60,10 +60,11 @@ set(COPY_DESTINATION_GENERATED_FOLDER "${PROJECT_SOURCE_DIR}/proto/generated")
 add_custom_target(
         ${PROTOBUF_PROJECT}
         ALL
-        COMMAND ${CMAKE_COMMAND} -E remove_directory "${PROJECT_SOURCE_DIR}/proto/generate"
+        COMMAND ${CMAKE_COMMAND} -E remove_directory "${COPY_DESTINATION_GENERATED_FOLDER}"
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${COPY_DESTINATION_GENERATED_FOLDER}"
         COMMAND ${CMAKE_COMMAND} -E copy_directory "${PROTO_OUTPUT_DIR}" "${COPY_DESTINATION_GENERATED_FOLDER}"
         DEPENDS ${PROTO_SRCS} ${PROTO_HDRS}
-        COMMENT "Cleaning old gRPC files and copying new proto files"
+        COMMENT "Cleaning old proto files and copying new proto files"
         VERBATIM
 )
 

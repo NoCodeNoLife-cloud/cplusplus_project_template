@@ -120,7 +120,7 @@ namespace common
         [[nodiscard]] auto toString() const -> std::string override;
 
         /// @brief Flushes the stream (no-op for this implementation).
-        auto flush() -> void override;
+        auto flush() noexcept -> void override;
 
         /// @brief Closes the writer (no-op for this implementation).
         auto close() -> void override;

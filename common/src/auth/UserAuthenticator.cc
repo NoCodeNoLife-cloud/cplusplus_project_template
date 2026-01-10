@@ -15,8 +15,7 @@ namespace common
     /// @param salt Salt string
     /// @param hashed_password Hashed password string
     /// @return Formatted credentials string
-    auto UserAuthenticator::format_credentials_data(const std::string& salt,
-                                                    const std::string& hashed_password) -> std::string
+    auto UserAuthenticator::format_credentials_data(const std::string& salt, const std::string& hashed_password) -> std::string
     {
         std::ostringstream credential_stream;
         credential_stream << salt << ":" << hashed_password;
@@ -30,20 +29,19 @@ namespace common
         // Validate username format
         if (!validate_username(username))
         {
-            throw AuthenticationException(
-                "Invalid username format. Use alphanumeric characters, underscores, or hyphens (3-20 characters).");
+            throw AuthenticationException(std::string("Invalid username format. Use alphanumeric characters, underscores, or hyphens (3-20 characters)."));
         }
 
         // Check if username already exists
         if (users_.contains(username) || password_sql_.UserExists(username))
         {
-            throw AuthenticationException("Username already exists");
+            throw AuthenticationException(std::string("Username already exists"));
         }
 
         // Validate password against policy
         if (!password_policy_.validate(password))
         {
-            throw AuthenticationException("Password does not meet security requirements");
+            throw AuthenticationException(std::string("Password does not meet security requirements"));
         }
 
         // Generate salt and hash password
@@ -54,7 +52,7 @@ namespace common
         const std::string credential_data = format_credentials_data(salt, hashed_password);
         if (!password_sql_.RegisterUser(username, credential_data))
         {
-            throw AuthenticationException("Failed to register user in database");
+            throw AuthenticationException(std::string("Failed to register user in database"));
         }
 
         // Store user credentials in memory cache
@@ -82,7 +80,7 @@ namespace common
 
         if (it == users_.end())
         {
-            throw AuthenticationException("User not found");
+            throw AuthenticationException(std::string("User not found"));
         }
 
         const auto& user = it->second;
@@ -90,12 +88,11 @@ namespace common
         // Check if account is locked
         if (user->is_locked())
         {
-            throw AuthenticationException("Account is locked due to too many failed attempts. Please try again later.");
+            throw AuthenticationException(std::string("Account is locked due to too many failed attempts. Please try again later."));
         }
 
         // Verify password
-        if (const auto hashed_input = CryptoUtils::hash_password(password, user->get_salt());
-            CryptoUtils::secure_compare(hashed_input, user->get_hashed_password()))
+        if (const auto hashed_input = CryptoUtils::hash_password(password, user->get_salt()); CryptoUtils::secure_compare(hashed_input, user->get_hashed_password()))
         {
             user->reset_failed_attempts();
             return true;
@@ -103,12 +100,11 @@ namespace common
         else
         {
             user->increment_failed_attempts();
-            throw AuthenticationException("Invalid password");
+            throw AuthenticationException(std::string("Invalid password"));
         }
     }
 
-    bool UserAuthenticator::change_password(const std::string& username, const std::string& current_password,
-                                            const std::string& new_password)
+    bool UserAuthenticator::change_password(const std::string& username, const std::string& current_password, const std::string& new_password)
     {
         // First verify current password
         try
@@ -117,20 +113,20 @@ namespace common
         }
         catch (const AuthenticationException&)
         {
-            throw AuthenticationException("Current password is incorrect");
+            throw AuthenticationException(std::string("Current password is incorrect"));
         }
 
         std::lock_guard lock(users_mutex_);
         const auto it = users_.find(username);
         if (it == users_.end())
         {
-            throw AuthenticationException("User not found");
+            throw AuthenticationException(std::string("User not found"));
         }
 
         // Validate new password
         if (!password_policy_.validate(new_password))
         {
-            throw AuthenticationException("New password does not meet security requirements");
+            throw AuthenticationException(std::string("New password does not meet security requirements"));
         }
 
         // Generate new salt and hash
@@ -141,7 +137,7 @@ namespace common
         const std::string credential_data = format_credentials_data(salt, hashed_password);
         if (!password_sql_.ResetPassword(username, credential_data))
         {
-            throw AuthenticationException("Failed to update password in database");
+            throw AuthenticationException(std::string("Failed to update password in database"));
         }
 
         // Update credentials in memory cache
@@ -157,7 +153,7 @@ namespace common
         // Validate new password
         if (!password_policy_.validate(new_password))
         {
-            throw AuthenticationException("New password does not meet security requirements");
+            throw AuthenticationException(std::string("New password does not meet security requirements"));
         }
 
         // Generate new credentials
@@ -168,7 +164,7 @@ namespace common
         const std::string credential_data = format_credentials_data(salt, hashed_password);
         if (!password_sql_.ResetPassword(username, credential_data))
         {
-            throw AuthenticationException("Failed to reset password in database");
+            throw AuthenticationException(std::string("Failed to reset password in database"));
         }
 
         // Update credentials in memory cache or add if not exists
@@ -219,8 +215,7 @@ namespace common
     /// @brief Parse credentials data (salt:hashed_password format)
     /// @param credentials_data Raw credentials data from database
     /// @return Parsed salt and hashed password pair, nullopt if invalid format
-    auto UserAuthenticator::parse_credentials_data(
-        const std::string& credentials_data) -> std::optional<std::pair<std::string, std::string>>
+    auto UserAuthenticator::parse_credentials_data(const std::string& credentials_data) -> std::optional<std::pair<std::string, std::string>>
     {
         const size_t delimiter_pos = credentials_data.find(':');
         if (delimiter_pos == std::string::npos)

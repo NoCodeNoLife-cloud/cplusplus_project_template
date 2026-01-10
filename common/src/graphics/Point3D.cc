@@ -4,77 +4,89 @@
 
 namespace common
 {
-    Point2D::Point2D() noexcept = default;
+    Point3D::Point3D() noexcept = default;
 
-    Point2D::Point2D(const double x, const double y) noexcept
-        : x_(x), y_(y)
+    Point3D::Point3D(const double x, const double y, const double z) noexcept
+        : x_(x), y_(y), z_(z)
     {
     }
 
-    auto Point2D::getX() const noexcept -> double
+    auto Point3D::getX() const noexcept -> double
     {
         return x_;
     }
 
-    auto Point2D::getY() const noexcept -> double
+    auto Point3D::getY() const noexcept -> double
     {
         return y_;
     }
 
-    auto Point2D::setX(const double x) noexcept -> void
+    auto Point3D::getZ() const noexcept -> double
+    {
+        return z_;
+    }
+
+    auto Point3D::setX(const double x) noexcept -> void
     {
         x_ = x;
     }
 
-    auto Point2D::setY(const double y) noexcept -> void
+    auto Point3D::setY(const double y) noexcept -> void
     {
         y_ = y;
     }
 
-    auto Point2D::operator+=(const Point2D& other) noexcept -> Point2D&
+    auto Point3D::setZ(const double z) noexcept -> void
+    {
+        z_ = z;
+    }
+
+    auto Point3D::operator+=(const Point3D& other) noexcept -> Point3D&
     {
         x_ += other.x_;
         y_ += other.y_;
+        z_ += other.z_;
         return *this;
     }
 
-    auto Point2D::operator-=(const Point2D& other) noexcept -> Point2D&
+    auto Point3D::operator-=(const Point3D& other) noexcept -> Point3D&
     {
         x_ -= other.x_;
         y_ -= other.y_;
+        z_ -= other.z_;
         return *this;
     }
 
-    auto Point2D::operator-() const noexcept -> Point2D
+    auto Point3D::operator-() const noexcept -> Point3D
     {
-        return {-x_, -y_};
+        return {-x_, -y_, -z_};
     }
 
-    auto operator+(Point2D lhs, const Point2D& rhs) noexcept -> Point2D
+    auto operator+(Point3D lhs, const Point3D& rhs) noexcept -> Point3D
     {
         lhs += rhs;
         return lhs;
     }
 
-    auto operator-(Point2D lhs, const Point2D& rhs) noexcept -> Point2D
+    auto operator-(Point3D lhs, const Point3D& rhs) noexcept -> Point3D
     {
         lhs -= rhs;
         return lhs;
     }
 
-    auto operator==(const Point2D& lhs, const Point2D& rhs) noexcept -> bool
+    auto operator==(const Point3D& lhs, const Point3D& rhs) noexcept -> bool
     {
-        return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY();
+        return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY() && lhs.getZ() == rhs.getZ();
     }
 
-    auto operator!=(const Point2D& lhs, const Point2D& rhs) noexcept -> bool
+    auto operator!=(const Point3D& lhs, const Point3D& rhs) noexcept -> bool
     {
         return !(lhs == rhs);
     }
 
-    auto operator<<(std::ostream& os, const Point2D& point) -> std::ostream&
+    auto operator<<(std::ostream& os, const Point3D& point) -> std::ostream&
     {
-        os << "(" << point.getX() << ", " << point.getY() << ")";
+        os << "(" << point.getX() << ", " << point.getY() << ", " << point.getZ() << ")";
         return os;
     }
 }

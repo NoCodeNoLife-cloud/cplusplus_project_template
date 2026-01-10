@@ -45,9 +45,7 @@ namespace common
         /// @param charset The character set to use for generation
         /// @return A random string of specified length
         /// @throws std::invalid_argument if charset is empty
-        auto nextString(size_t length,
-                        const std::string& charset = "abcdefghijklmnopqrstuvwxyz" "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                            "0123456789") -> std::string;
+        auto nextString(size_t length, const std::string& charset = "abcdefghijklmnopqrstuvwxyz" "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "0123456789") -> std::string;
 
         /// @brief Generates a Gaussian distributed random number
         /// @param mean The mean of the distribution

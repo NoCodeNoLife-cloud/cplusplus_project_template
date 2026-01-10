@@ -83,8 +83,7 @@ namespace common
         return affected;
     }
 
-    auto SQLiteManager::query(const std::string& sql,
-                              const std::vector<std::string>& params) const -> std::vector<std::vector<std::string>>
+    auto SQLiteManager::query(const std::string& sql, const std::vector<std::string>& params) const -> std::vector<std::vector<std::string>>
     {
         if (!db_)
         {

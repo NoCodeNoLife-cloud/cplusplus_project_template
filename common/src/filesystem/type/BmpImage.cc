@@ -21,8 +21,7 @@ namespace common
         load(filename);
     }
 
-    auto BmpImage::setPixel(const int32_t x, const int32_t y, const uint8_t r, const uint8_t g,
-                            const uint8_t b) noexcept -> void
+    auto BmpImage::setPixel(const int32_t x, const int32_t y, const uint8_t r, const uint8_t g, const uint8_t b) noexcept -> void
     {
         if (x < 0 || x >= width_ || y < 0 || y >= height_)
         {
@@ -53,8 +52,7 @@ namespace common
     {
         const int32_t rowSize = width_ * 3 + 3 & ~3;
         const int32_t pixelDataSize = rowSize * height_;
-        const uint64_t fileSize = sizeof(BitMapFileHeader) + sizeof(BitmapInfoHeader) + static_cast<uint64_t>(
-            pixelDataSize);
+        const uint64_t fileSize = sizeof(BitMapFileHeader) + sizeof(BitmapInfoHeader) + static_cast<uint64_t>(pixelDataSize);
         BitMapFileHeader fileHeader{};
         fileHeader.bf_type_ = 0x4D42;
         fileHeader.bf_size_ = fileSize;

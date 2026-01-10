@@ -28,7 +28,7 @@ namespace common
         auto printf(const std::string& fmt, Args&&... args) const -> void;
 
         /// @brief Flushes the console output.
-        auto flush() -> void override;
+        auto flush() noexcept -> void override;
 
         /// @brief Reads a line from the console.
         /// @return The read line as a string.

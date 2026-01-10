@@ -90,8 +90,7 @@ namespace fox
     }
 
     template <typename T>
-    auto BinarySearchTree<T>::insertRecursive(std::shared_ptr<TreeNode<T>> node,
-                                              T value) -> std::shared_ptr<TreeNode<T>>
+    auto BinarySearchTree<T>::insertRecursive(std::shared_ptr<TreeNode<T>> node, T value) -> std::shared_ptr<TreeNode<T>>
     {
         if (!node) return std::make_shared<TreeNode<T>>(value);
         if (value < node->data) node->left = insertRecursive(node->left, value);
@@ -109,8 +108,7 @@ namespace fox
     }
 
     template <typename T>
-    auto BinarySearchTree<T>::removeRecursive(std::shared_ptr<TreeNode<T>> node,
-                                              T value) -> std::shared_ptr<TreeNode<T>>
+    auto BinarySearchTree<T>::removeRecursive(std::shared_ptr<TreeNode<T>> node, T value) -> std::shared_ptr<TreeNode<T>>
     {
         if (!node) return nullptr;
         if (value < node->data) node->left = removeRecursive(node->left, value);

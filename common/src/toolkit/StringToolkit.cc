@@ -20,8 +20,7 @@ namespace common
         return result;
     }
 
-    auto StringToolkit::concatenate(const std::vector<std::string>& source,
-                                    const char split_char) noexcept -> std::string
+    auto StringToolkit::concatenate(const std::vector<std::string>& source, const char split_char) noexcept -> std::string
     {
         if (source.empty()) return "";
         std::string result = source[0];

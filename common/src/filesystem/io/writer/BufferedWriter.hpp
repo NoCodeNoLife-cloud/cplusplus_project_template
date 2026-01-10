@@ -36,7 +36,7 @@ namespace common
 
         /// @brief Flushes the buffer to the underlying output stream.
         /// @throws std::ios_base::failure if an I/O error occurs.
-        auto flush() -> void override;
+        auto flush() noexcept -> void override;
 
         /// @brief Closes the writer and releases any resources.
         /// @throws std::ios_base::failure if an I/O error occurs.

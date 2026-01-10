@@ -2,8 +2,7 @@
 
 #include <istream>
 #include <stdexcept>
-
-#include "src/task/ClientTask.hpp"
+#include <limits>
 
 namespace common
 {
@@ -14,34 +13,68 @@ namespace common
 
     auto Scanner::nextInt() const -> int32_t
     {
-        if (std::string token; getNextToken(token))
+        std::string token;
+        if (!getNextToken(token))
         {
-            try
-            {
-                return std::stoi(token);
-            }
-            catch (const std::exception&)
-            {
-                throw std::runtime_error("Failed to parse integer: " + token);
-            }
+            throw std::runtime_error("Scanner::nextInt: No more integers available.");
         }
-        throw std::runtime_error("No more integers available.");
+
+        try
+        {
+            // Check for potential overflow before conversion
+            size_t pos = 0;
+            const long long_value = std::stol(token, &pos);
+
+            if (pos != token.length())
+            {
+                throw std::invalid_argument("Scanner::nextInt: Non-numeric characters in token: '" + token + "'");
+            }
+
+            if (long_value < std::numeric_limits<int32_t>::min() || long_value > std::numeric_limits<int32_t>::max())
+            {
+                throw std::out_of_range("Scanner::nextInt: Value out of range for int32_t: '" + token + "'");
+            }
+
+            return static_cast<int32_t>(long_value);
+        }
+        catch (const std::invalid_argument& e)
+        {
+            throw std::invalid_argument("Scanner::nextInt: Invalid argument - '" + token + "'. Error: " + e.what());
+        }
+        catch (const std::out_of_range& e)
+        {
+            throw std::out_of_range("Scanner::nextInt: Out of range - '" + token + "'. Error: " + e.what());
+        }
     }
 
     auto Scanner::nextDouble() const -> double
     {
-        if (std::string token; getNextToken(token))
+        std::string token;
+        if (!getNextToken(token))
         {
-            try
-            {
-                return std::stod(token);
-            }
-            catch (const std::exception&)
-            {
-                throw std::runtime_error("Failed to parse double: " + token);
-            }
+            throw std::runtime_error("Scanner::nextDouble: No more doubles available.");
         }
-        throw std::runtime_error("No more doubles available.");
+
+        try
+        {
+            size_t pos = 0;
+            const double result = std::stod(token, &pos);
+
+            if (pos != token.length())
+            {
+                throw std::invalid_argument("Scanner::nextDouble: Non-numeric characters in token: '" + token + "'");
+            }
+
+            return result;
+        }
+        catch (const std::invalid_argument& e)
+        {
+            throw std::invalid_argument("Scanner::nextDouble: Invalid argument - '" + token + "'. Error: " + e.what());
+        }
+        catch (const std::out_of_range& e)
+        {
+            throw std::out_of_range("Scanner::nextDouble: Out of range - '" + token + "'. Error: " + e.what());
+        }
     }
 
     auto Scanner::nextLine() const -> std::string

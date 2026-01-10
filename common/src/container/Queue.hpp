@@ -188,7 +188,9 @@ namespace common
 
             /// @brief Constructor for a node
             /// @param value The value to store in the node
-            explicit Node(T value) : data_(std::move(value)), next_(nullptr) {}
+            explicit Node(T value) : data_(std::move(value)), next_(nullptr)
+            {
+            }
         };
 
         std::unique_ptr<Node> head_{};

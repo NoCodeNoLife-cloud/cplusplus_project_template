@@ -12,25 +12,22 @@
 
 namespace common
 {
-    auto OpenSSLToolkit::deriveKey(const std::string& password, std::array<unsigned char, 32>& key,
-                                   std::array<unsigned char, 16>& salt) noexcept -> void
+    auto OpenSSLToolkit::deriveKey(const std::string& password, std::array<unsigned char, 32>& key, std::array<unsigned char, 16>& salt) noexcept -> void
     {
-        EVP_BytesToKey(EVP_aes_256_cbc(), EVP_sha1(), salt.data(), reinterpret_cast<const unsigned char*>(password.c_str()),
-                       static_cast<int32_t>(password.size()), 1, key.data(), nullptr);
+        EVP_BytesToKey(EVP_aes_256_cbc(), EVP_sha1(), salt.data(), reinterpret_cast<const unsigned char*>(password.c_str()), static_cast<int32_t>(password.size()), 1, key.data(), nullptr);
     }
 
-    auto OpenSSLToolkit::encryptAES256CBC(const std::string& plaintext, const std::string& password)
-        -> std::vector<unsigned char>
+    auto OpenSSLToolkit::encryptAES256CBC(const std::string& plaintext, const std::string& password) -> std::vector<unsigned char>
     {
         std::array<unsigned char, 32> key{};
         std::array<unsigned char, 16> salt{};
-        
+
         // Generate random salt
         if (RAND_bytes(salt.data(), 16) != 1)
         {
             throw std::runtime_error("Failed to generate random salt for key derivation");
         }
-        
+
         deriveKey(password, key, salt);
 
         std::array<unsigned char, AES_BLOCK_SIZE> iv{};
@@ -57,8 +54,7 @@ namespace common
             throw std::runtime_error("Failed to initialize AES-256-CBC encryption with provided key and IV");
         }
 
-        if (EVP_EncryptUpdate(ctx, ciphertext.data(), &len, reinterpret_cast<const unsigned char*>(plaintext.data()),
-                              static_cast<int32_t>(plaintext.size())) != 1)
+        if (EVP_EncryptUpdate(ctx, ciphertext.data(), &len, reinterpret_cast<const unsigned char*>(plaintext.data()), static_cast<int32_t>(plaintext.size())) != 1)
         {
             throw std::runtime_error("Failed to encrypt plaintext data with AES-256-CBC algorithm");
         }
@@ -76,12 +72,11 @@ namespace common
         result.insert(result.end(), salt.begin(), salt.end());
         result.insert(result.end(), iv.begin(), iv.end());
         result.insert(result.end(), ciphertext.begin(), ciphertext.end());
-        
+
         return result;
     }
 
-    auto OpenSSLToolkit::decryptAES256CBC(const std::vector<unsigned char>& ciphertext, const std::string& password)
-        -> std::string
+    auto OpenSSLToolkit::decryptAES256CBC(const std::vector<unsigned char>& ciphertext, const std::string& password) -> std::string
     {
         constexpr size_t metadata_size = 16 + AES_BLOCK_SIZE; // salt + iv
         if (ciphertext.size() < metadata_size)
@@ -92,7 +87,7 @@ namespace common
         // Extract salt and IV from the beginning of the ciphertext
         std::array<unsigned char, 16> salt{};
         std::copy_n(ciphertext.begin(), 16, salt.data());
-        
+
         std::array<unsigned char, AES_BLOCK_SIZE> iv{};
         std::copy_n(ciphertext.begin() + 16, AES_BLOCK_SIZE, iv.data());
 
@@ -117,8 +112,7 @@ namespace common
             throw std::runtime_error("Failed to initialize AES-256-CBC decryption with provided key and IV");
         }
 
-        if (EVP_DecryptUpdate(ctx, plaintext.data(), &len, ciphertext.data() + metadata_size,
-                              static_cast<int32_t>(ciphertext.size() - metadata_size)) != 1)
+        if (EVP_DecryptUpdate(ctx, plaintext.data(), &len, ciphertext.data() + metadata_size, static_cast<int32_t>(ciphertext.size() - metadata_size)) != 1)
         {
             throw std::runtime_error("Failed to decrypt ciphertext data with AES-256-CBC algorithm");
         }

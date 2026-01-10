@@ -77,8 +77,7 @@ namespace common
         /// @param dir_path The directory path to list
         /// @param recursive Whether to list subdirectories recursively
         /// @return A vector of directory entries
-        [[nodiscard]] static auto listDir(const std::filesystem::path& dir_path,
-                                          bool recursive) -> std::vector<std::filesystem::directory_entry>;
+        [[nodiscard]] static auto listDir(const std::filesystem::path& dir_path, bool recursive) -> std::vector<std::filesystem::directory_entry>;
 
         /// @brief List directory entries
         /// @param recursive Whether to list subdirectories recursively

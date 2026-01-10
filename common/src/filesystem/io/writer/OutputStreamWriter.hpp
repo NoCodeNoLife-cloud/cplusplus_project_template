@@ -66,7 +66,7 @@ namespace common
 
         /// @brief Flush the stream.
         /// @throws std::ios_base::failure If the stream is closed or output stream is not available.
-        auto flush() -> void override;
+        auto flush() noexcept -> void override;
 
         /// @brief Close the writer.
         /// @throws std::ios_base::failure If the output stream is not available.

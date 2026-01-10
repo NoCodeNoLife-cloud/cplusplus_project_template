@@ -34,8 +34,7 @@ namespace app_client
         /// @param keepalive_timeout_ms Timeout for keepalive ping acknowledgment in milliseconds
         /// @param keepalive_permit_without_calls Flag to permit keepalive pings without active calls (1=true, 0=false)
         /// @param server_address The gRPC server address in format "host:port"
-        AuthRpcClientOptions(int32_t keepalive_time_ms, int32_t keepalive_timeout_ms,
-                             int32_t keepalive_permit_without_calls, std::string server_address) noexcept;
+        AuthRpcClientOptions(int32_t keepalive_time_ms, int32_t keepalive_timeout_ms, int32_t keepalive_permit_without_calls, std::string server_address) noexcept;
 
         /// @brief Copy constructor deleted to prevent unintended resource duplication
         AuthRpcClientOptions(const AuthRpcClientOptions&) = delete;

@@ -33,8 +33,7 @@ namespace common
         }
 
         ensureCapacity(count_ + len);
-        std::copy_n(cBuf.begin() + static_cast<std::ptrdiff_t>(off), len,
-                    buf_.begin() + static_cast<std::ptrdiff_t>(count_));
+        std::copy_n(cBuf.begin() + static_cast<std::ptrdiff_t>(off), len, buf_.begin() + static_cast<std::ptrdiff_t>(count_));
         count_ += len;
     }
 
@@ -56,8 +55,7 @@ namespace common
         }
 
         ensureCapacity(count_ + len);
-        std::copy_n(str.begin() + static_cast<std::ptrdiff_t>(off), len,
-                    buf_.begin() + static_cast<std::ptrdiff_t>(count_));
+        std::copy_n(str.begin() + static_cast<std::ptrdiff_t>(off), len, buf_.begin() + static_cast<std::ptrdiff_t>(count_));
         count_ += len;
     }
 
@@ -164,7 +162,7 @@ namespace common
         return {buf_.begin(), buf_.begin() + static_cast<std::vector<char>::difference_type>(count_)};
     }
 
-    auto CharArrayWriter::flush() -> void
+    auto CharArrayWriter::flush() noexcept -> void
     {
         // No operation for CharArrayWriter.
     }

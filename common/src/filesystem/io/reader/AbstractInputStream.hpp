@@ -1,6 +1,8 @@
 #pragma once
 #include <algorithm>
+#include <cstddef>
 #include <vector>
+#include <cstdint>
 
 #include "src/filesystem/io/interface/ICloseable.hpp"
 
@@ -11,7 +13,7 @@ namespace common
     class AbstractInputStream : public ICloseable
     {
     public:
-        ~AbstractInputStream() override;
+        ~AbstractInputStream() override = default;
 
         /// @brief Returns the number of bytes that can be read (or skipped over) from this input stream without blocking.
         /// @return The number of bytes that can be read without blocking.
@@ -19,7 +21,7 @@ namespace common
 
         /// @brief Marks the current position in this input stream.
         /// @param readLimit The maximum limit of bytes that can be read before the mark position becomes invalid.
-        virtual auto mark(int32_t readLimit) -> void;
+        virtual auto mark(std::int32_t readLimit) -> void;
 
         /// @brief Tells whether this stream supports the mark() operation.
         /// @return true if this stream supports the mark operation, false otherwise.
@@ -39,7 +41,7 @@ namespace common
         /// @param offset The start offset in the destination array buffer.
         /// @param len The maximum number of bytes to read.
         /// @return The total number of bytes read into the buffer, or 0 if there is no more data.
-        virtual auto read(std::vector<std::byte>& buffer, size_t offset, size_t len) -> size_t;
+        virtual auto read(std::vector<std::byte>& buffer, std::size_t offset, std::size_t len) -> size_t;
 
         /// @brief Repositions this stream to the position at the time the mark() method was last called.
         virtual auto reset() -> void;
@@ -47,6 +49,9 @@ namespace common
         /// @brief Skips over and discards n bytes of data from this input stream.
         /// @param n The number of bytes to skip.
         /// @return The actual number of bytes skipped.
-        virtual auto skip(size_t n) -> size_t;
+        virtual auto skip(std::size_t n) -> size_t;
+
+        /// @brief Closes this input stream and releases any system resources associated with the stream.
+        auto close() -> void override = 0;
     };
 }

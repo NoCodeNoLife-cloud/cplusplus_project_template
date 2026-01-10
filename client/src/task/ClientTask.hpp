@@ -53,15 +53,13 @@ namespace app_client
         /// @param username Username for the new account
         /// @param password Password for the new account
         /// @throws std::runtime_error if registration fails
-        static auto registerNewUser(const client_app::AuthRpcClient& auth_rpc_client, const std::string& username,
-                                    const std::string& password) -> void;
+        static auto registerNewUser(const client_app::AuthRpcClient& auth_rpc_client, const std::string& username, const std::string& password) -> void;
         // Changed return type to void since it throws on failure
 
         /// @brief Logs a message indicating that the client is logging out
         /// @param auth_rpc_client Reference to the RPC client for logout operations
         /// @param username Username of the user to log out
-        static auto logOut(const client_app::AuthRpcClient& auth_rpc_client,
-                           const std::string& username) noexcept -> void;
+        static auto logOut(const client_app::AuthRpcClient& auth_rpc_client, const std::string& username) noexcept -> void;
 
         /// @brief Main task
         /// @param auth_rpc_client Reference to the RPC client for executing tasks

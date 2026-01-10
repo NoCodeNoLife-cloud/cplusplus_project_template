@@ -22,7 +22,7 @@ namespace common
         /// @details Once the stream has been closed, further read(), unread(), ready(), mark(),
         /// reset(), or skip() invocations will throw an IOException.
         /// Closing a previously closed stream has no effect.
-        auto close() -> void override;
+        auto close() noexcept -> void override;
 
         /// @brief Marks the current position in this stream.
         /// @details A subsequent call to the reset() method repositions this stream at the last marked position so that
@@ -42,7 +42,7 @@ namespace common
         /// reached. If the pushback buffer is not empty, a character from the pushback buffer is returned. Otherwise, a
         /// character from the underlying input stream is returned.
         /// @return The character read, or -1 if the end of the stream has been reached
-        auto read() -> int override;
+        [[nodiscard]] auto read() -> int override;
 
         /// @brief Reads up to len characters of data from this stream into an array of characters.
         /// @details This method will block until some input is available, an I/O error occurs, or the end of the stream is
@@ -53,7 +53,7 @@ namespace common
         /// @param len the maximum number of characters read
         /// @return the total number of characters read into the buffer, or -1 if there is no more data because the end of
         /// the stream has been reached
-        auto read(std::vector<char>& cBuf, size_t off, size_t len) -> int override;
+        [[nodiscard]] auto read(std::vector<char>& cBuf, size_t off, size_t len) -> int override;
 
         /// @brief Tells whether this stream is ready to be read.
         /// @details A stream is ready to be read if there are characters available in the pushback buffer,
@@ -74,14 +74,14 @@ namespace common
         /// stream are skipped.
         /// @param n the number of characters to skip
         /// @return the actual number of characters skipped
-        auto skip(size_t n) -> size_t override;
+        [[nodiscard]] auto skip(size_t n) -> size_t override;
 
         /// @brief Pushes back all characters of the given array into the pushback buffer.
         /// @details This method pushes back all characters of the given array into the pushback buffer.
         /// The characters are pushed back in reverse order, so that the next read operation will read
         /// the characters in the same order as they appear in the array.
         /// @param cbuf the array of characters to push back
-        auto unread(const std::vector<char>& cbuf) -> void;
+        auto unread(const std::vector<char>& cbuf) noexcept -> void;
 
         /// @brief Pushes back a portion of the given character array into the pushback buffer.
         /// @details This method pushes back len characters from the given array starting at offset off
@@ -96,13 +96,21 @@ namespace common
         /// @details This method pushes back a single character into the pushback buffer.
         /// The character is pushed back so that the next read operation will read this character.
         /// @param c the character to push back
-        auto unread(int32_t c) -> void;
+        auto unread(int32_t c) noexcept -> void;
 
         /// @brief Checks if this reader has been closed.
         /// @return true if this reader has been closed, false otherwise.
         [[nodiscard]] auto isClosed() const -> bool override;
 
     private:
+        /// @brief Validates that the stream is open for operations
+        /// @throws std::runtime_error if the stream is closed
+        auto validateOpen() const -> void;
+        
+        /// @brief Validates that the pushback stream is not closed
+        /// @throws std::runtime_error if the stream is closed
+        auto validateNotClosed() const -> void;
+        
         static constexpr size_t DEFAULT_BUFFER_SIZE = 1024;
         std::vector<char> buffer_;
         size_t buffer_pos_{DEFAULT_BUFFER_SIZE};

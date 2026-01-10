@@ -43,7 +43,7 @@ namespace common
         auto write(const std::byte* buffer, size_t length) -> void override;
 
         /// @brief Flushes the buffer by writing all buffered bytes to the underlying output stream.
-        auto flush() -> void override;
+        auto flush() noexcept -> void override;
 
         /// @brief Closes the stream by flushing the buffer and closing the underlying output stream.
         auto close() -> void override;

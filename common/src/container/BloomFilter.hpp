@@ -181,8 +181,7 @@ namespace common
         /// @param remaining_length Length of the data to hash.
         /// @param hash Initial hash value.
         /// @return The computed hash value.
-        static auto hash_ap(const unsigned char* begin, std::size_t remaining_length,
-                            bloom_type_ hash) noexcept -> bloom_type_;
+        static auto hash_ap(const unsigned char* begin, std::size_t remaining_length, bloom_type_ hash) noexcept -> bloom_type_;
 
         std::vector<bloom_type_> salt_{};
         std::vector<unsigned char> bit_table_{};

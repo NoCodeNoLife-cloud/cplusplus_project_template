@@ -146,8 +146,7 @@ namespace rpc
 
         inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const ABSL_ATTRIBUTE_LIFETIME_BOUND
         {
-            return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(
-                ::google::protobuf::UnknownFieldSet::default_instance);
+            return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
         }
 
         inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() ABSL_ATTRIBUTE_LIFETIME_BOUND
@@ -226,19 +225,13 @@ namespace rpc
 
         ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-    private: static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg); static ::uint8_t*
-        _InternalSerialize(const MessageLite& msg, ::uint8_t* target,
-                           ::google::protobuf::io::EpsCopyOutputStream* stream); public: ::size_t ByteSizeLong() const
-        {
-            return ByteSizeLong(*this);
-        } ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
+    private: static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg); static ::uint8_t* _InternalSerialize(const MessageLite& msg, ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream); public: ::size_t ByteSizeLong() const { return ByteSizeLong(*this); } ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
         {
             return _InternalSerialize(*this, target, stream);
         }
 #else   // PROTOBUF_CUSTOM_VTABLE
         ::size_t ByteSizeLong() const final;
-        ::uint8_t* _InternalSerialize(::uint8_t* target,
-                                      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+        ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
 #endif  // PROTOBUF_CUSTOM_VTABLE
         int GetCachedSize() const { return _impl_._cached_size_.Get(); }
 
@@ -308,11 +301,8 @@ namespace rpc
         struct Impl_
         {
             inline explicit constexpr Impl_(::google::protobuf::internal::ConstantInitialized) noexcept;
-            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                                  ::google::protobuf::Arena* arena);
-            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                                  ::google::protobuf::Arena* arena, const Impl_& from,
-                                  const UserExistsRequest& from_msg);
+            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena);
+            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena, const Impl_& from, const UserExistsRequest& from_msg);
             ::google::protobuf::internal::ArenaStringPtr username_;
             ::google::protobuf::internal::CachedSize _cached_size_;
             PROTOBUF_TSAN_DECLARE_MEMBER };
@@ -379,8 +369,7 @@ namespace rpc
 
         inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const ABSL_ATTRIBUTE_LIFETIME_BOUND
         {
-            return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(
-                ::google::protobuf::UnknownFieldSet::default_instance);
+            return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
         }
 
         inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() ABSL_ATTRIBUTE_LIFETIME_BOUND
@@ -459,19 +448,13 @@ namespace rpc
 
         ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-    private: static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg); static ::uint8_t*
-        _InternalSerialize(const MessageLite& msg, ::uint8_t* target,
-                           ::google::protobuf::io::EpsCopyOutputStream* stream); public: ::size_t ByteSizeLong() const
-        {
-            return ByteSizeLong(*this);
-        } ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
+    private: static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg); static ::uint8_t* _InternalSerialize(const MessageLite& msg, ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream); public: ::size_t ByteSizeLong() const { return ByteSizeLong(*this); } ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
         {
             return _InternalSerialize(*this, target, stream);
         }
 #else   // PROTOBUF_CUSTOM_VTABLE
         ::size_t ByteSizeLong() const final;
-        ::uint8_t* _InternalSerialize(::uint8_t* target,
-                                      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+        ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
 #endif  // PROTOBUF_CUSTOM_VTABLE
         int GetCachedSize() const { return _impl_._cached_size_.Get(); }
 
@@ -557,11 +540,8 @@ namespace rpc
         struct Impl_
         {
             inline explicit constexpr Impl_(::google::protobuf::internal::ConstantInitialized) noexcept;
-            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                                  ::google::protobuf::Arena* arena);
-            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                                  ::google::protobuf::Arena* arena, const Impl_& from,
-                                  const ResetPasswordRequest& from_msg);
+            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena);
+            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena, const Impl_& from, const ResetPasswordRequest& from_msg);
             ::google::protobuf::internal::ArenaStringPtr username_;
             ::google::protobuf::internal::ArenaStringPtr new_password_;
             ::google::protobuf::internal::CachedSize _cached_size_;
@@ -629,8 +609,7 @@ namespace rpc
 
         inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const ABSL_ATTRIBUTE_LIFETIME_BOUND
         {
-            return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(
-                ::google::protobuf::UnknownFieldSet::default_instance);
+            return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
         }
 
         inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() ABSL_ATTRIBUTE_LIFETIME_BOUND
@@ -709,19 +688,13 @@ namespace rpc
 
         ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-    private: static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg); static ::uint8_t*
-        _InternalSerialize(const MessageLite& msg, ::uint8_t* target,
-                           ::google::protobuf::io::EpsCopyOutputStream* stream); public: ::size_t ByteSizeLong() const
-        {
-            return ByteSizeLong(*this);
-        } ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
+    private: static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg); static ::uint8_t* _InternalSerialize(const MessageLite& msg, ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream); public: ::size_t ByteSizeLong() const { return ByteSizeLong(*this); } ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
         {
             return _InternalSerialize(*this, target, stream);
         }
 #else   // PROTOBUF_CUSTOM_VTABLE
         ::size_t ByteSizeLong() const final;
-        ::uint8_t* _InternalSerialize(::uint8_t* target,
-                                      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+        ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
 #endif  // PROTOBUF_CUSTOM_VTABLE
         int GetCachedSize() const { return _impl_._cached_size_.Get(); }
 
@@ -807,11 +780,8 @@ namespace rpc
         struct Impl_
         {
             inline explicit constexpr Impl_(::google::protobuf::internal::ConstantInitialized) noexcept;
-            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                                  ::google::protobuf::Arena* arena);
-            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                                  ::google::protobuf::Arena* arena, const Impl_& from,
-                                  const RegisterUserRequest& from_msg);
+            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena);
+            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena, const Impl_& from, const RegisterUserRequest& from_msg);
             ::google::protobuf::internal::ArenaStringPtr username_;
             ::google::protobuf::internal::ArenaStringPtr password_;
             ::google::protobuf::internal::CachedSize _cached_size_;
@@ -879,8 +849,7 @@ namespace rpc
 
         inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const ABSL_ATTRIBUTE_LIFETIME_BOUND
         {
-            return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(
-                ::google::protobuf::UnknownFieldSet::default_instance);
+            return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
         }
 
         inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() ABSL_ATTRIBUTE_LIFETIME_BOUND
@@ -959,19 +928,13 @@ namespace rpc
 
         ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-    private: static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg); static ::uint8_t*
-        _InternalSerialize(const MessageLite& msg, ::uint8_t* target,
-                           ::google::protobuf::io::EpsCopyOutputStream* stream); public: ::size_t ByteSizeLong() const
-        {
-            return ByteSizeLong(*this);
-        } ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
+    private: static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg); static ::uint8_t* _InternalSerialize(const MessageLite& msg, ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream); public: ::size_t ByteSizeLong() const { return ByteSizeLong(*this); } ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
         {
             return _InternalSerialize(*this, target, stream);
         }
 #else   // PROTOBUF_CUSTOM_VTABLE
         ::size_t ByteSizeLong() const final;
-        ::uint8_t* _InternalSerialize(::uint8_t* target,
-                                      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+        ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
 #endif  // PROTOBUF_CUSTOM_VTABLE
         int GetCachedSize() const { return _impl_._cached_size_.Get(); }
 
@@ -1041,11 +1004,8 @@ namespace rpc
         struct Impl_
         {
             inline explicit constexpr Impl_(::google::protobuf::internal::ConstantInitialized) noexcept;
-            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                                  ::google::protobuf::Arena* arena);
-            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                                  ::google::protobuf::Arena* arena, const Impl_& from,
-                                  const DeleteUserRequest& from_msg);
+            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena);
+            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena, const Impl_& from, const DeleteUserRequest& from_msg);
             ::google::protobuf::internal::ArenaStringPtr username_;
             ::google::protobuf::internal::CachedSize _cached_size_;
             PROTOBUF_TSAN_DECLARE_MEMBER };
@@ -1112,8 +1072,7 @@ namespace rpc
 
         inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const ABSL_ATTRIBUTE_LIFETIME_BOUND
         {
-            return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(
-                ::google::protobuf::UnknownFieldSet::default_instance);
+            return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
         }
 
         inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() ABSL_ATTRIBUTE_LIFETIME_BOUND
@@ -1192,19 +1151,13 @@ namespace rpc
 
         ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-    private: static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg); static ::uint8_t*
-        _InternalSerialize(const MessageLite& msg, ::uint8_t* target,
-                           ::google::protobuf::io::EpsCopyOutputStream* stream); public: ::size_t ByteSizeLong() const
-        {
-            return ByteSizeLong(*this);
-        } ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
+    private: static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg); static ::uint8_t* _InternalSerialize(const MessageLite& msg, ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream); public: ::size_t ByteSizeLong() const { return ByteSizeLong(*this); } ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
         {
             return _InternalSerialize(*this, target, stream);
         }
 #else   // PROTOBUF_CUSTOM_VTABLE
         ::size_t ByteSizeLong() const final;
-        ::uint8_t* _InternalSerialize(::uint8_t* target,
-                                      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+        ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
 #endif  // PROTOBUF_CUSTOM_VTABLE
         int GetCachedSize() const { return _impl_._cached_size_.Get(); }
 
@@ -1306,11 +1259,8 @@ namespace rpc
         struct Impl_
         {
             inline explicit constexpr Impl_(::google::protobuf::internal::ConstantInitialized) noexcept;
-            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                                  ::google::protobuf::Arena* arena);
-            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                                  ::google::protobuf::Arena* arena, const Impl_& from,
-                                  const ChangePasswordRequest& from_msg);
+            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena);
+            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena, const Impl_& from, const ChangePasswordRequest& from_msg);
             ::google::protobuf::internal::ArenaStringPtr username_;
             ::google::protobuf::internal::ArenaStringPtr current_password_;
             ::google::protobuf::internal::ArenaStringPtr new_password_;
@@ -1379,8 +1329,7 @@ namespace rpc
 
         inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const ABSL_ATTRIBUTE_LIFETIME_BOUND
         {
-            return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(
-                ::google::protobuf::UnknownFieldSet::default_instance);
+            return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
         }
 
         inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() ABSL_ATTRIBUTE_LIFETIME_BOUND
@@ -1459,19 +1408,13 @@ namespace rpc
 
         ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-    private: static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg); static ::uint8_t*
-        _InternalSerialize(const MessageLite& msg, ::uint8_t* target,
-                           ::google::protobuf::io::EpsCopyOutputStream* stream); public: ::size_t ByteSizeLong() const
-        {
-            return ByteSizeLong(*this);
-        } ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
+    private: static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg); static ::uint8_t* _InternalSerialize(const MessageLite& msg, ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream); public: ::size_t ByteSizeLong() const { return ByteSizeLong(*this); } ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
         {
             return _InternalSerialize(*this, target, stream);
         }
 #else   // PROTOBUF_CUSTOM_VTABLE
         ::size_t ByteSizeLong() const final;
-        ::uint8_t* _InternalSerialize(::uint8_t* target,
-                                      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+        ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
 #endif  // PROTOBUF_CUSTOM_VTABLE
         int GetCachedSize() const { return _impl_._cached_size_.Get(); }
 
@@ -1557,11 +1500,8 @@ namespace rpc
         struct Impl_
         {
             inline explicit constexpr Impl_(::google::protobuf::internal::ConstantInitialized) noexcept;
-            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                                  ::google::protobuf::Arena* arena);
-            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                                  ::google::protobuf::Arena* arena, const Impl_& from,
-                                  const AuthenticateUserRequest& from_msg);
+            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena);
+            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena, const Impl_& from, const AuthenticateUserRequest& from_msg);
             ::google::protobuf::internal::ArenaStringPtr username_;
             ::google::protobuf::internal::ArenaStringPtr password_;
             ::google::protobuf::internal::CachedSize _cached_size_;
@@ -1629,8 +1569,7 @@ namespace rpc
 
         inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const ABSL_ATTRIBUTE_LIFETIME_BOUND
         {
-            return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(
-                ::google::protobuf::UnknownFieldSet::default_instance);
+            return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
         }
 
         inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() ABSL_ATTRIBUTE_LIFETIME_BOUND
@@ -1709,19 +1648,13 @@ namespace rpc
 
         ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-    private: static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg); static ::uint8_t*
-        _InternalSerialize(const MessageLite& msg, ::uint8_t* target,
-                           ::google::protobuf::io::EpsCopyOutputStream* stream); public: ::size_t ByteSizeLong() const
-        {
-            return ByteSizeLong(*this);
-        } ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
+    private: static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg); static ::uint8_t* _InternalSerialize(const MessageLite& msg, ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream); public: ::size_t ByteSizeLong() const { return ByteSizeLong(*this); } ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const
         {
             return _InternalSerialize(*this, target, stream);
         }
 #else   // PROTOBUF_CUSTOM_VTABLE
         ::size_t ByteSizeLong() const final;
-        ::uint8_t* _InternalSerialize(::uint8_t* target,
-                                      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+        ::uint8_t* _InternalSerialize(::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
 #endif  // PROTOBUF_CUSTOM_VTABLE
         int GetCachedSize() const { return _impl_._cached_size_.Get(); }
 
@@ -1813,10 +1746,8 @@ namespace rpc
         struct Impl_
         {
             inline explicit constexpr Impl_(::google::protobuf::internal::ConstantInitialized) noexcept;
-            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                                  ::google::protobuf::Arena* arena);
-            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                                  ::google::protobuf::Arena* arena, const Impl_& from, const AuthResponse& from_msg);
+            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena);
+            inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena, const Impl_& from, const AuthResponse& from_msg);
             ::google::protobuf::internal::ArenaStringPtr message_;
             bool success_;
             ::int32_t error_code_;

@@ -2,7 +2,7 @@
 
 namespace common
 {
-    auto Console::flush() -> void
+    auto Console::flush() noexcept -> void
     {
         std::cout.flush();
     }

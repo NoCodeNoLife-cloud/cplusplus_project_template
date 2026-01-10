@@ -7,7 +7,7 @@ namespace common
     {
         if (!reader_)
         {
-            throw std::invalid_argument("Input stream cannot be null");
+            throw std::invalid_argument("InputStreamReader::InputStreamReader: Input stream cannot be null");
         }
     }
 
@@ -16,75 +16,79 @@ namespace common
     {
         if (!reader_)
         {
-            throw std::invalid_argument("Input stream cannot be null");
+            throw std::invalid_argument("InputStreamReader::InputStreamReader: Input stream cannot be null");
         }
         if (charsetName != "UTF-8")
         {
-            throw std::invalid_argument("Only UTF-8 charset is supported in this implementation");
+            throw std::invalid_argument("InputStreamReader::InputStreamReader: Only UTF-8 charset is supported in this implementation");
         }
     }
 
-    InputStreamReader::~InputStreamReader() = default;
-
-    int InputStreamReader::read()
+    auto InputStreamReader::read() -> int
     {
         if (closed_ || !reader_)
         {
-            throw std::runtime_error("Input stream is not available");
+            throw std::runtime_error("InputStreamReader::read: Input stream is not available");
         }
 
         // UTF-8 character can be 1-4 bytes, read one byte at a time to determine character boundaries
-        std::vector<char> byteBuffer(1);
         const int firstByte = reader_->read();
         if (firstByte == -1)
         {
             return -1;
         }
 
-        byteBuffer[0] = static_cast<char>(firstByte);
+        // Table-driven approach to determine UTF-8 character length
+        // UTF-8 byte patterns:
+        // 0xxxxxxx -> 1 byte (ASCII)
+        // 110xxxxx -> 2 bytes
+        // 1110xxxx -> 3 bytes  
+        // 11110xxx -> 4 bytes
+        // Others are invalid as start bytes
+        constexpr struct
+        {
+            unsigned char mask;
+            unsigned char pattern;
+            int additional_bytes;
+        } utf8_length_table[] = {
+            {0x80, 0x00, 0}, // ASCII (0xxxxxxx)
+            {0xE0, 0xC0, 1}, // 2-byte (110xxxxx)
+            {0xF0, 0xE0, 2}, // 3-byte (1110xxxx)
+            {0xF8, 0xF0, 3}, // 4-byte (11110xxx)
+        };
 
-        // Determine how many additional bytes we need based on the first byte
-        int additionalBytes = 0;
-        if (const auto firstByteUnsigned = static_cast<unsigned char>(firstByte); (firstByteUnsigned & 0x80) == 0)
+        const auto firstByteUnsigned = static_cast<unsigned char>(firstByte);
+        int additionalBytes = -1;
+
+        for (const auto& [mask, pattern, additional_bytes] : utf8_length_table)
         {
-            // ASCII character (0xxxxxxx)
-            additionalBytes = 0;
+            if ((firstByteUnsigned & mask) == pattern)
+            {
+                additionalBytes = additional_bytes;
+                break;
+            }
         }
-        else if ((firstByteUnsigned & 0xE0) == 0xC0)
-        {
-            // 2-byte character (110xxxxx 10xxxxxx)
-            additionalBytes = 1;
-        }
-        else if ((firstByteUnsigned & 0xF0) == 0xE0)
-        {
-            // 3-byte character (1110xxxx 10xxxxxx 10xxxxxx)
-            additionalBytes = 2;
-        }
-        else if ((firstByteUnsigned & 0xF8) == 0xF0)
-        {
-            // 4-byte character (11110xxx 10xxxxxx 10xxxxxx 10xxxxxx)
-            additionalBytes = 3;
-        }
-        else
+
+        if (additionalBytes == -1)
         {
             // Invalid UTF-8 first byte
-            throw std::runtime_error("Invalid UTF-8 sequence");
+            throw std::runtime_error("InputStreamReader::read: Invalid UTF-8 sequence");
         }
 
         // Read additional bytes if needed
         std::vector<char> fullByteBuffer(1 + additionalBytes);
-        fullByteBuffer[0] = byteBuffer[0];
+        fullByteBuffer[0] = static_cast<char>(firstByte);
 
         for (int i = 0; i < additionalBytes; ++i)
         {
             const int nextByte = reader_->read();
             if (nextByte == -1)
             {
-                throw std::runtime_error("Incomplete UTF-8 sequence");
+                throw std::runtime_error("InputStreamReader::read: Incomplete UTF-8 sequence");
             }
             if (const auto nextByteUnsigned = static_cast<unsigned char>(nextByte); (nextByteUnsigned & 0xC0) != 0x80)
             {
-                throw std::runtime_error("Invalid UTF-8 sequence");
+                throw std::runtime_error("InputStreamReader::read: Invalid UTF-8 sequence");
             }
             fullByteBuffer[1 + i] = static_cast<char>(nextByte);
         }
@@ -99,9 +103,9 @@ namespace common
             }
             return static_cast<unsigned char>(chars[0]);
         }
-        catch (const std::exception&)
+        catch (const std::exception& ex)
         {
-            throw std::runtime_error("Failed to decode byte to character");
+            throw std::runtime_error("InputStreamReader::read: Failed to decode byte to character - " + std::string(ex.what()));
         }
     }
 
@@ -109,12 +113,12 @@ namespace common
     {
         if (closed_ || !reader_)
         {
-            throw std::runtime_error("Input stream is not available");
+            throw std::runtime_error("InputStreamReader::read(buffer,off,len): Input stream is not available");
         }
 
         if (off > cBuf.size() || len > cBuf.size() - off)
         {
-            throw std::out_of_range("Buffer overflow");
+            throw std::out_of_range("InputStreamReader::read: Buffer overflow");
         }
 
         if (len == 0)
@@ -143,7 +147,7 @@ namespace common
     {
         if (closed_ || !reader_)
         {
-            throw std::runtime_error("Input stream is not available");
+            throw std::runtime_error("InputStreamReader::ready: Input stream is not available");
         }
         return reader_->ready();
     }
@@ -164,13 +168,13 @@ namespace common
 
     auto InputStreamReader::mark(const size_t readAheadLimit) -> void
     {
-        static_cast<void>(readAheadLimit); // Unused parameter
-        throw std::runtime_error("Mark not supported");
+        static_cast<void>(readAheadLimit); // NOLINT(readability-unused-parameter) - Unused parameter in interface
+        throw std::runtime_error("InputStreamReader::mark: Mark not supported");
     }
 
     auto InputStreamReader::reset() -> void
     {
-        throw std::runtime_error("Reset not supported");
+        throw std::runtime_error("InputStreamReader::reset: Reset not supported");
     }
 
     auto InputStreamReader::isClosed() const -> bool

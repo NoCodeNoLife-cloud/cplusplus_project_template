@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include "AbstractReader.hpp"
 
 namespace common
@@ -10,34 +11,42 @@ namespace common
     class CharArrayReader final : public AbstractReader
     {
     public:
+        /// @brief Constructs a CharArrayReader with the given buffer
+        /// @param buffer The character buffer to read from
         explicit CharArrayReader(const std::vector<char>& buffer);
+
+        /// @brief Constructs a CharArrayReader with a portion of the given buffer
+        /// @param buffer The character buffer to read from
+        /// @param offset The starting position in the buffer
+        /// @param length The number of characters to read from the buffer
         CharArrayReader(const std::vector<char>& buffer, size_t offset, size_t length);
+
         ~CharArrayReader() override;
 
         /// @brief Reads a single character.
         /// @return The character read, as an integer in the range 0 to 65535 (0x00-0xffff), or -1 if the end of the stream
         /// has been reached
-        auto read() -> int override;
+        [[nodiscard]] auto read() -> int override;
 
         /// @brief Reads characters into an array.
         /// @param b The buffer into which the read characters are stored
         /// @param off The offset at which to store the characters
         /// @param len The maximum number of characters to read
         /// @return The number of characters read, or -1 if the end of the stream has been reached
-        auto read(std::vector<char>& b, size_t off, size_t len) -> int override;
+        [[nodiscard]] auto read(std::vector<char>& b, size_t off, size_t len) -> int override;
 
         /// @brief Skips characters.
         /// @param n The number of characters to skip
         /// @return The number of characters actually skipped
-        auto skip(size_t n) -> size_t override;
+        [[nodiscard]] auto skip(size_t n) -> size_t override;
 
         /// @brief Tests if this reader can be read without blocking.
         /// @return True if this reader can be read without blocking, false otherwise
-        [[nodiscard]] auto ready() const -> bool override;
+        [[nodiscard]] auto ready() const noexcept -> bool override;
 
         /// @brief Tests if this reader supports the mark() operation.
         /// @return True if this reader supports the mark() operation, false otherwise
-        [[nodiscard]] auto markSupported() const -> bool override;
+        [[nodiscard]] auto markSupported() const noexcept -> bool override;
 
         /// @brief Marks the present position in the stream.
         /// @param readAheadLimit Limit on the number of characters that may be read while still preserving the mark.
@@ -51,7 +60,7 @@ namespace common
 
         /// @brief Checks if this reader has been closed.
         /// @return true if this reader has been closed, false otherwise.
-        [[nodiscard]] auto isClosed() const -> bool override;
+        [[nodiscard]] auto isClosed() const noexcept -> bool override;
 
     private:
         std::vector<char> buf_;
@@ -59,5 +68,19 @@ namespace common
         size_t marked_pos_{0};
         size_t count_{0};
         bool closed_{false};
+
+        /// @brief Validates the constructor parameters
+        /// @param buffer_size Size of the buffer
+        /// @param offset Starting position in the buffer
+        /// @param length Number of characters to read
+        /// @throws std::invalid_argument if parameters are invalid
+        static void validateConstructorParams(size_t buffer_size, size_t offset, size_t length);
+
+        /// @brief Validates the target buffer parameters
+        /// @param target_buffer_size Size of the target buffer
+        /// @param offset Offset in target buffer
+        /// @param length Number of characters to read
+        /// @throws std::out_of_range if parameters are invalid
+        static void validateTargetBufferParams(size_t target_buffer_size, size_t offset, size_t length);
     };
 }

@@ -7,8 +7,7 @@
 
 namespace common
 {
-    auto RegexToolkit::is_match(const std::string& text, const std::string& pattern,
-                                const std::regex_constants::syntax_option_type flags) -> bool
+    auto RegexToolkit::is_match(const std::string& text, const std::string& pattern, const std::regex_constants::syntax_option_type flags) -> bool
     {
         try
         {
@@ -21,8 +20,7 @@ namespace common
         }
     }
 
-    auto RegexToolkit::is_search(const std::string& text, const std::string& pattern,
-                                 const std::regex_constants::syntax_option_type flags) -> bool
+    auto RegexToolkit::is_search(const std::string& text, const std::string& pattern, const std::regex_constants::syntax_option_type flags) -> bool
     {
         try
         {
@@ -35,8 +33,7 @@ namespace common
         }
     }
 
-    auto RegexToolkit::get_matches(const std::string& text, const std::string& pattern,
-                                   std::regex_constants::syntax_option_type flags) -> std::vector<std::string>
+    auto RegexToolkit::get_matches(const std::string& text, const std::string& pattern, std::regex_constants::syntax_option_type flags) -> std::vector<std::string>
     {
         try
         {
@@ -57,9 +54,7 @@ namespace common
         }
     }
 
-    auto RegexToolkit::get_matches_with_groups(const std::string& text, const std::string& pattern,
-                                               std::regex_constants::syntax_option_type flags) -> std::vector<
-        std::vector<std::string>>
+    auto RegexToolkit::get_matches_with_groups(const std::string& text, const std::string& pattern, std::regex_constants::syntax_option_type flags) -> std::vector<std::vector<std::string>>
     {
         try
         {
@@ -85,8 +80,7 @@ namespace common
         }
     }
 
-    auto RegexToolkit::replace_all(const std::string& text, const std::string& pattern, const std::string& replacement,
-                                   const std::regex_constants::syntax_option_type flags) -> std::string
+    auto RegexToolkit::replace_all(const std::string& text, const std::string& pattern, const std::string& replacement, const std::regex_constants::syntax_option_type flags) -> std::string
     {
         try
         {
@@ -99,8 +93,7 @@ namespace common
         }
     }
 
-    auto RegexToolkit::split(const std::string& text, const std::string& pattern,
-                             const std::regex_constants::syntax_option_type flags) -> std::vector<std::string>
+    auto RegexToolkit::split(const std::string& text, const std::string& pattern, const std::regex_constants::syntax_option_type flags) -> std::vector<std::string>
     {
         try
         {

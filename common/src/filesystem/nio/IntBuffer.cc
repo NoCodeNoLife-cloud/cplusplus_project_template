@@ -33,8 +33,7 @@ namespace common
     {
         if (position_ > 0)
         {
-            std::move(buffer_.begin() + static_cast<std::ptrdiff_t>(position_),
-                      buffer_.begin() + static_cast<std::ptrdiff_t>(limit_), buffer_.begin());
+            std::move(buffer_.begin() + static_cast<std::ptrdiff_t>(position_), buffer_.begin() + static_cast<std::ptrdiff_t>(limit_), buffer_.begin());
             limit_ -= position_;
             position_ = 0;
         }
@@ -82,10 +81,7 @@ namespace common
         {
             return {};
         }
-        return {
-            buffer_.begin() + static_cast<std::ptrdiff_t>(position_),
-            buffer_.begin() + static_cast<std::ptrdiff_t>(limit_)
-        };
+        return {buffer_.begin() + static_cast<std::ptrdiff_t>(position_), buffer_.begin() + static_cast<std::ptrdiff_t>(limit_)};
     }
 
     auto IntBuffer::position() const -> size_t

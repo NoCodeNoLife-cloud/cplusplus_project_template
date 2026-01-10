@@ -22,8 +22,7 @@ namespace common
         /// @param max_threads The maximum number of threads allowed
         /// @param queue_size The maximum size of the task queue
         /// @param idle_time The time after which excess threads will be terminated
-        ThreadPool(size_t core_threads, size_t max_threads, size_t queue_size,
-                   std::chrono::milliseconds idle_time) noexcept;
+        ThreadPool(size_t core_threads, size_t max_threads, size_t queue_size, std::chrono::milliseconds idle_time) noexcept;
 
         /// @brief Destructor that gracefully shuts down the thread pool
         ~ThreadPool();

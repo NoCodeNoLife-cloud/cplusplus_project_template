@@ -39,8 +39,7 @@ namespace common
         }
         if (getColumnCount() != 0 && item.size() != getColumnCount())
         {
-            std::cerr << "Column count mismatch. Expected: " << getColumnCount() << ", Got: " << item.size() <<
-                std::endl;
+            std::cerr << "Column count mismatch. Expected: " << getColumnCount() << ", Got: " << item.size() << std::endl;
             return false;
         }
         try

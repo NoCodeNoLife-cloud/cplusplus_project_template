@@ -24,8 +24,7 @@ namespace common
         buf_[count_++] = b;
     }
 
-    auto ByteArrayOutputStream::write(const std::vector<std::byte>& buffer, const size_t offset,
-                                      const size_t len) -> void
+    auto ByteArrayOutputStream::write(const std::vector<std::byte>& buffer, const size_t offset, const size_t len) -> void
     {
         if (len == 0)
         {
@@ -38,8 +37,7 @@ namespace common
         }
 
         ensureCapacity(len);
-        std::copy_n(buffer.begin() + static_cast<std::vector<std::byte>::difference_type>(offset), len,
-                    buf_.begin() + static_cast<std::vector<std::byte>::difference_type>(count_));
+        std::copy_n(buffer.begin() + static_cast<std::vector<std::byte>::difference_type>(offset), len, buf_.begin() + static_cast<std::vector<std::byte>::difference_type>(count_));
         count_ += len;
     }
 
@@ -93,7 +91,7 @@ namespace common
         // No operation for ByteArrayOutputStream.
     }
 
-    auto ByteArrayOutputStream::flush() -> void
+    auto ByteArrayOutputStream::flush() noexcept -> void
     {
         // No operation for ByteArrayOutputStream.
     }

@@ -24,8 +24,7 @@ namespace common
         /// @param iterations Number of PBKDF2 iterations (default: 600000, NIST recommended)
         /// @return Hashed password string
         /// @throws AuthenticationException if hashing operation fails
-        [[nodiscard]] static auto hash_password(const std::string& password, const std::string& salt,
-                                                size_t iterations = 600000) -> std::string;
+        [[nodiscard]] static auto hash_password(const std::string& password, const std::string& salt, size_t iterations = 600000) -> std::string;
 
         /// @brief Constant-time string comparison to prevent timing attacks
         /// @param a First string to compare

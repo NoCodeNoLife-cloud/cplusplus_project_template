@@ -51,7 +51,7 @@ namespace common
         output_stream_->write(buffer, length);
     }
 
-    auto FilterOutputStream::flush() -> void
+    auto FilterOutputStream::flush() noexcept -> void
     {
         if (!output_stream_)
         {

@@ -12,7 +12,7 @@ namespace common
     {
     public:
         explicit FilterReader(std::shared_ptr<AbstractReader> reader);
-        ~FilterReader() override;
+        ~FilterReader() override = default;
 
         /// @brief Close the stream and release any system resources associated with it.
         auto close() -> void override;

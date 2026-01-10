@@ -9,8 +9,6 @@ namespace common
     {
     }
 
-    FilterReader::~FilterReader() = default;
-
     auto FilterReader::close() -> void
     {
         if (!in_)

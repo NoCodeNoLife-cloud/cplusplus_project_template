@@ -16,7 +16,7 @@ namespace common
     {
     public:
         /// @brief Virtual destructor for proper cleanup of derived classes
-        ~AbstractReader() override;
+        ~AbstractReader() override = default;
 
         /// @brief Read a single character.
         /// This method reads the next character from the input stream.
@@ -63,5 +63,8 @@ namespace common
         /// @param n Number of characters to skip
         /// @return The number of characters actually skipped
         virtual auto skip(size_t n) -> size_t;
+
+        /// @brief Closes this input stream and releases any system resources associated with the stream.
+        auto close() -> void override = 0;
     };
 }

@@ -26,8 +26,7 @@ namespace common
     }
 
     template <typename T>
-    auto ArraysToolkit::binarySearch(const T* array, const size_t fromIndex, const size_t toIndex,
-                                     const T& key) -> int32_t
+    auto ArraysToolkit::binarySearch(const T* array, const size_t fromIndex, const size_t toIndex, const T& key) -> int32_t
     {
         if (fromIndex >= toIndex) throw std::out_of_range("Invalid range");
         auto start = array + fromIndex;

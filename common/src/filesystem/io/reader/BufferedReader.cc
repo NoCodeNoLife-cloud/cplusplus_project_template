@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <stdexcept>
+#include <utility>
 
 namespace common
 {
@@ -14,8 +15,6 @@ namespace common
         }
         buffer_.resize(size);
     }
-
-    BufferedReader::~BufferedReader() = default;
 
     auto BufferedReader::close() -> void
     {
@@ -83,8 +82,7 @@ namespace common
 
             const size_t bytesAvailable = count_ - pos_;
             const size_t bytesToRead = std::min(bytesAvailable, remainingLen);
-            std::copy_n(buffer_.begin() + static_cast<std::ptrdiff_t>(pos_), bytesToRead,
-                        cBuf.begin() + static_cast<std::ptrdiff_t>(currentOffset));
+            std::copy_n(buffer_.begin() + static_cast<std::ptrdiff_t>(pos_), bytesToRead, cBuf.begin() + static_cast<std::ptrdiff_t>(currentOffset));
             totalBytesRead += bytesToRead;
             currentOffset += bytesToRead;
             remainingLen -= bytesToRead;
@@ -97,6 +95,10 @@ namespace common
     auto BufferedReader::readLine() -> std::string
     {
         std::string line;
+
+        // Pre-allocate small buffer to avoid multiple allocations for typical lines
+        line.reserve(64);
+
         while (true)
         {
             if (pos_ >= count_)
@@ -106,6 +108,7 @@ namespace common
                     break;
                 }
             }
+
             const char ch = buffer_[pos_++];
             if (ch == '\n')
             {
@@ -116,6 +119,7 @@ namespace common
                 line += ch;
             }
         }
+
         return line;
     }
 
@@ -153,7 +157,7 @@ namespace common
         return skipped;
     }
 
-    bool BufferedReader::fillBuffer()
+    auto BufferedReader::fillBuffer() -> bool
     {
         pos_ = 0;
         const int bytesRead = reader_->read(buffer_, 0, buffer_size_);

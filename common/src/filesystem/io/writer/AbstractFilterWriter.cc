@@ -53,7 +53,7 @@ namespace common
         output_writer_->write(str);
     }
 
-    void AbstractFilterWriter::flush()
+    void AbstractFilterWriter::flush() noexcept
     {
         checkOutputStream();
         output_writer_->flush();

@@ -1,5 +1,8 @@
 #pragma once
 #include <fstream>
+#include <string>
+#include <vector>
+#include <memory>
 
 #include "AbstractReader.hpp"
 
@@ -10,7 +13,7 @@ namespace common
     {
     public:
         explicit BufferedReader(std::unique_ptr<AbstractReader> reader, size_t size = DEFAULT_BUFFER_SIZE);
-        ~BufferedReader() override;
+        ~BufferedReader() override = default;
 
         /// @brief Close the stream.
         auto close() -> void override;
@@ -40,7 +43,7 @@ namespace common
 
         /// @brief Read a line of text.
         /// @return A String containing the next line of text, or empty string if the end of the stream has been reached.
-        auto readLine() -> std::string;
+        [[nodiscard]] auto readLine() -> std::string;
 
         /// @brief Tell whether this stream is ready to be read.
         /// @return true if the next read() is guaranteed not to block for input, false otherwise.
@@ -63,6 +66,9 @@ namespace common
         size_t pos_{0};
         size_t count_{0};
         size_t mark_limit_{0};
-        bool fillBuffer();
+
+        /// @brief Fills the internal buffer from the underlying reader.
+        /// @return true if data was read, false if end of stream reached.
+        [[nodiscard]] auto fillBuffer() -> bool;
     };
 }

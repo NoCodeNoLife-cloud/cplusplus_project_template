@@ -1,17 +1,17 @@
 #include "src/filesystem/io/reader/AbstractInputStream.hpp"
 
 #include <algorithm>
+#include <cstddef>
 #include <limits>
 #include <stdexcept>
 #include <vector>
+#include <cstdint>
 
 namespace common
 {
-    AbstractInputStream::~AbstractInputStream() = default;
-
-    auto AbstractInputStream::mark(int32_t readLimit) -> void
+    auto AbstractInputStream::mark(std::int32_t readLimit) -> void
     {
-        throw std::runtime_error("mark not supported");
+        throw std::runtime_error("Mark operation not supported by this input stream implementation");
     }
 
     auto AbstractInputStream::markSupported() const -> bool
@@ -24,7 +24,7 @@ namespace common
         return read(buffer, 0, buffer.size());
     }
 
-    auto AbstractInputStream::read(std::vector<std::byte>& buffer, const size_t offset, const size_t len) -> size_t
+    auto AbstractInputStream::read(std::vector<std::byte>& buffer, const std::size_t offset, const std::size_t len) -> size_t
     {
         // Check for buffer overflow
         if (offset > buffer.size() || len > buffer.size() - offset)
@@ -32,8 +32,8 @@ namespace common
             throw std::out_of_range("Buffer offset/length out of range");
         }
 
-        size_t bytesRead = 0;
-        for (size_t i = 0; i < len; ++i)
+        std::size_t bytesRead = 0;
+        for (std::size_t i = 0; i < len; ++i)
         {
             const std::byte byte = read();
             // Check for end of stream
@@ -49,16 +49,16 @@ namespace common
 
     auto AbstractInputStream::reset() -> void
     {
-        throw std::runtime_error("reset not supported");
+        throw std::runtime_error("Reset operation not supported by this input stream implementation");
     }
 
-    auto AbstractInputStream::skip(const size_t n) -> size_t
+    auto AbstractInputStream::skip(const std::size_t n) -> size_t
     {
-        size_t skipped = 0;
+        std::size_t skipped = 0;
         // Prevent potential overflow
-        const size_t maxSkip = std::min(n, static_cast<size_t>(std::numeric_limits<int>::max()));
+        const std::size_t maxSkip = std::min(n, static_cast<std::size_t>(std::numeric_limits<int>::max()));
 
-        for (size_t i = 0; i < maxSkip; ++i)
+        for (std::size_t i = 0; i < maxSkip; ++i)
         {
             if (static_cast<int>(read()) == -1)
             {

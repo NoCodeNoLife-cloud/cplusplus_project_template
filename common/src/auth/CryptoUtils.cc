@@ -7,20 +7,17 @@ namespace common
         unsigned char salt[SALT_SIZE];
         if (RAND_bytes(salt, SALT_SIZE) != 1)
         {
-            throw AuthenticationException("Failed to generate secure random salt");
+            throw AuthenticationException(std::string("Failed to generate secure random salt"));
         }
         return {reinterpret_cast<const char*>(salt), SALT_SIZE};
     }
 
-    auto CryptoUtils::hash_password(const std::string& password, const std::string& salt,
-                                    const size_t iterations) -> std::string
+    auto CryptoUtils::hash_password(const std::string& password, const std::string& salt, const size_t iterations) -> std::string
     {
         unsigned char hash[HASH_SIZE];
-        if (PKCS5_PBKDF2_HMAC(password.c_str(), static_cast<int>(password.length()),
-                              reinterpret_cast<const unsigned char*>(salt.c_str()), static_cast<int>(salt.length()),
-                              static_cast<int>(iterations), EVP_sha256(), HASH_SIZE, hash) != 1)
+        if (PKCS5_PBKDF2_HMAC(password.c_str(), static_cast<int>(password.length()), reinterpret_cast<const unsigned char*>(salt.c_str()), static_cast<int>(salt.length()), static_cast<int>(iterations), EVP_sha256(), HASH_SIZE, hash) != 1)
         {
-            throw AuthenticationException("Password hashing failed");
+            throw AuthenticationException(std::string("Password hashing failed"));
         }
         return {reinterpret_cast<const char*>(hash), HASH_SIZE};
     }

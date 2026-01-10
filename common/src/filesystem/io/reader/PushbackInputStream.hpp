@@ -1,4 +1,5 @@
 #pragma once
+#include <cstddef>
 #include "FilterInputStream.hpp"
 
 namespace common
@@ -10,22 +11,26 @@ namespace common
     class PushbackInputStream final : public FilterInputStream
     {
     public:
-        PushbackInputStream(std::unique_ptr<AbstractInputStream> inputStream, size_t bufferSize);
-        ~PushbackInputStream() override;
+        /// @brief Constructs a PushbackInputStream with the given input stream and buffer size
+        /// @param inputStream The underlying input stream to wrap
+        /// @param bufferSize Size of the pushback buffer
+        explicit PushbackInputStream(std::unique_ptr<AbstractInputStream> inputStream, size_t bufferSize);
+        
+        ~PushbackInputStream() override = default;
 
         /// @brief Returns the number of bytes that can be read from this input stream without blocking.
         /// @return the number of bytes that can be read from this input stream without blocking.
-        auto available() -> size_t override;
+        [[nodiscard]] auto available() -> size_t override;
 
         /// @brief Reads the next byte of data from the input stream.
         /// @return the next byte of data, or -1 if the end of the stream is reached.
-        auto read() -> std::byte override;
+        [[nodiscard]] auto read() -> std::byte override;
 
         /// @brief Reads up to `buffer.size()` bytes of data from the input stream into the buffer.
         /// @param buffer the buffer into which the data is read.
         /// @return the total number of bytes read into the buffer, or 0 if there is no more data because the end of the
         /// stream has been reached.
-        auto read(std::vector<std::byte>& buffer) -> size_t override;
+        [[nodiscard]] auto read(std::vector<std::byte>& buffer) -> size_t override;
 
         /// @brief Reads up to `len` bytes of data from the input stream into the buffer starting at `offset`.
         /// @param buffer the buffer into which the data is read.
@@ -33,7 +38,7 @@ namespace common
         /// @param len the maximum number of bytes to read.
         /// @return the total number of bytes read into the buffer, or 0 if there is no more data because the end of the
         /// stream has been reached.
-        auto read(std::vector<std::byte>& buffer, size_t offset, size_t len) -> size_t override;
+        [[nodiscard]] auto read(std::vector<std::byte>& buffer, size_t offset, size_t len) -> size_t override;
 
         /// @brief Pushes back the entire buffer into the stream.
         /// @param buffer the buffer to push back.

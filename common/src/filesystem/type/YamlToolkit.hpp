@@ -57,8 +57,7 @@ namespace common
         /// @param path The path to the value (e.g., "parent.child.grandchild").
         /// @param value The YAML node value to set.
         /// @return true if the value was set successfully, false otherwise.
-        static auto setNestedValue(const std::string& filepath, const std::string& path,
-                                   const YAML::Node& value) -> bool;
+        static auto setNestedValue(const std::string& filepath, const std::string& path, const YAML::Node& value) -> bool;
 
         /// @brief Check if a key exists in the YAML file.
         /// @param filepath The path to the YAML file.

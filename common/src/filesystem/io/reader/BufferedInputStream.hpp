@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <cstddef>
 #include <vector>
 
 #include "FilterInputStream.hpp"
@@ -8,18 +9,20 @@ namespace common
 {
     /// @brief BufferedInputStream is a wrapper around another input stream that provides buffering functionality.
     /// It reads data from the underlying stream in chunks and stores it in an internal buffer to improve performance.
+    /// @details This class implements the decorator pattern to add buffering capability to any AbstractInputStream.
+    /// The buffer size can be customized during construction, with a default size of 8192 bytes.
     class BufferedInputStream final : public FilterInputStream
     {
     public:
-        explicit BufferedInputStream(std::unique_ptr<AbstractInputStream> in);
+        explicit BufferedInputStream(std::unique_ptr<AbstractInputStream> in) noexcept;
         BufferedInputStream(std::unique_ptr<AbstractInputStream> in, size_t size);
 
         /// @brief Returns the number of bytes that can be read (or skipped over) from this input stream without blocking.
         /// @return the number of bytes that can be read (or skipped over) from this input stream without blocking.
-        [[nodiscard]] auto available() const -> size_t;
+        [[nodiscard]] auto available() const noexcept -> size_t;
 
         /// @brief Closes this input stream and releases any system resources associated with the stream.
-        auto close() -> void override;
+        auto close() noexcept -> void override;
 
         /// @brief Marks the current position in this input stream.
         /// @param readLimit the maximum limit of bytes that can be read before the mark position becomes invalid.
@@ -27,11 +30,11 @@ namespace common
 
         /// @brief Tests if this input stream supports the mark and reset methods.
         /// @return true if this stream instance supports the mark and reset methods; false otherwise.
-        [[nodiscard]] auto markSupported() const -> bool override;
+        [[nodiscard]] auto markSupported() const noexcept -> bool override;
 
         /// @brief Reads the next byte of data from this input stream.
         /// @return the next byte of data, or -1 if the end of the stream is reached.
-        auto read() -> std::byte override;
+        [[nodiscard]] auto read() -> std::byte override;
 
         /// @brief Reads up to len bytes of data from this input stream into an array of bytes.
         /// @param buffer the buffer into which the data is read.
@@ -50,7 +53,7 @@ namespace common
 
         /// @brief Checks if this input stream has been closed.
         /// @return true if this input stream has been closed, false otherwise.
-        [[nodiscard]] auto isClosed() const -> bool override;
+        [[nodiscard]] auto isClosed() const noexcept -> bool override;
 
     protected:
         static constexpr size_t DEFAULT_BUFFER_SIZE = 8192;
@@ -59,6 +62,14 @@ namespace common
         size_t mark_limit_{0};
         size_t mark_pos_{0};
         size_t pos_{0};
-        static auto fillBuffer() -> void;
+        auto fillBuffer() -> void;
+
+    private:
+        /// @brief Helper method to process data with available buffer space.
+        /// @tparam Operation A callable that takes the number of available bytes and returns processed bytes count
+        /// @param op The operation to perform on the available buffer space
+        /// @return Number of bytes processed by the operation
+        template <typename Operation>
+        auto processWithBuffer(Operation&& op) -> size_t;
     };
 }

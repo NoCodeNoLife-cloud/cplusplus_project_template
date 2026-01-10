@@ -1,6 +1,9 @@
 #include "src/filesystem/io/reader/FileInputStream.hpp"
 
+#include <algorithm>
+#include <cstddef>
 #include <stdexcept>
+#include <string>
 
 namespace common
 {
@@ -8,16 +11,16 @@ namespace common
     {
         if (!std::filesystem::exists(name))
         {
-            throw std::ios_base::failure("FileNotFoundException: File does not exist.");
+            throw std::invalid_argument("FileInputStream::FileInputStream: File does not exist - " + name);
         }
         if (std::filesystem::is_directory(name))
         {
-            throw std::ios_base::failure("FileNotFoundException: Path is a directory.");
+            throw std::invalid_argument("FileInputStream::FileInputStream: Path is a directory - " + name);
         }
         file_stream_.open(name, std::ios::binary);
         if (!file_stream_.is_open())
         {
-            throw std::ios_base::failure("FileNotFoundException: Unable to open file.");
+            throw std::ios_base::failure("FileInputStream::FileInputStream: Unable to open file - " + name);
         }
         file_name_ = name;
     }
@@ -37,9 +40,24 @@ namespace common
         close();
     }
 
+    auto FileInputStream::isValid() const noexcept -> bool
+    {
+        return !closed_ && file_stream_.good();
+    }
+
+    auto FileInputStream::validateBufferParams(const std::vector<std::byte>& buffer, size_t offset, size_t len) -> void
+    {
+        if (offset > buffer.size() || len > buffer.size() - offset)
+        {
+            throw std::out_of_range("FileInputStream::validateBufferParams: Invalid buffer, offset, or length - offset: " + 
+                                   std::to_string(offset) + ", len: " + std::to_string(len) + 
+                                   ", buffer_size: " + std::to_string(buffer.size()));
+        }
+    }
+
     auto FileInputStream::read() -> std::byte
     {
-        if (closed_ || !file_stream_.good())
+        if (!isValid())
         {
             return static_cast<std::byte>(-1);
         }
@@ -59,12 +77,9 @@ namespace common
 
     auto FileInputStream::read(std::vector<std::byte>& buffer, const size_t offset, const size_t len) -> size_t
     {
-        if (offset > buffer.size() || len > buffer.size() - offset)
-        {
-            throw std::invalid_argument("Invalid buffer, offset, or length.");
-        }
+        validateBufferParams(buffer, offset, len);
 
-        if (closed_ || !file_stream_.good())
+        if (!isValid())
         {
             return 0;
         }
@@ -76,7 +91,7 @@ namespace common
 
     auto FileInputStream::skip(const size_t n) -> size_t
     {
-        if (closed_ || !file_stream_.good())
+        if (!isValid())
         {
             return 0;
         }
@@ -107,7 +122,7 @@ namespace common
 
     auto FileInputStream::available() -> size_t
     {
-        if (closed_ || !file_stream_.good())
+        if (!isValid())
         {
             return 0;
         }
@@ -140,12 +155,12 @@ namespace common
         closed_ = true;
     }
 
-    auto FileInputStream::isClosed() const -> bool
+    [[nodiscard]] auto FileInputStream::isClosed() const -> bool
     {
         return closed_;
     }
 
-    auto FileInputStream::markSupported() const -> bool
+    [[nodiscard]] auto FileInputStream::markSupported() const -> bool
     {
         return false;
     }

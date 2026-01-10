@@ -13,8 +13,7 @@
 namespace app_client
 {
     ClientTask::ClientTask(const std::string& project_name_) noexcept
-        : application_dev_config_path_{"../../client/src/application-dev.yml"},
-          rpc_options_{AuthRpcClientOptions::builder().build()}, timer_{project_name_}
+        : application_dev_config_path_{"../../client/src/application-dev.yml"}, rpc_options_{AuthRpcClientOptions::builder().build()}, timer_{project_name_}
     {
         timer_.recordStart();
     }
@@ -23,10 +22,7 @@ namespace app_client
     {
         const glog::GLogConfigurator log_configurator{application_dev_config_path_};
         log_configurator.execute();
-        LOG(INFO) << fmt::format(
-            "Initializing GLog configuration from: {}, RPC Options - Keepalive Time: {}ms, Timeout: {}ms, Permit Without Calls: {}, configuration initialized successfully",
-            application_dev_config_path_, application_dev_config_path_, rpc_options_.keepaliveTimeMs(),
-            rpc_options_.keepaliveTimeoutMs(), rpc_options_.keepalivePermitWithoutCalls());
+        LOG(INFO) << fmt::format("Initializing GLog configuration from: {}, RPC Options - Keepalive Time: {}ms, Timeout: {}ms, Permit Without Calls: {}, configuration initialized successfully", application_dev_config_path_, application_dev_config_path_, rpc_options_.keepaliveTimeMs(), rpc_options_.keepaliveTimeoutMs(), rpc_options_.keepalivePermitWithoutCalls());
 
         LOG(INFO) << "Application starting...";
         logClientInfo();
@@ -57,8 +53,7 @@ namespace app_client
         // Check if user exists.
         if (const auto userExistsResponse = auth_rpc_client.UserExists(username); userExistsResponse.success())
         {
-            LOG(INFO) << fmt::format(
-                "User already exists, authentication failed\nAuthentication failed, please check your username and password.");
+            LOG(INFO) << fmt::format("User already exists, authentication failed\nAuthentication failed, please check your username and password.");
         }
         else
         {
@@ -85,15 +80,13 @@ namespace app_client
         return createNewAccount == "y" || createNewAccount == "Y";
     }
 
-    auto ClientTask::registerNewUser(const client_app::AuthRpcClient& auth_rpc_client, const std::string& username,
-                                     const std::string& password) -> void
+    auto ClientTask::registerNewUser(const client_app::AuthRpcClient& auth_rpc_client, const std::string& username, const std::string& password) -> void
     {
         LOG(INFO) << "Registering user...";
         const auto registerUserResponse = auth_rpc_client.RegisterUser(username, password);
         if (!registerUserResponse.success())
         {
-            const auto error_msg = fmt::format("Failed to register user: {} Error code: {}",
-                                               registerUserResponse.message(), registerUserResponse.error_code());
+            const auto error_msg = fmt::format("Failed to register user: {} Error code: {}", registerUserResponse.message(), registerUserResponse.error_code());
             LOG(ERROR) << error_msg;
             throw std::runtime_error(error_msg);
         }
@@ -101,13 +94,11 @@ namespace app_client
         LOG(INFO) << fmt::format("Registered user successfully, return value: {}", registerUserResponse.message());
     }
 
-    auto ClientTask::logOut(const client_app::AuthRpcClient& auth_rpc_client,
-                            const std::string& username) noexcept -> void
+    auto ClientTask::logOut(const client_app::AuthRpcClient& auth_rpc_client, const std::string& username) noexcept -> void
     {
         if (const auto deleteUserResponse = auth_rpc_client.DeleteUser(username); !deleteUserResponse.success())
         {
-            LOG(ERROR) << fmt::format("Failed to delete user: {}, Error code: {}", deleteUserResponse.message(),
-                                      deleteUserResponse.error_code());
+            LOG(ERROR) << fmt::format("Failed to delete user: {}, Error code: {}", deleteUserResponse.message(), deleteUserResponse.error_code());
         }
         else
         {
@@ -160,9 +151,7 @@ namespace app_client
 
     auto ClientTask::logClientInfo() noexcept -> void
     {
-        LOG(INFO) << fmt::format("OS Version: {}, CPU Model: {}, Memory Details: {}, Graphics Card Info: {}",
-                                 common::SystemInfo::GetOSVersion(), common::SystemInfo::GetCpuModelFromRegistry(),
-                                 common::SystemInfo::GetMemoryDetails(), common::SystemInfo::GetGraphicsCardInfo());
+        LOG(INFO) << fmt::format("OS Version: {}, CPU Model: {}, Memory Details: {}, Graphics Card Info: {}", common::SystemInfo::GetOSVersion(), common::SystemInfo::GetCpuModelFromRegistry(), common::SystemInfo::GetMemoryDetails(), common::SystemInfo::GetGraphicsCardInfo());
     }
 
     auto ClientTask::createChannel() const -> std::shared_ptr<grpc::Channel>
@@ -175,15 +164,12 @@ namespace app_client
         channel_args.SetInt(GRPC_ARG_KEEPALIVE_TIMEOUT_MS, rpc_options_.keepaliveTimeoutMs());
         channel_args.SetInt(GRPC_ARG_KEEPALIVE_PERMIT_WITHOUT_CALLS, rpc_options_.keepalivePermitWithoutCalls());
 
-        LOG(INFO) << fmt::format("Channel arguments set - Time: {}ms, Timeout: {}ms, Permit without calls: {}",
-                                 rpc_options_.keepaliveTimeMs(), rpc_options_.keepaliveTimeoutMs(),
-                                 rpc_options_.keepalivePermitWithoutCalls());
+        LOG(INFO) << fmt::format("Channel arguments set - Time: {}ms, Timeout: {}ms, Permit without calls: {}", rpc_options_.keepaliveTimeMs(), rpc_options_.keepaliveTimeoutMs(), rpc_options_.keepalivePermitWithoutCalls());
 
         // Create client
         const std::string server_address = rpc_options_.serverAddress();
         LOG(INFO) << fmt::format("Creating channel to server at: {}", server_address);
-        const auto channel =
-            grpc::CreateCustomChannel(server_address, grpc::InsecureChannelCredentials(), channel_args);
+        const auto channel = grpc::CreateCustomChannel(server_address, grpc::InsecureChannelCredentials(), channel_args);
 
         // Convert grpc_connectivity_state to string for logging
         const std::string state_str = common::RpcMetadata::grpcStateToString(channel->GetState(true));
@@ -193,8 +179,7 @@ namespace app_client
         // Give channel some time to connect
         if (!channel->WaitForConnected(std::chrono::system_clock::now() + std::chrono::seconds(5)))
         {
-            const auto error_msg = fmt::format("Failed to connect to gRPC server at {} within timeout period",
-                                               server_address);
+            const auto error_msg = fmt::format("Failed to connect to gRPC server at {} within timeout period", server_address);
             LOG(ERROR) << error_msg;
 
             // Convert grpc_connectivity_state to string for logging

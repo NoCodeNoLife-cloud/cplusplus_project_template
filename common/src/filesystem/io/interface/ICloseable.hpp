@@ -18,7 +18,7 @@ namespace common
         /// After calling this method, the resource should no longer be usable.
         /// Implementations should be idempotent - calling close multiple times should
         /// have the same effect as calling it once.
-        virtual auto close() noexcept -> void = 0;
+        virtual auto close() -> void = 0;
 
         /// @brief Check if the resource is closed.
         /// This method returns the current state of the resource.

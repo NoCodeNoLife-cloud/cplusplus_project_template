@@ -61,9 +61,7 @@ namespace fox
 
         if (!instance_)
         {
-            throw std::runtime_error(
-                "StaticObjectWrapper: Object not initialized. "
-                "Call init() with required parameters before first use.");
+            throw std::runtime_error("StaticObjectWrapper: Object not initialized. " "Call init() with required parameters before first use.");
         }
         return *instance_;
     }

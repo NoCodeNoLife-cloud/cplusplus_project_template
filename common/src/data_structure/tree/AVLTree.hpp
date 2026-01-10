@@ -77,8 +77,7 @@ namespace fox
         /// @param node The root of the subtree to search
         /// @param value The value to find
         /// @return std::shared_ptr<TreeNode<T>> The node containing the value, or nullptr if not found
-        [[nodiscard]] auto find(const std::shared_ptr<TreeNode<T>>& node,
-                                T value) const -> std::shared_ptr<TreeNode<T>>;
+        [[nodiscard]] auto find(const std::shared_ptr<TreeNode<T>>& node, T value) const -> std::shared_ptr<TreeNode<T>>;
     };
 
     template <typename T>

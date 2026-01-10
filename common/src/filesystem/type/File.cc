@@ -153,8 +153,7 @@ namespace common
         try
         {
             const auto lastWriteTime = std::filesystem::last_write_time(file_path_);
-            const auto sctp = std::chrono::time_point_cast<std::chrono::system_clock::duration>(
-                lastWriteTime - std::filesystem::file_time_type::clock::now() + std::chrono::system_clock::now());
+            const auto sctp = std::chrono::time_point_cast<std::chrono::system_clock::duration>(lastWriteTime - std::filesystem::file_time_type::clock::now() + std::chrono::system_clock::now());
             return std::chrono::system_clock::to_time_t(sctp);
         }
         catch (...)
@@ -168,8 +167,7 @@ namespace common
         try
         {
             const auto timePoint = std::chrono::system_clock::from_time_t(time);
-            const auto fileTime = std::chrono::time_point_cast<std::filesystem::file_time_type::duration>(
-                timePoint - std::chrono::system_clock::now() + std::filesystem::file_time_type::clock::now());
+            const auto fileTime = std::chrono::time_point_cast<std::filesystem::file_time_type::duration>(timePoint - std::chrono::system_clock::now() + std::filesystem::file_time_type::clock::now());
             std::filesystem::last_write_time(file_path_, fileTime);
             return true;
         }
@@ -336,8 +334,7 @@ namespace common
             throw std::runtime_error("Invalid directory path: " + file_path.string());
         }
 
-        for (auto it_entry = std::filesystem::recursive_directory_iterator(file_path); it_entry !=
-             std::filesystem::recursive_directory_iterator{}; ++it_entry)
+        for (auto it_entry = std::filesystem::recursive_directory_iterator(file_path); it_entry != std::filesystem::recursive_directory_iterator{}; ++it_entry)
         {
             const auto& entry = *it_entry;
             const auto depth = it_entry.depth();
@@ -363,8 +360,7 @@ namespace common
             throw std::runtime_error("Failed to open file: " + filePath.string());
         }
 
-        const auto mdContext = std::unique_ptr<EVP_MD_CTX, decltype(&EVP_MD_CTX_free)>(
-            EVP_MD_CTX_new(), EVP_MD_CTX_free);
+        const auto mdContext = std::unique_ptr<EVP_MD_CTX, decltype(&EVP_MD_CTX_free)>(EVP_MD_CTX_new(), EVP_MD_CTX_free);
         if (!mdContext)
         {
             throw std::runtime_error("Failed to create MD5 context");
@@ -379,8 +375,7 @@ namespace common
         std::array<char, bufferSize> buffer{};
         while (file.read(buffer.data(), bufferSize))
         {
-            if (const auto bytesRead = static_cast<size_t>(file.gcount()); EVP_DigestUpdate(
-                mdContext.get(), buffer.data(), bytesRead) != 1)
+            if (const auto bytesRead = static_cast<size_t>(file.gcount()); EVP_DigestUpdate(mdContext.get(), buffer.data(), bytesRead) != 1)
             {
                 throw std::runtime_error("MD5 update failed");
             }

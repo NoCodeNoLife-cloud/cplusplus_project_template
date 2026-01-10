@@ -18,7 +18,7 @@ namespace common
     public:
         explicit InputStreamReader(std::shared_ptr<AbstractReader> input);
         InputStreamReader(std::shared_ptr<AbstractReader> input, const std::string& charsetName);
-        ~InputStreamReader() override;
+        ~InputStreamReader() override = default;
 
         /// @brief Read a single character.
         /// @return The character read, as an integer in the range 0 to 65535 (0x00-0xffff),
