@@ -18,7 +18,7 @@ namespace common
         /// After calling this method, the resource should no longer be usable.
         /// Implementations should be idempotent - calling close multiple times should
         /// have the same effect as calling it once.
-        virtual auto close() -> void = 0;
+        virtual auto close() noexcept -> void = 0;
 
         /// @brief Check if the resource is closed.
         /// This method returns the current state of the resource.
@@ -29,7 +29,7 @@ namespace common
         /// This method attempts to close the resource and handles any exceptions that may occur.
         /// If an exception occurs during closing, it will be caught and the method will return false.
         /// @return true if the resource was successfully closed, false otherwise
-        virtual auto closeSafe() noexcept -> bool;
+        [[nodiscard]] virtual auto closeSafe() noexcept -> bool;
     };
 
     inline auto ICloseable::closeSafe() noexcept -> bool

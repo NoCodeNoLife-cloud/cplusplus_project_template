@@ -20,10 +20,18 @@ namespace common
 
         /// @brief Get the top k numbers.
         /// @return The top k numbers.
-        auto getTopK() -> std::vector<int32_t>;
+        [[nodiscard]] auto getTopK() -> std::vector<int32_t>;
+
+        /// @brief Get the current size of the heap.
+        /// @return The number of elements in the heap.
+        [[nodiscard]] auto size() const -> size_t;
+
+        /// @brief Check if the heap is empty.
+        /// @return True if the heap is empty, false otherwise.
+        [[nodiscard]] auto empty() const -> bool;
 
     private:
-        int32_t k;
-        std::priority_queue<int32_t, std::vector<int32_t>, std::greater<>> minHeap;
+        int32_t k_;
+        std::priority_queue<int32_t, std::vector<int32_t>, std::greater<>> minHeap_;
     };
 }

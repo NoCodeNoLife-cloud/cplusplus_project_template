@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 
-#include "type/data_structure/Color.hpp"
+#include "../Color.hpp"
 
 namespace fox
 {
@@ -55,9 +55,9 @@ namespace fox
 
     private:
         T data_{};
-        std::shared_ptr<RedBlackTreeNode> left_{nullptr};
-        std::shared_ptr<RedBlackTreeNode> right_{nullptr};
-        std::shared_ptr<RedBlackTreeNode> parent_{nullptr};
+        std::shared_ptr<RedBlackTreeNode> left_{};
+        std::shared_ptr<RedBlackTreeNode> right_{};
+        std::shared_ptr<RedBlackTreeNode> parent_{};
         Color color_{Color::Red};
     };
 

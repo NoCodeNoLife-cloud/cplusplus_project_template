@@ -31,7 +31,7 @@ namespace fox
         auto inorderTraversal() const -> void;
 
     private:
-        std::shared_ptr<TreeNode<T>> root_{nullptr};
+        std::shared_ptr<TreeNode<T>> root_{};
 
         /// @brief Recursively inserts a value into the binary search tree.
         /// @param node The current node in the recursion.

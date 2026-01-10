@@ -22,7 +22,7 @@ namespace fox
         /// using the provided RapidJSON writer. The implementation should handle
         /// all necessary object properties and nested objects.
         /// @param writer Reference to a RapidJSON writer that will be used to build the JSON output
-        virtual auto serialize(rapidjson::Writer<rapidjson::StringBuffer>& writer) const -> void = 0;
+        [[nodiscard]] virtual auto serialize(rapidjson::Writer<rapidjson::StringBuffer>& writer) const -> void = 0;
 
         /// @brief Deserializes the object from JSON format.
         /// This method populates the object's data from a JSON representation

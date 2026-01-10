@@ -1,4 +1,5 @@
 #include "AuthenticationException.hpp"
+#include <string_view>
 
 namespace common
 {
@@ -6,4 +7,21 @@ namespace common
         : std::runtime_error(message)
     {
     }
+
+    AuthenticationException::AuthenticationException(std::string_view message)
+        : std::runtime_error(std::string(message))
+    {
+    }
+
+    AuthenticationException::AuthenticationException(AuthenticationException&& other) noexcept
+        : std::runtime_error(other.what())
+    {
+    }
+
+    AuthenticationException::AuthenticationException(const AuthenticationException& other)
+        : std::runtime_error(other.what())
+    {
+    }
+
+    AuthenticationException::~AuthenticationException() noexcept = default;
 } // common

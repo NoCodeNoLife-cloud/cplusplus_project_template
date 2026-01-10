@@ -27,7 +27,7 @@ namespace fox
         /// variables with the corresponding values.
         /// @param node YAML node containing the data to deserialize
         /// @return True if decoding is successful, false otherwise
-        virtual auto decode(const YAML::Node& node) -> bool = 0;
+        [[nodiscard]] virtual auto decode(const YAML::Node& node) -> bool = 0;
     };
 }
 
@@ -43,7 +43,7 @@ struct YAML::convert
     /// Delegates the encoding to the object's encode() method.
     /// @param obj The object to encode
     /// @return YAML node containing the encoded object
-    static Node encode(const T& obj)
+    [[nodiscard]] static auto encode(const T& obj) -> Node
     {
         return obj.encode();
     }
@@ -53,7 +53,7 @@ struct YAML::convert
     /// @param node YAML node containing the data to decode
     /// @param obj Reference to the object to populate with decoded data
     /// @return True if decoding is successful, false otherwise
-    static bool decode(const Node& node, T& obj)
+    static auto decode(const Node& node, T& obj) -> bool
     {
         return obj.decode(node);
     }

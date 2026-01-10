@@ -34,7 +34,7 @@ namespace fox
         [[nodiscard]] auto find(T value) const -> bool;
 
     private:
-        std::shared_ptr<TreeNode<T>> root_{nullptr};
+        std::shared_ptr<TreeNode<T>> root_{};
 
         /// @brief Get the height of a node
         /// @param node The node to get the height of

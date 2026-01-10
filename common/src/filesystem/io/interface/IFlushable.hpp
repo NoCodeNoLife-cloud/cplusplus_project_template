@@ -15,13 +15,13 @@ namespace common
         /// This method ensures that any buffered data is written out to the underlying destination.
         /// Implementation should handle any errors that may occur during the flush operation.
         /// If an error occurs, the implementation may throw an exception.
-        virtual auto flush() -> void = 0;
+        virtual auto flush() noexcept -> void = 0;
 
         /// @brief Flush the stream or buffer with exception safety.
         /// This method ensures that any buffered data is written out to the underlying destination
         /// and handles any exceptions that may occur during the flush operation.
         /// @return true if flush was successful, false otherwise
-        virtual auto flushSafe() noexcept -> bool;
+        [[nodiscard]] virtual auto flushSafe() noexcept -> bool;
 
         /// @brief Check if the object needs to be flushed.
         /// This method checks if there is buffered data that needs to be flushed.

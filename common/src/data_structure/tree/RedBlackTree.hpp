@@ -23,7 +23,7 @@ namespace fox
         [[nodiscard]] auto getRoot() const noexcept -> std::shared_ptr<RedBlackTreeNode<T>>;
 
     private:
-        std::shared_ptr<RedBlackTreeNode<T>> root_{nullptr};
+        std::shared_ptr<RedBlackTreeNode<T>> root_{};
 
         /// @brief Perform a left rotation on the given node
         /// @param node The node to rotate
