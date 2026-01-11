@@ -10,25 +10,27 @@ namespace common
     {
     }
 
-    auto FilterInputStream::available() -> size_t
+    auto FilterInputStream::validateInputStream() const -> void
     {
         if (!input_stream_)
         {
-            throw std::runtime_error("FilterInputStream::available: Input stream is not available");
+            throw std::runtime_error("FilterInputStream::validateInputStream: Input stream is not available");
         }
+    }
+
+    auto FilterInputStream::available() -> size_t
+    {
+        validateInputStream();
         return input_stream_->available();
     }
 
     auto FilterInputStream::mark(const int32_t readLimit) -> void
     {
-        if (!input_stream_)
-        {
-            throw std::runtime_error("FilterInputStream::mark: Input stream is not available");
-        }
+        validateInputStream();
         input_stream_->mark(readLimit);
     }
 
-    auto FilterInputStream::markSupported() const -> bool
+    auto FilterInputStream::markSupported() const noexcept -> bool
     {
         if (!input_stream_)
         {
@@ -39,46 +41,31 @@ namespace common
 
     auto FilterInputStream::read() -> std::byte
     {
-        if (!input_stream_)
-        {
-            throw std::runtime_error("FilterInputStream::read: Input stream is not available");
-        }
+        validateInputStream();
         return input_stream_->read();
     }
 
     auto FilterInputStream::read(std::vector<std::byte>& buffer) -> size_t
     {
-        if (!input_stream_)
-        {
-            throw std::runtime_error("FilterInputStream::read: Input stream is not available");
-        }
+        validateInputStream();
         return input_stream_->read(buffer);
     }
 
     auto FilterInputStream::read(std::vector<std::byte>& buffer, const size_t offset, const size_t len) -> size_t
     {
-        if (!input_stream_)
-        {
-            throw std::runtime_error("FilterInputStream::read: Input stream is not available");
-        }
+        validateInputStream();
         return input_stream_->read(buffer, offset, len);
     }
 
     auto FilterInputStream::reset() -> void
     {
-        if (!input_stream_)
-        {
-            throw std::runtime_error("FilterInputStream::reset: Input stream is not available");
-        }
+        validateInputStream();
         input_stream_->reset();
     }
 
     auto FilterInputStream::skip(const size_t n) -> size_t
     {
-        if (!input_stream_)
-        {
-            throw std::runtime_error("FilterInputStream::skip: Input stream is not available");
-        }
+        validateInputStream();
         return input_stream_->skip(n);
     }
 
@@ -90,7 +77,7 @@ namespace common
         }
     }
 
-    auto FilterInputStream::isClosed() const -> bool
+    auto FilterInputStream::isClosed() const noexcept -> bool
     {
         if (!input_stream_)
         {

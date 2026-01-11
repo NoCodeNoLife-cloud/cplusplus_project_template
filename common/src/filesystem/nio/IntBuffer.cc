@@ -12,19 +12,19 @@ namespace common
         buffer_.resize(capacity);
     }
 
-    auto IntBuffer::clear() -> void
+    auto IntBuffer::clear() noexcept -> void
     {
         position_ = 0;
         limit_ = capacity_;
     }
 
-    auto IntBuffer::flip() -> void
+    auto IntBuffer::flip() noexcept -> void
     {
         limit_ = position_;
         position_ = 0;
     }
 
-    auto IntBuffer::rewind() -> void
+    auto IntBuffer::rewind() noexcept -> void
     {
         position_ = 0;
     }
@@ -43,7 +43,7 @@ namespace common
     {
         if (!hasRemaining())
         {
-            throw std::underflow_error("Buffer underflow.");
+            throw std::underflow_error("IntBuffer::get: Buffer underflow.");
         }
         return buffer_[position_++];
     }
@@ -52,7 +52,7 @@ namespace common
     {
         if (index >= limit_)
         {
-            throw std::out_of_range("Index out of bounds.");
+            throw std::out_of_range("IntBuffer::get: Index out of bounds.");
         }
         return buffer_[index];
     }
@@ -61,7 +61,7 @@ namespace common
     {
         if (!hasRemaining())
         {
-            throw std::overflow_error("Buffer overflow.");
+            throw std::overflow_error("IntBuffer::put: Buffer overflow.");
         }
         buffer_[position_++] = value;
     }
@@ -70,7 +70,7 @@ namespace common
     {
         if (index >= limit_)
         {
-            throw std::out_of_range("Index out of bounds.");
+            throw std::out_of_range("IntBuffer::put: Index out of bounds.");
         }
         buffer_[index] = value;
     }
@@ -84,7 +84,7 @@ namespace common
         return {buffer_.begin() + static_cast<std::ptrdiff_t>(position_), buffer_.begin() + static_cast<std::ptrdiff_t>(limit_)};
     }
 
-    auto IntBuffer::position() const -> size_t
+    auto IntBuffer::position() const noexcept -> size_t
     {
         return position_;
     }
@@ -93,12 +93,12 @@ namespace common
     {
         if (newPosition > limit_)
         {
-            throw std::out_of_range("Position exceeds limit.");
+            throw std::out_of_range("IntBuffer::position: Position exceeds limit.");
         }
         position_ = newPosition;
     }
 
-    auto IntBuffer::limit() const -> size_t
+    auto IntBuffer::limit() const noexcept -> size_t
     {
         return limit_;
     }
@@ -107,7 +107,7 @@ namespace common
     {
         if (newLimit > capacity_)
         {
-            throw std::out_of_range("Limit exceeds capacity.");
+            throw std::out_of_range("IntBuffer::limit: Limit exceeds capacity.");
         }
         if (position_ > newLimit)
         {
@@ -116,17 +116,17 @@ namespace common
         limit_ = newLimit;
     }
 
-    auto IntBuffer::capacity() const -> size_t
+    auto IntBuffer::capacity() const noexcept -> size_t
     {
         return capacity_;
     }
 
-    auto IntBuffer::hasRemaining() const -> bool
+    auto IntBuffer::hasRemaining() const noexcept -> bool
     {
         return position_ < limit_;
     }
 
-    auto IntBuffer::remaining() const -> size_t
+    auto IntBuffer::remaining() const noexcept -> size_t
     {
         return limit_ - position_;
     }

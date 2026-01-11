@@ -56,7 +56,7 @@ namespace common
 
         /// @brief Checks if this input stream has been closed.
         /// @return true if this input stream has been closed, false otherwise.
-        [[nodiscard]] auto isClosed() const -> bool override;
+        [[nodiscard]] auto isClosed() const noexcept -> bool override;
 
     private:
         std::vector<std::byte> pushback_buffer_;

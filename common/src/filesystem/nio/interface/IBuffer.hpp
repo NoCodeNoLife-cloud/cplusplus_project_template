@@ -16,11 +16,11 @@ namespace common
 
         /// @brief Get the capacity of the buffer
         /// @return The capacity of the buffer
-        [[nodiscard]] virtual auto capacity() const -> size_t = 0;
+        [[nodiscard]] virtual auto capacity() const noexcept -> size_t = 0;
 
         /// @brief Get the current position of the buffer
         /// @return The current position of the buffer
-        [[nodiscard]] virtual auto position() const -> size_t = 0;
+        [[nodiscard]] virtual auto position() const noexcept -> size_t = 0;
 
         /// @brief Set the position of the buffer
         /// @param newPosition The new position to set
@@ -29,7 +29,7 @@ namespace common
 
         /// @brief Get the limit of the buffer
         /// @return The limit of the buffer
-        [[nodiscard]] virtual auto limit() const -> size_t = 0;
+        [[nodiscard]] virtual auto limit() const noexcept -> size_t = 0;
 
         /// @brief Set the limit of the buffer
         /// @param newLimit The new limit to set
@@ -47,11 +47,11 @@ namespace common
 
         /// @brief Get the number of remaining elements in the buffer
         /// @return The number of remaining elements
-        [[nodiscard]] virtual auto remaining() const -> size_t = 0;
+        [[nodiscard]] virtual auto remaining() const noexcept -> size_t = 0;
 
         /// @brief Check if there are remaining elements in the buffer
         /// @return True if there are remaining elements, false otherwise
-        [[nodiscard]] virtual auto hasRemaining() const -> bool = 0;
+        [[nodiscard]] virtual auto hasRemaining() const noexcept -> bool = 0;
 
     protected:
         size_t position_{0};

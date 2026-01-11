@@ -2,28 +2,56 @@
 
 #include <chrono>
 #include <string>
-#include <format>
-#include <cstdint>
+#include <sstream>
+#include <iomanip>
+#include <ctime>
 
 namespace common
 {
+    // Helper function to format time using strftime in a thread-safe way
+    static auto formatTime(std::time_t time, const std::string& format) -> std::string
+    {
+        std::tm tm_time{};
+#ifdef _WIN32
+        localtime_s(&tm_time, &time); // Windows-specific thread-safe function
+#else
+        localtime_r(&time, &tm_time); // POSIX-specific thread-safe function
+#endif
+        std::ostringstream oss;
+        oss << std::put_time(&tm_time, format.c_str());
+        return oss.str();
+    }
+
     auto Clock::getCurrentDateTimeString() noexcept -> std::string
     {
         const auto now = std::chrono::system_clock::now();
-        const auto local_time = std::chrono::current_zone()->to_local(now);
-        const auto date = std::chrono::floor<std::chrono::days>(local_time);
-        const std::chrono::year_month_day ymd{date};
-        const std::chrono::hh_mm_ss time_part{local_time - date};
-        return std::format("{0:04d}-{1:02d}-{2:02d} {3:02d}:{4:02d}:{5:02d}", static_cast<int32_t>(ymd.year()), static_cast<unsigned>(ymd.month()), static_cast<unsigned>(ymd.day()), time_part.hours().count(), time_part.minutes().count(), time_part.seconds().count());
+        const auto time_t = std::chrono::system_clock::to_time_t(now);
+        return formatTime(time_t, "%Y-%m-%d %H:%M:%S");
     }
 
     auto Clock::getCompressedCurrentDateTimeString() noexcept -> std::string
     {
         const auto now = std::chrono::system_clock::now();
-        const auto local_time = std::chrono::current_zone()->to_local(now);
-        const auto date = std::chrono::floor<std::chrono::days>(local_time);
-        const std::chrono::year_month_day ymd{date};
-        const std::chrono::hh_mm_ss time_part{local_time - date};
-        return std::format("{0:04d}{1:02d}{2:02d}_{3:02d}{4:02d}{5:02d}", static_cast<int32_t>(ymd.year()), static_cast<unsigned>(ymd.month()), static_cast<unsigned>(ymd.day()), time_part.hours().count(), time_part.minutes().count(), time_part.seconds().count());
+        const auto time_t = std::chrono::system_clock::to_time_t(now);
+        return formatTime(time_t, "%Y%m%d_%H%M%S");
+    }
+
+    auto Clock::getCurrentTimestampMs() noexcept -> std::chrono::milliseconds::rep
+    {
+        const auto now = std::chrono::system_clock::now();
+        return std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
+    }
+
+    auto Clock::getCurrentTimestamp() noexcept -> std::chrono::seconds::rep
+    {
+        const auto now = std::chrono::system_clock::now();
+        return std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
+    }
+
+    auto Clock::formatCurrentTime(const std::string& format) -> std::string
+    {
+        const auto now = std::chrono::system_clock::now();
+        const auto time_t = std::chrono::system_clock::to_time_t(now);
+        return formatTime(time_t, format);
     }
 }

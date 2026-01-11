@@ -6,7 +6,7 @@
 
 namespace common
 {
-    void CharArrayReader::validateConstructorParams(size_t buffer_size, size_t offset, size_t length)
+    void CharArrayReader::validateConstructorParams(const size_t buffer_size, const size_t offset, const size_t length)
     {
         if (offset > buffer_size || offset + length > buffer_size)
         {
@@ -14,7 +14,7 @@ namespace common
         }
     }
 
-    void CharArrayReader::validateTargetBufferParams(size_t target_buffer_size, size_t offset, size_t length)
+    void CharArrayReader::validateTargetBufferParams(const size_t target_buffer_size, const size_t offset, const size_t length)
     {
         if (offset > target_buffer_size || length > target_buffer_size - offset)
         {

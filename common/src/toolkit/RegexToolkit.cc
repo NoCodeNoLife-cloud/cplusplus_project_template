@@ -16,7 +16,7 @@ namespace common
         }
         catch (const std::regex_error& e)
         {
-            throw std::invalid_argument("Invalid regex pattern: " + std::string(e.what()));
+            throw std::invalid_argument("RegexToolkit::is_match: Invalid regex pattern: " + std::string(e.what()));
         }
     }
 
@@ -29,7 +29,7 @@ namespace common
         }
         catch (const std::regex_error& e)
         {
-            throw std::invalid_argument("Invalid regex pattern: " + std::string(e.what()));
+            throw std::invalid_argument("RegexToolkit::is_search: Invalid regex pattern: " + std::string(e.what()));
         }
     }
 
@@ -38,19 +38,19 @@ namespace common
         try
         {
             const std::regex re(pattern, flags);
-            std::vector<std::string> results_;
+            std::vector<std::string> results;
             const auto it = std::sregex_iterator(text.begin(), text.end(), re);
             const auto end = std::sregex_iterator();
 
             for (auto i = it; i != end; ++i)
             {
-                results_.push_back(i->str());
+                results.push_back(i->str());
             }
-            return results_;
+            return results;
         }
         catch (const std::regex_error& e)
         {
-            throw std::invalid_argument("Invalid regex pattern: " + std::string(e.what()));
+            throw std::invalid_argument("RegexToolkit::get_matches: Invalid regex pattern: " + std::string(e.what()));
         }
     }
 
@@ -59,24 +59,24 @@ namespace common
         try
         {
             const std::regex re(pattern, flags);
-            std::vector<std::vector<std::string>> results_;
+            std::vector<std::vector<std::string>> results;
             const auto it = std::sregex_iterator(text.begin(), text.end(), re);
             const auto end = std::sregex_iterator();
 
             for (auto i = it; i != end; ++i)
             {
-                std::vector<std::string> groups_;
+                std::vector<std::string> groups;
                 for (size_t j = 0; j < i->size(); ++j)
                 {
-                    groups_.push_back(i->str(j));
+                    groups.push_back(i->str(j));
                 }
-                results_.push_back(groups_);
+                results.push_back(groups);
             }
-            return results_;
+            return results;
         }
         catch (const std::regex_error& e)
         {
-            throw std::invalid_argument("Invalid regex pattern: " + std::string(e.what()));
+            throw std::invalid_argument("RegexToolkit::get_matches_with_groups: Invalid regex pattern: " + std::string(e.what()));
         }
     }
 
@@ -89,7 +89,7 @@ namespace common
         }
         catch (const std::regex_error& e)
         {
-            throw std::invalid_argument("Invalid regex pattern: " + std::string(e.what()));
+            throw std::invalid_argument("RegexToolkit::replace_all: Invalid regex pattern: " + std::string(e.what()));
         }
     }
 
@@ -101,16 +101,16 @@ namespace common
             std::sregex_token_iterator it(text.begin(), text.end(), re, -1);
             const std::sregex_token_iterator end;
 
-            std::vector<std::string> results_;
+            std::vector<std::string> results;
             while (it != end)
             {
-                results_.push_back(*it++);
+                results.push_back(*it++);
             }
-            return results_;
+            return results;
         }
         catch (const std::regex_error& e)
         {
-            throw std::invalid_argument("Invalid regex pattern: " + std::string(e.what()));
+            throw std::invalid_argument("RegexToolkit::split: Invalid regex pattern: " + std::string(e.what()));
         }
     }
 }

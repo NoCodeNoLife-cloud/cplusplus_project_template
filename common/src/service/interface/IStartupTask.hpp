@@ -1,4 +1,6 @@
 #pragma once
+#include <stdexcept>
+#include <string>
 
 namespace service
 {
@@ -13,6 +15,7 @@ namespace service
 
         /// @brief Executes the startup task.
         /// @return True if the task was executed successfully, false otherwise.
+        /// @throws std::runtime_error if execution fails with details about the failure
         [[nodiscard]] virtual auto execute() -> bool = 0;
     };
 } // namespace service

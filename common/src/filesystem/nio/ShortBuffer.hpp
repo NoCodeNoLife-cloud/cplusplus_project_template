@@ -47,15 +47,15 @@ namespace common
 
         /// @brief Check if there are remaining elements in the buffer
         /// @return True if there are remaining elements, false otherwise
-        [[nodiscard]] auto hasRemaining() const -> bool override;
+        [[nodiscard]] auto hasRemaining() const noexcept -> bool override;
 
         /// @brief Get the number of remaining elements in the buffer
         /// @return Number of remaining elements
-        [[nodiscard]] auto remaining() const -> size_t override;
+        [[nodiscard]] auto remaining() const noexcept -> size_t override;
 
         /// @brief Get the current position in the buffer
         /// @return The current position
-        [[nodiscard]] auto position() const -> size_t override;
+        [[nodiscard]] auto position() const noexcept -> size_t override;
 
         /// @brief Set the position in the buffer
         /// @param newPosition The new position to set
@@ -64,7 +64,7 @@ namespace common
 
         /// @brief Get the limit of the buffer
         /// @return The current limit
-        [[nodiscard]] auto limit() const -> size_t override;
+        [[nodiscard]] auto limit() const noexcept -> size_t override;
 
         /// @brief Set the limit of the buffer
         /// @param newLimit The new limit to set
@@ -73,16 +73,16 @@ namespace common
 
         /// @brief Get the capacity of the buffer
         /// @return The capacity
-        [[nodiscard]] auto capacity() const -> size_t override;
+        [[nodiscard]] auto capacity() const noexcept -> size_t override;
 
         /// @brief Reset the buffer position to zero and set limit to capacity
-        auto clear() -> void override;
+        auto clear() noexcept -> void override;
 
         /// @brief Flip the buffer (limit = position, position = 0)
-        auto flip() -> void override;
+        auto flip() noexcept -> void override;
 
         /// @brief Resets the position of the buffer to zero.
-        auto rewind() -> void override;
+        auto rewind() noexcept -> void override;
 
         /// @brief Returns a pointer to the underlying data array.
         /// @return Pointer to the data array.

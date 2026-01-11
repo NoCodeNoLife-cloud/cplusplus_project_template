@@ -18,15 +18,15 @@ namespace common
 
         /// @brief Clears the buffer by setting position to 0 and limit to capacity.
         /// @return void
-        auto clear() -> void override;
+        auto clear() noexcept -> void override;
 
         /// @brief Flips the buffer by setting limit to current position and position to 0.
         /// @return void
-        auto flip() -> void override;
+        auto flip() noexcept -> void override;
 
         /// @brief Resets the position to 0 while keeping the limit unchanged.
         /// @return void
-        auto rewind() -> void override;
+        auto rewind() noexcept -> void override;
 
         /// @brief Compacts the buffer by removing processed elements.
         /// @return void
@@ -34,7 +34,7 @@ namespace common
 
         /// @brief Get the current element and advance the position.
         /// @return The current element.
-        auto get() -> int32_t;
+        [[nodiscard]] auto get() -> int32_t;
 
         /// @brief Get the element at the specified index.
         /// @param index The index of the element to get.
@@ -58,7 +58,7 @@ namespace common
 
         /// @brief Returns the current position in the buffer.
         /// @return The current position.
-        [[nodiscard]] auto position() const -> size_t override;
+        [[nodiscard]] auto position() const noexcept -> size_t override;
 
         /// @brief Sets the position in the buffer.
         /// @param newPosition The new position to set.
@@ -67,7 +67,7 @@ namespace common
 
         /// @brief Returns the limit of the buffer.
         /// @return The current limit.
-        [[nodiscard]] auto limit() const -> size_t override;
+        [[nodiscard]] auto limit() const noexcept -> size_t override;
 
         /// @brief Sets the limit of the buffer.
         /// @param newLimit The new limit to set.
@@ -76,15 +76,15 @@ namespace common
 
         /// @brief Returns the capacity of the buffer.
         /// @return The buffer capacity.
-        [[nodiscard]] auto capacity() const -> size_t override;
+        [[nodiscard]] auto capacity() const noexcept -> size_t override;
 
         /// @brief Checks if there are remaining elements in the buffer.
         /// @return true if there are remaining elements, false otherwise.
-        [[nodiscard]] auto hasRemaining() const -> bool override;
+        [[nodiscard]] auto hasRemaining() const noexcept -> bool override;
 
         /// @brief Returns the number of remaining elements in the buffer.
         /// @return The number of remaining elements.
-        [[nodiscard]] auto remaining() const -> size_t override;
+        [[nodiscard]] auto remaining() const noexcept -> size_t override;
 
     private:
         std::vector<int32_t> buffer_{};

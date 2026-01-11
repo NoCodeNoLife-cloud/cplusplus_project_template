@@ -21,7 +21,7 @@ namespace common
     {
         if (min > max)
         {
-            throw std::invalid_argument("nextInt: min cannot be greater than max");
+            throw std::invalid_argument("common::RandomGenerator::nextInt: min cannot be greater than max");
         }
         std::lock_guard lock(mutex_);
         std::uniform_int_distribution dist(min, max);
@@ -37,7 +37,7 @@ namespace common
     {
         if (trueProbability < 0.0 || trueProbability > 1.0)
         {
-            throw std::invalid_argument("nextBool: probability must be in [0, 1]");
+            throw std::invalid_argument("common::RandomGenerator::nextBool: probability must be in [0, 1]");
         }
         std::lock_guard lock(mutex_);
         std::bernoulli_distribution dist(trueProbability);
@@ -48,7 +48,7 @@ namespace common
     {
         if (min >= max)
         {
-            throw std::invalid_argument("nextDouble: min must be less than max");
+            throw std::invalid_argument("common::RandomGenerator::nextDouble: min must be less than max");
         }
         std::lock_guard lock(mutex_);
         std::uniform_real_distribution dist(min, max);
@@ -59,7 +59,7 @@ namespace common
     {
         if (charset.empty())
         {
-            throw std::invalid_argument("nextString: charset cannot be empty");
+            throw std::invalid_argument("common::RandomGenerator::nextString: charset cannot be empty");
         }
         if (length == 0)
         {
@@ -85,7 +85,7 @@ namespace common
     {
         if (stddev <= 0.0)
         {
-            throw std::invalid_argument("nextGaussian: stddev must be positive");
+            throw std::invalid_argument("common::RandomGenerator::nextGaussian: stddev must be positive");
         }
         std::lock_guard lock(mutex_);
         std::normal_distribution dist(mean, stddev);

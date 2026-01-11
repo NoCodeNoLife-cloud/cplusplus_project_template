@@ -1,6 +1,7 @@
 #pragma once
 #include <iomanip>
 #include <string>
+#include <chrono>
 
 namespace common
 {
@@ -31,6 +32,12 @@ namespace common
         /// @return The formatted date as a string.
         /// @throws std::runtime_error If formatting fails
         [[nodiscard]] auto format(const std::tm& date) const -> std::string;
+
+        /// @brief Formats a given chrono time_point according to the current pattern.
+        /// @param tp The time_point to format.
+        /// @return The formatted date as a string.
+        /// @throws std::runtime_error If formatting fails
+        [[nodiscard]] auto format(const std::chrono::system_clock::time_point& tp) const -> std::string;
 
         /// @brief Parses a date string according to the current pattern.
         /// @param dateStr The date string to parse.

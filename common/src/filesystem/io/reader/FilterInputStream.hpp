@@ -23,7 +23,7 @@ namespace common
 
         /// @brief Tests if this input stream supports the mark and reset methods.
         /// @return true if this input stream supports the mark and reset methods; false otherwise.
-        [[nodiscard]] auto markSupported() const -> bool override;
+        [[nodiscard]] auto markSupported() const noexcept -> bool override;
 
         /// @brief Reads the next byte of data from this input stream.
         /// @return the next byte of data, or -1 if the end of the stream is reached.
@@ -56,9 +56,14 @@ namespace common
 
         /// @brief Checks if this input stream has been closed.
         /// @return true if this input stream has been closed, false otherwise.
-        [[nodiscard]] auto isClosed() const -> bool override;
+        [[nodiscard]] auto isClosed() const noexcept -> bool override;
 
     protected:
         std::unique_ptr<AbstractInputStream> input_stream_;
+
+    private:
+        /// @brief Validates that the input stream is available, throws exception if not
+        /// @throws std::runtime_error If input stream is null
+        auto validateInputStream() const -> void;
     };
 }

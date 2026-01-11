@@ -99,7 +99,7 @@ namespace common
         pushback_buffer_[--buffer_pos_] = b;
     }
 
-    auto PushbackInputStream::isClosed() const -> bool
+    auto PushbackInputStream::isClosed() const noexcept -> bool
     {
         return !input_stream_ || input_stream_->isClosed();
     }

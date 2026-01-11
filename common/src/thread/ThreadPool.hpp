@@ -8,6 +8,8 @@
 #include <thread>
 #include <vector>
 #include <type_traits>
+#include <stdexcept>
+#include <memory>
 
 namespace common
 {
@@ -22,7 +24,7 @@ namespace common
         /// @param max_threads The maximum number of threads allowed
         /// @param queue_size The maximum size of the task queue
         /// @param idle_time The time after which excess threads will be terminated
-        ThreadPool(size_t core_threads, size_t max_threads, size_t queue_size, std::chrono::milliseconds idle_time) noexcept;
+        ThreadPool(size_t core_threads, size_t max_threads, size_t queue_size, std::chrono::milliseconds idle_time);
 
         /// @brief Destructor that gracefully shuts down the thread pool
         ~ThreadPool();
@@ -35,13 +37,19 @@ namespace common
         /// @return A future that will hold the result of the function execution
         /// @throws std::runtime_error If the task queue is full
         template <class F, class... Args>
-        [[nodiscard]] auto Submit(F&& f, Args&&... args) -> std::future<std::invoke_result_t<F, Args...>>;
+        [[nodiscard]] auto submit(F&& f, Args&&... args) -> std::future<std::invoke_result_t<F, Args...>>;
 
         /// @brief Gracefully shutdown the thread pool, waiting for all tasks to complete
-        auto Shutdown() -> void;
+        auto shutdown() -> void;
 
         /// @brief Immediately shutdown the thread pool, abandoning any remaining tasks
-        auto ShutdownNow() -> void;
+        auto shutdownNow() -> void;
+
+        /// @brief Get the current number of active threads
+        [[nodiscard]] auto getActiveThreadCount() const -> size_t;
+
+        /// @brief Get the current size of the task queue
+        [[nodiscard]] auto getQueueSize() -> size_t;
 
     private:
         std::vector<std::thread> workers_{};
@@ -62,4 +70,41 @@ namespace common
         /// @return true if a new worker was added, false otherwise
         auto addWorker() -> bool;
     };
+
+    // Template method implementation must be in header
+    template <class F, class... Args>
+    auto ThreadPool::submit(F&& f, Args&&... args) -> std::future<std::invoke_result_t<F, Args...>>
+    {
+        using return_type = std::invoke_result_t<F, Args...>;
+
+        if (stop_)
+        {
+            throw std::runtime_error("ThreadPool::submit: Pool is stopped");
+        }
+
+        auto task = std::make_shared<std::packaged_task<return_type()>>(std::bind(std::forward<F>(f), std::forward<Args>(args)...));
+
+        std::future<return_type> res = task->get_future();
+        {
+            std::unique_lock lock(queue_mutex_);
+            if (task_queue_.size() >= max_queue_size_)
+            {
+                throw std::runtime_error("ThreadPool::submit: Task queue is full");
+            }
+            task_queue_.emplace([task]
+            {
+                try
+                {
+                    (*task)();
+                }
+                catch (...)
+                {
+                    // If the task throws, propagate the exception through the future
+                    task->set_exception(std::current_exception());
+                }
+            });
+        }
+        condition_.notify_one();
+        return res;
+    }
 }

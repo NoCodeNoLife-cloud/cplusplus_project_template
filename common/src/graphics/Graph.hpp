@@ -15,7 +15,8 @@ namespace common
     public:
         /// @brief Construct a graph with n nodes
         /// @param n Number of nodes
-        explicit Graph(int32_t n) noexcept;
+        /// @throws std::invalid_argument If number of nodes is negative
+        explicit Graph(int32_t n);
 
         /// @brief Add an edge to the graph
         /// @param from Source node
@@ -33,6 +34,10 @@ namespace common
         /// @brief Get number of nodes
         /// @return Number of nodes
         [[nodiscard]] auto getNodeCount() const noexcept -> int32_t;
+
+        /// @brief Check if the graph is empty
+        /// @return True if the graph has no nodes
+        [[nodiscard]] auto isEmpty() const noexcept -> bool;
 
     private:
         int32_t num_nodes_{0};

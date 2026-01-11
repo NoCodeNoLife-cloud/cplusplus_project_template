@@ -1,4 +1,6 @@
 #pragma once
+#include <stdexcept>
+#include <string>
 
 namespace service
 {
@@ -12,6 +14,7 @@ namespace service
 
         /// @brief Public interface for configuring the service.
         /// @return true if configuration is successful, false otherwise.
+        /// @throws std::runtime_error if configuration fails with details about the failure
         [[nodiscard]] auto config() -> bool
         {
             return doConfig();
@@ -20,6 +23,7 @@ namespace service
     protected:
         /// @brief Configure the service.
         /// @return true if configuration is successful, false otherwise.
+        /// @throws std::runtime_error if configuration fails with details about the failure
         [[nodiscard]] virtual auto doConfig() -> bool = 0;
     };
 } // namespace service

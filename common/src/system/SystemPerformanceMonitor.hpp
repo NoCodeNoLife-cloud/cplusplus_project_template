@@ -27,6 +27,12 @@ namespace common
     /// This class provides static methods to retrieve system memory and CPU usage information.
     class SystemPerformanceMonitor
     {
+    private:
+        /// @brief Helper function to extract ULARGE_INTEGER from FILETIME
+        /// @param ft Filetime to convert
+        /// @return ULARGE_INTEGER representation of the filetime
+        [[nodiscard]] static auto FileTimeToULARGEInteger(const FILETIME& ft) noexcept -> ULARGE_INTEGER;
+
     public:
         SystemPerformanceMonitor() = delete;
 
@@ -37,6 +43,6 @@ namespace common
         /// @brief Get the current CPU usage of the system
         /// @param interval Time interval in seconds for measuring CPU usage, default is 1 second
         /// @return CpuUsage struct containing CPU usage percentage
-        [[nodiscard]] static auto GetCpuUsage(int32_t interval = 1) noexcept -> CpuUsage;
+        [[nodiscard]] static auto GetCpuUsage(const int32_t interval = 1) noexcept -> CpuUsage;
     };
 }

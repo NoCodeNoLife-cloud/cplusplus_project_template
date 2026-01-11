@@ -16,11 +16,11 @@ namespace common
 
         /// @brief Get the capacity of the buffer
         /// @return The capacity of the buffer
-        [[nodiscard]] auto capacity() const -> size_t override;
+        [[nodiscard]] auto capacity() const noexcept -> size_t override;
 
         /// @brief Get the current position of the buffer
         /// @return The current position of the buffer
-        [[nodiscard]] auto position() const -> size_t override;
+        [[nodiscard]] auto position() const noexcept -> size_t override;
 
         /// @brief Set the position of the buffer
         /// @param newPosition The new position to set
@@ -29,7 +29,7 @@ namespace common
 
         /// @brief Get the limit of the buffer
         /// @return The limit of the buffer
-        [[nodiscard]] auto limit() const -> size_t override;
+        [[nodiscard]] auto limit() const noexcept -> size_t override;
 
         /// @brief Set the limit of the buffer
         /// @param newLimit The new limit to set
@@ -37,21 +37,21 @@ namespace common
         auto limit(size_t newLimit) -> void override;
 
         /// @brief Clear the buffer by resetting position and limit
-        auto clear() -> void override;
+        auto clear() noexcept -> void override;
 
         /// @brief Flip the buffer by setting limit to current position and resetting position to zero
-        auto flip() -> void override;
+        auto flip() noexcept -> void override;
 
         /// @brief Rewind the buffer by resetting position to zero
-        auto rewind() -> void override;
+        auto rewind() noexcept -> void override;
 
         /// @brief Get the number of remaining elements in the buffer
         /// @return The number of remaining elements
-        [[nodiscard]] auto remaining() const -> size_t override;
+        [[nodiscard]] auto remaining() const noexcept -> size_t override;
 
         /// @brief Check if there are remaining elements in the buffer
         /// @return True if there are remaining elements, false otherwise
-        [[nodiscard]] auto hasRemaining() const -> bool override;
+        [[nodiscard]] auto hasRemaining() const noexcept -> bool override;
 
         /// @brief Puts a single byte into the buffer
         /// @param value The byte value to put into the buffer
@@ -66,13 +66,13 @@ namespace common
         /// @brief Gets a single byte from the buffer
         /// @return The byte retrieved from the buffer
         /// @throws std::underflow_error If buffer has no remaining data
-        auto get() -> std::byte;
+        [[nodiscard]] auto get() -> std::byte;
 
         /// @brief Gets a specified number of bytes from the buffer
         /// @param length The number of bytes to retrieve
         /// @return A vector containing the retrieved bytes
         /// @throws std::underflow_error If buffer has insufficient data
-        auto get(size_t length) -> std::vector<std::byte>;
+        [[nodiscard]] auto get(size_t length) -> std::vector<std::byte>;
 
     private:
         std::vector<std::byte> buffer_;

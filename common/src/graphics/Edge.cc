@@ -28,4 +28,14 @@ namespace common
     {
         weight_ = weight;
     }
+    
+    auto Edge::operator==(const Edge& other) const noexcept -> bool
+    {
+        return to_ == other.to_ && weight_ == other.weight_;
+    }
+
+    auto Edge::operator!=(const Edge& other) const noexcept -> bool
+    {
+        return !(*this == other);
+    }
 }

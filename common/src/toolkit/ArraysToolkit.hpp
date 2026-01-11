@@ -1,8 +1,10 @@
 #pragma once
 #include <algorithm>
+#include <sstream>
 #include <string>
 #include <vector>
 #include <cstdint>
+#include <stdexcept>
 
 namespace common
 {
@@ -102,4 +104,154 @@ namespace common
         template <typename T>
         [[nodiscard]] static auto toString(const T* array, size_t size) -> std::string;
     };
+
+    template <typename T>
+    auto ArraysToolkit::asList(const T* array, size_t size) -> std::vector<T>
+    {
+        if (!array && size > 0)
+        {
+            throw std::invalid_argument("ArraysToolkit::asList: Array cannot be null when size > 0");
+        }
+        return std::vector<T>(array, array + size);
+    }
+
+    template <typename T>
+    auto ArraysToolkit::binarySearch(const T* array, size_t size, const T& key) -> int32_t
+    {
+        if (!array && size > 0)
+        {
+            throw std::invalid_argument("ArraysToolkit::binarySearch: Array cannot be null when size > 0");
+        }
+        auto it = std::lower_bound(array, array + size, key);
+        if (it != array + size && *it == key)
+        {
+            return static_cast<int32_t>(it - array);
+        }
+        return -1;
+    }
+
+    template <typename T>
+    auto ArraysToolkit::binarySearch(const T* array, size_t fromIndex, size_t toIndex, const T& key) -> int32_t
+    {
+        if (!array)
+        {
+            throw std::invalid_argument("ArraysToolkit::binarySearch: Array cannot be null");
+        }
+        if (fromIndex >= toIndex)
+        {
+            throw std::out_of_range("ArraysToolkit::binarySearch: fromIndex must be less than toIndex");
+        }
+        auto start = array + fromIndex;
+        auto end = array + toIndex;
+        auto it = std::lower_bound(start, end, key);
+        if (it != end && *it == key)
+        {
+            return static_cast<int32_t>(it - array);
+        }
+        return -1;
+    }
+
+    template <typename T>
+    auto ArraysToolkit::copyOf(const T* original, const size_t originalSize, size_t newLength) -> std::vector<T>
+    {
+        if (!original && originalSize > 0)
+        {
+            throw std::invalid_argument("ArraysToolkit::copyOf: Original array cannot be null when originalSize > 0");
+        }
+        std::vector<T> result(newLength);
+        const size_t copyLength = std::min(originalSize, newLength);
+        if (copyLength > 0 && original)
+        {
+            std::copy(original, original + copyLength, result.begin());
+        }
+        return result;
+    }
+
+    template <typename T>
+    auto ArraysToolkit::copyOfRange(const T* original, size_t from, size_t to) -> std::vector<T>
+    {
+        if (!original)
+        {
+            throw std::invalid_argument("ArraysToolkit::copyOfRange: Original array cannot be null");
+        }
+        if (from > to)
+        {
+            throw std::out_of_range("ArraysToolkit::copyOfRange: from must be less than or equal to to");
+        }
+        return std::vector<T>(original + from, original + to);
+    }
+
+    template <typename T>
+    auto ArraysToolkit::equals(const T* a, size_t sizeA, const T* b, const size_t sizeB) -> bool
+    {
+        if (!a && sizeA > 0)
+        {
+            throw std::invalid_argument("ArraysToolkit::equals: First array cannot be null when sizeA > 0");
+        }
+        if (!b && sizeB > 0)
+        {
+            throw std::invalid_argument("ArraysToolkit::equals: Second array cannot be null when sizeB > 0");
+        }
+        if (sizeA != sizeB) return false;
+        if (sizeA == 0) return true; // Both arrays are empty, so they're equal
+        return std::equal(a, a + sizeA, b);
+    }
+
+    template <typename T>
+    auto ArraysToolkit::fill(T* array, size_t size, const T& value) -> void
+    {
+        if (!array && size > 0)
+        {
+            throw std::invalid_argument("ArraysToolkit::fill: Array cannot be null when size > 0");
+        }
+        if (size > 0 && array)
+        {
+            std::fill(array, array + size, value);
+        }
+    }
+
+    template <typename T>
+    auto ArraysToolkit::sort(T* array, size_t size) -> void
+    {
+        if (!array && size > 0)
+        {
+            throw std::invalid_argument("ArraysToolkit::sort: Array cannot be null when size > 0");
+        }
+        if (size > 0 && array)
+        {
+            std::sort(array, array + size);
+        }
+    }
+
+    template <typename T>
+    auto ArraysToolkit::sort(T* array, size_t fromIndex, size_t toIndex) -> void
+    {
+        if (!array)
+        {
+            throw std::invalid_argument("ArraysToolkit::sort: Array cannot be null");
+        }
+        if (fromIndex >= toIndex)
+        {
+            throw std::out_of_range("ArraysToolkit::sort: fromIndex must be less than toIndex");
+        }
+        std::sort(array + fromIndex, array + toIndex);
+    }
+
+    template <typename T>
+    auto ArraysToolkit::toString(const T* array, const size_t size) -> std::string
+    {
+        if (!array && size > 0)
+        {
+            throw std::invalid_argument("ArraysToolkit::toString: Array cannot be null when size > 0");
+        }
+        std::ostringstream oss;
+        oss << "[";
+        for (size_t i = 0; i < size; ++i)
+        {
+            if (i > 0) oss << ", ";
+            if (array) oss << array[i];
+        }
+        oss << "]";
+        return oss.str();
+    }
 }

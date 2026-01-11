@@ -1,6 +1,7 @@
 #include "src/serializer/JsonObjectSerializer.hpp"
 
 #include <string>
+#include <cstring>
 
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
@@ -8,63 +9,92 @@
 
 namespace common
 {
-    auto JsonObjectSerializer::getStringOrDefault(const rapidjson::Value& json, const char* key, const std::string& defaultValue) noexcept -> std::string
+    template <typename T>
+    auto JsonObjectSerializer::getValueOrDefault(const rapidjson::Value& json, const std::string& key, T defaultValue) noexcept -> T
     {
-        if (json.HasMember(key) && json[key].IsString())
+        // Convert std::string to c_str for rapidjson compatibility
+        if (json.HasMember(key.c_str()))
         {
-            return json[key].GetString();
+            const auto& member = json[key.c_str()];
+            if constexpr (std::is_same_v<T, std::string>)
+            {
+                if (member.IsString())
+                {
+                    return std::string(member.GetString());
+                }
+            }
+            else if constexpr (std::is_same_v<T, int32_t>)
+            {
+                if (member.IsInt())
+                {
+                    return member.GetInt();
+                }
+            }
+            else if constexpr (std::is_same_v<T, double>)
+            {
+                if (member.IsDouble())
+                {
+                    return member.GetDouble();
+                }
+            }
+            else if constexpr (std::is_same_v<T, bool>)
+            {
+                if (member.IsBool())
+                {
+                    return member.GetBool();
+                }
+            }
         }
         return defaultValue;
     }
 
-    auto JsonObjectSerializer::getIntOrDefault(const rapidjson::Value& json, const char* key, const int32_t defaultValue) noexcept -> int32_t
+    auto JsonObjectSerializer::getStringOrDefault(const rapidjson::Value& json, const std::string& key, const std::string& defaultValue) noexcept -> std::string
     {
-        if (json.HasMember(key) && json[key].IsInt())
-        {
-            return json[key].GetInt();
-        }
-        return defaultValue;
+        return getValueOrDefault<std::string>(json, key, defaultValue);
     }
 
-    auto JsonObjectSerializer::getDoubleOrDefault(const rapidjson::Value& json, const char* key, const double defaultValue) noexcept -> double
+    auto JsonObjectSerializer::getIntOrDefault(const rapidjson::Value& json, const std::string& key, const int32_t defaultValue) noexcept -> int32_t
     {
-        if (json.HasMember(key) && json[key].IsDouble())
-        {
-            return json[key].GetDouble();
-        }
-        return defaultValue;
+        return getValueOrDefault<int32_t>(json, key, defaultValue);
     }
 
-    auto JsonObjectSerializer::getBoolOrDefault(const rapidjson::Value& json, const char* key, const bool defaultValue) noexcept -> bool
+    auto JsonObjectSerializer::getDoubleOrDefault(const rapidjson::Value& json, const std::string& key, const double defaultValue) noexcept -> double
     {
-        if (json.HasMember(key) && json[key].IsBool())
-        {
-            return json[key].GetBool();
-        }
-        return defaultValue;
+        return getValueOrDefault<double>(json, key, defaultValue);
     }
 
-    auto JsonObjectSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key, const std::string& value) noexcept -> void
+    auto JsonObjectSerializer::getBoolOrDefault(const rapidjson::Value& json, const std::string& key, const bool defaultValue) noexcept -> bool
     {
-        writer.Key(key);
+        return getValueOrDefault<bool>(json, key, defaultValue);
+    }
+
+    auto JsonObjectSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const std::string& key, const std::string& value) noexcept -> void
+    {
+        writer.Key(key.c_str());
         writer.String(value.c_str());
     }
 
-    auto JsonObjectSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key, const int32_t value) noexcept -> void
+    auto JsonObjectSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const std::string& key, const int32_t value) noexcept -> void
     {
-        writer.Key(key);
+        writer.Key(key.c_str());
         writer.Int(value);
     }
 
-    auto JsonObjectSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key, const double value) noexcept -> void
+    auto JsonObjectSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const std::string& key, const double value) noexcept -> void
     {
-        writer.Key(key);
+        writer.Key(key.c_str());
         writer.Double(value);
     }
 
-    auto JsonObjectSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const char* key, const bool value) noexcept -> void
+    auto JsonObjectSerializer::serializeField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const std::string& key, const bool value) noexcept -> void
     {
-        writer.Key(key);
+        writer.Key(key.c_str());
         writer.Bool(value);
     }
 }
+
+// Explicitly instantiate templates to avoid linker errors
+template auto common::JsonObjectSerializer::getValueOrDefault<std::string>(const rapidjson::Value&, const std::string&, std::string) noexcept -> std::string;
+template auto common::JsonObjectSerializer::getValueOrDefault<int32_t>(const rapidjson::Value&, const std::string&, int32_t) noexcept -> int32_t;
+template auto common::JsonObjectSerializer::getValueOrDefault<double>(const rapidjson::Value&, const std::string&, double) noexcept -> double;
+template auto common::JsonObjectSerializer::getValueOrDefault<bool>(const rapidjson::Value&, const std::string&, bool) noexcept -> bool;

@@ -12,7 +12,7 @@ namespace common
     {
         if (!hasRemaining())
         {
-            throw std::out_of_range("No remaining elements to get");
+            throw std::out_of_range("LongBuffer::get: No remaining elements to get");
         }
         return buffer_[position_++];
     }
@@ -21,22 +21,22 @@ namespace common
     {
         if (!hasRemaining())
         {
-            throw std::out_of_range("No remaining space to put");
+            throw std::out_of_range("LongBuffer::put: No remaining space to put");
         }
         buffer_[position_++] = value;
     }
 
-    auto LongBuffer::hasRemaining() const -> bool
+    auto LongBuffer::hasRemaining() const noexcept -> bool
     {
         return position_ < limit_;
     }
 
-    auto LongBuffer::remaining() const -> std::size_t
+    auto LongBuffer::remaining() const noexcept -> std::size_t
     {
         return limit_ - position_;
     }
 
-    auto LongBuffer::position() const -> std::size_t
+    auto LongBuffer::position() const noexcept -> std::size_t
     {
         return position_;
     }
@@ -45,12 +45,12 @@ namespace common
     {
         if (newPosition > limit_)
         {
-            throw std::out_of_range("Position out of range");
+            throw std::out_of_range("LongBuffer::position: Position out of range");
         }
         position_ = newPosition;
     }
 
-    auto LongBuffer::limit() const -> std::size_t
+    auto LongBuffer::limit() const noexcept -> std::size_t
     {
         return limit_;
     }
@@ -59,7 +59,7 @@ namespace common
     {
         if (newLimit > capacity_)
         {
-            throw std::out_of_range("Limit exceeds capacity");
+            throw std::out_of_range("LongBuffer::limit: Limit exceeds capacity");
         }
         limit_ = newLimit;
         if (position_ > limit_)
@@ -68,24 +68,24 @@ namespace common
         }
     }
 
-    auto LongBuffer::capacity() const -> std::size_t
+    auto LongBuffer::capacity() const noexcept -> std::size_t
     {
         return capacity_;
     }
 
-    auto LongBuffer::clear() -> void
+    auto LongBuffer::clear() noexcept -> void
     {
         position_ = 0;
         limit_ = capacity_;
     }
 
-    auto LongBuffer::flip() -> void
+    auto LongBuffer::flip() noexcept -> void
     {
         limit_ = position_;
         position_ = 0;
     }
 
-    auto LongBuffer::rewind() -> void
+    auto LongBuffer::rewind() noexcept -> void
     {
         position_ = 0;
     }

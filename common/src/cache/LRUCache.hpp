@@ -94,7 +94,7 @@ namespace common
     };
 
     template <typename Key, typename Value, typename Map>
-    LRUCache<Key, Value, Map>::LRUCache(size_t capacity)
+    LRUCache<Key, Value, Map>::LRUCache(const size_t capacity)
         : capacity_(capacity)
     {
         if (capacity_ <= 0)

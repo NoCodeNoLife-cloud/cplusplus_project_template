@@ -13,9 +13,24 @@
 
 namespace common
 {
-    ThreadPool::ThreadPool(const size_t core_threads, const size_t max_threads, const size_t queue_size, const std::chrono::milliseconds idle_time) noexcept
+    ThreadPool::ThreadPool(const size_t core_threads, const size_t max_threads, const size_t queue_size, const std::chrono::milliseconds idle_time)
         : core_thread_count_(core_threads), max_thread_count_(max_threads), max_queue_size_(queue_size), thread_idle_time_(idle_time)
     {
+        if (core_threads == 0)
+        {
+            throw std::invalid_argument("ThreadPool::ThreadPool: core_threads must be greater than 0");
+        }
+
+        if (max_threads < core_threads)
+        {
+            throw std::invalid_argument("ThreadPool::ThreadPool: max_threads cannot be less than core_threads");
+        }
+
+        if (queue_size == 0)
+        {
+            throw std::invalid_argument("ThreadPool::ThreadPool: queue_size must be greater than 0");
+        }
+
         for (size_t i = 0; i < core_thread_count_; ++i)
         {
             addWorker();
@@ -24,32 +39,17 @@ namespace common
 
     ThreadPool::~ThreadPool()
     {
-        Shutdown();
-    }
-
-    template <class F, class... Args>
-    auto ThreadPool::Submit(F&& f, Args&&... args) -> std::future<std::invoke_result_t<F, Args...>>
-    {
-        using return_type = std::invoke_result_t<F, Args...>;
-
-        auto task = std::make_shared<std::packaged_task<return_type()>>(std::bind(std::forward<F>(f), std::forward<Args>(args)...));
-        std::future<return_type> res = task->get_future();
+        if (!stop_)
         {
-            std::unique_lock lock(queue_mutex_);
-            if (task_queue_.size() >= max_queue_size_)
-            {
-                throw std::runtime_error("Task queue is full");
-            }
-            task_queue_.emplace([task] { (*task)(); });
+            shutdown();
         }
-        condition_.notify_one();
-        return res;
     }
 
-    auto ThreadPool::Shutdown() -> void
+    auto ThreadPool::shutdown() -> void
     {
         {
             std::unique_lock lock(queue_mutex_);
+            if (stop_) return; // Already stopped
             stop_ = true;
         }
         condition_.notify_all();
@@ -59,21 +59,32 @@ namespace common
         }
     }
 
-    auto ThreadPool::ShutdownNow() -> void
+    auto ThreadPool::shutdownNow() -> void
     {
         {
             std::unique_lock lock(queue_mutex_);
+            if (stop_) return; // Already stopped
             stop_ = true;
-            while (!task_queue_.empty())
-            {
-                task_queue_.pop();
-            }
+            // Clear the task queue
+            std::queue<std::function<void()>> empty_queue;
+            task_queue_.swap(empty_queue); // Clear the queue efficiently
         }
         condition_.notify_all();
         for (std::thread& worker : workers_)
         {
             if (worker.joinable()) worker.join();
         }
+    }
+
+    auto ThreadPool::getActiveThreadCount() const -> size_t
+    {
+        return active_thread_count_.load();
+    }
+
+    auto ThreadPool::getQueueSize() -> size_t
+    {
+        std::unique_lock lock(queue_mutex_);
+        return task_queue_.size();
     }
 
     auto ThreadPool::worker() -> void
@@ -83,13 +94,23 @@ namespace common
             std::function<void()> task;
             {
                 std::unique_lock lock(queue_mutex_);
-                condition_.wait_for(lock, thread_idle_time_, [this] { return stop_ || !task_queue_.empty(); });
+                // Wait for a task or until timeout occurs for non-core threads
+                condition_.wait_for(lock, thread_idle_time_, [this]
+                {
+                    return stop_ || !task_queue_.empty();
+                });
+
+                // Exit if shutting down and no more tasks
                 if (stop_ && task_queue_.empty()) return;
+
+                // For non-core threads, exit if queue is empty and we have more than core count
                 if (task_queue_.empty() && active_thread_count_ > core_thread_count_)
                 {
                     --active_thread_count_;
                     return;
                 }
+
+                // Get a task if available
                 if (!task_queue_.empty())
                 {
                     task = std::move(task_queue_.front());

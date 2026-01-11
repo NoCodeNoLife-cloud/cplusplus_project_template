@@ -52,22 +52,22 @@ namespace common
         return has_upper && has_lower && has_digit && has_special;
     }
 
-    auto PasswordPolicy::is_uppercase_char(char c) noexcept -> bool
+    auto PasswordPolicy::is_uppercase_char(const char c) noexcept -> bool
     {
         return std::isupper(static_cast<unsigned char>(c));
     }
 
-    auto PasswordPolicy::is_lowercase_char(char c) noexcept -> bool
+    auto PasswordPolicy::is_lowercase_char(const char c) noexcept -> bool
     {
         return std::islower(static_cast<unsigned char>(c));
     }
 
-    auto PasswordPolicy::is_digit_char(char c) noexcept -> bool
+    auto PasswordPolicy::is_digit_char(const char c) noexcept -> bool
     {
         return std::isdigit(static_cast<unsigned char>(c));
     }
 
-    auto PasswordPolicy::is_special_char(char c) noexcept -> bool
+    auto PasswordPolicy::is_special_char(const char c) noexcept -> bool
     {
         return std::ispunct(static_cast<unsigned char>(c)) || std::isspace(static_cast<unsigned char>(c));
     }

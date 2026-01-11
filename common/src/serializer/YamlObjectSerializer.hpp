@@ -1,7 +1,10 @@
 #pragma once
 
+#include <yaml-cpp/yaml.h>
 #include <filesystem>
+#include <fstream>
 #include <string>
+#include <stdexcept>
 
 namespace common
 {
@@ -24,4 +27,56 @@ namespace common
         /// @throws std::runtime_error If file cannot be opened or decoded.
         [[nodiscard]] static auto deserialize(const std::string& filename) -> T;
     };
+
+    template <typename T>
+    auto YamlObjectSerializer<T>::serialize(const T& obj, const std::string& filename) -> void
+    {
+        if (filename.empty())
+        {
+            throw std::invalid_argument("YamlObjectSerializer::serialize: filename is empty");
+        }
+
+        const YAML::Node node = YAML::convert<T>::encode(obj);
+        YAML::Emitter emitter;
+        emitter << node;
+        const std::string yaml_str = emitter.c_str();
+
+        std::ofstream file_out(filename);
+        if (!file_out.is_open())
+        {
+            throw std::runtime_error("YamlObjectSerializer::serialize: Could not open file " + filename);
+        }
+
+        file_out << yaml_str;
+        
+        // Check for write errors before closing
+        if (file_out.fail())
+        {
+            throw std::runtime_error("YamlObjectSerializer::serialize: Could not write to file " + filename);
+        }
+    }
+
+    template <typename T>
+    [[nodiscard]] auto YamlObjectSerializer<T>::deserialize(const std::string& filename) -> T
+    {
+        if (filename.empty())
+        {
+            throw std::runtime_error("YamlObjectSerializer::deserialize: filename is empty");
+        }
+
+        if (!std::filesystem::exists(filename))
+        {
+            throw std::runtime_error("YamlObjectSerializer::deserialize: File does not exist: " + filename);
+        }
+
+        const YAML::Node node = YAML::LoadFile(filename);
+        T obj{};
+
+        if (!YAML::convert<T>::decode(node, obj))
+        {
+            throw std::runtime_error("YamlObjectSerializer::deserialize: Failed to decode YAML file " + filename);
+        }
+
+        return obj;
+    }
 }

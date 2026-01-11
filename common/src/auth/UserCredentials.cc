@@ -47,7 +47,7 @@ namespace common
         return is_locked(DEFAULT_LOCKOUT_DURATION, DEFAULT_MAX_ATTEMPTS);
     }
 
-    auto UserCredentials::is_locked(std::chrono::minutes lockout_duration, size_t max_attempts) const noexcept -> bool
+    auto UserCredentials::is_locked(const std::chrono::minutes lockout_duration, const size_t max_attempts) const noexcept -> bool
     {
         const auto now = std::chrono::system_clock::now();
         const auto time_since_last_fail = now - last_failed_attempt_;

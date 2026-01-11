@@ -1,6 +1,7 @@
 #pragma once
 
 #include <thread>
+#include <utility>
 
 namespace common
 {
@@ -29,7 +30,10 @@ namespace common
         /// @param f The callable object
         /// @param args The arguments to pass to the callable object
         template <typename Function, typename... Args>
-        explicit AutoJoinThread(Function&& f, Args&&... args);
+        explicit AutoJoinThread(Function&& f, Args&&... args)
+            : thread_(std::forward<Function>(f), std::forward<Args>(args)...)
+        {
+        }
 
         /// @brief Destructor that automatically joins the thread if it's joinable
         ~AutoJoinThread();
@@ -50,7 +54,7 @@ namespace common
 
         /// @brief Gets the native handle of the underlying thread
         /// @return The native handle of the thread
-        auto native_handle() -> std::thread::native_handle_type;
+        [[nodiscard]] auto native_handle() -> std::thread::native_handle_type;
 
     private:
         std::thread thread_; ///< The underlying thread object

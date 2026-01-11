@@ -17,19 +17,19 @@ namespace common
         return FloatBuffer(capacity);
     }
 
-    auto FloatBuffer::clear() -> void
+    auto FloatBuffer::clear() noexcept -> void
     {
         position_ = 0;
         limit_ = capacity_;
     }
 
-    auto FloatBuffer::flip() -> void
+    auto FloatBuffer::flip() noexcept -> void
     {
         limit_ = position_;
         position_ = 0;
     }
 
-    auto FloatBuffer::rewind() -> void
+    auto FloatBuffer::rewind() noexcept -> void
     {
         position_ = 0;
     }
@@ -48,7 +48,7 @@ namespace common
     {
         if (!hasRemaining())
         {
-            throw std::overflow_error("Buffer overflow");
+            throw std::overflow_error("FloatBuffer::put: Buffer overflow");
         }
         buffer_[position_++] = value;
     }
@@ -62,7 +62,7 @@ namespace common
 
         if (position_ + values.size() > limit_)
         {
-            throw std::overflow_error("Buffer overflow");
+            throw std::overflow_error("FloatBuffer::put: Buffer overflow");
         }
         std::ranges::copy(values, buffer_.begin() + static_cast<std::ptrdiff_t>(position_));
         position_ += values.size();
@@ -72,7 +72,7 @@ namespace common
     {
         if (!hasRemaining())
         {
-            throw std::underflow_error("Buffer underflow");
+            throw std::underflow_error("FloatBuffer::get: Buffer underflow");
         }
         return buffer_[position_++];
     }
@@ -86,7 +86,7 @@ namespace common
 
         if (position_ + length > limit_)
         {
-            throw std::underflow_error("Buffer underflow");
+            throw std::underflow_error("FloatBuffer::get: Buffer underflow");
         }
         std::vector result(buffer_.begin() + static_cast<std::ptrdiff_t>(position_), buffer_.begin() + static_cast<std::ptrdiff_t>(position_ + length));
         position_ += length;
@@ -102,7 +102,7 @@ namespace common
         return {buffer_.begin() + static_cast<std::ptrdiff_t>(position_), buffer_.begin() + static_cast<std::ptrdiff_t>(limit_)};
     }
 
-    auto FloatBuffer::position() const -> size_t
+    auto FloatBuffer::position() const noexcept -> size_t
     {
         return position_;
     }
@@ -111,12 +111,12 @@ namespace common
     {
         if (newPosition > limit_)
         {
-            throw std::out_of_range("Position exceeds limit.");
+            throw std::out_of_range("FloatBuffer::position: Position exceeds limit.");
         }
         position_ = newPosition;
     }
 
-    auto FloatBuffer::limit() const -> size_t
+    auto FloatBuffer::limit() const noexcept -> size_t
     {
         return limit_;
     }
@@ -125,7 +125,7 @@ namespace common
     {
         if (newLimit > capacity_)
         {
-            throw std::out_of_range("Limit exceeds capacity.");
+            throw std::out_of_range("FloatBuffer::limit: Limit exceeds capacity.");
         }
         if (position_ > newLimit)
         {
@@ -134,17 +134,17 @@ namespace common
         limit_ = newLimit;
     }
 
-    auto FloatBuffer::capacity() const -> size_t
+    auto FloatBuffer::capacity() const noexcept -> size_t
     {
         return capacity_;
     }
 
-    auto FloatBuffer::hasRemaining() const -> bool
+    auto FloatBuffer::hasRemaining() const noexcept -> bool
     {
         return position_ < limit_;
     }
 
-    auto FloatBuffer::remaining() const -> size_t
+    auto FloatBuffer::remaining() const noexcept -> size_t
     {
         return limit_ - position_;
     }

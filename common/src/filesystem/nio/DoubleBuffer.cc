@@ -12,19 +12,19 @@ namespace common
         buffer_.resize(capacity);
     }
 
-    auto DoubleBuffer::clear() -> void
+    auto DoubleBuffer::clear() noexcept -> void
     {
         position_ = 0;
         limit_ = capacity_;
     }
 
-    auto DoubleBuffer::flip() -> void
+    auto DoubleBuffer::flip() noexcept -> void
     {
         limit_ = position_;
         position_ = 0;
     }
 
-    auto DoubleBuffer::rewind() -> void
+    auto DoubleBuffer::rewind() noexcept -> void
     {
         position_ = 0;
     }
@@ -43,7 +43,7 @@ namespace common
     {
         if (!hasRemaining())
         {
-            throw std::overflow_error("Buffer overflow: Position exceeds limit.");
+            throw std::overflow_error("DoubleBuffer::put: Buffer overflow: Position exceeds limit.");
         }
         buffer_[position_++] = value;
         return *this;
@@ -58,7 +58,7 @@ namespace common
 
         if (values.size() > remaining())
         {
-            throw std::overflow_error("Buffer overflow: Not enough space for all values.");
+            throw std::overflow_error("DoubleBuffer::put: Buffer overflow: Not enough space for all values.");
         }
 
         for (const double value : values)
@@ -72,12 +72,12 @@ namespace common
     {
         if (!hasRemaining())
         {
-            throw std::underflow_error("Buffer underflow: Position exceeds limit.");
+            throw std::underflow_error("DoubleBuffer::get: Buffer underflow: Position exceeds limit.");
         }
         return buffer_[position_++];
     }
 
-    auto DoubleBuffer::position() const -> size_t
+    auto DoubleBuffer::position() const noexcept -> size_t
     {
         return position_;
     }
@@ -86,12 +86,12 @@ namespace common
     {
         if (newPosition > limit_)
         {
-            throw std::out_of_range("Position exceeds limit.");
+            throw std::out_of_range("DoubleBuffer::position: Position exceeds limit.");
         }
         position_ = newPosition;
     }
 
-    auto DoubleBuffer::limit() const -> size_t
+    auto DoubleBuffer::limit() const noexcept -> size_t
     {
         return limit_;
     }
@@ -100,7 +100,7 @@ namespace common
     {
         if (newLimit > capacity_)
         {
-            throw std::out_of_range("Limit exceeds capacity.");
+            throw std::out_of_range("DoubleBuffer::limit: Limit exceeds capacity.");
         }
         if (position_ > newLimit)
         {
@@ -109,17 +109,17 @@ namespace common
         limit_ = newLimit;
     }
 
-    auto DoubleBuffer::capacity() const -> size_t
+    auto DoubleBuffer::capacity() const noexcept -> size_t
     {
         return capacity_;
     }
 
-    auto DoubleBuffer::hasRemaining() const -> bool
+    auto DoubleBuffer::hasRemaining() const noexcept -> bool
     {
         return position_ < limit_;
     }
 
-    auto DoubleBuffer::remaining() const -> size_t
+    auto DoubleBuffer::remaining() const noexcept -> size_t
     {
         return limit_ - position_;
     }

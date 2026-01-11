@@ -7,9 +7,59 @@
 #include <string>
 #include <cstdint>
 #include <functional>
+#include <ctime>
 
 namespace common
 {
+    // Helper function to check if a year is a leap year
+    static auto isLeapYear(const int32_t year) -> bool
+    {
+        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    }
+
+    // Helper function to get days in a month
+    static auto getDaysInMonth(const int32_t year, const int32_t month) -> int32_t
+    {
+        static const int32_t daysInMonth[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        int32_t days = daysInMonth[month];
+        if (month == 2 && isLeapYear(year))
+        {
+            days = 29;
+        }
+
+        return days;
+    }
+
+    auto Date::isValidDate(const int32_t year, const int32_t month, const int32_t day, const int32_t hours, const int32_t minutes, const int32_t seconds) -> bool
+    {
+        if (month < 1 || month > 12)
+        {
+            return false;
+        }
+
+        if (day < 1 || day > getDaysInMonth(year, month))
+        {
+            return false;
+        }
+
+        if (hours < 0 || hours > 23)
+        {
+            return false;
+        }
+
+        if (minutes < 0 || minutes > 59)
+        {
+            return false;
+        }
+
+        if (seconds < 0 || seconds > 59)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     Date::Date() noexcept
         : time_point_(std::chrono::system_clock::now())
     {
@@ -17,10 +67,11 @@ namespace common
 
     Date::Date(const int32_t year, const int32_t month, const int32_t day)
     {
-        if (month < 1 || month > 12 || day < 1 || day > 31)
+        if (!isValidDate(year, month, day))
         {
-            throw std::invalid_argument("Invalid date components.");
+            throw std::invalid_argument("Date::Date: Invalid date components.");
         }
+
         std::tm tm = {};
         tm.tm_year = year - 1900;
         tm.tm_mon = month - 1;
@@ -32,17 +83,18 @@ namespace common
         const auto timeT = std::mktime(&tm);
         if (timeT == -1)
         {
-            throw std::invalid_argument("Invalid date components.");
+            throw std::invalid_argument("Date::Date: Invalid date components.");
         }
         time_point_ = std::chrono::system_clock::from_time_t(timeT);
     }
 
     Date::Date(const int32_t year, const int32_t month, const int32_t day, const int32_t hours, const int32_t minutes, const int32_t seconds)
     {
-        if (month < 1 || month > 12 || day < 1 || day > 31 || hours < 0 || hours > 23 || minutes < 0 || minutes > 59 || seconds < 0 || seconds > 59)
+        if (!isValidDate(year, month, day, hours, minutes, seconds))
         {
-            throw std::invalid_argument("Invalid date-time components.");
+            throw std::invalid_argument("Date::Date: Invalid date-time components.");
         }
+
         std::tm tm = {};
         tm.tm_year = year - 1900;
         tm.tm_mon = month - 1;
@@ -54,7 +106,7 @@ namespace common
         const auto timeT = std::mktime(&tm);
         if (timeT == -1)
         {
-            throw std::invalid_argument("Invalid date-time components.");
+            throw std::invalid_argument("Date::Date: Invalid date-time components.");
         }
         time_point_ = std::chrono::system_clock::from_time_t(timeT);
     }
@@ -105,6 +157,21 @@ namespace common
         return toTm().tm_mday;
     }
 
+    auto Date::getHours() const -> int32_t
+    {
+        return toTm().tm_hour;
+    }
+
+    auto Date::getMinutes() const -> int32_t
+    {
+        return toTm().tm_min;
+    }
+
+    auto Date::getSeconds() const -> int32_t
+    {
+        return toTm().tm_sec;
+    }
+
     auto Date::toString() const -> std::string
     {
         const auto tm = toTm();
@@ -128,5 +195,36 @@ namespace common
         localtime_r(&timeT, &tm);
 #endif
         return tm;
+    }
+
+    // Comparison operators
+    bool Date::operator==(const Date& other) const noexcept
+    {
+        return equals(other);
+    }
+
+    bool Date::operator!=(const Date& other) const noexcept
+    {
+        return !equals(other);
+    }
+
+    bool Date::operator<(const Date& other) const noexcept
+    {
+        return before(other);
+    }
+
+    bool Date::operator<=(const Date& other) const noexcept
+    {
+        return before(other) || equals(other);
+    }
+
+    bool Date::operator>(const Date& other) const noexcept
+    {
+        return after(other);
+    }
+
+    bool Date::operator>=(const Date& other) const noexcept
+    {
+        return after(other) || equals(other);
     }
 }

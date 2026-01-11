@@ -21,7 +21,7 @@ namespace common
     {
         if (!hasRemaining())
         {
-            throw std::out_of_range("No remaining elements to get");
+            throw std::out_of_range("ShortBuffer::get: No remaining elements to get");
         }
         return buffer_[position_++];
     }
@@ -30,7 +30,7 @@ namespace common
     {
         if (index >= limit_)
         {
-            throw std::out_of_range("Index out of bounds");
+            throw std::out_of_range("ShortBuffer::get: Index out of bounds");
         }
         return buffer_[index];
     }
@@ -39,7 +39,7 @@ namespace common
     {
         if (!hasRemaining())
         {
-            throw std::out_of_range("No remaining space to put");
+            throw std::out_of_range("ShortBuffer::put: No remaining space to put");
         }
         buffer_[position_++] = value;
     }
@@ -48,22 +48,22 @@ namespace common
     {
         if (index >= limit_)
         {
-            throw std::out_of_range("Index out of bounds");
+            throw std::out_of_range("ShortBuffer::put: Index out of bounds");
         }
         buffer_[index] = value;
     }
 
-    auto ShortBuffer::hasRemaining() const -> bool
+    auto ShortBuffer::hasRemaining() const noexcept -> bool
     {
         return position_ < limit_;
     }
 
-    auto ShortBuffer::remaining() const -> size_t
+    auto ShortBuffer::remaining() const noexcept -> size_t
     {
         return limit_ - position_;
     }
 
-    auto ShortBuffer::position() const -> size_t
+    auto ShortBuffer::position() const noexcept -> size_t
     {
         return position_;
     }
@@ -72,12 +72,12 @@ namespace common
     {
         if (newPosition > limit_)
         {
-            throw std::out_of_range("Position out of range");
+            throw std::out_of_range("ShortBuffer::position: Position out of range");
         }
         position_ = newPosition;
     }
 
-    auto ShortBuffer::limit() const -> size_t
+    auto ShortBuffer::limit() const noexcept -> size_t
     {
         return limit_;
     }
@@ -86,7 +86,7 @@ namespace common
     {
         if (newLimit > capacity_)
         {
-            throw std::out_of_range("Limit exceeds capacity");
+            throw std::out_of_range("ShortBuffer::limit: Limit exceeds capacity");
         }
         limit_ = newLimit;
         if (position_ > limit_)
@@ -95,24 +95,24 @@ namespace common
         }
     }
 
-    auto ShortBuffer::capacity() const -> size_t
+    auto ShortBuffer::capacity() const noexcept -> size_t
     {
         return capacity_;
     }
 
-    auto ShortBuffer::clear() -> void
+    auto ShortBuffer::clear() noexcept -> void
     {
         position_ = 0;
         limit_ = capacity_;
     }
 
-    auto ShortBuffer::flip() -> void
+    auto ShortBuffer::flip() noexcept -> void
     {
         limit_ = position_;
         position_ = 0;
     }
 
-    auto ShortBuffer::rewind() -> void
+    auto ShortBuffer::rewind() noexcept -> void
     {
         position_ = 0;
     }

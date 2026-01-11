@@ -9,12 +9,12 @@ namespace common
         limit_ = capacity;
     }
 
-    auto ByteBuffer::capacity() const -> size_t
+    auto ByteBuffer::capacity() const noexcept -> size_t
     {
         return capacity_;
     }
 
-    auto ByteBuffer::position() const -> size_t
+    auto ByteBuffer::position() const noexcept -> size_t
     {
         return position_;
     }
@@ -23,12 +23,12 @@ namespace common
     {
         if (newPosition > limit_)
         {
-            throw std::out_of_range("Position exceeds the current limit.");
+            throw std::out_of_range("ByteBuffer::position: Position exceeds the current limit.");
         }
         position_ = newPosition;
     }
 
-    auto ByteBuffer::limit() const -> size_t
+    auto ByteBuffer::limit() const noexcept -> size_t
     {
         return limit_;
     }
@@ -37,7 +37,7 @@ namespace common
     {
         if (newLimit > capacity_)
         {
-            throw std::out_of_range("Limit exceeds capacity.");
+            throw std::out_of_range("ByteBuffer::limit: New limit exceeds capacity.");
         }
         limit_ = newLimit;
         if (position_ > limit_)
@@ -46,29 +46,29 @@ namespace common
         }
     }
 
-    auto ByteBuffer::clear() -> void
+    auto ByteBuffer::clear() noexcept -> void
     {
         position_ = 0;
         limit_ = capacity_;
     }
 
-    auto ByteBuffer::flip() -> void
+    auto ByteBuffer::flip() noexcept -> void
     {
         limit_ = position_;
         position_ = 0;
     }
 
-    auto ByteBuffer::rewind() -> void
+    auto ByteBuffer::rewind() noexcept -> void
     {
         position_ = 0;
     }
 
-    auto ByteBuffer::remaining() const -> size_t
+    auto ByteBuffer::remaining() const noexcept -> size_t
     {
         return limit_ - position_;
     }
 
-    auto ByteBuffer::hasRemaining() const -> bool
+    auto ByteBuffer::hasRemaining() const noexcept -> bool
     {
         return position_ < limit_;
     }
@@ -77,7 +77,7 @@ namespace common
     {
         if (!hasRemaining())
         {
-            throw std::overflow_error("Buffer overflow");
+            throw std::overflow_error("ByteBuffer::put: Buffer overflow");
         }
         buffer_[position_++] = value;
     }
@@ -91,7 +91,7 @@ namespace common
 
         if (src.size() > remaining())
         {
-            throw std::overflow_error("Insufficient space in buffer");
+            throw std::overflow_error("ByteBuffer::put: Insufficient space in buffer");
         }
 
         std::memcpy(buffer_.data() + position_, src.data(), src.size());
@@ -102,7 +102,7 @@ namespace common
     {
         if (!hasRemaining())
         {
-            throw std::underflow_error("Buffer underflow");
+            throw std::underflow_error("ByteBuffer::get: Buffer underflow");
         }
         return buffer_[position_++];
     }
@@ -116,7 +116,7 @@ namespace common
 
         if (length > remaining())
         {
-            throw std::underflow_error("Insufficient data in buffer");
+            throw std::underflow_error("ByteBuffer::get: Insufficient data in buffer");
         }
 
         std::vector result(buffer_.begin() + static_cast<std::ptrdiff_t>(position_), buffer_.begin() + static_cast<std::ptrdiff_t>(position_ + length));

@@ -1,5 +1,4 @@
 #include "SQLiteManager.hpp"
-#include <glog/logging.h>
 
 namespace common
 {
@@ -21,6 +20,11 @@ namespace common
 
     void SQLiteManager::createDatabase(const std::string& db_path)
     {
+        if (db_path.empty())
+        {
+            throw std::invalid_argument("SQLiteManager::createDatabase: Database path cannot be empty");
+        }
+        
         if (db_)
         {
             closeDatabase();
@@ -29,11 +33,12 @@ namespace common
         sqlite3* raw_db;
         if (sqlite3_open(db_path.c_str(), &raw_db) != SQLITE_OK)
         {
-            throw std::runtime_error("Database open failed: " + std::string(sqlite3_errmsg(raw_db)));
+            std::string error_msg = "SQLiteManager::createDatabase: Database open failed for path '" + db_path + "': " + std::string(sqlite3_errmsg(raw_db));
+            sqlite3_close(raw_db); // Clean up the failed connection
+            throw std::runtime_error(error_msg);
         }
 
         db_.reset(raw_db);
-        LOG(INFO) << "Database connection established: " << db_path;
     }
 
     void SQLiteManager::closeDatabase()
@@ -41,7 +46,6 @@ namespace common
         if (db_)
         {
             db_.reset(nullptr);
-            LOG(INFO) << "Database connection closed";
         }
     }
 
@@ -49,24 +53,22 @@ namespace common
     {
         if (!db_)
         {
-            throw std::runtime_error("Database not open");
+            throw std::runtime_error("SQLiteManager::exec: Database not open");
+        }
+
+        if (sql.empty())
+        {
+            throw std::invalid_argument("SQLiteManager::exec: SQL statement cannot be empty");
         }
 
         sqlite3_stmt* stmt;
         if (sqlite3_prepare_v2(db_.get(), sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK)
         {
-            throw std::runtime_error("SQL prepare failed: " + std::string(sqlite3_errmsg(db_.get())));
+            throw std::runtime_error("SQLiteManager::exec: SQL prepare failed: " + std::string(sqlite3_errmsg(db_.get())));
         }
 
-        // Bind parameters
-        for (size_t i = 0; i < params.size(); ++i)
-        {
-            if (sqlite3_bind_text(stmt, static_cast<int>(i + 1), params[i].c_str(), -1, SQLITE_STATIC) != SQLITE_OK)
-            {
-                sqlite3_finalize(stmt);
-                throw std::runtime_error("Parameter binding failed");
-            }
-        }
+        // Bind parameters using helper function
+        bindParameters(stmt, params, "exec");
 
         // Execute statement
         const int rc = sqlite3_step(stmt);
@@ -77,7 +79,7 @@ namespace common
 
         if (rc != SQLITE_DONE)
         {
-            throw std::runtime_error("SQL execution failed: " + std::string(sqlite3_errmsg(db_.get())));
+            throw std::runtime_error("SQLiteManager::exec: SQL execution failed: " + std::string(sqlite3_errmsg(db_.get())));
         }
 
         return affected;
@@ -87,7 +89,12 @@ namespace common
     {
         if (!db_)
         {
-            throw std::runtime_error("Database not open");
+            throw std::runtime_error("SQLiteManager::query: Database not open");
+        }
+
+        if (sql.empty())
+        {
+            throw std::invalid_argument("SQLiteManager::query: SQL statement cannot be empty");
         }
 
         std::vector<std::vector<std::string>> results;
@@ -95,18 +102,11 @@ namespace common
 
         if (sqlite3_prepare_v2(db_.get(), sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK)
         {
-            throw std::runtime_error("Query preparation failed: " + std::string(sqlite3_errmsg(db_.get())));
+            throw std::runtime_error("SQLiteManager::query: Query preparation failed: " + std::string(sqlite3_errmsg(db_.get())));
         }
 
-        // Bind parameters
-        for (size_t i = 0; i < params.size(); ++i)
-        {
-            if (sqlite3_bind_text(stmt, static_cast<int>(i + 1), params[i].c_str(), -1, SQLITE_STATIC) != SQLITE_OK)
-            {
-                sqlite3_finalize(stmt);
-                throw std::runtime_error("Parameter binding failed");
-            }
-        }
+        // Bind parameters using helper function
+        bindParameters(stmt, params, "query");
 
         // Process results
         while (sqlite3_step(stmt) == SQLITE_ROW)
@@ -127,4 +127,16 @@ namespace common
     }
 
     auto SQLiteManager::isOpen() const -> bool { return db_ != nullptr; }
+    
+    void SQLiteManager::bindParameters(sqlite3_stmt* stmt, const std::vector<std::string>& params, const std::string& method_name) const
+    {
+        for (size_t i = 0; i < params.size(); ++i)
+        {
+            if (sqlite3_bind_text(stmt, static_cast<int>(i + 1), params[i].c_str(), -1, SQLITE_STATIC) != SQLITE_OK)
+            {
+                sqlite3_finalize(stmt);
+                throw std::runtime_error("SQLiteManager::" + method_name + ": Parameter binding failed at index " + std::to_string(i));
+            }
+        }
+    }
 } // common

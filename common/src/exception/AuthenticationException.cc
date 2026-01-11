@@ -8,7 +8,7 @@ namespace common
     {
     }
 
-    AuthenticationException::AuthenticationException(std::string_view message)
+    AuthenticationException::AuthenticationException(const std::string_view message)
         : std::runtime_error(std::string(message))
     {
     }

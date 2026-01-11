@@ -62,6 +62,19 @@ namespace common
         return {-x_, -y_, -z_};
     }
 
+    auto Point3D::distanceTo(const Point3D& other) const noexcept -> double
+    {
+        return std::sqrt(distanceSquaredTo(other));
+    }
+
+    auto Point3D::distanceSquaredTo(const Point3D& other) const noexcept -> double
+    {
+        const double dx = x_ - other.x_;
+        const double dy = y_ - other.y_;
+        const double dz = z_ - other.z_;
+        return dx * dx + dy * dy + dz * dz;
+    }
+
     auto operator+(Point3D lhs, const Point3D& rhs) noexcept -> Point3D
     {
         lhs += rhs;
@@ -76,7 +89,8 @@ namespace common
 
     auto operator==(const Point3D& lhs, const Point3D& rhs) noexcept -> bool
     {
-        return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY() && lhs.getZ() == rhs.getZ();
+        constexpr double epsilon = 1e-9;
+        return std::abs(lhs.getX() - rhs.getX()) < epsilon && std::abs(lhs.getY() - rhs.getY()) < epsilon && std::abs(lhs.getZ() - rhs.getZ()) < epsilon;
     }
 
     auto operator!=(const Point3D& lhs, const Point3D& rhs) noexcept -> bool

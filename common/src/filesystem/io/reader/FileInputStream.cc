@@ -45,7 +45,7 @@ namespace common
         return !closed_ && file_stream_.good();
     }
 
-    auto FileInputStream::validateBufferParams(const std::vector<std::byte>& buffer, size_t offset, size_t len) -> void
+    auto FileInputStream::validateBufferParams(const std::vector<std::byte>& buffer, const size_t offset, const size_t len) -> void
     {
         if (offset > buffer.size() || len > buffer.size() - offset)
         {

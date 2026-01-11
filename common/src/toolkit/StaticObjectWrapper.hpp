@@ -3,7 +3,7 @@
 #include <mutex>
 #include <stdexcept>
 
-namespace fox
+namespace common
 {
     /// @brief A wrapper class for static object initialization and management.
     /// Ensures thread-safe initialization of static objects with lazy initialization support.
@@ -25,10 +25,14 @@ namespace fox
         /// @brief Get a mutable reference to the static object
         /// @return Reference to the static object
         /// @throws std::runtime_error if object was not initialized and is not default constructible
-        static auto get() -> T&;
+        [[nodiscard]] static auto get() -> T&;
 
         /// @brief Destroy the static object if it exists
         static void destroy() noexcept;
+
+        /// @brief Check if the static object has been initialized
+        /// @return true if initialized, false otherwise
+        [[nodiscard]] static auto isInitialized() -> bool;
 
     private:
         static inline T* instance_ = nullptr;
@@ -61,7 +65,7 @@ namespace fox
 
         if (!instance_)
         {
-            throw std::runtime_error("StaticObjectWrapper: Object not initialized. " "Call init() with required parameters before first use.");
+            throw std::runtime_error("StaticObjectWrapper::get: Object not initialized. Call init() with required parameters before first use.");
         }
         return *instance_;
     }
@@ -74,6 +78,12 @@ namespace fox
             delete instance_;
             instance_ = nullptr;
         }
+    }
+
+    template <typename T>
+    auto StaticObjectWrapper<T>::isInitialized() -> bool
+    {
+        return instance_ != nullptr;
     }
 
     template <typename T>

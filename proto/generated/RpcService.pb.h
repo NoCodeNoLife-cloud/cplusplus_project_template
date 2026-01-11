@@ -2495,7 +2495,7 @@ namespace rpc
         return _internal_success();
     }
 
-    inline void AuthResponse::set_success(bool value)
+    inline void AuthResponse::set_success(const bool value)
     {
         _internal_set_success(value);
         // @@protoc_insertion_point(field_set:rpc.AuthResponse.success)
@@ -2507,7 +2507,7 @@ namespace rpc
         return _impl_.success_;
     }
 
-    inline void AuthResponse::_internal_set_success(bool value)
+    inline void AuthResponse::_internal_set_success(const bool value)
     {
         ::google::protobuf::internal::TSanWrite(&_impl_);
         _impl_.success_ = value;
@@ -2588,7 +2588,7 @@ namespace rpc
         return _internal_error_code();
     }
 
-    inline void AuthResponse::set_error_code(::int32_t value)
+    inline void AuthResponse::set_error_code(const ::int32_t value)
     {
         _internal_set_error_code(value);
         // @@protoc_insertion_point(field_set:rpc.AuthResponse.error_code)
@@ -2600,7 +2600,7 @@ namespace rpc
         return _impl_.error_code_;
     }
 
-    inline void AuthResponse::_internal_set_error_code(::int32_t value)
+    inline void AuthResponse::_internal_set_error_code(const ::int32_t value)
     {
         ::google::protobuf::internal::TSanWrite(&_impl_);
         _impl_.error_code_ = value;

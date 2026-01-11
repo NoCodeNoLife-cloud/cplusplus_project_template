@@ -75,6 +75,18 @@ namespace common
         /// @return The day of the month (1-31)
         [[nodiscard]] auto getDay() const -> int32_t;
 
+        /// @brief Returns the hour represented by this date.
+        /// @return The hour (0-23)
+        [[nodiscard]] auto getHours() const -> int32_t;
+
+        /// @brief Returns the minute represented by this date.
+        /// @return The minute (0-59)
+        [[nodiscard]] auto getMinutes() const -> int32_t;
+
+        /// @brief Returns the second represented by this date.
+        /// @return The second (0-59)
+        [[nodiscard]] auto getSeconds() const -> int32_t;
+
         /// @brief Converts this date to a string representation.
         /// @return A string representation of the date in format "YYYY-MM-DD HH:MM:SS"
         [[nodiscard]] auto toString() const -> std::string;
@@ -83,11 +95,29 @@ namespace common
         /// @return The hash code value
         [[nodiscard]] auto hashCode() const noexcept -> size_t;
 
+        // Comparison operators
+        [[nodiscard]] bool operator==(const Date& other) const noexcept;
+        [[nodiscard]] bool operator!=(const Date& other) const noexcept;
+        [[nodiscard]] bool operator<(const Date& other) const noexcept;
+        [[nodiscard]] bool operator<=(const Date& other) const noexcept;
+        [[nodiscard]] bool operator>(const Date& other) const noexcept;
+        [[nodiscard]] bool operator>=(const Date& other) const noexcept;
+
     private:
         std::chrono::system_clock::time_point time_point_{};
 
         /// @brief Converts the time point to a std::tm structure.
         /// @return The tm structure representation of the date
         [[nodiscard]] auto toTm() const -> std::tm;
+
+        /// @brief Validates if the given date components form a valid date
+        /// @param year The year
+        /// @param month The month (1-12)
+        /// @param day The day (1-31)
+        /// @param hours The hours (0-23)
+        /// @param minutes The minutes (0-59)
+        /// @param seconds The seconds (0-59)
+        /// @return true if the date components are valid, false otherwise
+        [[nodiscard]] static auto isValidDate(int32_t year, int32_t month, int32_t day, int32_t hours = 0, int32_t minutes = 0, int32_t seconds = 0) -> bool;
     };
 }

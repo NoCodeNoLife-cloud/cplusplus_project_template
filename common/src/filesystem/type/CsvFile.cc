@@ -12,7 +12,8 @@ namespace common
         }
         catch (const std::exception& e)
         {
-            std::cerr << "Error loading CSV file: " << e.what() << std::endl;
+            // Error silently handled as the function is marked noexcept
+            // Client code should check validity through other methods
             is_valid_ = false;
         }
     }
@@ -34,12 +35,10 @@ namespace common
         if (!is_valid_) return false;
         if (insertIndex > getRowCount())
         {
-            std::cerr << "Invalid insert index: " << insertIndex << std::endl;
             return false;
         }
         if (getColumnCount() != 0 && item.size() != getColumnCount())
         {
-            std::cerr << "Column count mismatch. Expected: " << getColumnCount() << ", Got: " << item.size() << std::endl;
             return false;
         }
         try
@@ -49,7 +48,6 @@ namespace common
         }
         catch (const std::exception& e)
         {
-            std::cerr << "Insert row failed: " << e.what() << std::endl;
             return false;
         }
     }
@@ -76,7 +74,6 @@ namespace common
         }
         catch (const std::exception& e)
         {
-            std::cerr << "Failed to save file: " << e.what() << std::endl;
             return false;
         }
     }

@@ -10,12 +10,6 @@ namespace common
     {
     }
 
-    template <typename Function, typename... Args>
-    AutoJoinThread::AutoJoinThread(Function&& f, Args&&... args)
-        : thread_(std::forward<Function>(f), std::forward<Args>(args)...)
-    {
-    }
-
     AutoJoinThread::~AutoJoinThread()
     {
         if (thread_.joinable())

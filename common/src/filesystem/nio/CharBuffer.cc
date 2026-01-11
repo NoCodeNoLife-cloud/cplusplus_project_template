@@ -13,19 +13,19 @@ namespace common
         capacity_ = cap;
     }
 
-    auto CharBuffer::clear() -> void
+    auto CharBuffer::clear() noexcept -> void
     {
         position_ = 0;
         limit_ = capacity_;
     }
 
-    auto CharBuffer::flip() -> void
+    auto CharBuffer::flip() noexcept -> void
     {
         limit_ = position_;
         position_ = 0;
     }
 
-    auto CharBuffer::rewind() -> void
+    auto CharBuffer::rewind() noexcept -> void
     {
         position_ = 0;
     }
@@ -44,7 +44,7 @@ namespace common
     {
         if (!hasRemaining())
         {
-            throw std::overflow_error("Buffer overflow.");
+            throw std::overflow_error("CharBuffer::put: Buffer overflow.");
         }
         buffer_[position_++] = c;
     }
@@ -58,7 +58,7 @@ namespace common
 
         if (position_ + src.size() > limit_)
         {
-            throw std::overflow_error("Buffer overflow.");
+            throw std::overflow_error("CharBuffer::put: Buffer overflow.");
         }
         std::ranges::copy(src, buffer_.begin() + static_cast<std::ptrdiff_t>(position_));
         position_ += src.size();
@@ -68,7 +68,7 @@ namespace common
     {
         if (!hasRemaining())
         {
-            throw std::underflow_error("Buffer underflow.");
+            throw std::underflow_error("CharBuffer::get: Buffer underflow.");
         }
         return buffer_[position_++];
     }
@@ -82,7 +82,7 @@ namespace common
         return {buffer_.begin() + static_cast<std::ptrdiff_t>(position_), buffer_.begin() + static_cast<std::ptrdiff_t>(limit_)};
     }
 
-    auto CharBuffer::position() const -> size_t
+    auto CharBuffer::position() const noexcept -> size_t
     {
         return position_;
     }
@@ -91,12 +91,12 @@ namespace common
     {
         if (newPosition > limit_)
         {
-            throw std::out_of_range("Position exceeds limit.");
+            throw std::out_of_range("CharBuffer::position: Position exceeds limit.");
         }
         position_ = newPosition;
     }
 
-    auto CharBuffer::limit() const -> size_t
+    auto CharBuffer::limit() const noexcept -> size_t
     {
         return limit_;
     }
@@ -105,7 +105,7 @@ namespace common
     {
         if (newLimit > capacity_)
         {
-            throw std::out_of_range("Limit exceeds capacity.");
+            throw std::out_of_range("CharBuffer::limit: Limit exceeds capacity.");
         }
         if (position_ > newLimit)
         {
@@ -114,17 +114,17 @@ namespace common
         limit_ = newLimit;
     }
 
-    auto CharBuffer::capacity() const -> size_t
+    auto CharBuffer::capacity() const noexcept -> size_t
     {
         return capacity_;
     }
 
-    auto CharBuffer::hasRemaining() const -> bool
+    auto CharBuffer::hasRemaining() const noexcept -> bool
     {
         return position_ < limit_;
     }
 
-    auto CharBuffer::remaining() const -> size_t
+    auto CharBuffer::remaining() const noexcept -> size_t
     {
         return limit_ - position_;
     }

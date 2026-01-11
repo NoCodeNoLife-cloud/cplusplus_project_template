@@ -51,6 +51,16 @@ namespace common
         /// @return Negated point
         [[nodiscard]] auto operator-() const noexcept -> Point3D;
 
+        /// @brief Calculate Euclidean distance to another point
+        /// @param other Point to calculate distance to
+        /// @return Euclidean distance
+        [[nodiscard]] auto distanceTo(const Point3D& other) const noexcept -> double;
+
+        /// @brief Calculate squared distance to another point (avoids sqrt)
+        /// @param other Point to calculate distance to
+        /// @return Squared Euclidean distance
+        [[nodiscard]] auto distanceSquaredTo(const Point3D& other) const noexcept -> double;
+
         // Friend operators
         friend auto operator+(Point3D lhs, const Point3D& rhs) noexcept -> Point3D;
 

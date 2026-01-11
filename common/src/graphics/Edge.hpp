@@ -31,8 +31,18 @@ namespace common
         /// @param weight Edge weight
         auto setWeight(int32_t weight) noexcept -> void;
 
+        /// @brief Equality operator
+        /// @param other Edge to compare with
+        /// @return True if edges are equal
+        [[nodiscard]] auto operator==(const Edge& other) const noexcept -> bool;
+
+        /// @brief Inequality operator
+        /// @param other Edge to compare with
+        /// @return True if edges are not equal
+        [[nodiscard]] auto operator!=(const Edge& other) const noexcept -> bool;
+
     private:
         int32_t to_{0};
         int32_t weight_{0};
     };
-}
+};

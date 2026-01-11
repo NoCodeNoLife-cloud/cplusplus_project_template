@@ -98,7 +98,7 @@ namespace common
 
         while (remainingLen > 0)
         {
-            const size_t bytesProcessed = processWithBuffer([&](size_t available) -> size_t
+            const size_t bytesProcessed = processWithBuffer([&](const size_t available) -> size_t
             {
                 const size_t bytesToRead = std::min(remainingLen, available);
                 std::copy_n(buf_.begin() + static_cast<std::ptrdiff_t>(pos_), bytesToRead, buffer.begin() + static_cast<std::ptrdiff_t>(currentOffset));
@@ -137,7 +137,7 @@ namespace common
 
         while (remaining > 0)
         {
-            const size_t bytesProcessed = processWithBuffer([&](size_t available) -> size_t
+            const size_t bytesProcessed = processWithBuffer([&](const size_t available) -> size_t
             {
                 const size_t bytesToSkip = std::min(remaining, available);
                 pos_ += bytesToSkip;
