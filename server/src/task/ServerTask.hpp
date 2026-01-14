@@ -1,26 +1,24 @@
 #pragma once
 #include <grpcpp/server_builder.h>
 
-#include <string>
 #include <memory>
+#include <string>
 
 #include "src/rpc/AuthRpcServiceOptions.hpp"
 #include "src/time/FunctionProfiler.hpp"
+#include "task/ITask.h"
 
 namespace app_server
 {
     /// @brief ServerTask is responsible for managing the main service loop
     /// @details This class coordinates various subsystems within the application server,
     /// initializes the gRPC server, loads configurations, and manages the server lifecycle.
-    class ServerTask final
+    class ServerTask final : public common::ITask
     {
     public:
         /// @brief Construct a ServerTask with the specified name
         /// @param name The name of the server task for profiling purposes
         explicit ServerTask(std::string name) noexcept;
-
-        /// @brief Destructor shuts down the server if running
-        ~ServerTask();
 
         /// @brief Copy constructor deleted to prevent copying
         ServerTask(const ServerTask&) = delete;
@@ -40,7 +38,7 @@ namespace app_server
 
         /// @brief Run the main task
         /// @details Initializes the server, establishes gRPC connection, and starts listening
-        auto run() -> void;
+        auto run() -> void override;
 
         /// @brief Exit the service task and clean up resources
         /// @details Shuts down the gRPC server and performs cleanup operations

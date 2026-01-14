@@ -1,15 +1,16 @@
 #pragma once
-#include <grpcpp/grpcpp.h>
 #include <memory>
 #include <string>
+#include <grpcpp/grpcpp.h>
 
-#include "src/rpc/AuthRpcClientOptions.hpp"
 #include "src/rpc/AuthRpcClient.hpp"
+#include "src/rpc/AuthRpcClientOptions.hpp"
 #include "src/time/FunctionProfiler.hpp"
+#include "task/ITask.h"
 
 namespace app_client
 {
-    class ClientTask final
+    class ClientTask final: public common::ITask
     {
     public:
         /// @brief Default constructor explicitly deleted to enforce parameterized construction
@@ -32,7 +33,7 @@ namespace app_client
         /// @brief Run the main task
         /// @details Initializes the client, creates a gRPC channel, sends a message to the server,
         /// and exits cleanly
-        auto run() -> void;
+        auto run() -> void override;
 
         /// @brief Exit the client task
         /// @details Records the end time and logs completion

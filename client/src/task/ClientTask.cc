@@ -13,7 +13,7 @@
 namespace app_client
 {
     ClientTask::ClientTask(const std::string& project_name_) noexcept
-        : application_dev_config_path_{"../../client/src/application-dev.yml"}, rpc_options_{AuthRpcClientOptions::builder().build()}, timer_{project_name_}
+        : rpc_options_{AuthRpcClientOptions::builder().build()}, timer_{project_name_}
     {
         timer_.recordStart();
     }

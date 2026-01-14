@@ -14,8 +14,6 @@ namespace app_server
     {
     }
 
-    ServerTask::~ServerTask() = default;
-
     ServerTask::ServerTask(ServerTask&&) noexcept = default;
 
     auto ServerTask::init() -> void
@@ -91,8 +89,7 @@ namespace app_server
             return false;
         }
 
-        LOG(INFO) << fmt::format("Server listening on {}", server_address);
-        LOG(INFO) << "gRPC server started and waiting for connections...";
+        LOG(INFO) << fmt::format("Server listening on {}, gRPC server started and waiting for connections...", server_address);
         server_->Wait();
 
         LOG(INFO) << "gRPC connection established.";

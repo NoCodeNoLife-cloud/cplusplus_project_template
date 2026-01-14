@@ -34,6 +34,6 @@ namespace common
         auto operator=(AuthenticationException&& other) noexcept -> AuthenticationException& = default;
 
         /// @brief Virtual destructor for proper cleanup in inheritance hierarchy
-        virtual ~AuthenticationException() noexcept;
+        ~AuthenticationException() noexcept override;
     };
 }
