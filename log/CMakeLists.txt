@@ -10,7 +10,7 @@ add_library(${LOG_SERVICE} ${GLOG_SRC_FILES})
 
 # Set the header file path
 target_include_directories(${LOG_SERVICE} PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
 # Link required libraries
