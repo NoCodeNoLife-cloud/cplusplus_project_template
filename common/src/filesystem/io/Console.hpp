@@ -10,7 +10,7 @@ namespace common
     /// @brief Provides console input/output operations with formatting capabilities.
     /// This class implements the IFlushable interface and offers methods for formatted
     /// output, input reading, and stream management.
-    class Console final : public IFlushable
+    class Console final : public interfaces::IFlushable
     {
     public:
         /// @brief Formats and prints a string to the console.
@@ -28,7 +28,7 @@ namespace common
         auto printf(const std::string& fmt, Args&&... args) const -> void;
 
         /// @brief Flushes the console output.
-        auto flush() noexcept -> void override;
+        auto flush() -> void override;
 
         /// @brief Reads a line from the console.
         /// @return The read line as a string.

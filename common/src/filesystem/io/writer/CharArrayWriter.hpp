@@ -13,7 +13,7 @@ namespace common
     /// to an internal buffer. The buffer automatically expands as needed to hold
     /// more data. You can retrieve the contents of the buffer as either a string
     /// or a character array.
-    class CharArrayWriter final : public AbstractWriter, IAppendable<CharArrayWriter>
+    class CharArrayWriter final : public AbstractWriter, interfaces::IAppendable<CharArrayWriter>
     {
     public:
         /// @brief Constructs a new character array writer with default buffer size.
@@ -120,7 +120,7 @@ namespace common
         [[nodiscard]] auto toString() const -> std::string override;
 
         /// @brief Flushes the stream (no-op for this implementation).
-        auto flush() noexcept -> void override;
+        auto flush() -> void override;
 
         /// @brief Closes the writer (no-op for this implementation).
         auto close() -> void override;

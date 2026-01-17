@@ -91,7 +91,7 @@ namespace common
         // No operation for ByteArrayOutputStream.
     }
 
-    auto ByteArrayOutputStream::flush() noexcept -> void
+    auto ByteArrayOutputStream::flush() -> void
     {
         // No operation for ByteArrayOutputStream.
     }

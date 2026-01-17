@@ -1,6 +1,6 @@
 #pragma once
 
-namespace common
+namespace common::interfaces
 {
     /// @brief Interface for timer tasks that can be executed by a timer.
     /// This interface defines the contract for tasks that can be scheduled

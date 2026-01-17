@@ -162,7 +162,7 @@ namespace common
         return {buf_.begin(), buf_.begin() + static_cast<std::vector<char>::difference_type>(count_)};
     }
 
-    auto CharArrayWriter::flush() noexcept -> void
+    auto CharArrayWriter::flush() -> void
     {
         // No operation for CharArrayWriter.
     }

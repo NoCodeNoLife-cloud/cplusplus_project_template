@@ -24,7 +24,7 @@ namespace common
         {
             throw std::invalid_argument("SQLiteManager::createDatabase: Database path cannot be empty");
         }
-        
+
         if (db_)
         {
             closeDatabase();
@@ -127,7 +127,7 @@ namespace common
     }
 
     auto SQLiteManager::isOpen() const -> bool { return db_ != nullptr; }
-    
+
     void SQLiteManager::bindParameters(sqlite3_stmt* stmt, const std::vector<std::string>& params, const std::string& method_name) const
     {
         for (size_t i = 0; i < params.size(); ++i)

@@ -23,7 +23,7 @@ namespace app_client
     ///     .serverAddress("localhost:50051")
     ///     .build();
     /// @endcode
-    class AuthRpcClientOptions final : public common::IYamlConfigurable
+    class AuthRpcClientOptions final : public common::interfaces::IYamlConfigurable
     {
     public:
         /// @brief Default constructor explicitly deleted to enforce parameterized construction

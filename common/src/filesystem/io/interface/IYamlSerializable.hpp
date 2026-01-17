@@ -2,7 +2,7 @@
 
 #include <yaml-cpp/node/convert.h>
 
-namespace fox
+namespace common::interfaces
 {
     /// @brief Interface for YAML serializable objects.
     /// This interface provides methods to encode and decode objects to and from YAML nodes.

@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace common
+namespace common::interfaces
 {
     /// @brief Abstract base class defining the interface for object serialization/deserialization
     /// @tparam T The type of object to be serialized/deserialized

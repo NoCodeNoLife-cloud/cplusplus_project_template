@@ -1,6 +1,6 @@
 #pragma once
 
-namespace common
+namespace common::interfaces
 {
     /**
      * @brief Abstract interface class for tasks

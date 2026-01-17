@@ -8,7 +8,7 @@ namespace common
 {
     /// @brief A DoubleBuffer class that implements the IBuffer interface for handling double precision floating point
     /// numbers. This class provides functionality to put and get double values from a buffer with a specified capacity.
-    class DoubleBuffer final : public IBuffer
+    class DoubleBuffer final : public interfaces::IBuffer
     {
     public:
         /// @brief Constructs a DoubleBuffer with the specified capacity.

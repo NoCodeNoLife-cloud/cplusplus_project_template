@@ -39,7 +39,7 @@ namespace common
 
         /// @brief Flushes the output stream, ensuring all buffered data is written.
         /// @throws std::runtime_error If the output stream is not available.
-        auto flush() noexcept -> void override;
+        auto flush() -> void override;
 
         /// @brief Closes the output stream and releases any associated resources.
         /// @throws std::runtime_error If the output stream is not available.

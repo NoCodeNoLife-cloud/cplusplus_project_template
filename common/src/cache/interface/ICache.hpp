@@ -1,7 +1,7 @@
 #pragma once
 #include <optional>
 
-namespace common
+namespace common::interfaces
 {
     /// @brief Abstract interface for cache implementations
     /// @tparam Key Type of the key used to identify cache entries

@@ -4,7 +4,7 @@
 #include <string>
 #include <stdexcept>
 
-namespace service
+namespace service::interfaces
 {
     /// @brief Interface for application execution functionality.
     /// This interface defines the contract for classes that execute applications
@@ -21,7 +21,7 @@ namespace service
         /// @return true if the execution was successful, false otherwise.
         /// @throws std::runtime_error if execution fails with details about the failure
         [[nodiscard]] virtual auto execute(int32_t argc, char* argv[]) noexcept -> bool = 0;
-        
+
         /// @brief Executes the application with vector of string arguments (modern alternative).
         /// @param args Vector of string arguments representing the command-line arguments.
         /// @return true if the execution was successful, false otherwise.

@@ -4,7 +4,7 @@
 #include <utility>
 #include <exception>
 
-namespace common
+namespace common::interfaces
 {
     /// @brief Interface class for Aspect-Oriented Programming (AOP) functionalities.
     /// This class provides a template-based interface for implementing AOP concepts

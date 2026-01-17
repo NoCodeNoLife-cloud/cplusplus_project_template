@@ -12,7 +12,7 @@ namespace common
     /// It defines pure virtual methods that must be implemented by concrete subclasses.
     /// The class also implements the ICloseable and IFlushable interfaces to provide
     /// standard close and flush functionality.
-    class AbstractOutputStream : public ICloseable, public IFlushable
+    class AbstractOutputStream : public interfaces::ICloseable, public interfaces::IFlushable
     {
     public:
         ~AbstractOutputStream() override = default;
@@ -38,7 +38,7 @@ namespace common
         virtual auto write(const std::byte* buffer, size_t length) -> void = 0;
 
         /// @brief Flushes the output stream.
-        auto flush() noexcept -> void override = 0;
+        auto flush() -> void override = 0;
 
         /// @brief Closes the output stream.
         auto close() -> void override = 0;

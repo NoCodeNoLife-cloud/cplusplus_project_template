@@ -4,7 +4,7 @@
 #include <rapidjson/stringbuffer.h>
 #include <rapidjson/writer.h>
 
-namespace fox
+namespace common::interfaces
 {
     /// @brief Interface for JSON serializable objects.
     /// This interface defines the contract for objects that can be serialized to

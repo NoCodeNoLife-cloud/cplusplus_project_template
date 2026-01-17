@@ -1,4 +1,3 @@
-
 #include "src/gen/SnowflakeGenerator.hpp"
 
 #include <chrono>
@@ -37,7 +36,7 @@ namespace common
         }
 
         UpdateSequenceAndTimestamp(timestamp, last_timestamp_);
-        
+
         last_timestamp_ = timestamp;
 
         return GenerateUniqueId(timestamp, datacenter_id_, machine_id_, sequence_);
@@ -80,7 +79,6 @@ namespace common
 
     auto SnowflakeGenerator::GenerateUniqueId(const int64_t timestamp, const int16_t datacenter_id, const int16_t machine_id, const int64_t sequence) -> int64_t
     {
-        return timestamp << (static_cast<int64_t>(SnowflakeOption::machine_bits_) + static_cast<int64_t>(SnowflakeOption::sequence_bits_)) | 
-               static_cast<int64_t>(datacenter_id << 5 | machine_id) << static_cast<int64_t>(SnowflakeOption::sequence_bits_) | sequence;
+        return timestamp << (static_cast<int64_t>(SnowflakeOption::machine_bits_) + static_cast<int64_t>(SnowflakeOption::sequence_bits_)) | static_cast<int64_t>(datacenter_id << 5 | machine_id) << static_cast<int64_t>(SnowflakeOption::sequence_bits_) | sequence;
     }
 }

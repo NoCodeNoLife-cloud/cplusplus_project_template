@@ -55,7 +55,7 @@ namespace common
         /// @param method_name Name of the calling method for error reporting
         /// @throws std::runtime_error if parameter binding fails
         void bindParameters(sqlite3_stmt* stmt, const std::vector<std::string>& params, const std::string& method_name) const;
-        
+
         std::unique_ptr<sqlite3, decltype(&sqlite3_close)> db_;
     };
 } // common

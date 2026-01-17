@@ -65,7 +65,7 @@ namespace common
         /// @param last_timestamp The last timestamp.
         /// @return The next valid timestamp.
         [[nodiscard]] static auto TilNextMillis(int64_t last_timestamp) noexcept -> int64_t;
-        
+
         int64_t last_timestamp_{-1};
         int64_t sequence_{0};
         int16_t machine_id_{0};

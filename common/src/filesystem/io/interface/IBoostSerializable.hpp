@@ -4,7 +4,7 @@
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/access.hpp>
 
-namespace fox
+namespace fox::interfaces
 {
     /// @brief Interface for Boost serialization
     /// This interface provides a common base for objects that can be serialized using Boost.Serialization.

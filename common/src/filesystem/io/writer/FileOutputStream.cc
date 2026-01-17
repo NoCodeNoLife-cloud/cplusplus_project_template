@@ -72,7 +72,7 @@ namespace common
         checkStreamState();
     }
 
-    auto FileOutputStream::flush() noexcept -> void
+    auto FileOutputStream::flush() -> void
     {
         checkStreamWritable("Cannot flush closed or unwritable stream.");
         checkStreamState();

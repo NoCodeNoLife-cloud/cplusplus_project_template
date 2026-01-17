@@ -1,6 +1,6 @@
 #pragma once
 
-namespace common
+namespace common::interfaces
 {
     /// @brief Interface for readable objects.
     /// This interface defines the contract for objects that can be read from.

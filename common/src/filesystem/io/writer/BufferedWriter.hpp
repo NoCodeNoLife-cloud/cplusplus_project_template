@@ -11,7 +11,7 @@ namespace common
     /// @brief A buffered writer that writes data to an output stream with buffering.
     /// This class provides efficient writing operations by buffering the output data
     /// before writing it to the underlying output stream.
-    class BufferedWriter final : public AbstractWriter, public IAppendable<BufferedWriter>
+    class BufferedWriter final : public AbstractWriter, public interfaces::IAppendable<BufferedWriter>
     {
     public:
         /// @brief Constructs a buffered writer with specified buffer size.
@@ -36,7 +36,7 @@ namespace common
 
         /// @brief Flushes the buffer to the underlying output stream.
         /// @throws std::ios_base::failure if an I/O error occurs.
-        auto flush() noexcept -> void override;
+        auto flush() -> void override;
 
         /// @brief Closes the writer and releases any resources.
         /// @throws std::ios_base::failure if an I/O error occurs.

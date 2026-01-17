@@ -10,7 +10,7 @@ namespace common
     /// @details This class provides functionality for managing a buffer of characters,
     ///          including operations such as putting and getting characters, compacting
     ///          the buffer, and retrieving remaining unprocessed characters.
-    class CharBuffer final : public IBuffer
+    class CharBuffer final : public interfaces::IBuffer
     {
     public:
         /// @brief Constructs a CharBuffer with the specified capacity.

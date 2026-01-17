@@ -77,8 +77,7 @@ namespace common
     auto operator==(const Point2D& lhs, const Point2D& rhs) noexcept -> bool
     {
         constexpr double epsilon = 1e-9;
-        return std::abs(lhs.getX() - rhs.getX()) < epsilon && 
-               std::abs(lhs.getY() - rhs.getY()) < epsilon;
+        return std::abs(lhs.getX() - rhs.getX()) < epsilon && std::abs(lhs.getY() - rhs.getY()) < epsilon;
     }
 
     auto operator!=(const Point2D& lhs, const Point2D& rhs) noexcept -> bool

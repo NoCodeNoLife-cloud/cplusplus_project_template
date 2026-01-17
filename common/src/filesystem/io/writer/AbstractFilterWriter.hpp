@@ -59,7 +59,7 @@ namespace common
         /// @brief Flushes the output writer.
         /// This method overrides the base class method to provide filtering functionality.
         /// It ensures that any buffered data is written to the underlying output writer.
-        void flush() noexcept override;
+        void flush() override;
 
         /// @brief Closes the output writer.
         /// This method overrides the base class method to provide filtering functionality.

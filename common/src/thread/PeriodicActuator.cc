@@ -8,7 +8,7 @@
 
 namespace common
 {
-    PeriodicActuator::PeriodicActuator(std::shared_ptr<ITimerTask> task, const std::chrono::milliseconds interval)
+    PeriodicActuator::PeriodicActuator(std::shared_ptr<interfaces::ITimerTask> task, const std::chrono::milliseconds interval)
         : task_(std::move(task)), timer_(ioContext_), interval_(interval)
     {
         if (!task_)

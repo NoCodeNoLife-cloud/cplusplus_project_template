@@ -28,9 +28,7 @@ namespace common
         memUsage.total_memory = memInfo.ullTotalPhys;
         memUsage.available_memory = memInfo.ullAvailPhys;
         memUsage.used_memory = memInfo.ullTotalPhys - memInfo.ullAvailPhys;
-        memUsage.memory_usage_percent =
-            static_cast<double>(memUsage.used_memory) /
-            static_cast<double>(memInfo.ullTotalPhys) * 100.0;
+        memUsage.memory_usage_percent = static_cast<double>(memUsage.used_memory) / static_cast<double>(memInfo.ullTotalPhys) * 100.0;
 
         return memUsage;
     }
@@ -67,9 +65,7 @@ namespace common
         // Calculate CPU usage percentage
         if (totalDiff != 0)
         {
-            cpuUsage.cpu_usage_percent =
-                (static_cast<double>(totalDiff) - static_cast<double>(idleDiff)) * 100.0 /
-                static_cast<double>(totalDiff);
+            cpuUsage.cpu_usage_percent = (static_cast<double>(totalDiff) - static_cast<double>(idleDiff)) * 100.0 / static_cast<double>(totalDiff);
         }
         else
         {

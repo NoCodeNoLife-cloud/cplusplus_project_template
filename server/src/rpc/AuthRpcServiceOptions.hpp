@@ -24,7 +24,7 @@ namespace app_server
     ///     .serverAddress("0.0.0.0:50051")
     ///     .build();
     /// @endcode
-    class AuthRpcServiceOptions final : public common::IYamlConfigurable
+    class AuthRpcServiceOptions final : public common::interfaces::IYamlConfigurable
     {
     public:
         AuthRpcServiceOptions();

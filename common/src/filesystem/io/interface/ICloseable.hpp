@@ -1,6 +1,6 @@
 #pragma once
 
-namespace common
+namespace common::interfaces
 {
     /// @brief Interface for resources that can be closed.
     /// This interface defines a common contract for closing resources such as files,

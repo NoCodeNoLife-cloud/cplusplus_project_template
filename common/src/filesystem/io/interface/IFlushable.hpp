@@ -1,6 +1,6 @@
 #pragma once
 
-namespace common
+namespace common::interfaces
 {
     /// @brief Interface for flushable objects.
     /// This interface defines a contract for objects that can be flushed,
@@ -15,7 +15,7 @@ namespace common
         /// This method ensures that any buffered data is written out to the underlying destination.
         /// Implementation should handle any errors that may occur during the flush operation.
         /// If an error occurs, the implementation may throw an exception.
-        virtual auto flush() noexcept -> void = 0;
+        virtual auto flush() -> void = 0;
 
         /// @brief Flush the stream or buffer with exception safety.
         /// This method ensures that any buffered data is written out to the underlying destination

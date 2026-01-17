@@ -4,7 +4,7 @@
 #include <initializer_list>
 #include <iterator>
 
-namespace common
+namespace common::interfaces
 {
     /// @brief Interface for appendable objects.
     /// This interface provides methods for appending characters and strings to objects.

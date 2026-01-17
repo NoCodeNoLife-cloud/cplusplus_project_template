@@ -75,7 +75,7 @@ namespace common
         write(std::vector(str.begin() + static_cast<std::string::difference_type>(off), str.begin() + static_cast<std::string::difference_type>(off + len)));
     }
 
-    auto OutputStreamWriter::flush() noexcept -> void
+    auto OutputStreamWriter::flush() -> void
     {
         checkIfClosed();
         output_writer_->flush();

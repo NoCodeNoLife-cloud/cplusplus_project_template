@@ -2,7 +2,7 @@
 
 #include <type_traits>
 
-namespace common
+namespace common::interfaces
 {
     /// @brief Interface for a runnable task that can be executed with arguments and return a result.
     /// @tparam ReturnType The type of the value returned by the task.

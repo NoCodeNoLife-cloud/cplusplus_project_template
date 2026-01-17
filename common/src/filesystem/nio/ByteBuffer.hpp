@@ -9,7 +9,7 @@ namespace common
     /// @brief A byte buffer implementation that manages a fixed-size buffer of bytes.
     /// This class provides methods for putting and getting bytes, supporting both
     /// single-byte operations and bulk operations with vectors of bytes.
-    class ByteBuffer final : public IBuffer
+    class ByteBuffer final : public interfaces::IBuffer
     {
     public:
         explicit ByteBuffer(size_t capacity);

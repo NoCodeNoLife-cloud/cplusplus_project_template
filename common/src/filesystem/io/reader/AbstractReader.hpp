@@ -12,7 +12,7 @@ namespace common
     /// This class provides a standard interface for reading character data from various sources.
     /// It implements the ICloseable and IReadable interfaces and provides standard implementations
     /// for some common reading operations.
-    class AbstractReader : public ICloseable, public IReadable
+    class AbstractReader : public interfaces::ICloseable, public interfaces::IReadable
     {
     public:
         /// @brief Virtual destructor for proper cleanup of derived classes

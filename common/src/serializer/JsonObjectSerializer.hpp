@@ -21,7 +21,7 @@ namespace common
         /// @param key The key of the value to extract
         /// @param defaultValue The default value to return if key is not found or not of expected type
         /// @return The extracted value or the default value
-        template<typename T>
+        template <typename T>
         [[nodiscard]] static auto getValueOrDefault(const rapidjson::Value& json, const std::string& key, T defaultValue) noexcept -> T;
 
     public:

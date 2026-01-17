@@ -57,7 +57,7 @@ namespace common
         [[nodiscard]] auto toString() const -> std::string;
 
         /// @brief Flushes this output stream and forces any buffered output bytes to be written out.
-        auto flush() noexcept -> void override;
+        auto flush() -> void override;
 
         /// @brief Closes this output stream and releases any system resources associated with this stream.
         auto close() -> void override;

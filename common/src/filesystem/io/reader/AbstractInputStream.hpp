@@ -10,7 +10,7 @@ namespace common
 {
     /// @brief Abstract base class for all input streams.
     /// Provides standard input stream functionality that can be extended by concrete implementations.
-    class AbstractInputStream : public ICloseable
+    class AbstractInputStream : public interfaces::ICloseable
     {
     public:
         ~AbstractInputStream() override = default;

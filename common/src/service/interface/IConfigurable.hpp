@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace service
+namespace service::interfaces
 {
     /// @brief Interface for configurable services.
     /// @details This interface provides a contract for services that require configuration.

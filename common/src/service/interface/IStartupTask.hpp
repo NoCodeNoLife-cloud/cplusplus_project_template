@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace service
+namespace service::interfaces
 {
     /// @brief Interface for startup tasks that need to be executed when the service starts.
     /// Startup tasks are used to perform initialization operations that are required

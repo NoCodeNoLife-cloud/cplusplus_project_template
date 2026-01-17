@@ -7,7 +7,7 @@
 namespace common
 {
     /// @brief A buffer that stores 64-bit signed integers
-    class LongBuffer final : public IBuffer
+    class LongBuffer final : public interfaces::IBuffer
     {
     public:
         /// @brief Construct a LongBuffer with the specified capacity

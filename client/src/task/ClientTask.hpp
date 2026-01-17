@@ -10,7 +10,7 @@
 
 namespace app_client
 {
-    class ClientTask final: public common::ITask
+    class ClientTask final : public common::interfaces::ITask
     {
     public:
         /// @brief Default constructor explicitly deleted to enforce parameterized construction
