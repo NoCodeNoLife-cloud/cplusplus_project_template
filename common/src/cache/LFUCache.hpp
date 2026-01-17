@@ -1,9 +1,11 @@
 #pragma once
-#include <unordered_map>
 #include <list>
-#include <stdexcept>
 #include <optional>
+#include <stdexcept>
+#include <unordered_map>
 #include <fmt/format.h>
+
+#include "interface/ICache.hpp"
 
 namespace common
 {
@@ -12,7 +14,7 @@ namespace common
     /// @tparam Value Type of the value stored in the cache
     /// @tparam Map Type of the map used internally to store key-iterator mappings
     template <typename Key, typename Value, typename Map = std::unordered_map<Key, typename std::list<std::pair<Key, std::pair<Value, size_t>>>::iterator>>
-    class LFUCache
+    class LFUCache : public ICache<Key, Value>
     {
     public:
         /// @brief Constructs an LFU cache with the specified capacity
@@ -28,44 +30,44 @@ namespace common
         /// @brief Retrieves a value from the cache (non-const version)
         /// @param key The key to look up in the cache
         /// @return Optional value if found, std::nullopt otherwise
-        [[nodiscard]] auto get(const Key& key) -> std::optional<Value>;
+        [[nodiscard]] auto get(const Key& key) -> std::optional<Value> override;
 
         /// @brief Inserts or updates a key-value pair in the cache (const value)
         /// @param key The key to insert or update
         /// @param value The value to store
         /// @return true if the operation was successful, false otherwise
-        [[nodiscard]] auto put(const Key& key, const Value& value) -> bool;
+        [[nodiscard]] auto put(const Key& key, const Value& value) -> bool override;
 
         /// @brief Inserts or updates a key-value pair in the cache (rvalue reference)
         /// @param key The key to insert or update
         /// @param value The value to store (will be moved)
         /// @return true if the operation was successful, false otherwise
-        [[nodiscard]] auto put(const Key& key, Value&& value) -> bool;
+        [[nodiscard]] auto put(const Key& key, Value&& value) -> bool override;
 
         /// @brief Removes an entry from the cache
         /// @param key The key to remove
         /// @return true if the key was found and removed, false otherwise
-        [[nodiscard]] auto remove(const Key& key) -> bool;
+        [[nodiscard]] auto remove(const Key& key) -> bool override;
 
         /// @brief Clears all entries from the cache
-        void clear() noexcept;
+        void clear() noexcept override;
 
         /// @brief Returns the current number of entries in the cache
         /// @return Number of entries currently in the cache
-        [[nodiscard]] auto size() const noexcept -> size_t;
+        [[nodiscard]] auto size() const noexcept -> size_t override;
 
         /// @brief Returns the maximum capacity of the cache
         /// @return Maximum number of entries the cache can hold
-        [[nodiscard]] auto capacity() const noexcept -> size_t;
+        [[nodiscard]] auto capacity() const noexcept -> size_t override;
 
         /// @brief Checks if the cache is empty
         /// @return true if the cache is empty, false otherwise
-        [[nodiscard]] auto empty() const noexcept -> bool;
+        [[nodiscard]] auto empty() const noexcept -> bool override;
 
         /// @brief Checks if a key exists in the cache
         /// @param key The key to check for
         /// @return true if the key exists in the cache, false otherwise
-        [[nodiscard]] auto contains(const Key& key) const noexcept -> bool;
+        [[nodiscard]] auto contains(const Key& key) const noexcept -> bool override;
 
     private:
         // Structure to hold frequency to list mapping
