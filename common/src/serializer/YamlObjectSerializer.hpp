@@ -6,12 +6,14 @@
 #include <string>
 #include <stdexcept>
 
+#include "interface/ISerializer.hpp"
+
 namespace common
 {
-    /// @brief Abstract base class for serializing and deserializing objects to and from YAML format.
+    /// @brief Concrete implementation of ISerializer for serializing and deserializing objects to and from YAML format.
     /// @tparam T The type of object to be serialized/deserialized.
     template <typename T>
-    class YamlObjectSerializer
+    class YamlObjectSerializer : public ISerializer<T>
     {
     public:
         /// @brief Serializes an object to a YAML file.
@@ -19,13 +21,13 @@ namespace common
         /// @param filename The path to the file where the YAML data will be saved.
         /// @throws std::invalid_argument If filename is empty.
         /// @throws std::runtime_error If file cannot be opened or written to.
-        static auto serialize(const T& obj, const std::string& filename) -> void;
+        auto serialize(const T& obj, const std::string& filename) -> void override;
 
         /// @brief Deserializes an object from a YAML file.
         /// @param filename The path to the YAML file to deserialize from.
         /// @return The deserialized object.
         /// @throws std::runtime_error If file cannot be opened or decoded.
-        [[nodiscard]] static auto deserialize(const std::string& filename) -> T;
+        [[nodiscard]] auto deserialize(const std::string& filename) -> T override;
     };
 
     template <typename T>
@@ -48,7 +50,7 @@ namespace common
         }
 
         file_out << yaml_str;
-        
+
         // Check for write errors before closing
         if (file_out.fail())
         {
