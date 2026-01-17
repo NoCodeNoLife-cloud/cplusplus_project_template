@@ -6,8 +6,6 @@
 #include <string>
 #include <stdexcept>
 
-#include "interface/ISerializer.hpp"
-
 namespace common::serializer
 {
     /// @brief Concrete implementation of ISerializer for serializing and deserializing objects to and from YAML format.

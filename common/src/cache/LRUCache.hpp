@@ -14,7 +14,7 @@ namespace common::cache
     /// @tparam Value Type of the value stored in the cache
     /// @tparam Map Type of the map used internally to store key-iterator mappings
     template <typename Key, typename Value, typename Map = std::unordered_map<Key, typename std::list<std::pair<Key, Value>>::iterator>>
-    class LRUCache : public ICache<Key, Value>
+    class LRUCache : public interfaces::ICache<Key, Value>
     {
     public:
         /// @brief Constructs an LRU cache with the specified capacity

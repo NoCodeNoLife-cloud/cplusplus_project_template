@@ -1,7 +1,5 @@
 #pragma once
 
-#include <type_traits>
-
 namespace common::interfaces
 {
     /// @brief Interface for a runnable task that can be executed with arguments and return a result.

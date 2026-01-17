@@ -1,6 +1,5 @@
 #pragma once
 #include <atomic>
-#include <thread>
 #include <chrono>
 
 namespace common::thread

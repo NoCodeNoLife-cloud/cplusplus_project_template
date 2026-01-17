@@ -1,7 +1,6 @@
 #include "src/serializer/JsonObjectSerializer.hpp"
 
 #include <string>
-#include <cstring>
 
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"

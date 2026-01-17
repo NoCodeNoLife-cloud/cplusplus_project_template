@@ -2,7 +2,6 @@
 #include <string>
 #include <string_view>
 #include <initializer_list>
-#include <iterator>
 
 namespace common::interfaces
 {
