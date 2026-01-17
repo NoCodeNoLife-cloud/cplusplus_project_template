@@ -4,7 +4,7 @@
 #include <thread>
 #include <chrono>
 
-namespace common
+namespace common::thread
 {
     auto SpinlockMutex::lock() noexcept -> void
     {

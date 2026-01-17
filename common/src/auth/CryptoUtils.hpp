@@ -4,7 +4,7 @@
 
 #include "src/exception/AuthenticationException.hpp"
 
-namespace common
+namespace common::auth
 {
     /// @brief Cryptographic utilities for password hashing and secure comparisons
     class CryptoUtils

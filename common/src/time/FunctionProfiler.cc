@@ -7,7 +7,7 @@
 #include <iostream>
 #include <iomanip>
 
-namespace common
+namespace common::time
 {
     FunctionProfiler::FunctionProfiler(std::string function_name, const bool autoStart)
         : function_name_(std::move(function_name))

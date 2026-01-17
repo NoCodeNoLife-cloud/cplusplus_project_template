@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <stdexcept>
 
-namespace common
+namespace common::filesystem
 {
     CharBuffer::CharBuffer(const size_t cap)
         : buffer_(cap, '\0')

@@ -1,6 +1,6 @@
 #include "TopK.hpp"
 
-namespace common
+namespace common::data_structure
 {
     TopK::TopK(const int32_t k)
         : k_(k)

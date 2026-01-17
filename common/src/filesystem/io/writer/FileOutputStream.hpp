@@ -5,7 +5,7 @@
 
 #include "AbstractOutputStream.hpp"
 
-namespace common
+namespace common::filesystem
 {
     /// @brief A class for writing data to a file.
     /// @details This class provides methods for writing bytes to a file, either

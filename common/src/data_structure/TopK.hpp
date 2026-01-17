@@ -2,7 +2,7 @@
 #include <queue>
 #include <vector>
 
-namespace common
+namespace common::data_structure
 {
     /// @brief A class to maintain the top K the largest numbers from a stream of integers.
     /// The TopK class uses a min-heap to efficiently track the top K the largest numbers.

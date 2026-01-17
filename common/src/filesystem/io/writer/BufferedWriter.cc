@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common
+namespace common::filesystem
 {
     BufferedWriter::BufferedWriter(std::unique_ptr<std::ofstream> os, const size_t size)
         : output_stream_(std::move(os)), buffer_size_(size)

@@ -5,7 +5,7 @@
 #include "src/filesystem/io/interface/ICloseable.hpp"
 #include "src/filesystem/io/interface/IFlushable.hpp"
 
-namespace common
+namespace common::filesystem
 {
     /// @brief Abstract base class for all output stream implementations.
     /// @details This class provides the basic contract for writing data to an output stream.

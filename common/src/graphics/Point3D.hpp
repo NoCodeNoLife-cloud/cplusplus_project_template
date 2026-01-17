@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 
-namespace common
+namespace common::graphics
 {
     /// @brief A 3D point class
     /// @details This class represents a point in 3D space with x, y and z coordinates.

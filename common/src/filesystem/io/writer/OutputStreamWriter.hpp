@@ -7,7 +7,7 @@
 
 #include "AbstractWriter.hpp"
 
-namespace common
+namespace common::filesystem
 {
     /// @brief A writer that converts character streams to byte streams using a specified charset.
     /// @details OutputStreamWriter is a bridge from character streams to byte streams: Characters written to it

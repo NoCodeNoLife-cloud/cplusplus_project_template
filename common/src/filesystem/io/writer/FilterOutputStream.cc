@@ -1,6 +1,6 @@
 #include "src/filesystem/io/writer/FilterOutputStream.hpp"
 
-namespace common
+namespace common::filesystem
 {
     FilterOutputStream::FilterOutputStream(std::shared_ptr<AbstractOutputStream> outputStream)
         : output_stream_(std::move(outputStream))

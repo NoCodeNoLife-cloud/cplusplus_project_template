@@ -7,7 +7,7 @@
 #include <type_traits>
 #include <utility>
 
-namespace common
+namespace common::container
 {
     /// @brief A heap data structure implementation.
     /// @tparam T The type of elements stored in the heap.

@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <chrono>
 
-namespace common
+namespace common::filesystem
 {
     /// @brief A class for directory operations
     /// @details This class provides various operations for directories, such as creation, deletion, listing contents, etc.

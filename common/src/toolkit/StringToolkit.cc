@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-namespace common
+namespace common::toolkit
 {
     auto StringToolkit::split(const std::string& target, const char split_char) -> std::vector<std::string>
     {

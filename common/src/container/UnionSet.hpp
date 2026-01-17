@@ -2,7 +2,7 @@
 #include <unordered_map>
 #include <cstdint>
 
-namespace common
+namespace common::container
 {
     /// @brief A Union-Find (Disjoint Set Union) data structure implementation.
     /// This class provides efficient operations for disjoint sets, including:

@@ -2,7 +2,7 @@
 #include <chrono>
 #include <string>
 
-namespace common
+namespace common::auth
 {
     /// @brief User credentials storage with security features
     class UserCredentials

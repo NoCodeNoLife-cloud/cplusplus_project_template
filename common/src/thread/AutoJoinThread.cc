@@ -3,7 +3,7 @@
 #include <thread>
 #include <utility>
 
-namespace common
+namespace common::thread
 {
     AutoJoinThread::AutoJoinThread(AutoJoinThread&& other) noexcept
         : thread_(std::move(other.thread_))

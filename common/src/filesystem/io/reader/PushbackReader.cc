@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <stdexcept>
 
-namespace common
+namespace common::filesystem
 {
     auto PushbackReader::validateOpen() const -> void
     {

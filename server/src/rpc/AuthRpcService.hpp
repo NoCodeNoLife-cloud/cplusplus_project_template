@@ -54,7 +54,7 @@ namespace server_app
 
     private:
         /// @brief Authenticator instance for managing user accounts
-        common::UserAuthenticator authenticator_;
+        common::auth::UserAuthenticator authenticator_;
 
         /// @brief Map exception types to error codes using table-driven approach
         static const std::unordered_map<std::string_view, int> error_map_;
@@ -63,6 +63,6 @@ namespace server_app
         /// @param e AuthenticationException to handle
         /// @param response Response to populate with error details
         /// @return Appropriate gRPC status
-        [[nodiscard]] static auto HandleAuthException(const common::AuthenticationException& e, ::rpc::AuthResponse* response) noexcept -> ::grpc::Status;
+        [[nodiscard]] static auto HandleAuthException(const common::exception::AuthenticationException& e, ::rpc::AuthResponse* response) noexcept -> ::grpc::Status;
     };
 } // namespace server_app

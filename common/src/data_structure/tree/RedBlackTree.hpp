@@ -4,7 +4,7 @@
 #include "RedBlackTreeNode.hpp"
 #include "src/data_structure/Color.hpp"
 
-namespace fox
+namespace fox::data_structure
 {
     /// @brief A red-black tree implementation
     /// @tparam T The type of data stored in the tree

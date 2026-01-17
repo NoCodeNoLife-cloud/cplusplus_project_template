@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-namespace common
+namespace common::filesystem
 {
     FloatBuffer::FloatBuffer(const size_t capacity)
     {

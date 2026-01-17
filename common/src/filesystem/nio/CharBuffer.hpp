@@ -4,7 +4,7 @@
 
 #include "interface/IBuffer.hpp"
 
-namespace common
+namespace common::filesystem
 {
     /// @brief A character buffer that implements the IBuffer interface.
     /// @details This class provides functionality for managing a buffer of characters,

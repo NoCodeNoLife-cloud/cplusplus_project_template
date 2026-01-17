@@ -1,6 +1,6 @@
 #include "SQLiteManager.hpp"
 
-namespace common
+namespace common::sql
 {
     SQLiteManager::SQLiteManager()
         : db_(nullptr, &sqlite3_close)

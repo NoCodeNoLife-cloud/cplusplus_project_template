@@ -3,7 +3,7 @@
 
 #include "../Color.hpp"
 
-namespace fox
+namespace fox::data_structure
 {
     /// @brief A node in a Red-Black Tree
     /// @tparam T The type of data stored in the node

@@ -4,7 +4,7 @@
 
 #include "interface/IBuffer.hpp"
 
-namespace common
+namespace common::filesystem
 {
     /// @brief A buffer that stores 64-bit signed integers
     class LongBuffer final : public interfaces::IBuffer

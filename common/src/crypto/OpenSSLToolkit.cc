@@ -10,7 +10,7 @@
 #include <algorithm>
 #include <array>
 
-namespace common
+namespace common::crypto
 {
     auto OpenSSLToolkit::deriveKey(const std::string& password, std::array<unsigned char, 32>& key, std::array<unsigned char, 16>& salt) noexcept -> void
     {

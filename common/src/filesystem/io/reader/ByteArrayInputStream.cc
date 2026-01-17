@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace common
+namespace common::filesystem
 {
     ByteArrayInputStream::ByteArrayInputStream(const std::vector<std::byte>& buf)
         : buffer_(buf)

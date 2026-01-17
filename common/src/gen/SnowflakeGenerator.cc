@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <cstdint>
 
-namespace common
+namespace common::gen
 {
     SnowflakeGenerator::SnowflakeGenerator(const int16_t machine_id, const int16_t datacenter_id)
     {

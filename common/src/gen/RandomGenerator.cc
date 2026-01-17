@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <mutex>
 
-namespace common
+namespace common::gen
 {
     RandomGenerator::RandomGenerator() noexcept
         : engine_(std::random_device{}())

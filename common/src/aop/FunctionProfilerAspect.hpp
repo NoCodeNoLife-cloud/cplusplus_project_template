@@ -5,7 +5,7 @@
 #include "src/time/FunctionProfiler.hpp"
 #include "interface/IAop.hpp"
 
-namespace common
+namespace common::aop
 {
     /// @brief This class is an aspect for profiling function execution time.
     /// @details It implements the IAop interface to provide entry and exit points
@@ -31,7 +31,7 @@ namespace common
         auto onException(std::exception_ptr e) -> void override;
 
     private:
-        FunctionProfiler profiler_;
+        time::FunctionProfiler profiler_;
         std::string function_name_;
     };
 }

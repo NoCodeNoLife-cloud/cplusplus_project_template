@@ -1,5 +1,5 @@
 #pragma once
-namespace fox
+namespace fox::data_structure
 {
     /// @brief Enumeration representing various colors.
     /// Each color is assigned a unique integer value.

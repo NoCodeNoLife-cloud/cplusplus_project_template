@@ -8,7 +8,7 @@
 #include "UserCredentials.hpp"
 #include "src/sql/PasswordSQL.hpp"
 
-namespace common
+namespace common::auth
 {
     /// @brief Main authentication class providing user management and verification
     class UserAuthenticator

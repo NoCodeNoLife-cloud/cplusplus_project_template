@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common
+namespace common::filesystem
 {
     ByteArrayOutputStream::ByteArrayOutputStream()
         : buf_(32)

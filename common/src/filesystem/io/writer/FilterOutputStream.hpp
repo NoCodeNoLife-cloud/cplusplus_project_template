@@ -3,7 +3,7 @@
 #include <memory>
 #include <vector>
 
-namespace common
+namespace common::filesystem
 {
     /// @brief A filter output stream that wraps another output stream.
     /// @details This class provides a base for output stream filters that modify or enhance

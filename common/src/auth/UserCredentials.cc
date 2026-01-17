@@ -3,7 +3,7 @@
 #include <utility>
 #include <chrono>
 
-namespace common
+namespace common::auth
 {
     UserCredentials::UserCredentials(std::string username, std::string hashed_password, std::string salt) noexcept
         : username_(std::move(username)), hashed_password_(std::move(hashed_password)), salt_(std::move(salt)), failed_attempts_(0), last_failed_attempt_(std::chrono::system_clock::time_point::min())

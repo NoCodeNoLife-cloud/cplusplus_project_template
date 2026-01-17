@@ -2,7 +2,7 @@
 #include <string>
 #include <grpc/impl/connectivity_state.h>
 
-namespace common
+namespace common::rpc
 {
     /// @brief Utility class for RPC metadata operations
     class RpcMetadata

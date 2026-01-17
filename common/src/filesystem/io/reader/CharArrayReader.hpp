@@ -2,7 +2,7 @@
 #include <vector>
 #include "AbstractReader.hpp"
 
-namespace common
+namespace common::filesystem
 {
     /// @brief A reader class that reads from a character array.
     /// This class provides methods to read characters from an internal buffer,

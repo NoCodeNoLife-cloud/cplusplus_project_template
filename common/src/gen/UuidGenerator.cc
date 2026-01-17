@@ -5,7 +5,7 @@
 #include <boost/uuid/uuid_io.hpp>
 #include <string>
 
-namespace common
+namespace common::gen
 {
     // ReSharper disable once CppDFAConstantFunctionResult
     auto UuidGenerator::GenerateRandomUuid() noexcept -> std::string

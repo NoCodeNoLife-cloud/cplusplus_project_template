@@ -1,6 +1,6 @@
 #include "src/filesystem/io/writer/OutputStreamWriter.hpp"
 
-namespace common
+namespace common::filesystem
 {
     OutputStreamWriter::OutputStreamWriter(std::unique_ptr<AbstractWriter> outputStream, const std::string& charsetName)
         : output_writer_(std::move(outputStream)), charset_(charsetName), closed_(false)

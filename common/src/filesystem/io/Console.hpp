@@ -5,7 +5,7 @@
 
 #include "interface/IFlushable.hpp"
 
-namespace common
+namespace common::filesystem
 {
     /// @brief Provides console input/output operations with formatting capabilities.
     /// This class implements the IFlushable interface and offers methods for formatted

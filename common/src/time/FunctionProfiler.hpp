@@ -4,7 +4,7 @@
 #include <string>
 #include <stdexcept>
 
-namespace common
+namespace common::time
 {
     /// @brief A utility class for profiling function execution time.
     /// @details This class provides functionality to measure and print the execution time

@@ -5,7 +5,7 @@
 
 #include "TreeNode.hpp"
 
-namespace fox
+namespace fox::data_structure
 {
     /// @brief A self-balancing binary search tree implementation (AVL Tree)
     /// An AVL tree is a self-balancing binary search tree where the heights of the two child

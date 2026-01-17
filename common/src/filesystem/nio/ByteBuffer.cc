@@ -1,6 +1,6 @@
 #include "src/filesystem/nio/ByteBuffer.hpp"
 
-namespace common
+namespace common::filesystem
 {
     ByteBuffer::ByteBuffer(const size_t capacity)
         : buffer_(capacity)

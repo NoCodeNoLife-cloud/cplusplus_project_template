@@ -7,7 +7,7 @@
 
 #include "interface/ITimerTask.hpp"
 
-namespace common
+namespace common::thread
 {
     /// @brief A utility class that executes a given task periodically using Boost.Asio.
     /// @details This class uses a steady_timer from Boost.Asio to schedule and execute tasks at regular intervals.

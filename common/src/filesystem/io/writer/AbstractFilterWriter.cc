@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common
+namespace common::filesystem
 {
     AbstractFilterWriter::AbstractFilterWriter(std::unique_ptr<AbstractWriter> outputWriter)
         : output_writer_(std::move(outputWriter))

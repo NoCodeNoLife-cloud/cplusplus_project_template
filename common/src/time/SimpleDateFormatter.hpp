@@ -3,7 +3,7 @@
 #include <string>
 #include <chrono>
 
-namespace common
+namespace common::time
 {
     /// @brief A utility class for formatting and parsing dates based on a pattern.
     /// The class provides methods to format `std::tm` objects into

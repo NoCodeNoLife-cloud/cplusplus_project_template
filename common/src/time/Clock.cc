@@ -6,7 +6,7 @@
 #include <iomanip>
 #include <ctime>
 
-namespace common
+namespace common::time
 {
     // Helper function to format time using strftime in a thread-safe way
     static auto formatTime(std::time_t time, const std::string& format) -> std::string

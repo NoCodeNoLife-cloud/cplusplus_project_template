@@ -7,7 +7,7 @@
 #include <vector>
 #include <cstdint>
 
-namespace common
+namespace common::filesystem
 {
     auto AbstractInputStream::mark(std::int32_t readLimit) -> void
     {

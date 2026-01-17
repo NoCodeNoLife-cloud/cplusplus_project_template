@@ -4,7 +4,7 @@
 
 #include "interface/IBuffer.hpp"
 
-namespace common
+namespace common::filesystem
 {
     /// @brief A byte buffer implementation that manages a fixed-size buffer of bytes.
     /// This class provides methods for putting and getting bytes, supporting both

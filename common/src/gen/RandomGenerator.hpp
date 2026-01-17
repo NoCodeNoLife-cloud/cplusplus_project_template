@@ -4,7 +4,7 @@
 #include <string>
 #include <mutex>
 
-namespace common
+namespace common::gen
 {
     class RandomGenerator
     {

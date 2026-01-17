@@ -82,6 +82,6 @@ namespace app_client
 
         const std::string application_dev_config_path_{"../../client/src/application-dev.yml"};
         mutable AuthRpcClientOptions rpc_options_;
-        mutable common::FunctionProfiler timer_;
+        mutable common::time::FunctionProfiler timer_;
     };
 } // namespace app_client

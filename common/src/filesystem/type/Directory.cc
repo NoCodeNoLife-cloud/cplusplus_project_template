@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <chrono>
 
-namespace common
+namespace common::filesystem
 {
     Directory::Directory(std::filesystem::path filePath) noexcept
         : dir_path_(std::move(filePath))

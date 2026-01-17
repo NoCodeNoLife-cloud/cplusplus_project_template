@@ -4,7 +4,7 @@
 #include <optional>
 #include <stdexcept>
 
-namespace common
+namespace common::toolkit
 {
     /// @brief A utility class for integer operations
     /// @details Provides various integer conversion and manipulation functions

@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-namespace common
+namespace common::filesystem
 {
     /// @brief A class to handle CSV file operations using rapidcsv library
     /// @details This class provides functionalities to read, modify and save CSV files.

@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <limits>
 
-namespace common
+namespace common::filesystem
 {
     Scanner::Scanner(std::istream& input_stream)
         : input_(input_stream)

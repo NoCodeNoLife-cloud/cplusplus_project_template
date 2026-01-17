@@ -1,7 +1,7 @@
 #include "PasswordPolicy.hpp"
 #include <cctype>
 
-namespace common
+namespace common::auth
 {
     PasswordPolicy::PasswordPolicy(const size_t min_length, const size_t max_length, const bool require_uppercase, const bool require_lowercase, const bool require_digits, const bool require_special, const size_t max_login_attempts)
         : min_length_(min_length), max_length_(max_length), require_uppercase_(require_uppercase), require_lowercase_(require_lowercase), require_digits_(require_digits), require_special_(require_special), max_login_attempts_(max_login_attempts)

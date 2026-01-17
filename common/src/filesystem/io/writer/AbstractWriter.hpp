@@ -6,7 +6,7 @@
 #include "src/filesystem/io/interface/ICloseable.hpp"
 #include "src/filesystem/io/interface/IFlushable.hpp"
 
-namespace common
+namespace common::filesystem
 {
     /// @brief Abstract base class for writers that provides basic functionality for writing characters and strings.
     class AbstractWriter : public interfaces::ICloseable, public interfaces::IFlushable, interfaces::IAppendable<AbstractWriter>

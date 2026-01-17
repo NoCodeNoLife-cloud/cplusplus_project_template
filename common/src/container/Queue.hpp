@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <utility>
 
-namespace common
+namespace common::container
 {
     /// @brief A queue data structure implementation using linked nodes with smart pointers
     /// @tparam T The type of elements stored in the queue

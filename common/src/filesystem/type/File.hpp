@@ -5,7 +5,7 @@
 #include <filesystem>
 #include <string>
 
-namespace common
+namespace common::filesystem
 {
     /// @brief A class representing a file in the file system
     /// This class provides various operations that can be performed on files,

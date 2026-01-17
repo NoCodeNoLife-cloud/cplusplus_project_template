@@ -9,7 +9,7 @@
 #include <functional>
 #include <ctime>
 
-namespace common
+namespace common::time
 {
     // Helper function to check if a year is a leap year
     static auto isLeapYear(const int32_t year) -> bool

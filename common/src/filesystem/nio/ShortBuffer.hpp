@@ -4,7 +4,7 @@
 
 #include "interface/IBuffer.hpp"
 
-namespace common
+namespace common::filesystem
 {
     /// @brief A buffer for short integer (int16_t) data.
     /// ShortBuffer provides a way to store, read, and write short integer data in a

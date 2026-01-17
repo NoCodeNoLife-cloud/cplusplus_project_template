@@ -5,7 +5,7 @@
 
 #include "BloomParameters.hpp"
 
-namespace common
+namespace common::container
 {
     static constexpr unsigned char bit_mask[8] = {
         0x01, // 00000001

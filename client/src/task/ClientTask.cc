@@ -35,9 +35,9 @@ namespace app_client
 
         // Authenticate user
         LOG(INFO) << "Please enter your username: ";
-        const std::string username = common::Console::readLine();
+        const std::string username = common::filesystem::Console::readLine();
         LOG(INFO) << "Please enter your password: ";
-        const std::string password = common::Console::readLine();
+        const std::string password = common::filesystem::Console::readLine();
         LOG(INFO) << fmt::format("Login attempt for user: {}", username);
 
         // Try to authenticate user
@@ -76,7 +76,7 @@ namespace app_client
     auto ClientTask::shouldCreateNewAccount() -> bool
     {
         LOG(INFO) << "User does not exist, do you want to create a new account? [y/n] ";
-        const std::string createNewAccount = common::Console::readLine();
+        const std::string createNewAccount = common::filesystem::Console::readLine();
         return createNewAccount == "y" || createNewAccount == "Y";
     }
 
@@ -132,7 +132,7 @@ namespace app_client
         const auto channel = createChannel();
 
         // Convert grpc_connectivity_state to string for logging
-        const std::string state_str = common::RpcMetadata::grpcStateToString(channel->GetState(true));
+        const std::string state_str = common::rpc::RpcMetadata::grpcStateToString(channel->GetState(true));
 
         LOG(INFO) << fmt::format("gRPC channel created with state: {}", state_str);
         LOG(INFO) << "Creating RPC client";
@@ -151,7 +151,7 @@ namespace app_client
 
     auto ClientTask::logClientInfo() noexcept -> void
     {
-        LOG(INFO) << fmt::format("OS Version: {}, CPU Model: {}, Memory Details: {}, Graphics Card Info: {}", common::SystemInfo::GetOSVersion(), common::SystemInfo::GetCpuModelFromRegistry(), common::SystemInfo::GetMemoryDetails(), common::SystemInfo::GetGraphicsCardInfo());
+        LOG(INFO) << fmt::format("OS Version: {}, CPU Model: {}, Memory Details: {}, Graphics Card Info: {}", common::system::SystemInfo::GetOSVersion(), common::system::SystemInfo::GetCpuModelFromRegistry(), common::system::SystemInfo::GetMemoryDetails(), common::system::SystemInfo::GetGraphicsCardInfo());
     }
 
     auto ClientTask::createChannel() const -> std::shared_ptr<grpc::Channel>
@@ -172,7 +172,7 @@ namespace app_client
         const auto channel = grpc::CreateCustomChannel(server_address, grpc::InsecureChannelCredentials(), channel_args);
 
         // Convert grpc_connectivity_state to string for logging
-        const std::string state_str = common::RpcMetadata::grpcStateToString(channel->GetState(true));
+        const std::string state_str = common::rpc::RpcMetadata::grpcStateToString(channel->GetState(true));
 
         LOG(INFO) << fmt::format("Channel state after creation: {}", state_str);
 
@@ -183,7 +183,7 @@ namespace app_client
             LOG(ERROR) << error_msg;
 
             // Convert grpc_connectivity_state to string for logging
-            const std::string final_state_str = common::RpcMetadata::grpcStateToString(channel->GetState(false));
+            const std::string final_state_str = common::rpc::RpcMetadata::grpcStateToString(channel->GetState(false));
 
             LOG(INFO) << fmt::format("Connection attempt finished with state: {}", final_state_str);
             throw std::runtime_error(error_msg);
@@ -191,7 +191,7 @@ namespace app_client
         LOG(INFO) << fmt::format("Successfully connected to gRPC server at {}", server_address);
 
         // Convert grpc_connectivity_state to string for logging
-        const std::string final_state_str = common::RpcMetadata::grpcStateToString(channel->GetState(false));
+        const std::string final_state_str = common::rpc::RpcMetadata::grpcStateToString(channel->GetState(false));
 
         LOG(INFO) << fmt::format("Final connection state: {}", final_state_str);
 

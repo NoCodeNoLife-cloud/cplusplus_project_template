@@ -2,7 +2,7 @@
 #include <cmath>
 #include <cstdint>
 
-namespace common
+namespace common::container
 {
     static constexpr std::size_t BITS_PER_CHAR = 0x08;
 

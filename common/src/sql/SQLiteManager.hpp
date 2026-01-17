@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <memory>
 
-namespace common
+namespace common::sql
 {
     /// @brief SQLite database executor with RAII management and parameterized queries
     class SQLiteManager

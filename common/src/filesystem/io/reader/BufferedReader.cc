@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <utility>
 
-namespace common
+namespace common::filesystem
 {
     BufferedReader::BufferedReader(std::unique_ptr<AbstractReader> reader, const size_t size)
         : reader_(std::move(reader)), buffer_size_(size)

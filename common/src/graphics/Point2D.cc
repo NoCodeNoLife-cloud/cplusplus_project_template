@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace common
+namespace common::graphics
 {
     Point2D::Point2D() noexcept = default;
 

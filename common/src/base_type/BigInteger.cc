@@ -5,7 +5,7 @@
 #include <compare>
 #include <stdexcept>
 
-namespace common
+namespace common::base_type
 {
     BigInteger::BigInteger() noexcept
         : value_(0)

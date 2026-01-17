@@ -5,7 +5,7 @@
 #include <vector>
 #include <windows.h>
 
-namespace common
+namespace common::system
 {
     auto SystemInfo::ReadRegistryStringValue(HKEY__* const hKeyRoot, const wchar_t* subKey, const wchar_t* valueName) noexcept -> std::string
     {

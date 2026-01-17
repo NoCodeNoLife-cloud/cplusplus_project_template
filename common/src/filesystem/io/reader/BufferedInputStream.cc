@@ -9,7 +9,7 @@
 #include "src/filesystem/io/reader/BufferedReader.hpp"
 #include "src/filesystem/io/reader/FilterInputStream.hpp"
 
-namespace common
+namespace common::filesystem
 {
     BufferedInputStream::BufferedInputStream(std::unique_ptr<AbstractInputStream> in) noexcept
         : BufferedInputStream(std::move(in), DEFAULT_BUFFER_SIZE)

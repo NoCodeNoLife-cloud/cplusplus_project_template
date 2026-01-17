@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-namespace common
+namespace common::toolkit
 {
     class RegexToolkit
     {

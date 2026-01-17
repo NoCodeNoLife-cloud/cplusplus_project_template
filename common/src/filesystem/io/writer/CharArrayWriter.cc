@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace common
+namespace common::filesystem
 {
     CharArrayWriter::CharArrayWriter(const int32_t initialSize)
     {

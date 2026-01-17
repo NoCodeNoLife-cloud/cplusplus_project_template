@@ -5,7 +5,7 @@
 #include <boost/type_index.hpp>
 #include <tuple>
 
-namespace common
+namespace common::toolkit
 {
     template <typename T>
     struct ReflectTraits;

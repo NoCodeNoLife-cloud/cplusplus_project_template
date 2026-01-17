@@ -6,7 +6,7 @@
 #include <cstdint>
 #include <stdexcept>
 
-namespace common
+namespace common::toolkit
 {
     /// @brief Utility class for array operations.
     /// @details This class provides static methods to perform various operations on arrays,

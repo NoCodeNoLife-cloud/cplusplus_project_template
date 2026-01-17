@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <iterator>
 
-namespace common
+namespace common::filesystem
 {
     void CharArrayReader::validateConstructorParams(const size_t buffer_size, const size_t offset, const size_t length)
     {

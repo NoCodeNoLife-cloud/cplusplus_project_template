@@ -3,7 +3,7 @@
 #include <cstddef>
 #include <stdexcept>
 
-namespace common
+namespace common::filesystem
 {
     FilterInputStream::FilterInputStream(std::unique_ptr<AbstractInputStream> inputStream) noexcept
         : input_stream_(std::move(inputStream))

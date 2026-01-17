@@ -6,7 +6,7 @@
 
 #include "AbstractWriter.hpp"
 
-namespace common
+namespace common::filesystem
 {
     /// @brief A buffered writer that writes data to an output stream with buffering.
     /// This class provides efficient writing operations by buffering the output data

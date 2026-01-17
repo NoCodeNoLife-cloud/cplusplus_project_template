@@ -1,6 +1,6 @@
 #include "src/filesystem/nio/ShortBuffer.hpp"
 
-namespace common
+namespace common::filesystem
 {
     ShortBuffer::ShortBuffer(const size_t capacity)
         : buffer_(capacity), capacity_(capacity), limit_(capacity)

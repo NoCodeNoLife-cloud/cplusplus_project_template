@@ -2,7 +2,7 @@
 #include <unordered_map>
 #include <utility>
 
-namespace common
+namespace common::rpc
 {
     auto RpcMetadata::grpcStateToString(const grpc_connectivity_state state) -> std::string
     {

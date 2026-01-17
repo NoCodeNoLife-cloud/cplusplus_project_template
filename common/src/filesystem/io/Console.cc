@@ -1,6 +1,6 @@
 #include "src/filesystem/io/Console.hpp"
 
-namespace common
+namespace common::filesystem
 {
     auto Console::flush() -> void
     {

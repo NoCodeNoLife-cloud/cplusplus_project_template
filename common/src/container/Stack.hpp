@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <utility>
 
-namespace common
+namespace common::container
 {
     /// @brief A simple stack implementation using a container.
     /// @tparam T The type of elements stored in the stack.

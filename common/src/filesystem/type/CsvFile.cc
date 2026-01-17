@@ -1,6 +1,6 @@
 #include "src/filesystem/type/CsvFile.hpp"
 
-namespace common
+namespace common::filesystem
 {
     CsvFile::CsvFile(const std::string& file_path) noexcept
         : file_path_(file_path)

@@ -7,7 +7,7 @@
 
 #include "src/graphics/Edge.hpp"
 
-namespace common
+namespace common::graphics
 {
     Graph::Graph(const int32_t n)
         : num_nodes_(n)

@@ -8,7 +8,7 @@
 
 #include "src/container/BloomParameters.hpp"
 
-namespace common
+namespace common::container
 {
     BloomFilter::BloomFilter(const BloomParameters& p) noexcept
         : salt_count_(p.optimal_parameters.number_of_hashes), table_size_(p.optimal_parameters.table_size), projected_element_count_(p.projected_element_count), random_seed_(p.random_seed * 0xA5A5A5A5 + 1), desired_false_positive_probability_(p.false_positive_probability)

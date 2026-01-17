@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-namespace common
+namespace common::filesystem
 {
     IntBuffer::IntBuffer(const size_t capacity)
     {

@@ -3,7 +3,7 @@
 #include <thread>
 #include <utility>
 
-namespace common
+namespace common::thread
 {
     /// @brief A wrapper class for std::thread that automatically joins the thread in its destructor.
     class AutoJoinThread

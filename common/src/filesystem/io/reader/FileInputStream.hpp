@@ -7,7 +7,7 @@
 #include "AbstractInputStream.hpp"
 #include <string>
 
-namespace common
+namespace common::filesystem
 {
     /// @brief A FileInputStream class for reading data from a file.
     /// @details This class provides functionality to read bytes from a file,

@@ -1,6 +1,6 @@
 #include "src/filesystem/io/reader/InputStreamReader.hpp"
 
-namespace common
+namespace common::filesystem
 {
     InputStreamReader::InputStreamReader(std::shared_ptr<AbstractReader> input)
         : reader_(std::move(input))

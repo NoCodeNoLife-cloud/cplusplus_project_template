@@ -2,7 +2,7 @@
 #include <memory>
 #include <cstdint>
 
-namespace fox
+namespace fox::data_structure
 {
     /// @brief A tree node class that contains a value and pointers to left and right children.
     /// @tparam T The type of the value stored in the node.

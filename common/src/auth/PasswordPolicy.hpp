@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-namespace common
+namespace common::auth
 {
     /// @brief Password policy configuration class with configurable security rules
     class PasswordPolicy

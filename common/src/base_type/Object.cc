@@ -5,7 +5,7 @@
 #include <memory>
 #include <string>
 
-namespace common
+namespace common::base_type
 {
     auto Object::getClass() const noexcept -> const std::type_info&
     {

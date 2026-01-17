@@ -1,6 +1,6 @@
 #include "src/filesystem/io/writer/BufferedOutputStream.hpp"
 
-namespace common
+namespace common::filesystem
 {
     BufferedOutputStream::BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out)
         : BufferedOutputStream(std::move(out), DEFAULT_BUFFER_SIZE)

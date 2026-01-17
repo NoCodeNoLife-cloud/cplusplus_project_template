@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace common
+namespace common::filesystem
 {
     FileInputStream::FileInputStream(const std::string& name)
     {

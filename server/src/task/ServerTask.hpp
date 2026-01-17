@@ -47,7 +47,7 @@ namespace app_server
     private:
         const std::string application_dev_config_path_{"../../server/src/application-dev.yml"};
         AuthRpcServiceOptions grpc_options_;
-        common::FunctionProfiler timer_;
+        common::time::FunctionProfiler timer_;
         std::unique_ptr<grpc::Server> server_;
 
         /// @brief Establish a gRPC connection to the specified service

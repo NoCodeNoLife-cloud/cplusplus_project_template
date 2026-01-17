@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <cctype>
 
-namespace common
+namespace common::toolkit
 {
     auto IntegerToolkit::intToRoman(const int32_t num) -> std::string
     {

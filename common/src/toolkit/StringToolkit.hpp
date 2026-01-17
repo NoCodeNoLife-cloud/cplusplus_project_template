@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-namespace common
+namespace common::toolkit
 {
     /// @brief A utility class for string manipulation operations.
     /// This class provides static methods for common string operations such as splitting and concatenating strings.

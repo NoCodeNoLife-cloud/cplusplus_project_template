@@ -4,7 +4,7 @@
 
 #include "AbstractReader.hpp"
 
-namespace common
+namespace common::filesystem
 {
     /// @brief A FilterReader is a subclass of AbstractReader that acts as a wrapper for another AbstractReader.
     /// It can be used to extend the functionality of the wrapped reader by overriding methods as needed.

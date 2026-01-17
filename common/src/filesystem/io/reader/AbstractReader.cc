@@ -4,7 +4,7 @@
 #include <vector>
 #include <stdexcept>
 
-namespace common
+namespace common::filesystem
 {
     auto AbstractReader::read() -> int
     {

@@ -78,6 +78,6 @@ namespace server_app
 
     private:
         /// @brief SQLite manager instance for database operations
-        common::SQLiteManager sqlite_manager_;
+        common::sql::SQLiteManager sqlite_manager_;
     };
 }

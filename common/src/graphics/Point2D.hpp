@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 
-namespace common
+namespace common::graphics
 {
     /// @brief A 2D point class
     /// @details This class represents a point in 2D space with x and y coordinates.

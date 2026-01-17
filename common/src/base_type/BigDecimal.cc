@@ -5,7 +5,7 @@
 #include <string>
 #include <compare>
 
-namespace common
+namespace common::base_type
 {
     BigDecimal::BigDecimal(const std::string& str)
         : value_(str)

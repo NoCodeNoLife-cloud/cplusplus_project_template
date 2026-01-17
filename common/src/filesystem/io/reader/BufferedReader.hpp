@@ -6,7 +6,7 @@
 
 #include "AbstractReader.hpp"
 
-namespace common
+namespace common::filesystem
 {
     /// @brief Buffered character-input stream.
     class BufferedReader final : public AbstractReader

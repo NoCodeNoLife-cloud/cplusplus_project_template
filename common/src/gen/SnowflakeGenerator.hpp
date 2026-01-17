@@ -2,7 +2,7 @@
 #include <mutex>
 #include <cstdint>
 
-namespace common
+namespace common::gen
 {
     /// @brief A class to generate unique IDs using the Snowflake algorithm.
     /// The Snowflake algorithm generates IDs that are roughly ordered by time,

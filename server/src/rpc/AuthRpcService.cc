@@ -54,7 +54,7 @@ namespace server_app
             response->set_message(success ? "User registered successfully" : "Registration failed");
             return ::grpc::Status::OK;
         }
-        catch (const common::AuthenticationException& e)
+        catch (const common::exception::AuthenticationException& e)
         {
             return HandleAuthException(e, response);
         }
@@ -89,7 +89,7 @@ namespace server_app
             response->set_message(success ? "Authentication successful" : "Invalid credentials");
             return ::grpc::Status::OK;
         }
-        catch (const common::AuthenticationException& e)
+        catch (const common::exception::AuthenticationException& e)
         {
             return HandleAuthException(e, response);
         }
@@ -126,7 +126,7 @@ namespace server_app
             response->set_message(success ? "Password changed successfully" : "Password change failed");
             return ::grpc::Status::OK;
         }
-        catch (const common::AuthenticationException& e)
+        catch (const common::exception::AuthenticationException& e)
         {
             return HandleAuthException(e, response);
         }
@@ -162,7 +162,7 @@ namespace server_app
             response->set_message(success ? "Password reset successfully" : "Password reset failed");
             return ::grpc::Status::OK;
         }
-        catch (const common::AuthenticationException& e)
+        catch (const common::exception::AuthenticationException& e)
         {
             return HandleAuthException(e, response);
         }
@@ -235,7 +235,7 @@ namespace server_app
         }
     }
 
-    [[nodiscard]] auto AuthRpcService::HandleAuthException(const common::AuthenticationException& e, ::rpc::AuthResponse* const response) noexcept -> ::grpc::Status
+    [[nodiscard]] auto AuthRpcService::HandleAuthException(const common::exception::AuthenticationException& e, ::rpc::AuthResponse* const response) noexcept -> ::grpc::Status
     {
         response->set_success(false);
         response->set_message(e.what());

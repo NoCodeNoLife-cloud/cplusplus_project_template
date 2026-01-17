@@ -1,7 +1,7 @@
 #include "src/aop/FunctionProfilerAspect.hpp"
 #include <utility>
 
-namespace common
+namespace common::aop
 {
     FunctionProfilerAspect::FunctionProfilerAspect(std::string function_name)
         : profiler_(function_name, true), function_name_(std::move(function_name))

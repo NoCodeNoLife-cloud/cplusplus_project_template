@@ -99,8 +99,8 @@ namespace app_server
 
         try
         {
-            const YAML::Node root = common::YamlToolkit::read(path.string());
-            const YAML::Node grpcNode = common::YamlToolkit::getNodeOrRoot(root, "grpc");
+            const YAML::Node root = common::filesystem::YamlToolkit::read(path.string());
+            const YAML::Node grpcNode = common::filesystem::YamlToolkit::getNodeOrRoot(root, "grpc");
 
             // Table-driven configuration loading for gRPC parameters
             const std::vector<std::pair<std::string, std::function<void()>>> config_handlers = {

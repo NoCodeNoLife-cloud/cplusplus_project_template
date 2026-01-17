@@ -4,7 +4,7 @@
 
 #include "Edge.hpp"
 
-namespace common
+namespace common::graphics
 {
     /// @brief A class representing a graph data structure
     /// @details This class provides functionality to create a graph with a specified number of nodes,

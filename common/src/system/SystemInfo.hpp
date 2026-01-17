@@ -3,7 +3,7 @@
 #include <vector>
 #include <windows.h>
 
-namespace common
+namespace common::system
 {
     /// @brief Structure to hold motherboard information
     struct MotherboardInfo

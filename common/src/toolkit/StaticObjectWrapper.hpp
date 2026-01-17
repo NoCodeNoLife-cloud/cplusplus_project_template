@@ -3,7 +3,7 @@
 #include <mutex>
 #include <stdexcept>
 
-namespace common
+namespace common::toolkit
 {
     /// @brief A wrapper class for static object initialization and management.
     /// Ensures thread-safe initialization of static objects with lazy initialization support.

@@ -4,7 +4,7 @@
 #include "src/exception/AuthenticationException.hpp"
 #include <sstream>
 
-namespace common
+namespace common::auth
 {
     UserAuthenticator::UserAuthenticator(const std::string& db_path, const PasswordPolicy& policy)
         : password_policy_(policy), password_sql_(db_path)
@@ -29,19 +29,19 @@ namespace common
         // Validate username format
         if (!validate_username(username))
         {
-            throw AuthenticationException(std::string("Invalid username format. Use alphanumeric characters, underscores, or hyphens (3-20 characters)."));
+            throw exception::AuthenticationException(std::string("Invalid username format. Use alphanumeric characters, underscores, or hyphens (3-20 characters)."));
         }
 
         // Check if username already exists
         if (users_.contains(username) || password_sql_.UserExists(username))
         {
-            throw AuthenticationException(std::string("Username already exists"));
+            throw exception::AuthenticationException(std::string("Username already exists"));
         }
 
         // Validate password against policy
         if (!password_policy_.validate(password))
         {
-            throw AuthenticationException(std::string("Password does not meet security requirements"));
+            throw exception::AuthenticationException(std::string("Password does not meet security requirements"));
         }
 
         // Generate salt and hash password
@@ -52,7 +52,7 @@ namespace common
         const std::string credential_data = format_credentials_data(salt, hashed_password);
         if (!password_sql_.RegisterUser(username, credential_data))
         {
-            throw AuthenticationException(std::string("Failed to register user in database"));
+            throw exception::AuthenticationException(std::string("Failed to register user in database"));
         }
 
         // Store user credentials in memory cache
@@ -80,7 +80,7 @@ namespace common
 
         if (it == users_.end())
         {
-            throw AuthenticationException(std::string("User not found"));
+            throw exception::AuthenticationException(std::string("User not found"));
         }
 
         const auto& user = it->second;
@@ -88,7 +88,7 @@ namespace common
         // Check if account is locked
         if (user->is_locked())
         {
-            throw AuthenticationException(std::string("Account is locked due to too many failed attempts. Please try again later."));
+            throw exception::AuthenticationException(std::string("Account is locked due to too many failed attempts. Please try again later."));
         }
 
         // Verify password
@@ -97,11 +97,8 @@ namespace common
             user->reset_failed_attempts();
             return true;
         }
-        else
-        {
-            user->increment_failed_attempts();
-            throw AuthenticationException(std::string("Invalid password"));
-        }
+        user->increment_failed_attempts();
+        throw exception::AuthenticationException(std::string("Invalid password"));
     }
 
     bool UserAuthenticator::change_password(const std::string& username, const std::string& current_password, const std::string& new_password)
@@ -111,22 +108,22 @@ namespace common
         {
             authenticate(username, current_password);
         }
-        catch (const AuthenticationException&)
+        catch (const exception::AuthenticationException&)
         {
-            throw AuthenticationException(std::string("Current password is incorrect"));
+            throw exception::AuthenticationException(std::string("Current password is incorrect"));
         }
 
         std::lock_guard lock(users_mutex_);
         const auto it = users_.find(username);
         if (it == users_.end())
         {
-            throw AuthenticationException(std::string("User not found"));
+            throw exception::AuthenticationException(std::string("User not found"));
         }
 
         // Validate new password
         if (!password_policy_.validate(new_password))
         {
-            throw AuthenticationException(std::string("New password does not meet security requirements"));
+            throw exception::AuthenticationException(std::string("New password does not meet security requirements"));
         }
 
         // Generate new salt and hash
@@ -137,7 +134,7 @@ namespace common
         const std::string credential_data = format_credentials_data(salt, hashed_password);
         if (!password_sql_.ResetPassword(username, credential_data))
         {
-            throw AuthenticationException(std::string("Failed to update password in database"));
+            throw exception::AuthenticationException(std::string("Failed to update password in database"));
         }
 
         // Update credentials in memory cache
@@ -153,7 +150,7 @@ namespace common
         // Validate new password
         if (!password_policy_.validate(new_password))
         {
-            throw AuthenticationException(std::string("New password does not meet security requirements"));
+            throw exception::AuthenticationException(std::string("New password does not meet security requirements"));
         }
 
         // Generate new credentials
@@ -164,7 +161,7 @@ namespace common
         const std::string credential_data = format_credentials_data(salt, hashed_password);
         if (!password_sql_.ResetPassword(username, credential_data))
         {
-            throw AuthenticationException(std::string("Failed to reset password in database"));
+            throw exception::AuthenticationException(std::string("Failed to reset password in database"));
         }
 
         // Update credentials in memory cache or add if not exists

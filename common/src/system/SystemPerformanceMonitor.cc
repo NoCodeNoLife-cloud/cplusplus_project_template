@@ -6,7 +6,7 @@
 #include <cstdint>
 #include <thread>
 
-namespace common
+namespace common::system
 {
     auto SystemPerformanceMonitor::FileTimeToULARGEInteger(const FILETIME& ft) noexcept -> ULARGE_INTEGER
     {

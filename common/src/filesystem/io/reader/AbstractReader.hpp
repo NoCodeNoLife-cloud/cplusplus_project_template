@@ -6,7 +6,7 @@
 #include "src/filesystem/io/interface/ICloseable.hpp"
 #include "src/filesystem/io/interface/IReadable.hpp"
 
-namespace common
+namespace common::filesystem
 {
     /// @brief Abstract base class for reading character streams.
     /// This class provides a standard interface for reading character data from various sources.

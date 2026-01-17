@@ -2,7 +2,7 @@
 #include <chrono>
 #include <string>
 
-namespace common
+namespace common::time
 {
     /// @brief Utility class for time-related operations
     class Clock

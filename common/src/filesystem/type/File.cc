@@ -12,7 +12,7 @@
 #include <sstream>
 #include <string>
 
-namespace common
+namespace common::filesystem
 {
     File::File(const std::string& path)
         : file_path_(path)

@@ -7,7 +7,7 @@
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/writer.h"
 
-namespace common
+namespace common::serializer
 {
     template <typename T>
     auto JsonObjectSerializer::getValueOrDefault(const rapidjson::Value& json, const std::string& key, T defaultValue) noexcept -> T
@@ -94,7 +94,7 @@ namespace common
 }
 
 // Explicitly instantiate templates to avoid linker errors
-template auto common::JsonObjectSerializer::getValueOrDefault<std::string>(const rapidjson::Value&, const std::string&, std::string) noexcept -> std::string;
-template auto common::JsonObjectSerializer::getValueOrDefault<int32_t>(const rapidjson::Value&, const std::string&, int32_t) noexcept -> int32_t;
-template auto common::JsonObjectSerializer::getValueOrDefault<double>(const rapidjson::Value&, const std::string&, double) noexcept -> double;
-template auto common::JsonObjectSerializer::getValueOrDefault<bool>(const rapidjson::Value&, const std::string&, bool) noexcept -> bool;
+template auto common::serializer::JsonObjectSerializer::getValueOrDefault<std::string>(const rapidjson::Value&, const std::string&, std::string) noexcept -> std::string;
+template auto common::serializer::JsonObjectSerializer::getValueOrDefault<int32_t>(const rapidjson::Value&, const std::string&, int32_t) noexcept -> int32_t;
+template auto common::serializer::JsonObjectSerializer::getValueOrDefault<double>(const rapidjson::Value&, const std::string&, double) noexcept -> double;
+template auto common::serializer::JsonObjectSerializer::getValueOrDefault<bool>(const rapidjson::Value&, const std::string&, bool) noexcept -> bool;

@@ -6,7 +6,7 @@
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/writer.h"
 
-namespace common
+namespace common::serializer
 {
     /// @class JsonObjectSerializer
     /// @brief A utility class for serializing and deserializing JSON objects using RapidJSON.

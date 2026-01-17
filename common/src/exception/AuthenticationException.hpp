@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace common
+namespace common::exception
 {
     /// @brief Custom exception class for authentication-related errors
     class [[nodiscard]] AuthenticationException : public std::runtime_error

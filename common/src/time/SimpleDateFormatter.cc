@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <ctime>
 
-namespace common
+namespace common::time
 {
     SimpleDateFormatter::SimpleDateFormatter(const std::string& pattern)
     {

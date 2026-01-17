@@ -1,7 +1,7 @@
 #include "AuthenticationException.hpp"
 #include <string_view>
 
-namespace common
+namespace common::exception
 {
     AuthenticationException::AuthenticationException(const std::string& message)
         : std::runtime_error(message)
