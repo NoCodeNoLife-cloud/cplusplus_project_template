@@ -1,8 +1,9 @@
 #include "UserAuthenticator.hpp"
 
-#include "CryptoUtils.hpp"
 #include "src/exception/AuthenticationException.hpp"
 #include <sstream>
+
+#include "crypto/CryptoToolKit.hpp"
 
 namespace common::auth
 {
@@ -45,8 +46,8 @@ namespace common::auth
         }
 
         // Generate salt and hash password
-        auto salt = CryptoUtils::generate_salt();
-        auto hashed_password = CryptoUtils::hash_password(password, salt);
+        auto salt = crypto::CryptoToolKit::generate_salt();
+        auto hashed_password = crypto::CryptoToolKit::hash_password(password, salt);
 
         // Store user credentials in database
         const std::string credential_data = format_credentials_data(salt, hashed_password);
@@ -92,7 +93,7 @@ namespace common::auth
         }
 
         // Verify password
-        if (const auto hashed_input = CryptoUtils::hash_password(password, user->get_salt()); CryptoUtils::secure_compare(hashed_input, user->get_hashed_password()))
+        if (const auto hashed_input = crypto::CryptoToolKit::hash_password(password, user->get_salt()); crypto::CryptoToolKit::secure_compare(hashed_input, user->get_hashed_password()))
         {
             user->reset_failed_attempts();
             return true;
@@ -104,12 +105,21 @@ namespace common::auth
     bool UserAuthenticator::change_password(const std::string& username, const std::string& current_password, const std::string& new_password)
     {
         // First verify current password
+        bool auth_success = false;
         try
         {
-            authenticate(username, current_password);
+            auth_success = authenticate(username, current_password);
         }
         catch (const exception::AuthenticationException&)
         {
+            throw exception::AuthenticationException(std::string("Current password is incorrect"));
+        }
+
+        // If we reach here, authentication was successful (auth_success will be true)
+        // The return value confirms successful authentication
+        if (!auth_success) {
+            // This case shouldn't happen given the authenticate implementation,
+            // but added for completeness since the function is marked [[nodiscard]]
             throw exception::AuthenticationException(std::string("Current password is incorrect"));
         }
 
@@ -127,8 +137,8 @@ namespace common::auth
         }
 
         // Generate new salt and hash
-        auto salt = CryptoUtils::generate_salt();
-        auto hashed_password = CryptoUtils::hash_password(new_password, salt);
+        auto salt = crypto::CryptoToolKit::generate_salt();
+        auto hashed_password = crypto::CryptoToolKit::hash_password(new_password, salt);
 
         // Update credentials in database
         const std::string credential_data = format_credentials_data(salt, hashed_password);
@@ -154,8 +164,8 @@ namespace common::auth
         }
 
         // Generate new credentials
-        auto salt = CryptoUtils::generate_salt();
-        auto hashed_password = CryptoUtils::hash_password(new_password, salt);
+        auto salt = crypto::CryptoToolKit::generate_salt();
+        auto hashed_password = crypto::CryptoToolKit::hash_password(new_password, salt);
 
         // Update credentials in database
         const std::string credential_data = format_credentials_data(salt, hashed_password);
@@ -222,7 +232,7 @@ namespace common::auth
 
         const std::string salt = credentials_data.substr(0, delimiter_pos);
         const std::string hashed_password = credentials_data.substr(delimiter_pos + 1);
-        return std::make_pair(std::move(salt), std::move(hashed_password));
+        return std::make_pair(salt, hashed_password);
     }
 
     auto UserAuthenticator::load_user_from_db(const std::string& username) const -> std::optional<UserCredentials>

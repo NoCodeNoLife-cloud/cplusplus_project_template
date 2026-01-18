@@ -12,7 +12,7 @@
 
 namespace common::crypto
 {
-    auto OpenSSLToolkit::deriveKey(const std::string& password, std::array<unsigned char, 32>& key, std::array<unsigned char, 16>& salt) noexcept -> void
+    auto OpenSSLToolkit::deriveKey(const std::string& password, std::array<unsigned char, 32>& key, const std::array<unsigned char, 16>& salt) noexcept -> void
     {
         EVP_BytesToKey(EVP_aes_256_cbc(), EVP_sha1(), salt.data(), reinterpret_cast<const unsigned char*>(password.c_str()), static_cast<int32_t>(password.size()), 1, key.data(), nullptr);
     }
@@ -94,7 +94,7 @@ namespace common::crypto
         std::array<unsigned char, 32> key{};
         deriveKey(password, key, salt);
 
-        auto ctx = EVP_CIPHER_CTX_new();
+        const auto ctx = EVP_CIPHER_CTX_new();
         if (!ctx)
         {
             throw std::runtime_error("Failed to create cipher context");

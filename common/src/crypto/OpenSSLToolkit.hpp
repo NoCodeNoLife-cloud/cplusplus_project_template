@@ -18,7 +18,7 @@ namespace common::crypto
         /// @param password The password to derive the key from.
         /// @param key The output key buffer (32 bytes for AES-256).
         /// @param salt The salt to use in key derivation (16 bytes).
-        static auto deriveKey(const std::string& password, std::array<unsigned char, 32>& key, std::array<unsigned char, 16>& salt) noexcept -> void;
+        static auto deriveKey(const std::string& password, std::array<unsigned char, 32>& key, const std::array<unsigned char, 16>& salt) noexcept -> void;
 
         /// @brief Encrypts the given plaintext using AES-256-CBC with a key derived from the password.
         /// @param plaintext The plaintext to encrypt.

@@ -1,8 +1,10 @@
-#include "CryptoUtils.hpp"
+#include "CryptoToolKit.hpp"
 
-namespace common::auth
+#include <openssl/rand.h>
+
+namespace common::crypto
 {
-    auto CryptoUtils::generate_salt() -> std::string
+    auto CryptoToolKit::generate_salt() -> std::string
     {
         unsigned char salt[SALT_SIZE];
         if (RAND_bytes(salt, SALT_SIZE) != 1)
@@ -12,7 +14,7 @@ namespace common::auth
         return {reinterpret_cast<const char*>(salt), SALT_SIZE};
     }
 
-    auto CryptoUtils::hash_password(const std::string& password, const std::string& salt, const size_t iterations) -> std::string
+    auto CryptoToolKit::hash_password(const std::string& password, const std::string& salt, const size_t iterations) -> std::string
     {
         unsigned char hash[HASH_SIZE];
         if (PKCS5_PBKDF2_HMAC(password.c_str(), static_cast<int>(password.length()), reinterpret_cast<const unsigned char*>(salt.c_str()), static_cast<int>(salt.length()), static_cast<int>(iterations), EVP_sha256(), HASH_SIZE, hash) != 1)
@@ -22,7 +24,7 @@ namespace common::auth
         return {reinterpret_cast<const char*>(hash), HASH_SIZE};
     }
 
-    auto CryptoUtils::secure_compare(const std::string& a, const std::string& b) noexcept -> bool
+    auto CryptoToolKit::secure_compare(const std::string& a, const std::string& b) noexcept -> bool
     {
         if (a.length() != b.length())
         {
@@ -36,4 +38,4 @@ namespace common::auth
         }
         return result == 0;
     }
-} // common
+}

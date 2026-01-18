@@ -1,13 +1,12 @@
 #pragma once
 #include <string>
-#include <openssl/rand.h>
 
 #include "src/exception/AuthenticationException.hpp"
 
-namespace common::auth
+namespace common::crypto
 {
     /// @brief Cryptographic utilities for password hashing and secure comparisons
-    class CryptoUtils
+    class CryptoToolKit
     {
     public:
         static constexpr size_t SALT_SIZE = 16; /// @brief Size of cryptographic salt in bytes

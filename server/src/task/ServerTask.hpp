@@ -6,7 +6,7 @@
 
 #include "src/rpc/AuthRpcServiceOptions.hpp"
 #include "src/time/FunctionProfiler.hpp"
-#include "task/ITask.h"
+#include "../../../common/src/task/interface/ITask.h"
 
 namespace app_server
 {

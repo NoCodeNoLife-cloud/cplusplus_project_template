@@ -6,7 +6,7 @@
 #include "src/rpc/AuthRpcClient.hpp"
 #include "src/rpc/AuthRpcClientOptions.hpp"
 #include "src/time/FunctionProfiler.hpp"
-#include "task/ITask.h"
+#include "../../../common/src/task/interface/ITask.h"
 
 namespace app_client
 {
