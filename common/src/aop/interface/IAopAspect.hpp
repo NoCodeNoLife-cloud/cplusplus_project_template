@@ -12,7 +12,7 @@ namespace common::interfaces
     /// @tparam Derived The derived class that implements the specific AOP behavior.
     /// The derived class can override the virtual methods to customize the AOP behavior.
     template <typename Derived>
-    class IAop
+    class IAopAspect
     {
     public:
         /// @brief Execute the function with the given arguments
@@ -22,7 +22,7 @@ namespace common::interfaces
         template <typename Func, typename... Args>
         [[nodiscard]] auto exec(Func&& func, Args&&... args) -> decltype(auto);
 
-        virtual ~IAop() = default;
+        virtual ~IAopAspect() = default;
 
     protected:
         /// @brief Function to be executed before the function call
@@ -58,7 +58,7 @@ namespace common::interfaces
 
     template <typename Derived>
     template <typename Func, typename... Args>
-    auto IAop<Derived>::exec(Func&& func, Args&&... args) -> decltype(auto)
+    auto IAopAspect<Derived>::exec(Func&& func, Args&&... args) -> decltype(auto)
     {
         // Execute the pre-execution logic
         static_cast<Derived*>(this)->onEntry();

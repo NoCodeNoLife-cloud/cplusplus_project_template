@@ -3,7 +3,7 @@
 #include <string_view>
 #include <glog/logging.h>
 
-namespace server_app
+namespace server_app::sql
 {
     PasswordSQL::PasswordSQL(const std::string& db_path) noexcept(false)
         : sqlite_manager_{db_path}

@@ -117,7 +117,8 @@ namespace common::auth
 
         // If we reach here, authentication was successful (auth_success will be true)
         // The return value confirms successful authentication
-        if (!auth_success) {
+        if (!auth_success)
+        {
             // This case shouldn't happen given the authenticate implementation,
             // but added for completeness since the function is marked [[nodiscard]]
             throw exception::AuthenticationException(std::string("Current password is incorrect"));

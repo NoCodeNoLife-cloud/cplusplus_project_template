@@ -1,8 +1,6 @@
 #pragma once
 #include <memory>
 
-#include "../Color.hpp"
-
 namespace fox::data_structure
 {
     /// @brief A node in a Red-Black Tree

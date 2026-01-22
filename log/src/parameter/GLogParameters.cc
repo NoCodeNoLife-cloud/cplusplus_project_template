@@ -1,8 +1,9 @@
 #include "GLogParameters.hpp"
+
 #include <yaml-cpp/yaml.h>
 #include <fmt/format.h>
 
-namespace glog
+namespace glog::parameter
 {
     GLogParameters::GLogParameters(const int32_t min_log_level, std::string log_name, const bool log_to_stderr)
         : min_log_level_(min_log_level), log_name_(std::move(log_name)), log_to_stderr_(log_to_stderr)
@@ -120,7 +121,7 @@ namespace glog
     }
 }
 
-auto YAML::convert<glog::GLogParameters>::decode(const YAML::Node& node, glog::GLogParameters& rhs) -> bool
+auto YAML::convert<glog::parameter::GLogParameters>::decode(const YAML::Node& node, glog::parameter::GLogParameters& rhs) -> bool
 {
     if (!node.IsMap())
     {
@@ -146,7 +147,7 @@ auto YAML::convert<glog::GLogParameters>::decode(const YAML::Node& node, glog::G
     return true;
 }
 
-auto YAML::convert<glog::GLogParameters>::encode(const glog::GLogParameters& rhs) -> YAML::Node
+auto YAML::convert<glog::parameter::GLogParameters>::encode(const glog::parameter::GLogParameters& rhs) -> YAML::Node
 {
     YAML::Node node;
     node["minLogLevel"] = rhs.minLogLevel();

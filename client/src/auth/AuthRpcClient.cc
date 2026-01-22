@@ -1,9 +1,9 @@
-#include "src/rpc/AuthRpcClient.hpp"
+#include "src/auth/AuthRpcClient.hpp"
 
 #include <glog/logging.h>
 #include <functional>
 
-namespace client_app
+namespace client_app::auth
 {
     /// @brief Construct a new AuthRpcClient object
     /// @param channel The gRPC channel to use for communication
@@ -136,14 +136,14 @@ namespace client_app
 }
 
 // Explicit template instantiation for the methods used
-template auto client_app::AuthRpcClient::ExecuteRpcCall<rpc::RegisterUserRequest, rpc::AuthResponse>(const std::string&, const rpc::RegisterUserRequest&, const std::function<grpc::Status(grpc::ClientContext*, const rpc::RegisterUserRequest&, rpc::AuthResponse*)>&) const noexcept -> rpc::AuthResponse;
+template auto client_app::auth::AuthRpcClient::ExecuteRpcCall<rpc::RegisterUserRequest, rpc::AuthResponse>(const std::string&, const rpc::RegisterUserRequest&, const std::function<grpc::Status(grpc::ClientContext*, const rpc::RegisterUserRequest&, rpc::AuthResponse*)>&) const noexcept -> rpc::AuthResponse;
 
-template auto client_app::AuthRpcClient::ExecuteRpcCall<rpc::AuthenticateUserRequest, rpc::AuthResponse>(const std::string&, const rpc::AuthenticateUserRequest&, const std::function<grpc::Status(grpc::ClientContext*, const rpc::AuthenticateUserRequest&, rpc::AuthResponse*)>&) const noexcept -> rpc::AuthResponse;
+template auto client_app::auth::AuthRpcClient::ExecuteRpcCall<rpc::AuthenticateUserRequest, rpc::AuthResponse>(const std::string&, const rpc::AuthenticateUserRequest&, const std::function<grpc::Status(grpc::ClientContext*, const rpc::AuthenticateUserRequest&, rpc::AuthResponse*)>&) const noexcept -> rpc::AuthResponse;
 
-template auto client_app::AuthRpcClient::ExecuteRpcCall<rpc::UserExistsRequest, rpc::AuthResponse>(const std::string&, const rpc::UserExistsRequest&, const std::function<grpc::Status(grpc::ClientContext*, const rpc::UserExistsRequest&, rpc::AuthResponse*)>&) const noexcept -> rpc::AuthResponse;
+template auto client_app::auth::AuthRpcClient::ExecuteRpcCall<rpc::UserExistsRequest, rpc::AuthResponse>(const std::string&, const rpc::UserExistsRequest&, const std::function<grpc::Status(grpc::ClientContext*, const rpc::UserExistsRequest&, rpc::AuthResponse*)>&) const noexcept -> rpc::AuthResponse;
 
-template auto client_app::AuthRpcClient::ExecuteRpcCall<rpc::ChangePasswordRequest, rpc::AuthResponse>(const std::string&, const rpc::ChangePasswordRequest&, const std::function<grpc::Status(grpc::ClientContext*, const rpc::ChangePasswordRequest&, rpc::AuthResponse*)>&) const noexcept -> rpc::AuthResponse;
+template auto client_app::auth::AuthRpcClient::ExecuteRpcCall<rpc::ChangePasswordRequest, rpc::AuthResponse>(const std::string&, const rpc::ChangePasswordRequest&, const std::function<grpc::Status(grpc::ClientContext*, const rpc::ChangePasswordRequest&, rpc::AuthResponse*)>&) const noexcept -> rpc::AuthResponse;
 
-template auto client_app::AuthRpcClient::ExecuteRpcCall<rpc::ResetPasswordRequest, rpc::AuthResponse>(const std::string&, const rpc::ResetPasswordRequest&, const std::function<grpc::Status(grpc::ClientContext*, const rpc::ResetPasswordRequest&, rpc::AuthResponse*)>&) const noexcept -> rpc::AuthResponse;
+template auto client_app::auth::AuthRpcClient::ExecuteRpcCall<rpc::ResetPasswordRequest, rpc::AuthResponse>(const std::string&, const rpc::ResetPasswordRequest&, const std::function<grpc::Status(grpc::ClientContext*, const rpc::ResetPasswordRequest&, rpc::AuthResponse*)>&) const noexcept -> rpc::AuthResponse;
 
-template auto client_app::AuthRpcClient::ExecuteRpcCall<rpc::DeleteUserRequest, rpc::AuthResponse>(const std::string&, const rpc::DeleteUserRequest&, const std::function<grpc::Status(grpc::ClientContext*, const rpc::DeleteUserRequest&, rpc::AuthResponse*)>&) const noexcept -> rpc::AuthResponse;
+template auto client_app::auth::AuthRpcClient::ExecuteRpcCall<rpc::DeleteUserRequest, rpc::AuthResponse>(const std::string&, const rpc::DeleteUserRequest&, const std::function<grpc::Status(grpc::ClientContext*, const rpc::DeleteUserRequest&, rpc::AuthResponse*)>&) const noexcept -> rpc::AuthResponse;

@@ -1,7 +1,8 @@
 #include "CustomGlogPrefixFormatter.hpp"
+
 #include <iomanip>
 
-namespace glog
+namespace glog::formatter
 {
     /// @brief Formats log message prefix according to custom specification
     /// @param s Output stream to write formatted prefix to

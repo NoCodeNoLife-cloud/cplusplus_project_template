@@ -1,14 +1,13 @@
 #pragma once
-#include <grpcpp/server_builder.h>
-
 #include <memory>
 #include <string>
+#include <grpcpp/server_builder.h>
 
-#include "src/rpc/AuthRpcServiceOptions.hpp"
+#include "src/auth/AuthRpcServiceOptions.hpp"
 #include "src/time/FunctionProfiler.hpp"
-#include "../../../common/src/task/interface/ITask.h"
+#include "task/interface/ITask.h"
 
-namespace app_server
+namespace app_server::task
 {
     /// @brief ServerTask is responsible for managing the main service loop
     /// @details This class coordinates various subsystems within the application server,
@@ -46,7 +45,7 @@ namespace app_server
 
     private:
         const std::string application_dev_config_path_{"../../server/src/application-dev.yml"};
-        AuthRpcServiceOptions grpc_options_;
+        auth::AuthRpcServiceOptions grpc_options_;
         common::time::FunctionProfiler timer_;
         std::unique_ptr<grpc::Server> server_;
 

@@ -1,13 +1,14 @@
-#include "src/GLogConfigurator.hpp"
+#include "GLogConfigurator.hpp"
 
 #include <glog/logging.h>
 #include <iostream>
 #include <thread>
 #include <fmt/format.h>
 
-#include "CustomGlogPrefixFormatter.hpp"
+#include "formatter/CustomGlogPrefixFormatter.hpp"
 
-namespace glog
+
+namespace glog::config
 {
     // Static variable to hold the custom log sink for cleanup
     static std::unique_ptr<google::LogSink> static_custom_log_sink_;
@@ -28,17 +29,17 @@ namespace glog
         LOG(INFO) << "glog configured...";
     }
 
-    auto GLogConfigurator::getConfig() const noexcept -> const GLogParameters&
+    auto GLogConfigurator::getConfig() const noexcept -> const parameter::GLogParameters&
     {
         return config_;
     }
 
-    auto GLogConfigurator::updateConfig(const GLogParameters& config) noexcept -> void
+    auto GLogConfigurator::updateConfig(const parameter::GLogParameters& config) noexcept -> void
     {
         config_ = config;
     }
 
-    auto GLogConfigurator::doConfig(const GLogParameters& config) noexcept -> void
+    auto GLogConfigurator::doConfig(const parameter::GLogParameters& config) noexcept -> void
     {
         google::InitGoogleLogging(config.logName().c_str());
         FLAGS_minloglevel = config.minLogLevel();
@@ -49,7 +50,7 @@ namespace glog
         // Apply custom log format if enabled
         if (config.customLogFormat())
         {
-            google::InstallPrefixFormatter(&CustomGlogPrefixFormatter::MyPrefixFormatter);
+            google::InstallPrefixFormatter(&formatter::CustomGlogPrefixFormatter::MyPrefixFormatter);
             LOG(INFO) << "Custom log format enabled...";
         }
     }

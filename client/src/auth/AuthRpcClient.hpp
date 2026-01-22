@@ -5,7 +5,7 @@
 
 #include "generated/RpcService.grpc.pb.h"
 
-namespace client_app
+namespace client_app::auth
 {
     /// @brief RPC client for communicating with the server.
     /// @details This class provides methods to interact with the RPC service.

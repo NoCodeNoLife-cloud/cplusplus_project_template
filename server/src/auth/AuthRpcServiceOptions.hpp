@@ -5,7 +5,7 @@
 
 #include "src/serializer/interface/IYamlConfigurable.hpp"
 
-namespace app_server
+namespace app_server::auth
 {
     /// @brief A class that holds gRPC configuration options
     /// @details This class encapsulates all the gRPC configuration parameters
@@ -276,7 +276,7 @@ namespace app_server
 /// @details This template specialization allows the YAML library to automatically
 /// serialize and deserialize AuthRpcServiceOptions objects to and from YAML format.
 template <>
-struct YAML::convert<app_server::AuthRpcServiceOptions>
+struct YAML::convert<app_server::auth::AuthRpcServiceOptions>
 {
     /// @brief Decode a YAML node into a AuthRpcServiceOptions object.
     /// @param node The YAML node containing the configuration data.
@@ -284,12 +284,12 @@ struct YAML::convert<app_server::AuthRpcServiceOptions>
     /// @return True if decoding was successful.
     /// @details Extracts configuration values from the YAML node and sets them
     /// in the AuthRpcServiceOptions object. Missing values will retain their default values.
-    static auto decode(const Node& node, app_server::AuthRpcServiceOptions& rhs) -> bool;
+    static auto decode(const Node& node, app_server::auth::AuthRpcServiceOptions& rhs) -> bool;
 
     /// @brief Encode a AuthRpcServiceOptions object into a YAML node.
     /// @param rhs The AuthRpcServiceOptions object to encode.
     /// @return A YAML node containing the configuration data.
     /// @details Converts the AuthRpcServiceOptions object's configuration values into
     /// a YAML node representation that can be serialized to a file or string.
-    static auto encode(const app_server::AuthRpcServiceOptions& rhs) -> Node;
+    static auto encode(const app_server::auth::AuthRpcServiceOptions& rhs) -> Node;
 };

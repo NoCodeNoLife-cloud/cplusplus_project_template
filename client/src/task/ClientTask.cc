@@ -1,26 +1,26 @@
 #include "src/task/ClientTask.hpp"
 
+#include <fmt/format.h>
 #include <glog/logging.h>
 #include <grpcpp/grpcpp.h>
-#include <fmt/format.h>
 
-#include "src/GLogConfigurator.hpp"
+#include "config/GLogConfigurator.hpp"
+#include "rpc/RpcMetadata.hpp"
+#include "src/auth/AuthRpcClient.hpp"
 #include "src/filesystem/io/Console.hpp"
-#include "src/rpc/AuthRpcClient.hpp"
-#include "src/rpc/RpcMetadata.hpp"
 #include "src/system/SystemInfo.hpp"
 
-namespace app_client
+namespace app_client::task
 {
     ClientTask::ClientTask(const std::string& project_name_) noexcept
-        : rpc_options_{AuthRpcClientOptions::builder().build()}, timer_{project_name_}
+        : rpc_options_{auth::AuthRpcClientOptions::builder().build()}, timer_{project_name_}
     {
         timer_.recordStart();
     }
 
     auto ClientTask::init() const noexcept -> void
     {
-        const glog::GLogConfigurator log_configurator{application_dev_config_path_};
+        const glog::config::GLogConfigurator log_configurator{application_dev_config_path_};
         log_configurator.execute();
         LOG(INFO) << fmt::format("Initializing GLog configuration from: {}, RPC Options - Keepalive Time: {}ms, Timeout: {}ms, Permit Without Calls: {}, configuration initialized successfully", application_dev_config_path_, application_dev_config_path_, rpc_options_.keepaliveTimeMs(), rpc_options_.keepaliveTimeoutMs(), rpc_options_.keepalivePermitWithoutCalls());
 
@@ -29,7 +29,7 @@ namespace app_client
         LOG(INFO) << "Initialization completed successfully";
     }
 
-    auto ClientTask::logIn(const client_app::AuthRpcClient& auth_rpc_client) -> std::string
+    auto ClientTask::logIn(const client_app::auth::AuthRpcClient& auth_rpc_client) -> std::string
     {
         LOG(INFO) << "Starting authentication process";
 
@@ -80,7 +80,7 @@ namespace app_client
         return createNewAccount == "y" || createNewAccount == "Y";
     }
 
-    auto ClientTask::registerNewUser(const client_app::AuthRpcClient& auth_rpc_client, const std::string& username, const std::string& password) -> void
+    auto ClientTask::registerNewUser(const client_app::auth::AuthRpcClient& auth_rpc_client, const std::string& username, const std::string& password) -> void
     {
         LOG(INFO) << "Registering user...";
         const auto registerUserResponse = auth_rpc_client.RegisterUser(username, password);
@@ -94,7 +94,7 @@ namespace app_client
         LOG(INFO) << fmt::format("Registered user successfully, return value: {}", registerUserResponse.message());
     }
 
-    auto ClientTask::logOut(const client_app::AuthRpcClient& auth_rpc_client, const std::string& username) noexcept -> void
+    auto ClientTask::logOut(const client_app::auth::AuthRpcClient& auth_rpc_client, const std::string& username) noexcept -> void
     {
         if (const auto deleteUserResponse = auth_rpc_client.DeleteUser(username); !deleteUserResponse.success())
         {
@@ -107,7 +107,7 @@ namespace app_client
     }
 
     // ReSharper disable once CppMemberFunctionMayBeStatic
-    auto ClientTask::task(const client_app::AuthRpcClient& auth_rpc_client) noexcept -> void
+    auto ClientTask::task(const client_app::auth::AuthRpcClient& auth_rpc_client) noexcept -> void
     {
         // TODO: Implement actual task logic here
     }
@@ -125,7 +125,7 @@ namespace app_client
         exit();
     }
 
-    auto ClientTask::createRpcClient() const -> client_app::AuthRpcClient
+    auto ClientTask::createRpcClient() const -> client_app::auth::AuthRpcClient
     {
         LOG(INFO) << "Creating gRPC channel";
         // Create channel using the existing createChannel method with custom arguments
@@ -137,7 +137,7 @@ namespace app_client
         LOG(INFO) << fmt::format("gRPC channel created with state: {}", state_str);
         LOG(INFO) << "Creating RPC client";
         // Create client using the channel with custom arguments
-        client_app::AuthRpcClient client{channel};
+        client_app::auth::AuthRpcClient client{channel};
         LOG(INFO) << "RPC client created successfully";
 
         return client;

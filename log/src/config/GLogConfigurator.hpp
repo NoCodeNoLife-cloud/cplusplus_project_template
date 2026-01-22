@@ -1,9 +1,9 @@
 #pragma once
 #include <string>
 
-#include "src/GLogParameters.hpp"
+#include "parameter/GLogParameters.hpp"
 
-namespace glog
+namespace glog::config
 {
     /// @brief Configures Google Logging (glog) library with specified parameters
     /// @details This class handles the initialization and configuration of the glog library
@@ -39,20 +39,20 @@ namespace glog
 
         /// @brief Get the current configuration parameters
         /// @return A const reference to the GLogParameters object
-        [[nodiscard]] auto getConfig() const noexcept -> const GLogParameters&;
+        [[nodiscard]] auto getConfig() const noexcept -> const parameter::GLogParameters&;
 
         /// @brief Update the configuration parameters
         /// @param config The new configuration parameters
-        auto updateConfig(const GLogParameters& config) noexcept -> void;
+        auto updateConfig(const parameter::GLogParameters& config) noexcept -> void;
 
     private:
         /// @brief Perform the actual glog configuration
-        static auto doConfig(const GLogParameters& config) noexcept -> void;
+        static auto doConfig(const parameter::GLogParameters& config) noexcept -> void;
 
         /// @brief Clean up glog resources
         static auto clean() noexcept -> void;
 
         std::string glog_yaml_path_;
-        GLogParameters config_;
+        parameter::GLogParameters config_;
     };
 }

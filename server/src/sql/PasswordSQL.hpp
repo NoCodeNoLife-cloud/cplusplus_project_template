@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-namespace server_app
+namespace server_app::sql
 {
     /// @brief Manages user authentication and password operations using SQLite database
     class PasswordSQL

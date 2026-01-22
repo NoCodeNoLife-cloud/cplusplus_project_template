@@ -7,7 +7,7 @@
 #include <string_view>
 #include <unordered_map>
 
-namespace server_app
+namespace server_app::auth
 {
     /// @brief RPC service implementation for handling remote procedure calls
     /// @details This class implements the gRPC service interface defined in RpcService.grpc.pb.h

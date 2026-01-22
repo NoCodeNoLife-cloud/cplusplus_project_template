@@ -1,13 +1,13 @@
 #include "src/task/ServerTask.hpp"
 
-#include <glog/logging.h>
 #include <fmt/format.h>
+#include <glog/logging.h>
 
-#include "src/GLogConfigurator.hpp"
-#include "src/rpc/AuthRpcService.hpp"
+#include "config/GLogConfigurator.hpp"
+#include "src/auth/AuthRpcService.hpp"
 
 
-namespace app_server
+namespace app_server::task
 {
     ServerTask::ServerTask(std::string name) noexcept
         : timer_(std::move(name))
@@ -18,7 +18,7 @@ namespace app_server
 
     auto ServerTask::init() -> void
     {
-        const glog::GLogConfigurator log_configurator{application_dev_config_path_};
+        const glog::config::GLogConfigurator log_configurator{application_dev_config_path_};
         log_configurator.execute();
         LOG(INFO) << fmt::format("Initializing ServerTask with config path: {}, loading gRPC configuration from: {}", application_dev_config_path_, application_dev_config_path_);
 
@@ -76,7 +76,7 @@ namespace app_server
         LOG(INFO) << fmt::format("Channel arguments set - Max Connection Idle: {}ms, Max Connection Age: {}ms, Max Connection Age Grace: {}ms, Keepalive Time: {}ms, Keepalive Timeout: {}ms, Keepalive Permit Without Calls: {}", grpc_options_.maxConnectionIdleMs(), grpc_options_.maxConnectionAgeMs(), grpc_options_.maxConnectionAgeGraceMs(), grpc_options_.keepaliveTimeMs(), grpc_options_.keepaliveTimeoutMs(), grpc_options_.keepalivePermitWithoutCalls());
 
         LOG(INFO) << "Registering RPC service implementation";
-        server_app::AuthRpcService service("./users.db");
+        server_app::auth::AuthRpcService service("./users.db");
         builder.RegisterService(&service);
         LOG(INFO) << "Service registered successfully";
 

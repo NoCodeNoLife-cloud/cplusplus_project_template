@@ -4,6 +4,6 @@
 
 auto main(const int32_t, char*[]) -> int32_t
 {
-    app_client::ClientTask main_task("client");
+    app_client::task::ClientTask main_task("client");
     main_task.run();
 }

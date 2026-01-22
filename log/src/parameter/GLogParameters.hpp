@@ -5,7 +5,7 @@
 
 #include "src/serializer/interface/IYamlConfigurable.hpp"
 
-namespace glog
+namespace glog::parameter
 {
     /// @brief Configuration parameters for Google Logging (glog) library.
     /// @details This class encapsulates all the configuration options for the glog logging system.
@@ -80,16 +80,16 @@ namespace glog
 /// @brief YAML serialization specialization for GLogParameters.
 /// Provides methods to encode and decode GLogParameters to/from YAML nodes.
 template <>
-struct YAML::convert<glog::GLogParameters>
+struct YAML::convert<glog::parameter::GLogParameters>
 {
     /// @brief Decode a YAML node into a GLogParameters object.
     /// @param node The YAML node containing the configuration data.
     /// @param rhs The GLogParameters object to populate.
     /// @return True if decoding was successful.
-    static auto decode(const YAML::Node& node, glog::GLogParameters& rhs) -> bool;
+    static auto decode(const Node& node, glog::parameter::GLogParameters& rhs) -> bool;
 
     /// @brief Encode a GLogParameters object into a YAML node.
     /// @param rhs The GLogParameters object to encode.
     /// @return A YAML node containing the configuration data.
-    static auto encode(const glog::GLogParameters& rhs) -> YAML::Node;
+    static auto encode(const glog::parameter::GLogParameters& rhs) -> YAML::Node;
 };

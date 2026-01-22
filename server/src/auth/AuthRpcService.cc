@@ -1,9 +1,10 @@
-#include "src/rpc/AuthRpcService.hpp"
-#include <unordered_map>
+#include "AuthRpcService.hpp"
+
 #include <string_view>
+#include <unordered_map>
 #include <fmt/format.h>
 
-namespace server_app
+namespace server_app::auth
 {
     /// @brief Map exception types to error codes using table-driven approach
     const std::unordered_map<std::string_view, int> AuthRpcService::error_map_ = {

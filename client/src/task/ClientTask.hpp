@@ -3,12 +3,12 @@
 #include <string>
 #include <grpcpp/grpcpp.h>
 
-#include "src/rpc/AuthRpcClient.hpp"
-#include "src/rpc/AuthRpcClientOptions.hpp"
+#include "src/auth/AuthRpcClient.hpp"
+#include "src/auth/AuthRpcClientOptions.hpp"
 #include "src/time/FunctionProfiler.hpp"
-#include "../../../common/src/task/interface/ITask.h"
+#include "task/interface/ITask.h"
 
-namespace app_client
+namespace app_client::task
 {
     class ClientTask final : public common::interfaces::ITask
     {
@@ -43,7 +43,7 @@ namespace app_client
         /// @brief Logs a message indicating that the client is logging in
         /// @param auth_rpc_client Reference to the RPC client for authentication
         /// @return Username of the authenticated user
-        [[nodiscard]] static auto logIn(const client_app::AuthRpcClient& auth_rpc_client) -> std::string;
+        [[nodiscard]] static auto logIn(const client_app::auth::AuthRpcClient& auth_rpc_client) -> std::string;
 
         /// @brief Check if a new account should be created
         /// @return True if user wants to create a new account
@@ -54,17 +54,17 @@ namespace app_client
         /// @param username Username for the new account
         /// @param password Password for the new account
         /// @throws std::runtime_error if registration fails
-        static auto registerNewUser(const client_app::AuthRpcClient& auth_rpc_client, const std::string& username, const std::string& password) -> void;
+        static auto registerNewUser(const client_app::auth::AuthRpcClient& auth_rpc_client, const std::string& username, const std::string& password) -> void;
         // Changed return type to void since it throws on failure
 
         /// @brief Logs a message indicating that the client is logging out
         /// @param auth_rpc_client Reference to the RPC client for logout operations
         /// @param username Username of the user to log out
-        static auto logOut(const client_app::AuthRpcClient& auth_rpc_client, const std::string& username) noexcept -> void;
+        static auto logOut(const client_app::auth::AuthRpcClient& auth_rpc_client, const std::string& username) noexcept -> void;
 
         /// @brief Main task
         /// @param auth_rpc_client Reference to the RPC client for executing tasks
-        auto task(const client_app::AuthRpcClient& auth_rpc_client) noexcept -> void;
+        auto task(const client_app::auth::AuthRpcClient& auth_rpc_client) noexcept -> void;
 
         /// @brief Create a gRPC channel with custom arguments
         /// @details This function sets up a gRPC channel with keepalive parameters and connects to the server
@@ -74,14 +74,14 @@ namespace app_client
         /// @brief Create RPC client with gRPC channel
         /// @details This function creates an RPC client using a gRPC channel
         /// @return An RPC client instance
-        [[nodiscard]] auto createRpcClient() const -> client_app::AuthRpcClient;
+        [[nodiscard]] auto createRpcClient() const -> client_app::auth::AuthRpcClient;
 
         /// @brief Logs client system information
         /// @details Logs OS version and CPU model to the application log
         static auto logClientInfo() noexcept -> void;
 
         const std::string application_dev_config_path_{"../../client/src/application-dev.yml"};
-        mutable AuthRpcClientOptions rpc_options_;
+        mutable auth::AuthRpcClientOptions rpc_options_;
         mutable common::time::FunctionProfiler timer_;
     };
 } // namespace app_client

@@ -7,7 +7,7 @@
 #include <fmt/format.h>
 #include "src/filesystem/type/YamlToolkit.hpp"
 
-namespace app_server
+namespace app_server::auth
 {
     AuthRpcServiceOptions::AuthRpcServiceOptions() = default;
 
@@ -222,7 +222,7 @@ namespace app_server
     }
 }
 
-auto YAML::convert<app_server::AuthRpcServiceOptions>::decode(const Node& node, app_server::AuthRpcServiceOptions& rhs) -> bool
+auto YAML::convert<app_server::auth::AuthRpcServiceOptions>::decode(const Node& node, app_server::auth::AuthRpcServiceOptions& rhs) -> bool
 {
     const std::vector<std::pair<std::string, std::function<void()>>> config_handlers = {
         {"maxConnectionIdleMs", [&]() { rhs.maxConnectionIdleMs(node["maxConnectionIdleMs"].as<int32_t>()); }}, {"maxConnectionAgeMs", [&]() { rhs.maxConnectionAgeMs(node["maxConnectionAgeMs"].as<int32_t>()); }}, {"maxConnectionAgeGraceMs", [&]() { rhs.maxConnectionAgeGraceMs(node["maxConnectionAgeGraceMs"].as<int32_t>()); }}, {"keepaliveTimeMs", [&]() { rhs.keepaliveTimeMs(node["keepaliveTimeMs"].as<int32_t>()); }}, {"keepaliveTimeoutMs", [&]() { rhs.keepaliveTimeoutMs(node["keepaliveTimeoutMs"].as<int32_t>()); }},
@@ -239,7 +239,7 @@ auto YAML::convert<app_server::AuthRpcServiceOptions>::decode(const Node& node, 
     return true;
 }
 
-auto YAML::convert<app_server::AuthRpcServiceOptions>::encode(const app_server::AuthRpcServiceOptions& rhs) -> Node
+auto YAML::convert<app_server::auth::AuthRpcServiceOptions>::encode(const app_server::auth::AuthRpcServiceOptions& rhs) -> Node
 {
     Node node;
     node["maxConnectionIdleMs"] = rhs.maxConnectionIdleMs();
