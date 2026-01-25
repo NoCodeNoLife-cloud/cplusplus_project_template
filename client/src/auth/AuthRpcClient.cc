@@ -121,7 +121,7 @@ namespace client_app::auth {
     /// @brief Get the underlying channel's current connectivity state
     /// @return Current GrpcConnectivityState of the channel
     auto AuthRpcClient::getConnectivityState() const noexcept -> common::rpc::GrpcConnectivityState {
-        grpc_connectivity_state raw_state = channel_->GetState(false);
+        const grpc_connectivity_state raw_state = channel_->GetState(false);
         return common::rpc::RpcMetadata::grpcStateToEnum(raw_state);
     }
 

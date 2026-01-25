@@ -1,5 +1,5 @@
 #pragma once
-#include "src/sql/SQLiteManager.hpp"
+#include "../../../common/src/sql/sqlite/SQLiteManager.hpp"
 #include <string>
 #include <vector>
 

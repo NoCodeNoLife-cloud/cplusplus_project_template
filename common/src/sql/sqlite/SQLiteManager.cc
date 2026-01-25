@@ -25,7 +25,7 @@ namespace common::sql {
 
         sqlite3 *raw_db;
         if (sqlite3_open(db_path.c_str(), &raw_db) != SQLITE_OK) {
-            std::string error_msg = "SQLiteManager::createDatabase: Database open failed for path '" + db_path + "': " + std::string(sqlite3_errmsg(raw_db));
+            const std::string error_msg = "SQLiteManager::createDatabase: Database open failed for path '" + db_path + "': " + std::string(sqlite3_errmsg(raw_db));
             sqlite3_close(raw_db); // Clean up the failed connection
             throw std::runtime_error(error_msg);
         }

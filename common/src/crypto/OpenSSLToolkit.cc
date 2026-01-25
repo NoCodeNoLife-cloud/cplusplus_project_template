@@ -31,7 +31,7 @@ namespace common::crypto {
             throw std::runtime_error("Failed to generate random initialization vector (IV)");
         }
 
-        auto ctx = EVP_CIPHER_CTX_new();
+        const auto ctx = EVP_CIPHER_CTX_new();
         if (!ctx) {
             throw std::runtime_error("Failed to create cipher context");
         }

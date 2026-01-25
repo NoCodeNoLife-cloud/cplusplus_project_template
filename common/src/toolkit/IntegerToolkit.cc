@@ -64,7 +64,7 @@ namespace common::toolkit {
         }
 
         // Verify by converting back to Roman and comparing
-        std::string verification = intToRoman(result);
+        const std::string verification = intToRoman(result);
         if (verification != upperRoman) {
             throw std::invalid_argument("IntegerToolkit::romanToInt: Invalid Roman numeral string");
         }
