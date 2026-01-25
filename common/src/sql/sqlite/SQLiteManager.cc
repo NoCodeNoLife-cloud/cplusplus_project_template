@@ -1,6 +1,6 @@
 #include "SQLiteManager.hpp"
 
-namespace common::sql {
+namespace common::sql::sqlite {
     SQLiteManager::SQLiteManager()
         : db_(nullptr, &sqlite3_close) {
     }
@@ -107,7 +107,7 @@ namespace common::sql {
 
     auto SQLiteManager::isOpen() const -> bool { return db_ != nullptr; }
 
-    void SQLiteManager::bindParameters(sqlite3_stmt *stmt, const std::vector<std::string> &params, const std::string &method_name) const {
+    void SQLiteManager::bindParameters(sqlite3_stmt *stmt, const std::vector<std::string> &params, const std::string &method_name) {
         for (size_t i = 0; i < params.size(); ++i) {
             if (sqlite3_bind_text(stmt, static_cast<int>(i + 1), params[i].c_str(), -1, SQLITE_STATIC) != SQLITE_OK) {
                 sqlite3_finalize(stmt);

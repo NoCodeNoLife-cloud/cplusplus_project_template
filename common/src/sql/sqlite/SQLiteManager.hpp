@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <memory>
 
-namespace common::sql {
+namespace common::sql::sqlite {
     /// @brief SQLite database executor with RAII management and parameterized queries
     class SQLiteManager {
     public:
@@ -52,7 +52,7 @@ namespace common::sql {
         /// @param params Vector of parameter values to bind
         /// @param method_name Name of the calling method for error reporting
         /// @throws std::runtime_error if parameter binding fails
-        void bindParameters(sqlite3_stmt *stmt, const std::vector<std::string> &params, const std::string &method_name) const;
+        static void bindParameters(sqlite3_stmt *stmt, const std::vector<std::string> &params, const std::string &method_name);
 
         std::unique_ptr<sqlite3, decltype(&sqlite3_close)> db_;
     };
