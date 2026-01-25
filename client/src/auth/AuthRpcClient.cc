@@ -3,11 +3,13 @@
 #include <glog/logging.h>
 #include <functional>
 
+#include "rpc/RpcMetadata.hpp"
+
 namespace client_app::auth {
     /// @brief Construct a new AuthRpcClient object
     /// @param channel The gRPC channel to use for communication
     AuthRpcClient::AuthRpcClient(const std::shared_ptr<grpc::Channel> &channel) noexcept
-        : stub_(rpc::AuthService::NewStub(channel)) {
+        : stub_(rpc::AuthService::NewStub(channel)), channel_(channel) {
         LOG_IF(FATAL, !channel) << "RPC channel cannot be null";
     }
 
@@ -114,6 +116,19 @@ namespace client_app::auth {
         return ExecuteRpcCall<rpc::DeleteUserRequest, rpc::AuthResponse>("DeleteUser", request, [this](grpc::ClientContext *context, const rpc::DeleteUserRequest &req, rpc::AuthResponse *response) -> grpc::Status {
             return this->stub_->DeleteUser(context, req, response);
         });
+    }
+
+    /// @brief Get the underlying channel's current connectivity state
+    /// @return Current GrpcConnectivityState of the channel
+    auto AuthRpcClient::getConnectivityState() const noexcept -> common::rpc::GrpcConnectivityState {
+        grpc_connectivity_state raw_state = channel_->GetState(false);
+        return common::rpc::RpcMetadata::grpcStateToEnum(raw_state);
+    }
+
+    /// @brief Check if the client channel is ready for RPC calls
+    /// @return True if channel is in READY state
+    auto AuthRpcClient::isReady() const noexcept -> bool {
+        return getConnectivityState() == common::rpc::GrpcConnectivityState::READY;
     }
 }
 

@@ -4,6 +4,7 @@
 #include <grpcpp/grpcpp.h>
 
 #include "generated/RpcService.grpc.pb.h"
+#include "src/rpc/GrpcConnectivityState.hpp"
 
 namespace client_app::auth {
     /// @brief RPC client for communicating with the server.
@@ -67,6 +68,14 @@ namespace client_app::auth {
         /// @return rpc::AuthResponse containing operation result
         [[nodiscard]] auto DeleteUser(const std::string &username) const noexcept -> rpc::AuthResponse;
 
+        /// @brief Get the underlying channel's current connectivity state
+        /// @return Current GrpcConnectivityState of the channel
+        [[nodiscard]] auto getConnectivityState() const noexcept -> common::rpc::GrpcConnectivityState;
+
+        /// @brief Check if the client channel is ready for RPC calls
+        /// @return True if channel is in READY state
+        [[nodiscard]] auto isReady() const noexcept -> bool;
+
     private:
         /// @brief Execute RPC call with error handling and logging
         /// @tparam RequestType Type of the request message
@@ -80,5 +89,8 @@ namespace client_app::auth {
 
         /// @brief gRPC stub for making RPC calls
         std::unique_ptr<rpc::AuthService::Stub> stub_;
+
+        /// @brief Store reference to the original channel to access connectivity state
+        std::shared_ptr<grpc::Channel> channel_;
     };
 } // namespace client_app

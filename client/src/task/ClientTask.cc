@@ -29,6 +29,11 @@ namespace app_client::task {
     auto ClientTask::logIn(const client_app::auth::AuthRpcClient &auth_rpc_client) -> std::string {
         LOG(INFO) << "Starting authentication process";
 
+        // Check if the RPC client is ready before proceeding
+        if (!auth_rpc_client.isReady()) {
+            LOG(WARNING) << "RPC client is not ready. Current state: " << common::rpc::RpcMetadata::grpcStateToString(auth_rpc_client.getConnectivityState());
+        }
+
         // Authenticate user
         LOG(INFO) << "Please enter your username: ";
         const std::string username = common::filesystem::Console::readLine();
@@ -90,12 +95,17 @@ namespace app_client::task {
 
     // ReSharper disable once CppMemberFunctionMayBeStatic
     auto ClientTask::task(const client_app::auth::AuthRpcClient &auth_rpc_client) noexcept -> void {
-        // TODO: Implement actual task logic here
+        // Implement actual task logic here
+        LOG(INFO) << "Current connection state: " << common::rpc::RpcMetadata::grpcStateToString(auth_rpc_client.getConnectivityState());
     }
 
     auto ClientTask::run() -> void {
         init();
         const auto client = createRpcClient();
+
+        // Log initial connection state
+        LOG(INFO) << "Initial connection state: " << common::rpc::RpcMetadata::grpcStateToString(client.getConnectivityState());
+
         const std::string username = logIn(client);
 
         task(client);
@@ -110,8 +120,9 @@ namespace app_client::task {
         // Create channel using the existing createChannel method with custom arguments
         const auto channel = createChannel();
 
-        // Convert grpc_connectivity_state to string for logging
-        const std::string state_str = common::rpc::RpcMetadata::grpcStateToString(channel->GetState(true));
+        // Get state using the new GrpcConnectivityState enum
+        const auto state_enum = common::rpc::RpcMetadata::grpcStateToEnum(channel->GetState(true));
+        const std::string state_str = common::rpc::RpcMetadata::grpcStateToString(state_enum);
 
         LOG(INFO) << fmt::format("gRPC channel created with state: {}", state_str);
         LOG(INFO) << "Creating RPC client";
@@ -147,8 +158,9 @@ namespace app_client::task {
         LOG(INFO) << fmt::format("Creating channel to server at: {}", server_address);
         const auto channel = grpc::CreateCustomChannel(server_address, grpc::InsecureChannelCredentials(), channel_args);
 
-        // Convert grpc_connectivity_state to string for logging
-        const std::string state_str = common::rpc::RpcMetadata::grpcStateToString(channel->GetState(true));
+        // Get state using the new GrpcConnectivityState enum
+        const auto state_enum = common::rpc::RpcMetadata::grpcStateToEnum(channel->GetState(true));
+        const std::string state_str = common::rpc::RpcMetadata::grpcStateToString(state_enum);
 
         LOG(INFO) << fmt::format("Channel state after creation: {}", state_str);
 
@@ -157,16 +169,18 @@ namespace app_client::task {
             const auto error_msg = fmt::format("Failed to connect to gRPC server at {} within timeout period", server_address);
             LOG(ERROR) << error_msg;
 
-            // Convert grpc_connectivity_state to string for logging
-            const std::string final_state_str = common::rpc::RpcMetadata::grpcStateToString(channel->GetState(false));
+            // Get final state using the new enum
+            const auto final_state_enum = common::rpc::RpcMetadata::grpcStateToEnum(channel->GetState(false));
+            const std::string final_state_str = common::rpc::RpcMetadata::grpcStateToString(final_state_enum);
 
             LOG(INFO) << fmt::format("Connection attempt finished with state: {}", final_state_str);
             throw std::runtime_error(error_msg);
         }
         LOG(INFO) << fmt::format("Successfully connected to gRPC server at {}", server_address);
 
-        // Convert grpc_connectivity_state to string for logging
-        const std::string final_state_str = common::rpc::RpcMetadata::grpcStateToString(channel->GetState(false));
+        // Get final state using the new enum
+        const auto final_state_enum = common::rpc::RpcMetadata::grpcStateToEnum(channel->GetState(false));
+        const std::string final_state_str = common::rpc::RpcMetadata::grpcStateToString(final_state_enum);
 
         LOG(INFO) << fmt::format("Final connection state: {}", final_state_str);
 
