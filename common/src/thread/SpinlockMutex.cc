@@ -4,22 +4,16 @@
 #include <thread>
 #include <chrono>
 
-namespace common::thread
-{
-    auto SpinlockMutex::lock() noexcept -> void
-    {
+namespace common::thread {
+    auto SpinlockMutex::lock() noexcept -> void {
         // Use exponential backoff to reduce contention
         int spin_count = 0;
-        while (flag_.test_and_set(std::memory_order_acquire))
-        {
-            if (++spin_count > 100)
-            {
+        while (flag_.test_and_set(std::memory_order_acquire)) {
+            if (++spin_count > 100) {
                 // After several attempts, yield to other threads
                 std::this_thread::yield();
                 spin_count = 0;
-            }
-            else
-            {
+            } else {
                 // On modern CPUs, pause instruction can be more efficient than yielding
 #if defined(_MSC_VER) || defined(__GNUC__)
                 _mm_pause(); // x86 specific pause instruction, requires <immintrin.h> indirectly
@@ -28,29 +22,24 @@ namespace common::thread
         }
     }
 
-    auto SpinlockMutex::try_lock() noexcept -> bool
-    {
+    auto SpinlockMutex::try_lock() noexcept -> bool {
         // Attempt to acquire the lock without blocking
         return !flag_.test_and_set(std::memory_order_acquire);
     }
 
-    template <typename Rep, typename Period>
-    auto SpinlockMutex::try_lock_for(const std::chrono::duration<Rep, Period>& timeout_duration) noexcept -> bool
-    {
+    template<typename Rep, typename Period>
+    auto SpinlockMutex::try_lock_for(const std::chrono::duration<Rep, Period> &timeout_duration) noexcept -> bool {
         auto start_time = std::chrono::high_resolution_clock::now();
         auto end_time = start_time + timeout_duration;
 
         // First attempt without waiting
-        if (try_lock())
-        {
+        if (try_lock()) {
             return true;
         }
 
         // Loop until timeout attempting to acquire the lock
-        while (std::chrono::high_resolution_clock::now() < end_time)
-        {
-            if (try_lock())
-            {
+        while (std::chrono::high_resolution_clock::now() < end_time) {
+            if (try_lock()) {
                 return true;
             }
 
@@ -61,13 +50,14 @@ namespace common::thread
         return false;
     }
 
-    auto SpinlockMutex::unlock() noexcept -> void
-    {
+    auto SpinlockMutex::unlock() noexcept -> void {
         flag_.clear(std::memory_order_release);
     }
 
     // Explicitly instantiate the template method for common duration types
-    template auto SpinlockMutex::try_lock_for<>(const std::chrono::duration<int64_t, std::milli>&) noexcept -> bool;
-    template auto SpinlockMutex::try_lock_for<>(const std::chrono::duration<int64_t, std::nano>&) noexcept -> bool;
-    template auto SpinlockMutex::try_lock_for<>(const std::chrono::duration<double, std::milli>&) noexcept -> bool;
+    template auto SpinlockMutex::try_lock_for<>(const std::chrono::duration<int64_t, std::milli> &) noexcept -> bool;
+
+    template auto SpinlockMutex::try_lock_for<>(const std::chrono::duration<int64_t, std::nano> &) noexcept -> bool;
+
+    template auto SpinlockMutex::try_lock_for<>(const std::chrono::duration<double, std::milli> &) noexcept -> bool;
 }

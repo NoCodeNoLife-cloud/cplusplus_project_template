@@ -1,13 +1,11 @@
 #pragma once
 
-namespace service::interfaces
-{
+namespace service::interfaces {
     /// @brief Interface for startup tasks that need to be executed when the service starts.
     /// Startup tasks are used to perform initialization operations that are required
     /// for the service to function properly. These tasks are executed in the order
     /// they are registered.
-    class IStartupTask
-    {
+    class IStartupTask {
     public:
         virtual ~IStartupTask() = default;
 

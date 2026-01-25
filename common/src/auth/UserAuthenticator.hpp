@@ -8,30 +8,28 @@
 #include "UserCredentials.hpp"
 #include "src/sql/PasswordSQL.hpp"
 
-namespace common::auth
-{
+namespace common::auth {
     /// @brief Main authentication class providing user management and verification
-    class UserAuthenticator
-    {
+    class UserAuthenticator {
     public:
         /// @brief Constructor with database path and optional custom password policy
         /// @param db_path Path to SQLite database file
         /// @param policy Custom password policy (default: standard policy)
-        explicit UserAuthenticator(const std::string& db_path, const PasswordPolicy& policy = PasswordPolicy());
+        explicit UserAuthenticator(const std::string &db_path, const PasswordPolicy &policy = PasswordPolicy());
 
         /// @brief Register new user with username and password
         /// @param username User identifier to register
         /// @param password Plaintext password for new account
         /// @return true if registration successful
         /// @throws AuthenticationException if username invalid, exists, or password fails policy
-        [[nodiscard]] bool register_user(const std::string& username, const std::string& password);
+        [[nodiscard]] bool register_user(const std::string &username, const std::string &password);
 
         /// @brief Authenticate user with username and password
         /// @param username User identifier
         /// @param password Plaintext password to verify
         /// @return true if authentication successful
         /// @throws AuthenticationException if user not found, password incorrect, or account locked
-        [[nodiscard]] bool authenticate(const std::string& username, const std::string& password);
+        [[nodiscard]] bool authenticate(const std::string &username, const std::string &password);
 
         /// @brief Change user password after verifying current password
         /// @param username User identifier
@@ -39,61 +37,61 @@ namespace common::auth
         /// @param new_password New plaintext password to set
         /// @return true if password changed successfully
         /// @throws AuthenticationException if current password incorrect or new password fails policy
-        [[nodiscard]] bool change_password(const std::string& username, const std::string& current_password, const std::string& new_password);
+        [[nodiscard]] bool change_password(const std::string &username, const std::string &current_password, const std::string &new_password);
 
         /// @brief Reset user password (administrative function)
         /// @param username User identifier
         /// @param new_password New plaintext password to set
         /// @return true if password reset successful
         /// @throws AuthenticationException if user not found or new password fails policy
-        [[nodiscard]] bool reset_password(const std::string& username, const std::string& new_password);
+        [[nodiscard]] bool reset_password(const std::string &username, const std::string &new_password);
 
         /// @brief Check if user exists in the system
         /// @param username User identifier to check
         /// @return true if user exists, false otherwise
-        [[nodiscard]] bool user_exists(const std::string& username) const;
+        [[nodiscard]] bool user_exists(const std::string &username) const;
 
         /// @brief Delete user from the system
         /// @param username User identifier to delete
         /// @return true if user deleted successfully
-        [[nodiscard]] bool delete_user(const std::string& username);
+        [[nodiscard]] bool delete_user(const std::string &username);
 
         /// @brief Set custom password policy
         /// @param policy New password policy configuration
-        void set_password_policy(const PasswordPolicy& policy);
+        void set_password_policy(const PasswordPolicy &policy);
 
         /// @brief Get reference to the users map for administrative operations
         /// @return Reference to the users map
-        auto get_users() -> std::unordered_map<std::string, std::unique_ptr<UserCredentials>>&;
+        auto get_users() -> std::unordered_map<std::string, std::unique_ptr<UserCredentials> > &;
 
         /// @brief Get reference to the mutex protecting the users map
         /// @return Reference to the users mutex
-        auto get_users_mutex() const -> std::mutex&;
+        auto get_users_mutex() const -> std::mutex &;
 
     private:
         /// @brief Validate username format against security requirements
         /// @param username Username string to validate
         /// @return true if username format is valid, false otherwise
-        static auto validate_username(const std::string& username) noexcept -> bool;
+        static auto validate_username(const std::string &username) noexcept -> bool;
 
         /// @brief Load user credentials from database
         /// @param username User identifier to load
         /// @return User credentials if found, nullopt otherwise
-        auto load_user_from_db(const std::string& username) const -> std::optional<UserCredentials>;
+        auto load_user_from_db(const std::string &username) const -> std::optional<UserCredentials>;
 
         /// @brief Parse credentials data (salt:hashed_password format)
         /// @param credentials_data Raw credentials data from database
         /// @return Parsed salt and hashed password pair, nullopt if invalid format
-        static auto parse_credentials_data(const std::string& credentials_data) -> std::optional<std::pair<std::string, std::string>>;
+        static auto parse_credentials_data(const std::string &credentials_data) -> std::optional<std::pair<std::string, std::string> >;
 
         /// @brief Format credentials data (salt:hashed_password format)
         /// @param salt Salt string
         /// @param hashed_password Hashed password string
         /// @return Formatted credentials string
-        static auto format_credentials_data(const std::string& salt, const std::string& hashed_password) -> std::string;
+        static auto format_credentials_data(const std::string &salt, const std::string &hashed_password) -> std::string;
 
         PasswordPolicy password_policy_;
-        std::unordered_map<std::string, std::unique_ptr<UserCredentials>> users_;
+        std::unordered_map<std::string, std::unique_ptr<UserCredentials> > users_;
         mutable std::mutex users_mutex_;
         server_app::sql::PasswordSQL password_sql_;
     };

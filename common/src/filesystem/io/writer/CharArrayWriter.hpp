@@ -6,15 +6,13 @@
 
 #include "AbstractWriter.hpp"
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief A class for writing character data to a buffer in memory.
     /// CharArrayWriter is a utility class that allows you to write character data
     /// to an internal buffer. The buffer automatically expands as needed to hold
     /// more data. You can retrieve the contents of the buffer as either a string
     /// or a character array.
-    class CharArrayWriter final : public AbstractWriter, interfaces::IAppendable<CharArrayWriter>
-    {
+    class CharArrayWriter final : public AbstractWriter, interfaces::IAppendable<CharArrayWriter> {
     public:
         /// @brief Constructs a new character array writer with default buffer size.
         CharArrayWriter() = default;
@@ -37,71 +35,71 @@ namespace common::filesystem
         /// @param off The offset in the array to start writing from.
         /// @param len The number of characters to write.
         /// @throws std::out_of_range if offset and length are out of the bounds of the buffer.
-        auto write(const std::vector<char>& cBuf, size_t off, size_t len) -> void override;
+        auto write(const std::vector<char> &cBuf, size_t off, size_t len) -> void override;
 
         /// @brief Writes a character array to the buffer.
         /// @param cBuf The character array to write.
-        auto write(const std::vector<char>& cBuf) -> void override;
+        auto write(const std::vector<char> &cBuf) -> void override;
 
         /// @brief Writes a portion of a string to the buffer.
         /// @param str The string to write from.
         /// @param off The offset in the string to start writing from.
         /// @param len The number of characters to write.
         /// @throws std::out_of_range if offset and length are out of the bounds of the string.
-        auto write(const std::string& str, size_t off, size_t len) -> void override;
+        auto write(const std::string &str, size_t off, size_t len) -> void override;
 
         /// @brief Writes a string to the buffer.
         /// @param str The string to write.
-        auto write(const std::string& str) -> void override;
+        auto write(const std::string &str) -> void override;
 
         /// @brief Writes the contents of this writer to another writer.
         /// @param out The writer to write to.
-        auto writeTo(AbstractWriter& out) const -> void;
+        auto writeTo(AbstractWriter &out) const -> void;
 
         // Appendable functions
         /// @brief Appends a single character to the buffer.
         /// @param c The character to append.
         /// @return A reference to this CharArrayWriter instance.
-        auto append(char c) -> CharArrayWriter& override;
+        auto append(char c) -> CharArrayWriter & override;
 
         /// @brief Appends a string to the buffer.
         /// @param csq The string to append.
         /// @return A reference to this CharArrayWriter instance.
-        auto append(const std::string& csq) -> CharArrayWriter& override;
+        auto append(const std::string &csq) -> CharArrayWriter & override;
 
         /// @brief Appends a subsequence of a string to the buffer.
         /// @param csq The string to append from.
         /// @param start The starting index of the subsequence.
         /// @param end The ending index of the subsequence.
         /// @return A reference to this CharArrayWriter instance.
-        auto append(const std::string& csq, size_t start, size_t end) -> CharArrayWriter& override;
+        auto append(const std::string &csq, size_t start, size_t end) -> CharArrayWriter & override;
 
         /// @brief Appends a string view to the buffer.
         /// @param str The string view to append.
         /// @return A reference to this CharArrayWriter instance.
-        auto append(std::string_view str) -> CharArrayWriter& override;
+        auto append(std::string_view str) -> CharArrayWriter & override;
 
         /// @brief Appends a C-string to the buffer.
         /// @param str The C-string to append.
         /// @return A reference to this CharArrayWriter instance.
-        auto append(const char* str) -> CharArrayWriter& override;
+        auto append(const char *str) -> CharArrayWriter & override;
 
         /// @brief Appends an initializer list of characters to the buffer.
         /// @param chars The initializer list of characters to append.
         /// @return A reference to this CharArrayWriter instance.
-        auto append(std::initializer_list<char> chars) -> CharArrayWriter& override;
+        auto append(std::initializer_list<char> chars) -> CharArrayWriter & override;
 
         /// @brief Appends a sequence of characters to the buffer.
         /// @param chars Pointer to the character sequence.
         /// @param count Number of characters to append.
         /// @return A reference to this CharArrayWriter instance.
-        auto append(const char* chars, size_t count) -> CharArrayWriter& override;
+        auto append(const char *chars, size_t count) -> CharArrayWriter & override;
 
         /// @brief Appends a character multiple times to the buffer.
         /// @param c The character to append.
         /// @param count Number of times to append the character.
         /// @return A reference to this CharArrayWriter instance.
-        auto append(char c, size_t count) -> CharArrayWriter& override;
+        auto append(char c, size_t count) -> CharArrayWriter & override;
 
         // Utility functions
         /// @brief Resets the buffer to empty.

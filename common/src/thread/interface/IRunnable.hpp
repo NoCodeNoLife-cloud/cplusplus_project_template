@@ -1,13 +1,11 @@
 #pragma once
 
-namespace common::interfaces
-{
+namespace common::interfaces {
     /// @brief Interface for a runnable task that can be executed with arguments and return a result.
     /// @tparam ReturnType The type of the value returned by the task.
     /// @tparam Args The types of the arguments that the task accepts.
-    template <typename ReturnType, typename... Args>
-    class IRunnable
-    {
+    template<typename ReturnType, typename... Args>
+    class IRunnable {
     public:
         virtual ~IRunnable() = default;
 
@@ -18,9 +16,8 @@ namespace common::interfaces
     };
 
     /// @brief Specialization for void return type
-    template <typename... Args>
-    class IRunnable<void, Args...>
-    {
+    template<typename... Args>
+    class IRunnable<void, Args...> {
     public:
         virtual ~IRunnable() = default;
 

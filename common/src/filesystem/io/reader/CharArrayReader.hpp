@@ -2,24 +2,22 @@
 #include <vector>
 #include "AbstractReader.hpp"
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief A reader class that reads from a character array.
     /// This class provides methods to read characters from an internal buffer,
     /// supporting operations like reading single characters, skipping characters,
     /// marking positions in the stream, and resetting to marked positions.
-    class CharArrayReader final : public AbstractReader
-    {
+    class CharArrayReader final : public AbstractReader {
     public:
         /// @brief Constructs a CharArrayReader with the given buffer
         /// @param buffer The character buffer to read from
-        explicit CharArrayReader(const std::vector<char>& buffer);
+        explicit CharArrayReader(const std::vector<char> &buffer);
 
         /// @brief Constructs a CharArrayReader with a portion of the given buffer
         /// @param buffer The character buffer to read from
         /// @param offset The starting position in the buffer
         /// @param length The number of characters to read from the buffer
-        CharArrayReader(const std::vector<char>& buffer, size_t offset, size_t length);
+        CharArrayReader(const std::vector<char> &buffer, size_t offset, size_t length);
 
         ~CharArrayReader() override;
 
@@ -33,7 +31,7 @@ namespace common::filesystem
         /// @param off The offset at which to store the characters
         /// @param len The maximum number of characters to read
         /// @return The number of characters read, or -1 if the end of the stream has been reached
-        [[nodiscard]] auto read(std::vector<char>& b, size_t off, size_t len) -> int override;
+        [[nodiscard]] auto read(std::vector<char> &b, size_t off, size_t len) -> int override;
 
         /// @brief Skips characters.
         /// @param n The number of characters to skip

@@ -7,29 +7,27 @@
 #include "src/time/FunctionProfiler.hpp"
 #include "task/interface/ITask.h"
 
-namespace app_server::task
-{
+namespace app_server::task {
     /// @brief ServerTask is responsible for managing the main service loop
     /// @details This class coordinates various subsystems within the application server,
     /// initializes the gRPC server, loads configurations, and manages the server lifecycle.
-    class ServerTask final : public common::interfaces::ITask
-    {
+    class ServerTask final : public common::interfaces::ITask {
     public:
         /// @brief Construct a ServerTask with the specified name
         /// @param name The name of the server task for profiling purposes
         explicit ServerTask(std::string name) noexcept;
 
         /// @brief Copy constructor deleted to prevent copying
-        ServerTask(const ServerTask&) = delete;
+        ServerTask(const ServerTask &) = delete;
 
         /// @brief Move constructor
-        ServerTask(ServerTask&&) noexcept;
+        ServerTask(ServerTask &&) noexcept;
 
         /// @brief Copy assignment operator deleted to prevent copying
-        auto operator=(const ServerTask&) -> ServerTask& = delete;
+        auto operator=(const ServerTask &) -> ServerTask & = delete;
 
         /// @brief Move assignment operator
-        auto operator=(ServerTask&&) -> ServerTask& = delete;
+        auto operator=(ServerTask &&) -> ServerTask & = delete;
 
         /// @brief Initialize the service task and its associated resources
         /// @details Sets up logging, loads configuration, and validates gRPC parameters

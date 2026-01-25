@@ -4,14 +4,12 @@
 
 #include "Edge.hpp"
 
-namespace common::graphics
-{
+namespace common::graphics {
     /// @brief A class representing a graph data structure
     /// @details This class provides functionality to create a graph with a specified number of nodes,
     ///          add edges between nodes with weights, and retrieve adjacency information.
     ///          The graph is represented using an adjacency list.
-    class Graph
-    {
+    class Graph {
     public:
         /// @brief Construct a graph with n nodes
         /// @param n Number of nodes
@@ -29,7 +27,7 @@ namespace common::graphics
         /// @param node Node index
         /// @return Reference to adjacency list
         /// @throws std::out_of_range If node index is out of valid range
-        [[nodiscard]] auto getAdjList(int32_t node) const -> const std::vector<Edge>&;
+        [[nodiscard]] auto getAdjList(int32_t node) const -> const std::vector<Edge> &;
 
         /// @brief Get number of nodes
         /// @return Number of nodes
@@ -41,6 +39,6 @@ namespace common::graphics
 
     private:
         int32_t num_nodes_{0};
-        std::vector<std::vector<Edge>> adj_list_{};
+        std::vector<std::vector<Edge> > adj_list_{};
     };
 }

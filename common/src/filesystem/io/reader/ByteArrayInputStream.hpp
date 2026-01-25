@@ -5,14 +5,12 @@
 
 #include "AbstractInputStream.hpp"
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief A ByteArrayInputStream contains an internal buffer that contains bytes that may be read from the stream.
     /// ByteArrayInputStream uses a std::vector<std::byte> as the internal buffer.
-    class ByteArrayInputStream final : public AbstractInputStream
-    {
+    class ByteArrayInputStream final : public AbstractInputStream {
     public:
-        explicit ByteArrayInputStream(const std::vector<std::byte>& buf);
+        explicit ByteArrayInputStream(const std::vector<std::byte> &buf);
 
         /// @brief Reads the next byte of data from the input stream.
         /// @return the next byte of data, or -1 if the end of the stream is reached.
@@ -23,7 +21,7 @@ namespace common::filesystem
         /// @param off the start offset in the destination array cBuf.
         /// @param len the maximum number of bytes to read.
         /// @return the total number of bytes read into the buffer, or 0 if there is no more data because the end of the stream has been reached.
-        [[nodiscard]] auto read(std::vector<std::byte>& cBuf, size_t off, size_t len) -> size_t override;
+        [[nodiscard]] auto read(std::vector<std::byte> &cBuf, size_t off, size_t len) -> size_t override;
 
         /// @brief Skips over and discards n bytes of data from this input stream.
         /// @param n the number of bytes to be skipped.

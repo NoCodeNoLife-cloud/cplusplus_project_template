@@ -4,14 +4,12 @@
 
 #include "interface/IBuffer.hpp"
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief A buffer for short integer (int16_t) data.
     /// ShortBuffer provides a way to store, read, and write short integer data in a
     /// sequential manner. It implements the IBuffer interface and supports operations
     /// like get, put, and rewind.
-    class ShortBuffer final : public interfaces::IBuffer
-    {
+    class ShortBuffer final : public interfaces::IBuffer {
     public:
         /// @brief Construct a ShortBuffer with the specified capacity
         /// @param capacity The initial capacity of the buffer
@@ -21,7 +19,7 @@ namespace common::filesystem
         /// @param data Pointer to the data to wrap.
         /// @param size Size of the data array.
         /// @return A new ShortBuffer instance wrapping the provided data.
-        static auto wrap(const int16_t* data, size_t size) -> ShortBuffer;
+        static auto wrap(const int16_t *data, size_t size) -> ShortBuffer;
 
         /// @brief Reads the next int16_t value from the buffer.
         /// @return The next int16_t value.
@@ -86,11 +84,11 @@ namespace common::filesystem
 
         /// @brief Returns a pointer to the underlying data array.
         /// @return Pointer to the data array.
-        [[nodiscard]] auto data() -> int16_t*;
+        [[nodiscard]] auto data() -> int16_t *;
 
         /// @brief Returns a const pointer to the underlying data array.
         /// @return Const pointer to the data array.
-        [[nodiscard]] auto data() const -> const int16_t*;
+        [[nodiscard]] auto data() const -> const int16_t *;
 
     private:
         std::vector<int16_t> buffer_{};

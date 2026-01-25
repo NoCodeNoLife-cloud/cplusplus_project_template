@@ -1,12 +1,10 @@
 #pragma once
 
-namespace common::interfaces
-{
+namespace common::interfaces {
     /**
      * @brief Abstract interface class for tasks
      */
-    class ITask
-    {
+    class ITask {
     public:
         /// @brief Virtual destructor for proper cleanup in derived classes
         virtual ~ITask() = default;

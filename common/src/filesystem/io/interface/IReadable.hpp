@@ -1,12 +1,10 @@
 #pragma once
 
-namespace common::interfaces
-{
+namespace common::interfaces {
     /// @brief Interface for readable objects.
     /// This interface defines the contract for objects that can be read from.
     /// Implementing classes should provide functionality to read data, typically byte by byte.
-    class IReadable
-    {
+    class IReadable {
     public:
         /// @brief Virtual destructor to ensure proper cleanup of derived classes
         virtual ~IReadable() = default;

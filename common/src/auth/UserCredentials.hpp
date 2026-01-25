@@ -2,11 +2,9 @@
 #include <chrono>
 #include <string>
 
-namespace common::auth
-{
+namespace common::auth {
     /// @brief User credentials storage with security features
-    class UserCredentials
-    {
+    class UserCredentials {
     public:
         /// @brief Constructor for new user credentials
         /// @param username User identifier
@@ -16,15 +14,15 @@ namespace common::auth
 
         /// @brief Get username
         /// @return Username string
-        [[nodiscard]] auto get_username() const noexcept -> const std::string&;
+        [[nodiscard]] auto get_username() const noexcept -> const std::string &;
 
         /// @brief Get hashed password
         /// @return Hashed password string
-        [[nodiscard]] auto get_hashed_password() const noexcept -> const std::string&;
+        [[nodiscard]] auto get_hashed_password() const noexcept -> const std::string &;
 
         /// @brief Get salt value
         /// @return Salt string used for hashing
-        [[nodiscard]] auto get_salt() const noexcept -> const std::string&;
+        [[nodiscard]] auto get_salt() const noexcept -> const std::string &;
 
         /// @brief Get number of failed login attempts
         /// @return Count of failed attempts

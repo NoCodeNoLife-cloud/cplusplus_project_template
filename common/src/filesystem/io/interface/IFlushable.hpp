@@ -1,12 +1,10 @@
 #pragma once
 
-namespace common::interfaces
-{
+namespace common::interfaces {
     /// @brief Interface for flushable objects.
     /// This interface defines a contract for objects that can be flushed,
     /// typically used for streams or buffers that need to ensure all data is written out.
-    class IFlushable
-    {
+    class IFlushable {
     public:
         /// @brief Virtual destructor to ensure proper cleanup of derived classes
         virtual ~IFlushable() = default;
@@ -35,21 +33,16 @@ namespace common::interfaces
         IFlushable() = default;
     };
 
-    inline auto IFlushable::flushSafe() noexcept -> bool
-    {
-        try
-        {
+    inline auto IFlushable::flushSafe() noexcept -> bool {
+        try {
             flush();
             return true;
-        }
-        catch (...)
-        {
+        } catch (...) {
             return false;
         }
     }
 
-    inline auto IFlushable::isFlushNeeded() const -> bool
-    {
+    inline auto IFlushable::isFlushNeeded() const -> bool {
         // Default implementation returns true, indicating that flush is always needed
         // Derived classes can override this method based on actual conditions
         return true;

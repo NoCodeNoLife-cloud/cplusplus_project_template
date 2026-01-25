@@ -5,16 +5,15 @@
 
 #include "AbstractReader.hpp"
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief A StringReader class that reads data from a string.
     /// @details This class implements the AbstractReader interface to provide functionality
     ///          for reading characters from a string. It supports marking and resetting
     ///          to a previous position in the string.
-    class StringReader final : public AbstractReader
-    {
+    class StringReader final : public AbstractReader {
     public:
         explicit StringReader(std::string s);
+
         ~StringReader() override = default;
 
         /// @brief Closes the StringReader and releases any associated resources.
@@ -40,7 +39,7 @@ namespace common::filesystem
         /// @param len The maximum number of characters to read.
         /// @return The total number of characters read into the buffer, or -1 if there is no more data because the end of
         /// the string has been reached.
-        [[nodiscard]] auto read(std::vector<char>& cBuf, size_t off, size_t len) -> int override;
+        [[nodiscard]] auto read(std::vector<char> &cBuf, size_t off, size_t len) -> int override;
 
         /// @brief Tests if this input stream is ready to be read.
         /// @return true if the next read() is guaranteed not to block for input, false otherwise.

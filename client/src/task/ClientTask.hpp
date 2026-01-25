@@ -8,23 +8,21 @@
 #include "src/time/FunctionProfiler.hpp"
 #include "task/interface/ITask.h"
 
-namespace app_client::task
-{
-    class ClientTask final : public common::interfaces::ITask
-    {
+namespace app_client::task {
+    class ClientTask final : public common::interfaces::ITask {
     public:
         /// @brief Default constructor explicitly deleted to enforce parameterized construction
         ClientTask() = delete;
 
         /// @brief Construct a ClientTask with the specified project name
         /// @param project_name_ The name of the project for profiling purposes
-        explicit ClientTask(const std::string& project_name_) noexcept;
+        explicit ClientTask(const std::string &project_name_) noexcept;
 
         /// @brief Copy constructor deleted to prevent unintended resource duplication
-        ClientTask(const ClientTask&) = delete;
+        ClientTask(const ClientTask &) = delete;
 
         /// @brief Copy assignment operator deleted to prevent unintended resource duplication
-        auto operator=(const ClientTask&) -> ClientTask& = delete;
+        auto operator=(const ClientTask &) -> ClientTask & = delete;
 
         /// @brief Initialize the client task
         /// @details Sets up logging, loads configuration, and logs system information
@@ -43,7 +41,7 @@ namespace app_client::task
         /// @brief Logs a message indicating that the client is logging in
         /// @param auth_rpc_client Reference to the RPC client for authentication
         /// @return Username of the authenticated user
-        [[nodiscard]] static auto logIn(const client_app::auth::AuthRpcClient& auth_rpc_client) -> std::string;
+        [[nodiscard]] static auto logIn(const client_app::auth::AuthRpcClient &auth_rpc_client) -> std::string;
 
         /// @brief Check if a new account should be created
         /// @return True if user wants to create a new account
@@ -54,17 +52,18 @@ namespace app_client::task
         /// @param username Username for the new account
         /// @param password Password for the new account
         /// @throws std::runtime_error if registration fails
-        static auto registerNewUser(const client_app::auth::AuthRpcClient& auth_rpc_client, const std::string& username, const std::string& password) -> void;
+        static auto registerNewUser(const client_app::auth::AuthRpcClient &auth_rpc_client, const std::string &username, const std::string &password) -> void;
+
         // Changed return type to void since it throws on failure
 
         /// @brief Logs a message indicating that the client is logging out
         /// @param auth_rpc_client Reference to the RPC client for logout operations
         /// @param username Username of the user to log out
-        static auto logOut(const client_app::auth::AuthRpcClient& auth_rpc_client, const std::string& username) noexcept -> void;
+        static auto logOut(const client_app::auth::AuthRpcClient &auth_rpc_client, const std::string &username) noexcept -> void;
 
         /// @brief Main task
         /// @param auth_rpc_client Reference to the RPC client for executing tasks
-        auto task(const client_app::auth::AuthRpcClient& auth_rpc_client) noexcept -> void;
+        auto task(const client_app::auth::AuthRpcClient &auth_rpc_client) noexcept -> void;
 
         /// @brief Create a gRPC channel with custom arguments
         /// @details This function sets up a gRPC channel with keepalive parameters and connects to the server

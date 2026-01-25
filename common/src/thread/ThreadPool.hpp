@@ -11,13 +11,11 @@
 #include <stdexcept>
 #include <memory>
 
-namespace common::thread
-{
+namespace common::thread {
     /// @brief A thread pool implementation that manages a pool of worker threads to execute tasks asynchronously
     /// The ThreadPool class provides a way to manage a collection of threads and distribute work among them.
     /// It supports dynamic thread creation up to a maximum limit, and allows for graceful or immediate shutdown.
-    class ThreadPool
-    {
+    class ThreadPool {
     public:
         /// @brief Construct a ThreadPool with specified parameters
         /// @param core_threads The number of core threads to maintain
@@ -36,8 +34,8 @@ namespace common::thread
         /// @param args The arguments to pass to the function
         /// @return A future that will hold the result of the function execution
         /// @throws std::runtime_error If the task queue is full
-        template <class F, class... Args>
-        [[nodiscard]] auto submit(F&& f, Args&&... args) -> std::future<std::invoke_result_t<F, Args...>>;
+        template<class F, class... Args>
+        [[nodiscard]] auto submit(F &&f, Args &&... args) -> std::future<std::invoke_result_t<F, Args...> >;
 
         /// @brief Gracefully shutdown the thread pool, waiting for all tasks to complete
         auto shutdown() -> void;
@@ -53,7 +51,7 @@ namespace common::thread
 
     private:
         std::vector<std::thread> workers_{};
-        std::queue<std::function<void()>> task_queue_{};
+        std::queue<std::function<void()> > task_queue_{};
         std::condition_variable condition_{};
         std::mutex queue_mutex_{};
         std::atomic<bool> stop_{false};
@@ -72,33 +70,26 @@ namespace common::thread
     };
 
     // Template method implementation must be in header
-    template <class F, class... Args>
-    auto ThreadPool::submit(F&& f, Args&&... args) -> std::future<std::invoke_result_t<F, Args...>>
-    {
+    template<class F, class... Args>
+    auto ThreadPool::submit(F &&f, Args &&... args) -> std::future<std::invoke_result_t<F, Args...> > {
         using return_type = std::invoke_result_t<F, Args...>;
 
-        if (stop_)
-        {
+        if (stop_) {
             throw std::runtime_error("ThreadPool::submit: Pool is stopped");
         }
 
-        auto task = std::make_shared<std::packaged_task<return_type()>>(std::bind(std::forward<F>(f), std::forward<Args>(args)...));
+        auto task = std::make_shared<std::packaged_task<return_type()> >(std::bind(std::forward<F>(f), std::forward<Args>(args)...));
 
         std::future<return_type> res = task->get_future();
         {
             std::unique_lock lock(queue_mutex_);
-            if (task_queue_.size() >= max_queue_size_)
-            {
+            if (task_queue_.size() >= max_queue_size_) {
                 throw std::runtime_error("ThreadPool::submit: Task queue is full");
             }
-            task_queue_.emplace([task]
-            {
-                try
-                {
+            task_queue_.emplace([task] {
+                try {
                     (*task)();
-                }
-                catch (...)
-                {
+                } catch (...) {
                     // If the task throws, propagate the exception through the future
                     task->set_exception(std::current_exception());
                 }

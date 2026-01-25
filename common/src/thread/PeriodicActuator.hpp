@@ -7,13 +7,11 @@
 
 #include "interface/ITimerTask.hpp"
 
-namespace common::thread
-{
+namespace common::thread {
     /// @brief A utility class that executes a given task periodically using Boost.Asio.
     /// @details This class uses a steady_timer from Boost.Asio to schedule and execute tasks at regular intervals.
     ///          The task to be executed must implement the ITimerTask interface.
-    class PeriodicActuator
-    {
+    class PeriodicActuator {
     public:
         /// @brief Construct a PeriodicActuator with a task and interval
         /// @param task The task to execute periodically

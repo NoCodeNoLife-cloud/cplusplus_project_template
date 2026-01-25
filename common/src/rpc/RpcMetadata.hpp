@@ -2,11 +2,9 @@
 #include <string>
 #include <grpc/impl/connectivity_state.h>
 
-namespace common::rpc
-{
+namespace common::rpc {
     /// @brief Utility class for RPC metadata operations
-    class RpcMetadata
-    {
+    class RpcMetadata {
     public:
         /// @brief Converts gRPC connectivity state to human-readable string representation
         /// @param[in] state The gRPC connectivity state to convert

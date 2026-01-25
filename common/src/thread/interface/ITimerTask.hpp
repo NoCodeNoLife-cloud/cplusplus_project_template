@@ -1,14 +1,12 @@
 #pragma once
 
-namespace common::interfaces
-{
+namespace common::interfaces {
     /// @brief Interface for timer tasks that can be executed by a timer.
     /// This interface defines the contract for tasks that can be scheduled
     /// and executed by a timer. Implementations of this interface should
     /// provide the logic for what should happen when the timer triggers
     /// the task execution.
-    class ITimerTask
-    {
+    class ITimerTask {
     public:
         virtual ~ITimerTask() = default;
 

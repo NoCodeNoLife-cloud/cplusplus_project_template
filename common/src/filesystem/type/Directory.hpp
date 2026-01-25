@@ -5,12 +5,10 @@
 #include <cstdint>
 #include <chrono>
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief A class for directory operations
     /// @details This class provides various operations for directories, such as creation, deletion, listing contents, etc.
-    class Directory
-    {
+    class Directory {
     public:
         /// @brief Constructs a Directory object with the specified path
         /// @param filePath The path to the directory
@@ -48,17 +46,17 @@ namespace common::filesystem
         /// @brief Move the directory to a destination
         /// @param destination The destination path
         /// @return true if the directory was moved successfully, false otherwise
-        [[nodiscard]] auto move(const std::filesystem::path& destination) const noexcept -> bool;
+        [[nodiscard]] auto move(const std::filesystem::path &destination) const noexcept -> bool;
 
         /// @brief Rename the directory
         /// @param newName The new name for the directory
         /// @return true if the directory was renamed successfully, false otherwise
-        [[nodiscard]] auto rename(const std::string& newName) const noexcept -> bool;
+        [[nodiscard]] auto rename(const std::string &newName) const noexcept -> bool;
 
         /// @brief Copy the directory to a destination
         /// @param destination The destination path
         /// @return true if the directory was copied successfully, false otherwise
-        [[nodiscard]] auto copy(const std::filesystem::path& destination) const -> bool;
+        [[nodiscard]] auto copy(const std::filesystem::path &destination) const -> bool;
 
         /// @brief Get the size of the directory
         /// @return The size of the directory in bytes
@@ -77,7 +75,7 @@ namespace common::filesystem
         /// @param dir_path The directory path to list
         /// @param recursive Whether to list subdirectories recursively
         /// @return A vector of directory entries
-        [[nodiscard]] static auto listDir(const std::filesystem::path& dir_path, bool recursive) -> std::vector<std::filesystem::directory_entry>;
+        [[nodiscard]] static auto listDir(const std::filesystem::path &dir_path, bool recursive) -> std::vector<std::filesystem::directory_entry>;
 
         /// @brief List directory entries
         /// @param recursive Whether to list subdirectories recursively

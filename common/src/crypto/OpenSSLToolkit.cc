@@ -10,35 +10,29 @@
 #include <algorithm>
 #include <array>
 
-namespace common::crypto
-{
-    auto OpenSSLToolkit::deriveKey(const std::string& password, std::array<unsigned char, 32>& key, const std::array<unsigned char, 16>& salt) noexcept -> void
-    {
-        EVP_BytesToKey(EVP_aes_256_cbc(), EVP_sha1(), salt.data(), reinterpret_cast<const unsigned char*>(password.c_str()), static_cast<int32_t>(password.size()), 1, key.data(), nullptr);
+namespace common::crypto {
+    auto OpenSSLToolkit::deriveKey(const std::string &password, std::array<unsigned char, 32> &key, const std::array<unsigned char, 16> &salt) noexcept -> void {
+        EVP_BytesToKey(EVP_aes_256_cbc(), EVP_sha1(), salt.data(), reinterpret_cast<const unsigned char *>(password.c_str()), static_cast<int32_t>(password.size()), 1, key.data(), nullptr);
     }
 
-    auto OpenSSLToolkit::encryptAES256CBC(const std::string& plaintext, const std::string& password) -> std::vector<unsigned char>
-    {
+    auto OpenSSLToolkit::encryptAES256CBC(const std::string &plaintext, const std::string &password) -> std::vector<unsigned char> {
         std::array<unsigned char, 32> key{};
         std::array<unsigned char, 16> salt{};
 
         // Generate random salt
-        if (RAND_bytes(salt.data(), 16) != 1)
-        {
+        if (RAND_bytes(salt.data(), 16) != 1) {
             throw std::runtime_error("Failed to generate random salt for key derivation");
         }
 
         deriveKey(password, key, salt);
 
         std::array<unsigned char, AES_BLOCK_SIZE> iv{};
-        if (RAND_bytes(iv.data(), AES_BLOCK_SIZE) != 1)
-        {
+        if (RAND_bytes(iv.data(), AES_BLOCK_SIZE) != 1) {
             throw std::runtime_error("Failed to generate random initialization vector (IV)");
         }
 
         auto ctx = EVP_CIPHER_CTX_new();
-        if (!ctx)
-        {
+        if (!ctx) {
             throw std::runtime_error("Failed to create cipher context");
         }
 
@@ -49,19 +43,16 @@ namespace common::crypto
         int32_t ciphertext_len = 0;
         std::vector<unsigned char> ciphertext(plaintext.size() + AES_BLOCK_SIZE);
 
-        if (EVP_EncryptInit_ex(ctx, EVP_aes_256_cbc(), nullptr, key.data(), iv.data()) != 1)
-        {
+        if (EVP_EncryptInit_ex(ctx, EVP_aes_256_cbc(), nullptr, key.data(), iv.data()) != 1) {
             throw std::runtime_error("Failed to initialize AES-256-CBC encryption with provided key and IV");
         }
 
-        if (EVP_EncryptUpdate(ctx, ciphertext.data(), &len, reinterpret_cast<const unsigned char*>(plaintext.data()), static_cast<int32_t>(plaintext.size())) != 1)
-        {
+        if (EVP_EncryptUpdate(ctx, ciphertext.data(), &len, reinterpret_cast<const unsigned char *>(plaintext.data()), static_cast<int32_t>(plaintext.size())) != 1) {
             throw std::runtime_error("Failed to encrypt plaintext data with AES-256-CBC algorithm");
         }
         ciphertext_len = len;
 
-        if (EVP_EncryptFinal_ex(ctx, ciphertext.data() + len, &len) != 1)
-        {
+        if (EVP_EncryptFinal_ex(ctx, ciphertext.data() + len, &len) != 1) {
             throw std::runtime_error("Failed to finalize AES-256-CBC encryption - padding error likely occurred");
         }
         ciphertext_len += len;
@@ -76,11 +67,9 @@ namespace common::crypto
         return result;
     }
 
-    auto OpenSSLToolkit::decryptAES256CBC(const std::vector<unsigned char>& ciphertext, const std::string& password) -> std::string
-    {
+    auto OpenSSLToolkit::decryptAES256CBC(const std::vector<unsigned char> &ciphertext, const std::string &password) -> std::string {
         constexpr size_t metadata_size = 16 + AES_BLOCK_SIZE; // salt + iv
-        if (ciphertext.size() < metadata_size)
-        {
+        if (ciphertext.size() < metadata_size) {
             throw std::runtime_error("Invalid ciphertext length: too short to contain salt and IV");
         }
 
@@ -95,8 +84,7 @@ namespace common::crypto
         deriveKey(password, key, salt);
 
         const auto ctx = EVP_CIPHER_CTX_new();
-        if (!ctx)
-        {
+        if (!ctx) {
             throw std::runtime_error("Failed to create cipher context");
         }
 
@@ -107,24 +95,21 @@ namespace common::crypto
         int32_t plaintext_len = 0;
         std::vector<unsigned char> plaintext(ciphertext.size());
 
-        if (EVP_DecryptInit_ex(ctx, EVP_aes_256_cbc(), nullptr, key.data(), iv.data()) != 1)
-        {
+        if (EVP_DecryptInit_ex(ctx, EVP_aes_256_cbc(), nullptr, key.data(), iv.data()) != 1) {
             throw std::runtime_error("Failed to initialize AES-256-CBC decryption with provided key and IV");
         }
 
-        if (EVP_DecryptUpdate(ctx, plaintext.data(), &len, ciphertext.data() + metadata_size, static_cast<int32_t>(ciphertext.size() - metadata_size)) != 1)
-        {
+        if (EVP_DecryptUpdate(ctx, plaintext.data(), &len, ciphertext.data() + metadata_size, static_cast<int32_t>(ciphertext.size() - metadata_size)) != 1) {
             throw std::runtime_error("Failed to decrypt ciphertext data with AES-256-CBC algorithm");
         }
         plaintext_len = len;
 
         int32_t final_len = 0;
-        if (EVP_DecryptFinal_ex(ctx, plaintext.data() + len, &final_len) != 1)
-        {
+        if (EVP_DecryptFinal_ex(ctx, plaintext.data() + len, &final_len) != 1) {
             throw std::runtime_error("Failed to finalize AES-256-CBC decryption - padding error or corrupted data likely occurred");
         }
         plaintext_len += final_len;
 
-        return {reinterpret_cast<const char*>(plaintext.data()), static_cast<std::string::size_type>(plaintext_len)};
+        return {reinterpret_cast<const char *>(plaintext.data()), static_cast<std::string::size_type>(plaintext_len)};
     }
 }

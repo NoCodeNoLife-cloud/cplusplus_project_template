@@ -1,15 +1,13 @@
 #pragma once
 #include <memory>
 
-namespace fox::data_structure
-{
+namespace fox::data_structure {
     /// @brief A node in a Red-Black Tree
     /// @tparam T The type of data stored in the node
-    template <typename T>
-    class RedBlackTreeNode
-    {
+    template<typename T>
+    class RedBlackTreeNode {
     public:
-        explicit RedBlackTreeNode(const T& value) noexcept;
+        explicit RedBlackTreeNode(const T &value) noexcept;
 
         /// @brief Get the data stored in the node
         /// @return The data stored in the node
@@ -17,7 +15,7 @@ namespace fox::data_structure
 
         /// @brief Set the data stored in the node
         /// @param value The new value to store in the node
-        auto setData(const T& value) noexcept -> void;
+        auto setData(const T &value) noexcept -> void;
 
         /// @brief Get the left child node
         /// @return A shared pointer to the left child node
@@ -59,69 +57,58 @@ namespace fox::data_structure
         Color color_{Color::Red};
     };
 
-    template <typename T>
-    RedBlackTreeNode<T>::RedBlackTreeNode(const T& value) noexcept
-        : data_(value)
-    {
+    template<typename T>
+    RedBlackTreeNode<T>::RedBlackTreeNode(const T &value) noexcept
+        : data_(value) {
     }
 
-    template <typename T>
-    auto RedBlackTreeNode<T>::getData() const noexcept -> T
-    {
+    template<typename T>
+    auto RedBlackTreeNode<T>::getData() const noexcept -> T {
         return data_;
     }
 
-    template <typename T>
-    auto RedBlackTreeNode<T>::setData(const T& value) noexcept -> void
-    {
+    template<typename T>
+    auto RedBlackTreeNode<T>::setData(const T &value) noexcept -> void {
         data_ = value;
     }
 
-    template <typename T>
-    auto RedBlackTreeNode<T>::getLeft() const noexcept -> std::shared_ptr<RedBlackTreeNode>
-    {
+    template<typename T>
+    auto RedBlackTreeNode<T>::getLeft() const noexcept -> std::shared_ptr<RedBlackTreeNode> {
         return left_;
     }
 
-    template <typename T>
-    auto RedBlackTreeNode<T>::setLeft(std::shared_ptr<RedBlackTreeNode> node) noexcept -> void
-    {
+    template<typename T>
+    auto RedBlackTreeNode<T>::setLeft(std::shared_ptr<RedBlackTreeNode> node) noexcept -> void {
         left_ = node;
     }
 
-    template <typename T>
-    auto RedBlackTreeNode<T>::getRight() const noexcept -> std::shared_ptr<RedBlackTreeNode>
-    {
+    template<typename T>
+    auto RedBlackTreeNode<T>::getRight() const noexcept -> std::shared_ptr<RedBlackTreeNode> {
         return right_;
     }
 
-    template <typename T>
-    auto RedBlackTreeNode<T>::setRight(std::shared_ptr<RedBlackTreeNode> node) noexcept -> void
-    {
+    template<typename T>
+    auto RedBlackTreeNode<T>::setRight(std::shared_ptr<RedBlackTreeNode> node) noexcept -> void {
         right_ = node;
     }
 
-    template <typename T>
-    auto RedBlackTreeNode<T>::getParent() const noexcept -> std::shared_ptr<RedBlackTreeNode>
-    {
+    template<typename T>
+    auto RedBlackTreeNode<T>::getParent() const noexcept -> std::shared_ptr<RedBlackTreeNode> {
         return parent_;
     }
 
-    template <typename T>
-    auto RedBlackTreeNode<T>::setParent(std::shared_ptr<RedBlackTreeNode> node) noexcept -> void
-    {
+    template<typename T>
+    auto RedBlackTreeNode<T>::setParent(std::shared_ptr<RedBlackTreeNode> node) noexcept -> void {
         parent_ = node;
     }
 
-    template <typename T>
-    auto RedBlackTreeNode<T>::getColor() const noexcept -> Color
-    {
+    template<typename T>
+    auto RedBlackTreeNode<T>::getColor() const noexcept -> Color {
         return color_;
     }
 
-    template <typename T>
-    auto RedBlackTreeNode<T>::setColor(const Color c) noexcept -> void
-    {
+    template<typename T>
+    auto RedBlackTreeNode<T>::setColor(const Color c) noexcept -> void {
         color_ = c;
     }
 }

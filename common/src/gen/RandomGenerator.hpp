@@ -4,10 +4,8 @@
 #include <string>
 #include <mutex>
 
-namespace common::gen
-{
-    class RandomGenerator
-    {
+namespace common::gen {
+    class RandomGenerator {
     public:
         /// @brief Default constructor: initializes seed using random device
         RandomGenerator() noexcept;
@@ -45,7 +43,7 @@ namespace common::gen
         /// @param charset The character set to use for generation
         /// @return A random string of specified length
         /// @throws std::invalid_argument if charset is empty
-        [[nodiscard]] auto nextString(size_t length, const std::string& charset = "abcdefghijklmnopqrstuvwxyz" "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "0123456789") -> std::string;
+        [[nodiscard]] auto nextString(size_t length, const std::string &charset = "abcdefghijklmnopqrstuvwxyz" "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "0123456789") -> std::string;
 
         /// @brief Generates a Gaussian distributed random number
         /// @param mean The mean of the distribution

@@ -7,50 +7,48 @@
 #include <string_view>
 #include <unordered_map>
 
-namespace server_app::auth
-{
+namespace server_app::auth {
     /// @brief RPC service implementation for handling remote procedure calls
     /// @details This class implements the gRPC service interface defined in RpcService.grpc.pb.h
     /// and provides the actual business logic for handling RPC requests.
-    class AuthRpcService final : public rpc::AuthService::Service
-    {
+    class AuthRpcService final : public rpc::AuthService::Service {
     public:
         /// @brief Constructor with database path
         /// @param db_path Path to SQLite database file
-        explicit AuthRpcService(const std::string& db_path) noexcept;
+        explicit AuthRpcService(const std::string &db_path) noexcept;
 
         /// @brief Default destructor
         ~AuthRpcService() noexcept override = default;
 
         /// @brief Copy constructor (deleted)
-        AuthRpcService(const AuthRpcService&) = delete;
+        AuthRpcService(const AuthRpcService &) = delete;
 
         /// @brief Copy assignment operator (deleted)
-        auto operator=(const AuthRpcService&) -> AuthRpcService& = delete;
+        auto operator=(const AuthRpcService &) -> AuthRpcService & = delete;
 
         /// @brief Move constructor (deleted)
-        AuthRpcService(AuthRpcService&&) = delete;
+        AuthRpcService(AuthRpcService &&) = delete;
 
         /// @brief Move assignment operator (deleted)
-        auto operator=(AuthRpcService&&) -> AuthRpcService& = delete;
+        auto operator=(AuthRpcService &&) -> AuthRpcService & = delete;
 
         /// @brief Register new user account
-        [[nodiscard]] auto RegisterUser(::grpc::ServerContext* context, const ::rpc::RegisterUserRequest* request, ::rpc::AuthResponse* response) -> ::grpc::Status override;
+        [[nodiscard]] auto RegisterUser(::grpc::ServerContext *context, const ::rpc::RegisterUserRequest *request, ::rpc::AuthResponse *response) -> ::grpc::Status override;
 
         /// @brief Authenticate user credentials
-        [[nodiscard]] auto AuthenticateUser(::grpc::ServerContext* context, const ::rpc::AuthenticateUserRequest* request, ::rpc::AuthResponse* response) -> ::grpc::Status override;
+        [[nodiscard]] auto AuthenticateUser(::grpc::ServerContext *context, const ::rpc::AuthenticateUserRequest *request, ::rpc::AuthResponse *response) -> ::grpc::Status override;
 
         /// @brief Change user password
-        [[nodiscard]] auto ChangePassword(::grpc::ServerContext* context, const ::rpc::ChangePasswordRequest* request, ::rpc::AuthResponse* response) -> ::grpc::Status override;
+        [[nodiscard]] auto ChangePassword(::grpc::ServerContext *context, const ::rpc::ChangePasswordRequest *request, ::rpc::AuthResponse *response) -> ::grpc::Status override;
 
         /// @brief Reset user password (administrative)
-        [[nodiscard]] auto ResetPassword(::grpc::ServerContext* context, const ::rpc::ResetPasswordRequest* request, ::rpc::AuthResponse* response) -> ::grpc::Status override;
+        [[nodiscard]] auto ResetPassword(::grpc::ServerContext *context, const ::rpc::ResetPasswordRequest *request, ::rpc::AuthResponse *response) -> ::grpc::Status override;
 
         /// @brief Delete user account
-        [[nodiscard]] auto DeleteUser(::grpc::ServerContext* context, const ::rpc::DeleteUserRequest* request, ::rpc::AuthResponse* response) -> ::grpc::Status override;
+        [[nodiscard]] auto DeleteUser(::grpc::ServerContext *context, const ::rpc::DeleteUserRequest *request, ::rpc::AuthResponse *response) -> ::grpc::Status override;
 
         /// @brief Check if user exists
-        [[nodiscard]] auto UserExists(::grpc::ServerContext* context, const ::rpc::UserExistsRequest* request, ::rpc::AuthResponse* response) -> ::grpc::Status override;
+        [[nodiscard]] auto UserExists(::grpc::ServerContext *context, const ::rpc::UserExistsRequest *request, ::rpc::AuthResponse *response) -> ::grpc::Status override;
 
     private:
         /// @brief Authenticator instance for managing user accounts
@@ -63,6 +61,6 @@ namespace server_app::auth
         /// @param e AuthenticationException to handle
         /// @param response Response to populate with error details
         /// @return Appropriate gRPC status
-        [[nodiscard]] static auto HandleAuthException(const common::exception::AuthenticationException& e, ::rpc::AuthResponse* response) noexcept -> ::grpc::Status;
+        [[nodiscard]] static auto HandleAuthException(const common::exception::AuthenticationException &e, ::rpc::AuthResponse *response) noexcept -> ::grpc::Status;
     };
 } // namespace server_app

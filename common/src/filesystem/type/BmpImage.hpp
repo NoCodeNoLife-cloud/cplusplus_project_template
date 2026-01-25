@@ -3,14 +3,12 @@
 #include <vector>
 #include <string>
 
-namespace common::filesystem
-{
+namespace common::filesystem {
 #pragma pack(push, 1)
     /// @brief BMP file header structure
     /// @details This structure represents the BMP file header which contains
     ///          information about the BMP file format and layout
-    struct BitMapFileHeader
-    {
+    struct BitMapFileHeader {
         /// @brief BMP file type, should be 'BM'
         uint16_t bf_type_;
         /// @brief Size of the BMP file in bytes
@@ -25,8 +23,7 @@ namespace common::filesystem
 
     /// @brief BMP info header structure
     /// @details This structure contains information about the dimensions and color format of a BMP image
-    struct BitmapInfoHeader
-    {
+    struct BitmapInfoHeader {
         /// @brief Size of this header (40 bytes)
         uint32_t bi_size_;
         /// @brief Width of the bitmap in pixels
@@ -54,8 +51,7 @@ namespace common::filesystem
 
     /// @brief A class for creating and manipulating BMP images
     /// @details This class allows creating BMP images, setting pixel colors, and saving to files
-    class BmpImage
-    {
+    class BmpImage {
     public:
         /// @brief Constructs a BmpImage with specified dimensions
         /// @param width The width of the image in pixels
@@ -66,7 +62,7 @@ namespace common::filesystem
         /// @brief Constructs a BmpImage by loading from a file
         /// @param filename The name of the file to load the image from
         /// @throws std::runtime_error if the file cannot be loaded or is not a valid BMP
-        explicit BmpImage(const std::string& filename);
+        explicit BmpImage(const std::string &filename);
 
         /// @brief Sets the color of a pixel at the specified coordinates
         /// @param x The x-coordinate of the pixel
@@ -83,12 +79,12 @@ namespace common::filesystem
         /// @param g Reference to store the green component of the color (0-255)
         /// @param b Reference to store the blue component of the color (0-255)
         /// @return true if the coordinates are valid, false otherwise
-        [[nodiscard]] auto getPixel(int32_t x, int32_t y, uint8_t& r, uint8_t& g, uint8_t& b) const noexcept -> bool;
+        [[nodiscard]] auto getPixel(int32_t x, int32_t y, uint8_t &r, uint8_t &g, uint8_t &b) const noexcept -> bool;
 
         /// @brief Saves the BMP image to a file
         /// @param filename The name of the file to save the image to
         /// @throws std::runtime_error if the file cannot be created
-        auto save(const std::string& filename) const -> void;
+        auto save(const std::string &filename) const -> void;
 
         /// @brief Gets the width of the image
         /// @return The width of the image in pixels
@@ -106,6 +102,6 @@ namespace common::filesystem
         /// @brief Loads a BMP image from a file
         /// @param filename The name of the file to load the image from
         /// @throws std::runtime_error if the file cannot be loaded or is not a valid BMP
-        auto load(const std::string& filename) -> void;
+        auto load(const std::string &filename) -> void;
     };
 }

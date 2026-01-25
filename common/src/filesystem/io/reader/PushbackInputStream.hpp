@@ -2,14 +2,12 @@
 #include <cstddef>
 #include "FilterInputStream.hpp"
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief A pushback input stream allows bytes to be pushed back into the stream.
     /// This class wraps another input stream and provides the ability to "unread" bytes,
     /// making them available to be read again. This is useful for parsers that need to
     /// look ahead in the input stream.
-    class PushbackInputStream final : public FilterInputStream
-    {
+    class PushbackInputStream final : public FilterInputStream {
     public:
         /// @brief Constructs a PushbackInputStream with the given input stream and buffer size
         /// @param inputStream The underlying input stream to wrap
@@ -30,7 +28,7 @@ namespace common::filesystem
         /// @param buffer the buffer into which the data is read.
         /// @return the total number of bytes read into the buffer, or 0 if there is no more data because the end of the
         /// stream has been reached.
-        [[nodiscard]] auto read(std::vector<std::byte>& buffer) -> size_t override;
+        [[nodiscard]] auto read(std::vector<std::byte> &buffer) -> size_t override;
 
         /// @brief Reads up to `len` bytes of data from the input stream into the buffer starting at `offset`.
         /// @param buffer the buffer into which the data is read.
@@ -38,17 +36,17 @@ namespace common::filesystem
         /// @param len the maximum number of bytes to read.
         /// @return the total number of bytes read into the buffer, or 0 if there is no more data because the end of the
         /// stream has been reached.
-        [[nodiscard]] auto read(std::vector<std::byte>& buffer, size_t offset, size_t len) -> size_t override;
+        [[nodiscard]] auto read(std::vector<std::byte> &buffer, size_t offset, size_t len) -> size_t override;
 
         /// @brief Pushes back the entire buffer into the stream.
         /// @param buffer the buffer to push back.
-        void unread(const std::vector<std::byte>& buffer);
+        void unread(const std::vector<std::byte> &buffer);
 
         /// @brief Pushes back a portion of the buffer into the stream.
         /// @param buffer the buffer containing data to push back.
         /// @param offset the start offset in the buffer from which data is pushed back.
         /// @param len the number of bytes to push back.
-        void unread(const std::vector<std::byte>& buffer, size_t offset, size_t len);
+        void unread(const std::vector<std::byte> &buffer, size_t offset, size_t len);
 
         /// @brief Pushes back a single byte into the stream.
         /// @param b the byte to push back.

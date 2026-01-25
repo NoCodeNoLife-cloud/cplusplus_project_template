@@ -1,14 +1,12 @@
 #pragma once
 #include <cstdint>
 
-namespace common::graphics
-{
+namespace common::graphics {
     /// @brief Data structure for representing an edge in a graph
     /// @details This class stores information about an edge, including
     ///          the target vertex and the weight of the edge. It provides
     ///          methods to get and set these values.
-    class Edge
-    {
+    class Edge {
     public:
         /// @brief Construct an Edge with target vertex and weight
         /// @param to Target vertex
@@ -34,12 +32,12 @@ namespace common::graphics
         /// @brief Equality operator
         /// @param other Edge to compare with
         /// @return True if edges are equal
-        [[nodiscard]] auto operator==(const Edge& other) const noexcept -> bool;
+        [[nodiscard]] auto operator==(const Edge &other) const noexcept -> bool;
 
         /// @brief Inequality operator
         /// @param other Edge to compare with
         /// @return True if edges are not equal
-        [[nodiscard]] auto operator!=(const Edge& other) const noexcept -> bool;
+        [[nodiscard]] auto operator!=(const Edge &other) const noexcept -> bool;
 
     private:
         int32_t to_{0};

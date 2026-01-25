@@ -3,15 +3,13 @@
 #include <chrono>
 #include <string>
 
-namespace common::time
-{
+namespace common::time {
     /// @brief A utility class for profiling function execution time.
     /// @details This class provides functionality to measure and print the execution time
     /// of a function. It records the start and end times, and calculates the
     /// duration between them. The profiler can be used to measure performance
     /// of specific code sections.
-    class FunctionProfiler
-    {
+    class FunctionProfiler {
     public:
         /// @brief Construct a FunctionProfiler with the specified function name.
         /// @param function_name The name of the function or code section being profiled.

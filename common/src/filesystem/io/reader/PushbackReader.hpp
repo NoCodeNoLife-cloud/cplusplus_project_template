@@ -4,15 +4,13 @@
 
 #include "FilterReader.hpp"
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief Provides a buffering wrapper around another reader, allowing characters to be "pushed back" into the stream.
     /// @details The PushbackReader class allows characters to be pushed back into the stream after they have been read.
     /// This is useful for situations where a program needs to look ahead in the input stream and then return to the
     /// original position. The class maintains an internal buffer to store the pushed-back characters. When reading, it
     /// first checks this buffer before reading from the underlying reader.
-    class PushbackReader final : public FilterReader
-    {
+    class PushbackReader final : public FilterReader {
     public:
         explicit PushbackReader(std::shared_ptr<AbstractReader> reader);
 
@@ -53,7 +51,7 @@ namespace common::filesystem
         /// @param len the maximum number of characters read
         /// @return the total number of characters read into the buffer, or -1 if there is no more data because the end of
         /// the stream has been reached
-        [[nodiscard]] auto read(std::vector<char>& cBuf, size_t off, size_t len) -> int override;
+        [[nodiscard]] auto read(std::vector<char> &cBuf, size_t off, size_t len) -> int override;
 
         /// @brief Tells whether this stream is ready to be read.
         /// @details A stream is ready to be read if there are characters available in the pushback buffer,
@@ -81,7 +79,7 @@ namespace common::filesystem
         /// The characters are pushed back in reverse order, so that the next read operation will read
         /// the characters in the same order as they appear in the array.
         /// @param cbuf the array of characters to push back
-        auto unread(const std::vector<char>& cbuf) noexcept -> void;
+        auto unread(const std::vector<char> &cbuf) noexcept -> void;
 
         /// @brief Pushes back a portion of the given character array into the pushback buffer.
         /// @details This method pushes back len characters from the given array starting at offset off
@@ -90,7 +88,7 @@ namespace common::filesystem
         /// @param cBuf the array of characters to push back
         /// @param off the start offset in the array
         /// @param len the number of characters to push back
-        auto unread(const std::vector<char>& cBuf, size_t off, size_t len) -> void;
+        auto unread(const std::vector<char> &cBuf, size_t off, size_t len) -> void;
 
         /// @brief Pushes back a single character into the pushback buffer.
         /// @details This method pushes back a single character into the pushback buffer.

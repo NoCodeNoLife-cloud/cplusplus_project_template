@@ -2,15 +2,13 @@
 #include <stdexcept>
 #include <string>
 
-namespace common::exception
-{
+namespace common::exception {
     /// @brief Custom exception class for authentication-related errors
-    class [[nodiscard]] AuthenticationException : public std::runtime_error
-    {
+    class [[nodiscard]] AuthenticationException : public std::runtime_error {
     public:
         /// @brief Constructor with error message
         /// @param message Error description
-        explicit AuthenticationException(const std::string& message);
+        explicit AuthenticationException(const std::string &message);
 
         /// @brief Constructor with error message using C++17 string_view for better performance
         /// @param message Error description
@@ -19,19 +17,19 @@ namespace common::exception
 
         /// @brief Move constructor for efficient transfer of exception objects
         /// @param other Exception object to move from
-        AuthenticationException(AuthenticationException&& other) noexcept;
+        AuthenticationException(AuthenticationException &&other) noexcept;
 
         /// @brief Copy constructor
         /// @param other Exception object to copy from
-        AuthenticationException(const AuthenticationException& other);
+        AuthenticationException(const AuthenticationException &other);
 
         /// @brief Assignment operator
         /// @param other Exception object to assign from
-        auto operator=(const AuthenticationException& other) -> AuthenticationException& = default;
+        auto operator=(const AuthenticationException &other) -> AuthenticationException & = default;
 
         /// @brief Move assignment operator
         /// @param other Exception object to move from
-        auto operator=(AuthenticationException&& other) noexcept -> AuthenticationException& = default;
+        auto operator=(AuthenticationException &&other) noexcept -> AuthenticationException & = default;
 
         /// @brief Virtual destructor for proper cleanup in inheritance hierarchy
         ~AuthenticationException() noexcept override;

@@ -5,12 +5,10 @@
 
 #include "src/filesystem/io/writer/AbstractOutputStream.hpp"
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief A ByteArrayOutputStream is an output stream that writes data into a byte array.
     /// The buffer automatically grows as data is written to it.
-    class ByteArrayOutputStream final : public AbstractOutputStream
-    {
+    class ByteArrayOutputStream final : public AbstractOutputStream {
     public:
         /// @brief Constructs a new byte array output stream with default buffer size.
         ByteArrayOutputStream();
@@ -29,17 +27,17 @@ namespace common::filesystem
         /// @param offset The start offset in the buffer.
         /// @param len The number of bytes to write.
         /// @throws std::out_of_range if offset and length are out of the bounds of the buffer.
-        auto write(const std::vector<std::byte>& buffer, size_t offset, size_t len) -> void override;
+        auto write(const std::vector<std::byte> &buffer, size_t offset, size_t len) -> void override;
 
         /// @brief Writes a sequence of bytes to the stream from the specified buffer.
         /// @param buffer The buffer containing bytes to write.
         /// @param length The number of bytes to write.
         /// @throws std::invalid_argument if buffer is null.
-        auto write(const std::byte* buffer, size_t length) -> void override;
+        auto write(const std::byte *buffer, size_t length) -> void override;
 
         /// @brief Writes the complete contents of this byte array output stream to the specified output stream.
         /// @param out The output stream to which to write the data.
-        auto writeTo(AbstractOutputStream& out) const -> void;
+        auto writeTo(AbstractOutputStream &out) const -> void;
 
         /// @brief Resets the count field of this byte array output stream to zero.
         auto reset() -> void;

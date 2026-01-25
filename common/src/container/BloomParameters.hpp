@@ -2,8 +2,7 @@
 #include <cmath>
 #include <cstdint>
 
-namespace common::container
-{
+namespace common::container {
     static constexpr std::size_t BITS_PER_CHAR = 0x08;
 
     /// @brief Parameters for configuring a Bloom filter
@@ -11,8 +10,7 @@ namespace common::container
     /// including size constraints, hash function counts, and optimization parameters.
     /// It provides functionality to compute optimal parameters based on expected element
     /// count and desired false positive probability.
-    class BloomParameters final
-    {
+    class BloomParameters final {
     public:
         BloomParameters() noexcept;
 
@@ -46,8 +44,7 @@ namespace common::container
         /// @brief Optimal parameters computed for the bloom filter
         /// This structure holds the computed optimal number of hash functions
         /// and table size based on the projected element count and false positive probability.
-        struct optimal_parameters_t
-        {
+        struct optimal_parameters_t {
             optimal_parameters_t() noexcept;
 
             uint32_t number_of_hashes{};

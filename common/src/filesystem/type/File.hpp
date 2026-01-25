@@ -5,18 +5,16 @@
 #include <filesystem>
 #include <string>
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief A class representing a file in the file system
     /// This class provides various operations that can be performed on files,
     /// such as checking permissions, creating, deleting, renaming, and retrieving
     /// file properties like size, modification time, and path information.
-    class File final
-    {
+    class File final {
     public:
         /// @brief Constructs a File object with the specified path
         /// @param path The file path as a string
-        explicit File(const std::string& path);
+        explicit File(const std::string &path);
 
         /// @brief Constructs a File object with the specified path
         /// @param path The file path as a filesystem path
@@ -24,7 +22,7 @@ namespace common::filesystem
 
         /// @brief Constructs a File object with the specified path
         /// @param path The file path as a C-string
-        explicit File(const char* path);
+        explicit File(const char *path);
 
         /// @brief Destructor
         ~File();
@@ -68,12 +66,12 @@ namespace common::filesystem
         /// @brief Renames the file to the destination file
         /// @param dest The destination file
         /// @return true if the file was renamed successfully, false otherwise
-        [[nodiscard]] auto renameTo(const File& dest) const noexcept -> bool;
+        [[nodiscard]] auto renameTo(const File &dest) const noexcept -> bool;
 
         /// @brief Copies the file to the destination path
         /// @param dest The destination file
         /// @return true if the file was copied successfully, false otherwise
-        [[nodiscard]] auto copyTo(const File& dest) const -> bool;
+        [[nodiscard]] auto copyTo(const File &dest) const -> bool;
 
         /// @brief Gets the length of the file
         /// @return The file length in bytes
@@ -142,12 +140,12 @@ namespace common::filesystem
 
         /// @brief Prints files with depth information
         /// @param file_path The path to start printing from
-        static auto printFilesWithDepth(const std::filesystem::path& file_path) -> void;
+        static auto printFilesWithDepth(const std::filesystem::path &file_path) -> void;
 
         /// @brief Gets the MD5 hash of a file
         /// @param filePath The path to the file
         /// @return The MD5 hash as a string
-        static auto getFileMD5(const std::filesystem::path& filePath) -> std::string;
+        static auto getFileMD5(const std::filesystem::path &filePath) -> std::string;
 
     private:
         std::filesystem::path file_path_{};

@@ -6,14 +6,12 @@
 #include "src/filesystem/io/interface/ICloseable.hpp"
 #include "src/filesystem/io/interface/IReadable.hpp"
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief Abstract base class for reading character streams.
     /// This class provides a standard interface for reading character data from various sources.
     /// It implements the ICloseable and IReadable interfaces and provides standard implementations
     /// for some common reading operations.
-    class AbstractReader : public interfaces::ICloseable, public interfaces::IReadable
-    {
+    class AbstractReader : public interfaces::ICloseable, public interfaces::IReadable {
     public:
         /// @brief Virtual destructor for proper cleanup of derived classes
         ~AbstractReader() override = default;
@@ -31,13 +29,13 @@ namespace common::filesystem
         /// @param off Offset at which to start storing characters
         /// @param len Maximum number of characters to read
         /// @return The number of characters read, or -1 if the end of the stream has been reached
-        virtual auto read(std::vector<char>& cBuf, size_t off, size_t len) -> int = 0;
+        virtual auto read(std::vector<char> &cBuf, size_t off, size_t len) -> int = 0;
 
         /// @brief Read characters into an array.
         /// This method reads characters from the input stream into the entire buffer 'cBuf'.
         /// @param cBuf Destination buffer to store the characters read
         /// @return The number of characters read, or -1 if the end of the stream has been reached
-        virtual auto read(std::vector<char>& cBuf) -> int;
+        virtual auto read(std::vector<char> &cBuf) -> int;
 
         /// @brief Tests if this stream supports the mark and reset methods.
         /// @return True if this stream supports the mark and reset methods, false otherwise

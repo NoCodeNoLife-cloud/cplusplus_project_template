@@ -1,11 +1,9 @@
 #pragma once
 #include <string>
 
-namespace common::auth
-{
+namespace common::auth {
     /// @brief Password policy configuration class with configurable security rules
-    class PasswordPolicy
-    {
+    class PasswordPolicy {
     public:
         /// @brief Constructor with default security parameters
         /// @param min_length Minimum password length (default: 8)
@@ -20,7 +18,7 @@ namespace common::auth
         /// @brief Validate password against current policy rules
         /// @param password Password string to validate
         /// @return true if password meets all requirements, false otherwise
-        [[nodiscard]] auto validate(const std::string& password) const noexcept -> bool;
+        [[nodiscard]] auto validate(const std::string &password) const noexcept -> bool;
 
         /// @brief Set minimum password length requirement
         /// @param length New minimum length value

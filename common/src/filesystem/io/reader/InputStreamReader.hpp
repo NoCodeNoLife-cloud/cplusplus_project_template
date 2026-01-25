@@ -8,16 +8,16 @@
 
 #include "AbstractReader.hpp"
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief InputStreamReader is a class for reading characters from a byte stream.
     /// This class inherits from AbstractReader and provides functionality to read characters
     /// from an input stream with specified charset encoding.
-    class InputStreamReader final : public AbstractReader
-    {
+    class InputStreamReader final : public AbstractReader {
     public:
         explicit InputStreamReader(std::shared_ptr<AbstractReader> input);
-        InputStreamReader(std::shared_ptr<AbstractReader> input, const std::string& charsetName);
+
+        InputStreamReader(std::shared_ptr<AbstractReader> input, const std::string &charsetName);
+
         ~InputStreamReader() override = default;
 
         /// @brief Read a single character.
@@ -30,7 +30,7 @@ namespace common::filesystem
         /// @param off Offset at which to start storing characters
         /// @param len Maximum number of characters to read
         /// @return The number of characters read, or -1 if the end of the stream has been reached
-        auto read(std::vector<char>& cBuf, size_t off, size_t len) -> int override;
+        auto read(std::vector<char> &cBuf, size_t off, size_t len) -> int override;
 
         /// @brief Tests if this input stream is ready to be read.
         /// @return true if the next read() is guaranteed not to block for input, false otherwise.

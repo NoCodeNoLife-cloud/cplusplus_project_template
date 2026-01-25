@@ -1,13 +1,11 @@
 #pragma once
 
-namespace common::interfaces
-{
+namespace common::interfaces {
     /// @brief Interface for resources that can be closed.
     /// This interface defines a common contract for closing resources such as files,
     /// streams, or connections. Implementing classes must provide a mechanism to
     /// properly release or close the associated resource.
-    class ICloseable
-    {
+    class ICloseable {
     public:
         /// @brief Virtual destructor to ensure proper cleanup of derived classes
         virtual ~ICloseable() = default;
@@ -32,15 +30,11 @@ namespace common::interfaces
         [[nodiscard]] virtual auto closeSafe() noexcept -> bool;
     };
 
-    inline auto ICloseable::closeSafe() noexcept -> bool
-    {
-        try
-        {
+    inline auto ICloseable::closeSafe() noexcept -> bool {
+        try {
             close();
             return true;
-        }
-        catch (...)
-        {
+        } catch (...) {
             return false;
         }
     }

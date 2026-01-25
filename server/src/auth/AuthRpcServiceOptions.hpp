@@ -5,8 +5,7 @@
 
 #include "src/serializer/interface/IYamlConfigurable.hpp"
 
-namespace app_server::auth
-{
+namespace app_server::auth {
     /// @brief A class that holds gRPC configuration options
     /// @details This class encapsulates all the gRPC configuration parameters
     /// that can be used to customize the behavior of gRPC channels and connections.
@@ -24,8 +23,7 @@ namespace app_server::auth
     ///     .serverAddress("0.0.0.0:50051")
     ///     .build();
     /// @endcode
-    class AuthRpcServiceOptions final : public common::interfaces::IYamlConfigurable
-    {
+    class AuthRpcServiceOptions final : public common::interfaces::IYamlConfigurable {
     public:
         AuthRpcServiceOptions();
 
@@ -115,13 +113,13 @@ namespace app_server::auth
         /// @return The server address as a string
         /// @details This parameter specifies the address and port of the gRPC server
         /// in the format "host:port". Using "0.0.0.0" binds to all available interfaces.
-        [[nodiscard]] auto serverAddress() const noexcept -> const std::string&;
+        [[nodiscard]] auto serverAddress() const noexcept -> const std::string &;
 
         /// @brief Set the server address
         /// @param value The server address as a string
         /// @details This parameter specifies the address and port of the gRPC server
         /// in the format "host:port". Using "0.0.0.0" binds to all available interfaces.
-        auto serverAddress(const std::string& value) -> void;
+        auto serverAddress(const std::string &value) -> void;
 
         /// @brief Deserialize object configuration from a YAML file
         /// @param path The file path to the YAML configuration file
@@ -139,7 +137,7 @@ namespace app_server::auth
         ///   keepalive-permit-without-calls: 1
         ///   server-address: "0.0.0.0:50051"
         /// @endcode
-        auto deserializedFromYamlFile(const std::filesystem::path& path) -> void override;
+        auto deserializedFromYamlFile(const std::filesystem::path &path) -> void override;
 
         /// @brief Validate gRPC parameters for correctness
         /// @return true if all parameters are valid, false otherwise
@@ -150,43 +148,42 @@ namespace app_server::auth
         /// @brief Builder class for constructing AuthRpcServiceOptions instances
         /// @details Implements the Builder pattern to allow for flexible construction
         /// of AuthRpcServiceOptions objects with default values and selective parameter setting.
-        class Builder
-        {
+        class Builder {
         public:
             /// @brief Set the maximum connection idle time in milliseconds
             /// @param value The maximum connection idle time in milliseconds
             /// @return Reference to this builder for method chaining
-            [[nodiscard]] auto maxConnectionIdleMs(int32_t value) noexcept -> Builder&;
+            [[nodiscard]] auto maxConnectionIdleMs(int32_t value) noexcept -> Builder &;
 
             /// @brief Set the maximum connection age in milliseconds
             /// @param value The maximum connection age in milliseconds
             /// @return Reference to this builder for method chaining
-            [[nodiscard]] auto maxConnectionAgeMs(int32_t value) noexcept -> Builder&;
+            [[nodiscard]] auto maxConnectionAgeMs(int32_t value) noexcept -> Builder &;
 
             /// @brief Set the maximum connection age grace period in milliseconds
             /// @param value The maximum connection age grace period in milliseconds
             /// @return Reference to this builder for method chaining
-            [[nodiscard]] auto maxConnectionAgeGraceMs(int32_t value) noexcept -> Builder&;
+            [[nodiscard]] auto maxConnectionAgeGraceMs(int32_t value) noexcept -> Builder &;
 
             /// @brief Set the keepalive time interval in milliseconds
             /// @param value The keepalive time interval in milliseconds
             /// @return Reference to this builder for method chaining
-            [[nodiscard]] auto keepaliveTimeMs(int32_t value) noexcept -> Builder&;
+            [[nodiscard]] auto keepaliveTimeMs(int32_t value) noexcept -> Builder &;
 
             /// @brief Set the keepalive timeout in milliseconds
             /// @param value The keepalive timeout in milliseconds
             /// @return Reference to this builder for method chaining
-            [[nodiscard]] auto keepaliveTimeoutMs(int32_t value) noexcept -> Builder&;
+            [[nodiscard]] auto keepaliveTimeoutMs(int32_t value) noexcept -> Builder &;
 
             /// @brief Set whether to permit keepalive pings without active calls
             /// @param value 1 to permit, 0 to not permit
             /// @return Reference to this builder for method chaining
-            [[nodiscard]] auto keepalivePermitWithoutCalls(int32_t value) noexcept -> Builder&;
+            [[nodiscard]] auto keepalivePermitWithoutCalls(int32_t value) noexcept -> Builder &;
 
             /// @brief Set the server address
             /// @param value The server address as a string
             /// @return Reference to this builder for method chaining
-            [[nodiscard]] auto serverAddress(const std::string& value) -> Builder&;
+            [[nodiscard]] auto serverAddress(const std::string &value) -> Builder &;
 
             /// @brief Build the AuthRpcServiceOptions instance with the configured parameters
             /// @return A new AuthRpcServiceOptions instance with the configured values
@@ -275,21 +272,20 @@ namespace app_server::auth
 /// Provides methods to encode and decode AuthRpcServiceOptions to/from YAML nodes.
 /// @details This template specialization allows the YAML library to automatically
 /// serialize and deserialize AuthRpcServiceOptions objects to and from YAML format.
-template <>
-struct YAML::convert<app_server::auth::AuthRpcServiceOptions>
-{
+template<>
+struct YAML::convert<app_server::auth::AuthRpcServiceOptions> {
     /// @brief Decode a YAML node into a AuthRpcServiceOptions object.
     /// @param node The YAML node containing the configuration data.
     /// @param rhs The AuthRpcServiceOptions object to populate.
     /// @return True if decoding was successful.
     /// @details Extracts configuration values from the YAML node and sets them
     /// in the AuthRpcServiceOptions object. Missing values will retain their default values.
-    static auto decode(const Node& node, app_server::auth::AuthRpcServiceOptions& rhs) -> bool;
+    static auto decode(const Node &node, app_server::auth::AuthRpcServiceOptions &rhs) -> bool;
 
     /// @brief Encode a AuthRpcServiceOptions object into a YAML node.
     /// @param rhs The AuthRpcServiceOptions object to encode.
     /// @return A YAML node containing the configuration data.
     /// @details Converts the AuthRpcServiceOptions object's configuration values into
     /// a YAML node representation that can be serialized to a file or string.
-    static auto encode(const app_server::auth::AuthRpcServiceOptions& rhs) -> Node;
+    static auto encode(const app_server::auth::AuthRpcServiceOptions &rhs) -> Node;
 };

@@ -6,13 +6,12 @@
 
 #include "AbstractReader.hpp"
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief Buffered character-input stream.
-    class BufferedReader final : public AbstractReader
-    {
+    class BufferedReader final : public AbstractReader {
     public:
         explicit BufferedReader(std::unique_ptr<AbstractReader> reader, size_t size = DEFAULT_BUFFER_SIZE);
+
         ~BufferedReader() override = default;
 
         /// @brief Close the stream.
@@ -39,7 +38,7 @@ namespace common::filesystem
         /// @param off The offset at which to start storing characters.
         /// @param len The maximum number of characters to read.
         /// @return The number of characters read, or -1 if the end of the stream has been reached.
-        auto read(std::vector<char>& cBuf, size_t off, size_t len) -> int override;
+        auto read(std::vector<char> &cBuf, size_t off, size_t len) -> int override;
 
         /// @brief Read a line of text.
         /// @return A String containing the next line of text, or empty string if the end of the stream has been reached.

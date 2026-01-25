@@ -4,13 +4,11 @@
 
 #include "interface/IBuffer.hpp"
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief A byte buffer implementation that manages a fixed-size buffer of bytes.
     /// This class provides methods for putting and getting bytes, supporting both
     /// single-byte operations and bulk operations with vectors of bytes.
-    class ByteBuffer final : public interfaces::IBuffer
-    {
+    class ByteBuffer final : public interfaces::IBuffer {
     public:
         explicit ByteBuffer(size_t capacity);
 
@@ -61,7 +59,7 @@ namespace common::filesystem
         /// @brief Puts bytes from a vector into the buffer
         /// @param src The source vector of bytes to put into the buffer
         /// @throws std::overflow_error If buffer has insufficient space
-        auto put(const std::vector<std::byte>& src) -> void;
+        auto put(const std::vector<std::byte> &src) -> void;
 
         /// @brief Gets a single byte from the buffer
         /// @return The byte retrieved from the buffer

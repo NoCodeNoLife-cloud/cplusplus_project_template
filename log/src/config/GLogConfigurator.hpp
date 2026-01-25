@@ -3,13 +3,11 @@
 
 #include "parameter/GLogParameters.hpp"
 
-namespace glog::config
-{
+namespace glog::config {
     /// @brief Configures Google Logging (glog) library with specified parameters
     /// @details This class handles the initialization and configuration of the glog library
     /// based on the provided configuration parameters
-    class GLogConfigurator final
-    {
+    class GLogConfigurator final {
     public:
         /// @brief Default constructor is deleted to enforce path initialization
         GLogConfigurator() = delete;
@@ -22,16 +20,16 @@ namespace glog::config
         ~GLogConfigurator() noexcept = default;
 
         /// @brief Copy constructor is deleted to prevent copying
-        GLogConfigurator(const GLogConfigurator&) = delete;
+        GLogConfigurator(const GLogConfigurator &) = delete;
 
         /// @brief Copy assignment operator is deleted to prevent copying
-        auto operator=(const GLogConfigurator&) -> GLogConfigurator& = delete;
+        auto operator=(const GLogConfigurator &) -> GLogConfigurator & = delete;
 
         /// @brief Move constructor
-        GLogConfigurator(GLogConfigurator&&) noexcept = default;
+        GLogConfigurator(GLogConfigurator &&) noexcept = default;
 
         /// @brief Move assignment operator
-        auto operator=(GLogConfigurator&&) noexcept -> GLogConfigurator& = default;
+        auto operator=(GLogConfigurator &&) noexcept -> GLogConfigurator & = default;
 
         /// @brief Execute the configuration process
         /// @return True if configuration was successful
@@ -39,15 +37,15 @@ namespace glog::config
 
         /// @brief Get the current configuration parameters
         /// @return A const reference to the GLogParameters object
-        [[nodiscard]] auto getConfig() const noexcept -> const parameter::GLogParameters&;
+        [[nodiscard]] auto getConfig() const noexcept -> const parameter::GLogParameters &;
 
         /// @brief Update the configuration parameters
         /// @param config The new configuration parameters
-        auto updateConfig(const parameter::GLogParameters& config) noexcept -> void;
+        auto updateConfig(const parameter::GLogParameters &config) noexcept -> void;
 
     private:
         /// @brief Perform the actual glog configuration
-        static auto doConfig(const parameter::GLogParameters& config) noexcept -> void;
+        static auto doConfig(const parameter::GLogParameters &config) noexcept -> void;
 
         /// @brief Clean up glog resources
         static auto clean() noexcept -> void;

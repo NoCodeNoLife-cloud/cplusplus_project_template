@@ -6,12 +6,10 @@
 
 #include "src/filesystem/io/interface/ICloseable.hpp"
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief Abstract base class for all input streams.
     /// Provides standard input stream functionality that can be extended by concrete implementations.
-    class AbstractInputStream : public interfaces::ICloseable
-    {
+    class AbstractInputStream : public interfaces::ICloseable {
     public:
         ~AbstractInputStream() override = default;
 
@@ -34,14 +32,14 @@ namespace common::filesystem
         /// @brief Reads up to len bytes of data from the input stream into an array of bytes.
         /// @param buffer The buffer into which the data is read.
         /// @return The total number of bytes read into the buffer, or 0 if there is no more data.
-        virtual auto read(std::vector<std::byte>& buffer) -> size_t;
+        virtual auto read(std::vector<std::byte> &buffer) -> size_t;
 
         /// @brief Reads up to len bytes of data from the input stream into an array of bytes.
         /// @param buffer The buffer into which the data is read.
         /// @param offset The start offset in the destination array buffer.
         /// @param len The maximum number of bytes to read.
         /// @return The total number of bytes read into the buffer, or 0 if there is no more data.
-        virtual auto read(std::vector<std::byte>& buffer, std::size_t offset, std::size_t len) -> size_t;
+        virtual auto read(std::vector<std::byte> &buffer, std::size_t offset, std::size_t len) -> size_t;
 
         /// @brief Repositions this stream to the position at the time the mark() method was last called.
         virtual auto reset() -> void;

@@ -1,16 +1,14 @@
 #pragma once
 #include <stdexcept>
 
-namespace common::interfaces
-{
+namespace common::interfaces {
     /// @brief Interface for a buffer that manages a sequence of elements
     /// This interface provides methods for managing a buffer's position, limit, and capacity.
     /// The buffer follows the standard buffer semantics where:
     /// - Capacity is the maximum number of elements the buffer can hold
     /// - Limit is the index of the first element that should not be read/written
     /// - Position is the index of the next element to be read/written
-    class IBuffer
-    {
+    class IBuffer {
     public:
         virtual ~IBuffer() = default;
 

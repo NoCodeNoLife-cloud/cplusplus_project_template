@@ -2,15 +2,13 @@
 #include <queue>
 #include <vector>
 
-namespace common::data_structure
-{
+namespace common::data_structure {
     /// @brief A class to maintain the top K the largest numbers from a stream of integers.
     /// The TopK class uses a min-heap to efficiently track the top K the largest numbers.
     /// When a new number is added, it is compared with the smallest number in the heap.
     /// If the new number is larger, the smallest number is removed and the new number is added.
     /// This ensures that the heap always contains the top K the largest numbers seen so far.
-    class TopK final
-    {
+    class TopK final {
     public:
         explicit TopK(int32_t k);
 
@@ -32,6 +30,6 @@ namespace common::data_structure
 
     private:
         int32_t k_;
-        std::priority_queue<int32_t, std::vector<int32_t>, std::greater<>> minHeap_;
+        std::priority_queue<int32_t, std::vector<int32_t>, std::greater<> > minHeap_;
     };
 }

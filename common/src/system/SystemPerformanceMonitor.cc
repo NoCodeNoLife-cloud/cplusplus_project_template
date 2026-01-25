@@ -6,18 +6,15 @@
 #include <cstdint>
 #include <thread>
 
-namespace common::system
-{
-    auto SystemPerformanceMonitor::FileTimeToULARGEInteger(const FILETIME& ft) noexcept -> ULARGE_INTEGER
-    {
+namespace common::system {
+    auto SystemPerformanceMonitor::FileTimeToULARGEInteger(const FILETIME &ft) noexcept -> ULARGE_INTEGER {
         ULARGE_INTEGER result;
         result.LowPart = ft.dwLowDateTime;
         result.HighPart = ft.dwHighDateTime;
         return result;
     }
 
-    auto SystemPerformanceMonitor::GetMemoryUsage() noexcept -> MemoryUsage
-    {
+    auto SystemPerformanceMonitor::GetMemoryUsage() noexcept -> MemoryUsage {
         MemoryUsage memUsage{};
         MEMORYSTATUSEX memInfo{};
         memInfo.dwLength = sizeof(MEMORYSTATUSEX);
@@ -33,8 +30,7 @@ namespace common::system
         return memUsage;
     }
 
-    auto SystemPerformanceMonitor::GetCpuUsage(const int32_t interval) noexcept -> CpuUsage
-    {
+    auto SystemPerformanceMonitor::GetCpuUsage(const int32_t interval) noexcept -> CpuUsage {
         CpuUsage cpuUsage{};
 
         // Initial system times measurement
@@ -63,12 +59,9 @@ namespace common::system
         const ULONGLONG totalDiff = kernelDiff + userDiff;
 
         // Calculate CPU usage percentage
-        if (totalDiff != 0)
-        {
+        if (totalDiff != 0) {
             cpuUsage.cpu_usage_percent = (static_cast<double>(totalDiff) - static_cast<double>(idleDiff)) * 100.0 / static_cast<double>(totalDiff);
-        }
-        else
-        {
+        } else {
             cpuUsage.cpu_usage_percent = 0.0;
         }
 

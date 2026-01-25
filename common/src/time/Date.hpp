@@ -3,15 +3,13 @@
 #include <string>
 #include <cstdint>
 
-namespace common::time
-{
+namespace common::time {
     /// @brief A class representing a specific instant in time, with millisecond precision.
     /// The class represents a specific point in time, measured in milliseconds
     /// since the Unix epoch (January 1, 1970, 00:00:00 GMT). It provides methods
     /// for creating, manipulating, and comparing dates, as well as converting
     /// between different date representations.
-    class Date
-    {
+    class Date {
     public:
         /// @brief Default constructor, initializes to current time
         Date() noexcept;
@@ -47,17 +45,17 @@ namespace common::time
         /// @brief Compares this date to the specified date.
         /// @param other The date to compare with
         /// @return true if the dates are equal, false otherwise
-        [[nodiscard]] auto equals(const Date& other) const noexcept -> bool;
+        [[nodiscard]] auto equals(const Date &other) const noexcept -> bool;
 
         /// @brief Tests if this date is after the specified date.
         /// @param other The date to compare with
         /// @return true if this date is after the other date, false otherwise
-        [[nodiscard]] auto after(const Date& other) const noexcept -> bool;
+        [[nodiscard]] auto after(const Date &other) const noexcept -> bool;
 
         /// @brief Tests if this date is before the specified date.
         /// @param other The date to compare with
         /// @return true if this date is before the other date, false otherwise
-        [[nodiscard]] auto before(const Date& other) const noexcept -> bool;
+        [[nodiscard]] auto before(const Date &other) const noexcept -> bool;
 
         /// @brief Returns the number of milliseconds since January 1, 1970, 00:00:00 GMT.
         /// @return The timestamp in milliseconds
@@ -96,12 +94,17 @@ namespace common::time
         [[nodiscard]] auto hashCode() const noexcept -> size_t;
 
         // Comparison operators
-        [[nodiscard]] bool operator==(const Date& other) const noexcept;
-        [[nodiscard]] bool operator!=(const Date& other) const noexcept;
-        [[nodiscard]] bool operator<(const Date& other) const noexcept;
-        [[nodiscard]] bool operator<=(const Date& other) const noexcept;
-        [[nodiscard]] bool operator>(const Date& other) const noexcept;
-        [[nodiscard]] bool operator>=(const Date& other) const noexcept;
+        [[nodiscard]] bool operator==(const Date &other) const noexcept;
+
+        [[nodiscard]] bool operator!=(const Date &other) const noexcept;
+
+        [[nodiscard]] bool operator<(const Date &other) const noexcept;
+
+        [[nodiscard]] bool operator<=(const Date &other) const noexcept;
+
+        [[nodiscard]] bool operator>(const Date &other) const noexcept;
+
+        [[nodiscard]] bool operator>=(const Date &other) const noexcept;
 
     private:
         std::chrono::system_clock::time_point time_point_{};

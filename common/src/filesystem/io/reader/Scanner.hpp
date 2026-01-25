@@ -3,16 +3,14 @@
 #include <string>
 #include <vector>
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief A utility class for scanning and parsing input streams.
     /// The Scanner class provides methods for reading various data types from an input stream,
     /// such as integers, doubles, strings, and lines. It also supports reading tokens separated
     /// by delimiters. This class is designed to simplify input parsing operations.
-    class Scanner
-    {
+    class Scanner {
     public:
-        explicit Scanner(std::istream& input_stream);
+        explicit Scanner(std::istream &input_stream);
 
         /// @brief Reads the next integer from the input stream.
         /// This method parses the next token from the input stream and converts it to a 32-bit signed integer.
@@ -43,7 +41,7 @@ namespace common::filesystem
         /// stream.
         /// @param token A reference to a string where the next token will be stored.
         /// @return `true` if a token was successfully read, `false` if the end of the stream was reached.
-        auto getNextToken(std::string& token) const -> bool;
+        auto getNextToken(std::string &token) const -> bool;
 
         /// @brief Reads all tokens from the input stream until the end of the stream is reached.
         /// Tokens are separated by the specified delimiter character. By default, the delimiter is a space (' ').
@@ -53,6 +51,6 @@ namespace common::filesystem
         [[nodiscard]] auto nextTokens(char delimiter = ' ') const -> std::vector<std::string>;
 
     private:
-        std::istream& input_;
+        std::istream &input_;
     };
 }

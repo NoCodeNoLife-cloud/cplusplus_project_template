@@ -4,14 +4,13 @@
 
 #include "AbstractReader.hpp"
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief A FilterReader is a subclass of AbstractReader that acts as a wrapper for another AbstractReader.
     /// It can be used to extend the functionality of the wrapped reader by overriding methods as needed.
-    class FilterReader : public AbstractReader
-    {
+    class FilterReader : public AbstractReader {
     public:
         explicit FilterReader(std::shared_ptr<AbstractReader> reader);
+
         ~FilterReader() override = default;
 
         /// @brief Close the stream and release any system resources associated with it.
@@ -34,12 +33,12 @@ namespace common::filesystem
         /// @param off The offset at which to begin storing characters.
         /// @param len The maximum number of characters to read.
         /// @return The number of characters read, or -1 if the end of the stream has been reached.
-        auto read(std::vector<char>& cBuf, size_t off, size_t len) -> int override;
+        auto read(std::vector<char> &cBuf, size_t off, size_t len) -> int override;
 
         /// @brief Reads characters into an array of characters.
         /// @param cBuf The buffer into which characters are to be read.
         /// @return The number of characters read, or -1 if the end of the stream has been reached.
-        auto read(std::vector<char>& cBuf) -> int override;
+        auto read(std::vector<char> &cBuf) -> int override;
 
         /// @brief Tests if this input stream is ready to be read.
         /// @return true if the next read() is guaranteed not to block for input; false otherwise.

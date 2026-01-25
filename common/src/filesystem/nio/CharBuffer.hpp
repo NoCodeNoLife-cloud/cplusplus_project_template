@@ -4,14 +4,12 @@
 
 #include "interface/IBuffer.hpp"
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief A character buffer that implements the IBuffer interface.
     /// @details This class provides functionality for managing a buffer of characters,
     ///          including operations such as putting and getting characters, compacting
     ///          the buffer, and retrieving remaining unprocessed characters.
-    class CharBuffer final : public interfaces::IBuffer
-    {
+    class CharBuffer final : public interfaces::IBuffer {
     public:
         /// @brief Constructs a CharBuffer with the specified capacity.
         /// @param cap The capacity of the buffer.
@@ -41,7 +39,7 @@ namespace common::filesystem
         /// @brief Puts a string into the buffer.
         /// @param src The string to put into the buffer.
         /// @return void
-        auto put(const std::string& src) -> void;
+        auto put(const std::string &src) -> void;
 
         /// @brief Gets a single character from the buffer.
         /// @return The character retrieved from the buffer.

@@ -5,22 +5,17 @@
 #include <vector>
 #include <windows.h>
 
-namespace common::system
-{
-    auto SystemInfo::ReadRegistryStringValue(HKEY__* const hKeyRoot, const wchar_t* subKey, const wchar_t* valueName) noexcept -> std::string
-    {
+namespace common::system {
+    auto SystemInfo::ReadRegistryStringValue(HKEY__ *const hKeyRoot, const wchar_t *subKey, const wchar_t *valueName) noexcept -> std::string {
         HKEY hKey;
-        if (const LONG result = RegOpenKeyExW(hKeyRoot, subKey, 0, KEY_READ, &hKey); result == ERROR_SUCCESS)
-        {
+        if (const LONG result = RegOpenKeyExW(hKeyRoot, subKey, 0, KEY_READ, &hKey); result == ERROR_SUCCESS) {
             RegistryKey keyGuard(hKey);
 
             wchar_t buffer[512]; // Increased buffer size for safety
             DWORD size = sizeof(buffer);
 
-            if (RegQueryValueExW(hKey, valueName, nullptr, nullptr, reinterpret_cast<LPBYTE>(buffer), &size) == ERROR_SUCCESS)
-            {
-                if (const int32_t len = WideCharToMultiByte(CP_UTF8, 0, buffer, -1, nullptr, 0, nullptr, nullptr); len > 0)
-                {
+            if (RegQueryValueExW(hKey, valueName, nullptr, nullptr, reinterpret_cast<LPBYTE>(buffer), &size) == ERROR_SUCCESS) {
+                if (const int32_t len = WideCharToMultiByte(CP_UTF8, 0, buffer, -1, nullptr, 0, nullptr, nullptr); len > 0) {
                     std::string basic_string(len - 1, 0); // len includes null terminator, so subtract 1
                     WideCharToMultiByte(CP_UTF8, 0, buffer, -1, &basic_string[0], len, nullptr, nullptr);
                     return basic_string;
@@ -30,13 +25,11 @@ namespace common::system
         return {}; // Return empty string if failed
     }
 
-    auto SystemInfo::EnumerateRegistryValues(HKEY__* const hKeyRoot, const wchar_t* subKey) noexcept -> std::vector<std::string>
-    {
+    auto SystemInfo::EnumerateRegistryValues(HKEY__ *const hKeyRoot, const wchar_t *subKey) noexcept -> std::vector<std::string> {
         std::vector<std::string> values;
         HKEY hKey;
 
-        if (const LONG result = RegOpenKeyExW(hKeyRoot, subKey, 0, KEY_READ, &hKey); result == ERROR_SUCCESS)
-        {
+        if (const LONG result = RegOpenKeyExW(hKeyRoot, subKey, 0, KEY_READ, &hKey); result == ERROR_SUCCESS) {
             RegistryKey keyGuard(hKey);
 
             DWORD index = 0;
@@ -45,10 +38,8 @@ namespace common::system
             DWORD valueNameSize = sizeof(valueName) / sizeof(wchar_t);
             DWORD valueDataSize = sizeof(valueData);
 
-            while (RegEnumValueW(hKey, index++, valueName, &valueNameSize, nullptr, nullptr, reinterpret_cast<LPBYTE>(valueData), &valueDataSize) == ERROR_SUCCESS)
-            {
-                if (const int32_t len = WideCharToMultiByte(CP_UTF8, 0, valueData, -1, nullptr, 0, nullptr, nullptr); len > 0)
-                {
+            while (RegEnumValueW(hKey, index++, valueName, &valueNameSize, nullptr, nullptr, reinterpret_cast<LPBYTE>(valueData), &valueDataSize) == ERROR_SUCCESS) {
+                if (const int32_t len = WideCharToMultiByte(CP_UTF8, 0, valueData, -1, nullptr, 0, nullptr, nullptr); len > 0) {
                     std::string value(len - 1, 0); // len includes null terminator, so subtract 1
                     WideCharToMultiByte(CP_UTF8, 0, valueData, -1, &value[0], len, nullptr, nullptr);
                     values.emplace_back(std::move(value));
@@ -62,27 +53,22 @@ namespace common::system
         return values;
     }
 
-    auto SystemInfo::GetCpuModelFromRegistry() noexcept -> std::string
-    {
+    auto SystemInfo::GetCpuModelFromRegistry() noexcept -> std::string {
         const std::string cpuModel = ReadRegistryStringValue(HKEY_LOCAL_MACHINE, L"HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", L"ProcessorNameString");
         return cpuModel.empty() ? "Unknown CPU Model" : cpuModel;
     }
 
-    auto SystemInfo::GetMemoryDetails() noexcept -> std::string
-    {
+    auto SystemInfo::GetMemoryDetails() noexcept -> std::string {
         const std::string result = ReadRegistryStringValue(HKEY_LOCAL_MACHINE, L"SYSTEM\\CurrentControlSet\\Control\\Class\\{4D36E965-E325-11CE-BFC1-08002BE10318}", L"DeviceDesc");
         return result.empty() ? "Memory details not available" : result;
     }
 
-    auto SystemInfo::GetOSVersion() noexcept -> std::string
-    {
+    auto SystemInfo::GetOSVersion() noexcept -> std::string {
         std::string result = ReadRegistryStringValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", L"ProductName");
 
-        if (!result.empty())
-        {
+        if (!result.empty()) {
             const std::string buildNum = ReadRegistryStringValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", L"CurrentBuildNumber");
-            if (!buildNum.empty())
-            {
+            if (!buildNum.empty()) {
                 result += " (Build ";
                 result += buildNum;
                 result += ")";
@@ -92,8 +78,7 @@ namespace common::system
         return result.empty() ? "Windows OS Information Not Available" : result;
     }
 
-    auto SystemInfo::GetMotherboardInfo() noexcept -> MotherboardInfo
-    {
+    auto SystemInfo::GetMotherboardInfo() noexcept -> MotherboardInfo {
         MotherboardInfo info{};
 
         // Read motherboard information from BIOS key
@@ -103,8 +88,7 @@ namespace common::system
 
         // Try to read system serial from either SystemSerialNumber or ProductId
         std::string serial = ReadRegistryStringValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", L"SystemSerialNumber");
-        if (serial.empty())
-        {
+        if (serial.empty()) {
             serial = ReadRegistryStringValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", L"ProductId");
         }
         info.systemSerial = serial;
@@ -112,32 +96,26 @@ namespace common::system
         return info;
     }
 
-    auto SystemInfo::GetGraphicsCardInfo() noexcept -> std::string
-    {
+    auto SystemInfo::GetGraphicsCardInfo() noexcept -> std::string {
         // Open the graphics drivers devices key
         HKEY hKey;
-        if (const LONG result = RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers\\Devices", 0, KEY_READ, &hKey); result == ERROR_SUCCESS)
-        {
+        if (const LONG result = RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers\\Devices", 0, KEY_READ, &hKey); result == ERROR_SUCCESS) {
             RegistryKey keyGuard(hKey);
 
             wchar_t subKeyName[256];
             DWORD subKeySize = sizeof(subKeyName) / sizeof(wchar_t);
             FILETIME lastWriteTime;
 
-            if (RegEnumKeyExW(hKey, 0, subKeyName, &subKeySize, nullptr, nullptr, nullptr, &lastWriteTime) == ERROR_SUCCESS)
-            {
+            if (RegEnumKeyExW(hKey, 0, subKeyName, &subKeySize, nullptr, nullptr, nullptr, &lastWriteTime) == ERROR_SUCCESS) {
                 HKEY hSubKey;
-                if (RegOpenKeyExW(hKey, subKeyName, 0, KEY_READ, &hSubKey) == ERROR_SUCCESS)
-                {
+                if (RegOpenKeyExW(hKey, subKeyName, 0, KEY_READ, &hSubKey) == ERROR_SUCCESS) {
                     RegistryKey subKeyGuard(hSubKey);
 
                     wchar_t deviceDesc[256];
                     DWORD size = sizeof(deviceDesc);
 
-                    if (RegQueryValueExW(hSubKey, L"DeviceDesc", nullptr, nullptr, reinterpret_cast<LPBYTE>(deviceDesc), &size) == ERROR_SUCCESS)
-                    {
-                        if (const int32_t len = WideCharToMultiByte(CP_UTF8, 0, deviceDesc, -1, nullptr, 0, nullptr, nullptr); len > 0)
-                        {
+                    if (RegQueryValueExW(hSubKey, L"DeviceDesc", nullptr, nullptr, reinterpret_cast<LPBYTE>(deviceDesc), &size) == ERROR_SUCCESS) {
+                        if (const int32_t len = WideCharToMultiByte(CP_UTF8, 0, deviceDesc, -1, nullptr, 0, nullptr, nullptr); len > 0) {
                             std::string basic_string(len - 1, 0); // len includes null terminator, so subtract 1
                             WideCharToMultiByte(CP_UTF8, 0, deviceDesc, -1, &basic_string[0], len, nullptr, nullptr);
                             return basic_string;
@@ -150,40 +128,32 @@ namespace common::system
         return "Graphics card information not available";
     }
 
-    auto SystemInfo::GetDiskDriveInfo() noexcept -> std::vector<std::string>
-    {
+    auto SystemInfo::GetDiskDriveInfo() noexcept -> std::vector<std::string> {
         return EnumerateRegistryValues(HKEY_LOCAL_MACHINE, L"SYSTEM\\CurrentControlSet\\Services\\Disk\\Enum");
     }
 
-    auto SystemInfo::GetBIOSInfo() noexcept -> std::vector<std::string>
-    {
+    auto SystemInfo::GetBIOSInfo() noexcept -> std::vector<std::string> {
         std::vector<std::string> adapters;
         HKEY hKey;
 
-        if (const LONG result = RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SYSTEM\\CurrentControlSet\\Control\\Class\\{4D36E972-E325-11CE-BFC1-08002BE10318}", 0, KEY_READ, &hKey); result == ERROR_SUCCESS)
-        {
+        if (const LONG result = RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SYSTEM\\CurrentControlSet\\Control\\Class\\{4D36E972-E325-11CE-BFC1-08002BE10318}", 0, KEY_READ, &hKey); result == ERROR_SUCCESS) {
             RegistryKey keyGuard(hKey);
 
             DWORD index = 0;
             wchar_t subKeyName[256];
             DWORD subKeySize = sizeof(subKeyName) / sizeof(wchar_t);
 
-            while (RegEnumKeyExW(hKey, index++, subKeyName, &subKeySize, nullptr, nullptr, nullptr, nullptr) == ERROR_SUCCESS)
-            {
-                if (iswdigit(subKeyName[0]))
-                {
+            while (RegEnumKeyExW(hKey, index++, subKeyName, &subKeySize, nullptr, nullptr, nullptr, nullptr) == ERROR_SUCCESS) {
+                if (iswdigit(subKeyName[0])) {
                     HKEY hSubKey;
-                    if (RegOpenKeyExW(hKey, subKeyName, 0, KEY_READ, &hSubKey) == ERROR_SUCCESS)
-                    {
+                    if (RegOpenKeyExW(hKey, subKeyName, 0, KEY_READ, &hSubKey) == ERROR_SUCCESS) {
                         RegistryKey subKeyGuard(hSubKey);
 
                         wchar_t adapterName[256];
                         DWORD size = sizeof(adapterName);
 
-                        if (RegQueryValueExW(hSubKey, L"DriverDesc", nullptr, nullptr, reinterpret_cast<LPBYTE>(adapterName), &size) == ERROR_SUCCESS)
-                        {
-                            if (const int32_t len = WideCharToMultiByte(CP_UTF8, 0, adapterName, -1, nullptr, 0, nullptr, nullptr); len > 0)
-                            {
+                        if (RegQueryValueExW(hSubKey, L"DriverDesc", nullptr, nullptr, reinterpret_cast<LPBYTE>(adapterName), &size) == ERROR_SUCCESS) {
+                            if (const int32_t len = WideCharToMultiByte(CP_UTF8, 0, adapterName, -1, nullptr, 0, nullptr, nullptr); len > 0) {
                                 std::string name(len - 1, 0); // len includes null terminator, so subtract 1
                                 WideCharToMultiByte(CP_UTF8, 0, adapterName, -1, &name[0], len, nullptr, nullptr);
                                 adapters.emplace_back(std::move(name));

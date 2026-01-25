@@ -3,13 +3,11 @@
 
 #include "interface/IBuffer.hpp"
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief A buffer that stores float values.
     /// @details This class provides methods to put and get float values from a buffer.
     /// It is designed to be used in a network I/O context.
-    class FloatBuffer final : public interfaces::IBuffer
-    {
+    class FloatBuffer final : public interfaces::IBuffer {
     public:
         /// @brief Constructs a FloatBuffer with the specified capacity.
         /// @param capacity The capacity of the buffer.
@@ -44,7 +42,7 @@ namespace common::filesystem
         /// @brief Puts a vector of float values into the buffer.
         /// @param values The vector of float values to put.
         /// @return void
-        auto put(const std::vector<float>& values) -> void;
+        auto put(const std::vector<float> &values) -> void;
 
         /// @brief Gets a single float value from the buffer.
         /// @return The float value retrieved.

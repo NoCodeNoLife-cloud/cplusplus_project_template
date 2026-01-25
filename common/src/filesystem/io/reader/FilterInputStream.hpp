@@ -3,14 +3,13 @@
 
 #include "AbstractInputStream.hpp"
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief A filter stream is a stream that filters another input stream.
     /// This class is the basis for all input streams that filter another input stream.
-    class FilterInputStream : public AbstractInputStream
-    {
+    class FilterInputStream : public AbstractInputStream {
     public:
         explicit FilterInputStream(std::unique_ptr<AbstractInputStream> inputStream) noexcept;
+
         ~FilterInputStream() override = default;
 
         /// @brief Returns the number of bytes that can be read (or skipped over) from this input stream without blocking.
@@ -33,7 +32,7 @@ namespace common::filesystem
         /// @param buffer the buffer into which the data is read.
         /// @return the total number of bytes read into the buffer, or 0 if there is no more data because the end of the
         /// stream has been reached.
-        [[nodiscard]] auto read(std::vector<std::byte>& buffer) -> size_t override;
+        [[nodiscard]] auto read(std::vector<std::byte> &buffer) -> size_t override;
 
         /// @brief Reads up to len bytes of data from this input stream into an array of bytes.
         /// @param buffer the buffer into which the data is read.
@@ -41,7 +40,7 @@ namespace common::filesystem
         /// @param len the maximum number of bytes to read.
         /// @return the total number of bytes read into the buffer, or 0 if there is no more data because the end of the
         /// stream has been reached.
-        [[nodiscard]] auto read(std::vector<std::byte>& buffer, size_t offset, size_t len) -> size_t override;
+        [[nodiscard]] auto read(std::vector<std::byte> &buffer, size_t offset, size_t len) -> size_t override;
 
         /// @brief Repositions this stream to the position at the time the mark method was last called on this input stream.
         auto reset() -> void override;

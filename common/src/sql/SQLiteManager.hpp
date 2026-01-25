@@ -5,11 +5,9 @@
 #include <stdexcept>
 #include <memory>
 
-namespace common::sql
-{
+namespace common::sql {
     /// @brief SQLite database executor with RAII management and parameterized queries
-    class SQLiteManager
-    {
+    class SQLiteManager {
     public:
         /// @brief Default constructor
         SQLiteManager();
@@ -17,7 +15,7 @@ namespace common::sql
         /// @brief Constructor that opens the database file (creates it if not exists)
         /// @param db_path Path to the SQLite database file
         /// @throws std::runtime_error if database cannot be opened
-        explicit SQLiteManager(const std::string& db_path);
+        explicit SQLiteManager(const std::string &db_path);
 
         /// @brief Destructor that automatically closes the database connection
         ~SQLiteManager();
@@ -25,7 +23,7 @@ namespace common::sql
         /// @brief Creates/open database connection
         /// @param db_path Path to the SQLite database file
         /// @throws std::runtime_error if database cannot be opened
-        void createDatabase(const std::string& db_path);
+        void createDatabase(const std::string &db_path);
 
         /// @brief Closes database connection
         void closeDatabase();
@@ -35,14 +33,14 @@ namespace common::sql
         /// @param params Parameter values for prepared statement
         /// @return Number of affected rows
         /// @throws std::runtime_error if execution fails
-        [[nodiscard]] auto exec(const std::string& sql, const std::vector<std::string>& params = {}) const -> int;
+        [[nodiscard]] auto exec(const std::string &sql, const std::vector<std::string> &params = {}) const -> int;
 
         /// @brief Executes a query and returns results as a 2D string vector
         /// @param sql SQL query to execute
         /// @param params Parameter values for prepared statement
         /// @return Query results in format [rows][columns]
         /// @throws std::runtime_error if query fails
-        [[nodiscard]] auto query(const std::string& sql, const std::vector<std::string>& params = {}) const -> std::vector<std::vector<std::string>>;
+        [[nodiscard]] auto query(const std::string &sql, const std::vector<std::string> &params = {}) const -> std::vector<std::vector<std::string> >;
 
         /// @brief Check if database is open
         /// @return true if database is open, false otherwise
@@ -54,7 +52,7 @@ namespace common::sql
         /// @param params Vector of parameter values to bind
         /// @param method_name Name of the calling method for error reporting
         /// @throws std::runtime_error if parameter binding fails
-        void bindParameters(sqlite3_stmt* stmt, const std::vector<std::string>& params, const std::string& method_name) const;
+        void bindParameters(sqlite3_stmt *stmt, const std::vector<std::string> &params, const std::string &method_name) const;
 
         std::unique_ptr<sqlite3, decltype(&sqlite3_close)> db_;
     };

@@ -2,12 +2,10 @@
 #include <boost/uuid/uuid.hpp>
 #include <string>
 
-namespace common::gen
-{
+namespace common::gen {
     /// @brief A utility class for generating UUIDs.
     /// This class provides functionality to generate random UUID strings.
-    class UuidGenerator
-    {
+    class UuidGenerator {
     public:
         UuidGenerator() = delete;
 

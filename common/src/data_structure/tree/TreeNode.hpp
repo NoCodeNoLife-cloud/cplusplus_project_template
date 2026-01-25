@@ -2,13 +2,11 @@
 #include <memory>
 #include <cstdint>
 
-namespace fox::data_structure
-{
+namespace fox::data_structure {
     /// @brief A tree node class that contains a value and pointers to left and right children.
     /// @tparam T The type of the value stored in the node.
-    template <typename T>
-    class TreeNode
-    {
+    template<typename T>
+    class TreeNode {
     public:
         /// @brief Construct a TreeNode with the given value
         /// @param value The value to store in the node
@@ -20,9 +18,8 @@ namespace fox::data_structure
         int32_t height_{1};
     };
 
-    template <typename T>
+    template<typename T>
     TreeNode<T>::TreeNode(T value) noexcept
-        : data(value)
-    {
+        : data(value) {
     }
 }

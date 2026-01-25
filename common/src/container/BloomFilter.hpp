@@ -5,8 +5,7 @@
 
 #include "BloomParameters.hpp"
 
-namespace common::container
-{
+namespace common::container {
     static constexpr unsigned char bit_mask[8] = {
         0x01, // 00000001
         0x02, // 00000010
@@ -26,8 +25,7 @@ namespace common::container
     /// The Bloom filter uses multiple hash functions to map elements to positions in a bit array.
     /// When adding an element, the corresponding bits are set to 1. When querying for an element,
     /// if any of the corresponding bits are 0, the element is definitely not in the set.
-    class BloomFilter final
-    {
+    class BloomFilter final {
     private:
         using bloom_type_ = uint32_t;
         using cell_type_ = unsigned char;
@@ -36,26 +34,26 @@ namespace common::container
     public:
         BloomFilter() = default;
 
-        explicit BloomFilter(const BloomParameters& p) noexcept;
+        explicit BloomFilter(const BloomParameters &p) noexcept;
 
-        BloomFilter(const BloomFilter& filter) = default;
+        BloomFilter(const BloomFilter &filter) = default;
 
         ~BloomFilter() = default;
 
         /// @brief Compares two Bloom filters for equality.
         /// @param f The Bloom filter to compare with.
         /// @return True if the filters are equal, false otherwise.
-        [[nodiscard]] auto operator==(const BloomFilter& f) const noexcept -> bool;
+        [[nodiscard]] auto operator==(const BloomFilter &f) const noexcept -> bool;
 
         /// @brief Compares two Bloom filters for inequality.
         /// @param f The Bloom filter to compare with.
         /// @return True if the filters are not equal, false otherwise.
-        [[nodiscard]] auto operator!=(const BloomFilter& f) const noexcept -> bool;
+        [[nodiscard]] auto operator!=(const BloomFilter &f) const noexcept -> bool;
 
         /// @brief Assigns one Bloom filter to another.
         /// @param f The Bloom filter to assign from.
         /// @return A reference to the assigned Bloom filter.
-        auto operator=(const BloomFilter& f) -> BloomFilter& = default;
+        auto operator=(const BloomFilter &f) -> BloomFilter & = default;
 
         /// @brief Checks if the Bloom filter is empty.
         /// @return True if the filter is empty, false otherwise.
@@ -64,17 +62,17 @@ namespace common::container
         /// @brief Performs bitwise AND operation with another Bloom filter.
         /// @param f The Bloom filter to perform AND with.
         /// @return A reference to the current Bloom filter.
-        auto operator&=(const BloomFilter& f) -> BloomFilter&;
+        auto operator&=(const BloomFilter &f) -> BloomFilter &;
 
         /// @brief Performs bitwise OR operation with another Bloom filter.
         /// @param f The Bloom filter to perform OR with.
         /// @return A reference to the current Bloom filter.
-        auto operator|=(const BloomFilter& f) -> BloomFilter&;
+        auto operator|=(const BloomFilter &f) -> BloomFilter &;
 
         /// @brief Performs bitwise XOR operation with another Bloom filter.
         /// @param f The Bloom filter to perform XOR with.
         /// @return A reference to the current Bloom filter.
-        auto operator^=(const BloomFilter& f) -> BloomFilter&;
+        auto operator^=(const BloomFilter &f) -> BloomFilter &;
 
         /// @brief Clears all elements from the Bloom filter.
         auto clear() noexcept -> void;
@@ -82,60 +80,60 @@ namespace common::container
         /// @brief Inserts a key into the Bloom filter.
         /// @param key_begin Pointer to the beginning of the key.
         /// @param length Length of the key.
-        auto insert(const unsigned char* key_begin, std::size_t length) -> void;
+        auto insert(const unsigned char *key_begin, std::size_t length) -> void;
 
         /// @brief Inserts a key into the Bloom filter.
         /// @tparam T Type of the key.
         /// @param t The key to insert.
-        template <typename T>
-        auto insert(const T& t) -> void;
+        template<typename T>
+        auto insert(const T &t) -> void;
 
         /// @brief Inserts a string key into the Bloom filter.
         /// @param key The string key to insert.
-        auto insert(const std::string& key) -> void;
+        auto insert(const std::string &key) -> void;
 
         /// @brief Inserts a key into the Bloom filter.
         /// @param data Pointer to the beginning of the key.
         /// @param length Length of the key.
-        auto insert(const char* data, std::size_t length) -> void;
+        auto insert(const char *data, std::size_t length) -> void;
 
         /// @brief Inserts a range of keys into the Bloom filter.
         /// @tparam InputIterator Type of the input iterator.
         /// @param begin Iterator to the beginning of the range.
         /// @param end Iterator to the end of the range.
-        template <typename InputIterator>
+        template<typename InputIterator>
         auto insert(InputIterator begin, InputIterator end) -> void;
 
         /// @brief Checks if a key is present in the Bloom filter.
         /// @param key_begin Pointer to the beginning of the key.
         /// @param length Length of the key.
         /// @return True if the key is present, false otherwise.
-        [[nodiscard]] auto contains(const unsigned char* key_begin, std::size_t length) const -> bool;
+        [[nodiscard]] auto contains(const unsigned char *key_begin, std::size_t length) const -> bool;
 
         /// @brief Checks if a key is present in the Bloom filter.
         /// @tparam T Type of the key.
         /// @param t The key to check.
         /// @return True if the key is present, false otherwise.
-        template <typename T>
-        [[nodiscard]] auto contains(const T& t) const -> bool;
+        template<typename T>
+        [[nodiscard]] auto contains(const T &t) const -> bool;
 
         /// @brief Checks if a string key is present in the Bloom filter.
         /// @param key The string key to check.
         /// @return True if the key is present, false otherwise.
-        [[nodiscard]] auto contains(const std::string& key) const -> bool;
+        [[nodiscard]] auto contains(const std::string &key) const -> bool;
 
         /// @brief Checks if a key is present in the Bloom filter.
         /// @param data Pointer to the beginning of the key.
         /// @param length Length of the key.
         /// @return True if the key is present, false otherwise.
-        [[nodiscard]] auto contains(const char* data, std::size_t length) const -> bool;
+        [[nodiscard]] auto contains(const char *data, std::size_t length) const -> bool;
 
         /// @brief Checks if all keys in a range are present in the Bloom filter.
         /// @tparam InputIterator Type of the input iterator.
         /// @param begin Iterator to the beginning of the range.
         /// @param end Iterator to the end of the range.
         /// @return Iterator to the first key not found, or end if all are found.
-        template <typename InputIterator>
+        template<typename InputIterator>
         [[nodiscard]] auto contains_all(InputIterator begin, InputIterator end) const -> InputIterator;
 
         /// @brief Checks if none of the keys in a range are present in the Bloom filter.
@@ -143,7 +141,7 @@ namespace common::container
         /// @param begin Iterator to the beginning of the range.
         /// @param end Iterator to the end of the range.
         /// @return Iterator to the first key found, or end if none are found.
-        template <typename InputIterator>
+        template<typename InputIterator>
         [[nodiscard]] auto contains_none(InputIterator begin, InputIterator end) const -> InputIterator;
 
         /// @brief Gets the size of the Bloom filter table in bits.
@@ -160,7 +158,7 @@ namespace common::container
 
         /// @brief Gets a pointer to the Bloom filter table.
         /// @return A pointer to the table.
-        [[nodiscard]] auto table() const noexcept -> const cell_type_*;
+        [[nodiscard]] auto table() const noexcept -> const cell_type_ *;
 
         /// @brief Gets the number of hash functions used.
         /// @return The number of hash functions.
@@ -171,7 +169,7 @@ namespace common::container
         /// @param hash The hash value to compute indices from.
         /// @param bit_index Reference to store the computed bit index.
         /// @param bit Reference to store the computed bit value.
-        auto compute_indices(const bloom_type_& hash, std::size_t& bit_index, std::size_t& bit) const noexcept -> void;
+        auto compute_indices(const bloom_type_ &hash, std::size_t &bit_index, std::size_t &bit) const noexcept -> void;
 
         /// @brief Generates unique salt values for hash functions.
         auto generate_unique_salt() -> void;
@@ -181,7 +179,7 @@ namespace common::container
         /// @param remaining_length Length of the data to hash.
         /// @param hash Initial hash value.
         /// @return The computed hash value.
-        static auto hash_ap(const unsigned char* begin, std::size_t remaining_length, bloom_type_ hash) noexcept -> bloom_type_;
+        static auto hash_ap(const unsigned char *begin, std::size_t remaining_length, bloom_type_ hash) noexcept -> bloom_type_;
 
         std::vector<bloom_type_> salt_{};
         std::vector<unsigned char> bit_table_{};
@@ -193,7 +191,9 @@ namespace common::container
         double desired_false_positive_probability_{};
     };
 
-    [[nodiscard]] auto operator&(const BloomFilter& a, const BloomFilter& b) noexcept -> BloomFilter;
-    [[nodiscard]] auto operator|(const BloomFilter& a, const BloomFilter& b) noexcept -> BloomFilter;
-    [[nodiscard]] auto operator^(const BloomFilter& a, const BloomFilter& b) noexcept -> BloomFilter;
+    [[nodiscard]] auto operator&(const BloomFilter &a, const BloomFilter &b) noexcept -> BloomFilter;
+
+    [[nodiscard]] auto operator|(const BloomFilter &a, const BloomFilter &b) noexcept -> BloomFilter;
+
+    [[nodiscard]] auto operator^(const BloomFilter &a, const BloomFilter &b) noexcept -> BloomFilter;
 }

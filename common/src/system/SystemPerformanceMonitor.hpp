@@ -3,13 +3,11 @@
 
 #include <cstdint>
 
-namespace common::system
-{
+namespace common::system {
     /// @brief Structure to hold system memory usage information
     /// This struct contains the total physical memory, available memory, used memory,
     /// and the percentage of memory currently in use.
-    struct MemoryUsage
-    {
+    struct MemoryUsage {
         ULONGLONG total_memory{}; ///< Total physical memory in bytes
         ULONGLONG available_memory{}; ///< Available memory in bytes
         ULONGLONG used_memory{}; ///< Used memory in bytes
@@ -18,20 +16,18 @@ namespace common::system
 
     /// @brief Structure to hold CPU usage information
     /// This struct contains the percentage of CPU currently in use.
-    struct CpuUsage
-    {
+    struct CpuUsage {
         double cpu_usage_percent{}; ///< CPU usage percentage (0.0 to 100.0)
     };
 
     /// @brief Class for monitoring system performance
     /// This class provides static methods to retrieve system memory and CPU usage information.
-    class SystemPerformanceMonitor
-    {
+    class SystemPerformanceMonitor {
     private:
         /// @brief Helper function to extract ULARGE_INTEGER from FILETIME
         /// @param ft Filetime to convert
         /// @return ULARGE_INTEGER representation of the filetime
-        [[nodiscard]] static auto FileTimeToULARGEInteger(const FILETIME& ft) noexcept -> ULARGE_INTEGER;
+        [[nodiscard]] static auto FileTimeToULARGEInteger(const FILETIME &ft) noexcept -> ULARGE_INTEGER;
 
     public:
         SystemPerformanceMonitor() = delete;

@@ -2,11 +2,9 @@
 #include <chrono>
 #include <string>
 
-namespace common::time
-{
+namespace common::time {
     /// @brief Utility class for time-related operations
-    class Clock
-    {
+    class Clock {
     public:
         Clock() = delete;
 
@@ -29,6 +27,6 @@ namespace common::time
         /// @brief Format current time with a custom format string
         /// @param format Format string using strftime-compatible format specifiers
         /// @return Formatted date and time string
-        [[nodiscard]] static auto formatCurrentTime(const std::string& format) -> std::string;
+        [[nodiscard]] static auto formatCurrentTime(const std::string &format) -> std::string;
     };
 }

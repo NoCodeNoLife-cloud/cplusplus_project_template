@@ -7,18 +7,19 @@
 #include "AbstractInputStream.hpp"
 #include <string>
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief A FileInputStream class for reading data from a file.
     /// @details This class provides functionality to read bytes from a file,
     ///          including methods for reading single bytes, multiple bytes,
     ///          skipping bytes, checking available bytes, and closing the stream.
-    class FileInputStream final : public AbstractInputStream
-    {
+    class FileInputStream final : public AbstractInputStream {
     public:
-        explicit FileInputStream(const std::string& name);
-        explicit FileInputStream(const char* name);
-        explicit FileInputStream(const std::filesystem::path& file);
+        explicit FileInputStream(const std::string &name);
+
+        explicit FileInputStream(const char *name);
+
+        explicit FileInputStream(const std::filesystem::path &file);
+
         ~FileInputStream() override;
 
         /// @brief Read a single byte from the stream.
@@ -28,14 +29,14 @@ namespace common::filesystem
         /// @brief Read bytes from the stream.
         /// @param buffer The buffer to read into.
         /// @return The number of bytes read.
-        [[nodiscard]] auto read(std::vector<std::byte>& buffer) -> size_t override;
+        [[nodiscard]] auto read(std::vector<std::byte> &buffer) -> size_t override;
 
         /// @brief Read bytes from the stream.
         /// @param buffer The buffer to read into.
         /// @param offset The offset to start reading from.
         /// @param len The number of bytes to read.
         /// @return The number of bytes read.
-        [[nodiscard]] auto read(std::vector<std::byte>& buffer, size_t offset, size_t len) -> size_t override;
+        [[nodiscard]] auto read(std::vector<std::byte> &buffer, size_t offset, size_t len) -> size_t override;
 
         /// @brief Skip bytes in the stream.
         /// @param n The number of bytes to skip.
@@ -67,7 +68,7 @@ namespace common::filesystem
         /// @param offset The offset to start reading from
         /// @param len The number of bytes to read
         /// @throws std::out_of_range if parameters are invalid
-        static auto validateBufferParams(const std::vector<std::byte>& buffer, size_t offset, size_t len) -> void;
+        static auto validateBufferParams(const std::vector<std::byte> &buffer, size_t offset, size_t len) -> void;
 
         std::ifstream file_stream_;
         std::string file_name_{};

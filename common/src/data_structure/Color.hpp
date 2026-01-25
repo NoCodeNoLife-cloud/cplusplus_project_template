@@ -1,10 +1,8 @@
 #pragma once
-namespace fox::data_structure
-{
+namespace fox::data_structure {
     /// @brief Enumeration representing various colors.
     /// Each color is assigned a unique integer value.
-    enum class Color : int
-    {
+    enum class Color : int {
         /// @brief Red color (value 0)
         Red = 0,
         /// @brief Black color (value 1)

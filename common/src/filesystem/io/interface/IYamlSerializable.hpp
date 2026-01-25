@@ -2,14 +2,12 @@
 
 #include <yaml-cpp/node/convert.h>
 
-namespace common::interfaces
-{
+namespace common::interfaces {
     /// @brief Interface for YAML serializable objects.
     /// This interface provides methods to encode and decode objects to and from YAML nodes.
     /// Classes implementing this interface can be seamlessly serialized and deserialized
     /// using the YAML-CPP library.
-    class IYamlSerializable
-    {
+    class IYamlSerializable {
     public:
         /// @brief Virtual destructor to ensure proper cleanup of derived classes
         virtual ~IYamlSerializable() = default;
@@ -27,7 +25,7 @@ namespace common::interfaces
         /// variables with the corresponding values.
         /// @param node YAML node containing the data to deserialize
         /// @return True if decoding is successful, false otherwise
-        [[nodiscard]] virtual auto decode(const YAML::Node& node) -> bool = 0;
+        [[nodiscard]] virtual auto decode(const YAML::Node &node) -> bool = 0;
     };
 }
 
@@ -36,15 +34,13 @@ namespace common::interfaces
 /// objects to and from YAML nodes using the YAML-CPP library's conversion mechanism.
 /// It delegates the actual encoding/decoding to the object's encode() and decode() methods.
 /// @tparam T Type of the object that implements IYamlSerializable
-template <typename T>
-struct YAML::convert
-{
+template<typename T>
+struct YAML::convert {
     /// @brief Encode an object to a YAML node.
     /// Delegates the encoding to the object's encode() method.
     /// @param obj The object to encode
     /// @return YAML node containing the encoded object
-    [[nodiscard]] static auto encode(const T& obj) -> Node
-    {
+    [[nodiscard]] static auto encode(const T &obj) -> Node {
         return obj.encode();
     }
 
@@ -53,8 +49,7 @@ struct YAML::convert
     /// @param node YAML node containing the data to decode
     /// @param obj Reference to the object to populate with decoded data
     /// @return True if decoding is successful, false otherwise
-    static auto decode(const Node& node, T& obj) -> bool
-    {
+    static auto decode(const Node &node, T &obj) -> bool {
         return obj.decode(node);
     }
 };

@@ -2,14 +2,12 @@
 #include <mutex>
 #include <cstdint>
 
-namespace common::gen
-{
+namespace common::gen {
     /// @brief A class to generate unique IDs using the Snowflake algorithm.
     /// The Snowflake algorithm generates IDs that are roughly ordered by time,
     /// and consist of a timestamp, machine ID, datacenter ID, and a sequence number.
     /// This implementation ensures thread-safety through mutex locking.
-    struct SnowflakeOption
-    {
+    struct SnowflakeOption {
         static constexpr int64_t machine_bits_ = 10;
         static constexpr int64_t sequence_bits_ = 12;
         static constexpr int64_t max_sequence_ = ~(-1LL << sequence_bits_);
@@ -30,8 +28,7 @@ namespace common::gen
     ///   common::SnowflakeGenerator generator(1, 1);
     ///   int64_t id = generator.NextId();
     /// @endcode
-    class SnowflakeGenerator
-    {
+    class SnowflakeGenerator {
     public:
         /// @brief Construct a SnowflakeGenerator with specified machine and datacenter IDs
         /// @param machine_id The machine ID (0-31)
@@ -47,7 +44,7 @@ namespace common::gen
         /// @brief Updates the sequence number and timestamp for ID generation
         /// @param timestamp Reference to current timestamp
         /// @param last_timestamp Last timestamp used
-        auto UpdateSequenceAndTimestamp(int64_t& timestamp, int64_t last_timestamp) -> void;
+        auto UpdateSequenceAndTimestamp(int64_t &timestamp, int64_t last_timestamp) -> void;
 
         /// @brief Generates the unique ID from timestamp, datacenter, machine, and sequence
         /// @param timestamp The timestamp component

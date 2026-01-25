@@ -5,13 +5,11 @@
 
 #include "AbstractWriter.hpp"
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief Abstract base class for filter writers.
     /// This class provides a common interface for writers that filter or transform data before writing it to an underlying
     /// output writer. Subclasses should implement the specific filtering or transformation logic.
-    class AbstractFilterWriter : public AbstractWriter
-    {
+    class AbstractFilterWriter : public AbstractWriter {
     public:
         /// @brief Constructs a filter writer with the specified output writer.
         /// @param outputWriter The underlying writer to which filtered data will be written.
@@ -33,13 +31,13 @@ namespace common::filesystem
         /// @param off The starting offset in the vector.
         /// @param len The number of characters to write.
         /// @throws std::out_of_range if off + len exceeds the buffer size.
-        void write(const std::vector<char>& cBuf, size_t off, size_t len) override;
+        void write(const std::vector<char> &cBuf, size_t off, size_t len) override;
 
         /// @brief Writes a sequence of characters from a vector to the output writer.
         /// This method overrides the base class method to provide filtering functionality.
         /// The characters are processed and then passed to the underlying output writer.
         /// @param cBuf The vector containing the characters to write.
-        void write(const std::vector<char>& cBuf) override;
+        void write(const std::vector<char> &cBuf) override;
 
         /// @brief Writes a sequence of characters from a string to the output writer.
         /// This method overrides the base class method to provide filtering functionality.
@@ -48,13 +46,13 @@ namespace common::filesystem
         /// @param off The starting offset in the string.
         /// @param len The number of characters to write.
         /// @throws std::out_of_range if off + len exceeds the string size.
-        void write(const std::string& str, size_t off, size_t len) override;
+        void write(const std::string &str, size_t off, size_t len) override;
 
         /// @brief Writes a sequence of characters from a string to the output writer.
         /// This method overrides the base class method to provide filtering functionality.
         /// The characters are processed and then passed to the underlying output writer.
         /// @param str The string containing the characters to write.
-        void write(const std::string& str) override;
+        void write(const std::string &str) override;
 
         /// @brief Flushes the output writer.
         /// This method overrides the base class method to provide filtering functionality.

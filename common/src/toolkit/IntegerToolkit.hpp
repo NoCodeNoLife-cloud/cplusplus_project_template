@@ -4,12 +4,10 @@
 #include <optional>
 #include <stdexcept>
 
-namespace common::toolkit
-{
+namespace common::toolkit {
     /// @brief A utility class for integer operations
     /// @details Provides various integer conversion and manipulation functions
-    class IntegerToolkit
-    {
+    class IntegerToolkit {
         static const inline std::pair<int32_t, std::string> valueSymbols[] = {{1000, "M"}, {900, "CM"}, {500, "D"}, {400, "CD"}, {100, "C"}, {90, "XC"}, {50, "L"}, {40, "XL"}, {10, "X"}, {9, "IX"}, {5, "V"}, {4, "IV"}, {1, "I"},};
 
     public:
@@ -28,7 +26,7 @@ namespace common::toolkit
         /// @param roman The Roman numeral string to convert
         /// @return The integer value
         /// @throws std::invalid_argument If the Roman numeral is invalid
-        [[nodiscard]] static auto romanToInt(const std::string& roman) -> int32_t;
+        [[nodiscard]] static auto romanToInt(const std::string &roman) -> int32_t;
 
         /// @brief Checks if an integer is a power of two
         /// @param num The integer to check

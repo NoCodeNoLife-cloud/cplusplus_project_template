@@ -6,18 +6,14 @@
 #include "config/GLogConfigurator.hpp"
 #include "src/auth/AuthRpcService.hpp"
 
-
-namespace app_server::task
-{
+namespace app_server::task {
     ServerTask::ServerTask(std::string name) noexcept
-        : timer_(std::move(name))
-    {
+        : timer_(std::move(name)) {
     }
 
-    ServerTask::ServerTask(ServerTask&&) noexcept = default;
+    ServerTask::ServerTask(ServerTask &&) noexcept = default;
 
-    auto ServerTask::init() -> void
-    {
+    auto ServerTask::init() -> void {
         const glog::config::GLogConfigurator log_configurator{application_dev_config_path_};
         log_configurator.execute();
         LOG(INFO) << fmt::format("Initializing ServerTask with config path: {}, loading gRPC configuration from: {}", application_dev_config_path_, application_dev_config_path_);
@@ -27,27 +23,20 @@ namespace app_server::task
         LOG(INFO) << fmt::format("gRPC configuration loaded successfully - Max Connection Idle: {}ms, Max Connection Age: {}ms, Keepalive Time: {}ms, Keepalive Timeout: {}ms, Permit Without Calls: {}, Server Address: {}", grpc_options_.maxConnectionIdleMs(), grpc_options_.maxConnectionAgeMs(), grpc_options_.keepaliveTimeMs(), grpc_options_.keepaliveTimeoutMs(), grpc_options_.keepalivePermitWithoutCalls(), grpc_options_.serverAddress());
     }
 
-    auto ServerTask::run() -> void
-    {
-        try
-        {
+    auto ServerTask::run() -> void {
+        try {
             init();
-        }
-        catch (const std::exception& e)
-        {
+        } catch (const std::exception &e) {
             LOG(ERROR) << fmt::format("Failed to initialize ServerTask: {}", e.what());
             exit();
             return;
-        }
-        catch (...)
-        {
+        } catch (...) {
             LOG(ERROR) << "Failed to initialize ServerTask: Unknown error";
             exit();
             return;
         }
 
-        if (!establishGrpcConnection())
-        {
+        if (!establishGrpcConnection()) {
             LOG(ERROR) << "Failed to establish gRPC connection";
             exit();
             return;
@@ -56,8 +45,7 @@ namespace app_server::task
         exit();
     }
 
-    [[nodiscard]] auto ServerTask::establishGrpcConnection() -> bool
-    {
+    [[nodiscard]] auto ServerTask::establishGrpcConnection() -> bool {
         // Build the server.
         const std::string server_address = grpc_options_.serverAddress();
         LOG(INFO) << fmt::format("Configuring server to listen on: {}", server_address);
@@ -82,8 +70,7 @@ namespace app_server::task
 
         LOG(INFO) << "Building and starting gRPC server";
         server_ = builder.BuildAndStart();
-        if (!server_)
-        {
+        if (!server_) {
             LOG(ERROR) << "Failed to build and start gRPC server. Server object is null.";
             LOG(ERROR) << "Check server configuration and port availability.";
             return false;
@@ -96,17 +83,13 @@ namespace app_server::task
         return true;
     }
 
-    auto ServerTask::exit() const -> void
-    {
+    auto ServerTask::exit() const -> void {
         LOG(INFO) << "Shutting down service task...";
-        if (server_)
-        {
+        if (server_) {
             LOG(INFO) << "Initiating gRPC server shutdown";
             server_->Shutdown();
             LOG(INFO) << "gRPC server shutdown complete.";
-        }
-        else
-        {
+        } else {
             LOG(WARNING) << "Server object is null during shutdown. Nothing to shutdown.";
         }
         LOG(INFO) << "Service task shutdown complete.";

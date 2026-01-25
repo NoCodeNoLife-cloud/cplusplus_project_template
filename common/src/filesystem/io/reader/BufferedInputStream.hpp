@@ -5,16 +5,15 @@
 
 #include "FilterInputStream.hpp"
 
-namespace common::filesystem
-{
+namespace common::filesystem {
     /// @brief BufferedInputStream is a wrapper around another input stream that provides buffering functionality.
     /// It reads data from the underlying stream in chunks and stores it in an internal buffer to improve performance.
     /// @details This class implements the decorator pattern to add buffering capability to any AbstractInputStream.
     /// The buffer size can be customized during construction, with a default size of 8192 bytes.
-    class BufferedInputStream final : public FilterInputStream
-    {
+    class BufferedInputStream final : public FilterInputStream {
     public:
         explicit BufferedInputStream(std::unique_ptr<AbstractInputStream> in) noexcept;
+
         BufferedInputStream(std::unique_ptr<AbstractInputStream> in, size_t size);
 
         /// @brief Returns the number of bytes that can be read (or skipped over) from this input stream without blocking.
@@ -41,7 +40,7 @@ namespace common::filesystem
         /// @param offset the start offset in the destination array buffer.
         /// @param len the maximum number of bytes to read.
         /// @return the total number of bytes read into the buffer, or 0 if there is no more data because the end of the stream has been reached.
-        auto read(std::vector<std::byte>& buffer, size_t offset, size_t len) -> size_t override;
+        auto read(std::vector<std::byte> &buffer, size_t offset, size_t len) -> size_t override;
 
         /// @brief Repositions this stream to the position at the time the mark method was last called on this input stream.
         auto reset() -> void override;
@@ -62,6 +61,7 @@ namespace common::filesystem
         size_t mark_limit_{0};
         size_t mark_pos_{0};
         size_t pos_{0};
+
         auto fillBuffer() -> void;
 
     private:
@@ -69,7 +69,7 @@ namespace common::filesystem
         /// @tparam Operation A callable that takes the number of available bytes and returns processed bytes count
         /// @param op The operation to perform on the available buffer space
         /// @return Number of bytes processed by the operation
-        template <typename Operation>
-        auto processWithBuffer(Operation&& op) -> size_t;
+        template<typename Operation>
+        auto processWithBuffer(Operation &&op) -> size_t;
     };
 }

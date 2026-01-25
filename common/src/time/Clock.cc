@@ -6,11 +6,9 @@
 #include <iomanip>
 #include <ctime>
 
-namespace common::time
-{
+namespace common::time {
     // Helper function to format time using strftime in a thread-safe way
-    static auto formatTime(std::time_t time, const std::string& format) -> std::string
-    {
+    static auto formatTime(std::time_t time, const std::string &format) -> std::string {
         std::tm tm_time{};
 #ifdef _WIN32
         localtime_s(&tm_time, &time); // Windows-specific thread-safe function
@@ -22,34 +20,29 @@ namespace common::time
         return oss.str();
     }
 
-    auto Clock::getCurrentDateTimeString() noexcept -> std::string
-    {
+    auto Clock::getCurrentDateTimeString() noexcept -> std::string {
         const auto now = std::chrono::system_clock::now();
         const auto time_t = std::chrono::system_clock::to_time_t(now);
         return formatTime(time_t, "%Y-%m-%d %H:%M:%S");
     }
 
-    auto Clock::getCompressedCurrentDateTimeString() noexcept -> std::string
-    {
+    auto Clock::getCompressedCurrentDateTimeString() noexcept -> std::string {
         const auto now = std::chrono::system_clock::now();
         const auto time_t = std::chrono::system_clock::to_time_t(now);
         return formatTime(time_t, "%Y%m%d_%H%M%S");
     }
 
-    auto Clock::getCurrentTimestampMs() noexcept -> std::chrono::milliseconds::rep
-    {
+    auto Clock::getCurrentTimestampMs() noexcept -> std::chrono::milliseconds::rep {
         const auto now = std::chrono::system_clock::now();
         return std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
     }
 
-    auto Clock::getCurrentTimestamp() noexcept -> std::chrono::seconds::rep
-    {
+    auto Clock::getCurrentTimestamp() noexcept -> std::chrono::seconds::rep {
         const auto now = std::chrono::system_clock::now();
         return std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
     }
 
-    auto Clock::formatCurrentTime(const std::string& format) -> std::string
-    {
+    auto Clock::formatCurrentTime(const std::string &format) -> std::string {
         const auto now = std::chrono::system_clock::now();
         const auto time_t = std::chrono::system_clock::to_time_t(now);
         return formatTime(time_t, format);
