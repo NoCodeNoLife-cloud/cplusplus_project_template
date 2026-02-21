@@ -3,8 +3,7 @@
 #include <stdexcept>
 
 namespace common::filesystem {
-    AbstractFilterWriter::AbstractFilterWriter(std::unique_ptr<AbstractWriter> outputWriter)
-        : output_writer_(std::move(outputWriter)) {
+    AbstractFilterWriter::AbstractFilterWriter(std::unique_ptr<AbstractWriter> outputWriter) : output_writer_(std::move(outputWriter)) {
         if (!output_writer_) {
             throw std::invalid_argument("Output writer cannot be null");
         }

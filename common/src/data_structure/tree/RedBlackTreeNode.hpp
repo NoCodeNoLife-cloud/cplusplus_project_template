@@ -58,8 +58,7 @@ namespace fox::data_structure {
     };
 
     template<typename T>
-    RedBlackTreeNode<T>::RedBlackTreeNode(const T &value) noexcept
-        : data_(value) {
+    RedBlackTreeNode<T>::RedBlackTreeNode(const T &value) noexcept : data_(value) {
     }
 
     template<typename T>

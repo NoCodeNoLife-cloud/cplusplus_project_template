@@ -4,8 +4,7 @@
 #include <fmt/format.h>
 
 namespace glog::parameter {
-    GLogParameters::GLogParameters(const int32_t min_log_level, std::string log_name, const bool log_to_stderr)
-        : min_log_level_(min_log_level), log_name_(std::move(log_name)), log_to_stderr_(log_to_stderr) {
+    GLogParameters::GLogParameters(const int32_t min_log_level, std::string log_name, const bool log_to_stderr) : min_log_level_(min_log_level), log_name_(std::move(log_name)), log_to_stderr_(log_to_stderr) {
     }
 
     auto GLogParameters::minLogLevel() const noexcept -> int32_t {

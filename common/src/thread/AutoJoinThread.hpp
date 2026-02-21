@@ -28,8 +28,7 @@ namespace common::thread {
         /// @param f The callable object
         /// @param args The arguments to pass to the callable object
         template<typename Function, typename... Args>
-        explicit AutoJoinThread(Function &&f, Args &&... args)
-            : thread_(std::forward<Function>(f), std::forward<Args>(args)...) {
+        explicit AutoJoinThread(Function &&f, Args &&... args) : thread_(std::forward<Function>(f), std::forward<Args>(args)...) {
         }
 
         /// @brief Destructor that automatically joins the thread if it's joinable

@@ -1,15 +1,13 @@
 #include "src/filesystem/io/writer/OutputStreamWriter.hpp"
 
 namespace common::filesystem {
-    OutputStreamWriter::OutputStreamWriter(std::unique_ptr<AbstractWriter> outputStream, const std::string &charsetName)
-        : output_writer_(std::move(outputStream)), charset_(charsetName), closed_(false) {
+    OutputStreamWriter::OutputStreamWriter(std::unique_ptr<AbstractWriter> outputStream, const std::string &charsetName) : output_writer_(std::move(outputStream)), charset_(charsetName), closed_(false) {
         if (charsetName != "UTF-8") {
             throw std::invalid_argument("Unsupported encoding: " + charsetName);
         }
     }
 
-    OutputStreamWriter::OutputStreamWriter(std::unique_ptr<AbstractWriter> outputStream)
-        : OutputStreamWriter(std::move(outputStream), "UTF-8") {
+    OutputStreamWriter::OutputStreamWriter(std::unique_ptr<AbstractWriter> outputStream) : OutputStreamWriter(std::move(outputStream), "UTF-8") {
     }
 
     OutputStreamWriter::~OutputStreamWriter() = default;

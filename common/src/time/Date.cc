@@ -50,8 +50,7 @@ namespace common::time {
         return true;
     }
 
-    Date::Date() noexcept
-        : time_point_(std::chrono::system_clock::now()) {
+    Date::Date() noexcept : time_point_(std::chrono::system_clock::now()) {
     }
 
     Date::Date(const int32_t year, const int32_t month, const int32_t day) {
@@ -94,8 +93,7 @@ namespace common::time {
         time_point_ = std::chrono::system_clock::from_time_t(timeT);
     }
 
-    Date::Date(const int64_t timestamp) noexcept
-        : time_point_(std::chrono::milliseconds(timestamp)) {
+    Date::Date(const int64_t timestamp) noexcept : time_point_(std::chrono::milliseconds(timestamp)) {
     }
 
     auto Date::clone() const -> Date {

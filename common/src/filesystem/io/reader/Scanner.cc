@@ -5,8 +5,7 @@
 #include <limits>
 
 namespace common::filesystem {
-    Scanner::Scanner(std::istream &input_stream)
-        : input_(input_stream) {
+    Scanner::Scanner(std::istream &input_stream) : input_(input_stream) {
     }
 
     auto Scanner::nextInt() const -> int32_t {

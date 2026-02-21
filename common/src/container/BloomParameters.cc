@@ -5,8 +5,7 @@
 #include <cstdint>
 
 namespace common::container {
-    BloomParameters::BloomParameters() noexcept
-        : minimum_size(1), maximum_size(std::numeric_limits<uint64_t>::max()), minimum_number_of_hashes(1), maximum_number_of_hashes(std::numeric_limits<uint32_t>::max()), projected_element_count(10000), false_positive_probability(1.0 / static_cast<double>(projected_element_count)), random_seed(0xA5A5A5A55A5A5A5AULL) {
+    BloomParameters::BloomParameters() noexcept : minimum_size(1), maximum_size(std::numeric_limits<uint64_t>::max()), minimum_number_of_hashes(1), maximum_number_of_hashes(std::numeric_limits<uint32_t>::max()), projected_element_count(10000), false_positive_probability(1.0 / static_cast<double>(projected_element_count)), random_seed(0xA5A5A5A55A5A5A5AULL) {
     }
 
     auto BloomParameters::operator!() const noexcept -> bool {

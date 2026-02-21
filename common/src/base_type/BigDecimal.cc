@@ -6,12 +6,10 @@
 #include <compare>
 
 namespace common::base_type {
-    BigDecimal::BigDecimal(const std::string &str)
-        : value_(str) {
+    BigDecimal::BigDecimal(const std::string &str) : value_(str) {
     }
 
-    BigDecimal::BigDecimal(const double num)
-        : value_(num) {
+    BigDecimal::BigDecimal(const double num) : value_(num) {
     }
 
     auto BigDecimal::operator+(const BigDecimal &other) const noexcept -> BigDecimal {

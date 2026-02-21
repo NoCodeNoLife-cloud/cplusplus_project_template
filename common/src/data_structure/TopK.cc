@@ -1,8 +1,7 @@
 #include "TopK.hpp"
 
 namespace common::data_structure {
-    TopK::TopK(const int32_t k)
-        : k_(k) {
+    TopK::TopK(const int32_t k) : k_(k) {
         if (k <= 0) {
             throw std::invalid_argument("k must be positive");
         }

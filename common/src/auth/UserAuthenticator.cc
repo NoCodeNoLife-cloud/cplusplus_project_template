@@ -6,8 +6,7 @@
 #include "crypto/CryptoToolKit.hpp"
 
 namespace common::auth {
-    UserAuthenticator::UserAuthenticator(const std::string &db_path, const PasswordPolicy &policy)
-        : password_policy_(policy), password_sql_(db_path) {
+    UserAuthenticator::UserAuthenticator(const std::string &db_path, const PasswordPolicy &policy) : password_policy_(policy), password_sql_(db_path) {
     }
 
     /// @brief Format credentials data (salt:hashed_password format)

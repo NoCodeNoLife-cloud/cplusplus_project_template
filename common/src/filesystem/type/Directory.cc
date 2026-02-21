@@ -9,8 +9,7 @@
 #include <chrono>
 
 namespace common::filesystem {
-    Directory::Directory(std::filesystem::path filePath) noexcept
-        : dir_path_(std::move(filePath)) {
+    Directory::Directory(std::filesystem::path filePath) noexcept : dir_path_(std::move(filePath)) {
     }
 
     auto Directory::mkdir() const noexcept -> bool {

@@ -1,12 +1,10 @@
 #include "src/filesystem/io/writer/BufferedOutputStream.hpp"
 
 namespace common::filesystem {
-    BufferedOutputStream::BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out)
-        : BufferedOutputStream(std::move(out), DEFAULT_BUFFER_SIZE) {
+    BufferedOutputStream::BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out) : BufferedOutputStream(std::move(out), DEFAULT_BUFFER_SIZE) {
     }
 
-    BufferedOutputStream::BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out, const size_t size)
-        : FilterOutputStream(std::move(out)), bufferSize_(size), buffer_(size) {
+    BufferedOutputStream::BufferedOutputStream(std::unique_ptr<AbstractOutputStream> out, const size_t size) : FilterOutputStream(std::move(out)), bufferSize_(size), buffer_(size) {
         if (!output_stream_) {
             throw std::invalid_argument("Output stream cannot be null");
         }

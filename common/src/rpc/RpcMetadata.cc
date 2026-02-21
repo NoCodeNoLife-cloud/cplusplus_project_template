@@ -20,16 +20,11 @@ namespace common::rpc {
     auto RpcMetadata::grpcStateToEnum(const grpc_connectivity_state state) -> GrpcConnectivityState {
         // Map grpc_connectivity_state to our internal GrpcConnectivityState enum
         switch (state) {
-            case GRPC_CHANNEL_IDLE:
-                return GrpcConnectivityState::IDLE;
-            case GRPC_CHANNEL_CONNECTING:
-                return GrpcConnectivityState::CONNECTING;
-            case GRPC_CHANNEL_READY:
-                return GrpcConnectivityState::READY;
-            case GRPC_CHANNEL_TRANSIENT_FAILURE:
-                return GrpcConnectivityState::TRANSIENT_FAILURE;
-            case GRPC_CHANNEL_SHUTDOWN:
-                return GrpcConnectivityState::SHUTDOWN;
+            case GRPC_CHANNEL_IDLE: return GrpcConnectivityState::IDLE;
+            case GRPC_CHANNEL_CONNECTING: return GrpcConnectivityState::CONNECTING;
+            case GRPC_CHANNEL_READY: return GrpcConnectivityState::READY;
+            case GRPC_CHANNEL_TRANSIENT_FAILURE: return GrpcConnectivityState::TRANSIENT_FAILURE;
+            case GRPC_CHANNEL_SHUTDOWN: return GrpcConnectivityState::SHUTDOWN;
             default:
                 // Return IDLE as default for unknown states
                 return GrpcConnectivityState::IDLE;
@@ -39,18 +34,12 @@ namespace common::rpc {
     auto RpcMetadata::grpcStateToString(const GrpcConnectivityState state) -> std::string {
         // Convert our internal GrpcConnectivityState enum to string
         switch (state) {
-            case GrpcConnectivityState::IDLE:
-                return "IDLE";
-            case GrpcConnectivityState::CONNECTING:
-                return "CONNECTING";
-            case GrpcConnectivityState::READY:
-                return "READY";
-            case GrpcConnectivityState::TRANSIENT_FAILURE:
-                return "TRANSIENT_FAILURE";
-            case GrpcConnectivityState::SHUTDOWN:
-                return "SHUTDOWN";
-            default:
-                return "UNKNOWN";
+            case GrpcConnectivityState::IDLE: return "IDLE";
+            case GrpcConnectivityState::CONNECTING: return "CONNECTING";
+            case GrpcConnectivityState::READY: return "READY";
+            case GrpcConnectivityState::TRANSIENT_FAILURE: return "TRANSIENT_FAILURE";
+            case GrpcConnectivityState::SHUTDOWN: return "SHUTDOWN";
+            default: return "UNKNOWN";
         }
     }
 } // common

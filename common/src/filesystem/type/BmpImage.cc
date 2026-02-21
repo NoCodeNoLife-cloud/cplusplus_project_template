@@ -5,8 +5,7 @@
 #include <vector>
 
 namespace common::filesystem {
-    BmpImage::BmpImage(const int32_t width, const int32_t height)
-        : width_(width), height_(height) {
+    BmpImage::BmpImage(const int32_t width, const int32_t height) : width_(width), height_(height) {
         if (width <= 0 || height <= 0) {
             throw std::invalid_argument("Invalid image dimensions");
         }

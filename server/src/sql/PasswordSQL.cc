@@ -4,8 +4,7 @@
 #include <glog/logging.h>
 
 namespace server_app::sql {
-    PasswordSQL::PasswordSQL(const std::string &db_path) noexcept(false)
-        : sqlite_manager_{db_path} {
+    PasswordSQL::PasswordSQL(const std::string &db_path) noexcept(false) : sqlite_manager_{db_path} {
         /// @brief Create users table if not exists during initialization
         constexpr std::string_view create_table_sql = R"(
             CREATE TABLE IF NOT EXISTS users (

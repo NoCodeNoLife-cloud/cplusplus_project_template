@@ -16,12 +16,10 @@ namespace common::filesystem {
         }
     }
 
-    PushbackReader::PushbackReader(std::shared_ptr<AbstractReader> reader)
-        : PushbackReader(std::move(reader), DEFAULT_BUFFER_SIZE) {
+    PushbackReader::PushbackReader(std::shared_ptr<AbstractReader> reader) : PushbackReader(std::move(reader), DEFAULT_BUFFER_SIZE) {
     }
 
-    PushbackReader::PushbackReader(std::shared_ptr<AbstractReader> reader, const size_t size)
-        : FilterReader(std::move(reader)), buffer_(size) {
+    PushbackReader::PushbackReader(std::shared_ptr<AbstractReader> reader, const size_t size) : FilterReader(std::move(reader)), buffer_(size) {
         if (size == 0) {
             throw std::invalid_argument("PushbackReader::constructor: Buffer size must be greater than zero.");
         }

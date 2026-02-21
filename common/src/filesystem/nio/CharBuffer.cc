@@ -4,8 +4,7 @@
 #include <stdexcept>
 
 namespace common::filesystem {
-    CharBuffer::CharBuffer(const size_t cap)
-        : buffer_(cap, '\0') {
+    CharBuffer::CharBuffer(const size_t cap) : buffer_(cap, '\0') {
         position_ = 0;
         limit_ = cap;
         capacity_ = cap;

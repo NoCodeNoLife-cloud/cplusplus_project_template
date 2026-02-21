@@ -2,8 +2,7 @@
 #include <utility>
 
 namespace common::aop {
-    FunctionProfilerAspect::FunctionProfilerAspect(std::string function_name)
-        : profiler_(function_name, true), function_name_(std::move(function_name)) {
+    FunctionProfilerAspect::FunctionProfilerAspect(std::string function_name) : profiler_(function_name, true), function_name_(std::move(function_name)) {
     }
 
     auto FunctionProfilerAspect::onEntry() -> void {

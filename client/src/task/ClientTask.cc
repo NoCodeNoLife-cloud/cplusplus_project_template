@@ -11,8 +11,7 @@
 #include "src/system/SystemInfo.hpp"
 
 namespace app_client::task {
-    ClientTask::ClientTask(const std::string &project_name_) noexcept
-        : rpc_options_{auth::AuthRpcClientOptions::builder().build()}, timer_{project_name_} {
+    ClientTask::ClientTask(const std::string &project_name_) noexcept : rpc_options_{auth::AuthRpcClientOptions::builder().build()}, timer_{project_name_} {
         timer_.recordStart();
     }
 

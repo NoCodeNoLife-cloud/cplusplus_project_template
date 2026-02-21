@@ -12,8 +12,7 @@
 #include <type_traits>
 
 namespace common::thread {
-    ThreadPool::ThreadPool(const size_t core_threads, const size_t max_threads, const size_t queue_size, const std::chrono::milliseconds idle_time)
-        : core_thread_count_(core_threads), max_thread_count_(max_threads), max_queue_size_(queue_size), thread_idle_time_(idle_time) {
+    ThreadPool::ThreadPool(const size_t core_threads, const size_t max_threads, const size_t queue_size, const std::chrono::milliseconds idle_time) : core_thread_count_(core_threads), max_thread_count_(max_threads), max_queue_size_(queue_size), thread_idle_time_(idle_time) {
         if (core_threads == 0) {
             throw std::invalid_argument("ThreadPool::ThreadPool: core_threads must be greater than 0");
         }

@@ -4,8 +4,7 @@
 #include <stdexcept>
 
 namespace common::filesystem {
-    FilterInputStream::FilterInputStream(std::unique_ptr<AbstractInputStream> inputStream) noexcept
-        : input_stream_(std::move(inputStream)) {
+    FilterInputStream::FilterInputStream(std::unique_ptr<AbstractInputStream> inputStream) noexcept : input_stream_(std::move(inputStream)) {
     }
 
     auto FilterInputStream::validateInputStream() const -> void {

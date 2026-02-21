@@ -20,12 +20,10 @@ namespace common::filesystem {
         file_name_ = name;
     }
 
-    FileInputStream::FileInputStream(const char *name)
-        : FileInputStream(std::string(name)) {
+    FileInputStream::FileInputStream(const char *name) : FileInputStream(std::string(name)) {
     }
 
-    FileInputStream::FileInputStream(const std::filesystem::path &file)
-        : FileInputStream(file.string()) {
+    FileInputStream::FileInputStream(const std::filesystem::path &file) : FileInputStream(file.string()) {
     }
 
     FileInputStream::~FileInputStream() {

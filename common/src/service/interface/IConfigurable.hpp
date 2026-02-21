@@ -21,4 +21,4 @@ namespace service::interfaces {
         /// @throws std::runtime_error if configuration fails with details about the failure
         [[nodiscard]] virtual auto doConfig() -> bool = 0;
     };
-} // namespace service
+}

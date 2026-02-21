@@ -26,4 +26,4 @@ namespace service::interfaces {
         /// @throws std::runtime_error if execution fails with details about the failure
         [[nodiscard]] virtual auto execute(const std::vector<std::string> &args) noexcept -> bool = 0;
     };
-} // namespace service
+}

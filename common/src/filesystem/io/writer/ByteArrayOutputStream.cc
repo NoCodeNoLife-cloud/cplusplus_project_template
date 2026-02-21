@@ -3,12 +3,10 @@
 #include <stdexcept>
 
 namespace common::filesystem {
-    ByteArrayOutputStream::ByteArrayOutputStream()
-        : buf_(32) {
+    ByteArrayOutputStream::ByteArrayOutputStream() : buf_(32) {
     }
 
-    ByteArrayOutputStream::ByteArrayOutputStream(const size_t size)
-        : buf_(size) {
+    ByteArrayOutputStream::ByteArrayOutputStream(const size_t size) : buf_(size) {
         if (size == 0) {
             throw std::invalid_argument("Size must be greater than zero");
         }

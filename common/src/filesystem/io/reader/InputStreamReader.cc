@@ -1,15 +1,13 @@
 #include "src/filesystem/io/reader/InputStreamReader.hpp"
 
 namespace common::filesystem {
-    InputStreamReader::InputStreamReader(std::shared_ptr<AbstractReader> input)
-        : reader_(std::move(input)) {
+    InputStreamReader::InputStreamReader(std::shared_ptr<AbstractReader> input) : reader_(std::move(input)) {
         if (!reader_) {
             throw std::invalid_argument("InputStreamReader::InputStreamReader: Input stream cannot be null");
         }
     }
 
-    InputStreamReader::InputStreamReader(std::shared_ptr<AbstractReader> input, const std::string &charsetName)
-        : reader_(std::move(input)) {
+    InputStreamReader::InputStreamReader(std::shared_ptr<AbstractReader> input, const std::string &charsetName) : reader_(std::move(input)) {
         if (!reader_) {
             throw std::invalid_argument("InputStreamReader::InputStreamReader: Input stream cannot be null");
         }

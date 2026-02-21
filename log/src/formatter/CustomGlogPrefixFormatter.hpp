@@ -38,4 +38,4 @@ namespace glog::formatter {
         /// @brief Date format helper constant for month offset
         static constexpr int kMonthOffset_ = 1;
     };
-} // namespace glog
+}

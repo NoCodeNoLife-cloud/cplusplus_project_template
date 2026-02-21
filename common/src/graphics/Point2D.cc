@@ -5,8 +5,7 @@
 namespace common::graphics {
     Point2D::Point2D() noexcept = default;
 
-    Point2D::Point2D(const double x, const double y) noexcept
-        : x_(x), y_(y) {
+    Point2D::Point2D(const double x, const double y) noexcept : x_(x), y_(y) {
     }
 
     auto Point2D::getX() const noexcept -> double {

@@ -7,8 +7,7 @@
 #include "src/auth/AuthRpcService.hpp"
 
 namespace app_server::task {
-    ServerTask::ServerTask(std::string name) noexcept
-        : timer_(std::move(name)) {
+    ServerTask::ServerTask(std::string name) noexcept : timer_(std::move(name)) {
     }
 
     ServerTask::ServerTask(ServerTask &&) noexcept = default;

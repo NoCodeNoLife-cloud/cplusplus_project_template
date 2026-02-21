@@ -1,8 +1,7 @@
 #include "src/filesystem/nio/ByteBuffer.hpp"
 
 namespace common::filesystem {
-    ByteBuffer::ByteBuffer(const size_t capacity)
-        : buffer_(capacity) {
+    ByteBuffer::ByteBuffer(const size_t capacity) : buffer_(capacity) {
         capacity_ = capacity;
         limit_ = capacity;
     }

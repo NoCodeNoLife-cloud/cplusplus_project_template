@@ -17,8 +17,7 @@ namespace common::filesystem {
         }
     }
 
-    CharArrayReader::CharArrayReader(const std::vector<char> &buffer)
-        : buf_(buffer), count_(buffer.size()) {
+    CharArrayReader::CharArrayReader(const std::vector<char> &buffer) : buf_(buffer), count_(buffer.size()) {
     }
 
     CharArrayReader::CharArrayReader(const std::vector<char> &buffer, const size_t offset, const size_t length) {

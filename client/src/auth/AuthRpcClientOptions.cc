@@ -4,8 +4,7 @@
 #include <chrono>  // C++20
 
 namespace app_client::auth {
-    AuthRpcClientOptions::AuthRpcClientOptions(const int32_t keepalive_time_ms, const int32_t keepalive_timeout_ms, const int32_t keepalive_permit_without_calls, std::string server_address) noexcept
-        : keepalive_time_ms_(keepalive_time_ms), keepalive_timeout_ms_(keepalive_timeout_ms), keepalive_permit_without_calls_(keepalive_permit_without_calls), server_address_(std::move(server_address)) {
+    AuthRpcClientOptions::AuthRpcClientOptions(const int32_t keepalive_time_ms, const int32_t keepalive_timeout_ms, const int32_t keepalive_permit_without_calls, std::string server_address) noexcept : keepalive_time_ms_(keepalive_time_ms), keepalive_timeout_ms_(keepalive_timeout_ms), keepalive_permit_without_calls_(keepalive_permit_without_calls), server_address_(std::move(server_address)) {
         validate(); // Validate parameters after construction
     }
 

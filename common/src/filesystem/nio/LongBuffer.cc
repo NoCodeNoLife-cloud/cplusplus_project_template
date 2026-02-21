@@ -1,8 +1,7 @@
 #include "src/filesystem/nio/LongBuffer.hpp"
 
 namespace common::filesystem {
-    LongBuffer::LongBuffer(const std::size_t capacity)
-        : capacity_(capacity), limit_(capacity) {
+    LongBuffer::LongBuffer(const std::size_t capacity) : capacity_(capacity), limit_(capacity) {
         buffer_.resize(capacity);
     }
 

@@ -5,8 +5,7 @@
 namespace common::graphics {
     Point3D::Point3D() noexcept = default;
 
-    Point3D::Point3D(const double x, const double y, const double z) noexcept
-        : x_(x), y_(y), z_(z) {
+    Point3D::Point3D(const double x, const double y, const double z) noexcept : x_(x), y_(y), z_(z) {
     }
 
     auto Point3D::getX() const noexcept -> double {

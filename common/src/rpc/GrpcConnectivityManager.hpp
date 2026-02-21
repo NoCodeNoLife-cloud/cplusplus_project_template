@@ -19,8 +19,7 @@ namespace common::rpc {
 
         /// @brief Constructor
         /// @param channel The gRPC channel to monitor
-        explicit GrpcConnectivityManager(const std::shared_ptr<grpc::Channel>& channel) noexcept
-            : channel_(channel), is_monitoring_(false) {
+        explicit GrpcConnectivityManager(const std::shared_ptr<grpc::Channel> &channel) noexcept : channel_(channel), is_monitoring_(false) {
         }
 
         /// @brief Destructor - stops monitoring if running

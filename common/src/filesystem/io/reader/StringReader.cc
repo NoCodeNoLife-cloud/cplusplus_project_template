@@ -4,8 +4,7 @@
 #include <stdexcept>
 
 namespace common::filesystem {
-    StringReader::StringReader(std::string s)
-        : source_(std::move(s)), position_(0), mark_position_(0), mark_set_(false), closed_(false) {
+    StringReader::StringReader(std::string s) : source_(std::move(s)), position_(0), mark_position_(0), mark_set_(false), closed_(false) {
     }
 
     auto StringReader::close() noexcept -> void {

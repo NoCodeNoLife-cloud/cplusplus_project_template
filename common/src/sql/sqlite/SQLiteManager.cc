@@ -1,12 +1,10 @@
 #include "SQLiteManager.hpp"
 
 namespace common::sql::sqlite {
-    SQLiteManager::SQLiteManager()
-        : db_(nullptr, &sqlite3_close) {
+    SQLiteManager::SQLiteManager() : db_(nullptr, &sqlite3_close) {
     }
 
-    SQLiteManager::SQLiteManager(const std::string &db_path)
-        : db_(nullptr, &sqlite3_close) {
+    SQLiteManager::SQLiteManager(const std::string &db_path) : db_(nullptr, &sqlite3_close) {
         createDatabase(db_path);
     }
 

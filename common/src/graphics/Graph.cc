@@ -8,8 +8,7 @@
 #include "src/graphics/Edge.hpp"
 
 namespace common::graphics {
-    Graph::Graph(const int32_t n)
-        : num_nodes_(n) {
+    Graph::Graph(const int32_t n) : num_nodes_(n) {
         if (n < 0) {
             throw std::invalid_argument("Graph::Graph: Number of nodes cannot be negative");
         }

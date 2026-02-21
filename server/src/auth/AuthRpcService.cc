@@ -25,8 +25,7 @@ namespace server_app::auth {
         return std::nullopt; // No error, continue with normal processing
     }
 
-    AuthRpcService::AuthRpcService(const std::string &db_path) noexcept
-        : authenticator_(db_path) {
+    AuthRpcService::AuthRpcService(const std::string &db_path) noexcept : authenticator_(db_path) {
     }
 
     [[nodiscard]] auto AuthRpcService::RegisterUser(::grpc::ServerContext * /*context*/, const ::rpc::RegisterUserRequest *const request, ::rpc::AuthResponse *const response) -> ::grpc::Status {
@@ -205,4 +204,4 @@ namespace server_app::auth {
 
         return ::grpc::Status::OK;
     }
-} // namespace server_app
+}

@@ -6,16 +6,13 @@
 #include <stdexcept>
 
 namespace common::base_type {
-    BigInteger::BigInteger() noexcept
-        : value_(0) {
+    BigInteger::BigInteger() noexcept : value_(0) {
     }
 
-    BigInteger::BigInteger(const std::string &str)
-        : value_(str) {
+    BigInteger::BigInteger(const std::string &str) : value_(str) {
     }
 
-    BigInteger::BigInteger(const int64_t num) noexcept
-        : value_(num) {
+    BigInteger::BigInteger(const int64_t num) noexcept : value_(num) {
     }
 
     auto BigInteger::operator+(const BigInteger &other) const noexcept -> BigInteger {

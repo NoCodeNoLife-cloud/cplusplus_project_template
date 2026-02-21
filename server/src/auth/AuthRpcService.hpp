@@ -63,4 +63,4 @@ namespace server_app::auth {
         /// @return Appropriate gRPC status
         [[nodiscard]] static auto HandleAuthException(const common::exception::AuthenticationException &e, ::rpc::AuthResponse *response) noexcept -> ::grpc::Status;
     };
-} // namespace server_app
+}

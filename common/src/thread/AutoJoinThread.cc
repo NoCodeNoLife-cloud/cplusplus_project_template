@@ -4,8 +4,7 @@
 #include <utility>
 
 namespace common::thread {
-    AutoJoinThread::AutoJoinThread(AutoJoinThread &&other) noexcept
-        : thread_(std::move(other.thread_)) {
+    AutoJoinThread::AutoJoinThread(AutoJoinThread &&other) noexcept : thread_(std::move(other.thread_)) {
     }
 
     AutoJoinThread::~AutoJoinThread() {

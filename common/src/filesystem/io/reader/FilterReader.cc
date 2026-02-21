@@ -3,8 +3,7 @@
 #include <stdexcept>
 
 namespace common::filesystem {
-    FilterReader::FilterReader(std::shared_ptr<AbstractReader> reader)
-        : in_(std::move(reader)) {
+    FilterReader::FilterReader(std::shared_ptr<AbstractReader> reader) : in_(std::move(reader)) {
     }
 
     auto FilterReader::close() -> void {

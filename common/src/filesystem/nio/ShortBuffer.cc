@@ -1,8 +1,7 @@
 #include "src/filesystem/nio/ShortBuffer.hpp"
 
 namespace common::filesystem {
-    ShortBuffer::ShortBuffer(const size_t capacity)
-        : buffer_(capacity), capacity_(capacity), limit_(capacity) {
+    ShortBuffer::ShortBuffer(const size_t capacity) : buffer_(capacity), capacity_(capacity), limit_(capacity) {
     }
 
     auto ShortBuffer::wrap(const int16_t *data, const size_t size) -> ShortBuffer {

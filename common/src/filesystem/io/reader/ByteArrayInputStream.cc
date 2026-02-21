@@ -6,8 +6,7 @@
 #include <string>
 
 namespace common::filesystem {
-    ByteArrayInputStream::ByteArrayInputStream(const std::vector<std::byte> &buf)
-        : buffer_(buf) {
+    ByteArrayInputStream::ByteArrayInputStream(const std::vector<std::byte> &buf) : buffer_(buf) {
     }
 
     auto ByteArrayInputStream::read() -> std::byte {

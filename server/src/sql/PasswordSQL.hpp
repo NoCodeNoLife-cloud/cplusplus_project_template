@@ -1,7 +1,8 @@
 #pragma once
-#include "../../../common/src/sql/sqlite/SQLiteManager.hpp"
 #include <string>
 #include <vector>
+
+#include "sql/sqlite/SQLiteManager.hpp"
 
 namespace server_app::sql {
     /// @brief Manages user authentication and password operations using SQLite database
@@ -76,6 +77,6 @@ namespace server_app::sql {
 
     private:
         /// @brief SQLite manager instance for database operations
-        common::sql::SQLiteManager sqlite_manager_;
+        common::sql::sqlite::SQLiteManager sqlite_manager_;
     };
 }

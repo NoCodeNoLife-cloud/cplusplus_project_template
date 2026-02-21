@@ -5,8 +5,7 @@
 #include <utility>
 
 namespace common::filesystem {
-    BufferedReader::BufferedReader(std::unique_ptr<AbstractReader> reader, const size_t size)
-        : reader_(std::move(reader)), buffer_size_(size) {
+    BufferedReader::BufferedReader(std::unique_ptr<AbstractReader> reader, const size_t size) : reader_(std::move(reader)), buffer_size_(size) {
         if (size == 0) {
             throw std::invalid_argument("Buffer size must be greater than 0");
         }

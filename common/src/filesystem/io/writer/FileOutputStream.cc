@@ -12,12 +12,10 @@ namespace common::filesystem {
         file_name_ = name;
     }
 
-    FileOutputStream::FileOutputStream(const char *name, const bool append)
-        : FileOutputStream(std::string(name), append) {
+    FileOutputStream::FileOutputStream(const char *name, const bool append) : FileOutputStream(std::string(name), append) {
     }
 
-    FileOutputStream::FileOutputStream(const std::filesystem::path &file, const bool append)
-        : FileOutputStream(file.string(), append) {
+    FileOutputStream::FileOutputStream(const std::filesystem::path &file, const bool append) : FileOutputStream(file.string(), append) {
     }
 
     FileOutputStream::~FileOutputStream() {

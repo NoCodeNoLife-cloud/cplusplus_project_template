@@ -22,4 +22,5 @@ target_link_libraries(${SERVER_PROJECT} PRIVATE
         glog_service
         grpc_service
         fmt::fmt
+        unofficial::sqlite3::sqlite3
 )

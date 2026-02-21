@@ -14,4 +14,4 @@ namespace service::interfaces {
         /// @throws std::runtime_error if execution fails with details about the failure
         [[nodiscard]] virtual auto execute() -> bool = 0;
     };
-} // namespace service
+}

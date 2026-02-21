@@ -93,4 +93,4 @@ namespace client_app::auth {
         /// @brief Store reference to the original channel to access connectivity state
         std::shared_ptr<grpc::Channel> channel_;
     };
-} // namespace client_app
+}

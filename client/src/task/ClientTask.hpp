@@ -83,4 +83,4 @@ namespace app_client::task {
         mutable auth::AuthRpcClientOptions rpc_options_;
         mutable common::time::FunctionProfiler timer_;
     };
-} // namespace app_client
+}

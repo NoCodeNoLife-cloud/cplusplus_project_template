@@ -10,12 +10,10 @@
 #include "src/filesystem/io/reader/FilterInputStream.hpp"
 
 namespace common::filesystem {
-    BufferedInputStream::BufferedInputStream(std::unique_ptr<AbstractInputStream> in) noexcept
-        : BufferedInputStream(std::move(in), DEFAULT_BUFFER_SIZE) {
+    BufferedInputStream::BufferedInputStream(std::unique_ptr<AbstractInputStream> in) noexcept : BufferedInputStream(std::move(in), DEFAULT_BUFFER_SIZE) {
     }
 
-    BufferedInputStream::BufferedInputStream(std::unique_ptr<AbstractInputStream> in, const size_t size)
-        : FilterInputStream(std::move(in)), buf_(size) {
+    BufferedInputStream::BufferedInputStream(std::unique_ptr<AbstractInputStream> in, const size_t size) : FilterInputStream(std::move(in)), buf_(size) {
         if (!input_stream_) {
             throw std::invalid_argument("BufferedInputStream: Input stream cannot be null");
         }

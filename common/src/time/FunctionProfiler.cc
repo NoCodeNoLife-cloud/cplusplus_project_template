@@ -8,8 +8,7 @@
 #include <iomanip>
 
 namespace common::time {
-    FunctionProfiler::FunctionProfiler(std::string function_name, const bool autoStart)
-        : function_name_(std::move(function_name)) {
+    FunctionProfiler::FunctionProfiler(std::string function_name, const bool autoStart) : function_name_(std::move(function_name)) {
         if (autoStart) {
             recordStart();
         }

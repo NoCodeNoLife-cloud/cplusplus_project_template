@@ -1,8 +1,7 @@
 #include "src/filesystem/io/writer/FilterOutputStream.hpp"
 
 namespace common::filesystem {
-    FilterOutputStream::FilterOutputStream(std::shared_ptr<AbstractOutputStream> outputStream)
-        : output_stream_(std::move(outputStream)) {
+    FilterOutputStream::FilterOutputStream(std::shared_ptr<AbstractOutputStream> outputStream) : output_stream_(std::move(outputStream)) {
     }
 
     auto FilterOutputStream::write(const std::byte b) -> void {

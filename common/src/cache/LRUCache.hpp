@@ -94,8 +94,7 @@ namespace common::cache {
     };
 
     template<typename Key, typename Value, typename Map>
-    LRUCache<Key, Value, Map>::LRUCache(const size_t capacity)
-        : capacity_(capacity) {
+    LRUCache<Key, Value, Map>::LRUCache(const size_t capacity) : capacity_(capacity) {
         if (capacity_ <= 0) {
             throw std::invalid_argument(fmt::format("Cache capacity must be greater than 0, got {}", capacity_));
         }

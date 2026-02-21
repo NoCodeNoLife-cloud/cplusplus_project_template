@@ -6,12 +6,10 @@
 #include <mutex>
 
 namespace common::gen {
-    RandomGenerator::RandomGenerator() noexcept
-        : engine_(std::random_device{}()) {
+    RandomGenerator::RandomGenerator() noexcept : engine_(std::random_device{}()) {
     }
 
-    RandomGenerator::RandomGenerator(const unsigned int seed) noexcept
-        : engine_(seed) {
+    RandomGenerator::RandomGenerator(const unsigned int seed) noexcept : engine_(seed) {
     }
 
     auto RandomGenerator::nextInt(const int min, const int max) -> int {

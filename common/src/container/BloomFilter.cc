@@ -9,8 +9,7 @@
 #include "src/container/BloomParameters.hpp"
 
 namespace common::container {
-    BloomFilter::BloomFilter(const BloomParameters &p) noexcept
-        : salt_count_(p.optimal_parameters.number_of_hashes), table_size_(p.optimal_parameters.table_size), projected_element_count_(p.projected_element_count), random_seed_(p.random_seed * 0xA5A5A5A5 + 1), desired_false_positive_probability_(p.false_positive_probability) {
+    BloomFilter::BloomFilter(const BloomParameters &p) noexcept : salt_count_(p.optimal_parameters.number_of_hashes), table_size_(p.optimal_parameters.table_size), projected_element_count_(p.projected_element_count), random_seed_(p.random_seed * 0xA5A5A5A5 + 1), desired_false_positive_probability_(p.false_positive_probability) {
         generate_unique_salt();
         bit_table_.resize(table_size_ / 8, 0x00);
     }

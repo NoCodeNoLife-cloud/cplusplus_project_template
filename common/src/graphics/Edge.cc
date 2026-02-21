@@ -3,8 +3,7 @@
 #include <cstdint>
 
 namespace common::graphics {
-    Edge::Edge(const int32_t to, const int32_t weight) noexcept
-        : to_(to), weight_(weight) {
+    Edge::Edge(const int32_t to, const int32_t weight) noexcept : to_(to), weight_(weight) {
     }
 
     auto Edge::to() const noexcept -> int32_t {

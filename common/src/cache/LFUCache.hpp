@@ -112,8 +112,7 @@ namespace common::cache {
     };
 
     template<typename Key, typename Value, typename Map>
-    LFUCache<Key, Value, Map>::LFUCache(const size_t capacity)
-        : capacity_(capacity), min_freq_(0) {
+    LFUCache<Key, Value, Map>::LFUCache(const size_t capacity) : capacity_(capacity), min_freq_(0) {
         if (capacity_ <= 0) {
             throw std::invalid_argument(fmt::format("LFUCache::LFUCache: Cache capacity must be greater than 0, got {}", capacity_));
         }
